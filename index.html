@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#1f2a26">
+  <meta name="description" content="龙游长安：骑上木单车，漫游盛唐长安城的 3D 小游戏。">
+  <title>龙游长安 · 盛唐骑行</title>
+  <style>
+    :root {
+      --ink: #183c3c;
+      --ink-soft: #496862;
+      --paper: #fff8e6;
+      --paper-deep: #ffe6ad;
+      --vermilion: #ef4b32;
+      --vermilion-bright: #ff704d;
+      --jade: #179a82;
+      --gold: #f1b72c;
+      --night: #10283a;
+      --glass: rgba(255, 249, 233, .93);
+      --shadow: 0 14px 40px rgba(10, 66, 60, .2);
+      --display: "STKaiti", "KaiTi", "Kaiti SC", "Songti SC", "Noto Serif SC", serif;
+      --ui: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #173f3f; }
+    body { font-family: var(--ui); color: var(--ink); -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+    #vignette {
+      position: fixed; inset: 0; pointer-events: none; z-index: 2;
+      background:
+        radial-gradient(ellipse at center, transparent 58%, rgba(12, 63, 59, .14) 100%),
+        linear-gradient(180deg, rgba(116, 230, 219, .06), transparent 26%, transparent 76%, rgba(12, 65, 59, .12));
+    }
+    .hidden { display: none !important; }
+    #startScreen.leaving { animation: startOut .46s cubic-bezier(.4,0,.2,1) forwards; pointer-events: none; }
+    #hud:not(.hidden) { animation: hudIn .58s cubic-bezier(.2,.7,.3,1) both; }
+    .modal-layer:not(.hidden) .paper-panel { animation: panelIn .26s cubic-bezier(.2,.75,.3,1) both; }
+    @keyframes startOut { to { opacity: 0; transform: scale(1.012); } }
+    @keyframes hudIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ---------- 游戏 HUD ---------- */
+    #hud { position: fixed; inset: 0; z-index: 10; pointer-events: none; padding: calc(16px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left)); }
+    #hud > * { pointer-events: auto; }
+    .brand-block { position: absolute; top: calc(17px + env(safe-area-inset-top)); left: calc(20px + env(safe-area-inset-left)); display: flex; flex-direction: column; gap: 9px; align-items: flex-start; }
+    .brand { display: flex; align-items: center; gap: 10px; filter: drop-shadow(0 3px 10px rgba(235, 216, 176, .48)); }
+    .seal {
+      width: 42px; height: 42px; display: grid; place-items: center; color: #f8e9c6; background: var(--vermilion);
+      font-family: var(--display); font-size: 27px; line-height: 1; border: 2px solid rgba(255, 237, 192, .7);
+      box-shadow: inset 0 0 0 3px rgba(110, 28, 24, .18), 0 4px 14px rgba(76, 38, 23, .24); border-radius: 4px;
+    }
+    .brand h1 { margin: 0; font-family: var(--display); color: #fff5dd; font-size: 25px; line-height: 1.05; letter-spacing: .14em; text-shadow: 0 2px 4px rgba(35, 31, 22, .4); }
+    .brand p { margin: 4px 0 0; font-family: var(--display); color: rgba(255, 245, 220, .78); font-size: 10px; letter-spacing: .35em; }
+    .poem-badge {
+      display: flex; align-items: center; gap: 5px; padding: 6px 11px 6px 8px; border-radius: 99px;
+      color: #58442d; background: rgba(248, 236, 209, .9); border: 1px solid rgba(111, 77, 43, .25);
+      box-shadow: 0 4px 16px rgba(41, 31, 20, .13); backdrop-filter: blur(10px); font-size: 11px; letter-spacing: .08em;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .poem-badge:hover { transform: translateY(-1px); background: #fff3d8; }
+    .poem-badge .mini-seal { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 3px; color: #fff0ce; background: var(--vermilion); font-family: var(--display); font-size: 13px; }
+    .poem-badge strong { font-size: 15px; line-height: 1; color: var(--vermilion); }
+    .poem-badge em { font-style: normal; opacity: .55; }
+    .poem-badge.complete { background: #f5d68d; border-color: #b98733; }
+
+    .top-actions { position: absolute; top: calc(17px + env(safe-area-inset-top)); right: calc(20px + env(safe-area-inset-right)); display: flex; gap: 8px; }
+    .round-btn {
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      color: #fff8e2; background: rgba(18, 92, 82, .58); border: 1px solid rgba(255, 247, 220, .36);
+      box-shadow: 0 5px 18px rgba(20, 28, 23, .18); backdrop-filter: blur(10px);
+      font-family: var(--display); font-size: 16px; transition: background .2s ease, transform .2s ease;
+    }
+    .round-btn:hover { background: rgba(28, 128, 112, .82); transform: translateY(-1px); }
+    .round-btn.active { color: #3d341f; background: #ffd364; border-color: rgba(255, 250, 226, .7); }
+    .round-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+    .minimap-wrap {
+      position: absolute; top: calc(70px + env(safe-area-inset-top)); right: calc(20px + env(safe-area-inset-right));
+      width: 152px; padding: 8px; border-radius: 16px; background: rgba(255, 250, 234, .92);
+      border: 1px solid rgba(29, 142, 123, .34); box-shadow: var(--shadow); backdrop-filter: blur(14px) saturate(1.1);
+      transition: width .25s ease, transform .25s ease; transform-origin: top right;
+    }
+    .minimap-head { display: flex; align-items: center; justify-content: space-between; padding: 1px 2px 6px; color: #5d4a31; }
+    .minimap-head span { font-family: var(--display); font-size: 11px; letter-spacing: .22em; }
+    .minimap-head i { font-style: normal; font-size: 9px; opacity: .58; letter-spacing: .1em; }
+    #minimap { width: 100%; aspect-ratio: 1 / 1; display: block; border-radius: 10px; background: #bfe8cf; cursor: zoom-in; }
+    .minimap-wrap.expanded { width: min(330px, calc(100vw - 38px)); }
+    .minimap-wrap.expanded #minimap { cursor: zoom-out; }
+    .minimap-foot { display: flex; align-items: center; justify-content: space-between; padding: 6px 2px 0; font-size: 9px; color: #75634b; letter-spacing: .08em; }
+    .compass { color: var(--vermilion); font-family: var(--display); font-weight: 700; }
+
+    .bottom-ui { position: absolute; left: 0; right: 0; bottom: calc(18px + env(safe-area-inset-bottom)); padding: 0 calc(24px + env(safe-area-inset-right)) 0 calc(24px + env(safe-area-inset-left)); display: flex; align-items: flex-end; justify-content: space-between; pointer-events: none; }
+    .bottom-ui > * { pointer-events: auto; }
+    .joystick { position: relative; width: 122px; height: 122px; border-radius: 50%; touch-action: none; user-select: none; opacity: .9; }
+    .joystick::before { content: ''; position: absolute; inset: 0; border-radius: inherit; border: 1px solid rgba(255, 247, 218, .5); background: radial-gradient(circle at 42% 35%, rgba(121, 242, 214, .25), rgba(15, 93, 82, .38)); box-shadow: inset 0 0 26px rgba(255, 240, 204, .12), 0 7px 24px rgba(10, 57, 49, .2); backdrop-filter: blur(8px); }
+    .joystick::after { content: '行'; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(250, 240, 214, .32); font-family: var(--display); font-size: 11px; letter-spacing: .2em; }
+    .joy-knob { position: absolute; left: 50%; top: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; border: 1px solid rgba(255, 244, 218, .65); background: radial-gradient(circle at 38% 32%, #f8e8c4, #c99d5d 65%, #9b6c38); box-shadow: 0 4px 16px rgba(42, 29, 15, .35), inset 0 1px 1px rgba(255,255,255,.6); z-index: 1; pointer-events: none; transition: box-shadow .2s ease; }
+    .joy-knob::after { content: ''; position: absolute; inset: 8px; border-radius: 50%; border: 1px solid rgba(94, 63, 32, .24); }
+    .joystick.active .joy-knob { box-shadow: 0 5px 22px rgba(42, 29, 15, .42), 0 0 0 6px rgba(245, 218, 160, .12); }
+    .speed-card { position: absolute; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: baseline; gap: 5px; padding: 7px 14px; border-radius: 99px; color: #fff8e7; background: rgba(11, 96, 83, .5); border: 1px solid rgba(255, 241, 208, .28); backdrop-filter: blur(8px); box-shadow: 0 5px 18px rgba(15, 56, 48, .2); font-variant-numeric: tabular-nums; }
+    .speed-card b { font-family: var(--display); font-size: 21px; font-weight: 700; line-height: 1; }
+    .speed-card span { font-size: 9px; letter-spacing: .14em; opacity: .65; }
+    .speed-card.boost b { color: #ffd17c; }
+    .actions { display: grid; grid-template-columns: repeat(2, 52px); gap: 9px; }
+    .action-btn { position: relative; width: 52px; height: 52px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #fff8e4; background: rgba(13, 101, 88, .55); border: 1px solid rgba(255, 244, 216, .34); box-shadow: 0 6px 20px rgba(11, 56, 49, .2); backdrop-filter: blur(10px); transition: background .18s ease, transform .15s ease; touch-action: none; }
+    .action-btn:hover { background: rgba(23, 141, 120, .8); }
+    .action-btn:active, .action-btn.pressed { background: rgba(239, 75, 50, .92); transform: scale(.95); }
+    .action-btn .icon { font-family: var(--display); font-size: 18px; line-height: 1; }
+    .action-btn .label { font-size: 9px; letter-spacing: .08em; opacity: .78; }
+    .action-btn .key { position: absolute; top: 4px; right: 5px; font-size: 7px; opacity: .43; }
+    .action-btn.boost { color: #ffdda0; }
+    .action-btn.boost.held { background: rgba(205, 143, 52, .9); color: #34281a; }
+    .help-hint { position: absolute; left: 50%; bottom: calc(69px + env(safe-area-inset-bottom)); transform: translateX(-50%); color: rgba(255, 246, 223, .66); font-size: 9px; letter-spacing: .14em; white-space: nowrap; text-shadow: 0 1px 4px rgba(20, 25, 20, .45); }
+    .interact-btn { position: absolute; left: 50%; bottom: calc(106px + env(safe-area-inset-bottom)); transform: translate(-50%, 10px); opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 9px; padding: 10px 18px 10px 12px; border-radius: 99px; color: #5a3c13; background: linear-gradient(135deg, #ffe89f, #ffd25f); border: 1px solid #fff5c9; box-shadow: 0 9px 30px rgba(116, 73, 18, .28); transition: opacity .22s ease, transform .22s ease; }
+    .interact-btn.visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+    .interact-btn .seal { width: 26px; height: 26px; font-size: 16px; }
+    .interact-btn span { font-size: 12px; letter-spacing: .1em; }
+
+    /* ---------- 发现地点横幅 ---------- */
+    .discover-banner { position: absolute; left: 50%; top: calc(20% + env(safe-area-inset-top)); transform: translate(-50%, -8px); width: min(440px, 82vw); text-align: center; opacity: 0; pointer-events: none; transition: opacity .5s ease, transform .5s ease; }
+    .discover-banner.show { opacity: 1; transform: translate(-50%, 0); }
+    .discover-banner .ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: #f8e7bd; font-family: var(--display); font-size: 10px; letter-spacing: .3em; text-shadow: 0 2px 5px rgba(20, 25, 20, .5); }
+    .discover-banner .ornament::before, .discover-banner .ornament::after { content: ''; width: 48px; height: 1px; background: linear-gradient(90deg, transparent, rgba(246, 225, 178, .72)); }
+    .discover-banner .ornament::after { transform: scaleX(-1); }
+    .discover-banner h2 { margin: 8px 0 5px; color: #fff5dc; font-family: var(--display); font-size: clamp(26px, 4.4vw, 42px); font-weight: 700; letter-spacing: .18em; text-shadow: 0 3px 14px rgba(21, 29, 23, .52); }
+    .discover-banner p { margin: 0; color: rgba(255, 246, 221, .82); font-family: var(--display); font-size: 12px; letter-spacing: .08em; text-shadow: 0 2px 8px rgba(20, 27, 21, .6); }
+    #toast { position: absolute; left: 50%; top: calc(82px + env(safe-area-inset-top)); transform: translate(-50%, -10px); padding: 9px 16px; border-radius: 99px; color: #fdf1d5; background: rgba(28, 43, 36, .56); border: 1px solid rgba(247, 232, 199, .25); backdrop-filter: blur(10px); font-size: 11px; letter-spacing: .1em; opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; white-space: nowrap; max-width: 82vw; overflow: hidden; text-overflow: ellipsis; }
+    #toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ---------- 开始界面 ---------- */
+    #startScreen { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: auto; background: radial-gradient(ellipse at 50% 36%, rgba(72, 192, 173, .03), rgba(9, 49, 46, .44) 84%), linear-gradient(90deg, rgba(8, 51, 49, .4), rgba(8, 51, 49, .02) 46%, rgba(8, 51, 49, .2)); backdrop-filter: blur(.8px) saturate(1.18) brightness(1.02); }
+    .start-panel { position: relative; width: min(900px, 95vw); min-height: min(600px, 89vh); display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; border-radius: 24px; color: #203f3c; background: linear-gradient(126deg, rgba(255, 252, 239, .98), rgba(255, 238, 191, .95)); box-shadow: 0 38px 110px rgba(3, 42, 39, .5), 0 0 80px rgba(255, 201, 80, .12), inset 0 0 0 1px rgba(255, 252, 232, .9); overflow: hidden; }
+    .start-panel::before { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(37, 143, 124, .22); border-radius: 17px; pointer-events: none; }
+    .start-panel::after { content: '長安'; position: absolute; right: -2px; top: 0; color: rgba(24, 126, 112, .045); font-family: var(--display); font-size: clamp(150px, 25vw, 290px); line-height: .8; letter-spacing: -.08em; writing-mode: vertical-rl; pointer-events: none; user-select: none; }
+    .start-copy { position: relative; z-index: 1; padding: 48px 38px 48px 56px; }
+    .eyebrow { display: flex; align-items: center; gap: 12px; color: var(--vermilion); font-family: var(--display); font-size: 12px; letter-spacing: .34em; }
+    .eyebrow::before { content: ''; width: 34px; height: 1px; background: var(--vermilion); opacity: .64; }
+    .start-copy h1 { margin: 20px 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(50px, 6.8vw, 88px); line-height: .98; color: #163e3d; letter-spacing: .1em; text-shadow: 0 2px 0 rgba(255, 250, 229, .85); }
+    .start-copy h1 span { color: var(--vermilion); }
+    .start-subtitle { margin: 18px 0 0; font-family: var(--display); font-size: 15px; color: #198f7e; letter-spacing: .26em; }
+    .start-story { max-width: 460px; margin: 25px 0 0; color: #4b625d; font-family: var(--display); font-size: 14px; line-height: 2.05; letter-spacing: .055em; }
+    .start-goal { display: inline-flex; align-items: center; gap: 9px; margin-top: 22px; color: #46716a; font-size: 11px; letter-spacing: .1em; }
+    .start-goal .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--vermilion); box-shadow: 0 0 0 4px rgba(184, 68, 54, .12); }
+    .start-actions { display: flex; align-items: center; gap: 16px; margin-top: 32px; }
+    .primary-btn { position: relative; overflow: hidden; padding: 14px 31px; border-radius: 12px; color: #fff9df; background: linear-gradient(135deg, #ff6745, #e93f31); box-shadow: 0 9px 24px rgba(201, 55, 38, .33), inset 0 1px 0 rgba(255,255,255,.28); font-family: var(--display); font-size: 17px; letter-spacing: .18em; transition: background .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .primary-btn:hover { background: linear-gradient(135deg, #ff7956, #ef4b32); transform: translateY(-2px); box-shadow: 0 13px 30px rgba(201, 55, 38, .4), inset 0 1px 0 rgba(255,255,255,.3); }
+    .primary-btn::after { content: '→'; margin-left: 16px; font-family: var(--ui); opacity: .8; }
+    .text-btn { padding: 10px 3px; color: #4f6b65; border-bottom: 1px solid rgba(29, 127, 111, .32); font-size: 11px; letter-spacing: .12em; transition: color .2s ease, border-color .2s ease; }
+    .text-btn:hover { color: var(--vermilion); border-color: var(--vermilion); }
+    .start-controls { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px 18px; color: #72877f; font-size: 10px; letter-spacing: .06em; }
+    .keycap { display: inline-block; min-width: 20px; padding: 2px 6px; margin-right: 4px; border-radius: 6px; color: #285853; background: rgba(255, 252, 240, .9); border: 1px solid rgba(25, 141, 123, .28); box-shadow: 0 2px 0 rgba(28, 114, 100, .12); font-family: var(--ui); font-size: 9px; text-align: center; }
+    .start-art { position: relative; align-self: stretch; min-height: 440px; overflow: hidden; background: linear-gradient(155deg, #65d9e6 0%, #a6e8d6 38%, #ffe8a8 76%, #ffc873 100%); }
+    .start-art::before { content: ''; position: absolute; width: 380px; height: 380px; left: 52%; top: 48%; transform: translate(-50%, -50%); border: 1px solid rgba(255, 252, 223, .45); border-radius: 50%; box-shadow: 0 0 0 26px rgba(255, 248, 203, .09), 0 0 0 66px rgba(255, 241, 178, .06); pointer-events: none; }
+    .start-art::after { content: ''; position: absolute; inset: 14px; border: 1px solid rgba(255, 251, 228, .38); border-radius: 12px; pointer-events: none; }
+    .start-art .hero-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .start-art .art-mist { position: absolute; left: -12%; right: -12%; bottom: 0; height: 34%; background: linear-gradient(180deg, transparent, rgba(255, 234, 173, .58)); pointer-events: none; }
+    .start-sun { display: none; }
+    .start-seal { position: absolute; right: 27px; bottom: 27px; z-index: 2; width: 70px; height: 70px; display: grid; place-items: center; color: #fff5d2; background: linear-gradient(145deg, #ff6b49, #d9342b); font-family: var(--display); font-size: 20px; line-height: 1.1; text-align: center; letter-spacing: .1em; writing-mode: vertical-rl; border-radius: 10px; box-shadow: inset 0 0 0 4px rgba(113, 35, 26, .14), 0 8px 18px rgba(132, 37, 25, .2); transform: rotate(-3deg); }
+    .start-art-note { position: absolute; left: 27px; top: 37px; z-index: 2; color: #195f58; font-family: var(--display); font-size: 11px; line-height: 1.9; letter-spacing: .12em; writing-mode: vertical-rl; text-shadow: 0 1px 0 rgba(255,255,255,.36); }
+    .start-art .mountains { display: none; }
+
+    /* ---------- 加载层 ---------- */
+    #bootScreen { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 24px; background: radial-gradient(ellipse at 50% 40%, #1f7b70, #0c3639 66%, #092326 100%); }
+    .boot-inner { width: min(430px, 88vw); text-align: center; color: #fff6d8; }
+    .boot-mark { width: 64px; height: 64px; margin: 0 auto 23px; display: grid; place-items: center; border: 1px solid rgba(255, 230, 145, .7); border-radius: 18px; font-family: var(--display); font-size: 29px; color: #ffe7a1; box-shadow: 0 0 0 9px rgba(255, 218, 125, .06), 0 0 38px rgba(255, 194, 87, .15); animation: breathe 2.8s ease-in-out infinite; }
+    .boot-title { margin: 0; font-family: var(--display); font-size: 30px; letter-spacing: .24em; }
+    .boot-sub { margin: 9px 0 28px; color: rgba(204, 249, 230, .68); font-size: 10px; letter-spacing: .24em; }
+    .boot-track { position: relative; height: 3px; background: rgba(181, 244, 220, .14); border-radius: 99px; overflow: hidden; }
+    .boot-bar { position: absolute; inset: 0; background: linear-gradient(90deg, transparent, #7ff1cf, #ffd45d, transparent); transform: translateX(-100%); animation: scan 1.6s ease-in-out infinite; }
+    #bootStatus { margin-top: 15px; color: rgba(220, 250, 234, .8); font-family: var(--display); font-size: 11px; letter-spacing: .18em; }
+    @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+    @keyframes breathe { 0%,100% { transform: scale(.96); opacity: .82; } 50% { transform: scale(1.04); opacity: 1; } }
+
+    /* ---------- 诗笺 / 帮助弹窗 ---------- */
+    .modal-layer { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 22px; background: rgba(21, 29, 24, .52); backdrop-filter: blur(6px); }
+    .paper-panel { position: relative; width: min(520px, 92vw); max-height: 86vh; overflow: auto; color: #2d4540; background: linear-gradient(150deg, #fffdf3, #ffedc5); border: 1px solid rgba(255, 253, 234, .95); border-radius: 18px; box-shadow: 0 30px 90px rgba(4, 44, 41, .42), inset 0 0 0 8px rgba(30, 139, 120, .05); padding: 38px 44px 32px; }
+    .paper-panel::before { content: ''; position: absolute; inset: 11px; border: 1px solid rgba(27, 139, 120, .2); border-radius: 12px; pointer-events: none; }
+    .paper-panel::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: repeating-linear-gradient(90deg, var(--vermilion) 0 12px, transparent 12px 20px); opacity: .55; }
+    .modal-close { position: absolute; top: 15px; right: 15px; z-index: 2; width: 28px; height: 28px; display: grid; place-items: center; color: #39716a; border: 1px solid rgba(24, 130, 114, .25); border-radius: 50%; font-size: 17px; line-height: 1; transition: background .2s ease; }
+    .modal-close:hover { background: rgba(178, 68, 54, .1); }
+    .modal-eyebrow { display: flex; align-items: center; gap: 10px; color: var(--vermilion); font-family: var(--display); font-size: 11px; letter-spacing: .3em; }
+    .modal-eyebrow::before { content: ''; width: 26px; height: 1px; background: currentColor; opacity: .6; }
+    .poem-panel h2 { margin: 16px 0 3px; font-family: var(--display); font-size: 30px; letter-spacing: .16em; color: #224844; }
+    .poem-place { color: #288c7d; font-family: var(--display); font-size: 12px; letter-spacing: .2em; }
+    .poem-line { position: relative; margin: 28px 0 30px; padding: 22px 0 22px; font-family: var(--display); font-size: clamp(21px, 4vw, 28px); line-height: 1.75; letter-spacing: .09em; text-align: center; color: #2c403a; border-top: 1px solid rgba(33, 141, 123, .18); border-bottom: 1px solid rgba(33, 141, 123, .18); }
+    .poem-line::before { content: '“'; position: absolute; left: 3px; top: 4px; color: rgba(171, 89, 58, .28); font-family: var(--display); font-size: 54px; line-height: 1; }
+    .poem-foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .poem-index { color: #8c7655; font-size: 10px; letter-spacing: .1em; }
+    .seal-stamp { flex: 0 0 auto; width: 36px; height: 36px; display: grid; place-items: center; border: 2px solid rgba(177, 64, 48, .68); color: rgba(177, 64, 48, .86); font-family: var(--display); font-size: 14px; line-height: 1.05; text-align: center; transform: rotate(4deg); }
+    .paper-actions { display: flex; justify-content: flex-end; margin-top: 23px; }
+    .small-primary { padding: 9px 20px; color: #fff0d1; background: var(--vermilion); font-family: var(--display); font-size: 13px; letter-spacing: .12em; border-radius: 2px; }
+    .small-primary:hover { background: #c44e3d; }
+    .help-panel h2, .collection-panel h2 { margin: 16px 0 20px; font-family: var(--display); font-size: 28px; letter-spacing: .14em; }
+    .help-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; margin: 22px 0 18px; }
+    .help-item { display: flex; flex-direction: column; gap: 4px; padding-bottom: 9px; border-bottom: 1px solid rgba(118, 83, 42, .13); }
+    .help-item strong { font-size: 11px; color: #4b3d2b; letter-spacing: .08em; }
+    .help-item span { font-size: 10px; color: #8a7657; letter-spacing: .025em; }
+    .help-note { margin-top: 17px; padding: 12px 14px; color: #7b6243; background: rgba(156, 116, 64, .08); border-left: 2px solid rgba(184, 68, 54, .5); font-family: var(--display); font-size: 11px; line-height: 1.8; }
+    .collection-list { display: grid; gap: 7px; margin-top: 18px; }
+    .collection-item { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 9px; padding: 9px 10px; background: rgba(255, 248, 230, .36); border: 1px solid rgba(126, 91, 48, .13); }
+    .collection-item .num { color: rgba(133, 92, 50, .5); font-family: var(--display); font-size: 11px; }
+    .collection-item .place { color: #5c4932; font-family: var(--display); font-size: 12px; letter-spacing: .08em; }
+    .collection-item .line { color: #8c7656; font-family: var(--display); font-size: 10px; text-align: right; max-width: 205px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .collection-item.locked { opacity: .48; }
+    .collection-item.locked .line { letter-spacing: .2em; }
+    .collection-complete { margin-top: 19px; padding: 12px; color: #7a522b; background: rgba(215, 170, 80, .18); border: 1px solid rgba(175, 127, 49, .25); font-family: var(--display); text-align: center; font-size: 12px; letter-spacing: .1em; }
+
+    #errorOverlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 25px; background: #241b18; color: #ffe8d3; }
+    .error-card { max-width: 580px; padding: 28px; border: 1px solid rgba(228, 123, 91, .5); background: rgba(65, 38, 31, .8); }
+    .error-card h2 { margin: 0 0 12px; font-family: var(--display); font-size: 23px; letter-spacing: .1em; color: #f4b08e; }
+    .error-card p { margin: 0 0 15px; font-size: 12px; line-height: 1.8; color: #e7c6b5; }
+    .error-card pre { max-height: 220px; overflow: auto; padding: 12px; color: #ffcfb9; background: rgba(18, 12, 10, .4); font-size: 10px; white-space: pre-wrap; }
+
+    @media (max-width: 720px) {
+      .brand h1 { font-size: 20px; }
+      .brand p { font-size: 8px; }
+      .seal { width: 36px; height: 36px; font-size: 23px; }
+      .top-actions { gap: 6px; }
+      .round-btn { width: 35px; height: 35px; font-size: 14px; }
+      .round-btn svg { width: 16px; height: 16px; }
+      .minimap-wrap { top: calc(61px + env(safe-area-inset-top)); right: calc(14px + env(safe-area-inset-right)); width: 123px; padding: 6px; }
+      .minimap-head span { font-size: 9px; }
+      .minimap-head i { font-size: 8px; }
+      .minimap-foot { font-size: 8px; padding-top: 4px; }
+      .joystick { width: 106px; height: 106px; }
+      .joy-knob { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
+      .actions { grid-template-columns: repeat(2, 46px); gap: 7px; }
+      .action-btn { width: 46px; height: 46px; border-radius: 13px; }
+      .action-btn .icon { font-size: 16px; }
+      .action-btn .label { font-size: 8px; }
+      .action-btn .key { display: none; }
+      .speed-card { bottom: calc(125px + env(safe-area-inset-bottom)); left: 50%; padding: 5px 11px; }
+      .speed-card b { font-size: 17px; }
+      .speed-card span { font-size: 8px; }
+      .help-hint { display: none; }
+      .interact-btn { bottom: calc(138px + env(safe-area-inset-bottom)); }
+      .bottom-ui { padding-left: calc(16px + env(safe-area-inset-left)); padding-right: calc(16px + env(safe-area-inset-right)); }
+      .discover-banner { top: calc(19% + env(safe-area-inset-top)); }
+      #toast { top: calc(68px + env(safe-area-inset-top)); font-size: 10px; }
+      .start-panel { display: block; width: min(480px, 94vw); min-height: 0; }
+      .start-copy { padding: 38px 28px 33px; }
+      .start-copy h1 { font-size: clamp(42px, 12vw, 66px); }
+      .start-subtitle { font-size: 12px; letter-spacing: .16em; }
+      .start-story { font-size: 12px; line-height: 1.9; margin-top: 19px; }
+      .start-art { display: none; }
+      .start-actions { margin-top: 25px; }
+      .start-controls { margin-top: 23px; font-size: 9px; }
+      .paper-panel { padding: 34px 27px 28px; }
+      .help-grid { grid-template-columns: 1fr; gap: 9px; }
+      .collection-item .line { display: none; }
+    }
+    @media (max-height: 650px) and (min-width: 721px) {
+      .start-panel { min-height: 520px; }
+      .start-copy { padding-top: 35px; padding-bottom: 35px; }
+      .start-copy h1 { font-size: 60px; }
+      .start-story { margin-top: 18px; line-height: 1.8; }
+      .start-actions { margin-top: 21px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene" aria-label="龙游长安 3D 游戏画面"></canvas>
+  <div id="vignette"></div>
+
+  <div id="hud" class="hidden">
+    <div class="brand-block">
+      <div class="brand">
+        <div class="seal">龙</div>
+        <div><h1>龙游长安</h1><p>盛唐骑行录</p></div>
+      </div>
+      <button class="poem-badge" id="poemBadge" aria-label="打开诗笺收集册">
+        <span class="mini-seal">诗</span><span>诗笺</span><strong id="poemCount">0</strong><em>/12</em>
+      </button>
+    </div>
+    <div class="top-actions">
+      <button class="round-btn" id="soundBtn" title="声音" aria-label="开启或关闭声音">声</button>
+      <button class="round-btn" id="nightBtn" title="昼夜" aria-label="切换昼夜">☾</button>
+      <button class="round-btn" id="helpBtn" title="玩法" aria-label="查看玩法">?</button>
+      <button class="round-btn" id="fullBtn" title="全屏" aria-label="切换全屏">
+        <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      </button>
+    </div>
+    <div class="minimap-wrap" id="minimapWrap">
+      <div class="minimap-head"><span>长安舆图</span><i>点击放大</i></div>
+      <canvas id="minimap" width="320" height="320" aria-label="长安城小地图"></canvas>
+      <div class="minimap-foot"><span class="compass">北 ↑</span><span id="mapHint">寻诗途中</span></div>
+    </div>
+
+    <div class="discover-banner" id="discoverBanner">
+      <div class="ornament">盛世长安</div>
+      <h2 id="discoverName">明德门外</h2>
+      <p id="discoverDesc">春风从南边来，催着车轮向前。</p>
+    </div>
+    <div id="toast" role="status"></div>
+
+    <div class="bottom-ui">
+      <div id="joystick" class="joystick" aria-label="虚拟摇杆"><div class="joy-knob"></div></div>
+      <div class="speed-card" id="speedCard"><b id="speedValue">0</b><span>KM/H</span></div>
+      <div class="help-hint">WASD 骑行 · 拖动环视 · C 换视角 · B 铃铛</div>
+      <div class="actions">
+        <button class="action-btn" id="cameraBtn"><span class="icon">◉</span><span class="label" id="cameraLabel">追随</span><span class="key">C</span></button>
+        <button class="action-btn boost" id="boostBtn"><span class="icon">⇧</span><span class="label">加速</span><span class="key">SHIFT</span></button>
+        <button class="action-btn" id="bellBtn"><span class="icon">铃</span><span class="label">车铃</span><span class="key">B</span></button>
+        <button class="action-btn" id="albumBtn"><span class="icon">笺</span><span class="label">诗囊</span><span class="key">L</span></button>
+      </div>
+    </div>
+    <button class="interact-btn" id="interactBtn"><span class="seal">拾</span><span>拾起诗笺 <small>E</small></span></button>
+  </div>
+
+  <div id="startScreen" class="hidden">
+    <div class="start-panel">
+      <div class="start-copy">
+        <div class="eyebrow">唐 · 长安十二时辰</div>
+        <h1>龙游<span>长安</span></h1>
+        <p class="start-subtitle">骑一乘木单车 · 看尽盛唐风物</p>
+        <p class="start-story">春风拂过朱雀大街，小青龙蹬起木单车，穿过市井的烟火与宫阙的飞檐，去寻散落在长安城里的十二枚诗笺。</p>
+        <div class="start-goal"><span class="dot"></span>拾取十二枚诗笺 · 自由漫游东西市、曲江池与大明宫</div>
+        <div class="start-actions">
+          <button class="primary-btn" id="startBtn">入城骑行</button>
+          <button class="text-btn" id="startHelpBtn">查看玩法</button>
+        </div>
+        <div class="start-controls" id="startControls"></div>
+      </div>
+      <div class="start-art" aria-hidden="true">
+        <svg class="hero-art" viewBox="0 0 420 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#50cae9"/><stop offset=".44" stop-color="#9ce7d9"/><stop offset=".76" stop-color="#ffe2a0"/><stop offset="1" stop-color="#ffc070"/>
+            </linearGradient>
+            <radialGradient id="sunGrad" cx="42%" cy="38%" r="62%">
+              <stop offset="0" stop-color="#fff9bd"/><stop offset=".55" stop-color="#ffd45a"/><stop offset="1" stop-color="#ff9b46"/>
+            </radialGradient>
+            <linearGradient id="mountBack" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#66c9c8"/><stop offset="1" stop-color="#9fe6cb"/>
+            </linearGradient>
+            <linearGradient id="mountFront" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#239b83"/><stop offset="1" stop-color="#6bd3a3"/>
+            </linearGradient>
+            <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#177d7c"/><stop offset=".62" stop-color="#31a69a"/><stop offset="1" stop-color="#5ac8b3"/>
+            </linearGradient>
+            <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ff7b50"/><stop offset="1" stop-color="#d84235"/>
+            </linearGradient>
+            <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffe6ac"/><stop offset="1" stop-color="#f6c777"/>
+            </linearGradient>
+            <linearGradient id="dragonGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7ee9a4"/><stop offset="1" stop-color="#25b772"/>
+            </linearGradient>
+            <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#397c69" flood-opacity=".2"/>
+            </filter>
+            <filter id="warmGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="14"/>
+            </filter>
+          </defs>
+          <rect width="420" height="620" fill="url(#skyGrad)"/>
+          <circle cx="312" cy="113" r="74" fill="#ffe67e" opacity=".25" filter="url(#warmGlow)"/>
+          <circle cx="312" cy="113" r="54" fill="url(#sunGrad)"/>
+          <g fill="#fffbe9" opacity=".72">
+            <path d="M32 121c10-16 29-18 40-8 4-14 23-21 36-9 10-11 28-8 32 5 15 1 22 9 22 17H28c-3-5-1-9 4-12z"/>
+            <path d="M256 64c8-12 23-14 32-6 4-9 17-12 25-5 8-6 21-2 24 7 10 2 15 7 15 13h-102c0-3 2-6 6-9z" opacity=".65"/>
+            <path d="M62 210c8-12 23-13 31-4 5-10 19-12 27-4 8-4 17-1 21 6h-86c1-4 4-7 7-9z" opacity=".5"/>
+          </g>
+          <g fill="#286d70" opacity=".62">
+            <path d="M55 162c9-5 17-4 23 1-8 2-14 5-18 10z"/>
+            <path d="M226 90c7-4 13-3 18 1-6 1-11 4-14 8z"/>
+          </g>
+          <path d="M0 347L56 274l39 48 59-88 58 85 51-56 63 76 44-41 50 53v65H0z" fill="url(#mountBack)"/>
+          <path d="M0 399l72-86 49 57 60-65 49 61 57-76 59 85 44-45 30 27v87H0z" fill="url(#mountFront)" opacity=".9"/>
+          <g opacity=".5" fill="#d6fff0">
+            <path d="M57 306l20 32H36z"/><path d="M151 285l27 42h-54z"/><path d="M283 309l24 35h-48z"/>
+          </g>
+          <g filter="url(#softShadow)">
+            <rect x="248" y="328" width="146" height="88" rx="3" fill="url(#wallGrad)"/>
+            <rect x="250" y="327" width="142" height="8" fill="#ff9968"/>
+            <rect x="266" y="352" width="25" height="64" fill="#9a302a"/>
+            <rect x="308" y="352" width="25" height="64" fill="#9a302a"/>
+            <rect x="350" y="352" width="25" height="64" fill="#9a302a"/>
+            <path d="M232 331h178l-18-28H250z" fill="url(#roofGrad)"/>
+            <path d="M243 302h155l-15-25H258z" fill="#2f9e96"/>
+            <path d="M226 332q10-15 23-2 5-11 15-3 7-11 17-2 7-9 17-1 8-10 19-2 8-9 18 0 9-10 20-2 8-8 17 1 8-8 16 2 11-7 16 9z" fill="#5dcbb6"/>
+            <path d="M256 277h130l-11-20H268z" fill="#42b8aa"/>
+            <rect x="307" y="257" width="28" height="22" fill="#ff7047"/>
+            <rect x="292" y="421" width="62" height="13" fill="#f4bf67"/>
+          </g>
+          <g opacity=".9">
+            <rect x="30" y="366" width="180" height="61" fill="#f4ca75"/>
+            <rect x="30" y="360" width="180" height="10" fill="#ff9b5a"/>
+            <path d="M14 362h212l-18-22H33z" fill="#2e9f94"/>
+            <path d="M39 340h160l-13-20H52z" fill="#52c5ad"/>
+            <rect x="101" y="338" width="34" height="23" fill="#c9342f"/>
+            <rect x="76" y="382" width="20" height="45" fill="#a9362d"/>
+            <rect x="143" y="382" width="20" height="45" fill="#a9362d"/>
+          </g>
+          <path d="M0 428h420v192H0z" fill="url(#roadGrad)"/>
+          <path d="M118 620l74-190h58l79 190z" fill="#ffe9b0"/>
+          <path d="M153 620l60-190h21l70 190z" fill="#f4d18b" opacity=".62"/>
+          <g stroke="#d7a65d" stroke-width="2" opacity=".34">
+            <path d="M0 456h420M0 494h420M0 538h420M0 590h420"/>
+            <path d="M159 504l112 0M147 552l141 0M128 609l188 0"/>
+          </g>
+          <g opacity=".96">
+            <ellipse cx="153" cy="583" rx="61" ry="11" fill="#8b6a3d" opacity=".18"/>
+            <circle cx="118" cy="558" r="43" fill="none" stroke="#743c26" stroke-width="7"/>
+            <circle cx="118" cy="558" r="36" fill="none" stroke="#dd9146" stroke-width="4"/>
+            <circle cx="228" cy="558" r="43" fill="none" stroke="#743c26" stroke-width="7"/>
+            <circle cx="228" cy="558" r="36" fill="none" stroke="#dd9146" stroke-width="4"/>
+            <g stroke="#f5c266" stroke-width="2">
+              <path d="M118 516v84M76 558h84M88 528l60 60M88 588l60-60"/>
+              <path d="M228 516v84M186 558h84M198 528l60 60M198 588l60-60"/>
+            </g>
+            <path d="M118 558l30-42h59l21 22-19 40h-57z" fill="#b65f30" stroke="#743c26" stroke-width="4"/>
+            <path d="M149 519l29 20M177 516l21 21" stroke="#7b4027" stroke-width="6" stroke-linecap="round"/>
+            <path d="M220 539l8-19 17 5" stroke="#7b4027" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M151 548h45" stroke="#f3bf43" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="205" cy="536" r="6" fill="#f3bf43"/>
+            <path d="M117 559l-32-4" stroke="#743c26" stroke-width="7" stroke-linecap="round"/>
+            <path d="M228 559l29-5" stroke="#743c26" stroke-width="7" stroke-linecap="round"/>
+            <path d="M204 525l-3-20" stroke="#6d3825" stroke-width="8" stroke-linecap="round"/>
+            <path d="M201 505l-21-6m20 6l18-11" stroke="#6d3825" stroke-width="5" stroke-linecap="round"/>
+            <path d="M161 556l13 15-17 9" fill="none" stroke="#3f9d59" stroke-width="12" stroke-linecap="round"/>
+            <path d="M184 546l18 17 15-11" fill="none" stroke="#3f9d59" stroke-width="12" stroke-linecap="round"/>
+            <ellipse cx="157" cy="511" rx="30" ry="31" fill="url(#dragonGrad)" stroke="#237e55" stroke-width="3"/>
+            <path d="M151 503l-11-38q24 3 29 32z" fill="#3cc07a"/>
+            <path d="M164 481l17-23 11 12-13 21z" fill="#e74435"/>
+            <path d="M180 492l29-17 11 10-23 23z" fill="#e74435"/>
+            <path d="M177 493c10 7 23 9 36 6" fill="none" stroke="#d0f5d5" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="188" cy="494" r="19" fill="#48cb7e" stroke="#237e55" stroke-width="3"/>
+            <ellipse cx="199" cy="501" rx="17" ry="12" fill="#9ce8ad"/>
+            <circle cx="192" cy="487" r="4.5" fill="#213c33"/><circle cx="191" cy="486" r="1.4" fill="#fff"/>
+            <circle cx="198" cy="482" r="2.3" fill="#ff8a8e" opacity=".8"/>
+            <path d="M196 500q7 4 13 0" fill="none" stroke="#2c6b52" stroke-width="2" stroke-linecap="round"/>
+            <path d="M202 493l25-13m-26 4l24-7" stroke="#2e765c" stroke-width="2" stroke-linecap="round"/>
+            <path d="M177 476l-15-14 21 5zM182 471l-3-21 15 13z" fill="#ffbc3e" stroke="#e28a2d" stroke-width="2"/>
+            <path d="M134 526l-26 23m38-20l-32-1" stroke="#39b971" stroke-width="5" stroke-linecap="round"/>
+            <path d="M186 557l16 14-16 8" fill="none" stroke="#37aa63" stroke-width="7" stroke-linecap="round"/>
+            <ellipse cx="118" cy="579" rx="20" ry="7" fill="#e7a34b"/>
+            <ellipse cx="228" cy="579" rx="20" ry="7" fill="#e7a34b"/>
+          </g>
+          <g fill="#ffb2bd">
+            <path d="M54 289c8-10 19-2 12 8-5 7-13 8-17 3-2-4 1-7 5-11z"/>
+            <path d="M359 241c7-8 17-1 10 8-5 6-12 6-15 2-2-3 1-6 5-10z"/>
+            <path d="M292 467c7-8 17-2 12 7-4 7-11 8-15 4-3-3 0-7 3-11z"/>
+            <path d="M47 506c6-7 15-2 10 6-3 6-9 7-13 4-2-3 0-6 3-10z"/>
+          </g>
+          <g fill="#fff7dc" opacity=".7">
+            <circle cx="86" cy="203" r="3"/><circle cx="269" cy="173" r="2"/><circle cx="328" cy="199" r="2.5"/><circle cx="373" cy="84" r="2"/>
+          </g>
+        </svg>
+        <div class="art-mist"></div>
+        <div class="start-art-note">一骑入长安<br>万户起炊烟</div>
+        <div class="start-seal">盛唐<br>长安</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bootScreen">
+    <div class="boot-inner">
+      <div class="boot-mark">龙</div>
+      <h2 class="boot-title">龙游长安</h2>
+      <p class="boot-sub">铺开一座盛唐的城</p>
+      <div class="boot-track"><div class="boot-bar"></div></div>
+      <div id="bootStatus">正在准备笔墨纸砚…</div>
+    </div>
+  </div>
+
+  <div id="modalLayer" class="modal-layer hidden" role="dialog" aria-modal="true">
+    <div id="poemPanel" class="paper-panel poem-panel hidden">
+      <button class="modal-close" data-close aria-label="关闭">×</button>
+      <div class="modal-eyebrow">长安诗笺</div>
+      <h2 id="poemTitle">朱雀大街</h2>
+      <div class="poem-place" id="poemPlace">长安 · 天街</div>
+      <div class="poem-line" id="poemLine">天街小雨润如酥，草色遥看近却无。</div>
+      <div class="poem-foot"><span class="poem-index" id="poemIndex">第 1 / 12 枚</span><span class="seal-stamp">长安<br>诗笺</span></div>
+      <div class="paper-actions"><button class="small-primary" data-close>收进诗囊</button></div>
+    </div>
+    <div id="helpPanel" class="paper-panel help-panel hidden">
+      <button class="modal-close" data-close aria-label="关闭">×</button>
+      <div class="modal-eyebrow">行旅手札</div>
+      <h2>如何游长安</h2>
+      <div class="help-grid">
+        <div class="help-item"><strong>W A S D / ↑ ↓ ← →</strong><span>前进、刹车与转向</span></div>
+        <div class="help-item"><strong>Shift / 加速</strong><span>按住冲刺，去更远的地方</span></div>
+        <div class="help-item"><strong>拖动画面 / 滚轮</strong><span>环视与缩放；双指可捏合</span></div>
+        <div class="help-item"><strong>C / 视角</strong><span>追随、侧拍、鸟瞰、环游</span></div>
+        <div class="help-item"><strong>E / 拾取按钮</strong><span>靠近发光诗笺后拾取</span></div>
+        <div class="help-item"><strong>N / ☾</strong><span>切换昼与夜，看满城灯火</span></div>
+      </div>
+      <div class="help-note">城里有十二枚诗笺，散落在朱雀大街、东西市、大明宫、兴庆宫、大雁塔与曲江池。沿着小地图上的金色诗点骑行，靠近后拾取。</div>
+      <div class="help-item"><strong>手机如何玩</strong><span>左下摇杆向前骑行，右下按钮可加速、按铃、切换视角与查看诗囊；拖动画面环视。</span></div>
+      <div class="paper-actions"><button class="small-primary" data-close>继续骑行</button></div>
+    </div>
+    <div id="collectionPanel" class="paper-panel collection-panel hidden">
+      <button class="modal-close" data-close aria-label="关闭">×</button>
+      <div class="modal-eyebrow">诗囊</div>
+      <h2>长安十二诗笺</h2>
+      <div class="collection-list" id="collectionList"></div>
+      <div class="collection-complete hidden" id="collectionComplete">十二枚诗笺已集齐。你已把长安的春风收进袖中。</div>
+      <div class="paper-actions"><button class="small-primary" data-close>合上诗囊</button></div>
+    </div>
+  </div>
+
+  <div id="errorOverlay" class="hidden">
+    <div class="error-card">
+      <h2>长安城的门暂时没有打开</h2>
+      <p>页面遇到了一个运行错误。请确认浏览器已启用 WebGL，并尝试刷新页面。</p>
+      <pre id="errorText"></pre>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function showFatal(message) {
+        const overlay = document.getElementById('errorOverlay');
+        const text = document.getElementById('errorText');
+        if (!overlay || !text) return;
+        text.textContent = String(message || '未知错误');
+        overlay.classList.remove('hidden');
+      }
+      window.__showFatal = showFatal;
+      window.addEventListener('error', function (e) {
+        showFatal(e.error && e.error.stack ? e.error.stack : e.message);
+      });
+      window.addEventListener('unhandledrejection', function (e) {
+        showFatal(e.reason && e.reason.stack ? e.reason.stack : e.reason);
+      });
+    })();
+  </script>
+  <script src="vendor/three.min.js"></script>
+  <script src="src/00-core.js"></script>
+  <script src="src/10-world.js"></script>
+  <script src="src/12-landmarks.js"></script>
+  <script src="src/20-character.js"></script>
+  <script src="src/30-main.js"></script>
+</body>
+</html>

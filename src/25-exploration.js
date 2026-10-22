@@ -1,0 +1,281 @@
+/* 自由游城：移动模式、地面安全、景点和电影镜头由这里统一管理。 */
+const Explore = {
+  mode: 'bike', altitude: 40, lift: 0, lastSafe: new THREE.Vector3(0, 0, 352),
+  film: false, filmTime: 0, filmIndex: 0, filmPaused: false,
+  roofGrid: new Map(), roofCell: 24,
+  places: [
+    { name: '朱雀天街', note: '晨光入城，市声渐起', x: 0, z: 302, yaw: Math.PI, focus: [0, 6, 286], radius: 36, height: 15 },
+    { name: '西市烟火', note: '胡商云集，百货争陈', x: -258, z: 55, yaw: Math.PI, focus: [-258, 5, -14], radius: 80, height: 34 },
+    { name: '东市百肆', note: '酒旗招展，锦绣满街', x: 174, z: 55, yaw: Math.PI, focus: [174, 5, -14], radius: 76, height: 31 },
+    { name: '大明宫阙', note: '千门次第开，双阙凌云起', x: 150, z: -354, yaw: Math.PI, focus: [150, 15, -430], radius: 92, height: 54 },
+    { name: '兴庆春色', note: '花萼相辉，宫苑如画', x: 300, z: -75, yaw: Math.PI, focus: [350, 5, -150], radius: 86, height: 34 },
+    { name: '雁塔晴岚', note: '层塔摩云，钟声入风', x: 216, z: 256, yaw: 0, focus: [216, 20, 283], radius: 70, height: 43 },
+    { name: '曲江泛舟', note: '画舫穿柳，水映楼台', x: 287, z: 335, yaw: 1.4, focus: [354, 3, 318], radius: 83, height: 21 },
+    { name: '明德城门', note: '登临南郭，一眼望长安', x: 0, z: 420, yaw: Math.PI, focus: [0, 10, 380], radius: 67, height: 28 },
+  ],
+
+  init() {
+    document.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => this.setMode(btn.dataset.mode)));
+    $('#travelBtn').addEventListener('click', () => this.openTravel());
+    $('#filmBtn').addEventListener('click', () => this.startFilm());
+    $('#filmExit').addEventListener('click', () => this.stopFilm());
+    $('#filmPrev').addEventListener('click', () => this.changeScene(-1));
+    $('#filmNext').addEventListener('click', () => this.changeScene(1));
+    $('#filmPause').addEventListener('click', () => {
+      this.filmPaused = !this.filmPaused;
+      $('#filmPause').textContent = this.filmPaused ? '继续运镜' : '暂停运镜';
+      $('#filmPause').setAttribute('aria-pressed', String(this.filmPaused));
+    });
+    $('#filmPhoto').addEventListener('click', () => this.photo());
+    $('#travelList').innerHTML = this.places.map((p, i) => `<button class="destination" data-place="${i}"><span class="destination-index">${String(i + 1).padStart(2, '0')}</span><span><strong>${p.name}</strong><small>${p.note}</small></span><span aria-hidden="true">↗</span></button>`).join('');
+    $('#travelList').addEventListener('click', e => {
+      const btn = e.target.closest('[data-place]');
+      if (btn) this.travel(Number(btn.dataset.place));
+    });
+    bindHold($('#ascendBtn'), () => { this.lift = 1; }, () => { this.lift = 0; });
+    bindHold($('#descendBtn'), () => { this.lift = -1; }, () => { this.lift = 0; });
+    window.addEventListener('blur', () => this.resetInput());
+    document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
+    window.addEventListener('keydown', e => {
+      if (e.repeat || !GAME.started) return;
+      if (e.code === 'Escape' && this.film) { this.stopFilm(); return; }
+      if (GAME.modalOpen) return;
+      if (e.code === 'KeyP') { this.film ? this.stopFilm() : this.startFilm(); return; }
+      if (this.film) return;
+      if (e.code === 'Digit1') this.setMode('walk');
+      if (e.code === 'Digit2') this.setMode('bike');
+      if (e.code === 'Digit3') this.setMode('fly');
+      if (e.code === 'KeyG') this.openTravel();
+    });
+    this.refresh();
+  },
+
+  resetInput() {
+    this.lift = 0; Input.keys = Object.create(null); Input.touchBoost = false;
+    Input.joyX = 0; Input.joyY = 0; Input.joyPointer = null;
+    UI.joyKnob.style.transform = ''; UI.joystick.classList.remove('active');
+    Move.speed = 0; Move.steer = 0;
+  },
+
+  refresh() {
+    document.querySelectorAll('[data-mode]').forEach(btn => {
+      const on = btn.dataset.mode === this.mode;
+      btn.classList.toggle('selected', on); btn.setAttribute('aria-pressed', String(on));
+    });
+    $('#flightControls').classList.toggle('hidden', this.mode !== 'fly');
+    $('#modeHint').textContent = this.mode === 'fly' ? 'Q 上升 · E 下降 · 在空地切换落地' : this.mode === 'walk' ? '慢慢走，听一城烟火' : '木轮轻响，且看长安';
+    $('#bellBtn .label').textContent = this.mode === 'bike' ? '车铃' : '招呼';
+  },
+
+  groundHeight(x, z) { return pointOnBridge(x, z) ?? (isLand(x, z) ? 0.18 : 0); },
+  safeGround(x, z) {
+    if (x < WORLD.x0 + 2 || x > WORLD.x1 - 2 || z < WORLD.z0 + 2 || z > WORLD.z1 - 2 || !canStandAt(x, z)) return false;
+    return !colliders.some(c => x > c.minX - 1.2 && x < c.maxX + 1.2 && z > c.minZ - 1.2 && z < c.maxZ + 1.2);
+  },
+  landing(x, z, radius = 12) {
+    if (this.safeGround(x, z)) return new THREE.Vector3(x, this.groundHeight(x, z), z);
+    for (let r = 2; r <= radius; r += 2) for (let i = 0; i < 16; i++) {
+      const a = i * TAU / 16, nx = x + Math.sin(a) * r, nz = z + Math.cos(a) * r;
+      if (this.safeGround(nx, nz)) return new THREE.Vector3(nx, this.groundHeight(nx, nz), nz);
+    }
+    return null;
+  },
+
+  setMode(mode) {
+    if (!player || !GAME.started || this.film || GAME.modalOpen || !['walk', 'bike', 'fly'].includes(mode) || mode === this.mode) return false;
+    const p = player.group.position;
+    if (mode !== 'fly' && this.mode === 'fly') {
+      const ground = this.landing(p.x, p.z);
+      if (!ground) { toast('此处无法落地，请飞到街道、岸边或桥上'); return false; }
+      p.copy(ground); this.lastSafe.copy(ground);
+    }
+    if (mode === 'fly') {
+      if (this.safeGround(p.x, p.z)) this.lastSafe.copy(p);
+      this.altitude = Math.max(40, this.roofAt(p.x, p.z) + 5);
+    }
+    this.mode = mode; this.resetInput(); this.refresh();
+    player.bike.group.visible = mode === 'bike';
+    toast(mode === 'fly' ? '乘风而起 · 摇杆前行，右侧升降' : mode === 'walk' ? '下车漫步 · 长安不必匆忙' : '木车骑行 · 随风穿过街巷');
+    return true;
+  },
+
+  buildRoofGrid() {
+    // 仅为飞行避障保留高度包络，不另造一套地面碰撞语义。
+    for (const [name, batch] of Object.entries(B)) {
+      if (!['plaster', 'plasterWarm', 'stone', 'red', 'roof', 'roofSmall', 'roofGold'].includes(name)) continue;
+      for (const it of batch.items) {
+        const top = it.y + it.sy * (name.startsWith('roof') ? 1.45 : 0.5);
+        if (top < 2) continue;
+        const c = Math.abs(Math.cos(it.ry)), s = Math.abs(Math.sin(it.ry));
+        const hw = (it.sx * c + it.sz * s) * 0.5 + 2, hd = (it.sz * c + it.sx * s) * 0.5 + 2;
+        const box = { x0: it.x - hw, x1: it.x + hw, z0: it.z - hd, z1: it.z + hd, top };
+        for (let x = Math.floor(box.x0 / this.roofCell); x <= Math.floor(box.x1 / this.roofCell); x++)
+          for (let z = Math.floor(box.z0 / this.roofCell); z <= Math.floor(box.z1 / this.roofCell); z++) {
+            const key = x + ',' + z;
+            if (!this.roofGrid.has(key)) this.roofGrid.set(key, []);
+            this.roofGrid.get(key).push(box);
+          }
+      }
+    }
+  },
+  roofAt(x, z) {
+    let top = 0;
+    for (const b of this.roofGrid.get(Math.floor(x / this.roofCell) + ',' + Math.floor(z / this.roofCell)) || [])
+      if (x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1) top = Math.max(top, b.top);
+    return top;
+  },
+
+  updateFlight(dt, a, boosting) {
+    const p = player.group.position;
+    const lift = this.lift + (Input.keys.KeyQ ? 1 : 0) - (Input.keys.KeyE ? 1 : 0);
+    this.altitude = clamp(this.altitude + lift * dt * 22, 5, 145);
+    const floor = this.roofAt(p.x, p.z) + 3.5;
+    this.altitude = Math.max(this.altitude, floor);
+    p.y = damp(p.y, this.altitude, 2.2, dt);
+    Move.speed = damp(Move.speed, a.throttle * (boosting ? 55 : 30), 2.5, dt);
+    Move.steer = damp(Move.steer, a.steer, 7, dt);
+    Move.yaw += Move.steer * dt * 1.5;
+    const nx = clamp(p.x + Math.sin(Move.yaw) * Move.speed * dt, WORLD.x0 + 8, WORLD.x1 - 8);
+    const nz = clamp(p.z + Math.cos(Move.yaw) * Move.speed * dt, WORLD.z0 + 8, WORLD.z1 - 8);
+    // 爬升过程中不允许钻入高殿或塔身；悬停抬升后再越过。
+    if (p.y >= this.roofAt(nx, nz) + 3.2) { p.x = nx; p.z = nz; }
+    else { this.altitude = Math.max(this.altitude, this.roofAt(nx, nz) + 5); Move.speed *= 0.8; }
+    p.y = Math.max(p.y, this.roofAt(p.x, p.z) + (p.y > floor ? 3.5 : 0));
+    player.group.rotation.set(Math.sin(GAME.time * 1.8) * 0.025, Move.yaw, -Move.steer * 0.16);
+    player.yaw = Move.yaw; player.update(dt, Move.speed, Move.steer, boosting, 'fly');
+    $('#altitude').textContent = Math.round(p.y) + ' 米';
+  },
+
+  openTravel() { if (GAME.started && !this.film) openModal($('#travelPanel')); },
+  travel(i) {
+    const spot = this.places[i]; if (!spot || !player) return;
+    const ground = this.landing(spot.x, spot.z, 30);
+    if (!ground) { toast('此处暂时无法到达'); return; }
+    closeModal(); this.resetInput();
+    player.group.position.copy(ground); player.yaw = Move.yaw = spot.yaw;
+    player.group.rotation.set(0, spot.yaw, 0);
+    if (this.mode === 'fly') { this.altitude = 45; player.group.position.y = Math.max(45, this.roofAt(ground.x, ground.z) + 5); }
+    this.lastSafe.copy(ground); this.filmIndex = i;
+    Cam.userYaw = 0; Cam.zoom = 1; Cam.update(0.016, player, true);
+    showBanner(spot.name, spot.note, 3000);
+  },
+
+  startFilm() {
+    if (!GAME.started || GAME.modalOpen || !player || this.film) return;
+    this.filmIndex = this.places.reduce((best, spot, i) => {
+      const p = player.group.position, b = this.places[best];
+      return Math.hypot(p.x - spot.x, p.z - spot.z) < Math.hypot(p.x - b.x, p.z - b.z) ? i : best;
+    }, 0);
+    this.film = true; this.filmPaused = false; this.resetInput();
+    player.group.visible = false;
+    document.body.classList.add('cinema');
+    $('#filmControls').classList.remove('hidden');
+    this.changeScene(0);
+    $('#filmExit').focus();
+  },
+  stopFilm() {
+    if (!this.film) return;
+    this.film = false; this.resetInput(); player.group.visible = true;
+    document.body.classList.remove('cinema'); $('#filmControls').classList.add('hidden');
+    Cam.update(0.016, player, true); $('#filmBtn').focus();
+  },
+  changeScene(delta) {
+    this.filmIndex = (this.filmIndex + delta + this.places.length) % this.places.length;
+    this.filmTime = 0;
+    const spot = this.places[this.filmIndex];
+    $('#filmPlace').textContent = spot.name; $('#filmNote').textContent = spot.note;
+  },
+  updateFilm(dt) {
+    if (!this.filmPaused) this.filmTime += dt;
+    const spot = this.places[this.filmIndex];
+    const angle = 0.32 + Math.sin(this.filmTime * 0.055) * 0.55;
+    const radius = spot.radius * (1 - Math.sin(this.filmTime * 0.07) * 0.12);
+    camera.position.set(spot.focus[0] + Math.sin(angle) * radius, spot.height + Math.sin(this.filmTime * 0.09) * 3, spot.focus[2] + Math.cos(angle) * radius);
+    camera.lookAt(...spot.focus); camera.fov = 46; camera.updateProjectionMatrix();
+    sun.target.position.set(...spot.focus); sun.position.set(spot.focus[0] + 95, 155, spot.focus[2] + 70);
+    $('#filmProgress').style.transform = `scaleX(${Math.min(this.filmTime / 34, 1)})`;
+    if (this.filmTime >= 34) this.changeScene(1);
+  },
+  photo() {
+    renderer.render(scene, camera);
+    const a = document.createElement('a');
+    a.download = '龙游长安-' + this.places[this.filmIndex].name + '.png';
+    a.href = canvas.toDataURL('image/png'); a.click();
+    $('#filmPhoto').textContent = '已留影'; setTimeout(() => $('#filmPhoto').textContent = '留影', 1400);
+  },
+};
+
+function installMaterials() {
+  if (typeof MATERIAL_ASSETS === 'undefined') return;
+  function embedded(key, repeat) {
+    const t = new THREE.TextureLoader().load(MATERIAL_ASSETS[key]);
+    t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    t.repeat.set(...repeat); t.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
+    return t;
+  }
+  MAT.stone.map = embedded('stone', [2, 1]); MAT.stone.needsUpdate = true;
+  MAT.wood.map = embedded('wood', [1, 2]); MAT.wood.needsUpdate = true;
+}
+
+function buildArchitecturalDetails() {
+  // 近景仍使用真实几何，栏杆、斗拱、木格窗与台阶共享城市批次。
+  const brackets = new Batch(roundedBoxGeo(1, 1, 1, 0.08), MAT.wood);
+  const rails = new Batch(UNIT_CYL, MAT.stone);
+  B.brackets = brackets; B.rails = rails;
+  for (const x of [-26, 26]) {
+    for (let z = 266; z <= 334; z += 22) {
+      const ry = x < 0 ? Math.PI / 2 : -Math.PI / 2;
+      addShop(x, z, 16, 11, ry, x < 0 ? ['胡饼铺', '茶坊', '绸缎庄', '书肆'][(z - 266) / 22] : ['胡姬酒肆', '香药铺', '乐器行', '珠玉行'][(z - 266) / 22], { h: 6.8 });
+      // 高层临街阁楼，保持主街和横街畅通。
+      addHall(x, z, 11, 8, { h: 3.2, roofH: 2.1, platform: 8.3, ry, windows: true });
+      for (const dz of [-5.2, 5.2]) addLantern(x + (x < 0 ? 7 : -7), 5.2, z + dz, 1.1);
+      addNPC(x + (x < 0 ? 9 : -9), z + 3, { merchant: true, stationary: true });
+    }
+  }
+  // 殿前仪仗、宽阶与层层石栏，放大宫城的纵深。
+  for (let i = 0; i < 18; i++) {
+    const y = (18 - i) * 0.38, z = -407 + i * 0.72;
+    B.stone.add(150, y / 2, z, 26, y, 1.3, 0, 0xe6d7bb);
+  }
+  for (const side of [-1, 1]) {
+    for (let z = -449; z <= -410; z += 3.2) {
+      const x = 150 + side * 32;
+      rails.add(x, 7.8, z, 0.35, 2.3, 0.35, 0, 0xe8dfce);
+      B.stone.add(x, 7.7, z, 0.22, 0.25, 3.3, 0, 0xd9c9aa);
+      B.stone.add(x, 8.55, z, 0.26, 0.22, 3.3, 0, 0xeee2c9);
+    }
+    for (let z = -392; z <= -365; z += 8) {
+      const x = 150 + side * 24;
+      B.stone.add(x, 0.5, z, 1.5, 1, 1.5, 0, 0xe7d9c2);
+      B.columns.add(x, 4, z, 0.35, 7, 0.35, 0, 0xb64732); addLantern(x, 6.6, z, 1.3);
+    }
+  }
+  // 给每座主殿与街铺的檐下加斗拱和窗棂，远景也有清楚的木构层次。
+  for (const hall of hallDetails) {
+    const { x, z, w, d, h, platform, ry } = hall;
+    const c = Math.cos(ry), s = Math.sin(ry);
+    const pos = (lx, lz) => [x + lx * c + lz * s, z - lx * s + lz * c];
+    const n = Math.max(3, Math.round(w / 4.4));
+    for (let i = 0; i <= n; i++) {
+      const lx = -w / 2 + w / n * i;
+      for (const side of [-1, 1]) {
+        const [bx, bz] = pos(lx, side * (d / 2 + 0.25));
+        brackets.add(bx, platform + h - 0.58, bz, 1.35, 0.21, 0.62, ry, 0x8d3e2d);
+        brackets.add(bx, platform + h - 0.3, bz, 1.9, 0.2, 0.9, ry, 0xb65b3b);
+        brackets.add(bx, platform + h - 0.05, bz, 2.45, 0.18, 1.25, ry, 0xd7aa6f);
+        const [cx, cz] = pos(lx, side * (d / 2 + 0.52));
+        B.wood.add(cx, platform + h * 0.44, cz, 0.12, h * 0.68, 0.12, ry, 0x813728);
+      }
+    }
+    if (w >= 10) for (const lx of [-w * 0.29, w * 0.29]) {
+      for (let k = -2; k <= 2; k++) {
+        const [wx, wz] = pos(lx + k * w * 0.028, d / 2 + 0.53);
+        B.wood.add(wx, platform + h * 0.55, wz, 0.07, h * 0.34, 0.08, ry, 0x7b382a);
+      }
+      for (const dy of [-0.14, 0, 0.14]) {
+        const [wx, wz] = pos(lx, d / 2 + 0.53);
+        B.wood.add(wx, platform + h * (0.55 + dy), wz, w * 0.15, 0.075, 0.08, ry, 0xa96941);
+      }
+    }
+  }
+}

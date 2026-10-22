@@ -1,0 +1,98 @@
+{
+  "viewport": [
+    390,
+    844
+  ],
+  "boot": {
+    "ready": true,
+    "fatal": false,
+    "startVisible": true,
+    "calls": 196,
+    "children": 442
+  },
+  "started": {
+    "started": true,
+    "hud": true,
+    "startHidden": false,
+    "speed": 0
+  },
+  "idle": {
+    "calls": 307,
+    "pos": [
+      0,
+      0,
+      352
+    ],
+    "banner": "明德门 · 朱雀大街",
+    "bannerVisible": true
+  },
+  "cameras": [
+    "侧拍",
+    "鸟瞰",
+    "环游",
+    "追随"
+  ],
+  "poemBefore": {
+    "near": -1,
+    "interact": false,
+    "count": 1
+  },
+  "poemAfter": {
+    "count": 1,
+    "modal": false,
+    "poemOpen": false,
+    "title": "朱雀大街",
+    "counter": "1",
+    "stored": "[8]"
+  },
+  "collection": {
+    "open": true,
+    "rows": 12,
+    "unlocked": 1
+  },
+  "night": {
+    "target": 1,
+    "value": 0.48087989167562195,
+    "sun": 1.1260033473211541,
+    "stars": 0.4424095003415722,
+    "button": "☀"
+  },
+  "collision": {
+    "water": false,
+    "island": true,
+    "bridge": true,
+    "river": false,
+    "plaza": true
+  },
+  "ride": {
+    "pos": [
+      4.500576986866523e-17,
+      0,
+      299.6325
+    ],
+    "speed": 1.47,
+    "speedText": "5"
+  },
+  "layout": {
+    "overflowX": false,
+    "overflowY": false,
+    "startPanel": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "map": [
+      320,
+      320
+    ]
+  },
+  "webgl": {
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "WebKit WebGL"
+  },
+  "issues": [
+    "2516 log entries are not shown.",
+    "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+  ]
+}
