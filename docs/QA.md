@@ -59,3 +59,7 @@ python3 tools/offline_test.py --output /tmp/changan-offline-review
 `offline-boats-shore.json`：最新17,171,852B单文件通过真实长廊/亭/停泊画舫/店铺/宫阶、刷新存档、断网high倒影/SAO/Bloom/FXAA/PNG，零外部资源/页面/控制台错误。`webgl1-boats-shore.json`：同版本强制WebGL1通过，9蒙皮/8动物动作/飞行/赏景、高画质安全回退、glError=0、无错误。
 
 首轮园路点采样通过后真实行走暴露转角问题，随后增加路径细分/根部净空和每20cm检查；新栏柱在凹弯侵入邻近路径，已改为独立沿岸布置。最终通过目录为`/tmp/changan-boats-final4`，不要将final/final2/final3当作通过。截图还发现林下追随相机近叶遮挡角色，已记录待继续修复；通行成功不等于此视觉问题已解决。
+
+## 林下角色视野
+
+相机近叶与玩家视线遮挡按整片叶处理，保留树干和远处树冠；赏景关闭玩家净空。抖动透明初稿出现噪点，已弃用。`shore-camera-before.png` / `shore-camera-after.png`为相同机位实际画面对照。`foliage-camera.json`验证17,174,676B新版单文件，844×390实际追随、切镜头、电影焦点关闭、断网high FXAA/SAO/Bloom通过，零外部请求/页面/控制台错误、glError0。`webgl1-foliage.json`进一步验证同包WebGL1森林画面、9蒙皮/8动物动作、飞行/赏景/高画质安全回退，无错误。之前整段园路/通行面已在该改动前一版通过，本次未重复宣称全套通行面重测。

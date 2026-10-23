@@ -4,14 +4,43 @@
 const CityBotany = (() => {
   const V = THREE.Vector3;
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.93, side: THREE.DoubleSide });
+  const focus={value:new V()},focusActive={value:0};
+  material.onBeforeCompile=shader=>{
+    shader.uniforms.canopyFocus=focus;shader.uniforms.canopyFocusActive=focusActive;
+    shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
+      attribute vec4 canopyAnchor;varying float vCanopyVisible;
+      uniform vec3 canopyFocus;uniform float canopyFocusActive;`);
+    shader.vertexShader=shader.vertexShader.replace('#include <project_vertex>',`#include <project_vertex>
+      vCanopyVisible=1.;
+      if(canopyAnchor.w>.5) {
+        // Every vertex of a leaf shares an anchor: remove the whole leaf,
+        // rather than drawing a noisy transparency pattern across its face.
+        vec4 anchor=vec4(canopyAnchor.xyz,1.);
+        #ifdef USE_INSTANCING
+          anchor=instanceMatrix*anchor;
+        #endif
+        vec3 viewOffset=(modelMatrix*anchor).xyz-cameraPosition;
+        if(length(viewOffset)<1.6)vCanopyVisible=0.;
+        if(canopyFocusActive>.5) {
+          vec3 axis=canopyFocus-cameraPosition;
+          float along=dot(viewOffset,axis)/max(dot(axis,axis),.01);
+          if(along>0.&&along<1.05&&length(viewOffset-axis*along)<1.25)vCanopyVisible=0.;
+        }
+      }`);
+    shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
+      varying float vCanopyVisible;`);
+    shader.fragmentShader=shader.fragmentShader.replace('#include <clipping_planes_fragment>',`#include <clipping_planes_fragment>
+      if(vCanopyVisible<.5)discard;`);
+  };
+  material.customProgramCacheKey=()=> 'changan-canopy-camera-clearance-v2';
   function geometry(kind, coarse = false) {
-    const positions = [], colors = [], indices = [];
+    const positions = [], colors = [], indices = [], foliage = [];
     let seed = kind === 'willow' ? 22071 : kind === 'peach' ? 16038 : 90331;
     const random = () => ((seed = Math.imul(seed, 1664525) + 1013904223 | 0) >>> 0) / 4294967296;
     const colour = new THREE.Color(), bark = new THREE.Color(0x76533b);
-    function point(v, color) {
+    function point(v, color, isLeaf=0, anchor=v) {
       const i = positions.length / 3;
-      positions.push(v.x, v.y, v.z); colors.push(color.r, color.g, color.b); return i;
+      positions.push(v.x, v.y, v.z); colors.push(color.r, color.g, color.b); foliage.push(anchor.x,anchor.y,anchor.z,isLeaf); return i;
     }
     function twig(points, radius) {
       const radial = coarse ? 4 : 6, base = positions.length / 3;
@@ -33,10 +62,10 @@ const CityBotany = (() => {
     function leaf(p, direction, width, color) {
       const right = new V().crossVectors(direction, new V(0.23, 1, 0.15)).normalize().multiplyScalar(width);
       const normal = new V().crossVectors(right, direction).normalize().multiplyScalar(width * 0.24);
-      const middle = p.clone().addScaledVector(direction, 0.5);
-      const base = point(p, color), left = point(middle.clone().sub(right), color);
-      const tip = point(p.clone().add(direction), color), rightIndex = point(middle.clone().add(right), color);
-      const ridge = point(middle.add(normal), color);
+      const middle = p.clone().addScaledVector(direction, 0.5), anchor=middle.clone();
+      const base = point(p, color,1,anchor), left = point(middle.clone().sub(right), color,1,anchor);
+      const tip = point(p.clone().add(direction), color,1,anchor), rightIndex = point(middle.clone().add(right), color,1,anchor);
+      const ridge = point(middle.add(normal), color,1,anchor);
       indices.push(base, left, ridge, left, tip, ridge, tip, rightIndex, ridge, rightIndex, base, ridge);
     }
     function blossom(p, scale) {
@@ -99,9 +128,13 @@ const CityBotany = (() => {
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    g.setAttribute('canopyAnchor',new THREE.Float32BufferAttribute(foliage,4));
     g.setIndex(indices); g.computeVertexNormals(); return g;
   }
   const batches = {};
   for (const kind of ['willow', 'peach', 'pine']) batches['botany' + kind] = new Batch(geometry(kind), material, { farGeometry: geometry(kind, true), nearDistance: 62, maxDistance: 260, cellSize: 64 });
-  return { batches };
+  return {batches,
+    setFocus(position) {focusActive.value=position?1:0;if(position){focus.value.copy(position);focus.value.y+=1.35;}},
+    getClearanceState() {return {active:!!focusActive.value,focus:focus.value.toArray(),foliageVertices:batches.botanywillow.geometry.attributes.canopyAnchor.array.reduce((n,v,i)=>n+(i%4===3?v:0),0)};},
+  };
 })();

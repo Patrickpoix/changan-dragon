@@ -36,6 +36,11 @@ async def main():
   await page.evaluate('Cam.mode=1;Cam.zoom=.72;Cam.update(.016,player,true)')
   await smoke.frames(page,.15)
   await page.screenshot(path=str(out/'dragon-and-rigs.png'))
+  await page.locator('[data-mode="walk"]').click()
+  await page.evaluate('() => {const p=shorePaths[0].points[80];__changan.teleport(p[0],p[1],Math.PI);Cam.mode=0;Cam.userYaw=0;Cam.zoom=.8;Cam.update(.016,player,true);}')
+  await smoke.frames(page,.15)
+  forest=await page.evaluate('CityBotany.getClearanceState()');assert forest['active'] and forest['foliageVertices']>0,forest
+  await page.screenshot(path=str(out/'forest-clearance.png'))
   before=await page.evaluate('WorldAssets.getAnimalState()')
   await page.locator('[data-mode="fly"]').click();await page.wait_for_function('player.group.position.y>8')
   await smoke.frames(page,.3)

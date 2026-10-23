@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "browser": "Playwright Chromium; Browser plugin not available",
+  "viewport": [
+    844,
+    390
+  ],
+  "focus": {
+    "active": true,
+    "focus": [
+      427.47202302942526,
+      1.3840436697143448,
+      349.11495177132605
+    ],
+    "foliageVertices": 4320
+  },
+  "filmFocus": {
+    "active": false,
+    "focus": [
+      427.47202302942526,
+      1.384998412273148,
+      349.11495177132605
+    ],
+    "foliageVertices": 4320
+  },
+  "high": {
+    "initialized": true,
+    "quality": "high",
+    "requestedQuality": "high",
+    "suspended": false,
+    "antiAliasing": "FXAA",
+    "toneMapping": "ACESFilmic",
+    "exposure": 1.06,
+    "environment": "Poly Haven Venice Sunset PMREM",
+    "environmentIntensity": 0.48,
+    "aoWidth": 557,
+    "aoHeight": 257,
+    "bloom": true,
+    "postprocessing": true,
+    "width": 844,
+    "height": 390,
+    "pixelRatio": 1,
+    "frameCount": 45,
+    "drawCalls": 871,
+    "triangles": 2926657,
+    "lastFrameMs": 13.4,
+    "fallback": null
+  },
+  "external": [],
+  "cameraSwitch": true,
+  "glError": 0,
+  "errors": []
+}

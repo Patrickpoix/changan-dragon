@@ -28,7 +28,7 @@
 - 当前15个GLB源：13个Poly Haven CC0（陶锅、木凳、藤篮、木碗、木桶、苔石6形、阔叶树、蕨、草、姜、荔枝、亚洲梨5形、石榴），2个Quaternius CC0（马、鹿）；另2种Quaternius索引几何：Farmer面部1577顶点/2976面，以及Ships Pack中空小船790顶点/1460面。
 - GLB二进制7,182,492B，runtime-models.js 9,582,151B。市场果品约900余处实例，单次布局总计约1045–1075个逻辑模型摆放（代码消耗固定随机序列，改布局会改计数）；实际对象约273–280，不能将逻辑数误称绘制调用。
 - CC0瓦/灰泥法线粗糙、布料normal/ORM、Venice Sunset HDR；MIT miniLibs斗拱与Three；OFL马善政字体子集433168B。原许可/作者/源哈希/优化元数据保留在assets/library。Quaternius旧CC0包使用固定公开镜像commit722c39e…，作者具体许可页也保存，未用镜像仓库许可冒充模型许可。
-- 最新单文件 `dist/changan-dragon.html` 17,171,852B；源变动后重建。内嵌代码/字体/材质/GLB/许可，加载后移除脚本DOM并释放GLB原base64，保留解码共享资源。
+- 最新单文件 `dist/changan-dragon.html` 17,174,676B；源变动后重建。内嵌代码/字体/材质/GLB/许可，加载后移除脚本DOM并释放GLB原base64，保留解码共享资源。
 - Ships Pack小船已加工接入：22mm三段圆角/加权法线，保留作者中空轮廓与木色分区；数据在assets/boat-hulls.js，源文件、CC0作者页、固定镜像SHA和加工元数据在quaternius/boat_hull。船板/坐凳/桨座/人物/双桨/尾流为可编辑JS。
 
 ## 最新测试证据（不要把旧测试当最新）
@@ -51,9 +51,17 @@
 - 上一轮round12动作检查两时点恰遇正弦对称，夹具误报不动；现观察三个时点，真实动作变化已通过。旧final/final2/final3发现路面转角/栏柱问题，最终通过目录是final4。
 - 最新单文件offline_test已通过（/tmp/changan-offline-round15/results.json，仓库证据offline-boats-shore.json）：四处真实通行/宫阶/刷新存档、断网high倒影+SAO/Bloom/FXAA/PNG，零外部请求/页面/控制台错误。WebGL1也已通过（/tmp/changan-webgl1-round16/results.json，仓库证据webgl1-boats-shore.json），9蒙皮、飞行/赏景/高档安全回退、glError=0、零错误。
 
+## 林下镜头专项（舟船提交之后）
+
+- CityBotany新增每片叶/花瓣共享的局部anchor属性，顶点阶段检查相机近距与镜头到小龙头部视线；只移除遮挡的整片近叶，树干和远景树冠保留。赏景关闭小龙视线净空，仅保留相机极近叶片处理。并未把树木变为平面背景。
+- 初次抖动透明方案在截图有明显噪点，已弃用；整叶方案已实际看图通过，见qa-evidence/shore-camera-before.png与shore-camera-after.png。实现只作用程序柳/桃/松；导入作者阔叶树仍使用源材质。
+- qa-evidence/foliage-camera.json：最新17,174,676B单文件手机844×390，林下追随/切镜头/电影焦点关闭、断网high FXAA/SAO/Bloom、glError0、零外部请求/页面/控制台错误。相应/tmp/changan-foliage-review下有侧拍和断网高档图。
+- qa-evidence/webgl1-foliage.json：同版本WebGL1兼容通过，新增森林机位/叶片遮挡检查，9蒙皮、8动物姿态、飞行、电影和安全回退均正常，glError0、零错误。
+- 源码页浏览器自动请求favicon.ico产生404，已增加本地内嵌SVG品牌图标；没有忽略本轮错误，修改后最新单文件复验全控制台通过。
+
 ## 继续工作优先项
 
-1. 上述离线/WebGL1/完整园路行走均已通过，代码和记录准备提交推送main。新实际截图shore-camera-before.png显示林下追随镜头被近处叶片遮挡，应继续解决叶片遮挡角色的问题，并做实际截图复验。
+1. 舟船/园路成果已提交推送main：4f16bf4。林下镜头遮叶也已实现并通过新专项，详情见下段；完成本轮保存后继续精修城墙/植被/角色美术。
 2. 继续实际截图对照认可的art-direction.png和concept-market/palace/qujiang.png；电影级美术仍未达标。城墙在曲江镜头中过于单一，角色服饰、岸线庭园和城市层次仍需继续精修。
 3. 后续可先改善城墙材质与近景物理尺度：addCityWalls目前BoxGeometry默认UV将TEX.dirt拉伸到长墙，需按真实尺寸重映射并保留唐代夯土风格；不要误改为明清城墙套件。当前只是发现，尚未实施。
 4. 若新增素材继续核对具体作者许可、固定来源/hash、真实3D预览，再做代码整合和实际浏览器检查；不以概念图当场景。

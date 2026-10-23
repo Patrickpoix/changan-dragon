@@ -1044,6 +1044,7 @@ function animate(now) {
 
   Session.tick();
   WaterSurface.update(dt, GAME.nightT);
+  CityBotany.setFocus(GAME.started&&!Explore.film?player.group.position:null);
   GameRendering.render(dt);
 }
 
