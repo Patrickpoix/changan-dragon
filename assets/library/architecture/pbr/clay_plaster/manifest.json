@@ -1,0 +1,24 @@
+{
+  "id": "clay_plaster",
+  "license": "CC0-1.0",
+  "authors": {
+    "Amal Kumar": "All"
+  },
+  "files": [
+    {
+      "file": "normal.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_plaster/clay_plaster_nor_gl_1k.jpg",
+      "md5": "82e9cc526a00b3b8fddf7e43c40bdb38",
+      "sha256": "359f814292005ab16be86807678a4a51e8256a87c282ebf5f5333ce18c428fba",
+      "bytes": 784921
+    },
+    {
+      "file": "roughness.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_plaster/clay_plaster_rough_1k.jpg",
+      "md5": "d46fdc82c0538d0905281a761c63d9cf",
+      "sha256": "e91a6238456b54a82dbf2c025e0b046851c90e7e772fe2affd26a46b243ce7b7",
+      "bytes": 345709
+    }
+  ],
+  "use": "Normal and roughness only; base color belongs to the game art direction. No archaeological dating claimed."
+}

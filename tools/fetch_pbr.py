@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Fetch reviewed CC0 architectural microdetail without importing source colors."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -12,7 +13,12 @@ def read(url):
     with urllib.request.urlopen(request, timeout=60) as response:
         return response.read()
 
-for asset_id in ['clay_roof_tiles_02', 'white_plaster_rough_01']:
+reviewed=['clay_roof_tiles_02','white_plaster_rough_01','clay_plaster']
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('assets',nargs='*',help='Reviewed ids: '+', '.join(reviewed))
+args=parser.parse_args()
+if set(args.assets)-set(reviewed):parser.error('Only visually reviewed material ids may be fetched')
+for asset_id in args.assets or reviewed:
     info = json.loads(read('https://api.polyhaven.com/info/' + asset_id))
     files = json.loads(read('https://api.polyhaven.com/files/' + asset_id))
     folder = ROOT / 'assets/library/architecture/pbr' / asset_id

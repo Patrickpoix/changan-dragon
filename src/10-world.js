@@ -1037,12 +1037,27 @@ function buildMarket(cx, cz, w, d, name, east = false) {
 // ---------------------------------------------------------------- 城墙与城门
 function addCityWalls() {
   const h = 10.5, t = 6.5;
-  const wallMat = new THREE.MeshStandardMaterial({ map: TEX.dirt, color: 0xf0d2a4, roughness: 1 });
-  const wall = (x, z, w, d) => {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMat);
-    mesh.position.set(x, h / 2, z); mesh.castShadow = true; mesh.receiveShadow = true; scene.add(mesh);
-    addCollider(x - w / 2, x + w / 2, z - d / 2, z + d / 2, 'citywall');
-    flightObstacles.push({ x0: x - w / 2, x1: x + w / 2, z0: z - d / 2, z1: z + d / 2, top: h + 1.4 });
+  const wallMat = SurfaceLibrary.rammedEarth();
+  const wall = (x,z,w,d) => {
+    const geometry=new THREE.BoxGeometry(w,h,d),positions=geometry.attributes.position,normals=geometry.attributes.normal,uv=geometry.attributes.uv;
+    const alongX=w>d;
+    for(let i=0;i<positions.count;i++) {
+      // A broad earth footing narrows toward its parapet. Keep the old maximum
+      // footprint for collision, gate openings and the flight safety envelope.
+      const height=positions.getY(i)/h+.5,taper=1-height*.22;
+      if(alongX)positions.setZ(i,positions.getZ(i)*taper);else positions.setX(i,positions.getX(i)*taper);
+      const u=Math.abs(normals.getX(i))>.5?positions.getZ(i):positions.getX(i);
+      const v=Math.abs(normals.getY(i))>.5?positions.getZ(i):positions.getY(i);
+      // Source clay microdetail represents a 2m surface, including end caps.
+      uv.setXY(i,u/2,v/2);
+    }
+    geometry.computeVertexNormals();
+    const mesh=new THREE.Mesh(geometry,wallMat);mesh.name='tapered-citywall';
+    mesh.position.set(x,h/2,z);mesh.castShadow=mesh.receiveShadow=true;scene.add(mesh);
+    B.stone.add(x,.42,z,w+.04,.84,d+.04,0,0xb5aa93);
+    B.stone.add(x,h+.01,z,alongX?w+.04:w*.78+.1,.22,alongX?d*.78+.1:d+.04,0,0xb7ac95);
+    addCollider(x-w/2,x+w/2,z-d/2,z+d/2,'citywall');
+    flightObstacles.push({x0:x-w/2,x1:x+w/2,z0:z-d/2,z1:z+d/2,top:h+1.4});
   };
   // 南墙：明德门
   const gateS = 62;

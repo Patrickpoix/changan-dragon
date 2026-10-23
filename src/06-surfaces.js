@@ -29,14 +29,15 @@ const SurfaceLibrary = (() => {
     },
     architecture() {
       if (typeof SCENE_MATERIALS === 'undefined' || !SCENE_MATERIALS.architecture) return;
-      for (const [family, materials] of [['roof', [MAT.roof, MAT.roofGlazed]], ['plaster', [MAT.plaster, MAT.plasterWarm]]]) {
+      for (const [family, materials] of [['roof', [MAT.roof, MAT.roofGlazed]], ['plaster', [MAT.plaster, MAT.plasterWarm]], ['earth', []]]) {
         const textures = {};
         for (const key of ['normal', 'roughness']) {
           const texture = new THREE.TextureLoader().load(SCENE_MATERIALS.architecture[family][key]);
           texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-          texture.repeat.set(family === 'roof' ? 3 : 2, 2);
+          texture.repeat.set(family==='earth'?1:family==='roof'?3:2,family==='earth'?1:2);
           texture.colorSpace = THREE.NoColorSpace;
           textures[key] = texture;
+          maps[family+'-'+key]=texture;
         }
         for (const material of materials) {
           material.normalMap = textures.normal;
@@ -45,6 +46,28 @@ const SurfaceLibrary = (() => {
           material.needsUpdate = true;
         }
       }
+    },
+    rammedEarth() {
+      if(cache.has('rammed-earth'))return cache.get('rammed-earth');
+      const random=mulberry32(73310);
+      const map=makeTexture(512,512,(ctx,w,h)=>{
+        ctx.fillStyle='#c0b199';ctx.fillRect(0,0,w,h);
+        // Eight compressed earth lifts per 2m tile, with shallow weathering.
+        for(let i=0;i<8;i++) {
+          const y=i*h/8,gradient=ctx.createLinearGradient(0,y,0,y+h/8);
+          gradient.addColorStop(0,'rgba(91,75,54,.08)');gradient.addColorStop(.16,'rgba(238,220,185,.035)');gradient.addColorStop(1,'rgba(126,104,73,.045)');
+          ctx.fillStyle=gradient;ctx.fillRect(0,y,w,h/8);
+          ctx.strokeStyle='rgba(114,94,65,.065)';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(0,y);
+          ctx.bezierCurveTo(w*.3,y+2,w*.7,y-2,w,y);ctx.stroke();
+        }
+        for(let i=0;i<9000;i++) {
+          const x=random()*w,y=random()*h,size=.5+random()*2;
+          ctx.fillStyle=random()>.5?'rgba(72,58,39,.035)':'rgba(244,230,206,.045)';ctx.fillRect(x,y,size,size);
+        }
+      });
+      const material=new THREE.MeshStandardMaterial({map,color:0xffffff,roughness:1,metalness:0,
+        normalMap:maps['earth-normal'],normalScale:new THREE.Vector2(.24,.24),roughnessMap:maps['earth-roughness']});
+      material.name='rammed-earth-with-CC0-clay-microdetail';cache.set('rammed-earth',material);return material;
     },
     cloth(color) {
       if (cache.has(color)) return cache.get(color);

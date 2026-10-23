@@ -42,6 +42,7 @@ if __name__ == '__main__':
         hull=json.loads((boat_directory/'manifest.json').read_text())
         hull['runtime']=json.loads((boat_directory/'runtime-metadata.json').read_text())
         document['selected_boat_hulls']=[hull]
+    document['architecture_materials']=[json.loads(p.read_text()) for p in sorted((ROOT/'assets/library/architecture/pbr').glob('*/manifest.json'))]
     document['game_integration']=str(len(polyhaven)+len(quaternius))+'_local_GLTF_sources_with_materials_HDR_and_authored_rig_animation'
     document['notes']=f'{len(polyhaven)} reviewed Poly Haven GLB sources, {len(quaternius)} Quaternius animated animal GLBs, and two Quaternius-derived indexed geometry sources (merchant face and hollow boat hull). Source provenance, original and derived files remain separate. Kenney stays an unused optional library. Runtime geometry, bone ownership, animations and placement require browser verification; research-only candidates are not bundled.'
     path.write_text(json.dumps(document,ensure_ascii=False,indent=2)+'\n')

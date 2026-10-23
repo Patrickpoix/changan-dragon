@@ -14,7 +14,7 @@ data = {
     'environment': encoded('assets/environment/venice_sunset_1k.hdr'),
     'architecture': {name: {kind: 'data:image/jpeg;base64,' + encoded('assets/library/architecture/pbr/' + asset + '/' + kind + '.jpg')
                            for kind in ['normal', 'roughness']}
-                     for name, asset in [('roof', 'clay_roof_tiles_02'), ('plaster', 'white_plaster_rough_01')]},
+                     for name, asset in [('roof', 'clay_roof_tiles_02'), ('plaster', 'white_plaster_rough_01'), ('earth', 'clay_plaster')]},
 }
 header = '''/* Local CC0 physical material inputs: Microsoft SheenCloth normal/ORM/sheen,
  * and Greg Zaal / Poly Haven Venice Sunset HDR. See assets/library/pbr-cloth
@@ -22,5 +22,7 @@ header = '''/* Local CC0 physical material inputs: Microsoft SheenCloth normal/O
  * Original cloth basecolor is deliberately not used as Tang textile evidence. */
 '''
 output = ROOT / 'assets/scene-materials.js'
-output.write_text(header + 'const SCENE_MATERIALS = ' + json.dumps(data, separators=(',', ':')) + ';\n')
+temporary=output.with_suffix('.js.tmp')
+temporary.write_text(header + 'const SCENE_MATERIALS = ' + json.dumps(data, separators=(',', ':')) + ';\n')
+temporary.replace(output)
 print(f'Packed {output.relative_to(ROOT)} ({output.stat().st_size:,} bytes)')

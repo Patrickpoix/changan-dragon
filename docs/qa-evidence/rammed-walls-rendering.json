@@ -1,0 +1,355 @@
+{
+  "modern": {
+    "passed": true,
+    "viewport": {
+      "width": 1120,
+      "height": 630
+    },
+    "walls": [
+      {
+        "bottom": [
+          419,
+          6.5
+        ],
+        "top": [
+          419,
+          5.070000171661377
+        ],
+        "uvSpan": 209.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          419,
+          6.5
+        ],
+        "top": [
+          419,
+          5.070000171661377
+        ],
+        "uvSpan": 209.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          433,
+          6.5
+        ],
+        "top": [
+          433,
+          5.070000171661377
+        ],
+        "uvSpan": 216.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          106,
+          6.5
+        ],
+        "top": [
+          106,
+          5.070000171661377
+        ],
+        "uvSpan": 53,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          273,
+          6.5
+        ],
+        "top": [
+          273,
+          5.070000171661377
+        ],
+        "uvSpan": 136.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          418
+        ],
+        "top": [
+          5.070000171661377,
+          418
+        ],
+        "uvSpan": 209,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          308
+        ],
+        "top": [
+          5.070000171661377,
+          308
+        ],
+        "uvSpan": 154,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          418
+        ],
+        "top": [
+          5.070000171661377,
+          418
+        ],
+        "uvSpan": 209,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          308
+        ],
+        "top": [
+          5.070000171661377,
+          308
+        ],
+        "uvSpan": 154,
+        "normal": 1024,
+        "roughness": 1024
+      }
+    ],
+    "gateWalk": [
+      3.925482849986911e-15,
+      0.11699952978963661,
+      364.94599999999696
+    ],
+    "rendering": {
+      "initialized": true,
+      "quality": "high",
+      "requestedQuality": "high",
+      "suspended": false,
+      "antiAliasing": "FXAA",
+      "toneMapping": "ACESFilmic",
+      "exposure": 1.06,
+      "environment": "Poly Haven Venice Sunset PMREM",
+      "environmentIntensity": 0.48,
+      "aoWidth": 739,
+      "aoHeight": 416,
+      "bloom": true,
+      "postprocessing": true,
+      "width": 1120,
+      "height": 630,
+      "pixelRatio": 1,
+      "frameCount": 25,
+      "drawCalls": 818,
+      "triangles": 2700906,
+      "lastFrameMs": 15.5,
+      "fallback": null
+    },
+    "projection": [
+      {
+        "fov": 43,
+        "blackFraction": 0.0,
+        "meanLuma": 184.50092068331398,
+        "repairedPixel": [
+          212,
+          189,
+          159
+        ]
+      },
+      {
+        "fov": 58,
+        "blackFraction": 0.0,
+        "meanLuma": 178.11370378435927
+      },
+      {
+        "fov": 35,
+        "blackFraction": 0.0,
+        "meanLuma": 186.38239571234996
+      }
+    ],
+    "glError": 0,
+    "errors": [],
+    "external": []
+  },
+  "webgl1": {
+    "passed": true,
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "walls": [
+      {
+        "bottom": [
+          419,
+          6.5
+        ],
+        "top": [
+          419,
+          5.070000171661377
+        ],
+        "uvSpan": 209.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          419,
+          6.5
+        ],
+        "top": [
+          419,
+          5.070000171661377
+        ],
+        "uvSpan": 209.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          433,
+          6.5
+        ],
+        "top": [
+          433,
+          5.070000171661377
+        ],
+        "uvSpan": 216.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          106,
+          6.5
+        ],
+        "top": [
+          106,
+          5.070000171661377
+        ],
+        "uvSpan": 53,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          273,
+          6.5
+        ],
+        "top": [
+          273,
+          5.070000171661377
+        ],
+        "uvSpan": 136.5,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          418
+        ],
+        "top": [
+          5.070000171661377,
+          418
+        ],
+        "uvSpan": 209,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          308
+        ],
+        "top": [
+          5.070000171661377,
+          308
+        ],
+        "uvSpan": 154,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          418
+        ],
+        "top": [
+          5.070000171661377,
+          418
+        ],
+        "uvSpan": 209,
+        "normal": 1024,
+        "roughness": 1024
+      },
+      {
+        "bottom": [
+          6.5,
+          308
+        ],
+        "top": [
+          5.070000171661377,
+          308
+        ],
+        "uvSpan": 154,
+        "normal": 1024,
+        "roughness": 1024
+      }
+    ],
+    "gateWalk": [
+      3.953037402967726e-15,
+      0.11699974194308116,
+      364.72099999999693
+    ],
+    "rendering": {
+      "initialized": true,
+      "quality": "high",
+      "requestedQuality": "high",
+      "suspended": false,
+      "antiAliasing": "MSAA",
+      "toneMapping": "ACESFilmic",
+      "exposure": 1.06,
+      "environment": "Poly Haven Venice Sunset PMREM",
+      "environmentIntensity": 0.48,
+      "aoWidth": 0,
+      "aoHeight": 0,
+      "bloom": false,
+      "postprocessing": false,
+      "width": 844,
+      "height": 390,
+      "pixelRatio": 1,
+      "frameCount": 25,
+      "drawCalls": 235,
+      "triangles": 715456,
+      "lastFrameMs": 4.1,
+      "fallback": "HDR postprocessing unavailable; using filmic direct rendering"
+    },
+    "projection": [
+      {
+        "fov": 43,
+        "blackFraction": 0.0,
+        "meanLuma": 184.27985111328542
+      },
+      {
+        "fov": 58,
+        "blackFraction": 0.0,
+        "meanLuma": 178.53777301505949
+      },
+      {
+        "fov": 35,
+        "blackFraction": 0.0,
+        "meanLuma": 186.14824737144542
+      }
+    ],
+    "glError": 0,
+    "errors": [],
+    "external": []
+  }
+}

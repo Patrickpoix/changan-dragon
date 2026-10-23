@@ -63,3 +63,7 @@ python3 tools/offline_test.py --output /tmp/changan-offline-review
 ## 林下角色视野
 
 相机近叶与玩家视线遮挡按整片叶处理，保留树干和远处树冠；赏景关闭玩家净空。抖动透明初稿出现噪点，已弃用。`shore-camera-before.png` / `shore-camera-after.png`为相同机位实际画面对照。`foliage-camera.json`验证17,174,676B新版单文件，844×390实际追随、切镜头、电影焦点关闭、断网high FXAA/SAO/Bloom通过，零外部请求/页面/控制台错误、glError0。`webgl1-foliage.json`进一步验证同包WebGL1森林画面、9蒙皮/8动物动作、飞行/赏景/高画质安全回退，无错误。之前整段园路/通行面已在该改动前一版通过，本次未重复宣称全套通行面重测。
+
+## 城墙近景与HDR边界防护
+
+原先墙体脚本仅验证控制台/材质/通行会返回PASS，但实际高档近景全黑；人工否决后新增`tools/rendering_test.py`，真实复现并锁定像素检查。详见RENDERING_DIAGNOSIS.md。`rammed-walls-rendering.json`：18,687,084B版本在现代1120×630/强制WebGL1手机844×390通过，实际穿门、法线/粗糙度/物理UV/收分、断网高档、FOV43/58/35画面、原黑点恢复、零外部请求/页面/控制台错误、glError0。原始HDR输入少数NaN由后处理边界过滤与局部恢复保护；底层着色/驱动精确来源未确认，不将本次修复冒称所有输入浮点值都正常。

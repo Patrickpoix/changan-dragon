@@ -58,6 +58,7 @@ python3 tools/build_standalone.py
 ```sh
 python3 tools/smoke_test.py --viewports desktop landscape compact portrait
 python3 tools/offline_test.py
+python3 tools/rendering_test.py
 ```
 
 测试证据默认写到临时目录。完整说明见 [浏览器验收](docs/QA.md)。当前进展和剩余的视觉验收记录见 [续做记录](docs/CONTINUE.md)，不能把旧截图或概念图视为最终运行画面。
@@ -65,3 +66,5 @@ python3 tools/offline_test.py
 开发环境恢复与启动见 [ENVIRONMENT.md](docs/ENVIRONMENT.md)。仓库保留可直接下载的 `dist/changan-dragon.html`；修改源码后重新运行打包脚本并更新该文件。
 
 舟船采用真实吃水的画舫和中空小舟，含划桨人物/双桨动作与轻尾流。曲江东岸新增可行走的园路；可见湖岸、水域判断与小地图使用同一实际轮廓。
+
+外郭城墙采用实际收分体积、按2米物理尺度的黏土微表面与代码夯层。高档后处理增加非法HDR颜色的过滤与局部恢复，避免少数异常像素扩散成大片黑屏。

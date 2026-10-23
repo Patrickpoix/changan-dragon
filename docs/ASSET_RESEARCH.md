@@ -189,3 +189,9 @@ Ships Pack小船候选已联网取得CC0作者页面并做离线3D预览，但�
 在审阅原船体与实际3D预览后，保留其内外船壳，而不是直接搬入整套西式船只。原source.glb11828B，作者包页ships.html明确CC0，固定镜像722c39e…路径及SHA256保存在quaternius/boat_hull/manifest.json。加工脚本prepare_boats.py焊接接缝、22mm三段圆角/加权法线，导出790顶点/1460面、49927B的可编辑索引几何boat-hulls.js；去除源金属感，保留木色分区。
 
 实际中空舱、木板/横凳、人物、双桨及浅尾流已在运行截图核对。人物沿用单独记录的作者面部；身体和服饰、桨姿/船姿/船道均为本项目代码。GLB来源仍15种，另有面部与船壳2种索引几何来源，不将其混算为第16种GLB或近千个独立模型来源。
+
+## 城墙微表面与植被候选（继续main）
+
+实际检索Poly Haven目录并下载预览/作者数据，对比clay_plaster（Amal Kumar）、excavated_soil_wall（Amal Kumar）、bark_willow_02（Charlotte Baglioni）。开挖土壁裂隙过强，不用于城墙；柳树皮有清楚纵向纹理，但程序树还需专门的枝干UV/叶片材质分离，当前只作候选，不计入运行素材。
+
+正式采用clay_plaster约2×2m的1k OpenGL法线784921B和粗糙度345709B，官方MD5验证通过，SHA256/作者/许可在architecture/pbr/clay_plaster。暖色和夯层仍是可编辑代码生成，墙体真实收分、物理比例UV、薄石基压顶；未借用明清砖墙套件。两份贴图已打入scene-materials.js；仍是15GLB+2索引几何来源，不能把新增PBR当新增整栋建筑来源。

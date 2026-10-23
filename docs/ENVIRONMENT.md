@@ -19,12 +19,13 @@ python3 -m http.server 8877 --bind 0.0.0.0 --directory /workspace/changan-dragon
 
 ## 浏览器检查
 
-当前Python Playwright、`/usr/bin/chromium`已装。新机器如未保留这些依赖，可安装 `python3 -m pip install playwright` 并执行 `python3 -m playwright install --with-deps chromium`；检查工具可用 `--browser` 指定路径。浏览器插件可用时优先使用，否则运行：
+当前Python Playwright、`/usr/bin/chromium`已装。新机器如未保留这些依赖，可安装 `python3 -m pip install playwright pillow` 并执行 `python3 -m playwright install --with-deps chromium`；检查工具可用 `--browser` 指定路径。浏览器插件可用时优先使用，否则运行：
 
 ```sh
 python3 tools/smoke_test.py --url 'http://127.0.0.1:8877/?quality=low' --viewports landscape compact portrait
 python3 tools/offline_test.py
 python3 tools/compatibility_test.py
+python3 tools/rendering_test.py
 ```
 
 同一时刻只打开一个完整WebGL场景。云端Chromium使用SwiftShader；只证明功能和API兼容，不证明实际手机性能。file://被管理策略阻止，单文件以HTTP加载后断网测试，不绕过策略。

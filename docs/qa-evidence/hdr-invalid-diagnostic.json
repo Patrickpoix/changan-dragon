@@ -1,0 +1,454 @@
+{
+  "before": {
+    "width": 1120,
+    "height": 630,
+    "invalid": 54,
+    "maximum": 1.1025390625,
+    "points": [
+      {
+        "x": 268,
+        "y": 275,
+        "value": "NaN"
+      },
+      {
+        "x": 268,
+        "y": 275,
+        "value": "NaN"
+      },
+      {
+        "x": 268,
+        "y": 275,
+        "value": "NaN"
+      },
+      {
+        "x": 269,
+        "y": 275,
+        "value": "NaN"
+      },
+      {
+        "x": 269,
+        "y": 275,
+        "value": "NaN"
+      }
+    ],
+    "gl": 0
+  },
+  "after": [
+    {
+      "width": 560,
+      "height": 315,
+      "invalid": 27,
+      "maximum": 0,
+      "points": [
+        {
+          "x": 134,
+          "y": 137,
+          "value": "NaN"
+        },
+        {
+          "x": 134,
+          "y": 137,
+          "value": "NaN"
+        },
+        {
+          "x": 134,
+          "y": 137,
+          "value": "NaN"
+        },
+        {
+          "x": 135,
+          "y": 137,
+          "value": "NaN"
+        },
+        {
+          "x": 135,
+          "y": 137,
+          "value": "NaN"
+        }
+      ],
+      "gl": 0
+    },
+    {
+      "width": 560,
+      "height": 315,
+      "invalid": 462,
+      "maximum": 0,
+      "points": [
+        {
+          "x": 130,
+          "y": 133,
+          "value": "NaN"
+        },
+        {
+          "x": 130,
+          "y": 133,
+          "value": "NaN"
+        },
+        {
+          "x": 130,
+          "y": 133,
+          "value": "NaN"
+        },
+        {
+          "x": 131,
+          "y": 133,
+          "value": "NaN"
+        },
+        {
+          "x": 131,
+          "y": 133,
+          "value": "NaN"
+        }
+      ],
+      "gl": 0
+    },
+    {
+      "width": 280,
+      "height": 158,
+      "invalid": 1044,
+      "maximum": 0,
+      "points": [
+        {
+          "x": 61,
+          "y": 62,
+          "value": "NaN"
+        },
+        {
+          "x": 61,
+          "y": 62,
+          "value": "NaN"
+        },
+        {
+          "x": 61,
+          "y": 62,
+          "value": "NaN"
+        },
+        {
+          "x": 62,
+          "y": 62,
+          "value": "NaN"
+        },
+        {
+          "x": 62,
+          "y": 62,
+          "value": "NaN"
+        }
+      ],
+      "gl": 0
+    },
+    {
+      "width": 140,
+      "height": 79,
+      "invalid": 2454,
+      "maximum": 0,
+      "points": [
+        {
+          "x": 23,
+          "y": 24,
+          "value": "NaN"
+        },
+        {
+          "x": 23,
+          "y": 24,
+          "value": "NaN"
+        },
+        {
+          "x": 23,
+          "y": 24,
+          "value": "NaN"
+        },
+        {
+          "x": 24,
+          "y": 24,
+          "value": "NaN"
+        },
+        {
+          "x": 24,
+          "y": 24,
+          "value": "NaN"
+        }
+      ],
+      "gl": 0
+    },
+    {
+      "width": 70,
+      "height": 40,
+      "invalid": 3807,
+      "maximum": 0,
+      "points": [
+        {
+          "x": 2,
+          "y": 3,
+          "value": "NaN"
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "value": "NaN"
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "value": "NaN"
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "value": "NaN"
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "value": "NaN"
+        }
+      ],
+      "gl": 0
+    },
+    {
+      "width": 35,
+      "height": 20,
+      "invalid": 2040,
+      "maximum": 0,
+      "points": [
+        {
+          "x": 0,
+          "y": 0,
+          "value": "NaN"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "value": "NaN"
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "value": "NaN"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "value": "NaN"
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "value": "NaN"
+        }
+      ],
+      "gl": 0
+    }
+  ],
+  "hitObjects": [
+    [
+      {
+        "name": "tapered-citywall",
+        "material": "rammed-earth-with-CC0-clay-microdetail",
+        "type": "BoxGeometry",
+        "batch": null,
+        "instance": null,
+        "distance": 13.24980793268122
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 72.50985188357008
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 72.59257852083036
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 32,
+        "distance": 84.45392067139774
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 99,
+        "distance": 119.1939566739059
+      }
+    ],
+    [
+      {
+        "name": "tapered-citywall",
+        "material": "rammed-earth-with-CC0-clay-microdetail",
+        "type": "BoxGeometry",
+        "batch": null,
+        "instance": null,
+        "distance": 13.24980793268122
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 72.50985188357008
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 72.59257852083036
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 32,
+        "distance": 84.45392067139774
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 99,
+        "distance": 119.1939566739059
+      }
+    ],
+    [
+      {
+        "name": "tapered-citywall",
+        "material": "rammed-earth-with-CC0-clay-microdetail",
+        "type": "BoxGeometry",
+        "batch": null,
+        "instance": null,
+        "distance": 13.24980793268122
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 72.50985188357008
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 72.59257852083036
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 32,
+        "distance": 84.45392067139774
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 99,
+        "distance": 119.1939566739059
+      }
+    ],
+    [
+      {
+        "name": "tapered-citywall",
+        "material": "rammed-earth-with-CC0-clay-microdetail",
+        "type": "BoxGeometry",
+        "batch": null,
+        "instance": null,
+        "distance": 13.252910213163055
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 70.88160142086527
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 70.97497503506837
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 32,
+        "distance": 84.47372123243203
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 99,
+        "distance": 119.22190217596521
+      }
+    ],
+    [
+      {
+        "name": "tapered-citywall",
+        "material": "rammed-earth-with-CC0-clay-microdetail",
+        "type": "BoxGeometry",
+        "batch": null,
+        "instance": null,
+        "distance": 13.252910213163055
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 70.88160142086527
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "BufferGeometry",
+        "batch": "botanywillow",
+        "instance": 0,
+        "distance": 70.97497503506837
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 32,
+        "distance": 84.47372123243203
+      },
+      {
+        "name": "",
+        "material": "",
+        "type": "ExtrudeGeometry",
+        "batch": "plaster",
+        "instance": 99,
+        "distance": 119.22190217596521
+      }
+    ]
+  ]
+}

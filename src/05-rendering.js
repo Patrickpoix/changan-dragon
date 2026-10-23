@@ -4,7 +4,7 @@
   'use strict';
   const T = global.THREE;
   const A = global.ChanganRenderingAddons;
-  let renderer, scene, camera, composer, ao, bloom, fxaa, environmentTarget;
+  let renderer, scene, camera, composer, ao, bloom, fxaa, outputPass, environmentTarget;
   let width = 1, height = 1, pixelRatio = 1, requestedQuality = 'auto';
   let quality = 'low', suspended = false, initialized = false, failed = false;
   let failureReason = '', environmentReady = false, excluded = [], refreshNeeded = true;
@@ -27,7 +27,7 @@
       for (const pass of composer.passes) pass.dispose?.();
       composer.dispose();
     }
-    composer = ao = bloom = fxaa = null;
+    composer = ao = bloom = fxaa = outputPass = null;
     Object.assign(state, { aoWidth: 0, aoHeight: 0, bloom: false, postprocessing: false });
   }
 
@@ -153,10 +153,39 @@
       // broad diffuse light range, retaining grain and roof-tile detail.
       if (quality === 'high') {
         bloom = new A.UnrealBloomPass(new T.Vector2(width, height), 0.12, 0.35, 1.25);
+        // A few invalid HDR taps otherwise poison every progressively blurred
+        // mip and black out the image. Keep finite scene radiance unchanged;
+        // ignore invalid taps before they can enter the glare pyramid.
+        const sample='vec4 texel = texture2D( tDiffuse, vUv );';
+        bloom.materialHighPassFilter.fragmentShader=bloom.materialHighPassFilter.fragmentShader.replace(sample,
+          sample+'\nif(any(isnan(texel)) || any(isinf(texel))) texel=vec4(0.0);');
         composer.addPass(bloom);
         state.bloom = true;
       }
-      composer.addPass(new A.OutputPass());
+      outputPass=new A.OutputPass();
+      outputPass.uniforms.changanTexelSize={value:new T.Vector2(1,1)};
+      outputPass.material.fragmentShader=outputPass.material.fragmentShader
+        .replace('uniform sampler2D tDiffuse;', 'uniform sampler2D tDiffuse;\nuniform vec2 changanTexelSize;')
+        .replace('void main() {', `bool changanFinite(vec4 value) {
+          return all(lessThanEqual(abs(value),vec4(65504.0)));
+        }
+        void main() {`)
+        .replace('gl_FragColor = texture2D( tDiffuse, vUv );', `gl_FragColor=texture2D(tDiffuse,vUv);
+          if(!changanFinite(gl_FragColor)) {
+            // Reconstruct only an invalid HDR pixel from nearby valid scene
+            // samples. Valid texture detail and lighting pass through untouched.
+            vec2 stepUV=changanTexelSize*4.;vec4 sum=vec4(0.);float weight=0.;
+            vec4 sampleColor=texture2D(tDiffuse,vUv+vec2(stepUV.x,0.));
+            if(changanFinite(sampleColor)){sum+=sampleColor;weight+=1.;}
+            sampleColor=texture2D(tDiffuse,vUv-vec2(stepUV.x,0.));
+            if(changanFinite(sampleColor)){sum+=sampleColor;weight+=1.;}
+            sampleColor=texture2D(tDiffuse,vUv+vec2(0.,stepUV.y));
+            if(changanFinite(sampleColor)){sum+=sampleColor;weight+=1.;}
+            sampleColor=texture2D(tDiffuse,vUv-vec2(0.,stepUV.y));
+            if(changanFinite(sampleColor)){sum+=sampleColor;weight+=1.;}
+            gl_FragColor=weight>0.?sum/weight:vec4(0.,0.,0.,1.);
+          }`);
+      composer.addPass(outputPass);
       if (A.ShaderPass && A.FXAAShader) {
         fxaa = new A.ShaderPass(A.FXAAShader);
         composer.addPass(fxaa);
@@ -258,6 +287,13 @@
         oldShaderError?.(...args);
       };
       try {
+        // r160 SAOPass copies this inverse only during construction/setSize.
+        // Depth reconstruction must also track FOV changes between resizes.
+        outputPass?.uniforms.changanTexelSize.value.set(1/composer.readBuffer.width,1/composer.readBuffer.height);
+        if(ao) {
+          ao.saoMaterial.uniforms.cameraInverseProjectionMatrix.value.copy(camera.projectionMatrixInverse);
+          ao.saoMaterial.uniforms.cameraProjectionMatrix.value=camera.projectionMatrix;
+        }
         composer.render(Math.min(0.1, Math.max(0, Number(delta) || 0)));
         if (shaderFailed) throw new Error('GPU could not compile a postprocessing shader');
       } catch (error) {

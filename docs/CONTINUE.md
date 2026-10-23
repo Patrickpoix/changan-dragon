@@ -28,7 +28,7 @@
 - 当前15个GLB源：13个Poly Haven CC0（陶锅、木凳、藤篮、木碗、木桶、苔石6形、阔叶树、蕨、草、姜、荔枝、亚洲梨5形、石榴），2个Quaternius CC0（马、鹿）；另2种Quaternius索引几何：Farmer面部1577顶点/2976面，以及Ships Pack中空小船790顶点/1460面。
 - GLB二进制7,182,492B，runtime-models.js 9,582,151B。市场果品约900余处实例，单次布局总计约1045–1075个逻辑模型摆放（代码消耗固定随机序列，改布局会改计数）；实际对象约273–280，不能将逻辑数误称绘制调用。
 - CC0瓦/灰泥法线粗糙、布料normal/ORM、Venice Sunset HDR；MIT miniLibs斗拱与Three；OFL马善政字体子集433168B。原许可/作者/源哈希/优化元数据保留在assets/library。Quaternius旧CC0包使用固定公开镜像commit722c39e…，作者具体许可页也保存，未用镜像仓库许可冒充模型许可。
-- 最新单文件 `dist/changan-dragon.html` 17,174,676B；源变动后重建。内嵌代码/字体/材质/GLB/许可，加载后移除脚本DOM并释放GLB原base64，保留解码共享资源。
+- 最新单文件 `dist/changan-dragon.html` 18,687,084B；源变动后重建。内嵌代码/字体/材质/GLB/许可，加载后移除脚本DOM并释放GLB原base64，保留解码共享资源。
 - Ships Pack小船已加工接入：22mm三段圆角/加权法线，保留作者中空轮廓与木色分区；数据在assets/boat-hulls.js，源文件、CC0作者页、固定镜像SHA和加工元数据在quaternius/boat_hull。船板/坐凳/桨座/人物/双桨/尾流为可编辑JS。
 
 ## 最新测试证据（不要把旧测试当最新）
@@ -81,3 +81,14 @@ python3 tools/compatibility_test.py --output /tmp/changan-webgl1-review
 ```
 
 修改addons后 `node tools/build_rendering_addons.mjs`；修改采用的GLB后 `python3 tools/build_asset_bundle.py --bundle`；字体覆盖修改后 `python3 tools/subset_font.py`。历史详细记录保留在CONTINUE_HISTORY.md；以上当前记录优先。
+
+## 城墙与有限HDR渲染（本轮最新）
+
+- 新clay_plaster（Poly Haven / Amal Kumar / CC0）1k法线与粗糙度已正式接入，约2m物理尺寸、官方MD5/SHA记录、许可和加工说明齐全。开挖土壁否决，柳树皮仅候选。新增PBR不计入15个GLB来源。
+- 城墙下宽上窄、物理UV、薄石基/压顶，保留原最大碰撞/飞行包围与城门开口。新SurfaceLibrary.rammedEarth控制暖色夯层和微表面；原Three引擎与addon文件保留不动。
+- 人工看图发现“启动/控制台通过”仍可能高档近看全黑。现在维护tools/rendering_test.py，验证实际图像、原故障点和FOV变化；所有派生材质与实际通行都要看运行图。
+- 诊断证据确认场景HDR输入18个NaN像素被泛光扩散。补上逆投影同步只是独立修正，单独禁用AO不解决；不能再说根因已确认为AO或法线。修改normalMap/切线/基础材质/环境的临时对照也未消除，所以基础着色/驱动的精确来源仍未确认。
+- 已在泛光入口过滤非法值，在输出阶段用有效邻色重建非法像素；有效像素不改变，泛光/AO/FXAA/ACES保留。详细证据和取舍在RENDERING_DIAGNOSIS.md，原始GPU读回在qa-evidence/hdr-invalid-diagnostic.json。
+- qa-evidence/rammed-walls-rendering.json：最新18,687,084B单文件现代1120×630/强制WebGL1手机844×390，9段墙有1024²法线/粗糙度、UV与收分；实际穿门397→364.946；断网切高档与FOV43/58/35真实图像通过，黑区比例0、原故障点RGB212/189/159、glError0，零外部请求/页面/控制台错误。截图wall-black-before.png与wall-close-after.png可对照。
+- medium通道最后补测正在运行exec27572，/tmp/changan-rendering-medium-final.log；完成后记录结果再结束本轮保存。应用源已通过high及WebGL1，medium是额外补测，不能将尚未结束的结果称为通过。
+- 下一步应继续对照认可概念提高建筑/人物/园林层次，当前视觉仍远低于用户AAA期望。有限值防护已解决可见扩散与细线，但未确定底层输入NaN来源，可保留GPU诊断路径供后续硬件比对，不要假装已取得手机真机结论。
