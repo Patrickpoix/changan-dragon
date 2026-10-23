@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # Focused recovery QA; Browser connector unavailable, using local Playwright/Chromium.
-import asyncio,json,pathlib
+import asyncio,json,pathlib,argparse,datetime
 from playwright.async_api import async_playwright
-ROOT=pathlib.Path(__file__).resolve().parents[1];OUT=ROOT/'docs/qa-evidence/resource-recovery';OUT.mkdir(exist_ok=True)
+parser=argparse.ArgumentParser();parser.add_argument('--models',choices=['recovered','authored'],default='recovered');parser.add_argument('--output',default='/tmp/changan-resource-review');args=parser.parse_args()
+ROOT=pathlib.Path(__file__).resolve().parents[1];OUT=pathlib.Path(args.output);OUT.mkdir(parents=True,exist_ok=True)
+MODEL_DIR='authored-studies' if args.models=='authored' else 'studies'
 async def main():
  results=[]
  async with async_playwright() as p:
@@ -14,7 +16,7 @@ async def main():
    for name in ['street','willow','pine','blossom']:
     for lod in range(3):
      file=f'{name}-lod{lod}.glb'
-     await page.goto('http://127.0.0.1:8877/tools/model_review.html?model=../assets/library/vegetation/studies/'+file)
+     await page.goto('http://127.0.0.1:8877/tools/model_review.html?model=../assets/library/vegetation/'+MODEL_DIR+'/'+file)
      await page.wait_for_function('window.__modelReview?.ready || window.__modelReview?.error',timeout=60000)
      r=await page.evaluate('''() => {const r=__modelReview;const box=new THREE.Box3().setFromObject(r.model);let max=0;for(let x of [box.min.x,box.max.x])for(let y of [box.min.y,box.max.y])for(let z of [box.min.z,box.max.z]){const q=new THREE.Vector3(x,y,z).project(r.camera);max=Math.max(max,Math.abs(q.x),Math.abs(q.y));}return {ready:r.ready,error:r.error,triangles:r.triangles,bounds:r.bounds,gl:r.renderer.getContext().getError(),webgl2:r.renderer.capabilities.isWebGL2,maxProjectedCorner:max};}''')
      assert r['ready'] and not r['error'] and r['gl']==0 and r['maxProjectedCorner']<1,r
@@ -38,6 +40,6 @@ async def main():
    assert not errors,errors
    await page.close()
   await browser.close()
- (OUT/'results.json').write_text(json.dumps({'checked_on':'2026-10-24','scope':'Reconstructed studies and model review only','browser':'Chromium SwiftShader; not physical phone validation','checks':['24 GLB loads','GL error 0','bounds inside viewport','front/side/back/above controls','grey toggle','actual local file input and model replacement','invalid file preserves previous model'],'results':results,'page_console_errors':[],'final_art_accepted':False,'runtime_integrated':False},ensure_ascii=False,indent=2)+'\n')
+ (OUT/'results.json').write_text(json.dumps({'checked_on':datetime.datetime.now(datetime.timezone.utc).date().isoformat(),'scope':args.models+' studies and model review only','browser':'Chromium SwiftShader; not physical phone validation','checks':['24 GLB loads','GL error 0','bounds inside viewport','front/side/back/above controls','grey toggle','actual local file input and model replacement','invalid file preserves previous model'],'results':results,'page_console_errors':[],'final_art_accepted':False,'runtime_integrated':False},ensure_ascii=False,indent=2)+'\n')
  print('PASS',len(results),'loads; modern + forced WebGL1, local file replacement and invalid input')
 asyncio.run(main())

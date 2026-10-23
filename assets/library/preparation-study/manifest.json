@@ -1,0 +1,87 @@
+{
+  "status": "preparation_geometry_and_material_study",
+  "final_art_accepted": false,
+  "runtime_integrated": false,
+  "generator": "tools/build_preparation_study.py",
+  "generator_sha256": "bcb240c08589d6035b019dbdb3cdd050fe3365d62569bcf29e88dab68af5a08d",
+  "spec": "docs/production-spec.json",
+  "units": "metres; glTF Y-up; character faces +Z",
+  "triangles": 169486,
+  "bytes": 8720028,
+  "sha256": "fdddc2eb0178c93f55577cb9e62e2a50e571d5594b72aa022da55e6d15635de9",
+  "dimensions_blender_xyz": {
+    "Timber shop - project sample and third-party notices": [
+      13.30182,
+      10.195,
+      10.09254
+    ],
+    "existing architecture study": [
+      13.30182,
+      10.195,
+      10.09254
+    ],
+    "round collar resident": [
+      1.13864,
+      0.56834,
+      1.801
+    ],
+    "ruqun resident": [
+      1.15121,
+      0.50821,
+      1.741
+    ],
+    "dragon 1.255m silhouette study": [
+      0.81845,
+      1.05556,
+      1.22447
+    ],
+    "wood bicycle wheel diameter 0.50m": [
+      0.36,
+      1.34595,
+      0.814
+    ],
+    "rooted drooping willow revision": [
+      5.86738,
+      5.48968,
+      6.98529
+    ],
+    "recovered alpha-mask pine comparison": [
+      4.13368,
+      4.38891,
+      9.95632
+    ]
+  },
+  "palette": {
+    "wood": {
+      "baseColor_sRGB_hex": "926043"
+    },
+    "bark": {
+      "baseColor_sRGB_hex": "635446"
+    },
+    "stone": {
+      "baseColor_sRGB_hex": "b4ad96"
+    },
+    "cloth": {
+      "baseColor_sRGB_hex": "526b78"
+    },
+    "silk": {
+      "baseColor_sRGB_hex": "c29561"
+    },
+    "jade": {
+      "baseColor_sRGB_hex": "73ac8c"
+    },
+    "cream": {
+      "baseColor_sRGB_hex": "e3d7b0"
+    },
+    "red": {
+      "baseColor_sRGB_hex": "a75c46"
+    }
+  },
+  "limitations": [
+    "Unrigged character proportion and clothing prototypes; sleeve/hand and neck/face seams need production retopology",
+    "Dragon remesh is a sculpt base; eye sockets, expressions, tail continuity and rig not production-approved",
+    "Authored willow crown remains a study and architecture exceeds normal-shop LOD0 target",
+    "Physical UV study uses per-face planar mapping; seam/bake work remains",
+    "No game deployment or physical phone performance claim"
+  ]
+}

@@ -54,7 +54,7 @@ function fit(){
 function view(name){theta={front:0,side:Math.PI/2,back:Math.PI,above:.5}[name]??.62;phi=name==='above'?.30:1.38;fit();dirty=true;draw()}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>view(b.dataset.view)));
 document.querySelector('#grey').addEventListener('click',e=>{
- grey=!grey;model?.traverse(o=>{if(o.isMesh)o.material=grey?neutral:o.userData.reviewMaterial});e.currentTarget.setAttribute('aria-pressed',String(grey));dirty=true;draw();
+ grey=!grey;model?.traverse(o=>{if(o.isMesh)o.material=grey?o.userData.reviewGreyMaterial:o.userData.reviewMaterial});e.currentTarget.setAttribute('aria-pressed',String(grey));dirty=true;draw();
 });
 document.querySelector('#grid').addEventListener('click',e=>{grid.visible=!grid.visible;e.currentTarget.setAttribute('aria-pressed',String(grid.visible));dirty=true;draw()});
 document.querySelector('#reset').addEventListener('click',()=>{theta=.62;phi=1.29;fit();dirty=true;draw()});
@@ -63,7 +63,7 @@ const loader=new ChanganRenderingAddons.GLTFLoader();
 window.__modelReview={ready:false,view,draw,renderer,scene,camera,get model(){return model},get grey(){return grey}};
 function dispose(object){
  const geometries=new Set(),materials=new Set(),textures=new Set();
- object?.traverse(o=>{if(!o.isMesh)return;geometries.add(o.geometry);for(const m of savedMaterials.get(o)??(Array.isArray(o.material)?o.material:[o.material])){if(!m)continue;materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
+ object?.traverse(o=>{if(!o.isMesh)return;geometries.add(o.geometry);const original=savedMaterials.get(o)??(Array.isArray(o.material)?o.material:[o.material]);const greySet=[o.userData.reviewGreyMaterial].flat();for(const m of [...original,...greySet]){if(!m||m===neutral)continue;materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
  geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
 }
 function failure(error,id){if(id!==loadId)return;document.querySelector('#error').hidden=false;document.querySelector('#error').textContent='样板载入失败：'+(error.message||error);window.__modelReview.error=String(error);window.__modelReview.ready=!!model;}
@@ -74,7 +74,15 @@ function install(gltf,label,id){
  if(model){scene.remove(model);dispose(model);}savedMaterials.clear();model=next;let triangles=0,meshes=0;
  model.traverse(o=>{if(!o.isMesh)return;meshes++;triangles+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;o.castShadow=o.receiveShadow=true;
  const materials=Array.isArray(o.material)?o.material:[o.material];savedMaterials.set(o,materials);o.userData.reviewMaterial=o.material;
- for(const m of materials)m.envMapIntensity=.35;if(grey)o.material=neutral;
+ const greys=materials.map(m=>{
+  m.envMapIntensity=.35;
+  if(!m.alphaTest&&!m.transparent)return neutral;
+  const g=new T.MeshStandardMaterial({color:0x90958f,roughness:.86,map:m.map,alphaMap:m.alphaMap,alphaTest:m.alphaTest,transparent:m.transparent,opacity:m.opacity,side:m.side,depthWrite:m.depthWrite});
+  // Keep source image alpha, while removing image RGB from the grey silhouette.
+  g.onBeforeCompile=s=>{s.fragmentShader=s.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\n diffuseColor.rgb = vec3(0.2789, 0.3005, 0.2747);');};
+  return g;
+ });
+ o.userData.reviewGreyMaterial=Array.isArray(o.material)?greys:greys[0];if(grey)o.material=o.userData.reviewGreyMaterial;
  });
  scene.add(model);target.copy(box.getCenter(new T.Vector3()));modelRadius=size.length()/2;fit();
  ground.position.y=box.min.y-.012;ground.scale.setScalar(Math.max(1,modelRadius/20));grid.position.y=box.min.y+.006;

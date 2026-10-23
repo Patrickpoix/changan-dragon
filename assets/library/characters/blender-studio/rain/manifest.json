@@ -1,0 +1,362 @@
+{
+  "name": "rain",
+  "author": "Blender Studio; per-package credits preserved",
+  "source_page": "https://studio.blender.org/characters/rain/v2/",
+  "download": "https://studio.blender.org/download-source/files/10/1033fad76f67bba3e362065d68c85791/1033fad76f67bba3e362065d68c85791.zip",
+  "license": "CC-BY-4.0 according to official source page; inspect archive notices before runtime derivation",
+  "stage": "source_acquired_not_game_ready",
+  "bytes": 199329585,
+  "sha256": "91d9ecf53b62c5ac533d86d711697fbe177b9ca6968ef46471661e2ffd8586eb",
+  "archive_members": [
+    {
+      "path": "maps/",
+      "bytes": 0
+    },
+    {
+      "path": "maps/fabric_solid_24-color.jpg",
+      "bytes": 6271840
+    },
+    {
+      "path": "maps/layers/",
+      "bytes": 0
+    },
+    {
+      "path": "maps/layers/Blue_cotton_01_2K_Base_Color.png",
+      "bytes": 8893209
+    },
+    {
+      "path": "maps/layers/Blue_cotton_01_2K_Normal.png",
+      "bytes": 9734636
+    },
+    {
+      "path": "maps/layers/Blue_cotton_01_2K_Roughness.png",
+      "bytes": 4627021
+    },
+    {
+      "path": "maps/layers/Blue_jeans_01_2K_Base_Color.png",
+      "bytes": 8415790
+    },
+    {
+      "path": "maps/layers/Blue_jeans_01_2K_Normal.png",
+      "bytes": 8626720
+    },
+    {
+      "path": "maps/layers/Blue_jeans_01_2K_Roughness.png",
+      "bytes": 3985679
+    },
+    {
+      "path": "maps/layers/cfabric_03_pbr-color.png",
+      "bytes": 377092
+    },
+    {
+      "path": "maps/layers/fabric_solid_11-color.jpg",
+      "bytes": 10276773
+    },
+    {
+      "path": "maps/layers/fabric_solid_16-color.jpg",
+      "bytes": 10420506
+    },
+    {
+      "path": "maps/layers/fabric_solid_20-color.jpg",
+      "bytes": 9214538
+    },
+    {
+      "path": "maps/layers/fabric_solid_22-color.jpg",
+      "bytes": 7857676
+    },
+    {
+      "path": "maps/layers/fabric_solid_24-color.jpg",
+      "bytes": 6271840
+    },
+    {
+      "path": "maps/layers/fabric_solid_25-color.jpg",
+      "bytes": 6236980
+    },
+    {
+      "path": "maps/layers/GEO-rain_eye.L_UVs.png",
+      "bytes": 1619368
+    },
+    {
+      "path": "maps/layers/TEX-rain_body_details.png",
+      "bytes": 426110
+    },
+    {
+      "path": "maps/layers/TEX-rain_eyes.png",
+      "bytes": 327295
+    },
+    {
+      "path": "maps/layers/TEX-rain_hair_cavity.png",
+      "bytes": 2573492
+    },
+    {
+      "path": "maps/layers/TEX-rain_hair_color_detail.png",
+      "bytes": 8264282
+    },
+    {
+      "path": "maps/layers/TEX-rain_hair_direction.png",
+      "bytes": 5769740
+    },
+    {
+      "path": "maps/layers/TEX-rain_hair_direction_bw.png",
+      "bytes": 3489005
+    },
+    {
+      "path": "maps/layers/TEX-rain_hair_UV_tangent.png",
+      "bytes": 2912683
+    },
+    {
+      "path": "maps/layers/TEX-rain_head_details.png",
+      "bytes": 519487
+    },
+    {
+      "path": "maps/layers/TEX-rain_jeans_cavity.png",
+      "bytes": 636147
+    },
+    {
+      "path": "maps/layers/TEX-rain_jeans_details.png",
+      "bytes": 709872
+    },
+    {
+      "path": "maps/layers/TEX-rain_laces_cavity.png",
+      "bytes": 140750
+    },
+    {
+      "path": "maps/layers/TEX-rain_scarf_cavity.png",
+      "bytes": 2202818
+    },
+    {
+      "path": "maps/layers/TEX-rain_shoe_cavity.png",
+      "bytes": 3364083
+    },
+    {
+      "path": "maps/layers/TEX-rain_socks_cavity.png",
+      "bytes": 154177
+    },
+    {
+      "path": "maps/layers/TEX-rain_top_cavity.png",
+      "bytes": 454027
+    },
+    {
+      "path": "maps/TEX-rain_body_diffuse.1001.png",
+      "bytes": 677145
+    },
+    {
+      "path": "maps/TEX-rain_body_diffuse.1002.png",
+      "bytes": 266895
+    },
+    {
+      "path": "maps/TEX-rain_body_diffuse.1003.png",
+      "bytes": 2410048
+    },
+    {
+      "path": "maps/TEX-rain_body_diffuse.png",
+      "bytes": 677145
+    },
+    {
+      "path": "maps/TEX-rain_body_roughness.1001.png",
+      "bytes": 908287
+    },
+    {
+      "path": "maps/TEX-rain_body_roughness.1002.png",
+      "bytes": 287300
+    },
+    {
+      "path": "maps/TEX-rain_body_roughness.1003.png",
+      "bytes": 3349102
+    },
+    {
+      "path": "maps/TEX-rain_body_roughness.png",
+      "bytes": 908287
+    },
+    {
+      "path": "maps/TEX-rain_eyes_diffuse.png",
+      "bytes": 105103
+    },
+    {
+      "path": "maps/TEX-rain_hair_diffuse.png",
+      "bytes": 1934798
+    },
+    {
+      "path": "maps/TEX-rain_hair_direction.png",
+      "bytes": 1762802
+    },
+    {
+      "path": "maps/TEX-rain_hair_direction_bw.png",
+      "bytes": 889543
+    },
+    {
+      "path": "maps/TEX-rain_hair_roughness.png",
+      "bytes": 775126
+    },
+    {
+      "path": "maps/TEX-rain_hands_diffuse.png",
+      "bytes": 266895
+    },
+    {
+      "path": "maps/TEX-rain_hands_roughness.png",
+      "bytes": 287300
+    },
+    {
+      "path": "maps/TEX-rain_head_diffuse.png",
+      "bytes": 2410048
+    },
+    {
+      "path": "maps/TEX-rain_head_roughness.png",
+      "bytes": 3349102
+    },
+    {
+      "path": "maps/TEX-rain_jeans_diffuse.png",
+      "bytes": 16706644
+    },
+    {
+      "path": "maps/TEX-rain_jeans_normal.png",
+      "bytes": 8588143
+    },
+    {
+      "path": "maps/TEX-rain_jeans_roughness.png",
+      "bytes": 8465185
+    },
+    {
+      "path": "maps/TEX-rain_scarf_cavity.png",
+      "bytes": 471625
+    },
+    {
+      "path": "maps/TEX-rain_shoes_bump.png",
+      "bytes": 373088
+    },
+    {
+      "path": "maps/TEX-rain_shoes_diffuse.png",
+      "bytes": 689124
+    },
+    {
+      "path": "maps/TEX-rain_shoes_roughness.png",
+      "bytes": 353543
+    },
+    {
+      "path": "maps/TEX-rain_socks_bump.png",
+      "bytes": 131090
+    },
+    {
+      "path": "maps/TEX-rain_socks_roughness.png",
+      "bytes": 100710
+    },
+    {
+      "path": "maps/TEX-rain_top_bump.png",
+      "bytes": 566783
+    },
+    {
+      "path": "maps/TEX-rain_top_cavity.png",
+      "bytes": 305610
+    },
+    {
+      "path": "maps/TEX-rain_top_roughness.png",
+      "bytes": 422226
+    },
+    {
+      "path": "rain_rig.blend",
+      "bytes": 8264551
+    }
+  ],
+  "runtime_integrated": false,
+  "requires": [
+    "facial/rig export compatibility",
+    "modern clothing removal and Tang tailoring",
+    "style/proportion adaptation",
+    "material baking and mobile LOD"
+  ],
+  "scripts": "do not execute embedded Python; inspect with --disable-autoexec",
+  "archive_cache": "/workspace/.environment/changan-dragon/resource-prep/mature-source-check/rain-source.zip",
+  "preserved_files": [
+    {
+      "file": "maps/TEX-rain_body_diffuse.1001.png",
+      "bytes": 677145,
+      "sha256": "79294db9cccc7c395b3c95c5692eae454554611e8cad89e898f8b325b504bad5"
+    },
+    {
+      "file": "maps/TEX-rain_body_diffuse.1002.png",
+      "bytes": 266895,
+      "sha256": "d4abb09a50d846f57179d61bb0a72431cc57d261b1646b6439de1724afce4afc"
+    },
+    {
+      "file": "maps/TEX-rain_body_diffuse.1003.png",
+      "bytes": 2410048,
+      "sha256": "64e0f179a1a872758801ce433b2b5b20ba0e9a399e01574b5a0f9266868c86ca"
+    },
+    {
+      "file": "maps/TEX-rain_body_diffuse.png",
+      "bytes": 677145,
+      "sha256": "79294db9cccc7c395b3c95c5692eae454554611e8cad89e898f8b325b504bad5"
+    },
+    {
+      "file": "maps/TEX-rain_body_roughness.1001.png",
+      "bytes": 908287,
+      "sha256": "22becb2fe72f49931f3dd278c78ae94f182da956f0ba2c77e324f7d3fca2f179"
+    },
+    {
+      "file": "maps/TEX-rain_body_roughness.1002.png",
+      "bytes": 287300,
+      "sha256": "12a6d25dc64fa1b31fade64f64ca7568e3f11f691de1ffd1be59c9c92ffa2378"
+    },
+    {
+      "file": "maps/TEX-rain_body_roughness.1003.png",
+      "bytes": 3349102,
+      "sha256": "ab8a673417a762a78a0db1ae1489b13016799da8c24bfe9fea57763dedff9962"
+    },
+    {
+      "file": "maps/TEX-rain_body_roughness.png",
+      "bytes": 908287,
+      "sha256": "22becb2fe72f49931f3dd278c78ae94f182da956f0ba2c77e324f7d3fca2f179"
+    },
+    {
+      "file": "maps/TEX-rain_eyes_diffuse.png",
+      "bytes": 105103,
+      "sha256": "d317ff17cc702ded44dc63961e208bf772124d1fe05e48ff717c3e1fbd7efb70"
+    },
+    {
+      "file": "maps/TEX-rain_hair_diffuse.png",
+      "bytes": 1934798,
+      "sha256": "01c35d3fc4b3e961acf3446fdc4a5de83937e09c1b05b074b27c87e511d50ad6"
+    },
+    {
+      "file": "maps/TEX-rain_hair_direction.png",
+      "bytes": 1762802,
+      "sha256": "127b0931218222a312c023cb5dcebaa54c1056f0fdcafe90dbf7825a061704d7"
+    },
+    {
+      "file": "maps/TEX-rain_hair_direction_bw.png",
+      "bytes": 889543,
+      "sha256": "29c81f2184b52e6a40dcde738cff9336bb20b089e331f1d0099b28b68515ff31"
+    },
+    {
+      "file": "maps/TEX-rain_hair_roughness.png",
+      "bytes": 775126,
+      "sha256": "dba093c1b8493a2cccedafe897b5c999de53ab4cbf4c0704990921c31ce53a63"
+    },
+    {
+      "file": "maps/TEX-rain_hands_diffuse.png",
+      "bytes": 266895,
+      "sha256": "d4abb09a50d846f57179d61bb0a72431cc57d261b1646b6439de1724afce4afc"
+    },
+    {
+      "file": "maps/TEX-rain_hands_roughness.png",
+      "bytes": 287300,
+      "sha256": "12a6d25dc64fa1b31fade64f64ca7568e3f11f691de1ffd1be59c9c92ffa2378"
+    },
+    {
+      "file": "maps/TEX-rain_head_diffuse.png",
+      "bytes": 2410048,
+      "sha256": "64e0f179a1a872758801ce433b2b5b20ba0e9a399e01574b5a0f9266868c86ca"
+    },
+    {
+      "file": "maps/TEX-rain_head_roughness.png",
+      "bytes": 3349102,
+      "sha256": "ab8a673417a762a78a0db1ae1489b13016799da8c24bfe9fea57763dedff9962"
+    },
+    {
+      "file": "rain_rig.blend",
+      "bytes": 8264551,
+      "sha256": "16a9510b898f243ba17ea85e753fe4a561701511ddc842edc23fa9d892e19f03"
+    }
+  ],
+  "scope": "Original blend, face/body/eye/hair maps. Modern outfit maps intentionally omitted; complete ZIP retained in environment cache. Original recipe can re-extract without redownload."
+}

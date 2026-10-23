@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 109,
+    "records": 115,
     "by_category": {
       "runtime-engine": 5,
       "vegetation-tool": 2,
@@ -30,34 +30,37 @@
       "boats": 4,
       "clothing": 4,
       "dragon": 2,
-      "vegetation": 3,
+      "vegetation": 4,
       "animals": 8,
       "bicycle": 1,
       "market": 2,
-      "characters": 4,
+      "characters": 6,
       "props": 2,
       "bridges": 1,
       "interior": 1,
-      "environment": 1,
-      "material": 23,
+      "environment": 2,
+      "material": 24,
       "historical-reference": 12,
-      "audio": 7,
+      "audio": 8,
       "source-check": 4
     },
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
-      "offline_tool_candidate": 5,
+      "source_acquired_research": 11,
       "source_acquired": 1,
+      "offline_tool_candidate": 4,
       "runtime_candidate": 2,
       "reference_only": 26,
       "account_required": 12,
       "rejected": 16,
-      "rights_hold": 7,
+      "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 21
+      "preview_candidate": 14,
+      "rejected_character_style_research_only": 2
     },
-    "preview_reviewed_records": 76
+    "preview_reviewed_records": 76,
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance."
   },
   "resources": [
     {
@@ -77,7 +80,19 @@
           "sha256": "d073b438e6a07e1359741dd5d6c76c953420cc0d4fd84eb1bdde94315540e6a3",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "已有运行基础",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "babylon",
@@ -103,7 +118,19 @@
           "sha256": "9362ea9ea17cb221a20cbbd63f404710834cc273d2a9a7b60314fd68ab702cd6",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "playcanvas",
@@ -129,7 +156,19 @@
           "sha256": "42fa51ddd556be151a29f381fb97ee975825dcc454e805ea3ea9c079cca04d34",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "godot",
@@ -155,7 +194,19 @@
           "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "filament",
@@ -174,14 +225,26 @@
           "sha256": "22c19b3c30323c1de504e6914f5a82549d6f7f653e72ea026ad867cea2d7a0db",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ez-tree",
       "name": "EZ-Tree 1.1.0",
       "category": "vegetation-tool",
       "source_url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/main/README.md",
-      "stage": "offline_tool_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "MIT code/leaves; separate bark attribution specifies ambientCG CC0",
       "assessment": "已看作者示例与LOD说明。可离线生成同骨架树冠LOD并导GLB；没有垂柳专用预设。peer three>=0.167，不能直接装入r160。",
@@ -222,7 +285,20 @@
           "checked": "2026-10-23"
         }
       ],
-      "reviewed_commit": "dcf309bd86bd521083d9c70f01f2de45fdc7c457"
+      "reviewed_commit": "dcf309bd86bd521083d9c70f01f2de45fdc7c457",
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/vegetation/ez-tree-source/source-manifest.json"
     },
     {
       "id": "tree-gen",
@@ -241,7 +317,19 @@
           "sha256": "92ae6d65266935e9f4a64a60317a30370598eb781365b6be2497ac28a98b9df1",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "makehuman",
@@ -251,7 +339,7 @@
       "stage": "source_acquired",
       "runtime_integrated_this_round": false,
       "license_scope": "Core graphical assets CC0; application logic AGPL, explicitly separate",
-      "assessment": "核心基体/163骨架及引用权重已从固定提交取得并校验，未成为成品唐服人物。社区资产各自授权。",
+      "assessment": "保持自然人体与脸部结构，不放大头眼；原核心基体/163骨架/权重和固定提交官方adult男女性宏目标已取得，作为自然人物制作基础。唐服/发型与生产绑定尚未放行。",
       "evidence": [
         {
           "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/master/LICENSE.md",
@@ -269,7 +357,19 @@
         }
       ],
       "reviewed_commit": "a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
-      "local_manifest": "assets/library/characters/makehuman-base/manifest.json"
+      "local_manifest": "assets/library/characters/makehuman-base/manifest.json",
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "取得源文件；生产加工未通过",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "mpfb",
@@ -303,7 +403,19 @@
           "checked": "2026-10-23"
         }
       ],
-      "reviewed_commit": "b1a2dc98776da9d1eea751b159d42cf61778fe2e"
+      "reviewed_commit": "b1a2dc98776da9d1eea751b159d42cf61778fe2e",
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "mblab",
@@ -322,7 +434,19 @@
           "sha256": "a78f3fda6ee913e98e1426f3f445c83db812dd66016ef54261bf5a1709f5b1ac",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "material-maker",
@@ -356,7 +480,19 @@
           "checked": "2026-10-23"
         }
       ],
-      "reviewed_commit": "424dec64a75478f22267ba9281a5cbe7a236b802"
+      "reviewed_commit": "424dec64a75478f22267ba9281a5cbe7a236b802",
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "gltf-transform",
@@ -382,7 +518,19 @@
           "sha256": "2c4f111d00dbf22b10d31a14813c5f5de6a828640f7311f26b9dda89b3fce165",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "meshoptimizer",
@@ -408,7 +556,19 @@
           "sha256": "f03037ca7bad1e3eb7f4a63fa6084a8baabd5ba30d3c239a9a7f35705d873e26",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "three-bvh",
@@ -434,7 +594,19 @@
           "sha256": "b106ef6198a9862ed2b5b873e944ecf3583c631a84a7462d400ecc1910ce7fee",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "recast",
@@ -460,7 +632,19 @@
           "sha256": "319340bb218c8a01bf041dc8f6f2390f176d7c332920695b0774b972b4e99162",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "postprocessing",
@@ -479,7 +663,19 @@
           "sha256": "247ae993b24eb3430e93a4f10d2e56b6cdc21801c6565069cb7697e0ecaea3ff",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "pathtracer",
@@ -498,7 +694,19 @@
           "sha256": "a78a89e62a40e6ae4af27341cbe5c57bf8b7e847f9a2d1ca86d1daa218be9780",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-751ea4517a4f463bb6f52a438021b9b5",
@@ -531,7 +739,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-f44115f33e954c75828d09cce03a729a",
@@ -564,7 +784,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-e28da4013d554cb7b1fb6bc46cb71615",
@@ -602,6 +834,18 @@
         "url": "https://api.sketchfab.com/v3/models/e28da4013d554cb7b1fb6bc46cb71615/download",
         "error": "HTTP Error 401: Unauthorized",
         "checked": "2026-10-23"
+      },
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
       }
     },
     {
@@ -635,7 +879,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-b64e62bd4f9c46d78670489564844ffe",
@@ -668,7 +924,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-631615777ba4421a98814559dc2d4c5a",
@@ -701,7 +969,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-df5de16d9aa249eda96e9efa4944b69a",
@@ -739,6 +1019,18 @@
         "url": "https://api.sketchfab.com/v3/models/df5de16d9aa249eda96e9efa4944b69a/download",
         "error": "HTTP Error 401: Unauthorized",
         "checked": "2026-10-23"
+      },
+      "target_scene": "曲江/兴庆水面及码头",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
       }
     },
     {
@@ -772,7 +1064,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "曲江/兴庆水面及码头",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-35b340bce9fb4e0680bc0116cebc35c9",
@@ -805,7 +1109,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "曲江/兴庆水面及码头",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-63fc3f79926c4e999accc0a6407c23bd",
@@ -843,6 +1159,18 @@
         "url": "https://api.sketchfab.com/v3/models/63fc3f79926c4e999accc0a6407c23bd/download",
         "error": "HTTP Error 401: Unauthorized",
         "checked": "2026-10-23"
+      },
+      "target_scene": "居民/商旅/文士/守卫的唐服轮廓",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
       }
     },
     {
@@ -876,7 +1204,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "居民/商旅/文士/守卫的唐服轮廓",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-19ea6f600fe346cf9baacabebc644fad",
@@ -909,7 +1249,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "居民/商旅/文士/守卫的唐服轮廓",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-a5ad5ec06f43461f95bb93e95fe7553b",
@@ -942,7 +1294,19 @@
       "animation_count": 1,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "主角走/骑/飞",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-df14ec74767c4598920132758dab8a49",
@@ -975,7 +1339,19 @@
       "animation_count": 1,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "主角走/骑/飞",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-422de2372f3d46dfb314a0cd5da512fe",
@@ -1008,7 +1384,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "街树/园林/水岸",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-7bd70b487fae4f3eb70d4e69394e97b4",
@@ -1041,7 +1429,19 @@
       "animation_count": 1,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "街树/园林/水岸",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-f81319550c544dc09c97ec74bdfb0b89",
@@ -1074,7 +1474,19 @@
       "animation_count": 1,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "街树/园林/水岸",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-99af7daa5baf450ea7b809937937e6d5",
@@ -1107,7 +1519,19 @@
       "animation_count": 3,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-44ef2ea4b50a49e395e5e3ebbdc99f98",
@@ -1140,7 +1564,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-3d7fc7394cde43298de89a28c0afbaff",
@@ -1173,7 +1609,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "主角骑行与停车",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-74ce2820d1024d6e90c9cc5001ea1983",
@@ -1206,7 +1654,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "https://sketchfab.com/licenses",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-ff6c0680a17e40989043a503c86e3f33",
@@ -1239,7 +1699,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-59bfedf980d94af6af40b0c63bd2999d",
@@ -1272,7 +1744,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-794fd9fe9d224bb9ba8ddae8a499321e",
@@ -1305,7 +1789,19 @@
       "animation_count": 0,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "sketchfab-d0f3f2383be841209946becf0cd24e50",
@@ -1338,7 +1834,19 @@
       "animation_count": 1,
       "preview_reviewed": true,
       "license_url": "http://creativecommons.org/licenses/by/4.0/",
-      "model_acquired": false
+      "model_acquired": false,
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-418d9591-acd4-4ad9-ad2c-2e08e1dcea9d",
@@ -1381,7 +1889,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "市井人物/经营活动",
+      "acquisition_status": "未取得，未购买",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-6f261e27-265b-43b7-91c5-457a50d5425e",
@@ -1424,7 +1944,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-cf760130-1048-4208-9f8d-cdb91e19726f",
@@ -1467,7 +1999,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-17fb29ea-833d-4723-bc12-7fa325255e17",
@@ -1510,7 +2054,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "未取得，未购买",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-0c237a01-7fce-454b-8750-120348f45662",
@@ -1553,7 +2109,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-5cf7284e-ead1-47fe-84f1-c6cbea20def9",
@@ -1596,7 +2164,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "市井人物/经营活动",
+      "acquisition_status": "未取得，未购买",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-5afb5897-282e-4e4f-97fc-bba3f14c2392",
@@ -1639,7 +2219,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "市井人物/经营活动",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-11435473-7e57-4c3c-bd6e-9f05b5c03ddf",
@@ -1682,7 +2274,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "商铺/生活/码头",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-f380cb14-897d-488b-b081-1f8dfd47482e",
@@ -1725,7 +2329,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "曲江/园林可通行桥廊",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-79ec8e1b-da0c-4d5d-a33b-72c4999af940",
@@ -1768,7 +2384,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "市井人物/经营活动",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-308e73c3-a39e-4f95-9339-89db20bf68d7",
@@ -1811,7 +2439,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "居民/商旅/文士/守卫的唐服轮廓",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-6dc1c1d9-6f7a-4198-b234-1dab5e82ae8f",
@@ -1854,7 +2494,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "未取得，未购买",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-8e184298-69b4-44d4-926b-a21d03cf890a",
@@ -1897,7 +2549,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "曲江/兴庆水面及码头",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-6b7ed377-492e-4b6c-ae21-cb6718f30983",
@@ -1940,7 +2604,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "商铺/生活/码头",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-bae44126-3686-48b4-b51f-c8669a38d978",
@@ -1983,7 +2659,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-b9d96067-67f0-4128-970d-6c768d2566cf",
@@ -2019,7 +2707,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-b24f825b-78a0-49f7-9778-ca1a54b9c643",
@@ -2055,7 +2755,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "fab-8341e12f-b3f4-4abf-a4b0-ac8623561b82",
@@ -2091,7 +2803,19 @@
       ],
       "preview_reviewed": true,
       "model_acquired": false,
-      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+      "price": "Public page does not expose a reliable selected tier price; no purchase made",
+      "target_scene": "商队/街巷/园林",
+      "acquisition_status": "未取得，未购买",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "blenderkit-c8d3568f-466b-45a8-8f7b-2eaa878a0ffd",
@@ -2153,7 +2877,19 @@
           "type": "resolution_2K",
           "bytes": 39147280
         }
-      ]
+      ],
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "blenderkit-ae4e8a88-126e-4a39-b52b-415c5e58f0dc",
@@ -2227,7 +2963,19 @@
           "type": "resolution_4K",
           "bytes": 66314113
         }
-      ]
+      ],
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "blenderkit-a9dd71df-0a85-4892-b614-fa17455a5ad4",
@@ -2296,14 +3044,26 @@
           "type": "resolution_4K",
           "bytes": 188291600
         }
-      ]
+      ],
+      "target_scene": "坊巷/市集/宫殿完整建筑",
+      "acquisition_status": "未取得，未购买",
+      "style_modification_cost": {
+        "level": "high",
+        "assessment_basis": "需要时代、轮廓、比例、材质、LOD/绑定适配；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-fine_grained_wood",
       "name": "Fine Grained Wood",
       "category": "material",
       "source_url": "https://api.polyhaven.com/info/fine_grained_wood",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "Poly Haven asset CC0; official license page read",
       "assessment": "细颗粒/低对比适合梁木弱法线，30x30cm标注需按构件方向设UV；不直接烘强木色。",
@@ -2336,14 +3096,27 @@
       "scale_metadata": "30x30CM",
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/fine_grained_wood"
+      "page_url": "https://polyhaven.com/a/fine_grained_wood",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/production-materials/manifest.json"
     },
     {
       "id": "polyhaven-dark_wood",
       "name": "Dark Wood",
       "category": "material",
       "source_url": "https://api.polyhaven.com/info/dark_wood",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "Poly Haven asset CC0; official license page read",
       "assessment": "清楚长向木纹适合部分近景板件，但原色太深红/高对比，统一重调，不刷全城。",
@@ -2378,7 +3151,20 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/dark_wood"
+      "page_url": "https://polyhaven.com/a/dark_wood",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/production-materials/manifest.json"
     },
     {
       "id": "polyhaven-chinese_cedar_bark",
@@ -2418,14 +3204,26 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/chinese_cedar_bark"
+      "page_url": "https://polyhaven.com/a/chinese_cedar_bark",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-brown_leather",
       "name": "Brown Leather",
       "category": "material",
       "source_url": "https://api.polyhaven.com/info/brown_leather",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "Poly Haven asset CC0; official license page read",
       "assessment": "皮革柔褶微表面，可给鞍垫/绑带，40cm尺度；不用它代替真实绑带几何。",
@@ -2458,14 +3256,27 @@
       "scale_metadata": "40CM X 40CM",
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/brown_leather"
+      "page_url": "https://polyhaven.com/a/brown_leather",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/production-materials/manifest.json"
     },
     {
       "id": "polyhaven-grey_stone_path",
       "name": "Grey Stone Path",
       "category": "material",
       "source_url": "https://api.polyhaven.com/info/grey_stone_path",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "Poly Haven asset CC0; official license page read",
       "assessment": "杂形拼石适合局部园路，灰缝/裂隙需弱化，非全城路面。",
@@ -2498,7 +3309,20 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/grey_stone_path"
+      "page_url": "https://polyhaven.com/a/grey_stone_path",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/production-materials/manifest.json"
     },
     {
       "id": "polyhaven-cobblestone_floor_07",
@@ -2538,7 +3362,19 @@
       "scale_metadata": "1",
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/cobblestone_floor_07"
+      "page_url": "https://polyhaven.com/a/cobblestone_floor_07",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-fabric_pattern_07",
@@ -2578,7 +3414,19 @@
       "scale_metadata": "30x30 cm",
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/fabric_pattern_07"
+      "page_url": "https://polyhaven.com/a/fabric_pattern_07",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-fabric_pattern_05",
@@ -2618,7 +3466,19 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/fabric_pattern_05"
+      "page_url": "https://polyhaven.com/a/fabric_pattern_05",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-sandstone_blocks_05",
@@ -2658,7 +3518,19 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/sandstone_blocks_05"
+      "page_url": "https://polyhaven.com/a/sandstone_blocks_05",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-brown_mud_leaves_01",
@@ -2698,14 +3570,26 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/brown_mud_leaves_01"
+      "page_url": "https://polyhaven.com/a/brown_mud_leaves_01",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "polyhaven-bark_willow_02",
       "name": "Bark Willow 02",
       "category": "material",
       "source_url": "https://api.polyhaven.com/info/bark_willow_02",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "Poly Haven asset CC0; official license page read",
       "assessment": "清楚树皮纵纹，现有候选可续用，先分枝干UV与叶材。",
@@ -2738,7 +3622,20 @@
       "scale_metadata": null,
       "maps_acquired_this_round": false,
       "preview_reviewed": true,
-      "page_url": "https://polyhaven.com/a/bark_willow_02"
+      "page_url": "https://polyhaven.com/a/bark_willow_02",
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/production-materials/manifest.json"
     },
     {
       "id": "ambientcg-Fabric085",
@@ -2773,7 +3670,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Fabric084",
@@ -2808,7 +3717,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Carpet016",
@@ -2843,14 +3764,26 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Fabric081C",
       "name": "Fabric 081 C",
       "category": "material",
       "source_url": "https://ambientcg.com/view?id=Fabric081C",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "runtime_integrated_this_round": false,
       "license_scope": "ambientCG CC0, official license page read",
       "assessment": "光滑细布候选，比毛圈/针织适合轻绢微表面，仍需看实际normal/roughness和底色，不能只凭球体白色判断丝绸。",
@@ -2878,7 +3811,20 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "已取得固定版本/原件与派生研究资产，未正式接入；见本地manifest",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "local_manifest": "assets/library/production-materials/manifest.json"
     },
     {
       "id": "ambientcg-WoodFloor051",
@@ -2913,7 +3859,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-WoodFloor064",
@@ -2948,7 +3906,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-WoodFloor070",
@@ -2983,7 +3953,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-WoodFloor043",
@@ -3018,7 +4000,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Ground111",
@@ -3053,7 +4047,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Ground112",
@@ -3088,7 +4094,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Ground110",
@@ -3123,7 +4141,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "ambientcg-Ground108",
@@ -3158,7 +4188,19 @@
         }
       ],
       "maps_acquired_this_round": false,
-      "preview_reviewed": true
+      "preview_reviewed": true,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-153596",
@@ -3197,7 +4239,19 @@
         "North China, Tang dynasty (618-907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-151414",
@@ -3236,7 +4290,19 @@
         "North China, Tang dynasty (618-907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-284743",
@@ -3275,7 +4341,19 @@
         "China, Tang dynasty (618–907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-128457",
@@ -3314,7 +4392,19 @@
         "China, Tang dynasty (618-907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-132819",
@@ -3353,7 +4443,19 @@
         "China, probably Henan province, Tang dynasty (618–907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-154599",
@@ -3392,7 +4494,19 @@
         "China, probably Henan province, Tang dynasty (618-907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "cma-143168",
@@ -3431,7 +4545,19 @@
         "China, Tang dynasty (618–907)"
       ],
       "preview_reviewed": true,
-      "images_acquired_for_local_research": true
+      "images_acquired_for_local_research": true,
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "oga-crowd",
@@ -3452,7 +4578,19 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": false,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "oga-park",
@@ -3473,17 +4611,29 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": false,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "oga-nature",
       "name": "JC Sounds Nature Ambient Pack Vol1",
       "category": "audio",
       "source_url": "https://opengameart.org/content/jc-sounds-nature-ambient-pack-vol-1",
-      "stage": "preview_candidate",
+      "stage": "rights_hold",
       "runtime_integrated_this_round": false,
       "license_scope": "CC BY4.0, credit JC Sounds",
-      "assessment": "26个1min+环境循环；可候选湖/溪/风/火层，78.5MB mp3压缩包。未下载/试听，不能照包名声称中国环境匹配。",
+      "assessment": "页面标CC BY4.0，但作者评论确认混入所购音库，未公开上游库和可再分发条款；保守隔离。没有把页面许可标签等同清晰授权链。",
       "evidence": [
         {
           "url": "https://opengameart.org/content/jc-sounds-nature-ambient-pack-vol-1",
@@ -3494,7 +4644,21 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": true,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "实际取得78466981B压缩包并解出4条原件；仅环境缓存隔离，未进入可分发素材库",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      },
+      "cache_manifest": "/workspace/.environment/changan-dragon/resource-prep/audio-rights-hold/manifest.json",
+      "rights_evidence": "docs/audio-rights-review.md"
     },
     {
       "id": "oga-sunrise",
@@ -3515,7 +4679,19 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": false,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "仅取得网页/预览，非资产原件",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "oga-asian",
@@ -3536,7 +4712,19 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": false,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "freesound-huinan",
@@ -3557,7 +4745,19 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": false,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "freesound-kaxgar",
@@ -3578,7 +4778,19 @@
         }
       ],
       "auditioned": false,
-      "audio_acquired": false
+      "audio_acquired": false,
+      "target_scene": "分区音景，需听审",
+      "acquisition_status": "未取得，下载受账号/接口约束",
+      "style_modification_cost": {
+        "level": "medium",
+        "assessment_basis": "需要统一尺度、色彩/频谱、接缝或时代筛选；具体取舍见assessment",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "changan-plan",
@@ -3597,7 +4809,19 @@
           "sha256": "736f4447d09fc44bc45bb3b55e66dc0b5ba2dff7246265708c692e89b37946f8",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "foguang-history",
@@ -3616,7 +4840,19 @@
           "sha256": "b34e2ea2fe4060279f336ca86e9c92686b459fa4a02a37b0ebcc10f901d1fe3f",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "nanchan-history",
@@ -3635,7 +4871,19 @@
           "sha256": "acff93875b421722f55277b51391fe0ce9a35141a2473d1b0e372ba04af02fef",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "unesco-silkroad",
@@ -3654,7 +4902,19 @@
           "sha256": "43216b670084fd190975603c9c30cb0a6f96edbada996448f3a08ad20b9c02c9",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "unesco-wutai",
@@ -3673,7 +4933,19 @@
           "sha256": "3c04155215f88ff8415afadbded8266b36d2a718bf5891816904ed86969ad886",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "设计参照，不进运行包",
+      "acquisition_status": "仅按stage与evidence记录；未计作已取得生产资产",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "blendswap-check",
@@ -3690,7 +4962,19 @@
           "error": "HTTP Error 403: Forbidden",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "foguang-empty",
@@ -3709,7 +4993,19 @@
           "sha256": "dd87273bdb5cd3cf9f4aafa675c7cfcf8ddf2da42c33d9060aa4b8843bf23095",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "foguang-unlicensed",
@@ -3728,7 +5024,19 @@
           "sha256": "0a06a0ab3e360815dc17e9ced8c8b86bd1eb5381e83e5855ced113e3d07219e5",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
     },
     {
       "id": "camel-source-chain",
@@ -3747,7 +5055,198 @@
           "sha256": "666d494561a8e33c2ba7a658bacd51908410f00f26451e127ca2263bf3ca7cd5",
           "checked": "2026-10-23"
         }
-      ]
+      ],
+      "target_scene": "离线制作或现有引擎工具链；不是可直接摆放的场景资产",
+      "acquisition_status": "许可链未通过，不可采用",
+      "style_modification_cost": {
+        "level": "not_applicable",
+        "assessment_basis": "工具或参考不直接作为三维生产资产；依赖/输出另行验证",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "未取得/未在目标真机测量；不凭预览推断帧率",
+        "acceptance": "对实际派生文件测面数、材质批次、纹理驻留、骨骼/透明成本；预算见production-spec.json"
+      }
+    },
+    {
+      "id": "polyhaven-brown_mud_02",
+      "name": "Brown Mud 02",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/brown_mud_02",
+      "stage": "source_acquired_research",
+      "license_scope": "CC0-1.0",
+      "local_manifest": "assets/library/production-materials/manifest.json",
+      "acquisition_status": "已取得研究文件；未放行正式生产",
+      "runtime_integrated_this_round": false,
+      "target_scene": "共享物理表面，按具体资产适配",
+      "assessment": "已取得1k原件/512派生；土路弱微表面，不照搬扫描凹凸",
+      "style_modification_cost": {
+        "level": "medium",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "文件统计见manifest；真机未测"
+      },
+      "evidence": []
+    },
+    {
+      "id": "preparation-assembly",
+      "name": "Independent metre-scale assembly",
+      "category": "environment",
+      "source_url": "tools/build_preparation_study.py",
+      "stage": "source_acquired_research",
+      "license_scope": "Project-authored recipes; CC0 MH/PBR and MIT architecture/vegetation notices retained",
+      "local_manifest": "assets/library/preparation-study/manifest.json",
+      "acquisition_status": "已取得研究文件；未放行正式生产",
+      "runtime_integrated_this_round": false,
+      "target_scene": "独立试片",
+      "assessment": "实际GLB可加载；人物/龙/柳树美术不合格，不进正式场景",
+      "style_modification_cost": {
+        "level": "high",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "文件统计见manifest；真机未测"
+      },
+      "evidence": []
+    },
+    {
+      "id": "authored-environment-audio",
+      "name": "Authored synthetic ambient layers",
+      "category": "audio",
+      "source_url": "tools/prepare_environment_audio.py",
+      "stage": "source_acquired_research",
+      "license_scope": "Project-authored synthesis; no third-party samples",
+      "local_manifest": "assets/library/environment-audio/manifest.json",
+      "acquisition_status": "已取得研究文件；未放行正式生产",
+      "runtime_integrated_this_round": false,
+      "target_scene": "分区音景，需听审",
+      "assessment": "风/水/木轮/远钟/土路脚步实际生成；不冒充实地录音，未含人声，不声称已听审",
+      "style_modification_cost": {
+        "level": "medium",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "文件统计见manifest；真机未测"
+      },
+      "evidence": []
+    },
+    {
+      "id": "blender-studio-snow-v2",
+      "name": "Snow v2 / Blender Studio",
+      "category": "characters",
+      "source_url": "https://studio.blender.org/characters/snow/v2/",
+      "stage": "rejected_character_style_research_only",
+      "license_scope": "CC-BY-4.0; original blend ReadMe confirms; original source and converted head require attribution",
+      "acquisition_status": "完整官方下载ZIP已取得110767761B，归档缓存；Git保留原blend和23项脸/体/眼/发贴图，逐件SHA256",
+      "local_manifest": "assets/library/characters/blender-studio/snow/manifest.json",
+      "assessment": "用户否决夸张变形的人物；不作为本项目人物脸形/体态基础。成熟源保留用于绑定/拓扑研究，不加载至最新组合试片。唐人保持自然脸与正常人体，主要变更发式服饰。",
+      "target_scene": "无生产布置；仅隔离的绑定/拓扑研究",
+      "style_modification_cost": {
+        "level": "high",
+        "reason": "成熟面部基础可复用；风格、时代、衣服、材质烘焙、骨架精简和LOD仍需工作"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "source inventory and static head study; not physical phone",
+        "source_rigs": [
+          {
+            "name": "META-Snow",
+            "bones": 398,
+            "deform_bones": 370
+          },
+          {
+            "name": "RIG-Snow",
+            "bones": 1552,
+            "deform_bones": 292
+          }
+        ],
+        "static_head_triangles": 29917,
+        "static_head_bytes": 1288352,
+        "note": "原制作rig不直接进游戏；静态头已接近/超过整NPC预算，需要选择性重拓扑/LOD"
+      },
+      "runtime_integrated_this_round": false,
+      "evidence": [
+        {
+          "path": "assets/library/characters/blender-studio/snow/ReadMe.txt",
+          "type": "embedded source license notice"
+        },
+        {
+          "path": "assets/library/characters/blender-studio/snow/head-study.json",
+          "type": "derived geometry record"
+        }
+      ],
+      "style_rejected_by_user": true
+    },
+    {
+      "id": "blender-studio-rain-v2",
+      "name": "Rain v2 / Blender Studio",
+      "category": "characters",
+      "source_url": "https://studio.blender.org/characters/rain/v2/",
+      "stage": "rejected_character_style_research_only",
+      "license_scope": "CC-BY-4.0; original blend ReadMe confirms; original source and converted head require attribution",
+      "acquisition_status": "完整官方下载ZIP已取得199329585B，归档缓存；Git保留原blend和17项脸/体/眼/发贴图，逐件SHA256",
+      "local_manifest": "assets/library/characters/blender-studio/rain/manifest.json",
+      "assessment": "用户否决夸张变形的人物；不作为本项目人物脸形/体态基础。成熟源保留用于绑定/拓扑研究，不加载至最新组合试片。唐人保持自然脸与正常人体，主要变更发式服饰。",
+      "target_scene": "无生产布置；仅隔离的绑定/拓扑研究",
+      "style_modification_cost": {
+        "level": "high",
+        "reason": "成熟面部基础可复用；风格、时代、衣服、材质烘焙、骨架精简和LOD仍需工作"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "source inventory and static head study; not physical phone",
+        "source_rigs": [
+          {
+            "name": "RIG-rain",
+            "bones": 2215,
+            "deform_bones": 395
+          }
+        ],
+        "static_head_triangles": 34287,
+        "static_head_bytes": 1782796,
+        "note": "原制作rig不直接进游戏；静态头已接近/超过整NPC预算，需要选择性重拓扑/LOD"
+      },
+      "runtime_integrated_this_round": false,
+      "evidence": [
+        {
+          "path": "assets/library/characters/blender-studio/rain/ReadMe.txt",
+          "type": "embedded source license notice"
+        },
+        {
+          "path": "assets/library/characters/blender-studio/rain/head-study.json",
+          "type": "derived geometry record"
+        }
+      ],
+      "style_rejected_by_user": true
+    },
+    {
+      "id": "authored-botanical-studies",
+      "name": "Rooted willow / real petal blossom / pine / street tree revisions",
+      "category": "vegetation",
+      "source_url": "tools/build_botanical_studies.py",
+      "stage": "source_acquired_research",
+      "license_scope": "original project-authored deterministic geometry; no third-party samples",
+      "local_manifest": "assets/library/vegetation/authored-studies/manifest.json",
+      "acquisition_status": "4类各3级LOD已生成并真实加载；原EZ-Tree12GLB完整保留",
+      "target_scene": "柳岸/园林/花树/街树的树种轮廓研究",
+      "style_modification_cost": {
+        "level": "high",
+        "reason": "目前层级规律过强，枝冠构图/树皮/叶透光仍需精修，非电影植物成品"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "manifest triangles only; not hardware",
+        "alpha": "no alpha mask in revision; actual small curved leaf/petal geometry",
+        "note": "20k–35k面近树不能密植；结合LOD实例化与远景遮挡测试"
+      },
+      "assessment": "解决根点/长叶/花瓣工艺，不放行最终美术",
+      "runtime_integrated_this_round": false,
+      "evidence": []
     }
   ],
   "design_studies": [
@@ -3785,5 +5284,8 @@
         "No hull geometry, collision or passenger motion has been built from this image."
       ]
     }
-  ]
+  ],
+  "preparation_contracts": "docs/production-contracts.json",
+  "production_spec": "docs/production-spec.json",
+  "resource_count": 115
 }

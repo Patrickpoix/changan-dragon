@@ -1,0 +1,73 @@
+{
+  "status": "authored_study_layers_not_final_mix",
+  "source": "tools/prepare_environment_audio.py",
+  "source_sha256": "148c8ac0df18a58f91ca869c2aa011d61ef829f7c7306cc0ac9feb3b6326e862",
+  "sample_rate": 22050,
+  "channels": 1,
+  "third_party_samples": false,
+  "runtime_integrated": false,
+  "semantic_audition_accepted": false,
+  "voices_included": false,
+  "files": [
+    {
+      "id": "wind",
+      "file": "wind.wav",
+      "sha256": "0e52569dd5a6649b73cf344453231f85d1269b22040d35ac5aedf4c1ccfb5778",
+      "bytes": 529244,
+      "seconds": 12.0,
+      "loop": true,
+      "source": "deterministic original synthesis; no third-party recordings",
+      "usage": "城门/屋顶/园林低层；合成柔风",
+      "peak": 0.32,
+      "seam_delta": 291
+    },
+    {
+      "id": "water",
+      "file": "water.wav",
+      "sha256": "c1718050e6505934c0540f54caa66c164f5bb79c1fe070fbb4e88097c4f370bd",
+      "bytes": 529244,
+      "seconds": 12.0,
+      "loop": true,
+      "source": "deterministic original synthesis; no third-party recordings",
+      "usage": "近岸小波层；合成水感，不冒充曲江实录",
+      "peak": 0.32,
+      "seam_delta": 217
+    },
+    {
+      "id": "wood-wheel",
+      "file": "wood-wheel.wav",
+      "sha256": "a23e45912e166432c22e306979071ddf6f48c9d9c9b101ba9ce900a6a9cd9363",
+      "bytes": 176444,
+      "seconds": 4.0,
+      "loop": true,
+      "source": "deterministic original synthesis; no third-party recordings",
+      "usage": "骑行木结构细响，随速度改变音高/增益；不表示真实机械录音",
+      "peak": 0.32,
+      "seam_delta": 0
+    },
+    {
+      "id": "distant-bell",
+      "file": "distant-bell.wav",
+      "sha256": "5df9d169ca0e1dc815034a7a6ffc5952ece9d76727e67709168ab866fe911ed4",
+      "bytes": 132344,
+      "seconds": 3.0,
+      "loop": false,
+      "source": "deterministic original synthesis; no third-party recordings",
+      "usage": "寺院远钟音色研究；非考证编钟/寺钟采样",
+      "peak": 0.32,
+      "seam_delta": null
+    },
+    {
+      "id": "earth-step",
+      "file": "earth-step.wav",
+      "sha256": "a559f378cb8ce19a583df7d27a386ce789ae738df5d3f369c0ee0673f4acf547",
+      "bytes": 13274,
+      "seconds": 0.3,
+      "loop": false,
+      "source": "deterministic original synthesis; no third-party recordings",
+      "usage": "土路落脚音色研究；鞋底/步频仍需实景调音",
+      "peak": 0.32,
+      "seam_delta": null
+    }
+  ]
+}

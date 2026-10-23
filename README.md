@@ -59,6 +59,8 @@ python3 tools/build_standalone.py
 
 基础建模返工已开始：首件完整木构研究样板可在静态服务的 [建模验收台](tools/model_review.html) 独立旋转查看，支持正侧背/俯视、灰模与米尺。它尚未部署全城或通过最终美术验收；生成脚本、构件来源和待办见 [样板说明](assets/library/architecture/timber-shop/README.md)。
 
+本轮准备成果、资源取得与未通过项见 [准备审查](docs/PREPARATION_REVIEW.md)、[统一制作规格](docs/production-spec.json) 和 [17族制作合同](docs/production-contracts.json)。[补回的人物/完整店铺参考](docs/user-references/2026-10-23/README.md) 已原样保留。用户明确人物保持自然人体与脸形，主要通过发式服饰表现唐代；夸张人物头脸方案已撤回。独立组合试片仍未通过电影美术验收，正式城市未替换。
+
 许可与下载证据见 [素材调研](docs/ASSET_RESEARCH.md)、[素材清单](docs/asset-manifest.json) 和各素材目录。正式使用的 Poly Haven 道具/植物/材质与环境光、Quaternius 马鹿、原作者动作、胡商面部和中空船体几何均为 CC0，miniLibs 构件移植遵循 MIT，马善政字体遵循 OFL。已保留作者与源文件校验。没有将现代/清式套件标成唐代考古复原。
 
 已安装 Python Playwright 与 Chromium 的环境可运行：

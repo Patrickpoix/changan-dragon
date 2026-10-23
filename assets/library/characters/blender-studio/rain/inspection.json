@@ -1,0 +1,941 @@
+{
+  "blender_version": "4.3.2",
+  "meshes": [
+    {
+      "name": "GEO-rain_body",
+      "vertices": 10256,
+      "faces": 10232,
+      "keys": [
+        "Basis",
+        "FingerBends1",
+        "FingerBends2",
+        "FingerBends3",
+        "Spine_Fwd",
+        "Spine_Back",
+        "Ribcage_Fwd",
+        "Ribcage_Fwd_Ext",
+        "Chest_Fwd",
+        "Chest_Back",
+        "F_Chest_Side.L",
+        "Elbow1.L",
+        "Elbow2.L",
+        "XZ_Wrist_Down.L",
+        "XZ_Wrist_Up.L",
+        "XZ_Wrist_Fwd.L",
+        "XZ_Wrist_Back.L",
+        "Thigh_Fwd.L",
+        "Thigh_Fwd_Ext.L",
+        "Thigh_Back.L",
+        "Z_Thigh_Side_Out.L",
+        "Ankle_Down.L",
+        "Ankle_Up.L",
+        "Z_Ankle_In.L",
+        "Z_Ankle_Out.L",
+        "Finger_Index1.R",
+        "Finger_Index2.R",
+        "Finger_Index3.R",
+        "Finger_Middle1.R",
+        "Finger_Middle2.R",
+        "Finger_Middle3.R",
+        "Finger_Ring1.R",
+        "Finger_Ring2.R",
+        "Finger_Ring3.R",
+        "Finger_Pinky1.R",
+        "Finger_Pinky2.R",
+        "Finger_Pinky3.R",
+        "Finger_Thumb1.R",
+        "Finger_Thumb2.R",
+        "Finger_Thumb3.R",
+        "F_Chest_Side.R",
+        "Elbow1.R",
+        "Elbow2.R",
+        "XZ_Wrist_Down.R",
+        "XZ_Wrist_Up.R",
+        "XZ_Wrist_Fwd.R",
+        "XZ_Wrist_Back.R",
+        "Thigh_Fwd.R",
+        "Thigh_Fwd_Ext.R",
+        "Thigh_Back.R",
+        "Z_Thigh_Side_Out.R",
+        "Ankle_Down.R",
+        "Ankle_Up.R",
+        "Z_Ankle_In.R",
+        "Z_Ankle_Out.R",
+        "Finger_Index1.L",
+        "Finger_Index2.L",
+        "Finger_Index3.L",
+        "Finger_Middle1.L",
+        "Finger_Middle2.L",
+        "Finger_Middle3.L",
+        "Finger_Ring1.L",
+        "Finger_Ring2.L",
+        "Finger_Ring3.L",
+        "Finger_Pinky1.L",
+        "Finger_Pinky2.L",
+        "Finger_Pinky3.L",
+        "Finger_Thumb1.L",
+        "Finger_Thumb2.L",
+        "Finger_Thumb3.L",
+        "Shoulder_Down.L",
+        "Shoulder_Down.R"
+      ],
+      "modifiers": [
+        "VERTEX_WEIGHT_MIX",
+        "VERTEX_WEIGHT_MIX",
+        "MASK",
+        "ARMATURE",
+        "SUBSURF",
+        "NODES"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_body_nomask",
+      "vertices": 10256,
+      "faces": 10232,
+      "keys": [
+        "Basis",
+        "FingerBends1",
+        "FingerBends2",
+        "FingerBends3",
+        "Finger_Index1.L",
+        "Finger_Index2.L",
+        "Finger_Index3.L",
+        "Finger_Middle1.L",
+        "Finger_Middle2.L",
+        "Finger_Middle3.L",
+        "Finger_Ring1.L",
+        "Finger_Ring2.L",
+        "Finger_Ring3.L",
+        "Finger_Pinky1.L",
+        "Finger_Pinky2.L",
+        "Finger_Pinky3.L",
+        "Finger_Thumb1.L",
+        "Finger_Thumb2.L",
+        "Finger_Thumb3.L",
+        "Spine_Fwd",
+        "Spine_Back",
+        "Ribcage_Fwd",
+        "Ribcage_Fwd2",
+        "Ribcage_Fwd_Ext",
+        "Ribcage_Fwd_Ext2",
+        "Ribcage_Back",
+        "Chest_Fwd",
+        "Chest_Back",
+        "F_Chest_Side.L",
+        "Elbow1.L",
+        "Elbow2.L",
+        "XZ_Wrist_Down.L",
+        "XZ_Wrist_Up.L",
+        "XZ_Wrist_Fwd.L",
+        "XZ_Wrist_Back.L",
+        "Thigh_Fwd.L",
+        "Thigh_Fwd_Ext.L",
+        "Thigh_Back.L",
+        "Z_Thigh_Side_Out.L",
+        "Ankle_Down.L",
+        "Ankle_Up.L",
+        "Z_Ankle_In.L",
+        "Z_Ankle_Out.L",
+        "Eye_Close_Corrective.L",
+        "Cheek_Suck.L",
+        "Finger_Index1.R",
+        "Finger_Index2.R",
+        "Finger_Index3.R",
+        "Finger_Middle1.R",
+        "Finger_Middle2.R",
+        "Finger_Middle3.R",
+        "Finger_Ring1.R",
+        "Finger_Ring2.R",
+        "Finger_Ring3.R",
+        "Finger_Pinky1.R",
+        "Finger_Pinky2.R",
+        "Finger_Pinky3.R",
+        "Finger_Thumb1.R",
+        "Finger_Thumb2.R",
+        "Finger_Thumb3.R",
+        "F_Chest_Side.R",
+        "Elbow1.R",
+        "Elbow2.R",
+        "XZ_Wrist_Down.R",
+        "XZ_Wrist_Up.R",
+        "XZ_Wrist_Fwd.R",
+        "XZ_Wrist_Back.R",
+        "Thigh_Fwd.R",
+        "Thigh_Fwd_Ext.R",
+        "Thigh_Back.R",
+        "Z_Thigh_Side_Out.R",
+        "Thigh_Twist_In.R",
+        "Thigh_Twist_Out.R",
+        "Ankle_Down.R",
+        "Ankle_Up.R",
+        "Z_Ankle_In.R",
+        "Z_Ankle_Out.R",
+        "Eye_Close_Corrective.R",
+        "Fingers_Adjust"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "SUBSURF"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-rain_eye_cornea",
+      "vertices": 642,
+      "faces": 672,
+      "keys": [
+        "Basis",
+        "sphere",
+        "buldge"
+      ],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_eye_dots",
+      "vertices": 32,
+      "faces": 1,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-rain_eyebrows",
+      "vertices": 148,
+      "faces": 130,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_eyelashes",
+      "vertices": 120,
+      "faces": 118,
+      "keys": [
+        "Basis",
+        "fix"
+      ],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_eyes",
+      "vertices": 1418,
+      "faces": 1410,
+      "keys": [
+        "Basis",
+        "push out",
+        "smooth edge",
+        "Dilate_Out.L",
+        "Dilate_In.L",
+        "Dilate_Out.R",
+        "Dilate_In.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF",
+        "NODES"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_eyes_viewport",
+      "vertices": 1348,
+      "faces": 1408,
+      "keys": [
+        "Basis",
+        "Flat",
+        "Dilate_Out.L",
+        "Dilate_In.L",
+        "Dilate_Out.R",
+        "Dilate_In.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-rain_gums_lower",
+      "vertices": 1542,
+      "faces": 1440,
+      "keys": [
+        "Base",
+        "mouth_open",
+        "Basis"
+      ],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_gums_upper",
+      "vertices": 1542,
+      "faces": 1440,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_hair_main",
+      "vertices": 2204,
+      "faces": 1965,
+      "keys": [
+        "Basis",
+        "Key 1"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_hair_ponytail",
+      "vertices": 579,
+      "faces": 569,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_hair_strand",
+      "vertices": 400,
+      "faces": 393,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_hairband",
+      "vertices": 480,
+      "faces": 480,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_head",
+      "vertices": 6395,
+      "faces": 6318,
+      "keys": [
+        "Basis",
+        "mouth_open",
+        "LipsAdjust",
+        "LipsWide.L",
+        "LipsUp.L",
+        "Smile.L",
+        "CheekPuff.L",
+        "LipsWide.R",
+        "LipsUp.R",
+        "Smile.R",
+        "CheekPuff.R",
+        "LipsPuff_Upper",
+        "LipsPuff_Lower",
+        "EyebrowsTogether.L",
+        "EyebrowsTogether.R",
+        "EyebrowsDown.L",
+        "EyebrowsDown.R",
+        "EyelidsClose.L",
+        "EyelidsClose.R",
+        "LipsPuff_Upper_bkp",
+        "LipsPuff_Lower_bkp",
+        "Lips_Corner_In.L",
+        "Lips_Corner_In.R",
+        "Head_Back",
+        "Head_Forward"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "CORRECTIVE_SMOOTH",
+        "SUBSURF",
+        "NODES"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_jeans",
+      "vertices": 4531,
+      "faces": 4464,
+      "keys": [
+        "Basis",
+        "Thigh_Fwd.L",
+        "Thigh_Fwd_Ext.L",
+        "Thigh_Back.L",
+        "Z_Thigh_Side_Out.L",
+        "Thigh_Fwd.R",
+        "Thigh_Fwd_Ext.R",
+        "Thigh_Back.R",
+        "Z_Thigh_Side_Out.R"
+      ],
+      "modifiers": [
+        "VERTEX_WEIGHT_MIX",
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "MASK",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_scarf",
+      "vertices": 1285,
+      "faces": 1217,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_shoes",
+      "vertices": 6634,
+      "faces": 6254,
+      "keys": [
+        "Basis",
+        "Ankle_Down.L",
+        "Ankle_Up.L",
+        "Ankle_In.L",
+        "Ankle_Out.L",
+        "Ankle_Down.R",
+        "Ankle_Up.R",
+        "Ankle_In.R",
+        "Ankle_Out.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_tongue",
+      "vertices": 275,
+      "faces": 264,
+      "keys": [
+        "Basis",
+        "mouth_open"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-rain_top",
+      "vertices": 1632,
+      "faces": 1556,
+      "keys": [
+        "Basis",
+        "Thigh_Fwd.L",
+        "Thigh_Fwd_Ext.L",
+        "Thigh_Back.L",
+        "Z_Thigh_Side_Out.L",
+        "Thigh_Fwd.R",
+        "Thigh_Fwd_Ext.R",
+        "Thigh_Back.R",
+        "Z_Thigh_Side_Out.R",
+        "Spine_Fwd",
+        "Spine_Back",
+        "Ribcage_Fwd",
+        "Ribcage_Fwd_Ext",
+        "Chest_Fwd",
+        "Chest_Back",
+        "F_Chest_Side.L",
+        "F_Chest_Side.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "SOLIDIFY",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Circle",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-rig_root",
+      "vertices": 48,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_3Axes",
+      "vertices": 30,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_6Axes",
+      "vertices": 54,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Arrow",
+      "vertices": 16,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_ArrowHead",
+      "vertices": 5,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Capsule_Flat",
+      "vertices": 26,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Carpal",
+      "vertices": 34,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Clavicle",
+      "vertices": 44,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Cogwheel",
+      "vertices": 36,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Cube",
+      "vertices": 8,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Diamond",
+      "vertices": 12,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eye_Direct",
+      "vertices": 64,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eye_Target",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eyebrow.L",
+      "vertices": 22,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eyebrow.R",
+      "vertices": 22,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eyelid_Lower",
+      "vertices": 34,
+      "faces": 0,
+      "keys": [
+        "Basis",
+        "Key 1"
+      ],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eyelid_Upper",
+      "vertices": 34,
+      "faces": 0,
+      "keys": [
+        "Basis",
+        "Key 1"
+      ],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Eyes_Target",
+      "vertices": 56,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Finger_Curl",
+      "vertices": 28,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_FK_Limb",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_FK_Limb_Offset",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Foot.L",
+      "vertices": 46,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Foot.R",
+      "vertices": 46,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Foot_Parent.L",
+      "vertices": 46,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Foot_Parent.R",
+      "vertices": 46,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT_FootRoll",
+      "vertices": 58,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Hand_IK",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Head_Target",
+      "vertices": 64,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Hemisphere",
+      "vertices": 26,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Hip_FK",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Hips",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Jaw",
+      "vertices": 20,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": true
+    },
+    {
+      "name": "WGT_Mouth",
+      "vertices": 7,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Mouth_Bottom",
+      "vertices": 8,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Mouth_Top",
+      "vertices": 8,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_MSTR-Head_Lower",
+      "vertices": 15,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_MSTR-Head_Upper",
+      "vertices": 17,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Nose_Master",
+      "vertices": 33,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Oval",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Pole_Line",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Rectangle",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Roll",
+      "vertices": 40,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Root",
+      "vertices": 24,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Sphere",
+      "vertices": 96,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Spine_FK",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [
+        "NODES"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Square",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Torso",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_Torso_Master",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT_XY_Sphere",
+      "vertices": 96,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGTS_rig",
+      "vertices": 0,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    }
+  ],
+  "rigs": [
+    {
+      "name": "RIG-rain",
+      "bones": 2215,
+      "deform_bones": 395
+    }
+  ],
+  "text_notices": {
+    "ReadMe.txt": "    This character rig is provided under the CC-BY license by \n        the Blender Studio.\n    https://creativecommons.org/licenses/by/4.0/\n\n                #### HOW TO LINK/APPEND ####\n    First off, ask yourself if you even NEED to link or append the \n    rig into another file. Probably not! But if you do:\n\n    1. Link/Append the collection whose name starts with \"CH\".\n    2. In the 3D View Header: Object -> Relations -> Make Library Override.\n    3. Save and Reload the file, to allow scripts to execute.\n\n    Then simply enter pose mode on the armature and start animating!"
+  }
+}

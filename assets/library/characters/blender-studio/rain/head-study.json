@@ -1,0 +1,21 @@
+{
+  "status": "static_neutral_head_topology_study",
+  "source": "rain_rig.blend",
+  "generator": "tools/prepare_studio_heads.py",
+  "generator_sha256": "ecd822578d929293b027fa152722e112ff90ca967c775a1858007892c4b07591",
+  "file": "head-study.glb",
+  "sha256": "88c658934a4d2017415400616cfa8bae4fc6ff692d3e772a0ffb403765639591",
+  "bytes": 1782796,
+  "triangles": 34287,
+  "license": "CC-BY-4.0",
+  "attribution": "Rain by Blender Studio, https://studio.blender.org/characters/rain/v2/, CC BY 4.0. Modified: neutral static head geometry, rig and clothing excluded.",
+  "final_art_accepted": false,
+  "rig_exported": false,
+  "runtime_integrated": false,
+  "limitations": [
+    "Static base topology, source expressions/rig remain only in original blend",
+    "Neutral replacement materials; original skin and eye shaders not baked",
+    "Modern hair/face styling requires Tang and film-style adaptation",
+    "Base hair silhouettes may require subdivision/bake before art review"
+  ]
+}

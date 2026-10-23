@@ -1,0 +1,97 @@
+{
+  "checked_on": "2026-10-23",
+  "browser": "Browser plugin not available; Chromium SwiftShader",
+  "scope": "Static mature source topology conversions, r160 loader and audio decode/time progression",
+  "results": [
+    {
+      "source": "snow",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "invalid": 0,
+      "triangles": 29917,
+      "revision": "160",
+      "webgl2": true,
+      "gl": 0
+    },
+    {
+      "source": "rain",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "invalid": 0,
+      "triangles": 34287,
+      "revision": "160",
+      "webgl2": true,
+      "gl": 0
+    },
+    {
+      "source": "snow",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "invalid": 0,
+      "triangles": 29917,
+      "revision": "160",
+      "webgl2": false,
+      "gl": 0
+    },
+    {
+      "source": "rain",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "invalid": 0,
+      "triangles": 34287,
+      "revision": "160",
+      "webgl2": false,
+      "gl": 0
+    }
+  ],
+  "audio": {
+    "state": "running",
+    "elapsed": 0.2583219954648526,
+    "results": [
+      {
+        "name": "wind",
+        "seconds": 12,
+        "sampleRate": 44100,
+        "channels": 1,
+        "peak": 0.3199924826622009
+      },
+      {
+        "name": "water",
+        "seconds": 12,
+        "sampleRate": 44100,
+        "channels": 1,
+        "peak": 0.3220263421535492
+      },
+      {
+        "name": "wood-wheel",
+        "seconds": 4,
+        "sampleRate": 44100,
+        "channels": 1,
+        "peak": 0.3200073838233948
+      },
+      {
+        "name": "distant-bell",
+        "seconds": 3,
+        "sampleRate": 44100,
+        "channels": 1,
+        "peak": 0.3206510543823242
+      },
+      {
+        "name": "earth-step",
+        "seconds": 0.3,
+        "sampleRate": 44100,
+        "channels": 1,
+        "peak": 0.3199635446071625
+      }
+    ]
+  },
+  "page_console_errors": [],
+  "final_art_accepted": false,
+  "semantic_audio_auditioned": false,
+  "rig_export_accepted": false,
+  "physical_phone_tested": false
+}

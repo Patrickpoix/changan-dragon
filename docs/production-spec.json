@@ -1,0 +1,176 @@
+{
+  "version": "preparation-v1",
+  "status": "working production specification; aesthetic release withheld pending reference comparison",
+  "units": "metres",
+  "runtime": {
+    "three_revision": "160",
+    "engine_migration": false,
+    "tools_isolated": true
+  },
+  "coordinates": {
+    "up": "+Y",
+    "north": "-Z",
+    "character_front": "+Z",
+    "origin": "feet on local ground; boat origin at design waterline"
+  },
+  "palette_srgb": {
+    "wood": "926043",
+    "bark": "635446",
+    "stone": "b4ad96",
+    "earth": "b29b76",
+    "cloth": "526b78",
+    "silk": "c29561",
+    "jade": "73ac8c",
+    "cream": "e3d7b0",
+    "skin": "d3a583",
+    "dark": "302e29",
+    "red": "a75c46",
+    "leaf": "788d59",
+    "flower": "e7b8b1",
+    "roof": "68777b",
+    "plaster": "d4c5a2"
+  },
+  "architecture": {
+    "shop_bay": 3.6,
+    "ground_eave": 3.5,
+    "column_diameter": 0.3,
+    "gallery_clear_width": 2.0,
+    "door_clear_width": 1.2,
+    "gallery_guard_height": 1.05,
+    "stair_width": 1.2,
+    "stair_rise_max": 0.16,
+    "stair_going_min": 0.28,
+    "ordinary_eave_projection": 0.95,
+    "hip_roof_rise_to_half_depth": 0.57,
+    "roof_profile": "z(t)=eave+rise*(1-t)^1.35+0.08*t^6, t=ridge-to-eave normalized; shell 0.09m; calibrate by type before production",
+    "wood_rule": "column centres define beams, brackets, purlins and rafters; no nonuniform scale of a finished module",
+    "roof_lod": "L0 shell+near tile rolls; L1 shell+eave rolls and baked normals; L2 closed shell+ridge+silhouette fascia",
+    "historical_status": "art-directed fantasy city informed by Tang evidence; engineering defaults, not archaeological norms"
+  },
+  "characters": {
+    "male_body_height": 1.74,
+    "female_body_height": 1.68,
+    "human_head_ratio": [
+      6.8,
+      7.8
+    ],
+    "dragon_body_height": [
+      0.95,
+      1.1
+    ],
+    "dragon_horn_height": [
+      1.2,
+      1.35
+    ],
+    "dragon_eye_ball_radius": 0.075,
+    "bicycle_wheel_diameter": 0.5,
+    "bicycle_crank_length": 0.11,
+    "bicycle_wheelbase": 0.8,
+    "bicycle_saddle_height": 0.63,
+    "bicycle_grip_height": 0.77,
+    "hand_socket_tolerance": 0.025,
+    "foot_contact_tolerance": 0.02,
+    "note": "prototype dimensions only; continuous face, tailoring, expression and reach require G1 acceptance",
+    "human_anatomy": "Natural human proportions and familiar facial structure; do not enlarge heads or eyes. Tang identity through hair, clothing, grooming and role. Ranges are loose reference checks, never forced deformation."
+  },
+  "barge": {
+    "length": 12.0,
+    "beam": 3.6,
+    "cabin_clear_height": 2.2,
+    "central_aisle_min": 1.2,
+    "boarding_gate_width": 1.2,
+    "gangplank_width": 1.2,
+    "design_draft": 0.35,
+    "freeboard": 0.65,
+    "note": "art-directed scale trial; hydrostatics and historic form unapproved"
+  },
+  "vegetation": {
+    "street_height": 8,
+    "willow_height": 9,
+    "pine_height": 10,
+    "blossom_height": 5,
+    "alpha_mode": "MASK",
+    "alpha_cutoff": 0.5,
+    "leaf_shadow_distance": 35,
+    "lod_switch_metres": [
+      24,
+      65
+    ],
+    "lod_hysteresis_metres": 4,
+    "note": "actual bounds govern; street/willow/pine/blossom study shape not final"
+  },
+  "surface": {
+    "basecolor": "sRGB; no baked directional lighting",
+    "normal_roughness_orm": "linear data; OpenGL tangent-space normals",
+    "normal_strength": 0.16,
+    "roughness_ranges": {
+      "timber": [
+        0.65,
+        0.9
+      ],
+      "plaster": [
+        0.85,
+        1.0
+      ],
+      "tile": [
+        0.72,
+        0.94
+      ],
+      "skin": [
+        0.52,
+        0.78
+      ],
+      "cloth": [
+        0.68,
+        0.95
+      ],
+      "glazed_pottery": [
+        0.22,
+        0.42
+      ]
+    },
+    "max_texture_size_default": 1024,
+    "shared_small_prop_texture": 512
+  },
+  "lighting": {
+    "neutral_test": "white/grey environment, no bloom/AO as prerequisite",
+    "sun_altitude_degrees": 38,
+    "sun_azimuth_degrees": 135,
+    "day_temperature_kelvin": 5200,
+    "fill_temperature_kelvin": 7000,
+    "tone_mapping": "ACES, exposure reference 1.0",
+    "night": "dark blue ambient, local warm lanterns, no global cyan emission"
+  },
+  "camera": {
+    "walk_eye_height": 1.1,
+    "third_person_distance": 4.6,
+    "vertical_fov_degrees": 43,
+    "inspection_fov": 42,
+    "cinema_fov_range": [
+      32,
+      48
+    ],
+    "collision_clearance": 0.25,
+    "note": "composition and obstacle clearance to calibrate after final dragon/bicycle rig"
+  },
+  "budgets_not_measured_performance": {
+    "ordinary_shop_triangles_lods": [
+      25000,
+      8000,
+      1500
+    ],
+    "npc_triangles_lods": [
+      15000,
+      5000,
+      1200
+    ],
+    "dragon_triangles": 45000,
+    "visible_near_rigs_max": 20,
+    "smooth_colour_draw_calls_max": 220,
+    "smooth_colour_triangles_max": 800000,
+    "resident_textures_mib_max": 96,
+    "gpu_total_mib_max": 192,
+    "offline_package_mib_target": 45,
+    "mobile_fps_target": 30
+  }
+}

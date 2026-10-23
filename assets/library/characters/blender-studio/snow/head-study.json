@@ -1,0 +1,21 @@
+{
+  "status": "static_neutral_head_topology_study",
+  "source": "snow_v02.blend",
+  "generator": "tools/prepare_studio_heads.py",
+  "generator_sha256": "ecd822578d929293b027fa152722e112ff90ca967c775a1858007892c4b07591",
+  "file": "head-study.glb",
+  "sha256": "2c4c8c0cf9dfcf0d663e48b26234681edd59d848502b4ead6a501cafae978438",
+  "bytes": 1288352,
+  "triangles": 29917,
+  "license": "CC-BY-4.0",
+  "attribution": "Snow by Blender Studio, https://studio.blender.org/characters/snow/v2/, CC BY 4.0. Modified: neutral static head geometry, rig and clothing excluded.",
+  "final_art_accepted": false,
+  "rig_exported": false,
+  "runtime_integrated": false,
+  "limitations": [
+    "Static base topology, source expressions/rig remain only in original blend",
+    "Neutral replacement materials; original skin and eye shaders not baked",
+    "Modern hair/face styling requires Tang and film-style adaptation",
+    "Base hair silhouettes may require subdivision/bake before art review"
+  ]
+}

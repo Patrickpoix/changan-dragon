@@ -1,0 +1,278 @@
+{
+  "status": "authored_species_silhouette_studies",
+  "generator": "tools/build_botanical_studies.py",
+  "source_sha256": "61e67fc19fcc7db2dfa603f4b934da3ed89dcfad6198d507aa4bdab6a9d6fc60",
+  "source": "original deterministic geometry; no downloaded mesh/images",
+  "units": "metres, glTF Y-up",
+  "root": "trunk base at local origin; fine drooping twigs clamped above ground",
+  "alpha": "none; thin curved leaves and petals are double-sided physical meshes",
+  "runtime_integrated": false,
+  "final_art_accepted": false,
+  "limitations": [
+    "Colour, branch taper, crown composition and translucency require reference-led refinement",
+    "Static GLB has no wind shader",
+    "LOD branch/leaf density differs; real transition/hysteresis and phone overdraw test remain"
+  ],
+  "types": [
+    {
+      "species": "willow",
+      "levels": [
+        {
+          "file": "willow-lod0.glb",
+          "sha256": "f764d07ea3e0b31646257ce136f169f5fe27b374f16df06749505e180adb9a8a",
+          "bytes": 660044,
+          "triangles": 22092,
+          "blender_xyz_bounds": [
+            [
+              -2.7667970657348633,
+              3.133610486984253
+            ],
+            [
+              -2.8493599891662598,
+              2.677283525466919
+            ],
+            [
+              -0.013100125826895237,
+              6.977183818817139
+            ]
+          ]
+        },
+        {
+          "file": "willow-lod1.glb",
+          "sha256": "4ce5aaea34bc6f24630f590017069e7c884c0273c4e3375ecac7e14122252071",
+          "bytes": 342584,
+          "triangles": 11432,
+          "blender_xyz_bounds": [
+            [
+              -2.7625510692596436,
+              3.1048266887664795
+            ],
+            [
+              -2.83595609664917,
+              2.6537227630615234
+            ],
+            [
+              -0.0121762715280056,
+              6.973111629486084
+            ]
+          ]
+        },
+        {
+          "file": "willow-lod2.glb",
+          "sha256": "65049d0478f2509d65572b8948ebe082b2ba93634b47572987b916d317d5e57d",
+          "bytes": 173332,
+          "triangles": 5624,
+          "blender_xyz_bounds": [
+            [
+              -2.746565818786621,
+              3.111982822418213
+            ],
+            [
+              -2.844651937484741,
+              2.6479251384735107
+            ],
+            [
+              -0.010697795078158379,
+              6.973987579345703
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "species": "blossom",
+      "levels": [
+        {
+          "file": "blossom-lod0.glb",
+          "sha256": "b575e3a84201eaf8a39fb9e535a5eca5e07c67fb0d4789772ed5efe5d98cb00a",
+          "bytes": 807868,
+          "triangles": 16188,
+          "blender_xyz_bounds": [
+            [
+              -2.353867769241333,
+              2.655648946762085
+            ],
+            [
+              -2.422922134399414,
+              2.32625150680542
+            ],
+            [
+              -0.014541828073561192,
+              4.961812973022461
+            ]
+          ]
+        },
+        {
+          "file": "blossom-lod1.glb",
+          "sha256": "0037ffeea6c49fc5aa4f76e6cfee25525f927176337e1ba2a0951fa687e6fa3b",
+          "bytes": 425020,
+          "triangles": 8840,
+          "blender_xyz_bounds": [
+            [
+              -2.237119197845459,
+              2.6351840496063232
+            ],
+            [
+              -2.434091567993164,
+              2.174354076385498
+            ],
+            [
+              -0.013512477278709412,
+              4.936918258666992
+            ]
+          ]
+        },
+        {
+          "file": "blossom-lod2.glb",
+          "sha256": "b8ad5a2ca0d59cdafaf57b51e3b9bb9a1c3df182163076995ad9ac95663d690a",
+          "bytes": 234168,
+          "triangles": 5192,
+          "blender_xyz_bounds": [
+            [
+              -2.2370498180389404,
+              2.6280324459075928
+            ],
+            [
+              -2.293461561203003,
+              2.1744909286499023
+            ],
+            [
+              -0.011870241723954678,
+              4.878093719482422
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "species": "pine",
+      "levels": [
+        {
+          "file": "pine-lod0.glb",
+          "sha256": "eb4a79728043f6cbe636ec32b305122bf6fc9e1e263f73f8e2c7fb25c6905fff",
+          "bytes": 1306732,
+          "triangles": 35664,
+          "blender_xyz_bounds": [
+            [
+              -3.248354434967041,
+              3.8912854194641113
+            ],
+            [
+              -3.5076403617858887,
+              3.0439376831054688
+            ],
+            [
+              -0.011648784391582012,
+              7.470710277557373
+            ]
+          ]
+        },
+        {
+          "file": "pine-lod1.glb",
+          "sha256": "c6b826248e8e813508bb7cb1849b3d3b0a86e127ec8b2ccab035bf2de158f9e0",
+          "bytes": 655924,
+          "triangles": 17864,
+          "blender_xyz_bounds": [
+            [
+              -3.2963247299194336,
+              3.942218065261841
+            ],
+            [
+              -3.5583863258361816,
+              3.066636800765991
+            ],
+            [
+              -0.010827693156898022,
+              7.4884748458862305
+            ]
+          ]
+        },
+        {
+          "file": "pine-lod2.glb",
+          "sha256": "165f8d9e331d941d141abc0d60b7ba6763f819d0b35a66e92cd48ae13b632d3d",
+          "bytes": 331220,
+          "triangles": 8996,
+          "blender_xyz_bounds": [
+            [
+              -3.3476083278656006,
+              3.993150472640991
+            ],
+            [
+              -3.2843987941741943,
+              2.9227755069732666
+            ],
+            [
+              -0.009513129480183125,
+              7.4706573486328125
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "species": "street",
+      "levels": [
+        {
+          "file": "street-lod0.glb",
+          "sha256": "089136d4550d5de98e6cae5b90a8ca13c2421a4672f4e59cdc81425fa57def5d",
+          "bytes": 390188,
+          "triangles": 11292,
+          "blender_xyz_bounds": [
+            [
+              -2.971203088760376,
+              3.3199269771575928
+            ],
+            [
+              -3.093656301498413,
+              2.918940782546997
+            ],
+            [
+              -0.014963655732572079,
+              6.322085380554199
+            ]
+          ]
+        },
+        {
+          "file": "street-lod1.glb",
+          "sha256": "daa250b54a44f7dfe3da1f29455f519e5f71a7070d8c38f5cd402a9ecf05989b",
+          "bytes": 197420,
+          "triangles": 5672,
+          "blender_xyz_bounds": [
+            [
+              -3.014361619949341,
+              3.373565196990967
+            ],
+            [
+              -3.1470980644226074,
+              2.9465696811676025
+            ],
+            [
+              -0.013907604850828648,
+              6.337636470794678
+            ]
+          ]
+        },
+        {
+          "file": "street-lod2.glb",
+          "sha256": "f5854ba19f4d54c29ca353ed5e3036c86a3280e11dbd81a04c36c40c9fc91c12",
+          "bytes": 101604,
+          "triangles": 2888,
+          "blender_xyz_bounds": [
+            [
+              -3.0672154426574707,
+              3.42720365524292
+            ],
+            [
+              -2.774775743484497,
+              2.712198257446289
+            ],
+            [
+              -0.012218601070344448,
+              6.353062629699707
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

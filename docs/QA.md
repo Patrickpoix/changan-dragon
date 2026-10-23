@@ -109,6 +109,8 @@ python3 tools/model_test.py --output /tmp/changan-timber-review
 
 ## 2026-10-24 研究资产恢复专项
 
+2026-10-23续轮重新核验及新增准备试片：`resource_recovery_test.py`现支持`--models recovered|authored --output <directory>`，默认输出仓库外，避免覆盖恢复证据；旧下述命令仍验证恢复模型。`preparation_study_test.py`检查最新自然人物/木构/材质/植物组合的现代/WebGL1加载、多视角、灰模保留alpha及有限属性；`studio_source_test.py`检查隔离的成熟头脸静态转换与五条Web Audio解码/手势启动音频时钟。**用户已否决Snow/Rain夸张造型，技术加载通过不改变此结论，最新组合已改用自然成人源。** 本轮经选择的证据在`qa-evidence/preparation-20261023/`；没有真机、最终美术、原rig迁移或人耳听审通过声明。
+
 `python tools/prepare_production_materials.py --verify`核验7组原件摘要和21张512²图；`node tools/prepare_vegetation_studies.mjs /path/to/tree-tools`重跑12GLB字节一致。叶片原先是Git LFS指针，首轮浏览器纹理失败，随后取得media原图并按LFS SHA256/大小核验后重跑；不计失败版本为通过。
 
 启动8877静态服务后运行`python tools/resource_recovery_test.py`（本机Playwright/Chromium，未发现Browser工具）。记录见`qa-evidence/resource-recovery/results.json`及四类截图：24次现代/强制WebGL1加载、包围盒取景、四视角/灰模、本地GLB替换、坏文件保留旧模型，零页面/控制台错误、glError0。四图已实际查看；柳冠/树皮/花树仍未通过美术，花树乘色偏褐。软件渲染与手机尺寸不是手机真机或所有浏览器兼容测试。正式场景、离线包本轮未改，未重复做整城验收。

@@ -1,0 +1,686 @@
+{
+  "blender_version": "4.3.2",
+  "meshes": [
+    {
+      "name": "GEO-snow_body",
+      "vertices": 5828,
+      "faces": 5771,
+      "keys": [
+        "Basis",
+        "ElbowTweak",
+        "ShouldersDownExt.L",
+        "ShouldersDownExt.R",
+        "ElbowsBend.L",
+        "ElbowsBend.R",
+        "ElbowsBendExt.L",
+        "ElbowsBendExt.R",
+        "FingerBend_Index1.L",
+        "FingerBend_Index1.R",
+        "FingerBend_Index2.L",
+        "FingerBend_Index2.R",
+        "FingerBend_Index3.L",
+        "FingerBend_Index3.R",
+        "FingerBend_Middle1.L",
+        "FingerBend_Middle1.R",
+        "FingerBend_Middle2.L",
+        "FingerBend_Middle2.R",
+        "FingerBend_Middle3.L",
+        "FingerBend_Middle3.R",
+        "FingerBend_Ring1.L",
+        "FingerBend_Ring1.R",
+        "FingerBend_Ring2.L",
+        "FingerBend_Ring2.R",
+        "FingerBend_Ring3.L",
+        "FingerBend_Ring3.R",
+        "FingerBend_Pinky1.L",
+        "FingerBend_Pinky1.R",
+        "FingerBend_Pinky2.L",
+        "FingerBend_Pinky2.R",
+        "FingerBend_Pinky3.L",
+        "FingerBend_Pinky3.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "MASK",
+        "MASK",
+        "MASK",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_eye_anim",
+      "vertices": 1156,
+      "faces": 1216,
+      "keys": [
+        "Basis",
+        "ShrinkIrisHorizontal.L",
+        "ShrinkIrisHorizontal.R",
+        "ShrinkIrisVertical.L",
+        "ShrinkIrisVertical.R",
+        "GrowIrisHorizontal.L",
+        "GrowIrisHorizontal.R",
+        "GrowIrisVertical.L",
+        "GrowIrisVertical.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF",
+        "NODES"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-snow_eye_corneas",
+      "vertices": 642,
+      "faces": 672,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_eye_dots",
+      "vertices": 32,
+      "faces": 1,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "LATTICE"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_eyebrows",
+      "vertices": 216,
+      "faces": 188,
+      "keys": [
+        "Basis",
+        "Thinner"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_eyes",
+      "vertices": 1418,
+      "faces": 1410,
+      "keys": [
+        "Basis",
+        "ShrinkIrisHorizontal.L",
+        "ShrinkIrisHorizontal.R",
+        "ShrinkIrisVertical.L",
+        "ShrinkIrisVertical.R",
+        "GrowIrisHorizontal.L",
+        "GrowIrisHorizontal.R",
+        "GrowIrisVertical.L",
+        "GrowIrisVertical.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "SUBSURF",
+        "LATTICE"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_gums_lower",
+      "vertices": 927,
+      "faces": 864,
+      "keys": [],
+      "modifiers": [
+        "SURFACE_DEFORM",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_gums_upper",
+      "vertices": 927,
+      "faces": 864,
+      "keys": [],
+      "modifiers": [
+        "SURFACE_DEFORM",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_hair_base",
+      "vertices": 3418,
+      "faces": 3180,
+      "keys": [
+        "Basis",
+        "Key 1"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_head",
+      "vertices": 3719,
+      "faces": 3633,
+      "keys": [
+        "Basis",
+        "Fixholes",
+        "RIG-Snow_LipsWide.L",
+        "RIG-Snow_LipsWide.R",
+        "RIG-Snow_LipsUp.L",
+        "RIG-Snow_LipsUp.R",
+        "RIG.Snow_Lips_Up+Wide.L",
+        "RIG.Snow_Lips_Up+Wide.R",
+        "Smile.L",
+        "Smile.R",
+        "RIG.Snow_LipsDown.L",
+        "RIG.Snow_LipsDown.R",
+        "RIG.Snow_LipsDown+Wide.L",
+        "RIG.Snow_LipsDown+Wide.R",
+        "RIG.Snow_LipsNarrow.L",
+        "RIG.Snow_LipsNarrow.R",
+        "RIG.Snow_LipsUp+Narrow.L",
+        "RIG.Snow_LipsUp+Narrow.R",
+        "RIG.Snow_LipsDown+Narrow.L",
+        "RIG.Snow_LipsDown+Narrow.R",
+        "Bothbrows_Down",
+        "Bothbrows_Up",
+        "RIG.Snow_EyebrowsIn.L",
+        "RIG.Snow_EyebrowsIn.R",
+        "RIG.Snow_CheekPuff.L",
+        "RIG.Snow_CheekPuff.R",
+        "Bothbrows_Down+In",
+        "RIG.Snow_Lip_Upper_RollIn",
+        "RIG.Snow_Lip_Lower_RollIn",
+        "RIG.Snow_Lip_Upper_RollOut",
+        "RIG.Snow_Lip_Lower_RollOut",
+        "RIG.Snow_CheekRaise.L",
+        "RIG.Snow_CheekRaise.R",
+        "NeckRotZPos",
+        "NeckRotZNeg",
+        "RIG.Snow_EyebrowsDown.L",
+        "RIG.Snow_EyebrowsDown.R",
+        "EyebrowDown+In.L",
+        "EyebrowDown+In.R",
+        "RIG.Snow_EyebrowsUp.L",
+        "RIG.Snow_EyebrowsUp.R",
+        "Eyebrow_Up+In.L",
+        "Eyebrow_Up+In.R",
+        "Bothbrows_Up+In",
+        "NeckTwist.L",
+        "NeckTwist.R",
+        "RIG.Snow_JawOpen",
+        "JawOpenTranslate",
+        "RIG.Snow_CenterCheekRaise.L",
+        "RIG.Snow_CenterCheekRaise.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "LATTICE",
+        "LATTICE",
+        "LATTICE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_head_helper",
+      "vertices": 2137,
+      "faces": 2117,
+      "keys": [
+        "Basis",
+        "Key 1",
+        "Key 2",
+        "Key 3"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "LATTICE",
+        "LATTICE",
+        "CORRECTIVE_SMOOTH",
+        "DISPLACE"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_pants",
+      "vertices": 2631,
+      "faces": 2589,
+      "keys": [
+        "Basis",
+        "AvoidClipping",
+        "LegsFwdExt.L",
+        "LegsFwdExt.R",
+        "LegsFwd.L",
+        "LegsFwd.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "MASK",
+        "MASK",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_pants_deformer",
+      "vertices": 690,
+      "faces": 664,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "TRIANGULATE"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-snow_shirt",
+      "vertices": 1839,
+      "faces": 1783,
+      "keys": [
+        "Basis",
+        "ShouldersDownExt.L",
+        "ShouldersDownExt.R",
+        "BendForward_Spine",
+        "BendForward_RibCage",
+        "BendForward_Chest",
+        "LegsFwd.L",
+        "LegsFwd.R",
+        "ClaviclesUp.L",
+        "ClaviclesUp.R"
+      ],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "MASK",
+        "MASK",
+        "MASK",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_shoes_base",
+      "vertices": 1143,
+      "faces": 1130,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "MASK",
+        "MASK",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_shoes_base_deformer",
+      "vertices": 1143,
+      "faces": 1130,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_shoes_bottom",
+      "vertices": 524,
+      "faces": 511,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "ARMATURE",
+        "SURFACE_DEFORM",
+        "MASK",
+        "MASK",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_shoes_parts",
+      "vertices": 1478,
+      "faces": 1348,
+      "keys": [],
+      "modifiers": [
+        "MIRROR",
+        "MASK",
+        "MASK",
+        "ARMATURE",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_teeth_lower",
+      "vertices": 2141,
+      "faces": 2016,
+      "keys": [],
+      "modifiers": [
+        "SURFACE_DEFORM",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_teeth_lower_helper",
+      "vertices": 155,
+      "faces": 120,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-snow_teeth_upper",
+      "vertices": 2142,
+      "faces": 2016,
+      "keys": [],
+      "modifiers": [
+        "SURFACE_DEFORM",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "GEO-snow_teeth_upper_helper",
+      "vertices": 341,
+      "faces": 300,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "GEO-snow_tongue",
+      "vertices": 275,
+      "faces": 264,
+      "keys": [],
+      "modifiers": [
+        "ARMATURE",
+        "CORRECTIVE_SMOOTH",
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Arrow",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Arrow_Head",
+      "vertices": 5,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Circle",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Circle_Spiked_2",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Clavicle",
+      "vertices": 44,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Cogwheel_Y",
+      "vertices": 36,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Cube",
+      "vertices": 8,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Curve_Handle",
+      "vertices": 10,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-DoubleArrow",
+      "vertices": 8,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Foot",
+      "vertices": 46,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [
+        "SUBSURF"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "WGT-GearCog_Y",
+      "vertices": 36,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Hyperbola",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Line",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Mouth_Master",
+      "vertices": 7,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Nose",
+      "vertices": 33,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Plane",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Roll",
+      "vertices": 40,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Roll.001",
+      "vertices": 30,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Roll_Flat",
+      "vertices": 58,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Root",
+      "vertices": 24,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-SemiCircle",
+      "vertices": 17,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Snow_Eyebrow",
+      "vertices": 26,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Snow_Eyelid",
+      "vertices": 17,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Snow_Jaw",
+      "vertices": 19,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Sphere",
+      "vertices": 96,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Sphere_Half",
+      "vertices": 66,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-SpikedCircle",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Square",
+      "vertices": 4,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Squares_2",
+      "vertices": 8,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    },
+    {
+      "name": "WGT-Torso_Master",
+      "vertices": 32,
+      "faces": 0,
+      "keys": [],
+      "modifiers": [],
+      "hidden": false
+    }
+  ],
+  "rigs": [
+    {
+      "name": "META-Snow",
+      "bones": 398,
+      "deform_bones": 370
+    },
+    {
+      "name": "RIG-Snow",
+      "bones": 1552,
+      "deform_bones": 292
+    }
+  ],
+  "text_notices": {
+    "ReadMe.txt": "\tThis character rig is provided under the CC-BY license by \n\t\tthe Blender Studio.\n\thttps://creativecommons.org/licenses/by/4.0/\n\n\tMake sure to enable the Pose Library add-on!\n\n\t\t\t\t#### HOW TO LINK/APPEND ####\n\tFirst off, ask yourself if you even NEED to link or append the \n\trig into another file. Probably not! But if you do:\n\n\t1. Link/Append the collection whose name starts with \"CH\".\n\t2. In the 3D View Header: Object -> Relations -> Make Library Override.\n\t3. Save and Reload the file, to allow scripts to execute.\n\n\tThen simply enter pose mode on the armature and start animating!"
+  }
+}

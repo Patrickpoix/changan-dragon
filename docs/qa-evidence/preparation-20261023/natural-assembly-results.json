@@ -1,0 +1,383 @@
+{
+  "checked_on": "2026-10-23",
+  "browser": "Browser plugin not available; local Chromium SwiftShader",
+  "scope": "Independent preparation assembly; no physical phone or final art approval",
+  "results": [
+    {
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "revision": "160",
+      "webgl2": true,
+      "invalid": 0,
+      "mask": 1,
+      "textures": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "Image_0",
+          "width": 1024,
+          "height": 1024,
+          "colorSpace": "srgb"
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        }
+      ],
+      "actors": {
+        "round_collar_resident": [
+          1.1386351585388184,
+          1.8009999953210354,
+          0.5683366358280182
+        ],
+        "round_collar_resident_belt": [
+          0.36800000071525574,
+          0.04000002145767212,
+          0.27399998903274536
+        ],
+        "round_collar_resident_fitted_natural_scalp_hair": [
+          0.18530230224132538,
+          0.18152856826782227,
+          0.21886717528104782
+        ],
+        "round_collar_resident_natural_adult_head_neck_and_hands": [
+          1.1386351585388184,
+          0.8235052824020386,
+          0.44241073727607727
+        ],
+        "round_collar_resident_pleated_skirt_or_robe": [
+          0.5697000026702881,
+          0.690594494342804,
+          0.4009000062942505
+        ],
+        "round_collar_resident_shaped_upper_garment": [
+          0.4715000092983246,
+          0.6402626633644104,
+          0.28700000047683716
+        ],
+        "round_collar_resident_sleeve": [
+          0.4204754192152027,
+          0.32492491389180866,
+          0.17000000178813934
+        ],
+        "round_collar_resident_sleeve001": [
+          0.4204754192152025,
+          0.32492491389180866,
+          0.17000000178813934
+        ],
+        "ruqun_resident": [
+          1.1512120332978153,
+          1.7410000525414944,
+          0.5082078576087952
+        ],
+        "ruqun_resident_belt": [
+          0.36800000071525574,
+          0.04000002145767212,
+          0.27399998903274536
+        ],
+        "ruqun_resident_fitted_natural_scalp_hair": [
+          0.18161675333976746,
+          0.18159401416778564,
+          0.19109132885932922
+        ],
+        "ruqun_resident_natural_adult_head_neck_and_hands": [
+          1.0271040201187134,
+          0.7846491932868958,
+          0.3622651919722557
+        ],
+        "ruqun_resident_pleated_skirt_or_robe": [
+          0.5697000026702881,
+          0.7705945372581482,
+          0.4009000062942505
+        ],
+        "ruqun_resident_shaped_upper_garment": [
+          0.4715000092983246,
+          0.6402626633644104,
+          0.28700000047683716
+        ],
+        "ruqun_resident_sleeve": [
+          0.44680511650602295,
+          0.3795340758892203,
+          0.17000000178813934
+        ],
+        "ruqun_resident_sleeve001": [
+          0.44680511650602295,
+          0.3795340758892203,
+          0.17000000178813934
+        ],
+        "dragon_1255m_silhouette_study": [
+          0.8184475600719452,
+          1.2244729399681091,
+          1.0555603802204132
+        ],
+        "wood_bicycle_wheel_diameter_050m": [
+          0.36000001430511475,
+          0.8140000104904175,
+          1.345950722694397
+        ]
+      },
+      "triangles": 169486,
+      "bounds": [
+        19.033143043518066,
+        10.282538838684559,
+        16
+      ],
+      "gl": 0,
+      "render": {
+        "frame": 36,
+        "calls": 134,
+        "triangles": 169488,
+        "points": 0,
+        "lines": 0
+      },
+      "grey_alpha_masks": 1,
+      "errors": [],
+      "failed_requests": []
+    },
+    {
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "revision": "160",
+      "webgl2": false,
+      "invalid": 0,
+      "mask": 1,
+      "textures": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "Image_0",
+          "width": 1024,
+          "height": 1024,
+          "colorSpace": "srgb"
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        }
+      ],
+      "actors": {
+        "round_collar_resident": [
+          1.1386351585388184,
+          1.8009999953210354,
+          0.5683366358280182
+        ],
+        "round_collar_resident_belt": [
+          0.36800000071525574,
+          0.04000002145767212,
+          0.27399998903274536
+        ],
+        "round_collar_resident_fitted_natural_scalp_hair": [
+          0.18530230224132538,
+          0.18152856826782227,
+          0.21886717528104782
+        ],
+        "round_collar_resident_natural_adult_head_neck_and_hands": [
+          1.1386351585388184,
+          0.8235052824020386,
+          0.44241073727607727
+        ],
+        "round_collar_resident_pleated_skirt_or_robe": [
+          0.5697000026702881,
+          0.690594494342804,
+          0.4009000062942505
+        ],
+        "round_collar_resident_shaped_upper_garment": [
+          0.4715000092983246,
+          0.6402626633644104,
+          0.28700000047683716
+        ],
+        "round_collar_resident_sleeve": [
+          0.4204754192152027,
+          0.32492491389180866,
+          0.17000000178813934
+        ],
+        "round_collar_resident_sleeve001": [
+          0.4204754192152025,
+          0.32492491389180866,
+          0.17000000178813934
+        ],
+        "ruqun_resident": [
+          1.1512120332978153,
+          1.7410000525414944,
+          0.5082078576087952
+        ],
+        "ruqun_resident_belt": [
+          0.36800000071525574,
+          0.04000002145767212,
+          0.27399998903274536
+        ],
+        "ruqun_resident_fitted_natural_scalp_hair": [
+          0.18161675333976746,
+          0.18159401416778564,
+          0.19109132885932922
+        ],
+        "ruqun_resident_natural_adult_head_neck_and_hands": [
+          1.0271040201187134,
+          0.7846491932868958,
+          0.3622651919722557
+        ],
+        "ruqun_resident_pleated_skirt_or_robe": [
+          0.5697000026702881,
+          0.7705945372581482,
+          0.4009000062942505
+        ],
+        "ruqun_resident_shaped_upper_garment": [
+          0.4715000092983246,
+          0.6402626633644104,
+          0.28700000047683716
+        ],
+        "ruqun_resident_sleeve": [
+          0.44680511650602295,
+          0.3795340758892203,
+          0.17000000178813934
+        ],
+        "ruqun_resident_sleeve001": [
+          0.44680511650602295,
+          0.3795340758892203,
+          0.17000000178813934
+        ],
+        "dragon_1255m_silhouette_study": [
+          0.8184475600719452,
+          1.2244729399681091,
+          1.0555603802204132
+        ],
+        "wood_bicycle_wheel_diameter_050m": [
+          0.36000001430511475,
+          0.8140000104904175,
+          1.345950722694397
+        ]
+      },
+      "triangles": 169486,
+      "bounds": [
+        19.033143043518066,
+        10.282538838684559,
+        16
+      ],
+      "gl": 0,
+      "render": {
+        "frame": 36,
+        "calls": 134,
+        "triangles": 169488,
+        "points": 0,
+        "lines": 0
+      },
+      "grey_alpha_masks": 1,
+      "errors": [],
+      "failed_requests": []
+    }
+  ],
+  "final_art_accepted": false,
+  "runtime_integrated": false,
+  "assembly_sha256": "fdddc2eb0178c93f55577cb9e62e2a50e571d5594b72aa022da55e6d15635de9",
+  "visual_decision": "Natural human anatomy replaces rejected exaggerated heads; tailoring/neck-sleeve seams/face materials and simplified dragon remain below reference quality. No G0/G1 art release."
+}

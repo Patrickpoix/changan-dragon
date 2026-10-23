@@ -1,0 +1,427 @@
+{
+  "checked_on": "2026-10-23",
+  "scope": "Research artifacts, user references and original sources; files listed are not a final art release",
+  "runtime_dist_sha256": "d9ede61fd366a3cbd2f056aab21b521ca69c75fd0995f41a1884fb3f2230e373",
+  "files": [
+    {
+      "path": "assets/library/preparation-study/README.md",
+      "bytes": 1837,
+      "sha256": "d70614097be382f28ad2e1e15209242efb2fb3562699fa22955893f7fd1e5274"
+    },
+    {
+      "path": "assets/library/preparation-study/assembly.glb",
+      "bytes": 8720028,
+      "sha256": "fdddc2eb0178c93f55577cb9e62e2a50e571d5594b72aa022da55e6d15635de9"
+    },
+    {
+      "path": "assets/library/preparation-study/manifest.json",
+      "bytes": 2210,
+      "sha256": "df1f9c04864563662cee8510a6cb60edd3e2c5c8821bfafe1b908624e40a173c"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/README.md",
+      "bytes": 1386,
+      "sha256": "22b60f244271370aecc6856e280801e890dca9d80c11b89748602cc68a501f0b"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod0.glb",
+      "bytes": 807868,
+      "sha256": "b575e3a84201eaf8a39fb9e535a5eca5e07c67fb0d4789772ed5efe5d98cb00a"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod1.glb",
+      "bytes": 425020,
+      "sha256": "0037ffeea6c49fc5aa4f76e6cfee25525f927176337e1ba2a0951fa687e6fa3b"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod2.glb",
+      "bytes": 234168,
+      "sha256": "b8ad5a2ca0d59cdafaf57b51e3b9bb9a1c3df182163076995ad9ac95663d690a"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/manifest.json",
+      "bytes": 7499,
+      "sha256": "b009a37a95e7107285ad9b5d3cd9884a63ccc951044bc78d4187ae1a3fa4d952"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod0.glb",
+      "bytes": 1306732,
+      "sha256": "eb4a79728043f6cbe636ec32b305122bf6fc9e1e263f73f8e2c7fb25c6905fff"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod1.glb",
+      "bytes": 655924,
+      "sha256": "c6b826248e8e813508bb7cb1849b3d3b0a86e127ec8b2ccab035bf2de158f9e0"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod2.glb",
+      "bytes": 331220,
+      "sha256": "165f8d9e331d941d141abc0d60b7ba6763f819d0b35a66e92cd48ae13b632d3d"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod0.glb",
+      "bytes": 390188,
+      "sha256": "089136d4550d5de98e6cae5b90a8ca13c2421a4672f4e59cdc81425fa57def5d"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod1.glb",
+      "bytes": 197420,
+      "sha256": "daa250b54a44f7dfe3da1f29455f519e5f71a7070d8c38f5cd402a9ecf05989b"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod2.glb",
+      "bytes": 101604,
+      "sha256": "f5854ba19f4d54c29ca353ed5e3036c86a3280e11dbd81a04c36c40c9fc91c12"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod0.glb",
+      "bytes": 660044,
+      "sha256": "f764d07ea3e0b31646257ce136f169f5fe27b374f16df06749505e180adb9a8a"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod1.glb",
+      "bytes": 342584,
+      "sha256": "4ce5aaea34bc6f24630f590017069e7c884c0273c4e3375ecac7e14122252071"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod2.glb",
+      "bytes": 173332,
+      "sha256": "65049d0478f2509d65572b8948ebe082b2ba93634b47572987b916d317d5e57d"
+    },
+    {
+      "path": "assets/library/environment-audio/README.md",
+      "bytes": 881,
+      "sha256": "e2b204e83365f38513b71ff45c3d3de8cfd9ab644a1618713039ee3ac6b28eda"
+    },
+    {
+      "path": "assets/library/environment-audio/distant-bell.wav",
+      "bytes": 132344,
+      "sha256": "5df9d169ca0e1dc815034a7a6ffc5952ece9d76727e67709168ab866fe911ed4"
+    },
+    {
+      "path": "assets/library/environment-audio/earth-step.wav",
+      "bytes": 13274,
+      "sha256": "a559f378cb8ce19a583df7d27a386ce789ae738df5d3f369c0ee0673f4acf547"
+    },
+    {
+      "path": "assets/library/environment-audio/manifest.json",
+      "bytes": 2464,
+      "sha256": "8f0cb984f02ef75b974bd3edb4e13a9f854657b110c49dc7fa7fdbe546b46b97"
+    },
+    {
+      "path": "assets/library/environment-audio/water.wav",
+      "bytes": 529244,
+      "sha256": "c1718050e6505934c0540f54caa66c164f5bb79c1fe070fbb4e88097c4f370bd"
+    },
+    {
+      "path": "assets/library/environment-audio/wind.wav",
+      "bytes": 529244,
+      "sha256": "0e52569dd5a6649b73cf344453231f85d1269b22040d35ac5aedf4c1ccfb5778"
+    },
+    {
+      "path": "assets/library/environment-audio/wood-wheel.wav",
+      "bytes": 176444,
+      "sha256": "a23e45912e166432c22e306979071ddf6f48c9d9c9b101ba9ce900a6a9cd9363"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/README.md",
+      "bytes": 2636,
+      "sha256": "61ebdcff4d242adb4c13fa9f159fe17de69cb25a0c7e50ab1ec1832c0a1978f9"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/ReadMe.txt",
+      "bytes": 581,
+      "sha256": "2009ec5ebe690c97b3d7b6240f2682202714ada7f96385da5452137f4bb70d88"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/head-study.glb",
+      "bytes": 1782796,
+      "sha256": "88c658934a4d2017415400616cfa8bae4fc6ff692d3e772a0ffb403765639591"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/head-study.json",
+      "bytes": 985,
+      "sha256": "774ac74060cd423f2782c2a45b9e76002d511c06a8638ffa8679825253474166"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/inspection.json",
+      "bytes": 18995,
+      "sha256": "fe2392b407f03c5f15ca405783435dec1dde0b0717782a77baafa45b14c5d343"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/manifest.json",
+      "bytes": 9644,
+      "sha256": "69ac95066781e33f5436de448902cb69a52278adad1c68e4761988278bbf52db"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.1001.png",
+      "bytes": 677145,
+      "sha256": "79294db9cccc7c395b3c95c5692eae454554611e8cad89e898f8b325b504bad5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.1002.png",
+      "bytes": 266895,
+      "sha256": "d4abb09a50d846f57179d61bb0a72431cc57d261b1646b6439de1724afce4afc"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.1003.png",
+      "bytes": 2410048,
+      "sha256": "64e0f179a1a872758801ce433b2b5b20ba0e9a399e01574b5a0f9266868c86ca"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.png",
+      "bytes": 677145,
+      "sha256": "79294db9cccc7c395b3c95c5692eae454554611e8cad89e898f8b325b504bad5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.1001.png",
+      "bytes": 908287,
+      "sha256": "22becb2fe72f49931f3dd278c78ae94f182da956f0ba2c77e324f7d3fca2f179"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.1002.png",
+      "bytes": 287300,
+      "sha256": "12a6d25dc64fa1b31fade64f64ca7568e3f11f691de1ffd1be59c9c92ffa2378"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.1003.png",
+      "bytes": 3349102,
+      "sha256": "ab8a673417a762a78a0db1ae1489b13016799da8c24bfe9fea57763dedff9962"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.png",
+      "bytes": 908287,
+      "sha256": "22becb2fe72f49931f3dd278c78ae94f182da956f0ba2c77e324f7d3fca2f179"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_eyes_diffuse.png",
+      "bytes": 105103,
+      "sha256": "d317ff17cc702ded44dc63961e208bf772124d1fe05e48ff717c3e1fbd7efb70"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_diffuse.png",
+      "bytes": 1934798,
+      "sha256": "01c35d3fc4b3e961acf3446fdc4a5de83937e09c1b05b074b27c87e511d50ad6"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_direction.png",
+      "bytes": 1762802,
+      "sha256": "127b0931218222a312c023cb5dcebaa54c1056f0fdcafe90dbf7825a061704d7"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_direction_bw.png",
+      "bytes": 889543,
+      "sha256": "29c81f2184b52e6a40dcde738cff9336bb20b089e331f1d0099b28b68515ff31"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_roughness.png",
+      "bytes": 775126,
+      "sha256": "dba093c1b8493a2cccedafe897b5c999de53ab4cbf4c0704990921c31ce53a63"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hands_diffuse.png",
+      "bytes": 266895,
+      "sha256": "d4abb09a50d846f57179d61bb0a72431cc57d261b1646b6439de1724afce4afc"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hands_roughness.png",
+      "bytes": 287300,
+      "sha256": "12a6d25dc64fa1b31fade64f64ca7568e3f11f691de1ffd1be59c9c92ffa2378"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_head_diffuse.png",
+      "bytes": 2410048,
+      "sha256": "64e0f179a1a872758801ce433b2b5b20ba0e9a399e01574b5a0f9266868c86ca"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_head_roughness.png",
+      "bytes": 3349102,
+      "sha256": "ab8a673417a762a78a0db1ae1489b13016799da8c24bfe9fea57763dedff9962"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/rain_rig.blend",
+      "bytes": 8264551,
+      "sha256": "16a9510b898f243ba17ea85e753fe4a561701511ddc842edc23fa9d892e19f03"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/source-page.html",
+      "bytes": 205627,
+      "sha256": "04b88ff06da3f2f67ab1c3b4f4dc1b29ad9a0e1b3ad7ea55333731c21c494078"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/ReadMe.txt",
+      "bytes": 586,
+      "sha256": "7ff178c6b8640951567c85debc5520323cc2f4fb64f071df618ef75261d98399"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/head-study.glb",
+      "bytes": 1288352,
+      "sha256": "2c4c8c0cf9dfcf0d663e48b26234681edd59d848502b4ead6a501cafae978438"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/head-study.json",
+      "bytes": 985,
+      "sha256": "26f2daa6d334ddd005ae4185684799c78ecb2a0ed0d1d6c2392637113c800e2d"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/inspection.json",
+      "bytes": 14365,
+      "sha256": "30b570a7c9088af57d796b1e63a329ad25b24cdaa99a6866c560a6ce85f8edab"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/manifest.json",
+      "bytes": 8112,
+      "sha256": "56003fac3e3a8f334529012abfe1c0f94bf381ec0ba007a7d38d47f28ec1b8a0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_diffuse.png",
+      "bytes": 1286452,
+      "sha256": "7ec88aa8ddb70b7cad01fe96d82179c1b440ddfa4fb91f413d0cae71f9cd746f"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_metalic.png",
+      "bytes": 13572,
+      "sha256": "917d508ea8820f519380046faeae19fec954d76f6972d5a8ef4e447f4ce786a2"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_normal.png",
+      "bytes": 322608,
+      "sha256": "f0908a7026ee93b73abbf1aed8d344f6c20cbd3b90e1bac421003dd3f51051ee"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_specular.png",
+      "bytes": 141770,
+      "sha256": "e58894b7f3542070bf19b75e884b7a878c615c3928960c4864355f83a0938589"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_anisotropy.png",
+      "bytes": 49957,
+      "sha256": "eb82ac01fbc1cda036223e26cf52849f1d528f94c8a63407ff121d87fa7410db"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_anisotropy_rotation.png",
+      "bytes": 1436352,
+      "sha256": "38edd91acc6452ae5d30a5d92e8f4454c66836c3cb56699dc363217b0c2f80c6"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_diffuse.png",
+      "bytes": 1509001,
+      "sha256": "fce48207536ffbe836c67577cf1590d3a85373e40439445b4e03d38560f5df97"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_roughness.png",
+      "bytes": 522116,
+      "sha256": "ef1e5883f0b44ca074da92e6b73e6c15b0b8b1a2bb82650fa3226d787cae50e2"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_specular.png",
+      "bytes": 791790,
+      "sha256": "cdf5014b23dca5c4f550f199a9068f2f6ac0a91ac17d46531f8be21e1730158e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_sss_color.png",
+      "bytes": 16586,
+      "sha256": "96d86d6ddb440b9ddf58c8cca7268a6545fb380943db7064b7603e60da1fc860"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_sss_value.png",
+      "bytes": 312142,
+      "sha256": "64010747b5197acbcecdb6faaaf73781b5a905c4ead622489e92574549c603a0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_diffuse.1001.png",
+      "bytes": 7739547,
+      "sha256": "d8658b31dcc9d8611c9ad74b50778eebcad2c0f0d08a5162d622d5ec55d7f417"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_diffuse.1002.png",
+      "bytes": 777615,
+      "sha256": "3b3ce7927a90887fef733fd3bfe4c39fba0ec2e10c3ca724bd49512d0b829799"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_diffuse.1003.png",
+      "bytes": 1749732,
+      "sha256": "18746c5f7f1ad1dea1a5c430f27b34671f0876a22f43cb22ffa7205af642a6d5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_roughness.1001.png",
+      "bytes": 5908666,
+      "sha256": "f11c0f1b6aa15f820c026b4a484dcf662b6fbc148fe7283278a1df04524bfcf6"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_roughness.1002.png",
+      "bytes": 628553,
+      "sha256": "85f23ee7e68e6e9cd9f21304347198849e97b1cb719d426587317860f4399332"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_roughness.1003.png",
+      "bytes": 1754544,
+      "sha256": "cd85a058e80385bacff31ea25358a97dad9a7d5e6dee6177f12ce2a814cb7744"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_color.1001.png",
+      "bytes": 5923576,
+      "sha256": "677ad2978226451e493e5de2610821a5eda9f72d0cdf9cead02344f45491186e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_color.1002.png",
+      "bytes": 623679,
+      "sha256": "33097f751f9cdf52a367d08b6c125bc2ba83c67ae5894fb45bd1995bcd0f6a51"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_color.1003.png",
+      "bytes": 1501218,
+      "sha256": "ec68a5e0bcde2dbb478bec15ff4d33583daaf0cc8b767f3ebcc17d6b9de42692"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_value.1001.png",
+      "bytes": 66762,
+      "sha256": "fc1962f72975717e88082f66ea8c30e2f546b63d2a4dcb1503aba321b43f77d8"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_value.1002.png",
+      "bytes": 16836,
+      "sha256": "4c3a702b13df13ff389b5f00211f3e366c54a1ef31b5abb8b27b703c598d951e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_value.1003.png",
+      "bytes": 29233,
+      "sha256": "e785cc6f4c58f0ea04f1b802b37f3646ea239ed4f023c3b9fb005e55d7529a31"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/snow_v02.blend",
+      "bytes": 7580771,
+      "sha256": "038463b0d793c2a619fbcd93a0220b21191f87079af03698e4056642d7032876"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/source-page.html",
+      "bytes": 239322,
+      "sha256": "2a198129be80d942b529b79d060af4996701375da608aaedae4beb1aea99b08e"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/README.md",
+      "bytes": 1246,
+      "sha256": "7628ef3548bfe3ff1d1af9e38ad25bbbd377f149491e4cebca746cb6a76b7852"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/manifest.json",
+      "bytes": 1255,
+      "sha256": "9bf782639e23f9d98e69ec5f92deb5ec639b20934f20d8bf66a65aea97170c17"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/material-contact.jpg",
+      "bytes": 60047,
+      "sha256": "9417ee10c5844dc3e2d7c349bf6cacd0268cbb7112c0438dc72a35ea72365d5d"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/people-study.jpg",
+      "bytes": 240727,
+      "sha256": "67ee16c3a711da9be5ff0941c2b38abe5d7dc4f61139a77022d3fc7944644496"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/timber-shop-study.jpg",
+      "bytes": 328299,
+      "sha256": "aef7aa64bb2cf559b3c12f7dab8067d2e4c8b15eb530155d035269bebdac795d"
+    }
+  ]
+}

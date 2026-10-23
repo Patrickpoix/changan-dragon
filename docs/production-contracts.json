@@ -1,0 +1,551 @@
+{
+  "version": 1,
+  "checked_on": "2026-10-23",
+  "purpose": "Executable methods or precise parameterized code-generation routes for every required asset family; plans are not claimed as finished assets",
+  "spec": "docs/production-spec.json",
+  "reference": "docs/user-references/2026-10-23/README.md",
+  "contracts": [
+    {
+      "id": "architecture-A-B",
+      "target_scene": "民居/作坊/五类单层店铺",
+      "source_paths": [
+        "tools/build_timber_shop.py",
+        "assets/library/architecture/minilibs-source/",
+        "docs/user-references/2026-10-23/timber-shop-study.jpg"
+      ],
+      "license_scope": "既有构件MIT；自写生成器；用户图只参考",
+      "acquisition_status": "木构算法/样板已取得；未完成各生产类型",
+      "recipe": [
+        "以3.6m柱网生成2/3开间、1/2进深格；台基0.42、檐口3.5、柱径0.30、出檐0.95；门洞由墙段留空，不用贴图洞",
+        "屋面按production-spec曲线采样为前后/两侧闭合四坡；四边均有壳厚、瓦流、椽与檐板；开间/进深决定脊长，不缩放整栋",
+        "五种经营套件挂在柜台/门板/棚杆具名节点，侧后墙、后门、院墙接口齐全；L0瓦垄几何，L1保留近檐，L2闭合屋顶/屋脊",
+        "Blender命令沿用build_timber_shop；下一生产版本在新目录使用上述受限参数，不覆盖旧样板"
+      ],
+      "outputs": [
+        "source recipe + type parameters",
+        "GLB L0/L1/L2",
+        "walkable surfaces / door / courtyard sockets"
+      ],
+      "style_modification_cost": "高：完整类型和屋顶/柱梁比例需逐型校准",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "灰模四面/俯视",
+        "1.2m门净宽",
+        "按材质批次统计",
+        "和用户店铺图对照"
+      ],
+      "remaining_gap": "现有7.3万面双层样板不能直接缩为所有单层；新类型及LOD待执行",
+      "production_released": false
+    },
+    {
+      "id": "architecture-C",
+      "target_scene": "完整双层楼店/酒肆",
+      "source_paths": [
+        "tools/build_timber_shop.py",
+        "assets/library/architecture/timber-shop/runtime.glb"
+      ],
+      "license_scope": "miniLibs MIT notices + project code",
+      "acquisition_status": "完整研究GLB取得，材质/交通/LOD未放行",
+      "recipe": [
+        "保持下层柱网，上层楼板标高3.95、廊净宽2.0；腰檐必须在楼板外缘下方；楼梯宽1.2、踏步高<=0.16/深>=0.28",
+        "按总高计算阶数ceil(rise/0.16)，统一立板/踏板/扶栏；前后/侧楼板有支承、室内门/床/桌区与后院可达",
+        "木纹沿梁长；柱脚污色和灰泥接触信息烘焙进低频图集；保持灰青瓦，不全城朱漆"
+      ],
+      "outputs": [
+        "complete GLB + stairs",
+        "named gallery floor triangles",
+        "three LODs"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "楼廊射线不先击中腰檐",
+        "上下层实走",
+        "背面窗/院墙",
+        "屋顶支持关系"
+      ],
+      "remaining_gap": "尚需按新店铺图重塑体量、做交通与LOD",
+      "production_released": false
+    },
+    {
+      "id": "architecture-D",
+      "target_scene": "亭/廊/桥/转角",
+      "source_paths": [
+        "tools/build_timber_shop.py",
+        "src/12-landmarks.js"
+      ],
+      "license_scope": "project geometry; MIT bracket reuse",
+      "acquisition_status": "现有运行基线可复用；新造型未取得",
+      "recipe": [
+        "直廊按柱网2.8m复制完整屋面跨；90度转角先生成共享转角柱与交线屋面，再接两侧瓦流，去重交叉梁",
+        "亭3.6/4.8m跨度独立低阔屋顶；桥面样条等弧长采样横截面，栏高1.05、步道>=1.5m；柱脚延到水下地形",
+        "输出同源走面三角形和桥下净空包络；不以穿插两条直廊作为完成转角"
+      ],
+      "outputs": [
+        "pavilion/corridor/corner/bridge parameters and GLB",
+        "walkable/nav/clearance data"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "四面顶壳闭合",
+        "接缝无悬空梁",
+        "船包络通过桥洞",
+        "从岸走入亭"
+      ],
+      "remaining_gap": "新完整类型尚未制作；使用明确算法及既有曲面/木构函数",
+      "production_released": false
+    },
+    {
+      "id": "architecture-E-F-G",
+      "target_scene": "城门/坊墙/殿堂/塔寺",
+      "source_paths": [
+        "src/10-world.js",
+        "src/12-landmarks.js",
+        "docs/FILM_STYLE_RESEARCH.md"
+      ],
+      "license_scope": "project geometry; reference images not game assets",
+      "acquisition_status": "旧运行几何具备，生产美术仍否决",
+      "recipe": [
+        "墙用上下两截面收分放样、门洞两侧/上部独立封口；门楼按专属柱网，宫殿用台地/前庭/侧廊序列，禁止放大小铺",
+        "塔身逐层改变墙厚/收分/窗口尺寸，层高独立；以四面闭合壳体、真实洞口和檐厚生成，不等比叠同一个楼层",
+        "在既有坐标锚保留门洞与景点ID；视觉/简碰撞/步阶/相机焦点从同一参数表导出"
+      ],
+      "outputs": [
+        "type recipes",
+        "GLB LODs",
+        "door openings and traversable platforms"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "地面/空中/侧后对照",
+        "穿门/登阶",
+        "体量等级有区别"
+      ],
+      "remaining_gap": "各完整类型仍需G1后逐型制作；无可合法直接采用的现成全套",
+      "production_released": false
+    },
+    {
+      "id": "human-base",
+      "target_scene": "男女/店主/商旅/文士/守卫/船夫",
+      "source_paths": [
+        "assets/library/characters/makehuman-base/manifest.json",
+        "tools/build_preparation_study.py",
+        "docs/user-references/2026-10-23/people-study.jpg",
+        "assets/library/characters/blender-studio/snow/manifest.json",
+        "assets/library/characters/blender-studio/rain/manifest.json",
+        "tools/prepare_studio_heads.py"
+      ],
+      "license_scope": "MakeHuman bundled core graphics CC0; app AGPL not bundled; Snow/Rain source rigs CC BY 4.0, attribution retained",
+      "acquisition_status": "MakeHuman CC0核心与官方自然成年男/女宏目标取得，最新试片不放大头眼；Snow/Rain原件保留研究，已被用户否决作为造型基准",
+      "recipe": [
+        "用户已否决夸张变形的人物：Snow/Rain仅保留为绑定/拓扑研究，不用作本项目脸形基准。以MakeHuman原比例及官方男女宏目标为自然人体基础，不放大头眼；时代感通过发型服饰妆容和角色身份表现。",
+        "OBJ只保留g body面与引用顶点，去全部helper/joint；按实际Y范围归一至1.74/1.68m，再转换Y-up，原点双脚",
+        "保留自然成人体态和五官关系，脸形与现代人无本质区别；只按个体与表情需要调整颊/眼窝/眉弓/唇，保留连续眼睑及口内；不能把放大头当成电影脸验收",
+        "权重按原顶点映射转存；设计42–65骨近景人群子集，手指/表情按距离降级；先做笑/说话/惊讶三套表情再扩展",
+        "输出face/hand.L/R/hip/foot.L/R/prop sockets，近景眼球实几何；头发用体积发束，不引入UE Groom"
+      ],
+      "outputs": [
+        "stylized male/female/shopkeeper meshes",
+        "rig mapping and shape keys",
+        "LOD0/1/2"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "脸部3/4/侧面/表情",
+        "排除helper",
+        "肩颈/腕口连续",
+        "同场身高尺"
+      ],
+      "remaining_gap": "自然人物尚需服装剪裁/领袖连接、发式/肤材/表情、精简骨架；不再人为古代化脸型。",
+      "production_released": false
+    },
+    {
+      "id": "tang-clothing",
+      "target_scene": "劳动短衣/圆领袍/襦裙披帛/守卫衣甲",
+      "source_paths": [
+        "tools/build_preparation_study.py",
+        "docs/user-references/2026-10-23/people-study.jpg",
+        "docs/FILM_STYLE_RESEARCH.md"
+      ],
+      "license_scope": "self-authored garment geometry; user image reference only",
+      "acquisition_status": "参数放样研究取得；成熟唐服成品未取得",
+      "recipe": [
+        "时代识别以自然人物上的发型、服饰、妆容和身份装束实现，禁止通过脸/肢体畸变制造唐人区别。",
+        "在基体表面指定颈/肩/胸/腰/髋/膝截面，外偏移0.012–0.035m；袖轴从肩到腕而非上翘圆筒，袖口闭合有0.006m厚度",
+        "劳动服用交领短上衣+裤/裹腿，文士圆领长袍，商旅袍有腰带/旅行附件，女性高腰裙+短襦+披帛；剪裁分片而非只换色",
+        "腰收/胸松/肘部/裙摆的褶脊由半径函数加2–5cm设计频段；花纹进入UV，主褶进入轮廓；肩/肘/髋权重转移后修正",
+        "披帛用6–10节骨或离线关键帧；不在手机全城做实时布料"
+      ],
+      "outputs": [
+        "tailored garment meshes and patterns",
+        "bone weights",
+        "motion deformation poses"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "抬臂/坐/端盘/走变形",
+        "衣身无露皮穿插",
+        "正侧背剪裁不同",
+        "参考表情与服装厚度"
+      ],
+      "remaining_gap": "静态放样是工艺原型，未成生产唐服；需做剪裁和变形",
+      "production_released": false
+    },
+    {
+      "id": "dragon",
+      "target_scene": "步行/骑行/无翼飞行主角",
+      "source_paths": [
+        "docs/concept-dragon-turnaround.png",
+        "docs/art-direction.png",
+        "tools/build_preparation_study.py"
+      ],
+      "license_scope": "project generated study; no third-party dragon mesh",
+      "acquisition_status": "连续头身体素雕塑研究已生成，非生产拓扑",
+      "recipe": [
+        "头/吻/颊/肩/髋通过0.018m体素并体与平滑形成雕塑基础；再围眼睑/唇口/肩髋/尾根重拓扑四边面，不能保留外挂眼和分离尾根",
+        "脚到头1.0m、含角1.20–1.35m；暖奶腹与角/鬃分材质；龙体粗糙0.52–0.78，少量鳞，不镀金属/玉石镜面",
+        "骨架根/髋/脊柱/颈/头、四肢、手脚、7节尾、耳鬃与围巾，眼球lookAt/眼睑shape keys；根运动由现有移动器驱动",
+        "输出walk/ride/flight对齐套件，与+Z前向及木车具名接口同步；无翅膀"
+      ],
+      "outputs": [
+        "sculpt source recipe",
+        "production retopology and rig",
+        "expression keys and clips"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "前侧背/3/4脸一致",
+        "表情/眼窝",
+        "尾根/肩髋连续",
+        "骑行握脚点",
+        "无翼飞行轮廓"
+      ],
+      "remaining_gap": "当前雕塑过简，只用于尺度；尚未满足电影主角造型",
+      "production_released": false
+    },
+    {
+      "id": "bicycle",
+      "target_scene": "木自行车及上/下车",
+      "source_paths": [
+        "tools/build_preparation_study.py",
+        "src/20-character.js"
+      ],
+      "license_scope": "project-authored geometry and kinematics",
+      "acquisition_status": "0.50m轮/0.80m轴距试片实际生成",
+      "recipe": [
+        "轮毂/轴/12辐/环形轮缘，车架梁连接轴心/坐垫/把手；木纹沿梁，轴/曲柄少量金属，幻想设计不称唐代史实",
+        "曲柄0.11m，左右相位pi；脚目标=轴心+R(theta)*曲柄，腿用二骨IK，手跟随转向把；车轮转角=路程/0.25",
+        "座/手/足/轮轴具名节点；上车/下车短过渡检查尾巴、膝和车架包络，不以瞬间显隐作为最终效果"
+      ],
+      "outputs": [
+        "bike mesh + sockets",
+        "IK targets",
+        "mount/pedal/dismount clips"
+      ],
+      "style_modification_cost": "中高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "双轮落地",
+        "脚踏循环和膝伸长度",
+        "手脚误差<=2.5cm",
+        "尾巴不穿后轮"
+      ],
+      "remaining_gap": "当前试片无传动/IK和绑定；仅尺度可查",
+      "production_released": false
+    },
+    {
+      "id": "boats",
+      "target_scene": "小舟/轻篷船/完整画舫",
+      "source_paths": [
+        "assets/library/quaternius/boat_hull/manifest.json",
+        "src/20-character.js",
+        "docs/concept-barge-study.png"
+      ],
+      "license_scope": "CC0 hull + project-generated cabin/rig; concept reference only",
+      "acquisition_status": "中空小舟壳实际取得并用；完整新画舫未做",
+      "recipe": [
+        "船体沿纵向12/3.6m截面采样，半宽w(t)=1.8*sin(pi*t)^0.45，两侧用圆弧肋剖面构内外壳，法向内偏0.06m封舷口；设计水线y0，龙骨-.35",
+        "甲板+单层舱净高2.2m，中通路>=1.2m；栏杆中部留1.2m舷门、同宽水平搭板，前后甲板和屋顶柱距由同一轴网输出",
+        "轻篷船用独立6.2x1.8m船体与弧肋篷，不缩放完整画舫；小舟复用已核验船壳；桨座/桨叶/坐凳/人脚同源",
+        "逐段航线检测变换后的船壳和桨包络/桥下净高；登乘记录船局部坐标，随船刚体变换，靠岸才允许下船"
+      ],
+      "outputs": [
+        "three complete boat types",
+        "waterline/boarding sockets",
+        "collision hull and moving deck transforms"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "艏艉/侧/俯视/舱内",
+        "吃水/舷厚",
+        "码头到甲板实走",
+        "随船位移不滑落"
+      ],
+      "remaining_gap": "现有停泊船通行不等于移动搭乘；完整新船和原型水线仍需制作",
+      "production_released": false
+    },
+    {
+      "id": "shoreline",
+      "target_scene": "泥岸/石岸/草坡/码头",
+      "source_paths": [
+        "src/11-shorelines.js",
+        "src/12-landmarks.js",
+        "assets/library/polyhaven/rock_moss_set_01/"
+      ],
+      "license_scope": "project geometry; CC0 rocks",
+      "acquisition_status": "现有同源岸线/走面/水域与岩石取得",
+      "recipe": [
+        "岸线多边形等弧长采样，沿法向偏移生成水下/水线/湿线/路肩四条环带；凹角限长miter或圆接，避免偏移自交",
+        "水下坡至少延至-.6m，湿线0–.12m，步道高程按同源地形；岸石/草根只在经营/导航排除带外",
+        "步道宽2.4m，从同一三角形导出ground height与碰撞；码头台阶和船门净空独立标注"
+      ],
+      "outputs": [
+        "bank strips",
+        "walkable/nav meshes",
+        "wetness vertex masks"
+      ],
+      "style_modification_cost": "中",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "侧面水下延续",
+        "水陆边界一致",
+        "低桥/凹岸无冲突",
+        "实际连续行走"
+      ],
+      "remaining_gap": "需要新代表水岸构图而非重新下载岩石",
+      "production_released": false
+    },
+    {
+      "id": "vegetation",
+      "target_scene": "街树/垂柳/松/花树/荷/芦苇/地被",
+      "source_paths": [
+        "assets/library/vegetation/ez-tree-source/source-manifest.json",
+        "assets/library/vegetation/studies/manifest.json",
+        "tools/prepare_vegetation_studies.mjs",
+        "assets/library/polyhaven/fern_02/",
+        "assets/library/polyhaven/grass_bermuda_01/",
+        "tools/build_botanical_studies.py",
+        "assets/library/vegetation/authored-studies/manifest.json"
+      ],
+      "license_scope": "EZ-Tree code/author leaves MIT; PBR/scan plants CC0",
+      "acquisition_status": "恢复的4类12LOD与新长叶/悬垂枝/真实花瓣4类12LOD取得；新树24次加载通过，最终冠形仍需精修",
+      "recipe": [
+        "固定seed和主枝骨架；柳树从主枝端生成4–7条悬垂二次Bezier枝，P1外伸、P2/P3向下，长叶沿切线成簇；不是普通树全体弯向一边",
+        "松树保留主干与3–5级横展不对称枝盘，针叶卡片只组成簇；花树树干/枝与五瓣浅杯花独立材质和几何，不再粉色乘绿橡叶",
+        "荷叶为中心向边的低曲面+厚边，芦苇为有弯曲的茎/长叶；花/叶分簇抽样，LOD共享簇中心；不得用整棵树贴片",
+        "树皮纵向UV，叶Alpha MASK .5；风动仅叶端/细枝权重，根固定；导出普通GLB给r160"
+      ],
+      "outputs": [
+        "species recipes",
+        "seeded L0/L1/L2",
+        "wind anchors and trunk collision"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "灰模与alpha轮廓",
+        "枝根接地",
+        "叶卡无方块边",
+        "LOD保持树种",
+        "不能把染叶当花"
+      ],
+      "remaining_gap": "新枝层仍过于规律，近景材质/透光/冠簇构图及风动未达电影标准",
+      "production_released": false
+    },
+    {
+      "id": "ground",
+      "target_scene": "主街土路/石基/台阶/排水/车辙",
+      "source_paths": [
+        "assets/library/production-materials/manifest.json",
+        "assets/library/architecture/pbr/clay_plaster/",
+        "src/06-surfaces.js"
+      ],
+      "license_scope": "CC0 micro-surfaces; project authored base colours",
+      "acquisition_status": "7组/21图及旧瓦/灰泥已取得",
+      "recipe": [
+        "主街压实土为低频平面高度+两条浅车辙带；边渠/阶沿真实截面，台基砖缝按尺寸，避免全城杂石铺装",
+        "所有UV采用米制，木纹沿梁、树皮沿干；normal/roughness线性、颜色sRGB；法线强度起点.16",
+        "每种表面先1m色板和中性球/斜坡，再进近景；512小物共享，普通1k，禁止逐构件独立贴图"
+      ],
+      "outputs": [
+        "physical-scale surfaces",
+        "shared atlas/ORM",
+        "material swatches"
+      ],
+      "style_modification_cost": "中",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "1m尺寸和纹理频率",
+        "掠射光接缝",
+        "低档仍能读材质",
+        "显存估计"
+      ],
+      "remaining_gap": "灰泥/瓦/木/布需要针对新几何烘焙与风化，候选PNG不等于电影材质",
+      "production_released": false
+    },
+    {
+      "id": "market-props",
+      "target_scene": "食/布/陶/药/笔墨五种经营套件",
+      "source_paths": [
+        "assets/library/polyhaven/",
+        "docs/asset-manifest.json",
+        "src/10-world.js"
+      ],
+      "license_scope": "acquired CC0 props; project fixtures",
+      "acquisition_status": "锅/篮/碗/桶/果品等真实原件取得；完整经营套件未齐",
+      "recipe": [
+        "台面0.78–.85m、柜深.55–.7m，碗/托盘/挂货具名接口；食摊炉具用内外壁回转面+炉口，不混辣椒/玉米/土豆",
+        "陶器按器口/颈/肩/腹/足半径控制点旋转放样，口沿/内壁闭合；唐器参考仅取比例，不采用现代青花贴花",
+        "布卷用带厚度螺旋端面和卷轴，药匣/衡器/笔墨有用途区分；按铺面经营表固定陈列，主通路空出",
+        "整理/称量/递食/卷绢/磨墨绑定手部目标与物件状态，不能只让商贩循环走路"
+      ],
+      "outputs": [
+        "five authored business kits",
+        "prop sockets",
+        "activity stand/queue/nav data"
+      ],
+      "style_modification_cost": "中",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "手与物件对应",
+        "实际尺寸",
+        "台面无悬浮",
+        "道具不堵门楼梯"
+      ],
+      "remaining_gap": "完整套件与活动动画待生产，现成器物不等于店铺已完成",
+      "production_released": false
+    },
+    {
+      "id": "animals-caravan",
+      "target_scene": "马鹿/双峰驼商队",
+      "source_paths": [
+        "assets/library/quaternius/manifest.json",
+        "src/20-character.js"
+      ],
+      "license_scope": "existing Quaternius CC0 pack notices; no newly purchased packs",
+      "acquisition_status": "马鹿与动作已取得；合适双峰驼成品未取得",
+      "recipe": [
+        "马鹿保留作者骨架动作与独立SkeletonUtils克隆；原始源和减面派生分离",
+        "双峰驼备用：躯干/双峰/颈/头体素雕塑后按膝踝/颈重拓扑，脚掌宽垫、两峰脂肪体区别单峰；42骨以内、负载架和牵引点单独",
+        "牵引绳样条端绑定人手/笼头，队列路径保持最小间距；货包重量视觉与步幅一致，停靠/卸货具名活动节点"
+      ],
+      "outputs": [
+        "horse/deer reused",
+        "bactrian sculpt recipe and rig",
+        "caravan activity graph"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "双峰物种轮廓",
+        "四足落地",
+        "货具/绳不穿人墙",
+        "动作独立"
+      ],
+      "remaining_gap": "双峰驼备用制作尚未执行，不把付费候选写成已拥有",
+      "production_released": false
+    },
+    {
+      "id": "animation",
+      "target_scene": "角色走骑飞/市井经营/船桨/树叶",
+      "source_paths": [
+        "src/20-character.js",
+        "assets/library/quaternius/",
+        "tools/build_preparation_study.py"
+      ],
+      "license_scope": "authored clips/kinematics; retained CC0 animal clips",
+      "acquisition_status": "旧代码动作/动物动作取得；新人物龙未绑定",
+      "recipe": [
+        "全部人形in-place，根运动由既有移动器；走周期0.9–1.1s，脚接触0–.18/.5–.68锁地，两骨IK接地，髋按支撑脚平移2–4cm",
+        "步行/骑行/飞行状态过渡.2–.35s；骑行脚圆轨迹、手握把，飞行头前伸/尾延迟相位、转弯侧倾，悬停与起落独立",
+        "经营状态机idle->invite->work->handover->reset，每段手部目标/道具归属/队列标记；动作3–5个相位，离开可见区降低更新率",
+        "loop首尾姿态/速度一致；glTF普通骨骼+shape keys，禁止依赖离线工具shader或WASM角色框架"
+      ],
+      "outputs": [
+        "clip contracts",
+        "bone/socket binding map",
+        "LOD update scheduling"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "脚滑<=2cm",
+        "首尾接缝",
+        "走骑飞真实变化",
+        "WebGL1蒙皮和阴影"
+      ],
+      "remaining_gap": "新骨架/权重和动作试片尚缺，不能沿用旧动画通过声明",
+      "production_released": false
+    },
+    {
+      "id": "soundscape",
+      "target_scene": "区域音景/脚步/木轮/钟/炉火/叫卖",
+      "source_paths": [
+        "tools/prepare_environment_audio.py",
+        "assets/library/environment-audio/manifest.json",
+        "docs/audio-rights-review.md"
+      ],
+      "license_scope": "project original synthesis; no third-party samples; future voices need performer release",
+      "acquisition_status": "5层PCM研究已生成；外部混制包权利隔离；叫卖未取得",
+      "recipe": [
+        "12s FFT周期噪声按频段塑形为风/水层，木轮4s周期脉冲，3s衰减非谐波钟与0.3s脚步；固定seed，PCM16 mono22.05k，可离线重建",
+        "区域混音以世界距离smoothstep衰减，跨坊1.5–3s交叉淡入；风/水/市声每区最多3–4循环，短声共用AudioBuffer；首次用户手势后resume",
+        "中文录音合同：胡饼、茶汤、绢帛、香药四摊每类招呼/闲谈各2条3–6s，2–3名演员自愿书面游戏/离线包许可，录48k mono后裁切/去噪/响度匹配；尚未录制不得造假",
+        "无可用演员时先采用非语义活动/器具声音；不伪造中文喊声、不依赖运行时WebSpeech联网"
+      ],
+      "outputs": [
+        "authored WAV layers",
+        "region cue/gain map",
+        "voice scripts and release manifest"
+      ],
+      "style_modification_cost": "中",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "Web Audio实解码/播放时间前进",
+        "无削波/循环跳变",
+        "手势解锁",
+        "语义/时代/噪声听审另行"
+      ],
+      "remaining_gap": "合成层未最终听审；中文叫卖需独立取得授权录音",
+      "production_released": false
+    },
+    {
+      "id": "city-layout-cameras",
+      "target_scene": "十类地区/三条代表路线/多视角",
+      "source_paths": [
+        "docs/DESIGN_FRAMEWORK.md",
+        "src/10-world.js",
+        "src/25-exploration.js"
+      ],
+      "license_scope": "project layout/code; historical references not asset rights",
+      "acquisition_status": "城市方向/坐标/活动表已定，旧操作基线保留",
+      "recipe": [
+        "地区->街段->院落->建筑->经营位的布局表统一输出视觉/导航/碰撞/地图/镜头；北-Z，现有八景锚不变",
+        "西市织物香药/商旅暖赭靛蓝，东市茶酒文墨米白绢青，坊巷安静井院，大明宫台地轴线，兴庆花木，慈恩寺塔院，曲江曲岸候船，门楼以暗洞开阔透视",
+        "每区抵达/进入/停留/回望四机位及地面/侧后/俯视；先做西市完整通行线，再水岸/宫苑，不随机铺满旧模型",
+        "镜头FOV43/距离4.6m起点，碰撞半径.25m，飞行远景仍完整屋海，夜灯局部暖色而非全城霓虹"
+      ],
+      "outputs": [
+        "district/layout schemas",
+        "activity and cinematic paths",
+        "shared navigation/collision anchors"
+      ],
+      "style_modification_cost": "高",
+      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "acceptance": [
+        "三种移动路线",
+        "侧后和空中成立",
+        "地区差异可读",
+        "镜头不穿梁/树冠"
+      ],
+      "remaining_gap": "代表实景属于G2，当前试片不等于完整城市",
+      "production_released": false
+    }
+  ]
+}

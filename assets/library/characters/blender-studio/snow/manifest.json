@@ -1,0 +1,288 @@
+{
+  "name": "snow",
+  "author": "Blender Studio; per-package credits preserved",
+  "source_page": "https://studio.blender.org/characters/snow/v2/",
+  "download": "https://studio.blender.org/download-source/files/8b/8b8cfa3e2d0781c893d952513152347f/8b8cfa3e2d0781c893d952513152347f.zip",
+  "license": "CC-BY-4.0 according to official source page; inspect archive notices before runtime derivation",
+  "stage": "source_acquired_not_game_ready",
+  "bytes": 110767761,
+  "sha256": "fbc5a6fe43a4c38a10eceeb6e1b283d79e2589e5429e2d94e35dfed26635b712",
+  "archive_members": [
+    {
+      "path": "maps/",
+      "bytes": 0
+    },
+    {
+      "path": "maps/bake/",
+      "bytes": 0
+    },
+    {
+      "path": "maps/bake/eyes_diffuse.png",
+      "bytes": 1286452
+    },
+    {
+      "path": "maps/bake/skin_sss_value.1001.png",
+      "bytes": 66762
+    },
+    {
+      "path": "maps/bake/skin_sss_value.1002.png",
+      "bytes": 16836
+    },
+    {
+      "path": "maps/bake/skin_sss_value.1003.png",
+      "bytes": 29233
+    },
+    {
+      "path": "maps/bake/skin_diffuse.1001.png",
+      "bytes": 7739547
+    },
+    {
+      "path": "maps/bake/skin_roughness.1001.png",
+      "bytes": 5908666
+    },
+    {
+      "path": "maps/bake/skin_sss_color.1001.png",
+      "bytes": 5923576
+    },
+    {
+      "path": "maps/bake/pants_normal.png",
+      "bytes": 24855323
+    },
+    {
+      "path": "maps/bake/shirt_diffuse.png",
+      "bytes": 1653162
+    },
+    {
+      "path": "maps/bake/shirt_roughness.png",
+      "bytes": 790282
+    },
+    {
+      "path": "maps/bake/shoes_metalness.png",
+      "bytes": 8940
+    },
+    {
+      "path": "maps/bake/shoes_roughness.png",
+      "bytes": 1234818
+    },
+    {
+      "path": "maps/bake/skin_diffuse.1003.png",
+      "bytes": 1749732
+    },
+    {
+      "path": "maps/bake/skin_roughness.1003.png",
+      "bytes": 1754544
+    },
+    {
+      "path": "maps/bake/skin_sss_color.1003.png",
+      "bytes": 1501218
+    },
+    {
+      "path": "maps/bake/eyes_metalic.png",
+      "bytes": 13572
+    },
+    {
+      "path": "maps/bake/eyes_normal.png",
+      "bytes": 322608
+    },
+    {
+      "path": "maps/bake/eyes_specular.png",
+      "bytes": 141770
+    },
+    {
+      "path": "maps/bake/hair_anisotropy.png",
+      "bytes": 49957
+    },
+    {
+      "path": "maps/bake/hair_anisotropy_rotation.png",
+      "bytes": 1436352
+    },
+    {
+      "path": "maps/bake/hair_diffuse.png",
+      "bytes": 1509001
+    },
+    {
+      "path": "maps/bake/hair_roughness.png",
+      "bytes": 522116
+    },
+    {
+      "path": "maps/bake/hair_specular.png",
+      "bytes": 791790
+    },
+    {
+      "path": "maps/bake/hair_sss_color.png",
+      "bytes": 16586
+    },
+    {
+      "path": "maps/bake/hair_sss_value.png",
+      "bytes": 312142
+    },
+    {
+      "path": "maps/bake/pants_diffuse.png",
+      "bytes": 22205417
+    },
+    {
+      "path": "maps/bake/pants_roughness.png",
+      "bytes": 7087235
+    },
+    {
+      "path": "maps/bake/shirt_normal.png",
+      "bytes": 4157409
+    },
+    {
+      "path": "maps/bake/shoes_diffuse.png",
+      "bytes": 2910242
+    },
+    {
+      "path": "maps/bake/shoes_normal.png",
+      "bytes": 5677803
+    },
+    {
+      "path": "maps/bake/skin_diffuse.1002.png",
+      "bytes": 777615
+    },
+    {
+      "path": "maps/bake/skin_roughness.1002.png",
+      "bytes": 628553
+    },
+    {
+      "path": "maps/bake/skin_sss_color.1002.png",
+      "bytes": 623679
+    },
+    {
+      "path": "snow_v02.blend",
+      "bytes": 7580771
+    }
+  ],
+  "runtime_integrated": false,
+  "requires": [
+    "facial/rig export compatibility",
+    "modern clothing removal and Tang tailoring",
+    "style/proportion adaptation",
+    "material baking and mobile LOD"
+  ],
+  "scripts": "do not execute embedded Python; inspect with --disable-autoexec",
+  "archive_cache": "/workspace/.environment/changan-dragon/resource-prep/mature-source-check/snow-source.zip",
+  "preserved_files": [
+    {
+      "file": "maps/bake/eyes_diffuse.png",
+      "bytes": 1286452,
+      "sha256": "7ec88aa8ddb70b7cad01fe96d82179c1b440ddfa4fb91f413d0cae71f9cd746f"
+    },
+    {
+      "file": "maps/bake/skin_sss_value.1001.png",
+      "bytes": 66762,
+      "sha256": "fc1962f72975717e88082f66ea8c30e2f546b63d2a4dcb1503aba321b43f77d8"
+    },
+    {
+      "file": "maps/bake/skin_sss_value.1002.png",
+      "bytes": 16836,
+      "sha256": "4c3a702b13df13ff389b5f00211f3e366c54a1ef31b5abb8b27b703c598d951e"
+    },
+    {
+      "file": "maps/bake/skin_sss_value.1003.png",
+      "bytes": 29233,
+      "sha256": "e785cc6f4c58f0ea04f1b802b37f3646ea239ed4f023c3b9fb005e55d7529a31"
+    },
+    {
+      "file": "maps/bake/skin_diffuse.1001.png",
+      "bytes": 7739547,
+      "sha256": "d8658b31dcc9d8611c9ad74b50778eebcad2c0f0d08a5162d622d5ec55d7f417"
+    },
+    {
+      "file": "maps/bake/skin_roughness.1001.png",
+      "bytes": 5908666,
+      "sha256": "f11c0f1b6aa15f820c026b4a484dcf662b6fbc148fe7283278a1df04524bfcf6"
+    },
+    {
+      "file": "maps/bake/skin_sss_color.1001.png",
+      "bytes": 5923576,
+      "sha256": "677ad2978226451e493e5de2610821a5eda9f72d0cdf9cead02344f45491186e"
+    },
+    {
+      "file": "maps/bake/skin_diffuse.1003.png",
+      "bytes": 1749732,
+      "sha256": "18746c5f7f1ad1dea1a5c430f27b34671f0876a22f43cb22ffa7205af642a6d5"
+    },
+    {
+      "file": "maps/bake/skin_roughness.1003.png",
+      "bytes": 1754544,
+      "sha256": "cd85a058e80385bacff31ea25358a97dad9a7d5e6dee6177f12ce2a814cb7744"
+    },
+    {
+      "file": "maps/bake/skin_sss_color.1003.png",
+      "bytes": 1501218,
+      "sha256": "ec68a5e0bcde2dbb478bec15ff4d33583daaf0cc8b767f3ebcc17d6b9de42692"
+    },
+    {
+      "file": "maps/bake/eyes_metalic.png",
+      "bytes": 13572,
+      "sha256": "917d508ea8820f519380046faeae19fec954d76f6972d5a8ef4e447f4ce786a2"
+    },
+    {
+      "file": "maps/bake/eyes_normal.png",
+      "bytes": 322608,
+      "sha256": "f0908a7026ee93b73abbf1aed8d344f6c20cbd3b90e1bac421003dd3f51051ee"
+    },
+    {
+      "file": "maps/bake/eyes_specular.png",
+      "bytes": 141770,
+      "sha256": "e58894b7f3542070bf19b75e884b7a878c615c3928960c4864355f83a0938589"
+    },
+    {
+      "file": "maps/bake/hair_anisotropy.png",
+      "bytes": 49957,
+      "sha256": "eb82ac01fbc1cda036223e26cf52849f1d528f94c8a63407ff121d87fa7410db"
+    },
+    {
+      "file": "maps/bake/hair_anisotropy_rotation.png",
+      "bytes": 1436352,
+      "sha256": "38edd91acc6452ae5d30a5d92e8f4454c66836c3cb56699dc363217b0c2f80c6"
+    },
+    {
+      "file": "maps/bake/hair_diffuse.png",
+      "bytes": 1509001,
+      "sha256": "fce48207536ffbe836c67577cf1590d3a85373e40439445b4e03d38560f5df97"
+    },
+    {
+      "file": "maps/bake/hair_roughness.png",
+      "bytes": 522116,
+      "sha256": "ef1e5883f0b44ca074da92e6b73e6c15b0b8b1a2bb82650fa3226d787cae50e2"
+    },
+    {
+      "file": "maps/bake/hair_specular.png",
+      "bytes": 791790,
+      "sha256": "cdf5014b23dca5c4f550f199a9068f2f6ac0a91ac17d46531f8be21e1730158e"
+    },
+    {
+      "file": "maps/bake/hair_sss_color.png",
+      "bytes": 16586,
+      "sha256": "96d86d6ddb440b9ddf58c8cca7268a6545fb380943db7064b7603e60da1fc860"
+    },
+    {
+      "file": "maps/bake/hair_sss_value.png",
+      "bytes": 312142,
+      "sha256": "64010747b5197acbcecdb6faaaf73781b5a905c4ead622489e92574549c603a0"
+    },
+    {
+      "file": "maps/bake/skin_diffuse.1002.png",
+      "bytes": 777615,
+      "sha256": "3b3ce7927a90887fef733fd3bfe4c39fba0ec2e10c3ca724bd49512d0b829799"
+    },
+    {
+      "file": "maps/bake/skin_roughness.1002.png",
+      "bytes": 628553,
+      "sha256": "85f23ee7e68e6e9cd9f21304347198849e97b1cb719d426587317860f4399332"
+    },
+    {
+      "file": "maps/bake/skin_sss_color.1002.png",
+      "bytes": 623679,
+      "sha256": "33097f751f9cdf52a367d08b6c125bc2ba83c67ae5894fb45bd1995bcd0f6a51"
+    },
+    {
+      "file": "snow_v02.blend",
+      "bytes": 7580771,
+      "sha256": "038463b0d793c2a619fbcd93a0220b21191f87079af03698e4056642d7032876"
+    }
+  ],
+  "scope": "Original blend, face/body/eye/hair maps. Modern outfit maps intentionally omitted; complete ZIP retained in environment cache. Original recipe can re-extract without redownload."
+}
