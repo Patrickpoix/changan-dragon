@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-23",
+  "scope": "Design/resource research and acquired source integrity only; no new game integration/browser or physical-phone performance claim",
+  "baseline_commit": "6dfb35265e05980b176a8661caa56b72c41e8ab0",
+  "resource_catalog": {
+    "records": 109,
+    "by_category": {
+      "runtime-engine": 5,
+      "vegetation-tool": 2,
+      "character-tool": 3,
+      "material-tool": 1,
+      "asset-optimization": 2,
+      "spatial-query": 1,
+      "navigation": 1,
+      "rendering": 2,
+      "architecture": 13,
+      "boats": 4,
+      "clothing": 4,
+      "dragon": 2,
+      "vegetation": 3,
+      "animals": 8,
+      "bicycle": 1,
+      "market": 2,
+      "characters": 4,
+      "props": 2,
+      "bridges": 1,
+      "interior": 1,
+      "environment": 1,
+      "material": 23,
+      "historical-reference": 12,
+      "audio": 7,
+      "source-check": 4
+    },
+    "by_stage": {
+      "existing_runtime": 1,
+      "not_selected": 12,
+      "offline_tool_candidate": 5,
+      "source_acquired": 1,
+      "runtime_candidate": 2,
+      "reference_only": 26,
+      "account_required": 12,
+      "rejected": 16,
+      "rights_hold": 7,
+      "purchase_candidate": 6,
+      "preview_candidate": 21
+    },
+    "preview_reviewed_records": 76
+  },
+  "local_document_links_checked": 63,
+  "broken_local_document_links": [],
+  "acquired_makehuman": {
+    "commit": "a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
+    "manifest_file_sha256_checks": 5,
+    "vertices": 19158,
+    "faces": 18486,
+    "triangles_including_helpers": 36972,
+    "finite_positions_and_valid_face_indices": true,
+    "bones": 163,
+    "weights": 57107,
+    "valid_weight_indices_values_and_bone_names": true,
+    "finished_character_or_animation": false,
+    "runtime_integrated": false
+  },
+  "design_studies": [
+    {
+      "path": "docs/concept-dragon-turnaround.png",
+      "bytes": 2053608,
+      "sha256": "0a2b3fe8c9e58844c5bfccf6eeb158bb551290267f55f9d57987ab8e1e96cbe1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "method": "image_gen with existing project market/qujiang concepts as local references",
+      "viewed": true,
+      "status": "supplementary design study, not newly user approved and not a 3D model",
+      "issues": [
+        "Generated scale markings do not match silhouette ratios; document/metre geometry governs.",
+        "Bicycle crank, pedals, drive and limb reach need mechanical calibration.",
+        "Views are not one shared topology; continuous mesh, eyelids, expressions and rig remain."
+      ]
+    },
+    {
+      "path": "docs/concept-barge-study.png",
+      "bytes": 2522592,
+      "sha256": "20b6857328e9ed466963c50c5a2f465f3146e742aaa1f440665c3b16226960aa",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "method": "image_gen with existing project market/qujiang concepts as local references",
+      "viewed": true,
+      "status": "supplementary design study, not newly user approved and not a 3D model",
+      "issues": [
+        "Not an archaeological vessel or exact engineering section.",
+        "Boarding gate, draft, roof support, column spacing and cross-view consistency need calibration.",
+        "No hull geometry, collision or passenger motion has been built from this image."
+      ]
+    }
+  ],
+  "unchanged_runtime": {
+    "protected_paths": [
+      "src",
+      "vendor",
+      "index.html",
+      "dist",
+      "assets/runtime-models.js",
+      "assets/scene-materials.js",
+      "assets/materials.js"
+    ],
+    "changed_paths": [],
+    "offline_html_bytes": 18693882,
+    "sha256": "d9ede61fd366a3cbd2f056aab21b521ca69c75fd0995f41a1884fb3f2230e373",
+    "runtime_glb_sources": 15
+  },
+  "formal_integration_gate_open": false,
+  "remaining_gaps": [
+    "Approved-style continuous-mesh dragon, expressions, rig, walk/bike/flight motions",
+    "Complete Tang-compatible production architecture type families with materials and LOD",
+    "Editable Tang clothing, stylized people and shop activity animations",
+    "Complete appropriate painted barge/covered boat and boarding/riding behaviour",
+    "Stylized willow/pine/blossom type designs and coordinated landscape composition",
+    "Auditioned offline Chinese hawker voices and coherent soundscape"
+  ]
+}

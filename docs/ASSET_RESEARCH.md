@@ -1,5 +1,51 @@
 # 龙游长安：在线素材与引擎筛选
 
+## 最新：总体设计先行，扩大资源筛选（2026-10-23）
+
+用户本轮要求先确定所有元素的正确设计、充分找资源，然后才正式整合。执行入口改为 [总体设计框架](DESIGN_FRAMEWORK.md)，不按下文历史轮次继续批量扩建旧模型。
+
+本轮保存 [109条具体资源/工具/史料及访问记录](resource-catalog.json)，其中76条有实际预览图检查；包含可改造、仅参考、未取得、许可待查和否决项，**不是109个已下载素材包**。已重新查看三张认可概念及当前游戏市集截图，另查看候选建筑、服装、小龙、柳树、驼、舟船、木车、材料与唐代文物的实际公开预览。模型预览仅是筛选，未取得文件的模型没有通过四面/拓扑/动作验收。
+
+另补充生成 [小龙三视图与移动姿态研究](concept-dragon-turnaround.png)、[画舫完整空间研究](concept-barge-study.png)。已实际查看，保持认可概念的主风格；新增研究图尚未获用户确认，尺标、机械/结构与跨视图不一致之处详见DESIGN_FRAMEWORK。生图是建模方向材料，不计入109条外部来源，也不计作取得成品网格。
+
+所有网络请求沿现有代理/TLS，环境文件为unrestricted；环境API的network state仍unknown，不称为已观测enforced。未登录、购买、联系作者、绕过403/401/验证码。资源目录保留实际响应哈希、许可范围、取得状态、依赖与取舍，不将HTTP200页面等同取得三维文件。
+
+### 值得保留的具体路线
+
+| 内容 | 已查的具体来源及适用价值 | 取得、许可与必须改造的部分 |
+| --- | --- | --- |
+| 人物基体/拓扑/骨架 | [MakeHuman许可分离说明](https://github.com/makehumancommunity/makehuman/blob/master/LICENSE.md)、[MPFB](https://github.com/makehumancommunity/mpfb2) | **已实际取得**固定提交的CC0核心OBJ、163骨架和引用权重，见 [研究源](../assets/library/characters/makehuman-base/README.md)。OBJ19158顶点/18486面，含辅助部分；有限坐标/有效索引/JSON检查通过。未接入，不是成品国漫人物。应用AGPL/插件GPL与核心图形CC0分开，社区衣服不自动CC0。MPFB要求Blender≥4.2，未安装运行插件。 |
+| 唐代衣服 | [Style3D齐胸汉服](https://sketchfab.com/3d-models/63fc3f79926c4e999accc0a6407c23bd)、[Autumn song](https://sketchfab.com/3d-models/1d63c40131274ae9823792fc5e21da51) | 作者/API CC BY4.0；已看衣身/披帛与垂坠，约17.4万/23.8万面、API无动画。前者下载实测401。要取得可编辑文件后重拓扑、烘焙、绑定、统一剪裁/比例；不能把人台或作者软件支持格式说成已取得完整游戏角色。 |
+| 唐代男袍 | [MetaCulture唐官袍](https://www.fab.com/listings/308e73c3-a39e-4f95-9339-89db20bf68d7) | 已看圆领袍剪影；MetaHuman专用wardrobe/cloth，人物不含，未取得；作为服装参考/待查源，不直接加入浏览器。 |
+| 市井人物成品 | [Ancient Chinese Market](https://www.fab.com/listings/418d9591-acd4-4ad9-ad2c-2e08e1dcea9d)、[Farmers](https://www.fab.com/listings/5cf7284e-ead1-47fe-84f1-c6cbea20def9) | 5/6角色、UE5骨架/52ARKit表情，100/124纹理，约1.2–4.3万/2.2–4.2万polygon。实际预览偏写实古装，唐服/脸形须再设计；仅公示UE格式，作者说其他源需另取。未购买/下载，不能说已拿到FBX。 |
+| 唐风室内成品 | [Tang Dynasty Style Ceremonial Hall Interior](https://www.fab.com/listings/6dc1c1d9-6f7a-4198-b234-1dab5e82ae8f) | 明确FBX/OBJ/SketchUp来源，已看柱梁/低案/帘幔/室内纵深。是可编辑格式的商业候选，面数/背面/分件/商品授权未核定，不将Tang-inspired当考古证明。 |
+| 完整模块建筑 | [Traditional Chinese Architecture Pack](https://www.fab.com/listings/17fb29ea-833d-4723-bc12-7fa325255e17) | 明确Blend/FBX/GLB/OBJ，完整楼塔/门/墙部件预览；大檐与类型偏幻想，具体面数/LOD未公示。格式路线可行，但不是已通过唐风/电影美术的整套替代品。 |
+| 成套城市组织 | [Ancient Chinese City Vol1.07](https://www.fab.com/listings/cf760130-1048-4208-9f8d-cdb91e19726f)、[Modular Chinese Canal Town](https://www.fab.com/listings/6f261e27-265b-43b7-91c5-457a50d5425e) | 已看实际街景与楼阁；前者22蓝图房屋/PCG等，后者147网格含88建筑/52物件/7植物。后世楼店/江南水乡特征明显，UE蓝图不直接运行在Three。研究完整组合方法，不整体换皮成唐长安。 |
+| CC0古建候选 | BlenderKit/Free poly：[Chinese Temple](https://www.blenderkit.com/api/v1/assets/c8d3568f-466b-45a8-8f7b-2eaa878a0ffd/)、[Chinese Temple2](https://www.blenderkit.com/api/v1/assets/ae4e8a88-126e-4a39-b52b-415c5e58f0dc/) | API标cc_zero/isFree=true，已看完整木构/屋顶层次。前者0.5K源15.9MB，后者GLB17.25MB；两个正常下载接口均403，**未取得**。不是看到CC0就能越过平台访问要求，年代/结构仍待核。[第三件](https://www.blenderkit.com/api/v1/assets/a9dd71df-0a85-4892-b614-fa17455a5ad4/)虽CC0但isFree=false，亦未取得。 |
+| 唐宋木构结构 | [Temple / Vincerew](https://sketchfab.com/3d-models/e28da4013d554cb7b1fb6bc46cb71615) | 已看裸柱梁斗拱结构、60280面，API CC BY4.0，作者称唐宋寺庙启发并引用南禅寺。是结构研究候选，不是完成殿宇，下载401。 |
+| 风格化环境组合 | [Stylized Chinese Lost Temple](https://www.fab.com/listings/bae44126-3686-48b4-b51f-c8669a38d978) | 已看138资产的寺庙/悬崖/秋树构图，风格统一有参考价值；题材与长安市井不同，UE/ULAT工具不直接搬入浏览器，未购买。 |
+| 树木生成/LOD | [EZ-Tree](https://github.com/dgreenheck/ez-tree) | 已读主源/参数/LOD/GLB导出及实际示例。代码/叶纹MIT，树皮来源单独列ambientCG CC0；固定研究提交dcf309bd86bd521083d9c70f01f2de45fdc7c457，package1.1.0要求Three≥0.167。只评估独立离线生成→GLB，不升级现有r160；柳树专用冠形仍需设计。 |
+| 垂柳成品 | [Willow / evolveduk](https://sketchfab.com/3d-models/422de2372f3d46dfb314a0cd5da512fe)、[NIMBUS Willow](https://sketchfab.com/3d-models/f81319550c544dc09c97ec74bdfb0b89) | 已看冠形，约9082/30022面，CC BY元数据；原文件/纹理链未取得。前者TreeIt制作，后者过绿/亮需统一；另一个漂亮的[柳树](https://sketchfab.com/3d-models/7bd70b487fae4f3eb70d4e69394e97b4)作者明确用Megascans纹理，**不按页面CC BY放行其纹理**。 |
+| 舟船成品 | [Chinese boat / local.yany](https://sketchfab.com/3d-models/df5de16d9aa249eda96e9efa4944b69a)、[Murilo Rocha小舟](https://sketchfab.com/3d-models/8c08d196fb814724a97c120d33cdf466)、[Fab小舟](https://www.fab.com/listings/8e184298-69b4-44d4-926b-a21d03cf890a) | 已看舱/篷/甲板；前两API CC BY4.0、54128/5380面，前者下载401且现代观光画舫灯串需重做。第三者免费FBX/OBJ/4kPBR，商品级授权/原件未取得。都不能称为已获得完整唐代画舫套件。 |
+| 商旅骆驼 | [Medhue Camel](https://www.fab.com/listings/8341e12f-b3f4-4abf-a4b0-ac8623561b82) | 已看预览，作者列4124三角形、21动作、单/双峰/形态混合版本，Blend/FBX等。可编辑和动画路线清楚的商业候选；未购买，需统一动物风格/毛皮/货具。两份同为26960面的双峰上传许可不同，暂缓。 |
+| 木车参考 | [Virtual Museums of Małopolska木自行车](https://sketchfab.com/3d-models/3d7fc7394cde43298de89a28c0afbaff) | 机构CC0元数据、359728面扫描；已看木轮/车轴/框架，不是唐代史物或小龙即用车。主角木车属于幻想，轮径/座把/脚踏须与新骨架一起设计。 |
+| 材质扩展 | [Poly Haven](https://polyhaven.com/license)：fine_grained_wood、dark_wood、chinese_cedar_bark、brown_leather、grey_stone_path、cobblestone_floor_07等；[ambientCG](https://ambientcg.com/license)：Fabric081C、WoodFloor051/064/070/043、Ground111/112/110/108 | 23项材料实际预览/作者与许可核验，具体ID/规模/取舍在JSON。不是全部采用：粗针织、毛圈、格子布被否决为主绢帛；现代拼花/强木纹不直接铺满楼廊，高频碎石不作全城土路。新图尚未入运行包。 |
+| 可编辑统一制材 | [Material Maker](https://github.com/RodZill4/material-maker) | 官方仓库MIT（除另行标注），固定研究提交424dec64a75478f22267ba9281a5cbe7a236b802；离线节点制材/烘焙候选。社区站每个节点/资产仍须核许可，不一概CC0。 |
+| 唐服/器物依据 | [Cleveland Museum Open Access](https://www.clevelandart.org/open-access)，API明确CC0且唐代的Court Lady with High Chignon、Woman Holding Plum Blossoms、Bird-Headed Ewer、Stem Cup、Horse、Camel等七件 | 已查看馆藏图与年代/授权；用于脸/发式/衣身剪影、器物、马驼比例，不把照片当三维扫描，不把检索混入的元代《三马四圉》当唐代造型。 |
+| 场景优化/空间模块 | [glTF Transform](https://github.com/donmccurdy/glTF-Transform)、[meshoptimizer](https://github.com/zeux/meshoptimizer)、[three-mesh-bvh0.7.6](https://github.com/gkjohnson/three-mesh-bvh/tree/v0.7.6)、[Recast Navigation JS](https://github.com/isaac-mason/recast-navigation-js) | MIT主源/许可实际核对。离线加工优先；BVH该版允许Three≥0.151；Recast WASM、上游通知、解码器/单HTML/回退仍需集成前专项验证，未安装这些新运行模块。 |
+
+### 明确否决与仍未补齐的内容
+
+- 两个Cute/Chinese Dragon模型均实际看图：西式大眼带翼、皮肤噪声或细长红龙，都不符合认可的小青龙脸形/连续体块。**没有找到可以只换色就作为主角的成熟授权成品**，要做专门正侧背/表情/绑定设计，不能回到球体拼接。
+- 故宫启发小殿、北京四合院、上世纪乡村、明清家具、红帆海船、奇幻现代时装，即使有清楚免费标签也没有作为唐代生产套件放行。BlendSwap搜索403；两个FoguangTemple仓库没有已核定可用模型/根许可，不能拿名称填缺口。
+- 7条声音源已读作者/许可/用途，但本轮未试听，未判定最终配乐。现代上海市场含电动车，抗议/军队喊声不适合市井；南澳公园有地域性鸟声；泛“Oriental”筝乐不等于唐乐。中文小贩叫卖仍无已审定离线录音，须独立补齐。
+- 场景级商业包价格/商品级许可和实际源文件未取得，没有购买/发信。**[Fab标准许可](https://www.fab.com/eula)允许适配其他兼容工具和在作品内使用，但不允许将资产作为独立素材免费再分发**；不能把付费原包/原始FBX放进公共GitHub资产库。商品是否适用Standard/CC BY仍逐项核定，未从平台总规则替商品作结论。
+- 完整建筑类型、小龙、唐服、画舫、国漫专用树形及经营动作仍须经过设计/取得/加工。总体框架覆盖了这些族，但关键成品源未齐，**正式整合关口仍关闭**。不会用109条记录的数量冒充资源已经全部到位。
+
+正式运行库存仍是13个Poly Haven GLB+2个Quaternius GLB，另有面部/船壳两类索引几何及已有材质/HDR。新MakeHuman仅为研究源，木构样板仍未部署全城。以下各段保留历史事实，早期“7个/11个”是当轮数量，不能覆盖本段与实际asset-manifest。
+
+---
+
 调研日期：2026-10-23。此文是实际 HTTPS 请求、作者仓库 README/许可、glTF 文件结构和官方预览图的调查结果。**候选、可选素材库与已接入的运行时素材分开记录；仅通过筛选的资源进入游戏。**
 
 ## 当前美术目标与本次可交付素材

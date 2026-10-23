@@ -1,0 +1,3789 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-23",
+  "purpose": "Design/research catalogue; separate from actual runtime docs/asset-manifest.json",
+  "baseline_commit": "6dfb35265e05980b176a8661caa56b72c41e8ab0",
+  "formal_integration_started": false,
+  "all_required_production_assets_acquired": false,
+  "runtime_glb_sources_before_and_after": 15,
+  "new_acquired_development_source": "MakeHuman core OBJ/rig/weights only; no finished Tang character",
+  "open_critical_gaps": [
+    "Approved-style continuous-mesh dragon, expressions, rig, walk/bike/flight motions",
+    "Complete Tang-compatible production architecture type families with materials and LOD",
+    "Editable Tang clothing, stylized people and shop activity animations",
+    "Complete appropriate painted barge/covered boat and boarding/riding behaviour",
+    "Stylized willow/pine/blossom type designs and coordinated landscape composition",
+    "Auditioned offline Chinese hawker voices and coherent soundscape"
+  ],
+  "summary": {
+    "records": 109,
+    "by_category": {
+      "runtime-engine": 5,
+      "vegetation-tool": 2,
+      "character-tool": 3,
+      "material-tool": 1,
+      "asset-optimization": 2,
+      "spatial-query": 1,
+      "navigation": 1,
+      "rendering": 2,
+      "architecture": 13,
+      "boats": 4,
+      "clothing": 4,
+      "dragon": 2,
+      "vegetation": 3,
+      "animals": 8,
+      "bicycle": 1,
+      "market": 2,
+      "characters": 4,
+      "props": 2,
+      "bridges": 1,
+      "interior": 1,
+      "environment": 1,
+      "material": 23,
+      "historical-reference": 12,
+      "audio": 7,
+      "source-check": 4
+    },
+    "by_stage": {
+      "existing_runtime": 1,
+      "not_selected": 12,
+      "offline_tool_candidate": 5,
+      "source_acquired": 1,
+      "runtime_candidate": 2,
+      "reference_only": 26,
+      "account_required": 12,
+      "rejected": 16,
+      "rights_hold": 7,
+      "purchase_candidate": 6,
+      "preview_candidate": 21
+    },
+    "preview_reviewed_records": 76
+  },
+  "resources": [
+    {
+      "id": "three-r160",
+      "name": "Three.js r160",
+      "category": "runtime-engine",
+      "source_url": "https://raw.githubusercontent.com/mrdoob/three.js/r160/examples/jsm/loaders/GLTFLoader.js",
+      "stage": "existing_runtime",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT; existing vendor notices",
+      "assessment": "保留引擎和加载/动画管线；不能用更换引擎替代模型返工。已读Loader支持扩展不等于所有解码依赖已经打包。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/mrdoob/three.js/r160/examples/jsm/loaders/GLTFLoader.js",
+          "status": 200,
+          "bytes": 108522,
+          "sha256": "d073b438e6a07e1359741dd5d6c76c953420cc0d4fd84eb1bdde94315540e6a3",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "babylon",
+      "name": "Babylon.js",
+      "category": "runtime-engine",
+      "source_url": "https://api.github.com/repos/BabylonJS/Babylon.js",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Apache-2.0; root license read",
+      "assessment": "成熟浏览器引擎备选；未做迁移或同场景性能比较。当前没有承担重做场景/交互/离线的必要性证据。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/BabylonJS/Babylon.js",
+          "status": 200,
+          "bytes": 6674,
+          "sha256": "88c4cd530241d12cb7dbac64c699c06d67683fadc902331fc7264d3df934b37d",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/BabylonJS/Babylon.js/master/license.md",
+          "status": 200,
+          "bytes": 9226,
+          "sha256": "9362ea9ea17cb221a20cbbd63f404710834cc273d2a9a7b60314fd68ab702cd6",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "playcanvas",
+      "name": "PlayCanvas Engine",
+      "category": "runtime-engine",
+      "source_url": "https://api.github.com/repos/playcanvas/engine",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT; root license read",
+      "assessment": "WebGL/WebGPU与glTF路线成熟；编辑器/云服务和开源引擎许可分开。保留现有静态工程，不引入平台依赖。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/playcanvas/engine",
+          "status": 200,
+          "bytes": 6563,
+          "sha256": "ca0f807b0e5a4ce536af16a376c43bbe9ed0011b62735fdde682765a94695a8b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/playcanvas/engine/main/LICENSE",
+          "status": 200,
+          "bytes": 1064,
+          "sha256": "42fa51ddd556be151a29f381fb97ee975825dcc454e805ea3ea9c079cca04d34",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "godot",
+      "name": "Godot 4 Web export",
+      "category": "runtime-engine",
+      "source_url": "https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT engine; official export documentation read",
+      "assessment": "Web需WASM与WebGL2，Compatibility而非原生Forward+/Mobile；单线程是推荐路径，多线程有额外隔离头要求。当前WebGL1兼容将受影响。",
+      "evidence": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html",
+          "status": 200,
+          "bytes": 1391108,
+          "sha256": "744684d34fde9d4e97a582056bb97f32ac193b71d07fc6a31a7615752a08d3a4",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/godotengine/godot/master/LICENSE.txt",
+          "status": 200,
+          "bytes": 1149,
+          "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "filament",
+      "name": "Filament",
+      "category": "runtime-engine",
+      "source_url": "https://api.github.com/repos/google/filament",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Apache-2.0 according to repository metadata; not a downloaded SDK",
+      "assessment": "成熟PBR引擎研究项；WebGL2路线，不是Three插件。没有理由为本轮艺术返工迁移。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/google/filament",
+          "status": 200,
+          "bytes": 6585,
+          "sha256": "22c19b3c30323c1de504e6914f5a82549d6f7f653e72ea026ad867cea2d7a0db",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "ez-tree",
+      "name": "EZ-Tree 1.1.0",
+      "category": "vegetation-tool",
+      "source_url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/main/README.md",
+      "stage": "offline_tool_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT code/leaves; separate bark attribution specifies ambientCG CC0",
+      "assessment": "已看作者示例与LOD说明。可离线生成同骨架树冠LOD并导GLB；没有垂柳专用预设。peer three>=0.167，不能直接装入r160。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/main/README.md",
+          "status": 200,
+          "bytes": 7327,
+          "sha256": "1c758991522e87610b7459ea0a8fbfb0a22ec4bd90903459ff974d78e6be5282",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/main/LICENSE",
+          "status": 200,
+          "bytes": 1073,
+          "sha256": "20e4afadfb10c67952b3d73cd2982d21d165ab4ae82b0dd9e4d6f2166ee349b6",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/main/package.json",
+          "status": 200,
+          "bytes": 1411,
+          "sha256": "48f5ddc8af8ee19b1ee6d2ff7047a3a42575aa13e5f721bd871506e161a90131",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/main/src/app/public/textures/LICENSE.md",
+          "status": 200,
+          "bytes": 1378,
+          "sha256": "c4c67cf955536e61d9ac3fdf13830114edcd4c19c9aa0356ed0862cedf64140a",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://api.github.com/repos/dgreenheck/ez-tree/commits/main",
+          "status": 200,
+          "bytes": 12124,
+          "sha256": "4322450fb7a102964420769986d46be9fc9e42e3587addb9336148a7f67a2990",
+          "checked": "2026-10-23"
+        }
+      ],
+      "reviewed_commit": "dcf309bd86bd521083d9c70f01f2de45fdc7c457"
+    },
+    {
+      "id": "tree-gen",
+      "name": "tree-gen",
+      "category": "vegetation-tool",
+      "source_url": "https://raw.githubusercontent.com/friggog/tree-gen/master/README.md",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "GPL-3.0 code; author README separately restricts direct sale of generated assets",
+      "assessment": "不是输出一概无条件CC0；优先许可更清楚的EZ-Tree/自有Blender管线。未安装。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/friggog/tree-gen/master/README.md",
+          "status": 200,
+          "bytes": 900,
+          "sha256": "92ae6d65266935e9f4a64a60317a30370598eb781365b6be2497ac28a98b9df1",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "makehuman",
+      "name": "MakeHuman bundled base/rig/weights",
+      "category": "character-tool",
+      "source_url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/master/LICENSE.md",
+      "stage": "source_acquired",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Core graphical assets CC0; application logic AGPL, explicitly separate",
+      "assessment": "核心基体/163骨架及引用权重已从固定提交取得并校验，未成为成品唐服人物。社区资产各自授权。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/master/LICENSE.md",
+          "status": 200,
+          "bytes": 3598,
+          "sha256": "edd99571ca62698f78c943fd4fffb159a413c315fa0d4819d3cec5cadaf8b4f1",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://api.github.com/repos/makehumancommunity/makehuman/commits/master",
+          "status": 200,
+          "bytes": 2596,
+          "sha256": "5c353ab2bc620255736a08faa4c5ebc0d67e7fa05cf696c9af6e17fee0412332",
+          "checked": "2026-10-23"
+        }
+      ],
+      "reviewed_commit": "a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
+      "local_manifest": "assets/library/characters/makehuman-base/manifest.json"
+    },
+    {
+      "id": "mpfb",
+      "name": "MPFB2",
+      "category": "character-tool",
+      "source_url": "https://raw.githubusercontent.com/makehumancommunity/mpfb2/master/LICENSE.md",
+      "stage": "offline_tool_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "GPLv3 addon; bundled graphical assets/output CC0",
+      "assessment": "README要求Blender>=4.2，现有Blender4.3.2满足版本起点；未安装/运行完整插件，不声称服装或电影脸型现成。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/makehumancommunity/mpfb2/master/LICENSE.md",
+          "status": 200,
+          "bytes": 3188,
+          "sha256": "5cefb60680cb9efd4550a2e65d719021cfbec9dad3658481d11d48ae863ce04d",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/makehumancommunity/mpfb2/master/README.md",
+          "status": 200,
+          "bytes": 1259,
+          "sha256": "9023f557668abc39de850fcced32fede5d34aa295c569410d91e5fb607decd0e",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://api.github.com/repos/makehumancommunity/mpfb2/commits/master",
+          "status": 200,
+          "bytes": 750727,
+          "sha256": "3aa283cf9c9595edf37c4920073e40efc4a2fc2c4847f8abb84b4c1355aef803",
+          "checked": "2026-10-23"
+        }
+      ],
+      "reviewed_commit": "b1a2dc98776da9d1eea751b159d42cf61778fe2e"
+    },
+    {
+      "id": "mblab",
+      "name": "MB-Lab",
+      "category": "character-tool",
+      "source_url": "https://api.github.com/repos/animate1978/MB-Lab",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "NOASSERTION repository metadata; requested LICENSE path404",
+      "assessment": "未取得完整有效许可说明，不从标签推断输出资产许可。现阶段MPFB/MakeHuman核心路径更明确。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/animate1978/MB-Lab",
+          "status": 200,
+          "bytes": 5385,
+          "sha256": "a78f3fda6ee913e98e1426f3f445c83db812dd66016ef54261bf5a1709f5b1ac",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "material-maker",
+      "name": "Material Maker",
+      "category": "material-tool",
+      "source_url": "https://raw.githubusercontent.com/RodZill4/material-maker/master/README.md",
+      "stage": "offline_tool_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Repository MIT unless otherwise specified; community materials separately checked",
+      "assessment": "离线节点制材/贴图输出候选，避免照片纹理直接拼贴；没有把社区站所有内容统称MIT或CC0。未安装。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/RodZill4/material-maker/master/README.md",
+          "status": 200,
+          "bytes": 2009,
+          "sha256": "fe4f9eff499f55f1d21fe692921ab2a2d40e6616c249a8734318e10fbbbfad68",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/RodZill4/material-maker/master/LICENSE.md",
+          "status": 200,
+          "bytes": 1100,
+          "sha256": "db17817a68e6c06c3aba6242d50ec34285c02f1ada4fbd8cd7382110f95c09de",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://api.github.com/repos/RodZill4/material-maker/commits/master",
+          "status": 200,
+          "bytes": 5970,
+          "sha256": "7a25622d6deeb1b19ebefd43c35276c342d0ebbda50728c37cfbbcf4dd1727cc",
+          "checked": "2026-10-23"
+        }
+      ],
+      "reviewed_commit": "424dec64a75478f22267ba9281a5cbe7a236b802"
+    },
+    {
+      "id": "gltf-transform",
+      "name": "glTF Transform",
+      "category": "asset-optimization",
+      "source_url": "https://raw.githubusercontent.com/donmccurdy/glTF-Transform/main/README.md",
+      "stage": "offline_tool_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT; LICENSE.md read",
+      "assessment": "离线prune/dedup/纹理/几何加工；须检查减面保轮廓、蒙皮、动作与材质。并非风格转换器。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/donmccurdy/glTF-Transform/main/README.md",
+          "status": 200,
+          "bytes": 6647,
+          "sha256": "d89d0c933e18062a4e664e6389774bc84e0bebc5011e5e801406c6895bc948a3",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/donmccurdy/glTF-Transform/main/LICENSE.md",
+          "status": 200,
+          "bytes": 1078,
+          "sha256": "2c4f111d00dbf22b10d31a14813c5f5de6a828640f7311f26b9dda89b3fce165",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "meshoptimizer",
+      "name": "meshoptimizer",
+      "category": "asset-optimization",
+      "source_url": "https://raw.githubusercontent.com/zeux/meshoptimizer/master/js/README.md",
+      "stage": "offline_tool_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT; LICENSE.md read",
+      "assessment": "离线优化/可选meshopt压缩。若生产GLB使用EXT_meshopt_compression，需将匹配解码器本地打包并验证，不能仅压文件就算完成。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/zeux/meshoptimizer/master/js/README.md",
+          "status": 200,
+          "bytes": 34109,
+          "sha256": "72162d4a46a34622d12914bc47d94ca36e88a4be5ffdf009d89fc1c6e7c47e03",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/zeux/meshoptimizer/master/LICENSE.md",
+          "status": 200,
+          "bytes": 1079,
+          "sha256": "f03037ca7bad1e3eb7f4a63fa6084a8baabd5ba30d3c239a9a7f35705d873e26",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "three-bvh",
+      "name": "three-mesh-bvh 0.7.6",
+      "category": "spatial-query",
+      "source_url": "https://raw.githubusercontent.com/gkjohnson/three-mesh-bvh/v0.7.6/package.json",
+      "stage": "runtime_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT; versioned LICENSE read",
+      "assessment": "该版peer three>=0.151，适合r160复杂镜头/地形查询候选。先剖析当前空间索引，不对每个装饰面构建全城刚体。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/gkjohnson/three-mesh-bvh/v0.7.6/package.json",
+          "status": 200,
+          "bytes": 2479,
+          "sha256": "c18b969e432c4e5c5167062e09a380c92df7ce4e506c15d9ba4ad83b1d71cbcc",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/gkjohnson/three-mesh-bvh/v0.7.6/LICENSE",
+          "status": 200,
+          "bytes": 1072,
+          "sha256": "b106ef6198a9862ed2b5b873e944ecf3583c631a84a7462d400ecc1910ce7fee",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "recast",
+      "name": "Recast Navigation JS",
+      "category": "navigation",
+      "source_url": "https://raw.githubusercontent.com/isaac-mason/recast-navigation-js/main/packages/recast-navigation/README.md",
+      "stage": "runtime_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT wrapper LICENSE read; upstream Recast notices must be preserved when acquiring distribution",
+      "assessment": "复杂院落人群导航候选，WASM需本地初始化/离线打包。活动、经营、排队仍由场景状态机设计。",
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/isaac-mason/recast-navigation-js/main/packages/recast-navigation/README.md",
+          "status": 200,
+          "bytes": 24220,
+          "sha256": "b6ea024739d2674035b8e28c7bc435e78fe0d9990bfe34ed26bf0104711f822b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/isaac-mason/recast-navigation-js/main/LICENSE",
+          "status": 200,
+          "bytes": 1071,
+          "sha256": "319340bb218c8a01bf041dc8f6f2390f176d7c332920695b0774b972b4e99162",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "postprocessing",
+      "name": "pmndrs/postprocessing",
+      "category": "rendering",
+      "source_url": "https://api.github.com/repos/pmndrs/postprocessing",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Zlib according to repository metadata; no distribution acquired",
+      "assessment": "当前已有Three后处理。未验证当前包与r160兼容，不为电影感堆第二条合成器。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/pmndrs/postprocessing",
+          "status": 200,
+          "bytes": 6501,
+          "sha256": "247ae993b24eb3430e93a4f10d2e56b6cdc21801c6565069cb7697e0ecaea3ff",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "pathtracer",
+      "name": "THREE.js PathTracing Renderer",
+      "category": "rendering",
+      "source_url": "https://api.github.com/repos/erichlof/THREE.js-PathTracing-Renderer",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC0-1.0 repository metadata; no distribution acquired",
+      "assessment": "路径追踪研究项，不能把桌面累积效果等同横屏手机自由移动性能。离线形体/照明参考可用现有Blender。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/erichlof/THREE.js-PathTracing-Renderer",
+          "status": 200,
+          "bytes": 6506,
+          "sha256": "a78a89e62a40e6ae4af27341cbe5c57bf8b7e847f9a2d1ca86d1daa218be9780",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "sketchfab-751ea4517a4f463bb6f52a438021b9b5",
+      "name": "Chinese Fantasy 03 - Revisited",
+      "category": "architecture",
+      "source_url": "https://api.sketchfab.com/v3/models/751ea4517a4f463bb6f52a438021b9b5",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "有完整主次体量，但幻想高塔/飞桥不合目标唐城。作者注明基于Zuobao Chen概念，UV混乱；需额外确认衍生概念权利，不作直接生产来源。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/751ea4517a4f463bb6f52a438021b9b5",
+          "status": 200,
+          "bytes": 6147,
+          "sha256": "a98bb6cd539821bd0a36112de51107ea5191ff9c5e8f23a95044b3aadf93f471",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/751ea4517a4f463bb6f52a438021b9b5/thumbnails/a82449071a564816bd0123687133a455/fc0dc1f8ad334f45b8ea053b013b9988.jpeg",
+          "status": 200,
+          "bytes": 42690,
+          "sha256": "e5dd1114e5adae6dd8b793d720f8acaf1161c44ed7662827bfa22f8ecc7c33c9",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Prasin Shrestha",
+      "page_url": "https://sketchfab.com/3d-models/751ea4517a4f463bb6f52a438021b9b5",
+      "faces": 130754,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-f44115f33e954c75828d09cce03a729a",
+      "name": "Oriental Building",
+      "category": "architecture",
+      "source_url": "https://api.sketchfab.com/v3/models/f44115f33e954c75828d09cce03a729a",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "体量和挑檐有设计，但偏幻想高耸小楼；作者基于Aze K概念，不能把模型CC BY自动视为所有概念授权。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/f44115f33e954c75828d09cce03a729a",
+          "status": 200,
+          "bytes": 7408,
+          "sha256": "a9b9a695478a4379f49f3958aa1cb59abb13f0b67b54462c44161763eee7a843",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/f44115f33e954c75828d09cce03a729a/thumbnails/d53382e16184475392c5e167bbae7fe6/6ebef275e7df4136a62e4bc0c17aefaa.jpeg",
+          "status": 200,
+          "bytes": 29606,
+          "sha256": "c91a06fd1f15d157cba0f9c96c0442eccf49535b6ecfa35574def8917b271b11",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "N01516",
+      "page_url": "https://sketchfab.com/3d-models/f44115f33e954c75828d09cce03a729a",
+      "faces": 117941,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-e28da4013d554cb7b1fb6bc46cb71615",
+      "name": "Temple",
+      "category": "architecture",
+      "source_url": "https://api.sketchfab.com/v3/models/e28da4013d554cb7b1fb6bc46cb71615",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "已看裸柱梁斗拱结构，作者说明唐宋寺庙启发；适合结构研究，不是完整材质化殿宇。下载实际401。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/e28da4013d554cb7b1fb6bc46cb71615",
+          "status": 200,
+          "bytes": 6261,
+          "sha256": "94b21c769584eeace396d9917c2c4fa239b0fc9c784a7759b3404dac899e76fc",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/e28da4013d554cb7b1fb6bc46cb71615/thumbnails/e5327fce562d4dd8a38b96119b56480c/53d1f75395aa43a5933b32e42af9a4ed.jpeg",
+          "status": 200,
+          "bytes": 23661,
+          "sha256": "e09b405076f00b639eaa01659e83b4091bfb3ecad0e8460b2f90f67cb9cb55f3",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Vincerew",
+      "page_url": "https://sketchfab.com/3d-models/e28da4013d554cb7b1fb6bc46cb71615",
+      "faces": 60280,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false,
+      "download_check": {
+        "url": "https://api.sketchfab.com/v3/models/e28da4013d554cb7b1fb6bc46cb71615/download",
+        "error": "HTTP Error 401: Unauthorized",
+        "checked": "2026-10-23"
+      }
+    },
+    {
+      "id": "sketchfab-a18881525cfd4fe882e739c9c7cee752",
+      "name": "Traditional Chinese Siheyuan Courtyard",
+      "category": "architecture",
+      "source_url": "https://api.sketchfab.com/v3/models/a18881525cfd4fe882e739c9c7cee752",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "北京四合院，院落/四面完整性有参考；非唐长安整套民居，近60万面且含另外署名的草/树/屋顶材料，需保留传递许可。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/a18881525cfd4fe882e739c9c7cee752",
+          "status": 200,
+          "bytes": 9100,
+          "sha256": "bdfd581855e62de5538aa3b2208987e07b7cd5c2bd046e6d911c9522d9c3587c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/a18881525cfd4fe882e739c9c7cee752/thumbnails/d5766dc32ac6491e8458a1f0257b0ba0/a4a408319e324308b38a9a9f6f721e12.jpeg",
+          "status": 200,
+          "bytes": 55214,
+          "sha256": "0eea611da73019a4e77798ceaf24b00a4031c286109395e9b7abd82dd0bbf043",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "andertan",
+      "page_url": "https://sketchfab.com/3d-models/a18881525cfd4fe882e739c9c7cee752",
+      "faces": 596699,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-b64e62bd4f9c46d78670489564844ffe",
+      "name": "Lost city gate",
+      "category": "architecture",
+      "source_url": "https://api.sketchfab.com/v3/models/b64e62bd4f9c46d78670489564844ffe",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "实景残破城门扫描，约168万面。上传描述Tang不证明现存每个构件唐制；不作盛唐完整门楼。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/b64e62bd4f9c46d78670489564844ffe",
+          "status": 200,
+          "bytes": 5215,
+          "sha256": "92ceeefa5b890edc028d41708e049448cc21c4f26892607b2eb8b64ec2e90f58",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/b64e62bd4f9c46d78670489564844ffe/thumbnails/d1c43abb927346778ff1211e57d409cd/640x360.jpeg",
+          "status": 200,
+          "bytes": 52384,
+          "sha256": "292797481b020914884776dd0b4841b3f41004393beb87ffefc826c1a22d00e3",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "DroneScan China",
+      "page_url": "https://sketchfab.com/3d-models/b64e62bd4f9c46d78670489564844ffe",
+      "faces": 1689530,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-631615777ba4421a98814559dc2d4c5a",
+      "name": "Small Chinese imperial style building",
+      "category": "architecture",
+      "source_url": "https://api.sketchfab.com/v3/models/631615777ba4421a98814559dc2d4c5a",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "作者明确故宫启发，预览密集彩画/脊兽与高面数。与唐风与手机目标不合，不能只换瓦色。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/631615777ba4421a98814559dc2d4c5a",
+          "status": 200,
+          "bytes": 7164,
+          "sha256": "c13e39339667b42ff266446688d61ff56259459fd236c879aa410478c18a8aec",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/631615777ba4421a98814559dc2d4c5a/thumbnails/f596b2d6babf41518f296447e0e98c04/a9ae376395cd4cd794b0cf44db1b6cf6.jpeg",
+          "status": 200,
+          "bytes": 45190,
+          "sha256": "25758b310d333b114df168bdbd86105ff56c777792bcfa80b660a0eeb0f8baf4",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "andertan",
+      "page_url": "https://sketchfab.com/3d-models/631615777ba4421a98814559dc2d4c5a",
+      "faces": 681578,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-df5de16d9aa249eda96e9efa4944b69a",
+      "name": "Chinese boat",
+      "category": "boats",
+      "source_url": "https://api.sketchfab.com/v3/models/df5de16d9aa249eda96e9efa4944b69a",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "已看完整画舫舱/前甲板，比例与灯串偏现代观光船；可作船舱/壳体可编辑候选，需去现代元素与重塑。下载实际401；未联系作者。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/df5de16d9aa249eda96e9efa4944b69a",
+          "status": 200,
+          "bytes": 7838,
+          "sha256": "22d9399d284102b61a70b3e86c700388b1f74935921dce55b4bb504866f87e9c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/df5de16d9aa249eda96e9efa4944b69a/thumbnails/a76674932ca34c89a790f2515eae4f61/2d3a82f2da7b4ce9bde8a7562c29198b.jpeg",
+          "status": 200,
+          "bytes": 35231,
+          "sha256": "3bf86375e4f74a3a8af672e96ba890bcf43b38f0d359e9b5f62a5dba94a90a52",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "local.yany",
+      "page_url": "https://sketchfab.com/3d-models/df5de16d9aa249eda96e9efa4944b69a",
+      "faces": 54128,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false,
+      "download_check": {
+        "url": "https://api.sketchfab.com/v3/models/df5de16d9aa249eda96e9efa4944b69a/download",
+        "error": "HTTP Error 401: Unauthorized",
+        "checked": "2026-10-23"
+      }
+    },
+    {
+      "id": "sketchfab-8c08d196fb814724a97c120d33cdf466",
+      "name": "Chinese boat",
+      "category": "boats",
+      "source_url": "https://api.sketchfab.com/v3/models/8c08d196fb814724a97c120d33cdf466",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "低面数敞口长舟带小篷，轮廓清楚；过于简单，仅作小型游船候选，非完整电影画舫。原件未取得。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/8c08d196fb814724a97c120d33cdf466",
+          "status": 200,
+          "bytes": 5163,
+          "sha256": "fac2aa69f56a75666d58ef13047f56389e456fbf0adb9567478d70caf53cb18e",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/8c08d196fb814724a97c120d33cdf466/thumbnails/d057f7e145f54939b51b4edc287d1b4c/33e1efab935349c7a4e0b3cf06cbc2a5.jpeg",
+          "status": 200,
+          "bytes": 9623,
+          "sha256": "bf2a35e162b9bfc11d8660c4d4b76191817bd2dfc0cbd713b6603abca3cedfd9",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Murilo Rocha",
+      "page_url": "https://sketchfab.com/3d-models/8c08d196fb814724a97c120d33cdf466",
+      "faces": 5380,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-35b340bce9fb4e0680bc0116cebc35c9",
+      "name": "Chinese Junk Ship",
+      "category": "boats",
+      "source_url": "https://api.sketchfab.com/v3/models/35b340bce9fb4e0680bc0116cebc35c9",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "红帆大海船，约20万面；船型、帆具与曲江湖上游船用途不合。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/35b340bce9fb4e0680bc0116cebc35c9",
+          "status": 200,
+          "bytes": 5459,
+          "sha256": "b73c8f6a8be1261e3b2d7f898c2f3c56ba1b78cb9b8ea6cee94fae27019880b8",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/35b340bce9fb4e0680bc0116cebc35c9/thumbnails/e7ff58f91eeb408987a6561aeacaf206/9c8741f588fe4893ae0d5c73f44e0f9e.jpeg",
+          "status": 200,
+          "bytes": 30980,
+          "sha256": "ddaff84229cc33aa5f99cd81efe6acf248cf8b23edc411ad20a98558d221c74c",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "pinkycolada",
+      "page_url": "https://sketchfab.com/3d-models/35b340bce9fb4e0680bc0116cebc35c9",
+      "faces": 205256,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-63fc3f79926c4e999accc0a6407c23bd",
+      "name": "Tang Dynasty chest-high Hanfu",
+      "category": "clothing",
+      "source_url": "https://api.sketchfab.com/v3/models/63fc3f79926c4e999accc0a6407c23bd",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "已看齐胸裙/披帛剪影，作者Style3D CG，17万余面无API动画；需取得可编辑服装，重拓扑/烘焙/绑定，不要求手机实时布料。下载实际401。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/63fc3f79926c4e999accc0a6407c23bd",
+          "status": 200,
+          "bytes": 6923,
+          "sha256": "e62fe85dd0fc3ffa01544d4be805f8dff6e1bb2b038a19ffa35d3f36e3ea5b50",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/63fc3f79926c4e999accc0a6407c23bd/thumbnails/f163667df6344675a9d7c9c22e844de2/562868cb95774aeaaed615271874ed18.jpeg",
+          "status": 200,
+          "bytes": 17951,
+          "sha256": "7f9f73682f066838124bee577d0ae5f6a840dd19a1c3adf8d6898a1c7e233dc6",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Style3D CG",
+      "page_url": "https://sketchfab.com/3d-models/63fc3f79926c4e999accc0a6407c23bd",
+      "faces": 174362,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false,
+      "download_check": {
+        "url": "https://api.sketchfab.com/v3/models/63fc3f79926c4e999accc0a6407c23bd/download",
+        "error": "HTTP Error 401: Unauthorized",
+        "checked": "2026-10-23"
+      }
+    },
+    {
+      "id": "sketchfab-1d63c40131274ae9823792fc5e21da51",
+      "name": "Chest-length Ruqun of Tang Dynasty - Autumn song",
+      "category": "clothing",
+      "source_url": "https://api.sketchfab.com/v3/models/1d63c40131274ae9823792fc5e21da51",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "已看人物人台与衣服垂坠，近24万面；其他导出格式由作者软件/市场提供，不当作已经取得FBX或完整可用角色。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/1d63c40131274ae9823792fc5e21da51",
+          "status": 200,
+          "bytes": 6309,
+          "sha256": "0180b3ff3a320e44fae941ef3dddcfeb6a1ea1e7f7e0f1a33729e10ea8c5f031",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/1d63c40131274ae9823792fc5e21da51/thumbnails/a400991b567c4fc9b493b3ea90f86fb9/ff5c810c2b9f4e78bc06ffdff7e0ddca.jpeg",
+          "status": 200,
+          "bytes": 17033,
+          "sha256": "2268086a8dba2e182757633ebcf2151c7d033f991b6b3676644c01c3ac1a784f",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Style3D CG",
+      "page_url": "https://sketchfab.com/3d-models/1d63c40131274ae9823792fc5e21da51",
+      "faces": 238179,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-19ea6f600fe346cf9baacabebc644fad",
+      "name": "Monarch's Gamble - Full Outfit",
+      "category": "clothing",
+      "source_url": "https://api.sketchfab.com/v3/models/19ea6f600fe346cf9baacabebc644fad",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "数字时装含手套/奇幻剪裁，较低面数不代表唐服；不作主要古装。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/19ea6f600fe346cf9baacabebc644fad",
+          "status": 200,
+          "bytes": 9281,
+          "sha256": "ed07c1b31ba6a9d4deb3b583ab597e09ddbb82dbf6ddc39f09bd06d1cbf2091f",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/19ea6f600fe346cf9baacabebc644fad/thumbnails/f4201db69d1e43b1986eef299d8a010c/8a6ca09a2abc4baabf2bba903566248d.jpeg",
+          "status": 200,
+          "bytes": 17525,
+          "sha256": "e50d5f8b17f9fa2a0cb90ba3097f7041029d56195c5a2f4bb94d4ef75e01d0d2",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "RealityRoller",
+      "page_url": "https://sketchfab.com/3d-models/19ea6f600fe346cf9baacabebc644fad",
+      "faces": 21047,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-a5ad5ec06f43461f95bb93e95fe7553b",
+      "name": "Chinese dragon",
+      "category": "dragon",
+      "source_url": "https://api.sketchfab.com/v3/models/a5ad5ec06f43461f95bb93e95fe7553b",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "红色细长传统龙，有1段动画；与认可的小青龙身形/脸形差距过大，不能换色作为主角。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/a5ad5ec06f43461f95bb93e95fe7553b",
+          "status": 200,
+          "bytes": 5399,
+          "sha256": "48c9d21c484412de9735ef2f7a1cb43bba4dfb41f210c298752cce8996660e68",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/a5ad5ec06f43461f95bb93e95fe7553b/thumbnails/81ad81cf9c9441eda3f72775ec64714d/ef51e73744d548adad43eb54a82d9e32.jpeg",
+          "status": 200,
+          "bytes": 25710,
+          "sha256": "1ffd8fdd31d1645c45779f99af4c31d48efcb6d94155bcc871e82f4b21945837",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "MAXDESIGN-3D",
+      "page_url": "https://sketchfab.com/3d-models/a5ad5ec06f43461f95bb93e95fe7553b",
+      "faces": 50553,
+      "animation_count": 1,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-df14ec74767c4598920132758dab8a49",
+      "name": "Cute Dragon",
+      "category": "dragon",
+      "source_url": "https://api.sketchfab.com/v3/models/df14ec74767c4598920132758dab8a49",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "大眼角与西式小翼，皮肤噪声强、嘴脸/骨架不合认可玉青中国小龙。未取得文件，不作主角。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/df14ec74767c4598920132758dab8a49",
+          "status": 200,
+          "bytes": 5119,
+          "sha256": "d989d0d4fff208003bf4773a1d102e56ed7328c9f93a9b5e4ce765fc37c77455",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/df14ec74767c4598920132758dab8a49/thumbnails/968da7ae846a42f99e71905f1d5db809/0dae1417dd71497a97d98494a5985fcc.jpeg",
+          "status": 200,
+          "bytes": 41674,
+          "sha256": "a8bc293643e81e7dfac888e61c9219d3e0cbb77eb3b1b8983420cadd03589538",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "shakiller",
+      "page_url": "https://sketchfab.com/3d-models/df14ec74767c4598920132758dab8a49",
+      "faces": 27872,
+      "animation_count": 1,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-422de2372f3d46dfb314a0cd5da512fe",
+      "name": "Willow",
+      "category": "vegetation",
+      "source_url": "https://api.sketchfab.com/v3/models/422de2372f3d46dfb314a0cd5da512fe",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "9082面垂柳预览有垂枝冠形，作者称TreeIt制作；可改色/叶簇候选，需核对原件、纹理来源与四面密度。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/422de2372f3d46dfb314a0cd5da512fe",
+          "status": 200,
+          "bytes": 4434,
+          "sha256": "4403693d87624a28898f839fbe99ddf6bd415d591bdb7c80a7153db8d3f7471c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/422de2372f3d46dfb314a0cd5da512fe/thumbnails/4dea6d72e3c440b3b57066419ffd69fc/59dd293b50034c71bceaf44bc6859b98.jpeg",
+          "status": 200,
+          "bytes": 22427,
+          "sha256": "94fd122d0bede051f7b11edbbc92b230b4ed8676d44d1633b04b1fe582eb825f",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "evolveduk",
+      "page_url": "https://sketchfab.com/3d-models/422de2372f3d46dfb314a0cd5da512fe",
+      "faces": 9082,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-7bd70b487fae4f3eb70d4e69394e97b4",
+      "name": "Willow Tree",
+      "category": "vegetation",
+      "source_url": "https://api.sketchfab.com/v3/models/7bd70b487fae4f3eb70d4e69394e97b4",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "几何/垂枝好于球树，但作者明确纹理来自Megascans；页面CC BY不能替代纹理权利，未采用。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/7bd70b487fae4f3eb70d4e69394e97b4",
+          "status": 200,
+          "bytes": 4597,
+          "sha256": "6deebc68791b1d795875b5c333246c0894be7791219d0c65ed2161056b733770",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/7bd70b487fae4f3eb70d4e69394e97b4/thumbnails/a5c4feadcd71479d98ac283720bdb0b1/22ba2cc590de41b4a87f8fd58c5f31c4.jpeg",
+          "status": 200,
+          "bytes": 28046,
+          "sha256": "de084f6b4648f96726f7fdf06fc1cff2c4c751f252e792e97113d8abc80f6b30",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "vervoortward",
+      "page_url": "https://sketchfab.com/3d-models/7bd70b487fae4f3eb70d4e69394e97b4",
+      "faces": 6258,
+      "animation_count": 1,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-f81319550c544dc09c97ec74bdfb0b89",
+      "name": "NIMBUS WILLOW_TREE",
+      "category": "vegetation",
+      "source_url": "https://api.sketchfab.com/v3/models/f81319550c544dc09c97ec74bdfb0b89",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "约3万面/1动画，预览过绿过亮，需统一叶片/法线/颜色和冠形；文件未取得，不承诺动画内容。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/f81319550c544dc09c97ec74bdfb0b89",
+          "status": 200,
+          "bytes": 4833,
+          "sha256": "452a83726d1470b83e4cbbda8dd64aee466d5d0424a05034f66201e83c4a32ef",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/f81319550c544dc09c97ec74bdfb0b89/thumbnails/632775584c7d4f6ebf78eaa10ed6c180/a1e5988b67bc4eac87e251376f9241db.jpeg",
+          "status": 200,
+          "bytes": 25432,
+          "sha256": "aa46bdf81b7ecafa2def9b8ece5e0c5c98e7c7d553bcfde07658bcc1c0b9b670",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Uncanny Bingchilling",
+      "page_url": "https://sketchfab.com/3d-models/f81319550c544dc09c97ec74bdfb0b89",
+      "faces": 30022,
+      "animation_count": 1,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-99af7daa5baf450ea7b809937937e6d5",
+      "name": "Camel",
+      "category": "animals",
+      "source_url": "https://api.sketchfab.com/v3/models/99af7daa5baf450ea7b809937937e6d5",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "有Idle01/Idle02/WalkCycle三动作，但单峰且毯子配色偏现代旅游驼；不直接替代西市双峰商队。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/99af7daa5baf450ea7b809937937e6d5",
+          "status": 200,
+          "bytes": 5908,
+          "sha256": "2076181efe7cd821b0e0469e727a1de5a0c6ff6ccb0a9b0e1a5d821b21589fec",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/99af7daa5baf450ea7b809937937e6d5/thumbnails/39a1dd732c9a4dceadf75bfc7fa4aad5/412c2c213d69422084f00a48ae29856d.jpeg",
+          "status": 200,
+          "bytes": 21482,
+          "sha256": "f927e56a3b06915a9e499585a3a689cc57f68c34aac28c83b29de97fc385979a",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "eb78",
+      "page_url": "https://sketchfab.com/3d-models/99af7daa5baf450ea7b809937937e6d5",
+      "faces": 25914,
+      "animation_count": 3,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-44ef2ea4b50a49e395e5e3ebbdc99f98",
+      "name": "camel",
+      "category": "animals",
+      "source_url": "https://api.sketchfab.com/v3/models/44ef2ea4b50a49e395e5e3ebbdc99f98",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "单峰骆驼与织物货具候选，未绑定；不是优先的双峰唐风商队来源。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/44ef2ea4b50a49e395e5e3ebbdc99f98",
+          "status": 200,
+          "bytes": 4490,
+          "sha256": "5ae4e2b2cf1c8b1900df54e1490d1875117f3c0b6cbac7895536a194a3a89835",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/44ef2ea4b50a49e395e5e3ebbdc99f98/thumbnails/a286f2d52bf04cd19ba8af11fb0f92a6/3f0a2f8511e04182bfc754e27a044e00.jpeg",
+          "status": 200,
+          "bytes": 27430,
+          "sha256": "16dcb5bf4b17ff1195ea7f38883f27481fbfcc2e1b71132bc7dab01b5ae1bd63",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "omarme37",
+      "page_url": "https://sketchfab.com/3d-models/44ef2ea4b50a49e395e5e3ebbdc99f98",
+      "faces": 23156,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-3d7fc7394cde43298de89a28c0afbaff",
+      "name": "Wooden bicycle",
+      "category": "bicycle",
+      "source_url": "https://api.sketchfab.com/v3/models/3d7fc7394cde43298de89a28c0afbaff",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC0 Public Domain; source archive/license chain not acquired",
+      "assessment": "博物馆CC0木自行车扫描，约36万面；可参考轮毂/木构/车轴，非唐代文物或适配小龙的成品车。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/3d7fc7394cde43298de89a28c0afbaff",
+          "status": 200,
+          "bytes": 6322,
+          "sha256": "06ee9385cac26622faa63072705f176115bf0952842b110a5753f7388cf7190f",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/3d7fc7394cde43298de89a28c0afbaff/thumbnails/453eebc55c454ec18bc75bebaf543a23/4a6202788fe14377a79d69b41f4cd579.jpeg",
+          "status": 200,
+          "bytes": 44304,
+          "sha256": "64d307ce957e5cb4e2e44f12c5674e3bf502c523414799411135d08fc9875553",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Virtual Museums of Małopolska",
+      "page_url": "https://sketchfab.com/3d-models/3d7fc7394cde43298de89a28c0afbaff",
+      "faces": 359728,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-74ce2820d1024d6e90c9cc5001ea1983",
+      "name": "Chinese market",
+      "category": "market",
+      "source_url": "https://api.sketchfab.com/v3/models/74ce2820d1024d6e90c9cc5001ea1983",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API Free Standard; source archive/license chain not acquired",
+      "assessment": "预览是摊货/旗幡套件，非整条高质量唐街；Free Standard非CC0，含其他credit，原件未取得，许可未完整核对。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/74ce2820d1024d6e90c9cc5001ea1983",
+          "status": 200,
+          "bytes": 5540,
+          "sha256": "6f4b1424349b716c6f311bc9f401ec40a4498a43049fea0c2a7bd976fe839157",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/74ce2820d1024d6e90c9cc5001ea1983/thumbnails/07fd6d3bfd274b18a6a042cd86bfbf1c/431bb3f4d3314432a1e2800a700b1b36.jpeg",
+          "status": 200,
+          "bytes": 54112,
+          "sha256": "c2e1eb82179656d506263eae6dc9f74e2ea4dfa14a04fcf1d605f7a1da6f10eb",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Katydid",
+      "page_url": "https://sketchfab.com/3d-models/74ce2820d1024d6e90c9cc5001ea1983",
+      "faces": 70426,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "https://sketchfab.com/licenses",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-ff6c0680a17e40989043a503c86e3f33",
+      "name": "Market Stall",
+      "category": "market",
+      "source_url": "https://api.sketchfab.com/v3/models/ff6c0680a17e40989043a503c86e3f33",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "作者标WIP，脏污强且中式灯笼外观不足以证明年代；不选择粗旧摊位作为目标精致市集的主套件。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/ff6c0680a17e40989043a503c86e3f33",
+          "status": 200,
+          "bytes": 5273,
+          "sha256": "e7335849679a55f53057a7fef6723d7c7d8a36b685b30215a99ac8497466d03b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/ff6c0680a17e40989043a503c86e3f33/thumbnails/61800288e426448495a2ac3d5bcb12b7/6479ae151f984873a20cc801fa85abde.jpeg",
+          "status": 200,
+          "bytes": 35068,
+          "sha256": "208cd287752edb51f906612fba7d918ee7ffe0024f3827a4e605da43f92b0c34",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Kairomitsu",
+      "page_url": "https://sketchfab.com/3d-models/ff6c0680a17e40989043a503c86e3f33",
+      "faces": 21672,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-59bfedf980d94af6af40b0c63bd2999d",
+      "name": "Сaravan camel model",
+      "category": "animals",
+      "source_url": "https://api.sketchfab.com/v3/models/59bfedf980d94af6af40b0c63bd2999d",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "描述双峰中亚商队、约1.1万面，已看正面货具预览；无动画，原件/四面/绑定待核，不计已获。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/59bfedf980d94af6af40b0c63bd2999d",
+          "status": 200,
+          "bytes": 5108,
+          "sha256": "b17b88f429d959dda8365b986086ff6e28364c10cb7e85200c6e7ebc391b0ef6",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/59bfedf980d94af6af40b0c63bd2999d/thumbnails/7edecd9e354b4234a71147ef177a626b/5dd4c44e4f984182bf5614fb25adf0f1.jpeg",
+          "status": 200,
+          "bytes": 11478,
+          "sha256": "3fdfb1e4a23d5de9f564f985b9e532ff9433b5f48a69964d05ec4b3b7d49aa74",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "borismamlin",
+      "page_url": "https://sketchfab.com/3d-models/59bfedf980d94af6af40b0c63bd2999d",
+      "faces": 11445,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-794fd9fe9d224bb9ba8ddae8a499321e",
+      "name": "Camel",
+      "category": "animals",
+      "source_url": "https://api.sketchfab.com/v3/models/794fd9fe9d224bb9ba8ddae8a499321e",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "预览为低分辨率游戏精灵用双峰模型；作者说FBX前腿变形、参考其他模型。原Git仓库虽有blend但没有根许可，需厘清素材链后才使用。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/794fd9fe9d224bb9ba8ddae8a499321e",
+          "status": 200,
+          "bytes": 6146,
+          "sha256": "311eedaaf822d09adc4c7a8d0d9054137d9581c31acae388f69702ccbc51c829",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/794fd9fe9d224bb9ba8ddae8a499321e/thumbnails/a530689db7ad40ab950d4d1e6c1b7f5a/ae60ca44ce0a49d69b64135f954f014c.jpeg",
+          "status": 200,
+          "bytes": 8539,
+          "sha256": "ce5c6319ba1c9821d2805e0bbc3ed7014d1774aff8904dcf78bcd49366e2dfaa",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "LynxAbraxas",
+      "page_url": "https://sketchfab.com/3d-models/794fd9fe9d224bb9ba8ddae8a499321e",
+      "faces": 3736,
+      "animation_count": 0,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "sketchfab-d0f3f2383be841209946becf0cd24e50",
+      "name": "Bactrian_camel_low_poly",
+      "category": "animals",
+      "source_url": "https://api.sketchfab.com/v3/models/d0f3f2383be841209946becf0cd24e50",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API CC Attribution; source archive/license chain not acquired",
+      "assessment": "近26960面/1动画，与检索中同名同面数NC-SA版本并存，来源链与改授权未查清；不能只按新上传CC BY采用。",
+      "evidence": [
+        {
+          "url": "https://api.sketchfab.com/v3/models/d0f3f2383be841209946becf0cd24e50",
+          "status": 200,
+          "bytes": 4184,
+          "sha256": "fe57b61840f8c4fdcde1fcabf6b81b8b9e99de9420fcbed062a175caf390dd84",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.sketchfab.com/models/d0f3f2383be841209946becf0cd24e50/thumbnails/54e454efc8a641ba9011a40a0beff577/5e3d9bf30e5c4f26897d3420fe669cf3.jpeg",
+          "status": 200,
+          "bytes": 37420,
+          "sha256": "e44375c77a12de52d364653be3ab99bc1b86705663d1545d4778e00e3f3514b3",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "mgddeldeen9020",
+      "page_url": "https://sketchfab.com/3d-models/d0f3f2383be841209946becf0cd24e50",
+      "faces": 26960,
+      "animation_count": 1,
+      "preview_reviewed": true,
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "model_acquired": false
+    },
+    {
+      "id": "fab-418d9591-acd4-4ad9-ad2c-2e08e1dcea9d",
+      "name": "Ancient Chinese Market",
+      "category": "characters",
+      "source_url": "https://www.fab.com/listings/418d9591-acd4-4ad9-ad2c-2e08e1dcea9d",
+      "stage": "purchase_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "五位市井人物、UE5骨架、52ARKit表情，约1.2–4.3万polygon，100纹理；已看人物组合。写实风且仅UE格式，作者说其他源须另取，不等于已下载FBX。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/418d9591-acd4-4ad9-ad2c-2e08e1dcea9d",
+          "status": 200,
+          "bytes": 527509,
+          "sha256": "6ef14fc77415bca5637eb0ad8f320cae0623561f5f9107c7b25448b00b371a42",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/5d3cba73-ddcc-4121-b8ca-ab07303244b7/60b48675-c07e-488a-aa25-a927fabd23c7.jpg",
+          "status": 200,
+          "bytes": 300097,
+          "sha256": "8d99479f1fe5d0e23ece28b8e2b606545a43e3f0453ae3029774a287e6b40bc1",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/5d3cba73-ddcc-4121-b8ca-ab07303244b7/362a5567-02c7-43b8-aa56-daaccf84ebc2.jpg",
+          "status": 200,
+          "bytes": 5202,
+          "sha256": "5c4ef9e19ccb6ce37a0611c626890e7289019d9523c1b53986adb743b3fc5fa0",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-6f261e27-265b-43b7-91c5-457a50d5425e",
+      "name": "Modular Chinese Canal Town",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/6f261e27-265b-43b7-91c5-457a50d5425e",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "147静态网格：88建筑、52道具、7植物；已看灰墙水乡街景。成熟组合可研究，但江南水乡/后世民居不作唐长安整城方案，UE格式。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/6f261e27-265b-43b7-91c5-457a50d5425e",
+          "status": 200,
+          "bytes": 526530,
+          "sha256": "e4e864d68b1e25acf2e350bc40d7d21bb24f2944bfaa6c3204cecd65d563a7d4",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/05df1570-3381-49ab-86ef-f49d17ad3975/05a99566-2ecc-4b72-87cc-3ffcf9bdb50d.jpg",
+          "status": 200,
+          "bytes": 278454,
+          "sha256": "748b84dade6617f7c8bce2eb8d8ef25806cd68606b9797c722d4d89c34320777",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/05df1570-3381-49ab-86ef-f49d17ad3975/61935999-1c62-4507-b501-0677f9d8b433.jpg",
+          "status": 200,
+          "bytes": 8860,
+          "sha256": "610a19d7b6e6e927656e0476cff0f1509d5b191d7b089937b2b2b8fcd53df934",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-cf760130-1048-4208-9f8d-cdb91e19726f",
+      "name": "Ancient Chinese City Environment Asset Pack Vol. 1.07",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/cf760130-1048-4208-9f8d-cdb91e19726f",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "22蓝图房屋/2城墙、门窗、人物/PCG更新；预览多层楼密栏彩画、偏后世。PCG蓝图不在浏览器执行，非即用唐代建筑库。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/cf760130-1048-4208-9f8d-cdb91e19726f",
+          "status": 200,
+          "bytes": 632222,
+          "sha256": "14c9fe68ae2e85c689dbfa11cbab76a8e65de132f779e9e5549323247fdc5fb4",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/f1c0d899-c2f9-4ff6-9dae-dad94c3f4ee0/705599ce-26c7-4905-8629-498b25a83e78.jpg",
+          "status": 200,
+          "bytes": 328636,
+          "sha256": "ba7015dbf47bacd290fa13adb791ada75cff25a7e8cbd8dfaa1e41a260453ff7",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/f1c0d899-c2f9-4ff6-9dae-dad94c3f4ee0/ebfebf1b-1018-42fa-8f0d-09da7d6c6a65.jpg",
+          "status": 200,
+          "bytes": 8361,
+          "sha256": "c2edbc5e3e9bbd8158da0bfc118a0e4e1786ef578f864b11f4a2aa9c23ff7fa1",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-17fb29ea-833d-4723-bc12-7fa325255e17",
+      "name": "Traditional Chinese Architecture Pack –Stylized Modular Temple & Pagoda Building",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/17fb29ea-833d-4723-bc12-7fa325255e17",
+      "stage": "purchase_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "Blender/FBX/GLB/OBJ完整模块族是优势；已看部件总览，大檐/楼塔偏幻想，面数/LOD未公示，需逐栋唐风重塑，不整包放行。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/17fb29ea-833d-4723-bc12-7fa325255e17",
+          "status": 200,
+          "bytes": 511074,
+          "sha256": "50fca5ae92f28b3d6ec20df636458840b1f3401029f3309431c076fd7e38cda0",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/listing_thumbnails/3cb7b3e7-fbc7-4702-b6a1-b32ca636fda5/86794e42-9c81-4872-9ffd-516786a5ee3d.jpg",
+          "status": 200,
+          "bytes": 651918,
+          "sha256": "39b81737c907259864377671fa3962a1137de8646883453bc7ceb2a76006aaec",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/listing_thumbnails/3cb7b3e7-fbc7-4702-b6a1-b32ca636fda5/6030c9fe-45b6-42fb-b3c8-cbdeaab8cd55.jpg",
+          "status": 200,
+          "bytes": 5651,
+          "sha256": "865fcfdc2d9a6e8262af4813cff04236ad0002f1d43f0146a10382ab4d09a315",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-0c237a01-7fce-454b-8750-120348f45662",
+      "name": "Chinese Rural Housing",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/0c237a01-7fce-454b-8750-120348f45662",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "作者明确上世纪乡村、Nanite/VirtualTexture，预览含现代设施；年代/风格/浏览器依赖均不合。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/0c237a01-7fce-454b-8750-120348f45662",
+          "status": 200,
+          "bytes": 585094,
+          "sha256": "f2f230a367fefb4c01af307d98c28352dc5e230c53c6a6799852cc8171e4abca",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/e0d83a9d-c3da-4153-bee0-579516ff86c2/2a8f2aa7-a77b-41d3-9cbf-d5943f9fc16e.jpg",
+          "status": 200,
+          "bytes": 281300,
+          "sha256": "33793dfd78a25c12e0437a3184a0b34743596fb47f6215f1a78049fc44a6119e",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/e0d83a9d-c3da-4153-bee0-579516ff86c2/61798813-612a-483a-bf98-e40ad8746900.jpg",
+          "status": 200,
+          "bytes": 8285,
+          "sha256": "42247ccf3db530caf38562b755988259f29989d05943b072527cac0164e2d19c",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-5cf7284e-ead1-47fe-84f1-c6cbea20def9",
+      "name": "Ancient Chinese Farmers",
+      "category": "characters",
+      "source_url": "https://www.fab.com/listings/5cf7284e-ead1-47fe-84f1-c6cbea20def9",
+      "stage": "purchase_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "六位农民、UE5骨架、52ARKit、124纹理，约2.2–4.2万polygon；可编辑基体商业备选，但预览现实古装风、服饰需考据/卡通化，不能直接满足主风格。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/5cf7284e-ead1-47fe-84f1-c6cbea20def9",
+          "status": 200,
+          "bytes": 538039,
+          "sha256": "16874f2128f7eeb0104101adc519884b6bde9f7248cf7cdfed24ac954d897577",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/9fe3fc38-b852-4c27-a076-5bd95177fd62/fd0d16d4-b86a-4ece-986c-2d29bdcbe9c2.jpg",
+          "status": 200,
+          "bytes": 286938,
+          "sha256": "8cfb431676ae4bc0e6d12f007f21f2be32ccf074e3c169b5e846f5fbfab202c5",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/9fe3fc38-b852-4c27-a076-5bd95177fd62/b4f85141-c523-4769-b6b7-b28be3b1771f.jpg",
+          "status": 200,
+          "bytes": 5644,
+          "sha256": "8a60b9aa9a478b5a33e4342d02f4a76cd00983adba195ddd50ac5a6d706c7837",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-5afb5897-282e-4e4f-97fc-bba3f14c2392",
+      "name": "Chinese Ancient Guard",
+      "category": "characters",
+      "source_url": "https://www.fab.com/listings/5afb5897-282e-4e4f-97fc-bba3f14c2392",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "免费但125362polygon、77纹理、Groom曲线导出，预览侠客黑衣；并非合适唐代城门守卫，不因免费/有脸捕就采用。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/5afb5897-282e-4e4f-97fc-bba3f14c2392",
+          "status": 200,
+          "bytes": 550928,
+          "sha256": "6392b860513bcf4be17a3e4b6f793fe05a6039b4b77eb639c221b639bd01e87d",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/ba3a054f-61f2-4a1a-a237-1e2bbdb52ca3/10df5d02-52d6-4448-b3e5-461970c38ee0.jpg",
+          "status": 200,
+          "bytes": 84709,
+          "sha256": "8b6d62d6734831957ab183304cedb766cf49c4e7c8ef992fb3c24e667af92380",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/ba3a054f-61f2-4a1a-a237-1e2bbdb52ca3/60fd29f3-c474-41e3-9c7e-5fb5873ead2c.jpg",
+          "status": 200,
+          "bytes": 2135,
+          "sha256": "f0ce9530309b095548d4e0399f16b0ad9bc3bf0d6ae6ee37b53d34f175ed3ebf",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-11435473-7e57-4c3c-bd6e-9f05b5c03ddf",
+      "name": "CHINESE ANCIENT FARM TOOLS",
+      "category": "props",
+      "source_url": "https://www.fab.com/listings/11435473-7e57-4c3c-bd6e-9f05b5c03ddf",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "农具/渔具/车辆等成品集合，预览可见完整器具；Nanite/UDIM/VT依赖和年代混杂，需要单件导出/减面/烘焙/考据。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/11435473-7e57-4c3c-bd6e-9f05b5c03ddf",
+          "status": 200,
+          "bytes": 566142,
+          "sha256": "c995b8d54a2dd8f85b61ccfd43c97934d415fcb3fc4964945dbad9befd1003a0",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/4054dfe2-b036-4348-b8e6-d74d4b4662a2/119bf279-1ad6-4229-9a0b-cd4ba06c7666.jpg",
+          "status": 200,
+          "bytes": 120156,
+          "sha256": "058c4cb9688974eb27c25f0cc2090441ec1496f9796d7b01761065d73743a92d",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/4054dfe2-b036-4348-b8e6-d74d4b4662a2/d9d5b06c-b4a0-4a4f-a3a9-9ec1f26d79b1.jpg",
+          "status": 200,
+          "bytes": 4248,
+          "sha256": "04480e910a201d709dc7c32856d67d6ae6029e04d96e8e1fad89e4436c52356c",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-f380cb14-897d-488b-b081-1f8dfd47482e",
+      "name": "Chinese Bridges",
+      "category": "bridges",
+      "source_url": "https://www.fab.com/listings/f380cb14-897d-488b-b081-1f8dfd47482e",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "桥亭成套、需UDIM/VT；预览高亭与栏杆偏后世，不能直接作为唐曲江桥式证据。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/f380cb14-897d-488b-b081-1f8dfd47482e",
+          "status": 200,
+          "bytes": 553576,
+          "sha256": "bcdcc2a29e076594b52f4b747af1c133703396b312c8b96efb357147f05feb6e",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/09da9887-db40-4734-8049-cd3eeefdc860/d5a6a4a3-db91-4bdf-b060-03ad33aeee9a.jpg",
+          "status": 200,
+          "bytes": 208338,
+          "sha256": "5374efd5d64a87ef3a999428c7aa8c4f487c1a28aeaf35e9e13858943636c26a",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/09da9887-db40-4734-8049-cd3eeefdc860/9eb70b8e-2154-401f-ad76-6c810d72ab17.jpg",
+          "status": 200,
+          "bytes": 6394,
+          "sha256": "d58f8bbf7ed647269aa0fe88ffce0f6187da2fb5b1956936f7b8e0a7fa219ce7",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-79ec8e1b-da0c-4d5d-a33b-72c4999af940",
+      "name": "MetaCulture_Chinese_Tang_001_Palacemaid",
+      "category": "characters",
+      "source_url": "https://www.fab.com/listings/79ec8e1b-da0c-4d5d-a33b-72c4999af940",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "唐宫女项目有完整人物，但UE5.6+、MetaHuman、Substrate、Chaos、Groom/Nanite等依赖重；已看脸部预览，不把其UE实时截图等同浏览器可用质量。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/79ec8e1b-da0c-4d5d-a33b-72c4999af940",
+          "status": 200,
+          "bytes": 509880,
+          "sha256": "6426dbfcead72230d6b511f0e203048ee2ff8d5895647540bb34af6697ac1691",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/05974381-47b7-4b97-b49c-fbb4999662cb/a0127817-b979-41f3-8284-1f8ab7edbbed.jpg",
+          "status": 200,
+          "bytes": 438685,
+          "sha256": "b6fddef8c34fa88b40c9d1a13c0830c8d957294da25de492a6fb6818ffe181a4",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/05974381-47b7-4b97-b49c-fbb4999662cb/d4c33d37-42ea-42be-a444-873d4899b150.jpg",
+          "status": 200,
+          "bytes": 5618,
+          "sha256": "bae68776ce6fe0166dd9311eb2d79e1d8c932af9d5d36ec2c87a5400f4e250c0",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-308e73c3-a39e-4f95-9339-89db20bf68d7",
+      "name": "MetaCulture CN Tang Male Official Robe 0",
+      "category": "clothing",
+      "source_url": "https://www.fab.com/listings/308e73c3-a39e-4f95-9339-89db20bf68d7",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "唐圆领官袍轮廓有用，MetaHuman wardrobe/cloth资产、人物不包含；没有通用可用绑定源。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/308e73c3-a39e-4f95-9339-89db20bf68d7",
+          "status": 200,
+          "bytes": 494081,
+          "sha256": "d2e0519ed5dd352535fdd2cebe559f6f0e4feaecbb30327f9bd50ec6ca255732",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/cce38f1d-4882-475d-99c1-2f1dd009f4ad/338b810a-2909-4acc-9328-1e936edeb77e.jpg",
+          "status": 200,
+          "bytes": 131724,
+          "sha256": "49f89e87624ad13ffe7821aa597e8695cf247974c49ee32ba061cc7789ac6453",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/cce38f1d-4882-475d-99c1-2f1dd009f4ad/a3c935cb-27fa-49f0-a16f-9680906b3fb0.jpg",
+          "status": 200,
+          "bytes": 4461,
+          "sha256": "891bb0e05ed423995c4378eb0c0bd67dc803321cfbaa8d65e838fd1724b1d739",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-6dc1c1d9-6f7a-4198-b234-1dab5e82ae8f",
+      "name": "Tang Dynasty Style Ceremonial Hall Interior 3D Model",
+      "category": "interior",
+      "source_url": "https://www.fab.com/listings/6dc1c1d9-6f7a-4198-b234-1dab5e82ae8f",
+      "stage": "purchase_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "明确FBX/OBJ+SketchUp源路线；低案/帘幔/柱梁/藻井与纵深预览较完整。须核对面数/背面/分件/许可及后世元素，不将Tang-inspired当考古证明。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/6dc1c1d9-6f7a-4198-b234-1dab5e82ae8f",
+          "status": 200,
+          "bytes": 562867,
+          "sha256": "90fd44841c4b2841493dc93da9cf47411f9394d2e9574ea500626e5059ac32b7",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/5304c711-c31e-450e-ae63-3a4ece594961/1e7d0bc0-97a1-4c8b-94ed-cf4455c23943.jpg",
+          "status": 200,
+          "bytes": 856246,
+          "sha256": "4bf8974fb06df84cd7b7ad1819e893281ba55ed3481f947a14a2d4ff49c6c5dc",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/5304c711-c31e-450e-ae63-3a4ece594961/c45fcdd4-eaa5-4fce-9d20-8453dd8cabaf.jpg",
+          "status": 200,
+          "bytes": 11882,
+          "sha256": "d016f7c1eda3ca99a24e32133a268eefce3d0c12350b718b1f491f591babb32e",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-8e184298-69b4-44d4-926b-a21d03cf890a",
+      "name": "Chinese boat",
+      "category": "boats",
+      "source_url": "https://www.fab.com/listings/8e184298-69b4-44d4-926b-a21d03cf890a",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "免费FBX/OBJ小舟、4kPBR，已看俯视内舱/编席；不是完整画舫，仍需船型/年代与下载归档许可核验。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/8e184298-69b4-44d4-926b-a21d03cf890a",
+          "status": 200,
+          "bytes": 499233,
+          "sha256": "4fa176817892439da3be8874b68ea4ab26bd2ed71aa037274836f98372f5e289",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/f76f2dd1-dcf8-4c77-a06f-6e1b376b582e/8786f0d0-2c35-43e5-8ca7-2c4954adffe7.jpg",
+          "status": 200,
+          "bytes": 96039,
+          "sha256": "542f12f131150383ba75925c2c50641832320f8f518c86c0fdea526c8916b181",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/f76f2dd1-dcf8-4c77-a06f-6e1b376b582e/6649edc3-c758-4c83-af65-9beb4c51cdde.jpg",
+          "status": 200,
+          "bytes": 3107,
+          "sha256": "af9a1746a1ac952563e7708c027d87826e22850584139628dfe23cb4faef2168",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-6b7ed377-492e-4b6c-ae21-cb6718f30983",
+      "name": "Traditional Chinese Furniture Props",
+      "category": "props",
+      "source_url": "https://www.fab.com/listings/6b7ed377-492e-4b6c-ae21-cb6718f30983",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "作者明确主要明清家具，已看硬木高背/屏风预览；不可整套用于唐代店内。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/6b7ed377-492e-4b6c-ae21-cb6718f30983",
+          "status": 200,
+          "bytes": 553695,
+          "sha256": "24a759dae7dd10243446e7ba17400247c65da6e9d971234acca8b1c3b44ec236",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/9239bd78-02b1-4cc9-8c2d-8d16453dd7c2/180da613-7ee2-4e05-a6f1-5e4d12d591a7.jpg",
+          "status": 200,
+          "bytes": 167717,
+          "sha256": "4f2bd660d3aac6e753af0bfd1e58865db30319a248416d503d59a3ad9014afdc",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/9239bd78-02b1-4cc9-8c2d-8d16453dd7c2/ab253d4b-aeb7-4972-8d14-6255da0f0f62.jpg",
+          "status": 200,
+          "bytes": 5648,
+          "sha256": "83f2d79b8443e1c76f7eec7d89fef5bb0c46d137fd5f7eeed94aad13ff9c4fbb",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-bae44126-3686-48b4-b51f-c8669a38d978",
+      "name": "Stylized Chinese Lost Temple",
+      "category": "environment",
+      "source_url": "https://www.fab.com/listings/bae44126-3686-48b4-b51f-c8669a38d978",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "138资产、完整风格化山地寺庙，预览构图/植被/石材统一；悬崖寺庙与高饱和秋色非长安市井，UE专用ULAT不带入浏览器。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/bae44126-3686-48b4-b51f-c8669a38d978",
+          "status": 200,
+          "bytes": 574986,
+          "sha256": "25f4d0a8b8d7c78d8884788e14fa2747204f984d00b3849f917b7837bf4e8c04",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/e2d0dc10-0cd6-4b77-8840-89d8d970003a/7e3bf389-9719-4f64-a257-c5dffabcb229.jpg",
+          "status": 200,
+          "bytes": 361870,
+          "sha256": "efccfcdb9a5b473ff17c21f1cf0c6c9e257fb045c2f9de5418d3b7ac4e4ae8a4",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/e2d0dc10-0cd6-4b77-8840-89d8d970003a/0003cb49-d53c-4540-a489-73b5c33f1994.jpg",
+          "status": 200,
+          "bytes": 9508,
+          "sha256": "225d7229dedad854de0905300686a78b16763394a980256095845b2d1f9241e2",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-b9d96067-67f0-4128-970d-6c768d2566cf",
+      "name": "Bactrian Camel Asset (with LOD)",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/b9d96067-67f0-4128-970d-6c768d2566cf",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "双峰带LOD、FBX/GLB；页面明确AI生成，未绑定/变形验证，不优先作为关键近景驼队。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/b9d96067-67f0-4128-970d-6c768d2566cf",
+          "status": 200,
+          "bytes": 491692,
+          "sha256": "e4be95765eafe34a387cceaa612302a9289db3fabde0714467464d838ee6a74d",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/gallery_images/514120a0-c5e2-4e6d-9824-39c2a2bd23b4/dd1ede91-389a-4b95-a05c-19a33960a429.jpg",
+          "status": 200,
+          "bytes": 5815,
+          "sha256": "4bd3477c034a89ff8580e454544773069026866cb831ef3a7e76cc7ba33d4f5b",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-b24f825b-78a0-49f7-9778-ca1a54b9c643",
+      "name": "Low Poly Cartoon Bactrian Camel",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/b24f825b-78a0-49f7-9778-ca1a54b9c643",
+      "stage": "not_selected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "1194顶点/1192quad、无UV/绑定、色块折面；不直接达到认可的温润动物质感。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/b24f825b-78a0-49f7-9778-ca1a54b9c643",
+          "status": 200,
+          "bytes": 496567,
+          "sha256": "eecf78640f74c2ed4117a188d3158fd54c6b959a60cf4629e176237012c4a2fb",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/listing_thumbnails/c640661b-9aa4-4e9e-9795-9bfd3921d66e/e798d8a0-031c-408c-b023-e6d6ee7bb6ca.jpg",
+          "status": 200,
+          "bytes": 22667,
+          "sha256": "3949e7e1c14291a2b0d85be5a86295002a6bb54c6717d5911149ded205616d5b",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "fab-8341e12f-b3f4-4abf-a4b0-ac8623561b82",
+      "name": "Medhue Camel",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/8341e12f-b3f4-4abf-a4b0-ac8623561b82",
+      "stage": "purchase_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Item-specific acquired license not obtained; Fab platform EULA read, not a CC0 assertion",
+      "assessment": "Medhue，4124三角形、21动作、单/双峰/形态混合三个版本，Blender/FBX等格式；是有明确可编辑/动作路径的优先商业驼队候选。未购买/下载，预览材质与风格仍需改造。",
+      "evidence": [
+        {
+          "url": "https://www.fab.com/listings/8341e12f-b3f4-4abf-a4b0-ac8623561b82",
+          "status": 200,
+          "bytes": 543161,
+          "sha256": "78e170be397774e2afa6a6b1842b1ce98bd5b457f0a7aea7e2fef6154ef9424d",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.fab.com/eula",
+          "status": 200,
+          "bytes": 451589,
+          "sha256": "bf2c670e48a8902e83cb17c168eff2cfefb11d1e0b76bf4f612bdab8475de854",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://media.fab.com/image_previews/listing_thumbnails/4d2b56c8-8837-4427-badd-029f79c7d3fe/f503276a-b5a6-4d7a-86e5-1fa18e2ba008.jpg",
+          "status": 200,
+          "bytes": 165489,
+          "sha256": "da907d69ea8ea9e7ac93458389df2a934aea97eb1105da1c0c0b8afab31346fb",
+          "checked": "2026-10-23"
+        }
+      ],
+      "preview_reviewed": true,
+      "model_acquired": false,
+      "price": "Public page does not expose a reliable selected tier price; no purchase made"
+    },
+    {
+      "id": "blenderkit-c8d3568f-466b-45a8-8f7b-2eaa878a0ffd",
+      "name": "Chinese Temple",
+      "category": "architecture",
+      "source_url": "https://www.blenderkit.com/api/v1/assets/c8d3568f-466b-45a8-8f7b-2eaa878a0ffd/",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API cc_zero; BlenderKit license page read; archive not acquired",
+      "assessment": "已看完整木构楼阁/屋顶层次预览；泛称Chinese Temple，未证实唐制，需要柱网、檐下、背面与类型校准。",
+      "evidence": [
+        {
+          "url": "https://www.blenderkit.com/api/v1/search/?query=chinese+temple+asset_type%3Amodel&page_size=12",
+          "status": 200,
+          "bytes": 205175,
+          "sha256": "2339450820b9a0cf9ac696f27dba95cdea5f865c2d3c4ef34227e11b4b2ee7a2",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.blenderkit.com/docs/licenses/",
+          "status": 200,
+          "bytes": 95591,
+          "sha256": "f7958402c6135501c1b8863981e9fef7a1d46cc14e78ff1d7947987cac9f1f11",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.blenderkit.com/api/v1/downloads/24b520fd-a7e1-450f-b24d-3ce003c2c85b/",
+          "error": "HTTP Error 403: Forbidden",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://public.blenderkit.com/thumbnails/assets/c8d3568f466b45a88f7b2eaa878a0ffd/files/thumbnail_f95eb331-c0a3-4504-8d0c-4ba43bea5b4d.jpg.512x512_q85_crop-%2C.jpg",
+          "status": 200,
+          "bytes": 44282,
+          "sha256": "12b14cf72ed509352f2d48fa688b09c6e25a528d7450796831eb1fea3886bb5e",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Free poly",
+      "asset_base_id": "27de2944-5605-4075-a409-e0dfb85dc12a",
+      "version": 1,
+      "is_free": true,
+      "model_acquired": false,
+      "preview_reviewed": true,
+      "available_files": [
+        {
+          "type": "blend",
+          "bytes": 109279576
+        },
+        {
+          "type": "resolution_0_5K",
+          "bytes": 15911393
+        },
+        {
+          "type": "resolution_1K",
+          "bytes": 20722421
+        },
+        {
+          "type": "resolution_2K",
+          "bytes": 39147280
+        }
+      ]
+    },
+    {
+      "id": "blenderkit-ae4e8a88-126e-4a39-b52b-415c5e58f0dc",
+      "name": "Chinese Temple 2",
+      "category": "architecture",
+      "source_url": "https://www.blenderkit.com/api/v1/assets/ae4e8a88-126e-4a39-b52b-415c5e58f0dc/",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API cc_zero; BlenderKit license page read; archive not acquired",
+      "assessment": "完整双层殿楼预览、带GLB可编辑来源；墙体/门形与装饰需按唐类型重做。",
+      "evidence": [
+        {
+          "url": "https://www.blenderkit.com/api/v1/search/?query=chinese+temple+asset_type%3Amodel&page_size=12",
+          "status": 200,
+          "bytes": 205175,
+          "sha256": "2339450820b9a0cf9ac696f27dba95cdea5f865c2d3c4ef34227e11b4b2ee7a2",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.blenderkit.com/docs/licenses/",
+          "status": 200,
+          "bytes": 95591,
+          "sha256": "f7958402c6135501c1b8863981e9fef7a1d46cc14e78ff1d7947987cac9f1f11",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.blenderkit.com/api/v1/downloads/e120775a-4a59-4db7-9af2-92854399aae9/",
+          "error": "HTTP Error 403: Forbidden",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://public.blenderkit.com/thumbnails/assets/ae4e8a88126e4a39b52b415c5e58f0dc/files/thumbnail_4ac0420f-37d8-40aa-a9ca-51ba7f01b39d.jpg.512x512_q85_crop-%2C.jpg",
+          "status": 200,
+          "bytes": 35257,
+          "sha256": "17dfdc08625506515a321610980201c2a6ef956b5bc96dacbfacf9772f5a502a",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Free poly",
+      "asset_base_id": "8701a79a-1635-437c-b1d2-6b14f14fc351",
+      "version": 1,
+      "is_free": true,
+      "model_acquired": false,
+      "preview_reviewed": true,
+      "available_files": [
+        {
+          "type": "blend",
+          "bytes": 67183903
+        },
+        {
+          "type": "gltf",
+          "bytes": 17248492
+        },
+        {
+          "type": "gltf_godot",
+          "bytes": 42194960
+        },
+        {
+          "type": "resolution_0_5K",
+          "bytes": 17293097
+        },
+        {
+          "type": "resolution_1K",
+          "bytes": 20205802
+        },
+        {
+          "type": "resolution_2K",
+          "bytes": 28755348
+        },
+        {
+          "type": "resolution_4K",
+          "bytes": 66314113
+        }
+      ]
+    },
+    {
+      "id": "blenderkit-a9dd71df-0a85-4892-b614-fa17455a5ad4",
+      "name": "Chinese old building rock wood temple",
+      "category": "architecture",
+      "source_url": "https://www.blenderkit.com/api/v1/assets/a9dd71df-0a85-4892-b614-fa17455a5ad4/",
+      "stage": "purchase_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "API cc_zero; BlenderKit license page read; archive not acquired",
+      "assessment": "已看三层殿楼完整预览；CC0标签不等于平台免费获取，isFree=false，未取得/未订阅，不当作已获古建。",
+      "evidence": [
+        {
+          "url": "https://www.blenderkit.com/api/v1/search/?query=chinese+temple+asset_type%3Amodel&page_size=12",
+          "status": 200,
+          "bytes": 205175,
+          "sha256": "2339450820b9a0cf9ac696f27dba95cdea5f865c2d3c4ef34227e11b4b2ee7a2",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.blenderkit.com/docs/licenses/",
+          "status": 200,
+          "bytes": 95591,
+          "sha256": "f7958402c6135501c1b8863981e9fef7a1d46cc14e78ff1d7947987cac9f1f11",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://public.blenderkit.com/thumbnails/assets/a9dd71df0a854892b614fa17455a5ad4/files/thumbnail_6f245cee-5f39-4a67-9205-57cd3478f0eb.jpg.512x512_q85_crop-%2C.jpg",
+          "status": 200,
+          "bytes": 30185,
+          "sha256": "cdd72676296c990c8f3699d1f2e53f4075cb89e44db9be53af3a70aa9cbd1362",
+          "checked": "2026-10-23"
+        }
+      ],
+      "author": "Free poly",
+      "asset_base_id": "08d21de8-41c4-4b58-82c0-26fc9c3dff69",
+      "version": 1,
+      "is_free": false,
+      "model_acquired": false,
+      "preview_reviewed": true,
+      "available_files": [
+        {
+          "type": "blend",
+          "bytes": 190991863
+        },
+        {
+          "type": "gltf",
+          "bytes": 14564264
+        },
+        {
+          "type": "gltf_godot",
+          "bytes": 103674872
+        },
+        {
+          "type": "resolution_0_5K",
+          "bytes": 38534547
+        },
+        {
+          "type": "resolution_1K",
+          "bytes": 45879235
+        },
+        {
+          "type": "resolution_2K",
+          "bytes": 74857075
+        },
+        {
+          "type": "resolution_4K",
+          "bytes": 188291600
+        }
+      ]
+    },
+    {
+      "id": "polyhaven-fine_grained_wood",
+      "name": "Fine Grained Wood",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/fine_grained_wood",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "细颗粒/低对比适合梁木弱法线，30x30cm标注需按构件方向设UV；不直接烘强木色。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/fine_grained_wood",
+          "status": 200,
+          "bytes": 930,
+          "sha256": "41c0944017803d85d06ca2eb561069b38a010056b5371a933039e9710531e604",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/fine_grained_wood.png?width=512",
+          "status": 200,
+          "bytes": 198138,
+          "sha256": "1456b92be8059ec8d522c14f983aa42fa6f943bda020323a51cfb7651a15c7dc",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": "30x30CM",
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/fine_grained_wood"
+    },
+    {
+      "id": "polyhaven-dark_wood",
+      "name": "Dark Wood",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/dark_wood",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "清楚长向木纹适合部分近景板件，但原色太深红/高对比，统一重调，不刷全城。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/dark_wood",
+          "status": 200,
+          "bytes": 956,
+          "sha256": "bc3c7eb19d23d67a81fc05db57e36bb888576d4f56735078bf2a7cb440de5763",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/dark_wood.png?width=512",
+          "status": 200,
+          "bytes": 206883,
+          "sha256": "3a64afd311043def24cf7a0d5a066c2c639a99fedda2cd5885515eb5795350f5",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Dario Barresi": "Baking",
+        "Dimitrios Savva": "Photography",
+        "Rico Cilliers": "Tiling"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/dark_wood"
+    },
+    {
+      "id": "polyhaven-chinese_cedar_bark",
+      "name": "Chinese Cedar Bark",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/chinese_cedar_bark",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "纵向树皮可为枝干提供低强度微表面；名称不证明历史树种，需枝干UV。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/chinese_cedar_bark",
+          "status": 200,
+          "bytes": 976,
+          "sha256": "55a181bc31d478329b97dcd1b21d488223a514fd37d9aa617c8ff5fc499088e5",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/chinese_cedar_bark.png?width=512",
+          "status": 200,
+          "bytes": 293897,
+          "sha256": "071ba3e338282ce5393893c29f1062e872c75fa2b98834cdbff052edc839b53d",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Charlotte Baglioni": "All"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/chinese_cedar_bark"
+    },
+    {
+      "id": "polyhaven-brown_leather",
+      "name": "Brown Leather",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/brown_leather",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "皮革柔褶微表面，可给鞍垫/绑带，40cm尺度；不用它代替真实绑带几何。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/brown_leather",
+          "status": 200,
+          "bytes": 920,
+          "sha256": "9af237a0e7db48dfc6b884c9f39731d8f043f39b2a1b4c39c437aaefbed9e466",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/brown_leather.png?width=512",
+          "status": 200,
+          "bytes": 229632,
+          "sha256": "122f35d25bc93032dfab43376c15ca2ecd66921f50d1f42195e5f4a5c47e9abf",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": "40CM X 40CM",
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/brown_leather"
+    },
+    {
+      "id": "polyhaven-grey_stone_path",
+      "name": "Grey Stone Path",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/grey_stone_path",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "杂形拼石适合局部园路，灰缝/裂隙需弱化，非全城路面。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/grey_stone_path",
+          "status": 200,
+          "bytes": 986,
+          "sha256": "81bfac666b171997bf411a927f7e69dd4a7af0c7f72412c987603232fc72cee3",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/grey_stone_path.png?width=512",
+          "status": 200,
+          "bytes": 258549,
+          "sha256": "22a859754edc3a6311dfe829c6860bdf9797b32bd28c78d8e82ac6ca66fd8563",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Amal Kumar": "All"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/grey_stone_path"
+    },
+    {
+      "id": "polyhaven-cobblestone_floor_07",
+      "name": "Cobblestone Floor 07",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/cobblestone_floor_07",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "旧小块石/苔缝园地候选，图案节奏强，不铺朱雀大街。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/cobblestone_floor_07",
+          "status": 200,
+          "bytes": 960,
+          "sha256": "dddec0886b5eb46d1d38c7477bfa9b585ccfd7d55b6f4601a4c7155cecd4ecd2",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/cobblestone_floor_07.png?width=512",
+          "status": 200,
+          "bytes": 273922,
+          "sha256": "f78bb2a02590a6d79b38037147661ecf1a14089b0964877378a11031584327de",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": "1",
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/cobblestone_floor_07"
+    },
+    {
+      "id": "polyhaven-fabric_pattern_07",
+      "name": "Fabric Pattern 07",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/fabric_pattern_07",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "红白格/餐布感，微织纹可研究，不作为唐代丝绢主底色。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/fabric_pattern_07",
+          "status": 200,
+          "bytes": 940,
+          "sha256": "0fe8b6d50b01db37a4d13f4cb8d1b43290cc46ec8be8bfa571db833ad9a5e0fa",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/fabric_pattern_07.png?width=512",
+          "status": 200,
+          "bytes": 322012,
+          "sha256": "eb289a9527f2dd4f73656d663e616a202e0b260a4678036e260ecf2ae26aa8b3",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": "30x30 cm",
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/fabric_pattern_07"
+    },
+    {
+      "id": "polyhaven-fabric_pattern_05",
+      "name": "Fabric Pattern 05",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/fabric_pattern_05",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "格子布外观过现代，不能把caption fabric当合适唐丝绸。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/fabric_pattern_05",
+          "status": 200,
+          "bytes": 934,
+          "sha256": "838a3b21b5d5a43b62238699513ad6b3f43cd879f7d55ee6a15facec722f57bd",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/fabric_pattern_05.png?width=512",
+          "status": 200,
+          "bytes": 212045,
+          "sha256": "b7d0d6189e9aef99f51e9b604ebe8e739bffdfb68d5ce17d707640d87dbd19d3",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/fabric_pattern_05"
+    },
+    {
+      "id": "polyhaven-sandstone_blocks_05",
+      "name": "Sandstone Blocks 05",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/sandstone_blocks_05",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "规则粗石砖/深缝偏墙材，可参考小范围基座细节，不能把夯土墙变整片砖墙。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/sandstone_blocks_05",
+          "status": 200,
+          "bytes": 937,
+          "sha256": "7ba7b3a8ef55b6ab5bd24567691e14bf3245def999f14be5fd1b18f595cf52ea",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/sandstone_blocks_05.png?width=512",
+          "status": 200,
+          "bytes": 321256,
+          "sha256": "f78fb79145d03c23ee78d2325c1b2f994e18acfc35adf5310df909fe916a9019",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/sandstone_blocks_05"
+    },
+    {
+      "id": "polyhaven-brown_mud_leaves_01",
+      "name": "Brown Mud Leaves 01",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/brown_mud_leaves_01",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "落叶泥土适合树根局部地表，减饱和/噪声；非均匀全图草坪。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/brown_mud_leaves_01",
+          "status": 200,
+          "bytes": 939,
+          "sha256": "d7d2f1cc958709f3c49db6c829e42f051b0f073c7f61d60ffdcb83c764a4abee",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/brown_mud_leaves_01.png?width=512",
+          "status": 200,
+          "bytes": 338801,
+          "sha256": "1be5e5188e912bb1d8585abd9214a495bdd149cd14390c26f03ce4f312fc2563",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/brown_mud_leaves_01"
+    },
+    {
+      "id": "polyhaven-bark_willow_02",
+      "name": "Bark Willow 02",
+      "category": "material",
+      "source_url": "https://api.polyhaven.com/info/bark_willow_02",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven asset CC0; official license page read",
+      "assessment": "清楚树皮纵纹，现有候选可续用，先分枝干UV与叶材。",
+      "evidence": [
+        {
+          "url": "https://api.polyhaven.com/info/bark_willow_02",
+          "status": 200,
+          "bytes": 900,
+          "sha256": "cccd0f6c3df03444ba2d2447a8e27d68c1f12740272a7c5abc2eecb1e9c7684e",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://polyhaven.com/license",
+          "status": 200,
+          "bytes": 72324,
+          "sha256": "6f4f617c936d14d5a80db6a2ebec145c79277a760672501eef51bff7a0d4cbba",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://cdn.polyhaven.com/asset_img/primary/bark_willow_02.png?width=512",
+          "status": 200,
+          "bytes": 352574,
+          "sha256": "7cc52787b3e673ee1435c08338272725c7e49f208a11f25292881f21a8b90783",
+          "checked": "2026-10-23"
+        }
+      ],
+      "authors": {
+        "Charlotte Baglioni": "All"
+      },
+      "scale_metadata": null,
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true,
+      "page_url": "https://polyhaven.com/a/bark_willow_02"
+    },
+    {
+      "id": "ambientcg-Fabric085",
+      "name": "Fabric 085",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Fabric085",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "预览为粗针织/毛圈/地毯，非所需绢帛主材，不因CC0就采用。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=fabric&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 97757,
+          "sha256": "6940b2741d47145c9071e616fb39a51f3317c241683013c24ec880d450d3fd08",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Fabric085.webp",
+          "status": 200,
+          "bytes": 86742,
+          "sha256": "343befbac1fec35dc800335443e821c8736010559d22459865b3dff1a4aa1d3c",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Fabric084",
+      "name": "Fabric 084",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Fabric084",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "预览为粗针织/毛圈/地毯，非所需绢帛主材，不因CC0就采用。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=fabric&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 97757,
+          "sha256": "6940b2741d47145c9071e616fb39a51f3317c241683013c24ec880d450d3fd08",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Fabric084.webp",
+          "status": 200,
+          "bytes": 81166,
+          "sha256": "dddd90a07e1d5628996b58573757348afa91b16bf6c827df937c74db4c1d855d",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Carpet016",
+      "name": "Carpet 016",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Carpet016",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "预览为粗针织/毛圈/地毯，非所需绢帛主材，不因CC0就采用。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=fabric&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 97757,
+          "sha256": "6940b2741d47145c9071e616fb39a51f3317c241683013c24ec880d450d3fd08",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Carpet016.webp",
+          "status": 200,
+          "bytes": 94236,
+          "sha256": "8a948c2d5f39dadf14aecc25f881dcd7a6d201558d6adbd2a938cd74b8970573",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Fabric081C",
+      "name": "Fabric 081 C",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Fabric081C",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "光滑细布候选，比毛圈/针织适合轻绢微表面，仍需看实际normal/roughness和底色，不能只凭球体白色判断丝绸。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=fabric&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 97757,
+          "sha256": "6940b2741d47145c9071e616fb39a51f3317c241683013c24ec880d450d3fd08",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Fabric081C.webp",
+          "status": 200,
+          "bytes": 13844,
+          "sha256": "9da8b04e179c84310df1b512a618a189bec82554b42961898f9c6edef920b992",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-WoodFloor051",
+      "name": "Wood Floor 051",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=WoodFloor051",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看木地板预览，需去现代拼花/亮漆；用于局部板纹/法线候选，不能直接作为所有唐建筑楼板。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=wood+floor&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 105517,
+          "sha256": "90b82e3ff681aeb88efd475fae4a7a42f5d49e258343d5994203c63a7f92c150",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/WoodFloor051.webp",
+          "status": 200,
+          "bytes": 41628,
+          "sha256": "fef86a380cc3b96a496aaae4c4395eb628d4f509d334e970446e5dd5e6ec2d15",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-WoodFloor064",
+      "name": "Wood Floor 064",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=WoodFloor064",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看木地板预览，需去现代拼花/亮漆；用于局部板纹/法线候选，不能直接作为所有唐建筑楼板。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=wood+floor&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 105517,
+          "sha256": "90b82e3ff681aeb88efd475fae4a7a42f5d49e258343d5994203c63a7f92c150",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/WoodFloor064.webp",
+          "status": 200,
+          "bytes": 41076,
+          "sha256": "cbf9913808acc40754f4c564d4582a29ef7257f0314bb3a2ee6fab47e46d88b4",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-WoodFloor070",
+      "name": "Wood Floor 070",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=WoodFloor070",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看木地板预览，需去现代拼花/亮漆；用于局部板纹/法线候选，不能直接作为所有唐建筑楼板。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=wood+floor&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 105517,
+          "sha256": "90b82e3ff681aeb88efd475fae4a7a42f5d49e258343d5994203c63a7f92c150",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/WoodFloor070.webp",
+          "status": 200,
+          "bytes": 38674,
+          "sha256": "672e10358def1fc09c2e6cc355a7936a8f4d87811bd41c0999ade2edd0a255e6",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-WoodFloor043",
+      "name": "Wood Floor 043",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=WoodFloor043",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看木地板预览，需去现代拼花/亮漆；用于局部板纹/法线候选，不能直接作为所有唐建筑楼板。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=wood+floor&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 105517,
+          "sha256": "90b82e3ff681aeb88efd475fae4a7a42f5d49e258343d5994203c63a7f92c150",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/WoodFloor043.webp",
+          "status": 200,
+          "bytes": 54698,
+          "sha256": "97d3877b126da38db2eae67364bc39fecebb495bc02a2addfb40a54664fad5c3",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Ground111",
+      "name": "Ground 111",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Ground111",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看泥砂/碎石预览；适合局部地表细节，避免高频噪声与大量突起取代可行走压实土路。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=ground&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 100635,
+          "sha256": "c459023e744cc7c555b6bfb625137e5eb6e9db43cadaa0e5377c5a5fb3e99643",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Ground111.webp",
+          "status": 200,
+          "bytes": 90226,
+          "sha256": "d3bdcafd1f4ecf38bcce0eb9caf931374a60fcba5e0ee5fd72edfafe580b76e0",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Ground112",
+      "name": "Ground 112",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Ground112",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看泥砂/碎石预览；适合局部地表细节，避免高频噪声与大量突起取代可行走压实土路。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=ground&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 100635,
+          "sha256": "c459023e744cc7c555b6bfb625137e5eb6e9db43cadaa0e5377c5a5fb3e99643",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Ground112.webp",
+          "status": 200,
+          "bytes": 94360,
+          "sha256": "3ad1a8c2cd965af72382c1325c01d4a9c8821ed4f4c126ddfbc7a29d60e800e1",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Ground110",
+      "name": "Ground 110",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Ground110",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看泥砂/碎石预览；适合局部地表细节，避免高频噪声与大量突起取代可行走压实土路。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=ground&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 100635,
+          "sha256": "c459023e744cc7c555b6bfb625137e5eb6e9db43cadaa0e5377c5a5fb3e99643",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Ground110.webp",
+          "status": 200,
+          "bytes": 97192,
+          "sha256": "2f82a5ff5b1c79bdcd062074944f160f9753411faffa51b84e70145a32115fea",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "ambientcg-Ground108",
+      "name": "Ground 108",
+      "category": "material",
+      "source_url": "https://ambientcg.com/view?id=Ground108",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "ambientCG CC0, official license page read",
+      "assessment": "已看泥砂/碎石预览；适合局部地表细节，避免高频噪声与大量突起取代可行走压实土路。",
+      "evidence": [
+        {
+          "url": "https://ambientcg.com/api/v2/full_json?q=ground&type=Material&limit=8&include=downloadData%2CpreviewData",
+          "status": 200,
+          "bytes": 100635,
+          "sha256": "c459023e744cc7c555b6bfb625137e5eb6e9db43cadaa0e5377c5a5fb3e99643",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://ambientcg.com/license",
+          "status": 200,
+          "bytes": 34106,
+          "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Ground108.webp",
+          "status": 200,
+          "bytes": 90202,
+          "sha256": "034f82639a3138f5663cd72028594411ce68de0d05214d37c49db94f544ebcd8",
+          "checked": "2026-10-23"
+        }
+      ],
+      "maps_acquired_this_round": false,
+      "preview_reviewed": true
+    },
+    {
+      "id": "cma-153596",
+      "name": "Woman Holding Plum Blossoms",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/1987.13",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/1987.13/1987.13_web.jpg",
+          "status": 200,
+          "bytes": 52923,
+          "sha256": "a7e516aca1e76ceafb46a9ccfd0924189bfd8299ec5e93b28e0059235ac110f4",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "mid-700s",
+      "culture": [
+        "North China, Tang dynasty (618-907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "cma-151414",
+      "name": "Court Lady with High Chignon",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/1983.25",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/1983.25/1983.25_web.jpg",
+          "status": 200,
+          "bytes": 50485,
+          "sha256": "ba9e2d2a7c9c84a6d1d098c937ad8cd76d39d7d4c2c6d897739f4e0370f1a6ff",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "c. 700–750",
+      "culture": [
+        "North China, Tang dynasty (618-907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "cma-284743",
+      "name": "Ewer",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/2017.17",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/2017.17/2017.17_web.jpg",
+          "status": 200,
+          "bytes": 152420,
+          "sha256": "14a1d074171dfa3f38765edf6801c16af47b79b38e7b70d8f5dae24a601c5c4c",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "618–907",
+      "culture": [
+        "China, Tang dynasty (618–907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "cma-128457",
+      "name": "Stem Cup",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/1951.396",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/1951.396/1951.396_web.jpg",
+          "status": 200,
+          "bytes": 83556,
+          "sha256": "57be437f581ee174e6c74a2208ccfb47a5e48cd312be57197c35754bd8b676bc",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "early 700s",
+      "culture": [
+        "China, Tang dynasty (618-907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "cma-132819",
+      "name": "Horse",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/1955.295",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/1955.295/1955.295_web.jpg",
+          "status": 200,
+          "bytes": 82110,
+          "sha256": "06c857913472c80bfd72d1dd0ae212871a1dde36437fd09ad2ef7ad23c2ae706",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "late 600s–800",
+      "culture": [
+        "China, probably Henan province, Tang dynasty (618–907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "cma-154599",
+      "name": "Bird-Headed Ewer",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/1989.2",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/1989.2/1989.2_web.jpg",
+          "status": 200,
+          "bytes": 72833,
+          "sha256": "0ec5eae696ccfd57dc751cf58ce123fc3b301ea8f9f72cdc51e52f27e2154df1",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "600s–700s",
+      "culture": [
+        "China, probably Henan province, Tang dynasty (618-907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "cma-143168",
+      "name": "Camel",
+      "category": "historical-reference",
+      "source_url": "https://clevelandart.org/art/1967.147",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Museum API item share_license_status=CC0; Open Access page read",
+      "assessment": "已看文物照片，用于服装/器形/马驼比例研究，不当作已下载三维扫描、人物皮肤或游戏现成模型。",
+      "evidence": [
+        {
+          "url": "https://openaccess-api.clevelandart.org/api/artworks/?q=Tang&limit=100&has_image=1&cc0=1",
+          "status": 200,
+          "bytes": 755565,
+          "sha256": "9cccdc9b876216210b8c22fab62c4e5cbbda0c28c406451ef6bbc1352f37d85b",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://www.clevelandart.org/open-access",
+          "status": 200,
+          "bytes": 680501,
+          "sha256": "49f79c5b447e679efbe95c1903f68be996a42923800107554b552c0e5217a698",
+          "checked": "2026-10-23"
+        },
+        {
+          "url": "https://openaccess-cdn.clevelandart.org/1967.147/1967.147_web.jpg",
+          "status": 200,
+          "bytes": 61064,
+          "sha256": "f3b36670010e9789afc675004be5f9194df5ec5e37c615872d8da9cab830bcc7",
+          "checked": "2026-10-23"
+        }
+      ],
+      "date": "700s",
+      "culture": [
+        "China, Tang dynasty (618–907)"
+      ],
+      "preview_reviewed": true,
+      "images_acquired_for_local_research": true
+    },
+    {
+      "id": "oga-crowd",
+      "name": "Crowd Shouting/Speaking Ambience",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/crowd-shoutingspeaking-ambience",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC0 according to page",
+      "assessment": "作者说亲友喊叫混成抗议/军队声，不当作正常中文市集经营叫卖。",
+      "evidence": [
+        {
+          "url": "https://opengameart.org/content/crowd-shoutingspeaking-ambience",
+          "status": 200,
+          "bytes": 23196,
+          "sha256": "2e12a0ffe4eb0df6f7d4c12507ea7e292300dc11355014ffdf209820fe17bc7a",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "oga-park",
+      "name": "Park ambiences",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/park-ambiences",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC0 according to page",
+      "assessment": "鸟/河/风三录音，48kHz，约74–99MB各。南澳公园鸟种/环境不同，需试听筛除不合地理/现代噪音后只裁合适短层。",
+      "evidence": [
+        {
+          "url": "https://opengameart.org/content/park-ambiences",
+          "status": 200,
+          "bytes": 23363,
+          "sha256": "b6f1b58ceeaf4fc51c81f6c1cdb7ee54961180879cf4a68b1a2a032d47734bea",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "oga-nature",
+      "name": "JC Sounds Nature Ambient Pack Vol1",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/jc-sounds-nature-ambient-pack-vol-1",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC BY4.0, credit JC Sounds",
+      "assessment": "26个1min+环境循环；可候选湖/溪/风/火层，78.5MB mp3压缩包。未下载/试听，不能照包名声称中国环境匹配。",
+      "evidence": [
+        {
+          "url": "https://opengameart.org/content/jc-sounds-nature-ambient-pack-vol-1",
+          "status": 200,
+          "bytes": 36795,
+          "sha256": "18ab701398427d03f760beb74fc1ec9c6709a0a4744a5d39a4d4588ed9b89a4e",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "oga-sunrise",
+      "name": "Sunrise in the Dynasty",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/sunrise-in-the-dynasty",
+      "stage": "preview_candidate",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Page offers CC BY3.0 and CC BY-SA3.0; choose/record actual offered license before adoption",
+      "assessment": "作者称Chinese style experiment且中途有静音；未试听，不能自动作为无缝电影音乐。",
+      "evidence": [
+        {
+          "url": "https://opengameart.org/content/sunrise-in-the-dynasty",
+          "status": 200,
+          "bytes": 22887,
+          "sha256": "ebb54d983067cbb9a667c8d23ab22c22a5ee95a9f8bfab46c9fdeec1cde307f4",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "oga-asian",
+      "name": "Asianoriental2",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/asianoriental2",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC0 according to page",
+      "assessment": "页面tags为Koto strings，泛东方而非唐乐证据；未试听，非最终配乐。",
+      "evidence": [
+        {
+          "url": "https://opengameart.org/content/asianoriental2",
+          "status": 200,
+          "bytes": 20864,
+          "sha256": "8f003254d0ddde51cf0aae68a450b0f70ad294ca7927f7b31b5ad691fefd5ea1",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "freesound-huinan",
+      "name": "huinan_market_street.wav",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/rasfrecci_w_donna/sounds/347020/",
+      "stage": "rejected",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC0 page; login to download",
+      "assessment": "83.783秒上海郊区市场，作者明确有电动车/现代店铺。不能直接当唐市场底噪。",
+      "evidence": [
+        {
+          "url": "https://freesound.org/people/rasfrecci_w_donna/sounds/347020/",
+          "status": 200,
+          "bytes": 43276,
+          "sha256": "b4b7b2fdc8019b964f83caeb8c1b45967514442a32b87bd9b77cec0413b63b47",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "freesound-kaxgar",
+      "name": "Animal market in Kaxgar, China",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/nickcase/sounds/553170/",
+      "stage": "account_required",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC0 page; login to download",
+      "assessment": "60.640秒喀什牲畜市场候选，但未取得/试听，现代语言/设备噪音需筛，不代替中文唐风叫卖。",
+      "evidence": [
+        {
+          "url": "https://freesound.org/people/nickcase/sounds/553170/",
+          "status": 200,
+          "bytes": 37597,
+          "sha256": "7019e954c6668108bd84579d9ba030dfad80052bb4fe7623a00fcf4b8e805f3f",
+          "checked": "2026-10-23"
+        }
+      ],
+      "auditioned": false,
+      "audio_acquired": false
+    },
+    {
+      "id": "changan-plan",
+      "name": "Chang’an city overview",
+      "category": "historical-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Chang%27an",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Reference text; no game-asset rights asserted",
+      "assessment": "二手城市布局/参考文献入口；不锁定没有说明统计口径的坊数，不当作一手考古测图。",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Chang%27an",
+          "status": 200,
+          "bytes": 459363,
+          "sha256": "736f4447d09fc44bc45bb3b55e66dc0b5ba2dff7246265708c692e89b37946f8",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "foguang-history",
+      "name": "Foguang Temple",
+      "category": "historical-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Foguang_Temple",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Reference text; no game-asset rights asserted",
+      "assessment": "857年殿堂，晚于开元天宝；唐木构结构研究，不直接复制成为742长安建筑。",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Foguang_Temple",
+          "status": 200,
+          "bytes": 245436,
+          "sha256": "b34e2ea2fe4060279f336ca86e9c92686b459fa4a02a37b0ebcc10f901d1fe3f",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "nanchan-history",
+      "name": "Nanchan Temple",
+      "category": "historical-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Nanchan_Temple",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Reference text; no game-asset rights asserted",
+      "assessment": "782年大殿及后代修缮，不能将全部现状称为盛唐原状。",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nanchan_Temple",
+          "status": 200,
+          "bytes": 169172,
+          "sha256": "acff93875b421722f55277b51391fe0ce9a35141a2473d1b0e372ba04af02fef",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "unesco-silkroad",
+      "name": "Silk Roads Chang’an–Tianshan Corridor",
+      "category": "historical-reference",
+      "source_url": "https://whc.unesco.org/en/list/1442/",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Reference text; no game-asset rights asserted",
+      "assessment": "官方遗产背景；不是可下载唐城游戏资产。",
+      "evidence": [
+        {
+          "url": "https://whc.unesco.org/en/list/1442/",
+          "status": 200,
+          "bytes": 163318,
+          "sha256": "43216b670084fd190975603c9c30cb0a6f96edbada996448f3a08ad20b9c02c9",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "unesco-wutai",
+      "name": "Mount Wutai",
+      "category": "historical-reference",
+      "source_url": "https://whc.unesco.org/en/list/1279/",
+      "stage": "reference_only",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Reference text; no game-asset rights asserted",
+      "assessment": "官方遗产/唐木构研究背景；图片不自动授权用于游戏。",
+      "evidence": [
+        {
+          "url": "https://whc.unesco.org/en/list/1279/",
+          "status": 200,
+          "bytes": 145243,
+          "sha256": "3c04155215f88ff8415afadbded8266b36d2a718bf5891816904ed86969ad886",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "blendswap-check",
+      "name": "BlendSwap search",
+      "category": "source-check",
+      "source_url": "https://www.blendswap.com/search?keyword=chinese",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Unverified / unavailable",
+      "assessment": "请求403，未读许可/预览/下载，不绕过。",
+      "evidence": [
+        {
+          "url": "https://www.blendswap.com/search?keyword=chinese",
+          "error": "HTTP Error 403: Forbidden",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "foguang-empty",
+      "name": "sozoStudio/FoguangTemple",
+      "category": "source-check",
+      "source_url": "https://api.github.com/repos/sozoStudio/FoguangTemple",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Unverified / unavailable",
+      "assessment": "公开仓库无根许可，树接口409，不能根据名称当可用佛光寺模型。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/sozoStudio/FoguangTemple",
+          "status": 200,
+          "bytes": 5379,
+          "sha256": "dd87273bdb5cd3cf9f4aafa675c7cfcf8ddf2da42c33d9060aa4b8843bf23095",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "foguang-unlicensed",
+      "name": "shgfl007/FoguangTemple",
+      "category": "source-check",
+      "source_url": "https://api.github.com/repos/shgfl007/FoguangTemple",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Unverified / unavailable",
+      "assessment": "无根许可元数据；未取得足够几何/授权，不直接采用。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/shgfl007/FoguangTemple",
+          "status": 200,
+          "bytes": 5275,
+          "sha256": "0a06a0ab3e360815dc17e9ced8c8b86bd1eb5381e83e5855ced113e3d07219e5",
+          "checked": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "camel-source-chain",
+      "name": "LynxAbraxas sprites",
+      "category": "source-check",
+      "source_url": "https://api.github.com/repos/LynxAbraxas/sprites",
+      "stage": "rights_hold",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Unverified / unavailable",
+      "assessment": "公开树有camel.blend及照片素材，但根无许可、关联模型/照片权利待查；不下载采用。",
+      "evidence": [
+        {
+          "url": "https://api.github.com/repos/LynxAbraxas/sprites",
+          "status": 200,
+          "bytes": 5219,
+          "sha256": "666d494561a8e33c2ba7a658bacd51908410f00f26451e127ca2263bf3ca7cd5",
+          "checked": "2026-10-23"
+        }
+      ]
+    }
+  ],
+  "design_studies": [
+    {
+      "path": "docs/concept-dragon-turnaround.png",
+      "bytes": 2053608,
+      "sha256": "0a2b3fe8c9e58844c5bfccf6eeb158bb551290267f55f9d57987ab8e1e96cbe1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "method": "image_gen with existing project market/qujiang concepts as local references",
+      "viewed": true,
+      "status": "supplementary design study, not newly user approved and not a 3D model",
+      "issues": [
+        "Generated scale markings do not match silhouette ratios; document/metre geometry governs.",
+        "Bicycle crank, pedals, drive and limb reach need mechanical calibration.",
+        "Views are not one shared topology; continuous mesh, eyelids, expressions and rig remain."
+      ]
+    },
+    {
+      "path": "docs/concept-barge-study.png",
+      "bytes": 2522592,
+      "sha256": "20b6857328e9ed466963c50c5a2f465f3146e742aaa1f440665c3b16226960aa",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "method": "image_gen with existing project market/qujiang concepts as local references",
+      "viewed": true,
+      "status": "supplementary design study, not newly user approved and not a 3D model",
+      "issues": [
+        "Not an archaeological vessel or exact engineering section.",
+        "Boarding gate, draft, roof support, column spacing and cross-view consistency need calibration.",
+        "No hull geometry, collision or passenger motion has been built from this image."
+      ]
+    }
+  ]
+}
