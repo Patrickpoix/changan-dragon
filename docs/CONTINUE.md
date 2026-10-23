@@ -90,5 +90,5 @@ python3 tools/compatibility_test.py --output /tmp/changan-webgl1-review
 - 诊断证据确认场景HDR输入18个NaN像素被泛光扩散。补上逆投影同步只是独立修正，单独禁用AO不解决；不能再说根因已确认为AO或法线。修改normalMap/切线/基础材质/环境的临时对照也未消除，所以基础着色/驱动的精确来源仍未确认。
 - 已在泛光入口过滤非法值，在输出阶段用有效邻色重建非法像素；有效像素不改变，泛光/AO/FXAA/ACES保留。详细证据和取舍在RENDERING_DIAGNOSIS.md，原始GPU读回在qa-evidence/hdr-invalid-diagnostic.json。
 - qa-evidence/rammed-walls-rendering.json：最新18,687,084B单文件现代1120×630/强制WebGL1手机844×390，9段墙有1024²法线/粗糙度、UV与收分；实际穿门397→364.946；断网切高档与FOV43/58/35真实图像通过，黑区比例0、原故障点RGB212/189/159、glError0，零外部请求/页面/控制台错误。截图wall-black-before.png与wall-close-after.png可对照。
-- medium通道最后补测正在运行exec27572，/tmp/changan-rendering-medium-final.log；完成后记录结果再结束本轮保存。应用源已通过high及WebGL1，medium是额外补测，不能将尚未结束的结果称为通过。
+- medium通道最后补测已通过（qa-evidence/medium-rendering.json，/tmp/changan-rendering-medium-final）：FOV43黑区0、均亮184.38、原故障点RGB212/189/159，glError0、零外部请求/页面/控制台错误。源码与本轮城墙/HDR保护已推送main提交03fcb0f，后续只补充验收记录。
 - 下一步应继续对照认可概念提高建筑/人物/园林层次，当前视觉仍远低于用户AAA期望。有限值防护已解决可见扩散与细线，但未确定底层输入NaN来源，可保留GPU诊断路径供后续硬件比对，不要假装已取得手机真机结论。

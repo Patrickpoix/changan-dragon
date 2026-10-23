@@ -67,3 +67,5 @@ python3 tools/offline_test.py --output /tmp/changan-offline-review
 ## 城墙近景与HDR边界防护
 
 原先墙体脚本仅验证控制台/材质/通行会返回PASS，但实际高档近景全黑；人工否决后新增`tools/rendering_test.py`，真实复现并锁定像素检查。详见RENDERING_DIAGNOSIS.md。`rammed-walls-rendering.json`：18,687,084B版本在现代1120×630/强制WebGL1手机844×390通过，实际穿门、法线/粗糙度/物理UV/收分、断网高档、FOV43/58/35画面、原黑点恢复、零外部请求/页面/控制台错误、glError0。原始HDR输入少数NaN由后处理边界过滤与局部恢复保护；底层着色/驱动精确来源未确认，不将本次修复冒称所有输入浮点值都正常。
+
+同一18,687,084B应用版本进一步通过medium输出复验：`medium-rendering.json`，FOV43无黑区、均亮184.38、原故障点RGB212/189/159，glError0、无外部请求/页面/控制台错误。验证命令：`python3 tools/rendering_test.py --profiles modern --output /tmp/changan-rendering-medium-final`。

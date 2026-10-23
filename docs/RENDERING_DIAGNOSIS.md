@@ -14,6 +14,6 @@
 
 泛光入口拒绝NaN/Infinity，阻止其进入逐级模糊；输出通道遇到非法像素时，使用附近有效的HDR场景颜色重建。其余有效像素不改变，也没有关闭泛光、AO、FXAA或电影色调。输出修复还去除了只阻止泛光扩散后残留的细小黑线。该策略提供后处理的有限值约束，不能冒称已经证明某一素材的基础着色实现完全没有异常。
 
-新回归同时检查大片黑区、平均亮度，以及原故障像素。现代1120×630和强制WebGL1手机844×390均通过FOV43/58/35；现代原故障点恢复为RGB(212,189,159)。两模式实际步行穿过明德门，单文件断网切高画质通过，零外部请求/页面/控制台错误、glError0。证据在qa-evidence/rammed-walls-rendering.json、hdr-invalid-diagnostic.json及wall-black-before.png/wall-close-after.png。当前进一步补测medium输出通道，避免只验证带泛光的high。
+新回归同时检查大片黑区、平均亮度，以及原故障像素。现代1120×630和强制WebGL1手机844×390均通过FOV43/58/35；现代原故障点恢复为RGB(212,189,159)。两模式实际步行穿过明德门，单文件断网切高画质通过，零外部请求/页面/控制台错误、glError0。证据在qa-evidence/rammed-walls-rendering.json、hdr-invalid-diagnostic.json及wall-black-before.png/wall-close-after.png。medium输出通道也已补测通过，原故障点同为RGB(212,189,159)、无黑区/控制台错误；详见qa-evidence/medium-rendering.json。
 
 临时诊断脚本只通过Playwright路由响应暴露内部pass，没有在正式游戏增加诊断全局或改变用户流程。原Three引擎和官方扩展文件未被覆盖，保护代码在src/05-rendering.js。
