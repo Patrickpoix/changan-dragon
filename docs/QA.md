@@ -83,3 +83,15 @@ python3 tools/market_test.py --output /tmp/changan-market-review
 初次scaleAudit对成人group测量误包含对话Sprite，不能当成人高度。维护脚本已改为直接测人物mesh，单独源码专项也已用纯mesh重新核对，见source-model-review.json；小龙约2.20m、成人约1.65/1.84m，主角比例同样需要重做。尺度随姿态变化，不能将不同姿态的AABB当作角色设定身高。
 
 用户最新否决的是模型基础造型；验收不能止于上述功能。继续时按 [FILM_STYLE_RESEARCH.md](FILM_STYLE_RESEARCH.md) 的完整模型试片检查轮廓、结构、比例、衣服剪裁、眼窝/口鼻、冠形、材质与多视角，再做代表性场景。真机性能、本地文件策略和最终电影美术仍未验收。
+
+## 完整建筑建模样板专项
+
+```sh
+python3 tools/model_test.py --output /tmp/changan-timber-review
+```
+
+`timber-model-study.json`对应内嵌MIT通知的研究GLB，2,587,440B / 73096三角形 / 19网格。独立验收台以现代1120×720和强制WebGL1 844×390检查真实模型、有限顶点/法线、四种视角按钮、灰模与米尺，无页面/控制台错误、glError0。楼廊3个位置从屋顶下方射线向下，均首先命中y≈3.985的木板，防止第一轮错误腰檐高于木地板的问题回归。
+
+实际查看了`timber-model-study.png`与`timber-model-grey.png`，以及生成的正侧背/俯视图。此前侧坡无瓦和斗拱穿屋面被人工否决后修正；首次源导出因Blender已删除对象引用报错也已修复，不能把那个失败版本当作通过。当前材质/陈设/造型风格仍需继续，与具体参考的差距见FILM_STYLE_RESEARCH第7节，最终美术验收状态为false。
+
+样板未部署正式城市，没有把它算作新增正式GLB来源；主游戏离线包SHA保持不变。本专项不重复宣称全城新模型已换完、手机真机已测或新增楼层已能在主游戏行走。

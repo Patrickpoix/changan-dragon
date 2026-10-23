@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>龙游长安 · 建模验收台</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;overflow:hidden;background:#e4e1d8;color:#23403c;font-family:system-ui,sans-serif}canvas{display:block;touch-action:none;width:100vw;height:100vh}
+  header{position:fixed;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;pointer-events:none}header>*{pointer-events:auto}strong{padding:10px 14px;background:#fff9eae8;border-radius:5px;font-size:14px;margin-right:auto}button{font:500 13px system-ui;min-width:44px;min-height:44px;border:1px solid #8c9a8c;background:#fff9eae8;color:#23403c;border-radius:5px;padding:6px 12px;cursor:pointer}button[aria-pressed=true]{background:#234d43;color:#fff2d2}output{position:fixed;left:16px;bottom:12px;max-width:calc(100vw - 32px);font-size:12px;background:#fff9eae8;padding:9px 12px;border-radius:4px}#error{color:#8b302c;font-size:15px;white-space:pre-wrap}
+  @media(max-width:700px){strong{font-size:12px;padding:8px}header{gap:4px;top:6px;left:6px;right:6px}button{padding:6px 9px}output{font-size:11px;left:8px;bottom:8px}}
+</style>
+<canvas id="view"></canvas>
+<header><strong>木构样板 · 建模验收台</strong><button data-view="front">正面</button><button data-view="side">侧面</button><button data-view="back">背面</button><button data-view="above">俯视</button><button id="grey" aria-pressed="false">灰模</button><button id="grid" aria-pressed="false">米尺</button><button id="reset">复位</button></header>
+<output id="status">载入完整三维样板…</output><output id="error" hidden></output>
+<script src="../vendor/three.compat.min.js"></script>
+<script src="../vendor/rendering-addons.js"></script>
+<script>
+'use strict';
+const T=THREE, canvas=document.querySelector('#view');
+const renderer=new T.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.06;
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+const scene=new T.Scene();scene.background=new T.Color(0xe4e1d8);
+const camera=new T.PerspectiveCamera(42,1,.08,160);
+scene.add(new T.HemisphereLight(0xfff6e6,0x747c69,.85));
+const sun=new T.DirectionalLight(0xffead0,2.15);sun.position.set(9,16,14);sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-13,right:13,top:13,bottom:-13,near:1,far:60});sun.shadow.normalBias=.025;sun.shadow.bias=-.00015;
+scene.add(sun);sun.target.position.set(0,4,0);scene.add(sun.target);
+const fill=new T.DirectionalLight(0xc9dded,.38);fill.position.set(-10,8,-8);scene.add(fill);
+const pmrem=new T.PMREMGenerator(renderer),room=new ChanganRenderingAddons.RoomEnvironment();
+const env=pmrem.fromScene(room,.04);scene.environment=env.texture;room.dispose();pmrem.dispose();
+const ground=new T.Mesh(new T.PlaneGeometry(80,80),new T.MeshStandardMaterial({color:0xc9c5b8,roughness:1}));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;ground.position.y=-.012;scene.add(ground);
+const grid=new T.GridHelper(32,32,0x6a8574,0xa1ab9b);grid.position.y=.006;grid.visible=false;scene.add(grid);
+const neutral=new T.MeshStandardMaterial({color:0x90958f,roughness:.86});
+let model=null,theta=.62,phi=1.29,radius=24,dirty=true,grey=false;
+const target=new T.Vector3(0,4.15,0),savedMaterials=new Map();
+function draw(){
+ if(!dirty)return;dirty=false;
+ camera.position.set(target.x+Math.sin(theta)*Math.sin(phi)*radius,target.y+Math.cos(phi)*radius,target.z+Math.cos(theta)*Math.sin(phi)*radius);camera.lookAt(target);
+ renderer.render(scene,camera);
+}
+function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();dirty=true;draw()}
+window.addEventListener('resize',resize);
+let drag=null;
+canvas.addEventListener('pointerdown',e=>{drag={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;theta-=(e.clientX-drag.x)*.006;phi=Math.max(.18,Math.min(1.62,phi+(e.clientY-drag.y)*.005));drag.x=e.clientX;drag.y=e.clientY;dirty=true;draw()});
+function release(e){if(drag?.id===e.pointerId)drag=null}
+canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
+canvas.addEventListener('wheel',e=>{e.preventDefault();radius=Math.max(12,Math.min(45,radius*Math.exp(e.deltaY*.001)));dirty=true;draw()},{passive:false});
+function view(name){theta={front:0,side:Math.PI/2,back:Math.PI,above:.5}[name]??.62;phi=name==='above'?.30:1.38;radius=24;dirty=true;draw()}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>view(b.dataset.view)));
+document.querySelector('#grey').addEventListener('click',e=>{
+ grey=!grey;model?.traverse(o=>{if(o.isMesh)o.material=grey?neutral:savedMaterials.get(o)});e.currentTarget.setAttribute('aria-pressed',String(grey));dirty=true;draw();
+});
+document.querySelector('#grid').addEventListener('click',e=>{grid.visible=!grid.visible;e.currentTarget.setAttribute('aria-pressed',String(grid.visible));dirty=true;draw()});
+document.querySelector('#reset').addEventListener('click',()=>{theta=.62;phi=1.29;radius=24;dirty=true;draw()});
+resize();
+const source='../assets/library/architecture/timber-shop/runtime.glb';
+window.__modelReview={ready:false,view,draw,renderer,scene,camera,get model(){return model},get grey(){return grey}};
+new ChanganRenderingAddons.GLTFLoader().load(source,gltf=>{
+ model=gltf.scene;let triangles=0,meshes=0;
+ model.traverse(o=>{if(!o.isMesh)return;meshes++;triangles+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;o.castShadow=o.receiveShadow=true;savedMaterials.set(o,o.material);
+  for(const m of Array.isArray(o.material)?o.material:[o.material])m.envMapIntensity=.35;
+ });
+ scene.add(model);model.updateMatrixWorld(true);const bounds=new T.Box3().setFromObject(model).getSize(new T.Vector3()).toArray();
+ Object.assign(window.__modelReview,{ready:true,triangles,meshes,bounds});
+ document.querySelector('#status').textContent=`建模研究样板，未部署全城 · 拖动旋转 / 滚轮缩放 · ${Math.round(triangles).toLocaleString()} 三角形`;
+ dirty=true;draw();
+},undefined,error=>{document.querySelector('#error').hidden=false;document.querySelector('#error').textContent='样板载入失败：'+(error.message||error);window.__modelReview.error=String(error)});
+</script>
+</html>

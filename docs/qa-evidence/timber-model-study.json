@@ -1,0 +1,76 @@
+{
+  "browser": "Playwright; Browser plugin not available",
+  "finalArtAccepted": false,
+  "modern": {
+    "ready": true,
+    "bounds": [
+      13.301823616027832,
+      10.092538833618164,
+      10.19500007480383
+    ],
+    "meshes": 19,
+    "triangles": 73096,
+    "invalid": 0,
+    "floors": [
+      {
+        "z": 2.25,
+        "y": 3.9849999137222767,
+        "material": "Freshly cut end grain and joinery"
+      },
+      {
+        "z": 3,
+        "y": 3.9849999137222767,
+        "material": "Freshly cut end grain and joinery"
+      },
+      {
+        "z": 3.6,
+        "y": 3.9849999137222767,
+        "material": "Freshly cut end grain and joinery"
+      }
+    ],
+    "webgl2": true,
+    "glError": 0,
+    "errors": [],
+    "passed": true
+  },
+  "webgl1": {
+    "ready": true,
+    "bounds": [
+      13.301823616027832,
+      10.092538833618164,
+      10.19500007480383
+    ],
+    "meshes": 19,
+    "triangles": 73096,
+    "invalid": 0,
+    "floors": [
+      {
+        "z": 2.25,
+        "y": 3.9849999137222767,
+        "material": "Freshly cut end grain and joinery"
+      },
+      {
+        "z": 3,
+        "y": 3.9849999137222767,
+        "material": "Freshly cut end grain and joinery"
+      },
+      {
+        "z": 3.6,
+        "y": 3.9849999137222767,
+        "material": "Freshly cut end grain and joinery"
+      }
+    ],
+    "webgl2": false,
+    "glError": 0,
+    "errors": [],
+    "passed": true
+  },
+  "asset": {
+    "runtimeBytes": 2587440,
+    "sha256": "a05e98a19167431ad7fdd93f323738c79d59291754c3cb79efb351d42df1103c",
+    "generatorSha256": "ed584fa8b956992dad4f19c5c5d24722b2858c987870595e87b42c0c9760eb9b",
+    "triangles": 73096,
+    "blenderVersion": "4.3.2"
+  },
+  "notes": "Independent modeling study, not city deployment or final cinematic art approval. Modern 1120x720 and forced WebGL1 844x390; current GLB embeds the full MIT component notice."
+}

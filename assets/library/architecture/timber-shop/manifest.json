@@ -1,0 +1,28 @@
+{
+  "status": "modeling sample; not yet cinematic art acceptance or city deployment",
+  "generator": "tools/build_timber_shop.py",
+  "generatorSha256": "ed584fa8b956992dad4f19c5c5d24722b2858c987870595e87b42c0c9760eb9b",
+  "blenderVersion": "4.3.2",
+  "units": "metres",
+  "dimensions": {
+    "frontage": 10.8,
+    "roomDepth": 7.2,
+    "platform": 0.42,
+    "galleryFloor": 3.95,
+    "eave": 6.95,
+    "roofRise": 2.55
+  },
+  "triangles": 73096,
+  "runtimeBytes": 2587440,
+  "sha256": "a05e98a19167431ad7fdd93f323738c79d59291754c3cb79efb351d42df1103c",
+  "editableSource": "/workspace/.environment/changan-dragon/timber-shop-source.blend",
+  "thirdParty": [
+    {
+      "component": "dougong",
+      "source": "existing src/10-world.js miniLibsBracketGeometry, EMPTY / miniLibs",
+      "license": "MIT",
+      "notice": "vendor/miniLibs-LICENSE.txt"
+    }
+  ],
+  "filmArtworkIncluded": false
+}
