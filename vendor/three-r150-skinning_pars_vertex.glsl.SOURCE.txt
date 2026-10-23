@@ -1,0 +1,5 @@
+Three.js r150 skinning shader, MIT.
+Source: https://raw.githubusercontent.com/mrdoob/three.js/r150/src/renderers/shaders/ShaderChunk/skinning_pars_vertex.glsl.js
+SHA256: 517c25af653e1d79e33d16cf201de84202ab48bc89ba9d2bb87d29986da51fbd
+License: vendor/THREE-LICENSE.txt
+Used as the WebGL1-compatible bone texture lookup for the pinned r160 engine.

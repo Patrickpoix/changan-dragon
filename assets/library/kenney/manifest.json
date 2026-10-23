@@ -1,0 +1,111 @@
+{
+  "researched_at": "2026-10-22",
+  "game_integration": "optional_library_only_not_loaded_by_runtime",
+  "notes": "CC0 model files and external palettes bundled as an optional library, not loaded by game. Each upstream README explicitly covers included 3D models; root software LICENSE is MIT. Individual browser rendering untested. Tree meshes include merged ground tiles.",
+  "assets": [
+    {
+      "file": "kenney-city/grass-trees.glb",
+      "source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-City-Builder/main/models/grass-trees.glb",
+      "bytes": 38160,
+      "sha256": "cb06d03cc1c64ca7e7692c0aef3628d8e7cd4afee69093025f9ddd668653a4ce",
+      "license": "CC0-1.0 (included 3D models explicitly covered by upstream README)",
+      "license_evidence": "assets/library/kenney/kenney-city/README.md",
+      "meshes": 1,
+      "primitives": 1,
+      "materials": 1,
+      "images": [
+        {
+          "uri": "Textures/colormap.png",
+          "name": "colormap"
+        }
+      ],
+      "animations": 0,
+      "triangles": 380,
+      "source_revision": "4535092b740b378b700efd9df9e27a631815b84a",
+      "immutable_source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-City-Builder/4535092b740b378b700efd9df9e27a631815b84a/models/grass-trees.glb",
+      "status": "bundled_optional_library_not_runtime_used",
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ],
+      "bundled_path": "assets/library/kenney/kenney-city/grass-trees.glb"
+    },
+    {
+      "file": "kenney-city/grass-trees-tall.glb",
+      "source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-City-Builder/main/models/grass-trees-tall.glb",
+      "bytes": 47016,
+      "sha256": "d23e3b722453236bf6f4f8922b7bf64f81a7f3f804848a89c4b100ccbf13abef",
+      "license": "CC0-1.0 (included 3D models explicitly covered by upstream README)",
+      "license_evidence": "assets/library/kenney/kenney-city/README.md",
+      "meshes": 1,
+      "primitives": 1,
+      "materials": 1,
+      "images": [
+        {
+          "uri": "Textures/colormap.png",
+          "name": "colormap"
+        }
+      ],
+      "animations": 0,
+      "triangles": 472,
+      "source_revision": "4535092b740b378b700efd9df9e27a631815b84a",
+      "immutable_source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-City-Builder/4535092b740b378b700efd9df9e27a631815b84a/models/grass-trees-tall.glb",
+      "status": "bundled_optional_library_not_runtime_used",
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ],
+      "bundled_path": "assets/library/kenney/kenney-city/grass-trees-tall.glb"
+    },
+    {
+      "file": "kenney-platformer/cloud.glb",
+      "source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-3D-Platformer/main/models/cloud.glb",
+      "bytes": 23788,
+      "sha256": "09c6f071d3a9ab64993248ee5c8d50debcd9c6cc4369236a01155ff7ff87f30a",
+      "license": "CC0-1.0 (included 3D models explicitly covered by upstream README)",
+      "license_evidence": "assets/library/kenney/kenney-platformer/README.md",
+      "meshes": 1,
+      "primitives": 1,
+      "materials": 1,
+      "images": [
+        {
+          "uri": "Textures/colormap.png",
+          "name": "colormap"
+        }
+      ],
+      "animations": 0,
+      "triangles": 204,
+      "source_revision": "3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0",
+      "immutable_source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-3D-Platformer/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/models/cloud.glb",
+      "status": "bundled_optional_library_not_runtime_used",
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ],
+      "bundled_path": "assets/library/kenney/kenney-platformer/cloud.glb"
+    },
+    {
+      "file": "kenney-platformer/grass-small.glb",
+      "source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-3D-Platformer/main/models/grass-small.glb",
+      "bytes": 9048,
+      "sha256": "4b94e8dd9cbdc3eedff99cbf614fe828f0c2342d21a7d0edb125b129d0422d51",
+      "license": "CC0-1.0 (included 3D models explicitly covered by upstream README)",
+      "license_evidence": "assets/library/kenney/kenney-platformer/README.md",
+      "meshes": 1,
+      "primitives": 1,
+      "materials": 1,
+      "images": [
+        {
+          "uri": "Textures/colormap.png",
+          "name": "colormap"
+        }
+      ],
+      "animations": 0,
+      "triangles": 72,
+      "source_revision": "3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0",
+      "immutable_source_url": "https://raw.githubusercontent.com/KenneyNL/Starter-Kit-3D-Platformer/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/models/grass-small.glb",
+      "status": "bundled_optional_library_not_runtime_used",
+      "texture_dependencies": [
+        "Textures/colormap.png"
+      ],
+      "bundled_path": "assets/library/kenney/kenney-platformer/grass-small.glb"
+    }
+  ]
+}

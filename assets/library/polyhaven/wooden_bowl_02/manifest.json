@@ -1,0 +1,47 @@
+{
+  "id": "wooden_bowl_02",
+  "license": "CC0-1.0",
+  "authors": {
+    "Kuutti Siitonen": "All"
+  },
+  "asset_page": "https://polyhaven.com/a/wooden_bowl_02",
+  "retrieved_at": "2026-10-23",
+  "notes": "Reviewed as a generic street prop; not claimed to be a Tang archaeological artifact.",
+  "files": [
+    {
+      "file": "wooden_bowl_02_1k.gltf",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_bowl_02/wooden_bowl_02_1k.gltf",
+      "source_md5": "7e1269b42d3cf9e96d3a7a43784a9fc5",
+      "bytes": 2800,
+      "sha256": "18ba4fb40b1880d9b776f6d98eefdaa9e01e41fbe362ba1dc40a831422e38336"
+    },
+    {
+      "file": "textures/wooden_bowl_02_arm_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bowl_02/wooden_bowl_02_arm_1k.jpg",
+      "source_md5": "a416eec6afe81cfc5b2a94cabe241f69",
+      "bytes": 770851,
+      "sha256": "0715dde81d3a8acbdf67031702c80e994e0b418a9973237f2964f1d0be9f4645"
+    },
+    {
+      "file": "wooden_bowl_02.bin",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_bowl_02/wooden_bowl_02.bin",
+      "source_md5": "92850bb8ba7e6dfd53f4b157276a8536",
+      "bytes": 116156,
+      "sha256": "6e3e1fb30969e9a52db3519b01ace016628a361c2cd9e2817c5e50c1ffb8a1dd"
+    },
+    {
+      "file": "textures/wooden_bowl_02_nor_gl_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bowl_02/wooden_bowl_02_nor_gl_1k.jpg",
+      "source_md5": "76dedcb76919daaed23a3d7510c43257",
+      "bytes": 816221,
+      "sha256": "1951d9aae111412f4bd262c18e232b0b11962f33145e46acb936e314a442ec7d"
+    },
+    {
+      "file": "textures/wooden_bowl_02_diff_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bowl_02/wooden_bowl_02_diff_1k.jpg",
+      "source_md5": "69dfe9fa89f7458fbeb03300267a279d",
+      "bytes": 805338,
+      "sha256": "a3bb80f6ea747491fe91628badc0b98d320fc6d427682564095aba6033a523dc"
+    }
+  ]
+}

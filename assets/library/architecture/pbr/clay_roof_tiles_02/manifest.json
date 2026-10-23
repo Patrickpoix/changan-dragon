@@ -1,0 +1,24 @@
+{
+  "id": "clay_roof_tiles_02",
+  "license": "CC0-1.0",
+  "authors": {
+    "Amal Kumar": "All"
+  },
+  "files": [
+    {
+      "file": "normal.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_roof_tiles_02/clay_roof_tiles_02_nor_gl_1k.jpg",
+      "md5": "9e24ddc6fbf048291f8e24bfb1f16e6d",
+      "sha256": "1548d3ebce335a4590d9e421556c4189a7b63852c793a568c71b9e533f8b62d5",
+      "bytes": 990101
+    },
+    {
+      "file": "roughness.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/clay_roof_tiles_02/clay_roof_tiles_02_rough_1k.jpg",
+      "md5": "f26a67aa20fbdcb7b70b85ccf4153245",
+      "sha256": "6d7596c4f3644ac50237381aeadf58f9b68a6dddeb66b6eef4f64462dcbbf82f",
+      "bytes": 341520
+    }
+  ],
+  "use": "Normal and roughness only; base color belongs to the game art direction. No archaeological dating claimed."
+}

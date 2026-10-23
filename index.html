@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <meta name="theme-color" content="#1f2a26">
-  <meta name="description" content="龙游长安：骑上木单车，漫游盛唐长安城的 3D 小游戏。">
-  <title>龙游长安 · 盛唐骑行</title>
+  <meta name="description" content="龙游长安：步行、骑行或乘风飞行，漫游盛唐长安城。">
+  <title>龙游长安 · 漫游盛唐</title>
   <style>
+    @font-face { font-family: "Ma Shan Zheng"; src: url("assets/fonts/MaShanZheng-Game.woff") format("woff"); font-display: swap; }
     :root {
       --ink: #183c3c;
       --ink-soft: #496862;
@@ -19,7 +20,7 @@
       --night: #10283a;
       --glass: rgba(255, 249, 233, .93);
       --shadow: 0 14px 40px rgba(10, 66, 60, .2);
-      --display: "STKaiti", "KaiTi", "Kaiti SC", "Songti SC", "Noto Serif SC", serif;
+      --display: "Ma Shan Zheng", "STKaiti", "KaiTi", "Kaiti SC", "Songti SC", "Noto Serif SC", serif;
       --ui: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
     }
     * { box-sizing: border-box; }
@@ -36,7 +37,7 @@
     }
     .hidden { display: none !important; }
     #startScreen.leaving { animation: startOut .46s cubic-bezier(.4,0,.2,1) forwards; pointer-events: none; }
-    #hud:not(.hidden) { animation: hudIn .58s cubic-bezier(.2,.7,.3,1) both; }
+    #hud:not(.hidden) { opacity: 1; visibility: visible; }
     .modal-layer:not(.hidden) .paper-panel { animation: panelIn .26s cubic-bezier(.2,.75,.3,1) both; }
     @keyframes startOut { to { opacity: 0; transform: scale(1.012); } }
     @keyframes hudIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
@@ -132,7 +133,7 @@
     #toast.show { opacity: 1; transform: translate(-50%, 0); }
 
     /* ---------- 开始界面 ---------- */
-    #startScreen { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: auto; background: radial-gradient(ellipse at 50% 36%, rgba(72, 192, 173, .03), rgba(9, 49, 46, .44) 84%), linear-gradient(90deg, rgba(8, 51, 49, .4), rgba(8, 51, 49, .02) 46%, rgba(8, 51, 49, .2)); backdrop-filter: blur(.8px) saturate(1.18) brightness(1.02); }
+    #startScreen { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: auto; background: radial-gradient(ellipse at 55% 40%, transparent 35%, rgba(9, 40, 35, .22)), linear-gradient(90deg, rgba(8, 51, 49, .24), transparent 46%, rgba(8, 51, 49, .06)); }
     .start-panel { position: relative; width: min(900px, 95vw); min-height: min(600px, 89vh); display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; border-radius: 24px; color: #203f3c; background: linear-gradient(126deg, rgba(255, 252, 239, .98), rgba(255, 238, 191, .95)); box-shadow: 0 38px 110px rgba(3, 42, 39, .5), 0 0 80px rgba(255, 201, 80, .12), inset 0 0 0 1px rgba(255, 252, 232, .9); overflow: hidden; }
     .start-panel::before { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(37, 143, 124, .22); border-radius: 17px; pointer-events: none; }
     .start-panel::after { content: '長安'; position: absolute; right: -2px; top: 0; color: rgba(24, 126, 112, .045); font-family: var(--display); font-size: clamp(150px, 25vw, 290px); line-height: .8; letter-spacing: -.08em; writing-mode: vertical-rl; pointer-events: none; user-select: none; }
@@ -263,6 +264,154 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
+
+    /* 漫游界面：让城市占满画面，拇指控制留在两侧。 */
+    .round-btn, .action-btn { min-width: 44px; min-height: 44px; color: #fff4d7; background: rgba(13, 48, 42, .76); border-color: rgba(247, 225, 170, .5); }
+    #hud > .discover-banner, #hud > .bottom-ui, #hud > .brand-block { pointer-events: none; }
+    .brand-block .poem-badge { pointer-events: auto; }
+    .brand-block { gap: 7px; }
+    .brand h1 { font-size: 24px; color: #ffe6a0; }
+    .brand p { color: #fff2ce; }
+    .poem-badge { font-size: 10px; padding: 5px 9px; background: rgba(16, 48, 41, .75); color: #fff3d4; border-color: rgba(247,225,170,.4); }
+    .poem-badge strong { color: #ffe09a; }
+    .poem-badge em { opacity: .8; }
+    .top-actions { gap: 7px; }
+    .place-action { border-radius: 15px; width: 52px; height: 52px; display: flex; flex-direction: column; gap: 1px; font-size: 19px; }
+    .place-action small { font-family: var(--ui); font-size: 10px; letter-spacing: .08em; }
+    .minimap-wrap { width: 132px; top: calc(82px + env(safe-area-inset-top)); background: rgba(16,48,41,.76); border-color: rgba(247,225,170,.5); }
+    .minimap-head, .minimap-foot { color: #fff0c9; }
+    .minimap-head i { display: none; }
+    #minimap { opacity: .9; }
+    .compass { color: #ffe09a; }
+    .mode-dock { position: absolute; bottom: calc(18px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; padding: 4px; border-radius: 99px; border: 1px solid rgba(247,225,170,.6); background: rgba(13,48,42,.82); box-shadow: 0 4px 22px #173f3f55; }
+    .mode-btn { min-width: 88px; min-height: 44px; padding: 7px 14px; border-radius: 99px; color: #fff0ca; font-size: 13px; letter-spacing: .08em; white-space: nowrap; }
+    .mode-btn .mode-icon { width: 22px; height: 22px; vertical-align: middle; margin: -2px 5px 0 0; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .mode-btn.selected { color: #fff8d8; background: #287b68b3; box-shadow: inset 0 0 0 1px #c9e8ba; }
+    #modeHint { position: absolute; bottom: calc(79px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); font-size: 10px; color: #fff0cf; text-shadow: 0 2px 5px #173f3f; white-space: nowrap; pointer-events: none; }
+    .speed-card { bottom: calc(72px + env(safe-area-inset-bottom)); left: 30px; padding: 5px 10px; pointer-events: none; }
+    .help-hint { display: none; }
+    .interact-btn { bottom: calc(106px + env(safe-area-inset-bottom)); }
+    .flight-controls { position: absolute; right: calc(150px + env(safe-area-inset-right)); bottom: calc(24px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 7px; align-items: center; }
+    .flight-controls button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #e8dab18c; background: #103c32d9; color: #fff1ca; font-size: 24px; touch-action: none; }
+    #altitude { color: #fff1ca; font-size: 10px; text-shadow: 0 2px 5px #173f3f; }
+    .destination-list { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 24px; }
+    .destination { display: flex; align-items: center; gap: 10px; text-align: left; padding: 14px 10px; border-radius: 10px; background: #22604e0c; border: 1px solid #22604e26; min-height: 70px; }
+    .destination:hover { background: #22604e18; }
+    .destination-index { color: #a58147; font-size: 11px; }
+    .destination strong { display: block; font-family: var(--display); font-size: 17px; }
+    .destination small { display: block; margin-top: 5px; font-size: 10px; color: #61756a; }
+    .travel-panel { width: min(650px, 94vw); }
+    .travel-panel h2 { margin: 16px 0 6px; font-family: var(--display); font-size: 29px; }
+    .panel-intro { font-size: 12px; line-height: 1.7; color: #61756a; margin: 0; }
+    .film-controls { position: fixed; z-index: 20; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(800px, calc(100vw - 28px)); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 18px; border: 1px solid #e8dab178; border-radius: 14px; padding: 12px 16px 8px; background: rgba(12, 37, 33, .84); color: #fff0ca; backdrop-filter: blur(12px); }
+    .film-heading { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 0; }
+    #filmPlace { font-family: var(--display); font-size: 22px; letter-spacing: .12em; }
+    #filmNote { font-size: 11px; opacity: .8; }
+    .film-buttons { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .film-buttons button { min-height: 44px; padding: 8px 13px; border: 1px solid #e8dab140; border-radius: 10px; font-size: 12px; white-space: nowrap; }
+    .film-buttons button:hover { background: #9ec9a126; }
+    .film-track { grid-column: 1 / -1; height: 2px; margin-top: 8px; background: #e8dab126; overflow: hidden; }
+    #filmProgress { height: 100%; background: #ebd391; transform-origin: left; }
+    body.cinema .portrait-hint { display: none; }
+    body.cinema #hud { visibility: hidden; pointer-events: none; }
+    body.cinema #hud * { pointer-events: none; }
+    .portrait-hint { display: none; position: fixed; top: calc(11px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 11; padding: 6px 12px; border-radius: 20px; background: #103c32d9; color: #fff0ca; font-size: 10px; pointer-events: none; }
+    .start-goal { line-height: 1.8; }
+    .quality-choice { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; font-size: 12px; }
+    .quality-choice select { min-height: 44px; min-width: 135px; padding: 8px 12px; border-radius: 8px; color: #244b41; border: 1px solid #22604e40; background: #fff9e8; font: inherit; }
+    .modal-close { width: 44px; height: 44px; top: 8px; right: 8px; }
+    @media (orientation: landscape) and (max-height: 600px) {
+      .brand-block { top: calc(12px + env(safe-area-inset-top)); left: calc(14px + env(safe-area-inset-left)); }
+      .brand h1 { font-size: 21px; }
+      .brand .seal { width: 34px; height: 34px; font-size: 23px; }
+      .brand p, .minimap-head, .minimap-foot { display: none; }
+      .poem-badge { padding: 3px 7px; gap: 4px; font-size: 9px; }
+      .poem-badge .mini-seal { width: 16px; height: 16px; font-size: 10px; }
+      .top-actions { top: calc(10px + env(safe-area-inset-top)); right: calc(12px + env(safe-area-inset-right)); gap: 5px; }
+      .round-btn { width: 44px; height: 44px; }
+      .place-action { width: 48px; height: 48px; }
+      .minimap-wrap { top: calc(70px + env(safe-area-inset-top)); right: calc(14px + env(safe-area-inset-right)); width: 102px; padding: 4px; border-radius: 50%; }
+      #minimap { border-radius: 50%; }
+      .minimap-wrap.expanded { width: min(260px, 55vh); border-radius: 14px; }
+      .minimap-wrap.expanded #minimap { border-radius: 10px; }
+      .joystick { width: 98px; height: 98px; }
+      .joy-knob { width: 42px; height: 42px; margin: -21px 0 0 -21px; }
+      .bottom-ui { bottom: calc(12px + env(safe-area-inset-bottom)); padding: 0 calc(16px + env(safe-area-inset-right)) 0 calc(16px + env(safe-area-inset-left)); }
+      .action-btn { width: 44px; height: 44px; border-radius: 50%; }
+      .action-btn .key { display: none; }
+      .actions { grid-template-columns: repeat(2,44px); gap: 6px; }
+      .speed-card { left: 132px; bottom: 10px; }
+      .speed-card b { font-size: 17px; }
+      .mode-dock { bottom: calc(12px + env(safe-area-inset-bottom)); }
+      .mode-btn { min-width: 76px; padding: 6px 10px; font-size: 12px; }
+      #modeHint { bottom: calc(68px + env(safe-area-inset-bottom)); font-size: 9px; }
+      .flight-controls { right: calc(124px + env(safe-area-inset-right)); bottom: calc(15px + env(safe-area-inset-bottom)); gap: 3px; }
+      .flight-controls button { width: 44px; height: 44px; }
+      .interact-btn { bottom: calc(89px + env(safe-area-inset-bottom)); padding: 7px 12px; }
+      .discover-banner { top: 20%; }
+      .discover-banner h2 { font-size: 29px; }
+      .discover-banner p { font-size: 11px; }
+      #toast { top: calc(58px + env(safe-area-inset-top)); }
+      #startScreen { padding: 14px; }
+      .start-panel { display: grid; grid-template-columns: 1fr .64fr; width: min(780px,94vw); min-height: 0; max-height: calc(100dvh - 28px); }
+      .start-copy { padding: 27px 30px; }
+      .start-copy h1 { margin-top: 11px; font-size: 48px; }
+      .start-subtitle { margin-top: 12px; font-size: 12px; }
+      .start-story { display: none; }
+      .start-goal { margin-top: 16px; font-size: 10px; }
+      .start-actions { margin-top: 17px; }
+      .start-controls { margin-top: 17px; font-size: 9px; gap: 6px 9px; }
+      .start-art { display: block; min-height: 0; }
+      .start-art-note { top: 20px; left: 17px; }
+      .start-seal { width: 46px; height: 46px; font-size: 15px; bottom: 18px; right: 18px; }
+      .paper-panel { max-height: 92dvh; padding: 25px 28px 20px; }
+      .help-grid { grid-template-columns: 1fr 1fr; gap: 10px 18px; margin: 15px 0; }
+      .help-panel h2 { margin: 12px 0; }
+      .destination-list { margin-top: 15px; gap: 7px; }
+      .destination { min-height: 58px; padding: 10px; }
+      .film-controls { bottom: calc(12px + env(safe-area-inset-bottom)); padding-top: 10px; }
+      .film-heading { padding-bottom: 5px; }
+    }
+    @media (orientation: landscape) and (max-width: 620px) {
+      .film-controls { display: block; }
+      .film-heading { flex-direction: row; align-items: baseline; gap: 12px; }
+      .speed-card { display: none; }
+      .mode-btn { min-width: 66px; padding: 6px 8px; }
+      .mode-btn .mode-icon { width: 18px; height: 18px; }
+      .top-actions { gap: 3px; }
+      .brand h1 { font-size: 18px; }
+      .brand .seal { display: none; }
+    }
+    @media (orientation: portrait) and (max-width: 600px) {
+      .film-controls { display: block; }
+      .portrait-hint { display: block; }
+      .brand-block { top: calc(45px + env(safe-area-inset-top)); left: 14px; }
+      .brand h1 { font-size: 19px; }
+      .brand p { display: none; }
+      .top-actions { top: calc(43px + env(safe-area-inset-top)); right: 12px; gap: 4px; display: grid; grid-template-columns: repeat(3,44px); }
+      .place-action { width: 44px; height: 48px; }
+      .round-btn { width: 44px; height: 44px; }
+      .minimap-wrap { top: calc(152px + env(safe-area-inset-top)); right: 12px; width: 105px; }
+      .minimap-wrap.expanded { width: min(290px,80vw); }
+      .bottom-ui { bottom: calc(83px + env(safe-area-inset-bottom)); }
+      .mode-btn { min-width: 84px; }
+      .speed-card { left: 18px; bottom: 120px; transform: none; }
+      #modeHint { bottom: calc(229px + env(safe-area-inset-bottom)); font-size: 9px; }
+      .flight-controls { right: calc(125px + env(safe-area-inset-right)); bottom: calc(86px + env(safe-area-inset-bottom)); }
+      .interact-btn { bottom: calc(260px + env(safe-area-inset-bottom)); }
+      .discover-banner { top: 34%; }
+      #toast { top: calc(125px + env(safe-area-inset-top)); }
+      .destination-list { grid-template-columns: 1fr; }
+      .film-heading { display: block; }
+      #filmNote { display: block; margin-top: 5px; }
+      .film-buttons { flex-wrap: wrap; justify-content: center; }
+      .film-buttons button { flex: 1; padding: 8px; }
+    }
+    /* Entry stays over the live 3D city; no illustrated stand-in for the world. */
+    .start-panel { background: transparent; }
+    .start-copy { background: rgba(255, 246, 226, .94); }
+    .start-art { background: transparent; backdrop-filter: none; }
+    .start-art-note { color: #fff2d3; text-shadow: 0 2px 12px #163e37; }
   </style>
 </head>
 <body>
@@ -280,6 +429,8 @@
       </button>
     </div>
     <div class="top-actions">
+      <button class="round-btn place-action" id="travelBtn" title="景点直达 G"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18M5 10l7-6 7 6M7 11v7m5-7v7m5-7v7M4 19h16M8 7h8"/></svg><small>景点</small></button>
+      <button class="round-btn place-action" id="filmBtn" title="电影赏景 P"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 19l7-12 5 8 3-5 5 9H2Z"/><circle cx="17" cy="5" r="2"/></svg><small>赏景</small></button>
       <button class="round-btn" id="soundBtn" title="声音" aria-label="开启或关闭声音">声</button>
       <button class="round-btn" id="nightBtn" title="昼夜" aria-label="切换昼夜">☾</button>
       <button class="round-btn" id="helpBtn" title="玩法" aria-label="查看玩法">?</button>
@@ -311,6 +462,15 @@
         <button class="action-btn" id="albumBtn"><span class="icon">笺</span><span class="label">诗囊</span><span class="key">L</span></button>
       </div>
     </div>
+    <div class="mode-dock" role="group" aria-label="移动方式">
+      <button class="mode-btn" data-mode="walk" aria-pressed="false"><svg class="mode-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="14" cy="4" r="2"/><path d="m11 8 5 4 4 1M11 8l-4 5-4 1m8-6 1 7-5 7m5-7 5 6"/></svg>步行</button>
+      <button class="mode-btn selected" data-mode="bike" aria-pressed="true"><svg class="mode-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="16" r="4"/><circle cx="19" cy="16" r="4"/><path d="m5 16 5-9 5 9H5l8-6h5l1 6M8 7h4m4-3h3l-2 6"/></svg>骑行</button>
+      <button class="mode-btn" data-mode="fly" aria-pressed="false"><svg class="mode-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 15 18-9-7 15-3-7-8 1Zm8-1 10-8M3 19l4-2m-1 5 3-3"/></svg>飞行</button>
+    </div>
+    <span id="modeHint">木轮轻响，且看长安</span>
+    <div id="flightControls" class="flight-controls hidden" role="group" aria-label="飞行升降">
+      <button id="ascendBtn" aria-label="按住上升">↑</button><span id="altitude">0 米</span><button id="descendBtn" aria-label="按住下降">↓</button>
+    </div>
     <button class="interact-btn" id="interactBtn"><span class="seal">拾</span><span>拾起诗笺 <small>E</small></span></button>
   </div>
 
@@ -319,144 +479,16 @@
       <div class="start-copy">
         <div class="eyebrow">唐 · 长安十二时辰</div>
         <h1>龙游<span>长安</span></h1>
-        <p class="start-subtitle">骑一乘木单车 · 看尽盛唐风物</p>
-        <p class="start-story">春风拂过朱雀大街，小青龙蹬起木单车，穿过市井的烟火与宫阙的飞檐，去寻散落在长安城里的十二枚诗笺。</p>
-        <div class="start-goal"><span class="dot"></span>拾取十二枚诗笺 · 自由漫游东西市、曲江池与大明宫</div>
+        <p class="start-subtitle">步行入烟火 · 乘风看长安</p>
+        <p class="start-story">与小青龙一同走进长安。漫步东西市，骑过朱雀大街，再乘风掠过宫阙飞檐，看一城灯火与春水。</p>
+        <div class="start-goal"><span class="dot"></span>自由漫游 · 景点直达 · 电影赏景</div>
         <div class="start-actions">
-          <button class="primary-btn" id="startBtn">入城骑行</button>
+          <button class="primary-btn" id="startBtn">入城漫游</button>
           <button class="text-btn" id="startHelpBtn">查看玩法</button>
         </div>
         <div class="start-controls" id="startControls"></div>
       </div>
       <div class="start-art" aria-hidden="true">
-        <svg class="hero-art" viewBox="0 0 420 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#50cae9"/><stop offset=".44" stop-color="#9ce7d9"/><stop offset=".76" stop-color="#ffe2a0"/><stop offset="1" stop-color="#ffc070"/>
-            </linearGradient>
-            <radialGradient id="sunGrad" cx="42%" cy="38%" r="62%">
-              <stop offset="0" stop-color="#fff9bd"/><stop offset=".55" stop-color="#ffd45a"/><stop offset="1" stop-color="#ff9b46"/>
-            </radialGradient>
-            <linearGradient id="mountBack" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#66c9c8"/><stop offset="1" stop-color="#9fe6cb"/>
-            </linearGradient>
-            <linearGradient id="mountFront" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#239b83"/><stop offset="1" stop-color="#6bd3a3"/>
-            </linearGradient>
-            <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#177d7c"/><stop offset=".62" stop-color="#31a69a"/><stop offset="1" stop-color="#5ac8b3"/>
-            </linearGradient>
-            <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ff7b50"/><stop offset="1" stop-color="#d84235"/>
-            </linearGradient>
-            <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffe6ac"/><stop offset="1" stop-color="#f6c777"/>
-            </linearGradient>
-            <linearGradient id="dragonGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#7ee9a4"/><stop offset="1" stop-color="#25b772"/>
-            </linearGradient>
-            <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#397c69" flood-opacity=".2"/>
-            </filter>
-            <filter id="warmGlow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="14"/>
-            </filter>
-          </defs>
-          <rect width="420" height="620" fill="url(#skyGrad)"/>
-          <circle cx="312" cy="113" r="74" fill="#ffe67e" opacity=".25" filter="url(#warmGlow)"/>
-          <circle cx="312" cy="113" r="54" fill="url(#sunGrad)"/>
-          <g fill="#fffbe9" opacity=".72">
-            <path d="M32 121c10-16 29-18 40-8 4-14 23-21 36-9 10-11 28-8 32 5 15 1 22 9 22 17H28c-3-5-1-9 4-12z"/>
-            <path d="M256 64c8-12 23-14 32-6 4-9 17-12 25-5 8-6 21-2 24 7 10 2 15 7 15 13h-102c0-3 2-6 6-9z" opacity=".65"/>
-            <path d="M62 210c8-12 23-13 31-4 5-10 19-12 27-4 8-4 17-1 21 6h-86c1-4 4-7 7-9z" opacity=".5"/>
-          </g>
-          <g fill="#286d70" opacity=".62">
-            <path d="M55 162c9-5 17-4 23 1-8 2-14 5-18 10z"/>
-            <path d="M226 90c7-4 13-3 18 1-6 1-11 4-14 8z"/>
-          </g>
-          <path d="M0 347L56 274l39 48 59-88 58 85 51-56 63 76 44-41 50 53v65H0z" fill="url(#mountBack)"/>
-          <path d="M0 399l72-86 49 57 60-65 49 61 57-76 59 85 44-45 30 27v87H0z" fill="url(#mountFront)" opacity=".9"/>
-          <g opacity=".5" fill="#d6fff0">
-            <path d="M57 306l20 32H36z"/><path d="M151 285l27 42h-54z"/><path d="M283 309l24 35h-48z"/>
-          </g>
-          <g filter="url(#softShadow)">
-            <rect x="248" y="328" width="146" height="88" rx="3" fill="url(#wallGrad)"/>
-            <rect x="250" y="327" width="142" height="8" fill="#ff9968"/>
-            <rect x="266" y="352" width="25" height="64" fill="#9a302a"/>
-            <rect x="308" y="352" width="25" height="64" fill="#9a302a"/>
-            <rect x="350" y="352" width="25" height="64" fill="#9a302a"/>
-            <path d="M232 331h178l-18-28H250z" fill="url(#roofGrad)"/>
-            <path d="M243 302h155l-15-25H258z" fill="#2f9e96"/>
-            <path d="M226 332q10-15 23-2 5-11 15-3 7-11 17-2 7-9 17-1 8-10 19-2 8-9 18 0 9-10 20-2 8-8 17 1 8-8 16 2 11-7 16 9z" fill="#5dcbb6"/>
-            <path d="M256 277h130l-11-20H268z" fill="#42b8aa"/>
-            <rect x="307" y="257" width="28" height="22" fill="#ff7047"/>
-            <rect x="292" y="421" width="62" height="13" fill="#f4bf67"/>
-          </g>
-          <g opacity=".9">
-            <rect x="30" y="366" width="180" height="61" fill="#f4ca75"/>
-            <rect x="30" y="360" width="180" height="10" fill="#ff9b5a"/>
-            <path d="M14 362h212l-18-22H33z" fill="#2e9f94"/>
-            <path d="M39 340h160l-13-20H52z" fill="#52c5ad"/>
-            <rect x="101" y="338" width="34" height="23" fill="#c9342f"/>
-            <rect x="76" y="382" width="20" height="45" fill="#a9362d"/>
-            <rect x="143" y="382" width="20" height="45" fill="#a9362d"/>
-          </g>
-          <path d="M0 428h420v192H0z" fill="url(#roadGrad)"/>
-          <path d="M118 620l74-190h58l79 190z" fill="#ffe9b0"/>
-          <path d="M153 620l60-190h21l70 190z" fill="#f4d18b" opacity=".62"/>
-          <g stroke="#d7a65d" stroke-width="2" opacity=".34">
-            <path d="M0 456h420M0 494h420M0 538h420M0 590h420"/>
-            <path d="M159 504l112 0M147 552l141 0M128 609l188 0"/>
-          </g>
-          <g opacity=".96">
-            <ellipse cx="153" cy="583" rx="61" ry="11" fill="#8b6a3d" opacity=".18"/>
-            <circle cx="118" cy="558" r="43" fill="none" stroke="#743c26" stroke-width="7"/>
-            <circle cx="118" cy="558" r="36" fill="none" stroke="#dd9146" stroke-width="4"/>
-            <circle cx="228" cy="558" r="43" fill="none" stroke="#743c26" stroke-width="7"/>
-            <circle cx="228" cy="558" r="36" fill="none" stroke="#dd9146" stroke-width="4"/>
-            <g stroke="#f5c266" stroke-width="2">
-              <path d="M118 516v84M76 558h84M88 528l60 60M88 588l60-60"/>
-              <path d="M228 516v84M186 558h84M198 528l60 60M198 588l60-60"/>
-            </g>
-            <path d="M118 558l30-42h59l21 22-19 40h-57z" fill="#b65f30" stroke="#743c26" stroke-width="4"/>
-            <path d="M149 519l29 20M177 516l21 21" stroke="#7b4027" stroke-width="6" stroke-linecap="round"/>
-            <path d="M220 539l8-19 17 5" stroke="#7b4027" stroke-width="5" stroke-linecap="round" fill="none"/>
-            <path d="M151 548h45" stroke="#f3bf43" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="205" cy="536" r="6" fill="#f3bf43"/>
-            <path d="M117 559l-32-4" stroke="#743c26" stroke-width="7" stroke-linecap="round"/>
-            <path d="M228 559l29-5" stroke="#743c26" stroke-width="7" stroke-linecap="round"/>
-            <path d="M204 525l-3-20" stroke="#6d3825" stroke-width="8" stroke-linecap="round"/>
-            <path d="M201 505l-21-6m20 6l18-11" stroke="#6d3825" stroke-width="5" stroke-linecap="round"/>
-            <path d="M161 556l13 15-17 9" fill="none" stroke="#3f9d59" stroke-width="12" stroke-linecap="round"/>
-            <path d="M184 546l18 17 15-11" fill="none" stroke="#3f9d59" stroke-width="12" stroke-linecap="round"/>
-            <ellipse cx="157" cy="511" rx="30" ry="31" fill="url(#dragonGrad)" stroke="#237e55" stroke-width="3"/>
-            <path d="M151 503l-11-38q24 3 29 32z" fill="#3cc07a"/>
-            <path d="M164 481l17-23 11 12-13 21z" fill="#e74435"/>
-            <path d="M180 492l29-17 11 10-23 23z" fill="#e74435"/>
-            <path d="M177 493c10 7 23 9 36 6" fill="none" stroke="#d0f5d5" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="188" cy="494" r="19" fill="#48cb7e" stroke="#237e55" stroke-width="3"/>
-            <ellipse cx="199" cy="501" rx="17" ry="12" fill="#9ce8ad"/>
-            <circle cx="192" cy="487" r="4.5" fill="#213c33"/><circle cx="191" cy="486" r="1.4" fill="#fff"/>
-            <circle cx="198" cy="482" r="2.3" fill="#ff8a8e" opacity=".8"/>
-            <path d="M196 500q7 4 13 0" fill="none" stroke="#2c6b52" stroke-width="2" stroke-linecap="round"/>
-            <path d="M202 493l25-13m-26 4l24-7" stroke="#2e765c" stroke-width="2" stroke-linecap="round"/>
-            <path d="M177 476l-15-14 21 5zM182 471l-3-21 15 13z" fill="#ffbc3e" stroke="#e28a2d" stroke-width="2"/>
-            <path d="M134 526l-26 23m38-20l-32-1" stroke="#39b971" stroke-width="5" stroke-linecap="round"/>
-            <path d="M186 557l16 14-16 8" fill="none" stroke="#37aa63" stroke-width="7" stroke-linecap="round"/>
-            <ellipse cx="118" cy="579" rx="20" ry="7" fill="#e7a34b"/>
-            <ellipse cx="228" cy="579" rx="20" ry="7" fill="#e7a34b"/>
-          </g>
-          <g fill="#ffb2bd">
-            <path d="M54 289c8-10 19-2 12 8-5 7-13 8-17 3-2-4 1-7 5-11z"/>
-            <path d="M359 241c7-8 17-1 10 8-5 6-12 6-15 2-2-3 1-6 5-10z"/>
-            <path d="M292 467c7-8 17-2 12 7-4 7-11 8-15 4-3-3 0-7 3-11z"/>
-            <path d="M47 506c6-7 15-2 10 6-3 6-9 7-13 4-2-3 0-6 3-10z"/>
-          </g>
-          <g fill="#fff7dc" opacity=".7">
-            <circle cx="86" cy="203" r="3"/><circle cx="269" cy="173" r="2"/><circle cx="328" cy="199" r="2.5"/><circle cx="373" cy="84" r="2"/>
-          </g>
-        </svg>
-        <div class="art-mist"></div>
         <div class="start-art-note">一骑入长安<br>万户起炊烟</div>
         <div class="start-seal">盛唐<br>长安</div>
       </div>
@@ -488,16 +520,22 @@
       <div class="modal-eyebrow">行旅手札</div>
       <h2>如何游长安</h2>
       <div class="help-grid">
-        <div class="help-item"><strong>W A S D / ↑ ↓ ← →</strong><span>前进、刹车与转向</span></div>
-        <div class="help-item"><strong>Shift / 加速</strong><span>按住冲刺，去更远的地方</span></div>
-        <div class="help-item"><strong>拖动画面 / 滚轮</strong><span>环视与缩放；双指可捏合</span></div>
-        <div class="help-item"><strong>C / 视角</strong><span>追随、侧拍、鸟瞰、环游</span></div>
-        <div class="help-item"><strong>E / 拾取按钮</strong><span>靠近发光诗笺后拾取</span></div>
-        <div class="help-item"><strong>N / ☾</strong><span>切换昼与夜，看满城灯火</span></div>
+        <div class="help-item"><strong>WASD / 方向键 / 左侧摇杆</strong><span>向前移动，左右转向，向后减速与后退</span></div>
+        <div class="help-item"><strong>1 / 2 / 3 · 底部移动方式</strong><span>步行、骑行、飞行；飞行时在空地切换落地</span></div>
+        <div class="help-item"><strong>Q / E · 右侧 ↑ ↓</strong><span>飞行升降；按住加速或 Shift 更快前行</span></div>
+        <div class="help-item"><strong>拖动画面 / 双指缩放 / 滚轮</strong><span>环视街巷，C 或镜头按钮切换四种视角</span></div>
+        <div class="help-item"><strong>G 景点 · P 赏景</strong><span>直达八处风景，或让电影镜头带你游城</span></div>
+        <div class="help-item"><strong>N 昼夜 · B 车铃 · Esc 返回</strong><span>夜游长安；靠近诗笺可按 E 拾取，L 查看诗囊</span></div>
       </div>
-      <div class="help-note">城里有十二枚诗笺，散落在朱雀大街、东西市、大明宫、兴庆宫、大雁塔与曲江池。沿着小地图上的金色诗点骑行，靠近后拾取。</div>
-      <div class="help-item"><strong>手机如何玩</strong><span>左下摇杆向前骑行，右下按钮可加速、按铃、切换视角与查看诗囊；拖动画面环视。</span></div>
-      <div class="paper-actions"><button class="small-primary" data-close>继续骑行</button></div>
+      <div class="help-note">长安不必匆忙。手机横屏视野更开阔；左手摇杆，右手加速，也可同时拖动画面环视。诗笺只是途中小惊喜，随心赏城即可。</div>
+      <label class="quality-choice" for="qualitySelect"><span>画面</span><select id="qualitySelect"><option value="auto">自动</option><option value="low">流畅</option><option value="medium">精致</option><option value="high">电影</option></select></label>
+      <div class="paper-actions"><button class="small-primary" data-close>继续漫游</button></div>
+    </div>
+    <div id="travelPanel" class="paper-panel travel-panel hidden" aria-labelledby="travelTitle">
+      <button class="modal-close" data-close aria-label="关闭景点">×</button>
+      <div class="modal-eyebrow">一城风物</div><h2 id="travelTitle">想去哪里？</h2>
+      <p class="panel-intro">走入市井，登临宫阙，或去曲江听风。即刻抵达，继续自由漫游。</p>
+      <div class="destination-list" id="travelList"></div>
     </div>
     <div id="collectionPanel" class="paper-panel collection-panel hidden">
       <button class="modal-close" data-close aria-label="关闭">×</button>
@@ -509,6 +547,12 @@
     </div>
   </div>
 
+  <div class="portrait-hint" aria-hidden="true">↻ 横屏游长安，视野更开阔</div>
+  <section id="filmControls" class="film-controls hidden" aria-label="电影赏景控制">
+    <div class="film-heading"><strong id="filmPlace">朱雀天街</strong><span id="filmNote">晨光入城，市声渐起</span></div>
+    <div class="film-buttons"><button id="filmPrev" aria-label="上一处风景">← 上一景</button><button id="filmPause" aria-pressed="false">暂停运镜</button><button id="filmNext" aria-label="下一处风景">下一景 →</button><button id="filmPhoto">留影</button><button id="filmExit">返回游城</button></div>
+    <div class="film-track"><div id="filmProgress"></div></div>
+  </section>
   <div id="errorOverlay" class="hidden">
     <div class="error-card">
       <h2>长安城的门暂时没有打开</h2>
@@ -535,11 +579,6 @@
       });
     })();
   </script>
-  <script src="vendor/three.min.js"></script>
-  <script src="src/00-core.js"></script>
-  <script src="src/10-world.js"></script>
-  <script src="src/12-landmarks.js"></script>
-  <script src="src/20-character.js"></script>
-  <script src="src/30-main.js"></script>
+  <script src="src/boot.js"></script>
 </body>
 </html>

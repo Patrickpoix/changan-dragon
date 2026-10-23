@@ -1,0 +1,17 @@
+{
+  "id": "quaternius_merchant_face",
+  "author": "Quaternius",
+  "license": "CC0-1.0",
+  "source": "https://quaternius.com/packs/ultimatemodularcharacters.html",
+  "source_revision": "722c39e964360beff2728a8ee4d103e2d11d457c",
+  "download_url": "https://raw.githubusercontent.com/trebeljahr/quaternius-showcase/722c39e964360beff2728a8ee4d103e2d11d457c/public/glb/modular_men/Farmer.glb",
+  "sha256": "4c7606e3372eb974525ae237f2038376ae72abb9a59e24a5623ba675c6855f18",
+  "bytes": 699104,
+  "derivation": "Face geometry only; clothing and straw hat excluded, seam welding and smooth subdivision. Used for Silk Road merchant portraits. Not a claimed Tang costume reconstruction.",
+  "license_evidence": [
+    "../ultimatemodularcharacters.html",
+    "../mirror-LICENSES.md",
+    "../LICENSE-CC0-1.0.txt"
+  ],
+  "status": "preparing_authored_face_geometry"
+}

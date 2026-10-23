@@ -1,0 +1,13 @@
+{
+  "source": "assets/library/polyhaven/wicker_basket_01/wicker_basket_01_1k.gltf",
+  "runtime": "assets/library/polyhaven/wicker_basket_01/runtime.glb",
+  "sourceTriangles": 22276,
+  "runtimeTriangles": 6000,
+  "textureMaxSize": 512,
+  "blenderDimensionsXYZ": [
+    0.384262,
+    0.293114,
+    0.118721
+  ],
+  "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+}

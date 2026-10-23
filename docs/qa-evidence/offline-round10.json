@@ -1,0 +1,486 @@
+{
+  "passed": true,
+  "boot": {
+    "engine": {
+      "source": "standalone",
+      "revision": "160"
+    },
+    "assets": {
+      "count": 1075,
+      "meshes": 280,
+      "meshInstances": 1093,
+      "sourceModels": [
+        {
+          "id": "quaternius_deer",
+          "source": "https://quaternius.com/packs/ultimateanimatedanimals.html",
+          "license": "CC0-1.0",
+          "authors": "Quaternius",
+          "triangles": 12576,
+          "meshes": 1,
+          "dimensions": [
+            1.4355020614093457,
+            4.263066650335364,
+            4.3684559224721164
+          ],
+          "bytes": 691736
+        },
+        {
+          "id": "quaternius_horse",
+          "source": "https://quaternius.com/packs/ultimateanimatedanimals.html",
+          "license": "CC0-1.0",
+          "authors": "Quaternius",
+          "triangles": 13092,
+          "meshes": 1,
+          "dimensions": [
+            1.3587679022216732,
+            4.813465612988497,
+            5.640902624252124
+          ],
+          "bytes": 703992
+        },
+        {
+          "id": "chinese_stool",
+          "source": "https://polyhaven.com/a/chinese_stool",
+          "license": "CC0-1.0",
+          "authors": {
+            "Kirill Sannikov": "All"
+          },
+          "triangles": 1090,
+          "meshes": 1,
+          "dimensions": [
+            0.5989732621644406,
+            0.6305584987724009,
+            0.5064059233294416
+          ],
+          "bytes": 124308
+        },
+        {
+          "id": "ceramic_pot",
+          "source": "https://polyhaven.com/a/ceramic_pot",
+          "license": "CC0-1.0",
+          "authors": {
+            "Aron Łyczek": "All"
+          },
+          "triangles": 3592,
+          "meshes": 1,
+          "dimensions": [
+            0.6562502980232239,
+            0.37166545377112925,
+            0.5017523765563965
+          ],
+          "bytes": 182396
+        },
+        {
+          "id": "fern_02",
+          "source": "https://polyhaven.com/a/fern_02",
+          "license": "CC0-1.0",
+          "authors": {
+            "Rob Tuytel": "scanning",
+            "Rico Cilliers": "modeling"
+          },
+          "triangles": 6232,
+          "meshes": 4,
+          "dimensions": [
+            1.9725297689437866,
+            0.4276947118341923,
+            1.7240276038646698
+          ],
+          "bytes": 470436
+        },
+        {
+          "id": "food_lychee_01",
+          "source": "https://polyhaven.com/a/food_lychee_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Oliver Harries": "All"
+          },
+          "triangles": 2400,
+          "meshes": 1,
+          "dimensions": [
+            0.04038582555949688,
+            0.05050940247019753,
+            0.041652197018265724
+          ],
+          "bytes": 178000
+        },
+        {
+          "id": "food_ginger_01",
+          "source": "https://polyhaven.com/a/food_ginger_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Oliver Harries": "All"
+          },
+          "triangles": 2400,
+          "meshes": 1,
+          "dimensions": [
+            0.24092037975788116,
+            0.5743365785456263,
+            0.14856302738189697
+          ],
+          "bytes": 156620
+        },
+        {
+          "id": "food_pears_asian_01",
+          "source": "https://polyhaven.com/a/food_pears_asian_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Amal Kumar": "All"
+          },
+          "triangles": 5994,
+          "meshes": 5,
+          "dimensions": [
+            0.1558186054347751,
+            0.10962943787192306,
+            0.17800304295843802
+          ],
+          "bytes": 219964
+        },
+        {
+          "id": "food_pomegranate_01",
+          "source": "https://polyhaven.com/a/food_pomegranate_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Oliver Harries": "All"
+          },
+          "triangles": 2400,
+          "meshes": 1,
+          "dimensions": [
+            0.11435116827487946,
+            0.11504365220025647,
+            0.11559829860925674
+          ],
+          "bytes": 151244
+        },
+        {
+          "id": "grass_bermuda_01",
+          "source": "https://polyhaven.com/a/grass_bermuda_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Rico Cilliers": "All"
+          },
+          "triangles": 941,
+          "meshes": 21,
+          "dimensions": [
+            1.6864763728808612,
+            0.15825568698346615,
+            0.1421945351175964
+          ],
+          "bytes": 142852
+        },
+        {
+          "id": "rock_moss_set_01",
+          "source": "https://polyhaven.com/a/rock_moss_set_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Kless Gyzen": "All"
+          },
+          "triangles": 8995,
+          "meshes": 6,
+          "dimensions": [
+            7.993897795677185,
+            1.7746347188949585,
+            6.958234429359436
+          ],
+          "bytes": 342984
+        },
+        {
+          "id": "tree_small_02",
+          "source": "https://polyhaven.com/a/tree_small_02",
+          "license": "CC0-1.0",
+          "authors": {
+            "Rico Cilliers": "All"
+          },
+          "triangles": 53399,
+          "meshes": 3,
+          "dimensions": [
+            2.913023352622986,
+            4.581264009699225,
+            4.31481671333313
+          ],
+          "bytes": 2953344
+        },
+        {
+          "id": "wicker_basket_01",
+          "source": "https://polyhaven.com/a/wicker_basket_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "Kuutti Siitonen": "All"
+          },
+          "triangles": 6000,
+          "meshes": 1,
+          "dimensions": [
+            0.384261891245842,
+            0.11872130166739225,
+            0.29311414062976837
+          ],
+          "bytes": 330044
+        },
+        {
+          "id": "wooden_bowl_02",
+          "source": "https://polyhaven.com/a/wooden_bowl_02",
+          "license": "CC0-1.0",
+          "authors": {
+            "Kuutti Siitonen": "All"
+          },
+          "triangles": 4666,
+          "meshes": 1,
+          "dimensions": [
+            0.13071347028017044,
+            0.07309794479806442,
+            0.12453967705368996
+          ],
+          "bytes": 258752
+        },
+        {
+          "id": "wooden_bucket_01",
+          "source": "https://polyhaven.com/a/wooden_bucket_01",
+          "license": "CC0-1.0",
+          "authors": {
+            "James Ray Cock": "All"
+          },
+          "triangles": 5116,
+          "meshes": 2,
+          "dimensions": [
+            0.36697085201740265,
+            0.5498623698949814,
+            0.3422211855649948
+          ],
+          "bytes": 275820
+        }
+      ],
+      "treePlacements": [
+        {
+          "x": -17,
+          "y": 0,
+          "z": 329,
+          "height": 6.2
+        },
+        {
+          "x": 18,
+          "y": 0,
+          "z": 308,
+          "height": 6.8
+        },
+        {
+          "x": -17,
+          "y": 0,
+          "z": 276,
+          "height": 6
+        },
+        {
+          "x": 17,
+          "y": 0,
+          "z": 363,
+          "height": 6.5
+        },
+        {
+          "x": 324,
+          "y": 0,
+          "z": 252,
+          "height": 6.8
+        },
+        {
+          "x": 424,
+          "y": 0,
+          "z": 282,
+          "height": 7
+        },
+        {
+          "x": 418,
+          "y": 0,
+          "z": 345,
+          "height": 7.1
+        },
+        {
+          "x": 294,
+          "y": 0,
+          "z": 369,
+          "height": 6.2
+        }
+      ],
+      "animals": [
+        {
+          "id": "quaternius_horse",
+          "clip": "Walk",
+          "moving": true,
+          "position": [
+            -5.2,
+            0.0612,
+            279.23609644873966
+          ]
+        },
+        {
+          "id": "quaternius_horse",
+          "clip": "Walk",
+          "moving": true,
+          "position": [
+            -3.8,
+            0.06530059171597632,
+            306.61112284100824
+          ]
+        },
+        {
+          "id": "quaternius_horse",
+          "clip": "Walk",
+          "moving": true,
+          "position": [
+            4.2,
+            0.06425917159763314,
+            341.7047936527828
+          ]
+        },
+        {
+          "id": "quaternius_horse",
+          "clip": "Walk",
+          "moving": true,
+          "position": [
+            5.8,
+            0.05905207100591716,
+            357.43616507777375
+          ]
+        },
+        {
+          "id": "quaternius_deer",
+          "clip": "Eating",
+          "moving": false,
+          "position": [
+            282,
+            0,
+            -156
+          ]
+        },
+        {
+          "id": "quaternius_deer",
+          "clip": "Idle",
+          "moving": false,
+          "position": [
+            286,
+            0,
+            -175
+          ]
+        },
+        {
+          "id": "quaternius_horse",
+          "clip": "Idle",
+          "moving": false,
+          "position": [
+            -292,
+            0,
+            -6
+          ]
+        },
+        {
+          "id": "quaternius_horse",
+          "clip": "Idle",
+          "moving": false,
+          "position": [
+            140,
+            0,
+            -6
+          ]
+        }
+      ],
+      "failures": []
+    },
+    "crowd": {
+      "count": 184,
+      "batches": 78
+    },
+    "rendering": {
+      "initialized": true,
+      "quality": "low",
+      "requestedQuality": "auto",
+      "suspended": false,
+      "antiAliasing": "MSAA",
+      "toneMapping": "ACESFilmic",
+      "exposure": 1.06,
+      "environment": "Poly Haven Venice Sunset PMREM",
+      "environmentIntensity": 0.48,
+      "aoWidth": 0,
+      "aoHeight": 0,
+      "bloom": false,
+      "postprocessing": false,
+      "width": 844,
+      "height": 390,
+      "pixelRatio": 1,
+      "frameCount": 3,
+      "drawCalls": 353,
+      "triangles": 845372,
+      "lastFrameMs": 4.2,
+      "fallback": null
+    },
+    "water": {
+      "lakes": 1,
+      "reflective": 0
+    }
+  },
+  "stairs": [
+    150.44263610679658,
+    7.199999999999999,
+    -420.15
+  ],
+  "surfaces": {
+    "gallery": [
+      347.5540000000017,
+      0.23999999999999996,
+      280
+    ],
+    "pavilion": [
+      354,
+      0.44999908948098166,
+      317.59599999999955
+    ],
+    "barge": [
+      299.8540000000014,
+      1.107064222387302,
+      311
+    ],
+    "shop": [
+      -26.35400000000006,
+      0.5499999974770501,
+      354.8
+    ]
+  },
+  "resume": {
+    "mode": "walk",
+    "pos": [
+      0,
+      0.117,
+      300
+    ],
+    "camera": 1,
+    "resumed": true
+  },
+  "rendering": {
+    "rendering": {
+      "initialized": true,
+      "quality": "high",
+      "requestedQuality": "high",
+      "suspended": false,
+      "antiAliasing": "FXAA",
+      "toneMapping": "ACESFilmic",
+      "exposure": 1.06,
+      "environment": "Poly Haven Venice Sunset PMREM",
+      "environmentIntensity": 0.48,
+      "aoWidth": 557,
+      "aoHeight": 257,
+      "bloom": true,
+      "postprocessing": true,
+      "width": 844,
+      "height": 390,
+      "pixelRatio": 1,
+      "frameCount": 18,
+      "drawCalls": 780,
+      "triangles": 2474190,
+      "lastFrameMs": 7.6,
+      "fallback": null
+    },
+    "water": {
+      "lakes": 1,
+      "reflective": 1
+    }
+  },
+  "externalRequests": [],
+  "errors": [],
+  "consoleErrors": []
+}

@@ -1,0 +1,47 @@
+{
+  "id": "rock_moss_set_01",
+  "license": "CC0-1.0",
+  "authors": {
+    "Kless Gyzen": "All"
+  },
+  "asset_page": "https://polyhaven.com/a/rock_moss_set_01",
+  "retrieved_at": "2026-10-23",
+  "notes": "Natural scanned mossy rocks used as art-directed water-edge stones; six authored nodes are normalized individually. No claim of a particular Chang’an geological site.",
+  "files": [
+    {
+      "file": "rock_moss_set_01_1k.gltf",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+      "source_md5": "75113cc1c21806cca5d8badad4737af7",
+      "bytes": 9987,
+      "sha256": "c36675aca9c6b2be7785c2534cf413b03ec82a5a2a5407a2b1c0cdb0346c9727"
+    },
+    {
+      "file": "textures/rock_moss_set_01_nor_gl_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_01/rock_moss_set_01_nor_gl_1k.jpg",
+      "source_md5": "eb7ebd31ad08e78d0497900652ff1568",
+      "bytes": 209975,
+      "sha256": "eb4aad3f207f1dc5b624d74ae240372171626a66912bd71adf7bd3e518181d6e"
+    },
+    {
+      "file": "rock_moss_set_01.bin",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_moss_set_01/rock_moss_set_01.bin",
+      "source_md5": "207a51c9f56d34732e9814bbf9cc07b1",
+      "bytes": 1466380,
+      "sha256": "de8360e6175879aaf02c171911069cf5f1852547f9ca7f10e440085dbcc3315e"
+    },
+    {
+      "file": "textures/rock_moss_set_01_rough_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_01/rock_moss_set_01_rough_1k.jpg",
+      "source_md5": "ed9d8a2c863262f76f881346e8047c6a",
+      "bytes": 82624,
+      "sha256": "4d6ec46623abd8e2cdb855f59c7ce31873ad61b36b60e4de579e9e776a497c6b"
+    },
+    {
+      "file": "textures/rock_moss_set_01_diff_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_01/rock_moss_set_01_diff_1k.jpg",
+      "source_md5": "b8742301e6b4bc5683d2de712e83f772",
+      "bytes": 168099,
+      "sha256": "40cea65d8aa4ee73a93b04af19963834d061eee9779c3fc2c1cba76eef812ccc"
+    }
+  ]
+}

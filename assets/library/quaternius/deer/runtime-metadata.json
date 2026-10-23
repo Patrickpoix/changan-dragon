@@ -1,0 +1,11 @@
+{
+  "sourceTriangles": 2096,
+  "retainedClips": [
+    "Eating",
+    "Idle",
+    "Walk"
+  ],
+  "derivation": "Original rig, skin weights and authored idle/walk/grazing clips. Coat regions converted to corner vertex colours; metallic removed; one level of subdivision and smooth normals. One material per animal.",
+  "runtimeTriangles": 12576,
+  "runtimeMaterials": 1
+}

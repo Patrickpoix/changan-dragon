@@ -1,0 +1,70 @@
+{
+  "license": "CC0-1.0",
+  "status": "reviewed_local_runtime",
+  "models": [
+    {
+      "id": "quaternius_deer",
+      "author": "Quaternius",
+      "license": "CC0-1.0",
+      "source": "https://quaternius.com/packs/ultimateanimatedanimals.html",
+      "mirror": "https://github.com/trebeljahr/quaternius-showcase",
+      "source_revision": "722c39e964360beff2728a8ee4d103e2d11d457c",
+      "source_file": "public/glb/animals_pack/Deer.glb",
+      "download_url": "https://raw.githubusercontent.com/trebeljahr/quaternius-showcase/722c39e964360beff2728a8ee4d103e2d11d457c/public/glb/animals_pack/Deer.glb",
+      "sha256": "b6558249bfb225313c35dd1b6c91d832b2031d064039bb6b3600a624a882a174",
+      "bytes": 662108,
+      "license_evidence": [
+        "../ultimateanimatedanimals.html",
+        "../mirror-LICENSES.md",
+        "../LICENSE-CC0-1.0.txt"
+      ],
+      "status": "integrated_authored_clips_independent_skeletons_browser_verified",
+      "runtime": {
+        "file": "assets/library/quaternius/deer/runtime.glb",
+        "bytes": 691736,
+        "sha256": "09c17ca47d2f09b205bd16460dfd1a776fed935312bae6b1a1ade970ce7b6355",
+        "sourceTriangles": 2096,
+        "retainedClips": [
+          "Eating",
+          "Idle",
+          "Walk"
+        ],
+        "derivation": "Original rig, skin weights and authored idle/walk/grazing clips. Coat regions converted to corner vertex colours; metallic removed; one level of subdivision and smooth normals. One material per animal.",
+        "runtimeTriangles": 12576,
+        "runtimeMaterials": 1
+      }
+    },
+    {
+      "id": "quaternius_horse",
+      "author": "Quaternius",
+      "license": "CC0-1.0",
+      "source": "https://quaternius.com/packs/ultimateanimatedanimals.html",
+      "mirror": "https://github.com/trebeljahr/quaternius-showcase",
+      "source_revision": "722c39e964360beff2728a8ee4d103e2d11d457c",
+      "source_file": "public/glb/animals_pack/Horse.glb",
+      "download_url": "https://raw.githubusercontent.com/trebeljahr/quaternius-showcase/722c39e964360beff2728a8ee4d103e2d11d457c/public/glb/animals_pack/Horse.glb",
+      "sha256": "fbddb2c97179eca896ec69c985cd9cc74540484510776c400df64e088e9f2414",
+      "bytes": 682356,
+      "license_evidence": [
+        "../ultimateanimatedanimals.html",
+        "../mirror-LICENSES.md",
+        "../LICENSE-CC0-1.0.txt"
+      ],
+      "status": "integrated_authored_clips_independent_skeletons_browser_verified",
+      "runtime": {
+        "file": "assets/library/quaternius/horse/runtime.glb",
+        "bytes": 703992,
+        "sha256": "53724c920b5cca1cbe5f1bc6180f1b9f735dc8c9e5c20d35322f6ba57e7a2caf",
+        "sourceTriangles": 2182,
+        "retainedClips": [
+          "Eating",
+          "Idle",
+          "Walk"
+        ],
+        "derivation": "Original rig, skin weights and authored idle/walk/grazing clips. Coat regions converted to corner vertex colours; metallic removed; one level of subdivision and smooth normals. One material per animal.",
+        "runtimeTriangles": 13092,
+        "runtimeMaterials": 1
+      }
+    }
+  ]
+}

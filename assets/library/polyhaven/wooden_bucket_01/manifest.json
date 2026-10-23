@@ -1,0 +1,47 @@
+{
+  "id": "wooden_bucket_01",
+  "license": "CC0-1.0",
+  "authors": {
+    "James Ray Cock": "All"
+  },
+  "asset_page": "https://polyhaven.com/a/wooden_bucket_01",
+  "retrieved_at": "2026-10-23",
+  "notes": "Reviewed as a generic street prop; not claimed to be a Tang archaeological artifact.",
+  "files": [
+    {
+      "file": "wooden_bucket_01_1k.gltf",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_bucket_01/wooden_bucket_01_1k.gltf",
+      "source_md5": "d3a6ff00895b69406b203dc417113d9a",
+      "bytes": 4248,
+      "sha256": "f5338d760391b1f6183f09cbb3dfcb0d6b5d954d9a1d388e7debabce46fd999d"
+    },
+    {
+      "file": "textures/wooden_bucket_01_arm_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bucket_01/wooden_bucket_01_arm_1k.jpg",
+      "source_md5": "9f42842024b3117b557348ec265cfeee",
+      "bytes": 777463,
+      "sha256": "3f093ca45792584632bbcc94fcc6a6521e5338a19202545f143303de6f6e8f17"
+    },
+    {
+      "file": "wooden_bucket_01.bin",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_bucket_01/wooden_bucket_01.bin",
+      "source_md5": "a93114e5fadd149de908464de7b42550",
+      "bytes": 158408,
+      "sha256": "7dbce867270cbb1efe7b0970ebeb9b0d40dd53bcb62f57bfa541c04726ed4b7e"
+    },
+    {
+      "file": "textures/wooden_bucket_01_diff_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bucket_01/wooden_bucket_01_diff_1k.jpg",
+      "source_md5": "d6296adf55e03bb1acc5de3e5fc8b10f",
+      "bytes": 698083,
+      "sha256": "d9a8ec311099bc94510abdc4b246b67c893df5e829ada4a1014021dbc7c84561"
+    },
+    {
+      "file": "textures/wooden_bucket_01_nor_gl_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bucket_01/wooden_bucket_01_nor_gl_1k.jpg",
+      "source_md5": "68ad3de3f685798a8d46c070da840e5a",
+      "bytes": 693440,
+      "sha256": "ae12106f8dd1e69813d42d714e9c99b70af3b5fcce6953cfbf8d8a741b4da40f"
+    }
+  ]
+}

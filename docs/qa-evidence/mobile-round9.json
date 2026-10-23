@@ -1,0 +1,352 @@
+{
+  "url": "http://127.0.0.1:8877/?quality=low",
+  "output": "/tmp/changan-round9-fixed-qa",
+  "browser": "Playwright Chromium",
+  "viewports": {
+    "landscape": {
+      "size": [
+        844,
+        390
+      ],
+      "boot": {
+        "ready": true,
+        "started": false,
+        "fatal": false,
+        "fatalText": "",
+        "mode": "bike",
+        "position": [
+          0,
+          0.117,
+          352
+        ],
+        "film": false,
+        "calls": 354,
+        "triangles": 847300,
+        "engine": {
+          "source": "bundled",
+          "revision": "160"
+        }
+      },
+      "layout": {
+        "hud": {
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        "controls": [
+          {
+            "id": "travelBtn",
+            "x": 535,
+            "y": 10,
+            "w": 48,
+            "h": 48,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "filmBtn",
+            "x": 588,
+            "y": 10,
+            "w": 48,
+            "h": 48,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "joystick",
+            "x": 16,
+            "y": 280,
+            "w": 98,
+            "h": 98,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "cameraBtn",
+            "x": 734,
+            "y": 284,
+            "w": 44,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "walk",
+            "x": 308,
+            "y": 329,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "bike",
+            "x": 384,
+            "y": 329,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "fly",
+            "x": 460,
+            "y": 329,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "interactions": {
+        "flight": {
+          "ready": true,
+          "started": true,
+          "fatal": false,
+          "fatalText": "",
+          "mode": "fly",
+          "position": [
+            0,
+            11.327164739534492,
+            352
+          ],
+          "film": false,
+          "calls": 700,
+          "triangles": 1541843,
+          "engine": {
+            "source": "bundled",
+            "revision": "160"
+          }
+        },
+        "movement": {
+          "ready": true,
+          "started": true,
+          "fatal": false,
+          "fatalText": "",
+          "mode": "bike",
+          "position": [
+            0.1893921644290358,
+            0.11699999277111726,
+            295.54652640712925
+          ],
+          "film": false,
+          "calls": 748,
+          "triangles": 1237535,
+          "engine": {
+            "source": "bundled",
+            "revision": "160"
+          }
+        },
+        "cameras": [
+          "侧拍",
+          "鸟瞰",
+          "环游",
+          "追随"
+        ],
+        "night": true,
+        "persistence": true
+      },
+      "passed": true
+    },
+    "compact": {
+      "size": [
+        667,
+        375
+      ],
+      "boot": {
+        "ready": true,
+        "started": false,
+        "fatal": false,
+        "fatalText": "",
+        "mode": "bike",
+        "position": [
+          0,
+          0.117,
+          352
+        ],
+        "film": false,
+        "calls": 327,
+        "triangles": 838726,
+        "engine": {
+          "source": "bundled",
+          "revision": "160"
+        }
+      },
+      "layout": {
+        "hud": {
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        "controls": [
+          {
+            "id": "travelBtn",
+            "x": 358,
+            "y": 10,
+            "w": 48,
+            "h": 48,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "filmBtn",
+            "x": 411,
+            "y": 10,
+            "w": 48,
+            "h": 48,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "joystick",
+            "x": 16,
+            "y": 265,
+            "w": 98,
+            "h": 98,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "cameraBtn",
+            "x": 557,
+            "y": 269,
+            "w": 44,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "walk",
+            "x": 219.5,
+            "y": 314,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "bike",
+            "x": 295.5,
+            "y": 314,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "fly",
+            "x": 371.5,
+            "y": 314,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "passed": true
+    },
+    "portrait": {
+      "size": [
+        390,
+        844
+      ],
+      "boot": {
+        "ready": true,
+        "started": false,
+        "fatal": false,
+        "fatalText": "",
+        "mode": "bike",
+        "position": [
+          0,
+          0.117,
+          352
+        ],
+        "film": false,
+        "calls": 267,
+        "triangles": 687017,
+        "engine": {
+          "source": "bundled",
+          "revision": "160"
+        }
+      },
+      "layout": {
+        "hud": {
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        "controls": [
+          {
+            "id": "travelBtn",
+            "x": 238,
+            "y": 43,
+            "w": 44,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "filmBtn",
+            "x": 286,
+            "y": 43,
+            "w": 44,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "joystick",
+            "x": 16,
+            "y": 655,
+            "w": 106,
+            "h": 106,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "cameraBtn",
+            "x": 275,
+            "y": 662,
+            "w": 46,
+            "h": 46,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "walk",
+            "x": 69,
+            "y": 777,
+            "w": 84,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "bike",
+            "x": 153,
+            "y": 777,
+            "w": 84,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "fly",
+            "x": 237,
+            "y": 777,
+            "w": 84,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "passed": true
+    }
+  }
+}

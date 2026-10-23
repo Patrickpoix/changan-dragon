@@ -1,0 +1,10 @@
+{
+  "source": "assets/library/polyhaven/tree_small_02/tree_small_02_1k.gltf",
+  "runtime": "assets/library/polyhaven/tree_small_02/runtime.glb",
+  "sourceTriangles": 2062487,
+  "runtimeTriangles": 53399,
+  "sourceLeafComponents": 30250,
+  "retainedLeaves": 11600,
+  "textureMaxSize": 512,
+  "derivation": "Authored leaf positions/orientations/UVs retained as deterministic 38% folded leaf surfaces enlarged 1.45x; timber independently decimated to 7000 triangles. Original source preserved. Visual review required."
+}

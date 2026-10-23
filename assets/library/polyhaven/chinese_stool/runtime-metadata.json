@@ -1,0 +1,13 @@
+{
+  "source": "assets/library/polyhaven/chinese_stool/chinese_stool_1k.gltf",
+  "runtime": "assets/library/polyhaven/chinese_stool/runtime.glb",
+  "sourceTriangles": 1090,
+  "runtimeTriangles": 1090,
+  "textureMaxSize": 512,
+  "blenderDimensionsXYZ": [
+    0.598973,
+    0.506406,
+    0.630558
+  ],
+  "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+}

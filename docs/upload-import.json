@@ -1,0 +1,29 @@
+{
+  "commit": "39357e2d13c42c069e7341cd42face4e93c2040e",
+  "imported": [
+    {
+      "path": "_shot-game2.png",
+      "bytes": 569139,
+      "sha256": "90b61c59ee0a605269e3977c47e1cafa7a5423976093b938a364452ff70f24df",
+      "gitBlob": "b608471dd572f533c621f632a05bc889122d7491"
+    },
+    {
+      "path": "_vdesk-collection.png",
+      "bytes": 347953,
+      "sha256": "f040e879ed63dfc52ff4e3e76591b731ed83527e7c662c9ae8061e6b84befc89",
+      "gitBlob": "fb8adc4d06dc6895f0971647104badcd5888369e"
+    },
+    {
+      "path": "_vmobile-collection.png",
+      "bytes": 361586,
+      "sha256": "6ce1785269ff223d96300376588cd0194453fe5e228773c30e30c7e427e7c099",
+      "gitBlob": "b54e72d4263917051e47e9242633fdf5fe602b0d"
+    },
+    {
+      "path": "vendor/three.min.js",
+      "bytes": 669884,
+      "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa",
+      "gitBlob": "0c2f4ba351000d47f413873d8bb9c1a2f18cb37a"
+    }
+  ]
+}

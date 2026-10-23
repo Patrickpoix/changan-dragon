@@ -1,0 +1,85 @@
+{
+  "id": "ceramic_pot",
+  "license": "CC0-1.0",
+  "asset_page": "https://polyhaven.com/a/ceramic_pot",
+  "authors": {
+    "Aron Łyczek": "All"
+  },
+  "retrieved_at": "2026-10-22",
+  "source_dimensions_mm": [
+    656.2502980232239,
+    501.7523765563965,
+    371.66545377112925
+  ],
+  "source_polycount": 3592,
+  "status": "runtime_derivative_prepared_integration_validation_pending",
+  "notes": "Source model is era-neutral found prop, not a verified Tang archaeological artifact. Basket needs decimation before repeated mobile scene use. API requests used required project-specific User-Agent; runtime must use local bundled files.",
+  "files": [
+    {
+      "file": "ceramic_pot_1k.gltf",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/ceramic_pot/ceramic_pot_1k.gltf",
+      "source_md5": "8777fd3f023e6f83371786b195ac665b",
+      "bytes": 2990,
+      "sha256": "7d8c28f171f701a422341c82322d439ea5041a6edd4443a85e3c8f88ce12ab0e"
+    },
+    {
+      "file": "textures/ceramic_pot_nor_gl_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ceramic_pot/ceramic_pot_nor_gl_1k.jpg",
+      "source_md5": "a40c80e5e4f9fa107d2c2dc8983d2867",
+      "bytes": 252874,
+      "sha256": "2102b4345882c9648de7ee3b3e547bf7a2a3c9fd35db0ded322df60df16a5c57"
+    },
+    {
+      "file": "textures/ceramic_pot_diff_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ceramic_pot/ceramic_pot_diff_1k.jpg",
+      "source_md5": "85746a999ed333628143b3ad2c0b7f42",
+      "bytes": 664480,
+      "sha256": "583e49e8be2ba460700f2dcd6466ab347f5285ccc651dd9054b59ef6a78d812b"
+    },
+    {
+      "file": "textures/ceramic_pot_arm_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ceramic_pot/ceramic_pot_arm_1k.jpg",
+      "source_md5": "e45cd9ad939172ae7b94fd455bc44c08",
+      "bytes": 633246,
+      "sha256": "b688549e4defe29de262ccba81278360cd2f42037a40b70f8f4693a96c14bc45"
+    },
+    {
+      "file": "ceramic_pot.bin",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/ceramic_pot/ceramic_pot.bin",
+      "source_md5": "dab3afea04454ad1fbb1108afe764489",
+      "bytes": 87952,
+      "sha256": "f47636aa57f9a258c0ae6874763b9fe5dc87943ea932367e9d5526cdf914ff04"
+    }
+  ],
+  "runtime_derivative": {
+    "source": "assets/library/polyhaven/ceramic_pot/ceramic_pot_1k.gltf",
+    "runtime": "assets/library/polyhaven/ceramic_pot/runtime.glb",
+    "sourceTriangles": 3592,
+    "runtimeTriangles": 3592,
+    "textureMaxSize": 512,
+    "blenderDimensionsXYZ": [
+      0.65625,
+      0.501752,
+      0.371665
+    ],
+    "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget.",
+    "bytes": 182396,
+    "sha256": "457c2f1d42d016e7d49b3ee3695905241dbfaee67d2ff53940ff4e1f9979d4e8",
+    "embedded_image_sizes": [
+      [
+        512,
+        512
+      ],
+      [
+        512,
+        512
+      ],
+      [
+        512,
+        512
+      ]
+    ],
+    "dependencies": "all_buffers_and_images_embedded",
+    "verification": "GLB structure, texture dimensions and no external URIs verified; in-game appearance not verified by this research task; application integration owner validates separately"
+  }
+}

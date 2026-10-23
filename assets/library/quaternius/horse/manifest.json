@@ -1,0 +1,18 @@
+{
+  "id": "quaternius_horse",
+  "author": "Quaternius",
+  "license": "CC0-1.0",
+  "source": "https://quaternius.com/packs/ultimateanimatedanimals.html",
+  "mirror": "https://github.com/trebeljahr/quaternius-showcase",
+  "source_revision": "722c39e964360beff2728a8ee4d103e2d11d457c",
+  "source_file": "public/glb/animals_pack/Horse.glb",
+  "download_url": "https://raw.githubusercontent.com/trebeljahr/quaternius-showcase/722c39e964360beff2728a8ee4d103e2d11d457c/public/glb/animals_pack/Horse.glb",
+  "sha256": "fbddb2c97179eca896ec69c985cd9cc74540484510776c400df64e088e9f2414",
+  "bytes": 682356,
+  "license_evidence": [
+    "../ultimateanimatedanimals.html",
+    "../mirror-LICENSES.md",
+    "../LICENSE-CC0-1.0.txt"
+  ],
+  "status": "integrated_authored_clips_independent_skeletons_browser_verified"
+}

@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "capabilities": {
+    "webgl2": false,
+    "maxAttributes": 16,
+    "legacy": {
+      "enabled": true,
+      "meshes": 9,
+      "floatVertexTextures": true
+    }
+  },
+  "state": {
+    "rendering": {
+      "initialized": true,
+      "quality": "high",
+      "requestedQuality": "high",
+      "suspended": false,
+      "antiAliasing": "MSAA",
+      "toneMapping": "ACESFilmic",
+      "exposure": 1.06,
+      "environment": "Poly Haven Venice Sunset PMREM",
+      "environmentIntensity": 0.48,
+      "aoWidth": 0,
+      "aoHeight": 0,
+      "bloom": false,
+      "postprocessing": false,
+      "width": 844,
+      "height": 390,
+      "pixelRatio": 1,
+      "frameCount": 45,
+      "drawCalls": 201,
+      "triangles": 560825,
+      "lastFrameMs": 3.4,
+      "fallback": "HDR postprocessing unavailable; using filmic direct rendering"
+    },
+    "water": {
+      "lakes": 1,
+      "reflective": 0
+    },
+    "glError": 0
+  },
+  "errors": []
+}

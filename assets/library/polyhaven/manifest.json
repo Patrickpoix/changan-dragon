@@ -1,0 +1,952 @@
+{
+  "license": "CC0-1.0",
+  "status": "reviewed_local_runtime",
+  "models": [
+    {
+      "id": "ceramic_pot",
+      "license": "CC0-1.0",
+      "asset_page": "https://polyhaven.com/a/ceramic_pot",
+      "authors": {
+        "Aron Łyczek": "All"
+      },
+      "retrieved_at": "2026-10-22",
+      "source_dimensions_mm": [
+        656.2502980232239,
+        501.7523765563965,
+        371.66545377112925
+      ],
+      "source_polycount": 3592,
+      "status": "runtime_derivative_prepared_integration_validation_pending",
+      "notes": "Source model is era-neutral found prop, not a verified Tang archaeological artifact. Basket needs decimation before repeated mobile scene use. API requests used required project-specific User-Agent; runtime must use local bundled files.",
+      "files": [
+        {
+          "file": "ceramic_pot_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/ceramic_pot/ceramic_pot_1k.gltf",
+          "source_md5": "8777fd3f023e6f83371786b195ac665b",
+          "bytes": 2990,
+          "sha256": "7d8c28f171f701a422341c82322d439ea5041a6edd4443a85e3c8f88ce12ab0e"
+        },
+        {
+          "file": "textures/ceramic_pot_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ceramic_pot/ceramic_pot_nor_gl_1k.jpg",
+          "source_md5": "a40c80e5e4f9fa107d2c2dc8983d2867",
+          "bytes": 252874,
+          "sha256": "2102b4345882c9648de7ee3b3e547bf7a2a3c9fd35db0ded322df60df16a5c57"
+        },
+        {
+          "file": "textures/ceramic_pot_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ceramic_pot/ceramic_pot_diff_1k.jpg",
+          "source_md5": "85746a999ed333628143b3ad2c0b7f42",
+          "bytes": 664480,
+          "sha256": "583e49e8be2ba460700f2dcd6466ab347f5285ccc651dd9054b59ef6a78d812b"
+        },
+        {
+          "file": "textures/ceramic_pot_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ceramic_pot/ceramic_pot_arm_1k.jpg",
+          "source_md5": "e45cd9ad939172ae7b94fd455bc44c08",
+          "bytes": 633246,
+          "sha256": "b688549e4defe29de262ccba81278360cd2f42037a40b70f8f4693a96c14bc45"
+        },
+        {
+          "file": "ceramic_pot.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/ceramic_pot/ceramic_pot.bin",
+          "source_md5": "dab3afea04454ad1fbb1108afe764489",
+          "bytes": 87952,
+          "sha256": "f47636aa57f9a258c0ae6874763b9fe5dc87943ea932367e9d5526cdf914ff04"
+        }
+      ],
+      "runtime_derivative": {
+        "source": "assets/library/polyhaven/ceramic_pot/ceramic_pot_1k.gltf",
+        "runtime": "assets/library/polyhaven/ceramic_pot/runtime.glb",
+        "sourceTriangles": 3592,
+        "runtimeTriangles": 3592,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.65625,
+          0.501752,
+          0.371665
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget.",
+        "bytes": 182396,
+        "sha256": "457c2f1d42d016e7d49b3ee3695905241dbfaee67d2ff53940ff4e1f9979d4e8",
+        "embedded_image_sizes": [
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "dependencies": "all_buffers_and_images_embedded",
+        "verification": "GLB structure, texture dimensions and no external URIs verified; in-game appearance not verified by this research task; application integration owner validates separately"
+      },
+      "runtime": {
+        "file": "assets/library/polyhaven/ceramic_pot/runtime.glb",
+        "bytes": 182396,
+        "sha256": "457c2f1d42d016e7d49b3ee3695905241dbfaee67d2ff53940ff4e1f9979d4e8",
+        "source": "assets/library/polyhaven/ceramic_pot/ceramic_pot_1k.gltf",
+        "runtime": "assets/library/polyhaven/ceramic_pot/runtime.glb",
+        "sourceTriangles": 3592,
+        "runtimeTriangles": 3592,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.65625,
+          0.501752,
+          0.371665
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "chinese_stool",
+      "license": "CC0-1.0",
+      "authors": {
+        "Kirill Sannikov": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/chinese_stool",
+      "retrieved_at": "2026-10-23",
+      "notes": "Reviewed as a generic street prop; not claimed to be a Tang archaeological artifact.",
+      "files": [
+        {
+          "file": "chinese_stool_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/chinese_stool/chinese_stool_1k.gltf",
+          "source_md5": "260547e2e492af393aedd6a6a460c3a1",
+          "bytes": 2883,
+          "sha256": "6db83b16076496830f956780890480d3cb1e34c80359b5ea8cb0e7afd42572c6"
+        },
+        {
+          "file": "textures/chinese_stool_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/chinese_stool/chinese_stool_diff_1k.jpg",
+          "source_md5": "10519c09d42b36c461540f3e727df211",
+          "bytes": 542758,
+          "sha256": "a7f84ff302df80b079b47a268ecaea6e9f072b51d7e5dcebdeb7ee6278595e85"
+        },
+        {
+          "file": "textures/chinese_stool_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/chinese_stool/chinese_stool_arm_1k.jpg",
+          "source_md5": "d73e325e36b12467d98283648bf98c10",
+          "bytes": 578268,
+          "sha256": "59fb42eb0c3c1684905d94bbf11fd640921325e19dfe8b46cae04ac5b7be36d5"
+        },
+        {
+          "file": "chinese_stool.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/chinese_stool/chinese_stool.bin",
+          "source_md5": "a2951579ea0f4421b754331fb748d6f2",
+          "bytes": 40172,
+          "sha256": "e35c9440fc0751aa9346e6edbfe0bf948f0f7dd1b40be2ef57d0b6debec5b8af"
+        },
+        {
+          "file": "textures/chinese_stool_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/chinese_stool/chinese_stool_nor_gl_1k.jpg",
+          "source_md5": "8b15a90085107867de316844cf03b3d7",
+          "bytes": 629035,
+          "sha256": "a44344f2d8ea289ec7642272de42d449059f2f2b175cf64d5db5d2447c56f7aa"
+        }
+      ],
+      "status": "integrated_local_embedded_runtime_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/chinese_stool/runtime.glb",
+        "bytes": 124308,
+        "sha256": "5c76ef20aebcf96bb09b2c858b2fd66836fe6936d67350a155dcc94579fe0336",
+        "source": "assets/library/polyhaven/chinese_stool/chinese_stool_1k.gltf",
+        "runtime": "assets/library/polyhaven/chinese_stool/runtime.glb",
+        "sourceTriangles": 1090,
+        "runtimeTriangles": 1090,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.598973,
+          0.506406,
+          0.630558
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "rock_moss_set_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "Kless Gyzen": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/rock_moss_set_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Natural scanned mossy rocks used as art-directed water-edge stones; six authored nodes are normalized individually. No claim of a particular Chang’an geological site.",
+      "files": [
+        {
+          "file": "rock_moss_set_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+          "source_md5": "75113cc1c21806cca5d8badad4737af7",
+          "bytes": 9987,
+          "sha256": "c36675aca9c6b2be7785c2534cf413b03ec82a5a2a5407a2b1c0cdb0346c9727"
+        },
+        {
+          "file": "textures/rock_moss_set_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_01/rock_moss_set_01_nor_gl_1k.jpg",
+          "source_md5": "eb7ebd31ad08e78d0497900652ff1568",
+          "bytes": 209975,
+          "sha256": "eb4aad3f207f1dc5b624d74ae240372171626a66912bd71adf7bd3e518181d6e"
+        },
+        {
+          "file": "rock_moss_set_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_moss_set_01/rock_moss_set_01.bin",
+          "source_md5": "207a51c9f56d34732e9814bbf9cc07b1",
+          "bytes": 1466380,
+          "sha256": "de8360e6175879aaf02c171911069cf5f1852547f9ca7f10e440085dbcc3315e"
+        },
+        {
+          "file": "textures/rock_moss_set_01_rough_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_01/rock_moss_set_01_rough_1k.jpg",
+          "source_md5": "ed9d8a2c863262f76f881346e8047c6a",
+          "bytes": 82624,
+          "sha256": "4d6ec46623abd8e2cdb855f59c7ce31873ad61b36b60e4de579e9e776a497c6b"
+        },
+        {
+          "file": "textures/rock_moss_set_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_01/rock_moss_set_01_diff_1k.jpg",
+          "source_md5": "b8742301e6b4bc5683d2de712e83f772",
+          "bytes": 168099,
+          "sha256": "40cea65d8aa4ee73a93b04af19963834d061eee9779c3fc2c1cba76eef812ccc"
+        }
+      ],
+      "status": "integrated_local_embedded_runtime_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/rock_moss_set_01/runtime.glb",
+        "bytes": 342984,
+        "sha256": "7ccf1de83c7cb75c4d7e60a4028c02e967afeb9f30e9be5304a6e7e5046c6602",
+        "source": "assets/library/polyhaven/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/rock_moss_set_01/runtime.glb",
+        "sourceTriangles": 63127,
+        "runtimeTriangles": 8995,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          7.993898,
+          6.958234,
+          1.774635
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "wicker_basket_01",
+      "license": "CC0-1.0",
+      "asset_page": "https://polyhaven.com/a/wicker_basket_01",
+      "authors": {
+        "Kuutti Siitonen": "All"
+      },
+      "retrieved_at": "2026-10-22",
+      "source_dimensions_mm": [
+        383.2242637872696,
+        295.01520097255707,
+        117.42293369024992
+      ],
+      "source_polycount": 22276,
+      "status": "runtime_derivative_prepared_integration_validation_pending",
+      "notes": "Source model is era-neutral found prop, not a verified Tang archaeological artifact. Basket needs decimation before repeated mobile scene use. API requests used required project-specific User-Agent; runtime must use local bundled files.",
+      "files": [
+        {
+          "file": "wicker_basket_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wicker_basket_01/wicker_basket_01_1k.gltf",
+          "source_md5": "6910bb33f9b29c30e41c06342cba4f9b",
+          "bytes": 2792,
+          "sha256": "9ad86c33f00f46a18c9bc8bfc28c0036090ee819f7270d0028ec408512c04094"
+        },
+        {
+          "file": "textures/wicker_basket_01_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wicker_basket_01/wicker_basket_01_arm_1k.jpg",
+          "source_md5": "e456e1e051da9b8433162de9cb96cb61",
+          "bytes": 874111,
+          "sha256": "5150638cbcd8f1bc07b76af3b60b31a4c5e7d38ce66ac8906b9c3192f3283b9a"
+        },
+        {
+          "file": "textures/wicker_basket_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wicker_basket_01/wicker_basket_01_nor_gl_1k.jpg",
+          "source_md5": "4cca87156e77045fd29562b09609b41d",
+          "bytes": 549218,
+          "sha256": "d06024a37ef330d05bf128b8488f72769af05e72d266ffbc810d7f09ea2b32f9"
+        },
+        {
+          "file": "textures/wicker_basket_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wicker_basket_01/wicker_basket_01_diff_1k.jpg",
+          "source_md5": "54c05d9c5e4f92930cbbf67e4770fc61",
+          "bytes": 679110,
+          "sha256": "15156c7855d5642f6bb594edfad5bcdcfe11f87f3e109956cb9e8fdb15fef921"
+        },
+        {
+          "file": "wicker_basket_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wicker_basket_01/wicker_basket_01.bin",
+          "source_md5": "154e2cd9157175591e3585e706925fa9",
+          "bytes": 624920,
+          "sha256": "8e96025ffcdc64a7e75d1aa980f2491b1219912a4554272cd1e192a966c399f8"
+        }
+      ],
+      "runtime_derivative": {
+        "source": "assets/library/polyhaven/wicker_basket_01/wicker_basket_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/wicker_basket_01/runtime.glb",
+        "sourceTriangles": 22276,
+        "runtimeTriangles": 6000,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.384262,
+          0.293114,
+          0.118721
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget.",
+        "bytes": 330044,
+        "sha256": "39d6f74da4f711fd3a43c4aa912ccb247037a02d6864b53be788fe3658a00682",
+        "embedded_image_sizes": [
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ],
+          [
+            512,
+            512
+          ]
+        ],
+        "dependencies": "all_buffers_and_images_embedded",
+        "verification": "GLB structure, texture dimensions and no external URIs verified; in-game appearance not verified by this research task; application integration owner validates separately"
+      },
+      "runtime": {
+        "file": "assets/library/polyhaven/wicker_basket_01/runtime.glb",
+        "bytes": 330044,
+        "sha256": "39d6f74da4f711fd3a43c4aa912ccb247037a02d6864b53be788fe3658a00682",
+        "source": "assets/library/polyhaven/wicker_basket_01/wicker_basket_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/wicker_basket_01/runtime.glb",
+        "sourceTriangles": 22276,
+        "runtimeTriangles": 6000,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.384262,
+          0.293114,
+          0.118721
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "wooden_bowl_02",
+      "license": "CC0-1.0",
+      "authors": {
+        "Kuutti Siitonen": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/wooden_bowl_02",
+      "retrieved_at": "2026-10-23",
+      "notes": "Reviewed as a generic street prop; not claimed to be a Tang archaeological artifact.",
+      "files": [
+        {
+          "file": "wooden_bowl_02_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_bowl_02/wooden_bowl_02_1k.gltf",
+          "source_md5": "7e1269b42d3cf9e96d3a7a43784a9fc5",
+          "bytes": 2800,
+          "sha256": "18ba4fb40b1880d9b776f6d98eefdaa9e01e41fbe362ba1dc40a831422e38336"
+        },
+        {
+          "file": "textures/wooden_bowl_02_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bowl_02/wooden_bowl_02_arm_1k.jpg",
+          "source_md5": "a416eec6afe81cfc5b2a94cabe241f69",
+          "bytes": 770851,
+          "sha256": "0715dde81d3a8acbdf67031702c80e994e0b418a9973237f2964f1d0be9f4645"
+        },
+        {
+          "file": "wooden_bowl_02.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_bowl_02/wooden_bowl_02.bin",
+          "source_md5": "92850bb8ba7e6dfd53f4b157276a8536",
+          "bytes": 116156,
+          "sha256": "6e3e1fb30969e9a52db3519b01ace016628a361c2cd9e2817c5e50c1ffb8a1dd"
+        },
+        {
+          "file": "textures/wooden_bowl_02_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bowl_02/wooden_bowl_02_nor_gl_1k.jpg",
+          "source_md5": "76dedcb76919daaed23a3d7510c43257",
+          "bytes": 816221,
+          "sha256": "1951d9aae111412f4bd262c18e232b0b11962f33145e46acb936e314a442ec7d"
+        },
+        {
+          "file": "textures/wooden_bowl_02_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bowl_02/wooden_bowl_02_diff_1k.jpg",
+          "source_md5": "69dfe9fa89f7458fbeb03300267a279d",
+          "bytes": 805338,
+          "sha256": "a3bb80f6ea747491fe91628badc0b98d320fc6d427682564095aba6033a523dc"
+        }
+      ],
+      "status": "integrated_local_embedded_runtime_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/wooden_bowl_02/runtime.glb",
+        "bytes": 258752,
+        "sha256": "9dc2394984384bea1ad0eb5ed4fb0f405618d7c2b9b503e8cc10b79dd15fa94d",
+        "source": "assets/library/polyhaven/wooden_bowl_02/wooden_bowl_02_1k.gltf",
+        "runtime": "assets/library/polyhaven/wooden_bowl_02/runtime.glb",
+        "sourceTriangles": 4666,
+        "runtimeTriangles": 4666,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.130713,
+          0.12454,
+          0.073098
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "wooden_bucket_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "James Ray Cock": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/wooden_bucket_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Reviewed as a generic street prop; not claimed to be a Tang archaeological artifact.",
+      "files": [
+        {
+          "file": "wooden_bucket_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_bucket_01/wooden_bucket_01_1k.gltf",
+          "source_md5": "d3a6ff00895b69406b203dc417113d9a",
+          "bytes": 4248,
+          "sha256": "f5338d760391b1f6183f09cbb3dfcb0d6b5d954d9a1d388e7debabce46fd999d"
+        },
+        {
+          "file": "textures/wooden_bucket_01_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bucket_01/wooden_bucket_01_arm_1k.jpg",
+          "source_md5": "9f42842024b3117b557348ec265cfeee",
+          "bytes": 777463,
+          "sha256": "3f093ca45792584632bbcc94fcc6a6521e5338a19202545f143303de6f6e8f17"
+        },
+        {
+          "file": "wooden_bucket_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_bucket_01/wooden_bucket_01.bin",
+          "source_md5": "a93114e5fadd149de908464de7b42550",
+          "bytes": 158408,
+          "sha256": "7dbce867270cbb1efe7b0970ebeb9b0d40dd53bcb62f57bfa541c04726ed4b7e"
+        },
+        {
+          "file": "textures/wooden_bucket_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bucket_01/wooden_bucket_01_diff_1k.jpg",
+          "source_md5": "d6296adf55e03bb1acc5de3e5fc8b10f",
+          "bytes": 698083,
+          "sha256": "d9a8ec311099bc94510abdc4b246b67c893df5e829ada4a1014021dbc7c84561"
+        },
+        {
+          "file": "textures/wooden_bucket_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_bucket_01/wooden_bucket_01_nor_gl_1k.jpg",
+          "source_md5": "68ad3de3f685798a8d46c070da840e5a",
+          "bytes": 693440,
+          "sha256": "ae12106f8dd1e69813d42d714e9c99b70af3b5fcce6953cfbf8d8a741b4da40f"
+        }
+      ],
+      "status": "integrated_local_embedded_runtime_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/wooden_bucket_01/runtime.glb",
+        "bytes": 275820,
+        "sha256": "9236a2c1b90c689cdd1d3df2a1b2ade4195bcbd55b7cbfd66df02e8201ffe8a9",
+        "source": "assets/library/polyhaven/wooden_bucket_01/wooden_bucket_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/wooden_bucket_01/runtime.glb",
+        "sourceTriangles": 5116,
+        "runtimeTriangles": 5116,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.366971,
+          0.342221,
+          0.549862
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "tree_small_02",
+      "license": "CC0-1.0",
+      "authors": {
+        "Rico Cilliers": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/tree_small_02",
+      "retrieved_at": "2026-10-23",
+      "notes": "Reviewed as a generic street prop; not claimed to be a Tang archaeological artifact.",
+      "files": [
+        {
+          "file": "tree_small_02_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/tree_small_02/tree_small_02_1k.gltf",
+          "source_md5": "63f42b19687332f7b3a5c8b531734d8e",
+          "bytes": 9075,
+          "sha256": "3062a709614c05b80fdc1e56583998bc3cb1027b0d52f956c8ecfb882ff8ca6d"
+        },
+        {
+          "file": "textures/tree_small_02_branch_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_branch_nor_gl_1k.jpg",
+          "source_md5": "00a3eed0d4d28e7e890d9ec6ac0619af",
+          "bytes": 581596,
+          "sha256": "a2efae9e7fede259601188cd5cb7e561fc502bd87e04d862a9532b2d8e647a62"
+        },
+        {
+          "file": "textures/tree_small_02_branch_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_branch_diff_1k.jpg",
+          "source_md5": "88b531469f5dba2fc44ca85df3776e7c",
+          "bytes": 449977,
+          "sha256": "a71b768e330c0c6cca097e30314f6b4e842ef724a1370f6aab14b4434eec64cb"
+        },
+        {
+          "file": "textures/tree_small_02_branch_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_branch_arm_1k.jpg",
+          "source_md5": "9ec3d8428295d87ae363bf0d1e0a8288",
+          "bytes": 375732,
+          "sha256": "8968b46d76c67da09ebbf4eed04b8123c9e0ddf5b55d123968b35b32aa76d27a"
+        },
+        {
+          "file": "textures/tree_small_02_leaves_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_leaves_nor_gl_1k.jpg",
+          "source_md5": "b06c87e73f54d9654f66d67e9de7aa85",
+          "bytes": 681604,
+          "sha256": "8c72e04fb23e16ae1df79c01385a638473d1dd4dede3d51e83d70153c129f09b"
+        },
+        {
+          "file": "textures/tree_small_02_leaves_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_leaves_diff_1k.jpg",
+          "source_md5": "315cbc2cebfb399e649ccd39112c109a",
+          "bytes": 340003,
+          "sha256": "261e7d7a5ac7d2e16ea8823ff8510be8f3f615999724232994039ad2885e5c36"
+        },
+        {
+          "file": "textures/tree_small_02_leaves_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_leaves_arm_1k.jpg",
+          "source_md5": "3dad5bafc732f7692db32a262530bbab",
+          "bytes": 633698,
+          "sha256": "71f81374daf5a8f3e6eb2c694264a1769fdb0bea508178e4105618eecea83c3e"
+        },
+        {
+          "file": "textures/tree_small_02_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_nor_gl_1k.jpg",
+          "source_md5": "115a20da8621cd3e034e9b1bbe574746",
+          "bytes": 1228646,
+          "sha256": "9c83be074c950ea1b94c732c0c0291b53b9ba357f932d378bafe3ca3b4418871"
+        },
+        {
+          "file": "textures/tree_small_02_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_diff_1k.jpg",
+          "source_md5": "a7287a3f4e7f0d4577cb949b245f5b14",
+          "bytes": 863246,
+          "sha256": "4e0093f407b3a1120a36de49a48ebe5a465a9a9b77e361c7a3e66866e115e404"
+        },
+        {
+          "file": "textures/tree_small_02_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/tree_small_02/tree_small_02_arm_1k.jpg",
+          "source_md5": "44b6ed4bf32d7cd67cb3e9d5faeacc38",
+          "bytes": 708242,
+          "sha256": "891c5a1bb124292984b01558e9f2b0302d27d2fa3ccf9dfc6c34f9ea4ca24e6c"
+        },
+        {
+          "file": "tree_small_02.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/tree_small_02/tree_small_02.bin",
+          "source_md5": "7a7019a87e6fe0d7475c0fa2e08d8962",
+          "bytes": 95102324,
+          "sha256": "8da6c3c389ad8748286d1b7488cd827f75ebdad9d8f59ef7dfb0916df5edc634"
+        }
+      ],
+      "status": "integrated_eight_authored_canopies_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/tree_small_02/runtime.glb",
+        "bytes": 2953344,
+        "sha256": "2f63508b057dc9a5dbb5cd21ea68c36e9f6c4a943178dda813c4ed8270952650",
+        "source": "assets/library/polyhaven/tree_small_02/tree_small_02_1k.gltf",
+        "runtime": "assets/library/polyhaven/tree_small_02/runtime.glb",
+        "sourceTriangles": 2062487,
+        "runtimeTriangles": 53399,
+        "sourceLeafComponents": 30250,
+        "retainedLeaves": 11600,
+        "textureMaxSize": 512,
+        "derivation": "Authored leaf positions/orientations/UVs retained as deterministic 38% folded leaf surfaces enlarged 1.45x; timber independently decimated to 7000 triangles. Original source preserved. Visual review required."
+      }
+    },
+    {
+      "id": "fern_02",
+      "license": "CC0-1.0",
+      "authors": {
+        "Rob Tuytel": "scanning",
+        "Rico Cilliers": "modeling"
+      },
+      "asset_page": "https://polyhaven.com/a/fern_02",
+      "retrieved_at": "2026-10-23",
+      "notes": "Generic reviewed garden ground cover. Authored variant nodes normalized individually; not a claimed Tang botanical reconstruction.",
+      "files": [
+        {
+          "file": "fern_02_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/fern_02/fern_02_1k.gltf",
+          "source_md5": "cf276874d37bfb73c299504a6b355b77",
+          "bytes": 6899,
+          "sha256": "33974295ee19670af4877705fc7d91f33f42d6302f0d44a625e072271223031f"
+        },
+        {
+          "file": "textures/fern_02_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/fern_02/fern_02_arm_1k.jpg",
+          "source_md5": "1bbb2b22951f450720d28e17d93a2987",
+          "bytes": 280359,
+          "sha256": "ebfb5d76ce9cbdaec20bcd22dce9b755f0b1b8650ef29ca13555e3e6961025d7"
+        },
+        {
+          "file": "textures/fern_02_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/fern_02/fern_02_diff_1k.jpg",
+          "source_md5": "82c18a6cfd5ae91c37c0e078f591181c",
+          "bytes": 315705,
+          "sha256": "a828a6e7b4c01c826911e2eac4b3afc7457dab7b3b392a31c681ed88b7d50029"
+        },
+        {
+          "file": "textures/fern_02_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/fern_02/fern_02_nor_gl_1k.jpg",
+          "source_md5": "43aed63dff79554f6064627515afd9d7",
+          "bytes": 367222,
+          "sha256": "45bce132c6e96a0864bc89ab5da51361ab3f4afa83a6669ae499ab5ca811f621"
+        },
+        {
+          "file": "fern_02.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/fern_02/fern_02.bin",
+          "source_md5": "c061e9255f7d36ae9ce0e92ef3e100b2",
+          "bytes": 176176,
+          "sha256": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c"
+        }
+      ],
+      "status": "integrated_local_variants_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/fern_02/runtime.glb",
+        "bytes": 470436,
+        "sha256": "0302034245d5c439c387275d488acd124d40e09f001e72ffd21fe255059e5cfe",
+        "source": "assets/library/polyhaven/fern_02/fern_02_1k.gltf",
+        "runtime": "assets/library/polyhaven/fern_02/runtime.glb",
+        "sourceTriangles": 6232,
+        "runtimeTriangles": 6232,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          1.97253,
+          1.724028,
+          0.427695
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "grass_bermuda_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "Rico Cilliers": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/grass_bermuda_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Generic reviewed garden ground cover. Authored variant nodes normalized individually; not a claimed Tang botanical reconstruction.",
+      "files": [
+        {
+          "file": "grass_bermuda_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/grass_bermuda_01/grass_bermuda_01_1k.gltf",
+          "source_md5": "a1bdd74118d2387a42dba4f605226f87",
+          "bytes": 32912,
+          "sha256": "a1e5bb7fcf33721dc4844d7acacab80759fccec659f1ea643f8701afc542e207"
+        },
+        {
+          "file": "textures/grass_bermuda_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/grass_bermuda_01/grass_bermuda_01_nor_gl_1k.jpg",
+          "source_md5": "73a585e0963ff6bf3cefa845cbee0645",
+          "bytes": 709845,
+          "sha256": "4475b37d6e4d217ce03547216f62d1ef6e65cafda2355fd0cb2aeb6d919b9338"
+        },
+        {
+          "file": "textures/grass_bermuda_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/grass_bermuda_01/grass_bermuda_01_diff_1k.jpg",
+          "source_md5": "234be9f52cfcd3380c7f782baaa841c3",
+          "bytes": 175425,
+          "sha256": "ef202eeb8f8fb3312446009acecc87e5679a7d612e4dee859d8a849e00af5fcb"
+        },
+        {
+          "file": "textures/grass_bermuda_01_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/grass_bermuda_01/grass_bermuda_01_arm_1k.jpg",
+          "source_md5": "87c58d5d3345d579eab570f7eb446313",
+          "bytes": 500088,
+          "sha256": "38190d342fe951c33ff8c37dd2e3de37aca4cc7633e91be8b0d1c1f71057a641"
+        },
+        {
+          "file": "grass_bermuda_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/grass_bermuda_01/grass_bermuda_01.bin",
+          "source_md5": "2940aa3405004b62983fd70bede8e47f",
+          "bytes": 32260,
+          "sha256": "b98be48b43afb9d57f6c722d918a49996635064b829b16dc14ef4a48c0f04dae"
+        }
+      ],
+      "status": "integrated_local_variants_browser_verified",
+      "runtime": {
+        "file": "assets/library/polyhaven/grass_bermuda_01/runtime.glb",
+        "bytes": 142852,
+        "sha256": "cb07cb8c3f93160ee54a5ac91e98ca26f7f6da0eb3caee34f1eab4a8a2a18904",
+        "source": "assets/library/polyhaven/grass_bermuda_01/grass_bermuda_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/grass_bermuda_01/runtime.glb",
+        "sourceTriangles": 941,
+        "runtimeTriangles": 941,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          1.686476,
+          0.142195,
+          0.158256
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      }
+    },
+    {
+      "id": "food_ginger_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "Oliver Harries": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/food_ginger_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Era-neutral botanical produce, selected for Tang-inspired market dressing; no claim about a specific historical cultivar. Author material and UVs retained, optimized local 3D derivative. Pear nodes used separately; ginger laid flat on actual counters.",
+      "files": [
+        {
+          "file": "food_ginger_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_ginger_01/food_ginger_01_1k.gltf",
+          "source_md5": "fcd801cc9d49fe6e757d44b037fd92a8",
+          "bytes": 2715,
+          "sha256": "d08d23765047a58ba29dcebd72a4aa481690cc7774179e42a4af5cb66b2c9ffb"
+        },
+        {
+          "file": "textures/food_ginger_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_ginger_01/food_ginger_01_diff_1k.jpg",
+          "source_md5": "a52194196f9ed0e196ad81edcbccfe24",
+          "bytes": 201419,
+          "sha256": "3f2117a9f5718a797bcbb22557cad1599ffb6eec50232b71ee4be3c7cf304890"
+        },
+        {
+          "file": "food_ginger_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_ginger_01/food_ginger_01.bin",
+          "source_md5": "527a57b696cb4d40c8b3f286b587006a",
+          "bytes": 175232,
+          "sha256": "b1967c29b2f38dbc63ca2374486c9eb1d90870795b40bc1c2728ffcc760ebcd4"
+        },
+        {
+          "file": "textures/food_ginger_01_rough_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_ginger_01/food_ginger_01_rough_1k.jpg",
+          "source_md5": "9a794479505c0c5745271476e16921b9",
+          "bytes": 55655,
+          "sha256": "19eba8b9048838849a4cb033d83b43efcaaf45bff14364285fa19b0c9aa12951"
+        },
+        {
+          "file": "textures/food_ginger_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_ginger_01/food_ginger_01_nor_gl_1k.jpg",
+          "source_md5": "2bd05ffea56c8e0d140e7af7ccaf9e57",
+          "bytes": 151771,
+          "sha256": "0bcef5efbb8c14fe758278a42713dfd6a5cc25c5eaaaffa9ff594fcaee0a5910"
+        }
+      ],
+      "runtime": {
+        "file": "assets/library/polyhaven/food_ginger_01/runtime.glb",
+        "bytes": 156620,
+        "sha256": "c8cd7bdd3d41b0bba91575feff02870cf87332867d057bb6163636872417b6fb",
+        "source": "assets/library/polyhaven/food_ginger_01/food_ginger_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/food_ginger_01/runtime.glb",
+        "sourceTriangles": 7205,
+        "runtimeTriangles": 2400,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.24092,
+          0.148563,
+          0.574337
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      },
+      "status": "integrated_local_market_produce_browser_verified"
+    },
+    {
+      "id": "food_lychee_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "Oliver Harries": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/food_lychee_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Era-neutral botanical produce, selected for Tang-inspired market dressing; no claim about a specific historical cultivar. Author material and UVs retained, optimized local 3D derivative. Pear nodes used separately; ginger laid flat on actual counters.",
+      "files": [
+        {
+          "file": "food_lychee_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_lychee_01/food_lychee_01_1k.gltf",
+          "source_md5": "f672486bf2f7a1beb4f95f258b800bd9",
+          "bytes": 2715,
+          "sha256": "2defd06eccf002026e986023f75332ace25c7d22e80a32a28fd9aea639d488ef"
+        },
+        {
+          "file": "food_lychee_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01.bin",
+          "source_md5": "fe40b08873f89b0d70bfef95cd0ec029",
+          "bytes": 157852,
+          "sha256": "d083f18fab8430e7aa6ade350428a9b3eff31c81935a3a852781a3ee9b7c60bb"
+        },
+        {
+          "file": "textures/food_lychee_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_nor_gl_1k.jpg",
+          "source_md5": "d4d975c6bfd6a8eec0495d7a1684bf29",
+          "bytes": 250477,
+          "sha256": "e43f2b4dc649dbb816239e7fd101833e02d0c3392a9e8f1493c05c00da38ec46"
+        },
+        {
+          "file": "textures/food_lychee_01_rough_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+          "source_md5": "2d972a68ff1126b44919b5a5f912223e",
+          "bytes": 172668,
+          "sha256": "5d05a3309d3a9faf6548f35a62273ea9e58357f70c0437bb6541e94191441c4d"
+        },
+        {
+          "file": "textures/food_lychee_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+          "source_md5": "f9b780088cb265df0114ff0565bb0156",
+          "bytes": 188081,
+          "sha256": "e9075ea75d43a988c6a2b38321bf03e7966041fdb89970195097b0f4c57c5314"
+        }
+      ],
+      "runtime": {
+        "file": "assets/library/polyhaven/food_lychee_01/runtime.glb",
+        "bytes": 178000,
+        "sha256": "eacfc960e56db1e754684bd812f54f4d2f795806efbbec448e883776f3e30d47",
+        "source": "assets/library/polyhaven/food_lychee_01/food_lychee_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/food_lychee_01/runtime.glb",
+        "sourceTriangles": 6783,
+        "runtimeTriangles": 2400,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.040386,
+          0.041652,
+          0.050509
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      },
+      "status": "integrated_local_market_produce_browser_verified"
+    },
+    {
+      "id": "food_pears_asian_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "Amal Kumar": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/food_pears_asian_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Era-neutral botanical produce, selected for Tang-inspired market dressing; no claim about a specific historical cultivar. Author material and UVs retained, optimized local 3D derivative. Pear nodes used separately; ginger laid flat on actual counters.",
+      "files": [
+        {
+          "file": "food_pears_asian_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_pears_asian_01/food_pears_asian_01_1k.gltf",
+          "source_md5": "de92255775de37f9dd685fd73fa2e0ec",
+          "bytes": 9955,
+          "sha256": "ff3373b91eef143a3921198f61a3b10aa87bcb870f905b2271ce3917b34ff300"
+        },
+        {
+          "file": "textures/food_pears_asian_01_arm_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_arm_1k.jpg",
+          "source_md5": "050560a051eae1544158164078cb7823",
+          "bytes": 629396,
+          "sha256": "e62f7cb1045a7b82906940c3c9e1f7ae1b733cb39e9532c4ec79988f1ba1aa51"
+        },
+        {
+          "file": "textures/food_pears_asian_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.jpg",
+          "source_md5": "78c8a12170c49d9217f86f7c04135e5b",
+          "bytes": 245203,
+          "sha256": "5e31717c809fd7237e3be31b191dcbe52e317b8d4cc7af27abcb404658dceb05"
+        },
+        {
+          "file": "food_pears_asian_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pears_asian_01/food_pears_asian_01.bin",
+          "source_md5": "77ae4efe197087f8441a8c98fe719f93",
+          "bytes": 300136,
+          "sha256": "a647edc202dbdeec6e4eb3c4d721f0acb91ddf5a82f26a3a751ec709cebdd77e"
+        },
+        {
+          "file": "textures/food_pears_asian_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.jpg",
+          "source_md5": "aab0f3b8e260a7a17216fefad72cb0c1",
+          "bytes": 539427,
+          "sha256": "c07a55c97b966d49a0a3e6a628fcd38ce9d2abdddc57e24a742110245f4085c5"
+        }
+      ],
+      "runtime": {
+        "file": "assets/library/polyhaven/food_pears_asian_01/runtime.glb",
+        "bytes": 219964,
+        "sha256": "fc79261c21cf0ec261bbcc1008ea18ba55b22767a598757ab4ca62b4efd8cf89",
+        "source": "assets/library/polyhaven/food_pears_asian_01/food_pears_asian_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/food_pears_asian_01/runtime.glb",
+        "sourceTriangles": 12572,
+        "runtimeTriangles": 5994,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.155819,
+          0.178003,
+          0.109629
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      },
+      "status": "integrated_local_market_produce_browser_verified"
+    },
+    {
+      "id": "food_pomegranate_01",
+      "license": "CC0-1.0",
+      "authors": {
+        "Oliver Harries": "All"
+      },
+      "asset_page": "https://polyhaven.com/a/food_pomegranate_01",
+      "retrieved_at": "2026-10-23",
+      "notes": "Era-neutral botanical produce, selected for Tang-inspired market dressing; no claim about a specific historical cultivar. Author material and UVs retained, optimized local 3D derivative. Pear nodes used separately; ginger laid flat on actual counters.",
+      "files": [
+        {
+          "file": "food_pomegranate_01_1k.gltf",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_pomegranate_01/food_pomegranate_01_1k.gltf",
+          "source_md5": "09a7ca6cb1d8754ce5bbb713d9aefc8e",
+          "bytes": 2761,
+          "sha256": "75e8bac9feda588189245fe8d145313fe382ee11766101d4b97f1c63476d6698"
+        },
+        {
+          "file": "textures/food_pomegranate_01_rough_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pomegranate_01/food_pomegranate_01_rough_1k.jpg",
+          "source_md5": "24b9aba6a3d4b8b262a4612937450529",
+          "bytes": 154956,
+          "sha256": "9d7de886f101623d0d5beec5067734eed455a760445d27fbc7cdf4c7a9704898"
+        },
+        {
+          "file": "textures/food_pomegranate_01_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pomegranate_01/food_pomegranate_01_diff_1k.jpg",
+          "source_md5": "a1775d44f6e38487fbe0c0ad89c6f766",
+          "bytes": 164205,
+          "sha256": "b5223d9988b083d850404faf995a23c607ecbcc6ddefed341f67d20fc4a495aa"
+        },
+        {
+          "file": "food_pomegranate_01.bin",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pomegranate_01/food_pomegranate_01.bin",
+          "source_md5": "9cada4f5f04b70cb224de5f027ce1c6b",
+          "bytes": 195828,
+          "sha256": "29df7ac780b968c82958f881dba50837811c6d0b428db5099ba3f418969a1951"
+        },
+        {
+          "file": "textures/food_pomegranate_01_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pomegranate_01/food_pomegranate_01_nor_gl_1k.jpg",
+          "source_md5": "55f2e1762133bafd5fc4f68db20d7e83",
+          "bytes": 93096,
+          "sha256": "1e040ab1af8c27f390eaf70d0dbef973554df31ecac6395375f1aed9d2d64df9"
+        }
+      ],
+      "runtime": {
+        "file": "assets/library/polyhaven/food_pomegranate_01/runtime.glb",
+        "bytes": 151244,
+        "sha256": "863e9c2092fdaf2c4e16cd00e5d319aacbe4b27ab9a5bd32dbbdc56852fb0397",
+        "source": "assets/library/polyhaven/food_pomegranate_01/food_pomegranate_01_1k.gltf",
+        "runtime": "assets/library/polyhaven/food_pomegranate_01/runtime.glb",
+        "sourceTriangles": 8142,
+        "runtimeTriangles": 2400,
+        "textureMaxSize": 512,
+        "blenderDimensionsXYZ": [
+          0.114351,
+          0.115598,
+          0.115044
+        ],
+        "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+      },
+      "status": "integrated_local_market_produce_browser_verified"
+    }
+  ]
+}

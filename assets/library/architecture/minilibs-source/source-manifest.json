@@ -1,0 +1,62 @@
+{
+  "source_repository": "https://github.com/in-a-mist/miniLibs",
+  "notes": "Original Rhino C# source; Song style named components. Reuse/port under MIT with license notice; no claim of exact Tang reconstruction.",
+  "files": [
+    {
+      "file": "README.md",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/README.md",
+      "bytes": 450,
+      "sha256": "aa058a59bc96084dbf74023cf89e5b28932063b6cfda88dc1a68b3d8f28e13a1",
+      "license": "MIT"
+    },
+    {
+      "file": "LICENSE",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/LICENSE",
+      "bytes": 1062,
+      "sha256": "644b6ec8ea98e177a2eb828319ac8e033280c2677e7b2eddedea60ac67baf23c",
+      "license": "MIT"
+    },
+    {
+      "file": "miniLibs/PrimitiveModel.cs",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/miniLibs/PrimitiveModel.cs",
+      "bytes": 9981,
+      "sha256": "30a96547ac9816a4f23e317ac8a4a2339d3df833158fb3bbaaa502f34766e293",
+      "license": "MIT"
+    },
+    {
+      "file": "miniLibs/TouKungData.cs",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/miniLibs/TouKungData.cs",
+      "bytes": 7812,
+      "sha256": "f5663a6d4f20474c6c67160554d3981a5de4e35db042b905dc8ae1bf67c5cdaf",
+      "license": "MIT"
+    },
+    {
+      "file": "miniLibs/CalculatorRule.cs",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/miniLibs/CalculatorRule.cs",
+      "bytes": 2864,
+      "sha256": "8826a4e98e1643638e0fe8ea17e7b53c02689926304495d82b84ac528eba186c",
+      "license": "MIT"
+    },
+    {
+      "file": "miniLibs/Utils.cs",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/miniLibs/Utils.cs",
+      "bytes": 5150,
+      "sha256": "fb7bfbe06e2ea4f64832e63536a971a35e7f02a2584c2da8583bce154837368e",
+      "license": "MIT"
+    },
+    {
+      "file": "miniLibs/Column.cs",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/miniLibs/Column.cs",
+      "bytes": 1708,
+      "sha256": "31384765c1dc024f31e44e2cbea7ac9036aa2c7b3899b9c4c893bd01fb0a7cf9",
+      "license": "MIT"
+    },
+    {
+      "file": "miniLibs/ExtendData.cs",
+      "source_url": "https://raw.githubusercontent.com/in-a-mist/miniLibs/main/miniLibs/ExtendData.cs",
+      "bytes": 7619,
+      "sha256": "83ad150d50c013b7fc3f8c5eba60a23321280fa1e6f1f021805d88232e808bbc",
+      "license": "MIT"
+    }
+  ]
+}

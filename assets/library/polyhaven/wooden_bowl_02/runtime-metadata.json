@@ -1,0 +1,13 @@
+{
+  "source": "assets/library/polyhaven/wooden_bowl_02/wooden_bowl_02_1k.gltf",
+  "runtime": "assets/library/polyhaven/wooden_bowl_02/runtime.glb",
+  "sourceTriangles": 4666,
+  "runtimeTriangles": 4666,
+  "textureMaxSize": 512,
+  "blenderDimensionsXYZ": [
+    0.130713,
+    0.12454,
+    0.073098
+  ],
+  "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+}

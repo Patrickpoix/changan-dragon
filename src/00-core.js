@@ -33,23 +33,23 @@ const DEBUG = params.has('debug');
 const canvas = $('#scene');
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  antialias: !isTouch,
+  antialias: true,
   alpha: false,
   powerPreference: 'high-performance',
   stencil: false,
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-// 国漫风需要保留高饱和色，ACES 会把朱红和青绿压成灰米色
+// Direct bootstrap defaults; GameRendering installs the shared filmic pipeline.
 renderer.toneMapping = THREE.LinearToneMapping;
 renderer.toneMappingExposure = 1.04;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setClearColor(0xb9dfe6, 1);
-const MAX_DPR = isTouch ? 1.55 : 1.8;
+renderer.setClearColor(0xa9cbd7, 1);
+const MAX_DPR = isTouch ? 1.25 : 1.65;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xcde9df, 175, 760);
+scene.fog = new THREE.Fog(0xc9d7d5, 145, 690);
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 1800);
 camera.position.set(16, 7, -110);
 
@@ -59,7 +59,7 @@ scene.add(hemi);
 const ambient = new THREE.AmbientLight(0xfff4e2, 0.22);
 scene.add(ambient);
 const sun = new THREE.DirectionalLight(0xffe6bd, 1.72);
-sun.position.set(120, 180, 80);
+sun.position.set(125, 105, 75);
 sun.castShadow = true;
 sun.shadow.mapSize.set(isTouch ? 1024 : 2048, isTouch ? 1024 : 2048);
 sun.shadow.camera.near = 1;
@@ -130,18 +130,19 @@ function gradientMap() {
 }
 
 const MAT = {
-  plaster: toon(0xffffff),
-  plasterWarm: toon(0xffffff),
-  wood: toon(0xffffff),
-  red: toon(0xffffff),
-  stone: toon(0xffffff),
+  // Each surface owns its maps: cached white materials must not share mutation.
+  plaster: toon(0xffffff).clone(),
+  plasterWarm: toon(0xffffff).clone(),
+  wood: toon(0xffffff).clone(),
+  red: toon(0xffffff).clone(),
+  stone: toon(0xffffff).clone(),
   roof: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0.02, vertexColors: false }),
   roofGlazed: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.15 }),
   gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.32, metalness: 0.62 }),
-  dark: toon(0xffffff),
-  leaf: toon(0xffffff),
-  trunk: toon(0xffffff),
-  blossom: toon(0xffffff),
+  dark: toon(0xffffff).clone(),
+  leaf: toon(0xffffff).clone(),
+  trunk: toon(0xffffff).clone(),
+  blossom: toon(0xffffff).clone(),
   water: null,
   lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.25, roughness: 0.55 }),
   lanternGlow: new THREE.MeshBasicMaterial({ color: 0xffb46b, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }),
@@ -221,7 +222,7 @@ TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
 }, { repeat: [1, 2] });
 
 TEX.grass = makeTexture(512, 512, (ctx, w, h) => {
-  noiseFill(ctx, w, h, '#7ec65d', 22, 3800);
+  noiseFill(ctx, w, h, '#7b9863', 18, 3800);
   for (let i = 0; i < 160; i++) {
     ctx.strokeStyle = `rgba(${48 + Math.random() * 30},${118 + Math.random() * 42},${48 + Math.random() * 28},.3)`;
     ctx.lineWidth = 1; ctx.beginPath();
@@ -270,21 +271,26 @@ function roundedBoxGeo(w, h, d, r = 0.08) {
   shape.lineTo(-w / 2, -h / 2 + r);
   shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
   const geo = new THREE.ExtrudeGeometry(shape, {
-    depth: Math.max(0.001, d - 2 * r), bevelEnabled: true, bevelSegments: 2,
-    steps: 1, bevelSize: r, bevelThickness: r, curveSegments: 3,
+    depth: Math.max(0.001, d - 2 * r), bevelEnabled: true, bevelSegments: 1,
+    steps: 1, bevelSize: r, bevelThickness: r, curveSegments: 2,
   });
   geo.center();
+  // ExtrudeGeometry expands the 2D outline by its bevel. Normalize to the
+  // requested dimensions so surface details and collision boxes line up.
+  geo.computeBoundingBox();
+  const size = geo.boundingBox.getSize(new THREE.Vector3());
+  geo.scale(w / size.x, h / size.y, d / size.z);
   return geo;
 }
 
-const UNIT_BOX = roundedBoxGeo(1, 1, 1, 0.09);
+const UNIT_BOX = roundedBoxGeo(1, 1, 1, 0.012);
 const UNIT_CYL = new THREE.CylinderGeometry(0.5, 0.5, 1, 10, 1, false);
 const UNIT_SPHERE = new THREE.SphereGeometry(0.5, 12, 9);
 const UNIT_CONE = new THREE.ConeGeometry(0.5, 1, 10, 1);
 const UNIT_PLANE = new THREE.PlaneGeometry(1, 1);
 
 /** 中式曲面屋顶：中间起脊，檐口微翘，四角上扬 */
-function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.52, lift = 0.14) {
+function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.62, lift = 0.055) {
   const pos = [], uv = [], idx = [];
   const half = 0.5;
   for (let iz = 0; iz <= segZ; iz++) {
@@ -294,7 +300,7 @@ function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.52, lift = 0.14) {
       const tx = Math.max(0, (Math.abs(x) - ridgeRatio * half) / ((1 - ridgeRatio) * half));
       const tz = Math.abs(z) / half;
       const t = Math.max(tx, tz);
-      let y = Math.pow(1 - Math.min(1, t), 0.62);
+      let y = Math.pow(1 - Math.min(1, t), 1.12);
       y += lift * Math.pow(t, 4);
       y += lift * 1.7 * Math.pow(tx, 3) * Math.pow(tz, 4);
       pos.push(x, y, z);
@@ -312,8 +318,16 @@ function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.52, lift = 0.14) {
   g.computeVertexNormals();
   return g;
 }
-const ROOF_UNIT = roofGeometry(12, 8, 0.55, 0.15);
-const ROOF_SMALL = roofGeometry(8, 6, 0.42, 0.19);
+const ROOF_UNIT = roofGeometry(12, 8, 0.62, 0.055);
+const ROOF_SMALL = roofGeometry(8, 6, 0.5, 0.065);
+
+// Repeated architecture keeps rounded silhouettes near the camera; distant
+// pieces share simpler geometry without changing their placement or materials.
+const BATCH_LOD_GEOMETRY = new WeakMap([
+  [UNIT_BOX, new THREE.BoxGeometry(1, 1, 1)],
+  [UNIT_CYL, new THREE.CylinderGeometry(0.5, 0.5, 1, 6)],
+  [UNIT_SPHERE, new THREE.SphereGeometry(0.5, 6, 4)],
+]);
 
 // ---------------------------------------------------------------- instancing
 class Batch {
@@ -323,6 +337,10 @@ class Batch {
     this.items = [];
     this.cast = opts.cast !== false;
     this.receive = opts.receive !== false;
+    this.maxDistance = opts.maxDistance || 0;
+    this.farGeometry = opts.farGeometry || BATCH_LOD_GEOMETRY.get(geometry) || null;
+    this.nearDistance = opts.nearDistance || 95;
+    this.cellSize = opts.cellSize || 176;
   }
   add(x, y, z, sx, sy, sz, ry = 0, color = null, rx = 0, rz = 0) {
     this.items.push({ x, y, z, sx, sy, sz, ry, rx, rz, color });
@@ -330,21 +348,50 @@ class Batch {
   }
   build(parent = scene) {
     if (!this.items.length) return null;
-    const mesh = new THREE.InstancedMesh(this.geometry, this.material, this.items.length);
+    // Small spatial batches keep off-screen districts out of the GPU submission
+    // and the nearby shadow pass, while every architectural part stays 3D.
+    const cells = new Map();
+    const cellSize = this.cellSize;
+    for (const item of this.items) {
+      const key = Math.floor(item.x / cellSize) + ',' + Math.floor(item.z / cellSize);
+      if (!cells.has(key)) cells.set(key, []);
+      cells.get(key).push(item);
+    }
+    const group = new THREE.Group();
+    group.name = 'spatial-instances';
     const m = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), p = new THREE.Vector3(), s = new THREE.Vector3();
     const col = new THREE.Color();
-    this.items.forEach((it, i) => {
-      p.set(it.x, it.y, it.z); s.set(it.sx, it.sy, it.sz); e.set(it.rx, it.ry, it.rz); q.setFromEuler(e);
-      m.compose(p, q, s); mesh.setMatrixAt(i, m);
-      if (it.color != null) mesh.setColorAt(i, col.set(it.color));
-    });
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-    mesh.castShadow = this.cast;
-    mesh.receiveShadow = this.receive;
-    mesh.frustumCulled = false;
-    mesh.instanceMatrix.needsUpdate = true;
-    parent.add(mesh);
-    return mesh;
+    for (const items of cells.values()) {
+      const mesh = new THREE.InstancedMesh(this.geometry, this.material, items.length);
+      const hasColors = items.some(item => item.color != null);
+      items.forEach((it, i) => {
+        p.set(it.x, it.y, it.z); s.set(it.sx, it.sy, it.sz); e.set(it.rx, it.ry, it.rz); q.setFromEuler(e);
+        m.compose(p, q, s); mesh.setMatrixAt(i, m);
+        if (hasColors) mesh.setColorAt(i, col.set(it.color ?? 0xffffff));
+      });
+      if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+      mesh.castShadow = this.cast;
+      mesh.receiveShadow = this.receive;
+      mesh.frustumCulled = true;
+      mesh.instanceMatrix.needsUpdate = true;
+      mesh.computeBoundingSphere();
+      if (this.maxDistance) {
+        mesh.userData.detailDistance = this.maxDistance;
+        mesh.userData.detailCenter = mesh.boundingSphere.center.clone();
+        mesh.userData.detailRadius = mesh.boundingSphere.radius;
+      }
+      if (this.farGeometry) {
+        mesh.userData.highGeometry = this.geometry;
+        mesh.userData.lowGeometry = this.farGeometry;
+        mesh.userData.nearDistance = this.nearDistance;
+        const bounds = new THREE.Box3().setFromObject(mesh);
+        mesh.userData.lodBounds = bounds;
+      }
+      mesh.matrixAutoUpdate = false;
+      group.add(mesh);
+    }
+    parent.add(group);
+    return group;
   }
 }
 
@@ -386,6 +433,25 @@ function quadBatch(material) {
 const CITY = { x0: -450, x1: 450, z0: -380, z1: 380 };
 const WORLD = { x0: -780, x1: 780, z0: -660, z1: 660 };
 const AVENUE = 26;
+const AVENUE_SHOP_Z=Object.freeze([266,288,338,360]);
+const TREE_CLEAR_AREAS=Object.freeze([
+  {x0:137,x1:163,z0:-520,z1:-378}, // Daming ceremonial axis, terrace and stair approach
+  {x0:-14,x1:14,z0:-380,z1:-220}, // Imperial palace central approach
+  {x0:198,x1:234,z0:265,z1:301}, // Dayan pagoda platform and its clear perimeter
+  {x0:-230,x1:-202,z0:308,z1:336}, // Xiaoyan pagoda platform
+]);
+// Shared by city planting and the dolly camera, so a newly detailed canopy
+// cannot grow through one of the deliberately composed sightseeing shots.
+const FILM_SHOTS = [
+  { eye: [7, 3.8, 327], target: [0, 4, 277], drift: 2.5 },
+  { eye: [-258, 3.4, 16], target: [-284, 4.3, -40], drift: 3 },
+  { eye: [174, 3.4, 16], target: [200, 4.3, -40], drift: 3 },
+  { eye: [110, 16, -389], target: [150, 17, -432], drift: 5 },
+  { eye: [320, 4, -90], target: [350, 6, -158], drift: 4 },
+  { eye: [235, 5.5, 325], target: [216, 24, 283], drift: 3 },
+  { eye: [306, 3.5, 350], target: [354, 4, 318], drift: 3 },
+  { eye: [34, 4.5, 429], target: [0, 12, 380], drift: 4 },
+];
 const WARD_W = 70, WARD_D = 54, STREET = 14, ROW_STREET = 12;
 const COLS = [-384, -300, -216, -132, -48, 48, 132, 216, 300, 384];
 const ROWS = [-179, -113, -47, 19, 85, 151, 217, 283, 349];
@@ -405,7 +471,9 @@ const wards = [];
 const roads = [];
 const landmarks = [];
 const colliders = [];
+const groundPatches = [];
 const marketDefs = [];
+const MATURE_TREE_SPOTS = [[-17,329,6.2,.6],[18,308,6.8,2],[-17,276,6.0,1.4],[17,363,6.5,3.4],[324,252,6.8,.2],[424,282,7.0,2.7],[418,345,7.1,1.4],[294,369,6.2,.5]];
 
 function addCollider(minX, maxX, minZ, maxZ, tag = '') {
   if (maxX - minX < 0.05 || maxZ - minZ < 0.05) return;
@@ -440,12 +508,27 @@ for (const x of [-342, -258, -174, -90, 90, 174, 258, 342]) roads.push({ x, z: 0
 for (const z of [-206, -140, -74, -8, 58, 124, 190, 256, 322]) roads.push({ x: 0, z, w: 900, d: 12, axis: 'x', type: 'street' });
 
 // ---------------------------------------------------------------- sky
+// A repeatable scalar noise field drives the cloud layers. No sky photograph or
+// opaque cloud meshes: silhouettes, softness and drift remain editable in code.
+const cloudNoiseBytes = new Uint8Array(256 * 256 * 4);
+for (let i = 0; i < 256 * 256; i++) {
+  let hash = Math.imul(i ^ 16023, 1597334677);
+  hash = Math.imul(hash ^ (hash >>> 16), 2246822519);
+  const noise=(hash ^ (hash >>> 13)) & 255;
+  cloudNoiseBytes.set([noise,noise,noise,255],i*4);
+}
+const cloudNoise = new THREE.DataTexture(cloudNoiseBytes, 256, 256, THREE.RGBAFormat);
+cloudNoise.wrapS = cloudNoise.wrapT = THREE.RepeatWrapping;
+cloudNoise.minFilter = cloudNoise.magFilter = THREE.LinearFilter;
+cloudNoise.needsUpdate = true;
 const skyUniforms = {
-  topColor: { value: new THREE.Color(0x2eb7ed) },
-  horizonColor: { value: new THREE.Color(0xffe1a3) },
+  topColor: { value: new THREE.Color(0x85b6ce) },
+  horizonColor: { value: new THREE.Color(0xf8e3c8) },
   sunColor: { value: new THREE.Color(0xffc95e) },
-  sunDir: { value: new THREE.Vector3(0.45, 0.55, 0.7).normalize() },
+  sunDir: { value: new THREE.Vector3(125, 105, 75).normalize() },
   night: { value: 0 },
+  time: { value: 0 },
+  cloudNoise: { value: cloudNoise },
 };
 const skyMat = new THREE.ShaderMaterial({
   uniforms: skyUniforms,
@@ -459,16 +542,37 @@ const skyMat = new THREE.ShaderMaterial({
     }`,
   fragmentShader: `
     uniform vec3 topColor; uniform vec3 horizonColor; uniform vec3 sunColor; uniform vec3 sunDir; uniform float night;
+    uniform float time; uniform sampler2D cloudNoise;
     varying vec3 vDir;
+    float cloudField(vec2 p) {
+      return texture2D(cloudNoise, p / 256.0).r * 0.57
+        + texture2D(cloudNoise, p * 2.03 / 256.0).r * 0.27
+        + texture2D(cloudNoise, p * 4.11 / 256.0).r * 0.11
+        + texture2D(cloudNoise, p * 8.17 / 256.0).r * 0.05;
+    }
     void main() {
-      float h = clamp(vDir.y, 0.0, 1.0);
-      vec3 col = mix(horizonColor, topColor, pow(h, 0.52));
-      float sd = max(dot(normalize(vDir), normalize(sunDir)), 0.0);
+      vec3 ray = normalize(vDir);
+      float h = clamp(ray.y, 0.0, 1.0);
+      vec3 col = mix(horizonColor, topColor, smoothstep(0.0, 0.24, h));
+      float sd = max(dot(ray, normalize(sunDir)), 0.0);
       col += sunColor * pow(sd, 900.0) * 1.6;
       col += sunColor * pow(sd, 14.0) * 0.22;
-      float horizon = smoothstep(0.14, -0.02, vDir.y);
+      // Two projected layers give cloud banks broad forms with frayed edges.
+      // Their coverage fades into atmospheric haze instead of ending at a dome seam.
+      vec2 cloudUV = ray.xz / max(h + 0.14, 0.14) * 3.8 + vec2(time * 0.0015, 14.7);
+      float field = cloudField(cloudUV);
+      float thin = cloudField(cloudUV * 1.7 + vec2(31.4, time * 0.0006));
+      float cover = smoothstep(0.51, 0.69, field + (thin - 0.5) * 0.12);
+      cover *= smoothstep(0.015, 0.16, h) * 0.92;
+      float edge = cloudField(cloudUV + normalize(sunDir.xz) * 0.18) - field;
+      vec3 cloudShade = mix(vec3(0.66, 0.74, 0.79), vec3(1.18, 1.13, 1.01), clamp(0.62 + edge * 3.5 + h * 0.2, 0.0, 1.0));
+      cloudShade = mix(cloudShade, vec3(0.045, 0.068, 0.12), night);
+      col = mix(col, cloudShade, cover);
+      float horizon = 1.0 - smoothstep(-0.02, 0.14, ray.y);
       col = mix(col, horizonColor * 1.02, horizon * 0.55);
       gl_FragColor = vec4(col, 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
     }`,
 });
 const sky = new THREE.Mesh(new THREE.SphereGeometry(900, 32, 20), skyMat);
@@ -491,26 +595,20 @@ const stars = new THREE.Points(starGeo, starMat);
 stars.frustumCulled = false;
 scene.add(stars);
 
-// 云
-const cloudBatch = new Batch(UNIT_SPHERE, new THREE.MeshBasicMaterial({ color: 0xfffaf0, transparent: true, opacity: 0.82, depthWrite: false }), { cast: false, receive: false });
-for (let i = 0; i < 11; i++) {
-  const a = rr(0, TAU), r = rr(380, 700), y = rr(95, 155);
-  const cx = Math.cos(a) * r, cz = Math.sin(a) * r;
-  const n = 4 + Math.floor(rr(0, 4));
-  for (let j = 0; j < n; j++) {
-    const s = rr(18, 42);
-    cloudBatch.add(cx + rr(-45, 45), y + rr(-8, 8), cz + rr(-22, 22), s * 1.6, s * 0.62, s, 0, null);
+// Continuous hazy ridgelines; no cone-shaped placeholders behind the city.
+for (let layer = 0; layer < 2; layer++) {
+  const vertices = [], indices = [], segments = 192, radius = 1180 + layer * 280;
+  for (let i = 0; i <= segments; i++) {
+    const a = i / segments * TAU;
+    const h = 78 + layer * 36 + Math.sin(a * 5 + 0.8) * 29 + Math.sin(a * 11 - 0.4) * 16 + Math.sin(a * 3) * 22;
+    for (const y of [-10, h]) vertices.push(Math.cos(a) * radius, y, Math.sin(a) * radius);
+    if (i < segments) { const n = i * 2; indices.push(n, n + 1, n + 2, n + 1, n + 3, n + 2); }
   }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geo.setIndex(indices); geo.computeVertexNormals();
+  scene.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: layer ? 0xb6c9cd : 0xa7bfc3, side: THREE.DoubleSide })));
 }
-const cloudMesh = cloudBatch.build();
-
-// 远山
-const hillBatch = new Batch(new THREE.ConeGeometry(1, 1, 7, 1), toon(0x8fb7a6), { cast: false, receive: false });
-for (let i = 0; i < 34; i++) {
-  const a = (i / 34) * TAU + rr(-0.03, 0.03), r = rr(600, 760);
-  hillBatch.add(Math.cos(a) * r, rr(4, 18), Math.sin(a) * r, rr(55, 130), rr(50, 120), rr(55, 130), rr(0, TAU), null);
-}
-hillBatch.build();
 
 // ---------------------------------------------------------------- ground & roads
 function buildGround() {
@@ -520,7 +618,7 @@ function buildGround() {
 
   // 城外田畴
   const fieldBatch = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1 }), { cast: false });
-  const fieldColors = [0xa8dc6a, 0xf0d45b, 0x79c74f, 0xffe58b, 0x93d565];
+  const fieldColors = [0x9cab63, 0xc6b775, 0x7d9358, 0xc5bd7d, 0xa1ae6b];
   for (let i = 0; i < 70; i++) {
     let x, z;
     do { x = rr(-740, 740); z = rr(-620, 620); } while (x > -500 && x < 500 && z > -540 && z < 430);
@@ -529,16 +627,22 @@ function buildGround() {
   fieldBatch.build();
 
   // 城内地面
-  const cityGround = new THREE.Mesh(new THREE.PlaneGeometry(920, 790), new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1, color: 0xc9e2a4 }));
+  const cityGround = new THREE.Mesh(new THREE.PlaneGeometry(920, 790), new THREE.MeshStandardMaterial({ map: TEX.dirt, roughness: 1, color: 0xd9ccb2 }));
   cityGround.rotation.x = -Math.PI / 2; cityGround.position.set(0, -0.05, 0); cityGround.receiveShadow = true;
   scene.add(cityGround);
+  const gardenMaterial=new THREE.MeshStandardMaterial({map:TEX.grass,roughness:1,color:0xc6cfac});
+  for(const [x,z,rx,rz] of [[354,318,96,83],[342,-152,72,54],[232,-492,43,23]]) {
+    const lawn=new THREE.Mesh(new THREE.CircleGeometry(1,64),gardenMaterial);
+    lawn.rotation.x=-Math.PI/2;lawn.position.set(x,-.035,z);lawn.scale.set(rx,rz,1);lawn.receiveShadow=true;scene.add(lawn);
+  }
 }
 
+const roadMeshes = [];
 function makeRoadMesh(road) {
   const isAvenue = road.type === 'avenue';
   const w = isAvenue ? road.w : road.w;
   const d = road.d;
-  const sw = isAvenue ? 20 : 8, sd = Math.max(2, Math.floor(d / 12));
+  const sw = Math.max(2, Math.ceil(w / 5)), sd = Math.max(2, Math.ceil(d / 5));
   const geo = new THREE.PlaneGeometry(w, d, sw, sd);
   const pos = geo.attributes.position;
   for (let i = 0; i < pos.count; i++) {
@@ -548,33 +652,53 @@ function makeRoadMesh(road) {
   geo.rotateX(-Math.PI / 2);
   geo.computeVertexNormals();
   const uv = geo.attributes.uv;
-  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / 13, uv.getY(i) * d / 13);
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / 3, uv.getY(i) * d / 3);
   const mat = new THREE.MeshStandardMaterial({
     map: isAvenue ? TEX.stone : TEX.dirt,
-    color: isAvenue ? 0xf6efdb : 0xe9d9b4,
-    roughness: 1, metalness: 0,
+    bumpMap: isAvenue ? TEX.stoneBump : null, bumpScale: 0.045,
+    color: isAvenue ? 0xf2e1c5 : 0xe1cdae,
+    roughness: 0.94, metalness: 0,
   });
+  if (isAvenue) SurfaceLibrary.softenStone(mat);
   const mesh = new THREE.Mesh(geo, mat);
   mesh.receiveShadow = true;
   mesh.position.set(road.x, 0.015, road.z);
   scene.add(mesh);
+  roadMeshes.push(mesh);
   return mesh;
+}
+
+function clipRoadsForWater() {
+  for (const mesh of roadMeshes) {
+    const geometry = mesh.geometry, positions = geometry.attributes.position, index = geometry.index;
+    const keep = [];
+    for (let i = 0; i < index.count; i += 3) {
+      const ids = [index.getX(i), index.getX(i + 1), index.getX(i + 2)];
+      const x = ids.reduce((sum, id) => sum + positions.getX(id), 0) / 3 + mesh.position.x;
+      const z = ids.reduce((sum, id) => sum + positions.getZ(id), 0) / 3 + mesh.position.z;
+      if (!isWaterPoint(x, z) || isLand(x, z)) keep.push(...ids);
+    }
+    geometry.setIndex(keep);
+  }
 }
 
 function buildRoads() {
   roads.forEach(makeRoadMesh);
   // 朱雀大街中央御道
-  const central = new THREE.Mesh(new THREE.PlaneGeometry(7.6, 780), new THREE.MeshStandardMaterial({ color: 0xffdd91, roughness: 0.86 }));
+  const centralGeo = new THREE.PlaneGeometry(7.6, 780);
+  const centralUV = centralGeo.attributes.uv;
+  for (let i = 0; i < centralUV.count; i++) centralUV.setXY(i, centralUV.getX(i) * 2.53, centralUV.getY(i) * 260);
+  const central = new THREE.Mesh(centralGeo, SurfaceLibrary.paving(0xe6dfcc));
   central.rotation.x = -Math.PI / 2; central.position.set(0, 0.075, 0); central.receiveShadow = true;
   scene.add(central);
   // 御道金线，让中轴在远处也有清楚的视觉引导
   const lane = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0.05 }), { cast: false });
-  lane.add(-3.55, 0.09, 0, 0.18, 0.03, 780, 0, 0xeec151);
-  lane.add(3.55, 0.09, 0, 0.18, 0.03, 780, 0, 0xeec151);
+  lane.add(-3.55, 0.09, 0, 0.12, 0.03, 780, 0, 0xbbab87);
+  lane.add(3.55, 0.09, 0, 0.12, 0.03, 780, 0, 0xbbab87);
   lane.build();
   // 御道上的金色团花，让近景路面不再单调
   const motif = new Batch(new THREE.CircleGeometry(1.0, 16), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.34, depthWrite: false }), { cast: false, receive: false });
-  for (let z = -360; z <= 360; z += 19) motif.add(0, 0.092, z, 1.25, 1.25, 1.25, 0, 0xd99c36, -Math.PI / 2);
+  for (let z = -360; z <= 360; z += 38) motif.add(0, 0.092, z, 0.75, 0.75, 0.75, 0, 0xa99473, -Math.PI / 2);
   motif.build();
 
   // 路缘石
@@ -591,9 +715,19 @@ function buildRoads() {
 
 // ---------------------------------------------------------------- collision hash
 const colliderGrid = new Map();
+const groundPatchGrid = new Map();
 const CELL = 24;
 function buildColliderHash() {
   colliderGrid.clear();
+  groundPatchGrid.clear();
+  for(const patch of groundPatches) {
+    for(let x=Math.floor(patch.x0/CELL);x<=Math.floor(patch.x1/CELL);x++)
+      for(let z=Math.floor(patch.z0/CELL);z<=Math.floor(patch.z1/CELL);z++) {
+        const key=x+','+z;
+        if(!groundPatchGrid.has(key)) groundPatchGrid.set(key,[]);
+        groundPatchGrid.get(key).push(patch);
+      }
+  }
   for (const c of colliders) {
     const minCx = Math.floor(c.minX / CELL), maxCx = Math.floor(c.maxX / CELL);
     const minCz = Math.floor(c.minZ / CELL), maxCz = Math.floor(c.maxZ / CELL);

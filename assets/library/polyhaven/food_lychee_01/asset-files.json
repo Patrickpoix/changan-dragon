@@ -1,0 +1,834 @@
+{
+  "Diffuse": {
+    "8k": {
+      "jpg": {
+        "size": 4868064,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_diff_8k.jpg",
+        "md5": "fea93a70bc97a2060b86e2820ed84745"
+      },
+      "png": {
+        "size": 78258420,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_lychee_01/food_lychee_01_diff_8k.png",
+        "md5": "2f7c57e551db487e813623855f1e310b"
+      },
+      "exr": {
+        "size": 27151126,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_diff_8k.exr",
+        "md5": "65f7b8c851051bb282edc40d497bc5d8"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 1798674,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_diff_4k.jpg",
+        "md5": "0e6b150c1354923eb5be5730dda9a92f"
+      },
+      "png": {
+        "size": 47128245,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_lychee_01/food_lychee_01_diff_4k.png",
+        "md5": "57c9cd10302406c6e277680bf4986d1e"
+      },
+      "exr": {
+        "size": 8995208,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_diff_4k.exr",
+        "md5": "d7bd6699535310bf2d2aac1bf63caa21"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 615248,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_diff_2k.jpg",
+        "md5": "fb708bfdf7d83c7868c31495808c2139"
+      },
+      "png": {
+        "size": 15418049,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_lychee_01/food_lychee_01_diff_2k.png",
+        "md5": "6e03f7c8b293e3a10acad2c0391319f4"
+      },
+      "exr": {
+        "size": 3350527,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_diff_2k.exr",
+        "md5": "b324dd41bbacdf47c04a746d1dafec45"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 188081,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+        "md5": "f9b780088cb265df0114ff0565bb0156"
+      },
+      "png": {
+        "size": 4144103,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_lychee_01/food_lychee_01_diff_1k.png",
+        "md5": "2b42b4149ab9fc73ac08af2231084615"
+      },
+      "exr": {
+        "size": 1154148,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_diff_1k.exr",
+        "md5": "c9edfeba45684bfab19b862386354e2d"
+      }
+    }
+  },
+  "nor_dx": {
+    "8k": {
+      "jpg": {
+        "size": 9752461,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_nor_dx_8k.jpg",
+        "md5": "17ad23badd7fdb4a660d82a6d10ee034"
+      },
+      "png": {
+        "size": 241777117,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_lychee_01/food_lychee_01_nor_dx_8k.png",
+        "md5": "24d704fb0c8fbc3d8c54b405628b8871"
+      },
+      "exr": {
+        "size": 65902701,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_nor_dx_8k.exr",
+        "md5": "debd7289bb0d86022a053e3e10590e2f"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 3137650,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_nor_dx_4k.jpg",
+        "md5": "76335b8986ab70e43298bf5bd8278a73"
+      },
+      "png": {
+        "size": 65393268,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_lychee_01/food_lychee_01_nor_dx_4k.png",
+        "md5": "54ecf20c875c1234e17ecc95bb3781a3"
+      },
+      "exr": {
+        "size": 20492042,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_nor_dx_4k.exr",
+        "md5": "bd3f7b7b68b496cfdf8d1f9ba271aa35"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 948507,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_nor_dx_2k.jpg",
+        "md5": "d68034139fe44291ede6a6f3c06b806b"
+      },
+      "png": {
+        "size": 16905344,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_lychee_01/food_lychee_01_nor_dx_2k.png",
+        "md5": "4c744aab92253f3386ced8aa4c36b4f1"
+      },
+      "exr": {
+        "size": 5902947,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_nor_dx_2k.exr",
+        "md5": "2df125e874688f8765a2e17d92fc6a75"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 252323,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_nor_dx_1k.jpg",
+        "md5": "da103756533da3e486aed9227844a480"
+      },
+      "png": {
+        "size": 4316432,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_lychee_01/food_lychee_01_nor_dx_1k.png",
+        "md5": "25453d35fd22c0c931188d796a2820ef"
+      },
+      "exr": {
+        "size": 1590661,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_nor_dx_1k.exr",
+        "md5": "77bb137ebd1fd1794fde58d3855c1351"
+      }
+    }
+  },
+  "nor_gl": {
+    "8k": {
+      "jpg": {
+        "size": 9756750,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_nor_gl_8k.jpg",
+        "md5": "8bf130a7360b786c52a79eef82105e5d"
+      },
+      "png": {
+        "size": 258795430,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_lychee_01/food_lychee_01_nor_gl_8k.png",
+        "md5": "23cae6a26f15ea2a0490af70e10ca984"
+      },
+      "exr": {
+        "size": 65912074,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_nor_gl_8k.exr",
+        "md5": "9508cf3af72854d0f5738cdf9d5cee78"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 3132842,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_nor_gl_4k.jpg",
+        "md5": "a3d36e972dd87adf2a87357cb4503117"
+      },
+      "png": {
+        "size": 65394824,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_lychee_01/food_lychee_01_nor_gl_4k.png",
+        "md5": "074080887e1ebfc49f39766d6bfb0d4f"
+      },
+      "exr": {
+        "size": 20499755,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_nor_gl_4k.exr",
+        "md5": "127b853633825751aa6194fe2fd269a1"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 944909,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_nor_gl_2k.jpg",
+        "md5": "b94f69f2731859b1087aa1e672d819f6"
+      },
+      "png": {
+        "size": 16904091,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_lychee_01/food_lychee_01_nor_gl_2k.png",
+        "md5": "7bdf61af3e307554249996086d6f9cce"
+      },
+      "exr": {
+        "size": 5902949,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_nor_gl_2k.exr",
+        "md5": "d224d234f41c8b3ebb11fe04cec8adc3"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 250477,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_nor_gl_1k.jpg",
+        "md5": "d4d975c6bfd6a8eec0495d7a1684bf29"
+      },
+      "png": {
+        "size": 4315789,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_lychee_01/food_lychee_01_nor_gl_1k.png",
+        "md5": "f886087b1f6042ed21f6f6e69ca8cd90"
+      },
+      "exr": {
+        "size": 1589988,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_nor_gl_1k.exr",
+        "md5": "636c91d66ed82cd1c1b1cf9c56531456"
+      }
+    }
+  },
+  "blend": {
+    "8k": {
+      "blend": {
+        "include": {
+          "textures/food_lychee_01_rough_8k.jpg": {
+            "size": 6275323,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_rough_8k.jpg",
+            "md5": "573dedeb03e50a4bfaf885d77a627c55"
+          },
+          "textures/food_lychee_01_diff_8k.jpg": {
+            "size": 4868064,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_diff_8k.jpg",
+            "md5": "fea93a70bc97a2060b86e2820ed84745"
+          },
+          "textures/food_lychee_01_nor_gl_8k.exr": {
+            "size": 65912074,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_nor_gl_8k.exr",
+            "md5": "9508cf3af72854d0f5738cdf9d5cee78"
+          }
+        },
+        "size": 433473,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/8k/food_lychee_01/food_lychee_01_8k.blend",
+        "md5": "8f2893d767001d10ead3fa96ebde2ea5"
+      }
+    },
+    "4k": {
+      "blend": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_4k.exr": {
+            "size": 20499755,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_nor_gl_4k.exr",
+            "md5": "127b853633825751aa6194fe2fd269a1"
+          },
+          "textures/food_lychee_01_rough_4k.jpg": {
+            "size": 2007454,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_rough_4k.jpg",
+            "md5": "c644cf603a0f6f46b2db30787050d76d"
+          },
+          "textures/food_lychee_01_diff_4k.jpg": {
+            "size": 1798674,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_diff_4k.jpg",
+            "md5": "0e6b150c1354923eb5be5730dda9a92f"
+          }
+        },
+        "size": 433598,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/4k/food_lychee_01/food_lychee_01_4k.blend",
+        "md5": "f3964ac188788694570a17df9a6da43d"
+      }
+    },
+    "2k": {
+      "blend": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_2k.exr": {
+            "size": 5902949,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_nor_gl_2k.exr",
+            "md5": "d224d234f41c8b3ebb11fe04cec8adc3"
+          },
+          "textures/food_lychee_01_rough_2k.jpg": {
+            "size": 625170,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_rough_2k.jpg",
+            "md5": "27b1cb6dfed96fd5843ea4182e6e2ff5"
+          },
+          "textures/food_lychee_01_diff_2k.jpg": {
+            "size": 615248,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_diff_2k.jpg",
+            "md5": "fb708bfdf7d83c7868c31495808c2139"
+          }
+        },
+        "size": 433564,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/2k/food_lychee_01/food_lychee_01_2k.blend",
+        "md5": "3f507f19f3a376122efca9fff86b5f5b"
+      }
+    },
+    "1k": {
+      "blend": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_1k.exr": {
+            "size": 1589988,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_nor_gl_1k.exr",
+            "md5": "636c91d66ed82cd1c1b1cf9c56531456"
+          },
+          "textures/food_lychee_01_rough_1k.jpg": {
+            "size": 172668,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+            "md5": "2d972a68ff1126b44919b5a5f912223e"
+          },
+          "textures/food_lychee_01_diff_1k.jpg": {
+            "size": 188081,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+            "md5": "f9b780088cb265df0114ff0565bb0156"
+          }
+        },
+        "size": 433527,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/1k/food_lychee_01/food_lychee_01_1k.blend",
+        "md5": "1f39e63e5cf76a2e945a8caf3d17cd2f"
+      }
+    }
+  },
+  "gltf": {
+    "8k": {
+      "gltf": {
+        "include": {
+          "textures/food_lychee_01_rough_8k.jpg": {
+            "size": 6275323,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_rough_8k.jpg",
+            "md5": "573dedeb03e50a4bfaf885d77a627c55"
+          },
+          "food_lychee_01.bin": {
+            "size": 157852,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01.bin",
+            "md5": "fe40b08873f89b0d70bfef95cd0ec029"
+          },
+          "textures/food_lychee_01_diff_8k.jpg": {
+            "size": 4868064,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_diff_8k.jpg",
+            "md5": "fea93a70bc97a2060b86e2820ed84745"
+          },
+          "textures/food_lychee_01_nor_gl_8k.jpg": {
+            "size": 9756750,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_nor_gl_8k.jpg",
+            "md5": "8bf130a7360b786c52a79eef82105e5d"
+          }
+        },
+        "size": 2715,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01_8k.gltf",
+        "md5": "259b687fbab646c304788f68480fb4f3"
+      }
+    },
+    "4k": {
+      "gltf": {
+        "include": {
+          "food_lychee_01.bin": {
+            "size": 157852,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01.bin",
+            "md5": "fe40b08873f89b0d70bfef95cd0ec029"
+          },
+          "textures/food_lychee_01_nor_gl_4k.jpg": {
+            "size": 3132842,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_nor_gl_4k.jpg",
+            "md5": "a3d36e972dd87adf2a87357cb4503117"
+          },
+          "textures/food_lychee_01_rough_4k.jpg": {
+            "size": 2007454,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_rough_4k.jpg",
+            "md5": "c644cf603a0f6f46b2db30787050d76d"
+          },
+          "textures/food_lychee_01_diff_4k.jpg": {
+            "size": 1798674,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_diff_4k.jpg",
+            "md5": "0e6b150c1354923eb5be5730dda9a92f"
+          }
+        },
+        "size": 2715,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/food_lychee_01/food_lychee_01_4k.gltf",
+        "md5": "456e31da67f9eada3c07476cc09003e3"
+      }
+    },
+    "2k": {
+      "gltf": {
+        "include": {
+          "food_lychee_01.bin": {
+            "size": 157852,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01.bin",
+            "md5": "fe40b08873f89b0d70bfef95cd0ec029"
+          },
+          "textures/food_lychee_01_nor_gl_2k.jpg": {
+            "size": 944909,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_nor_gl_2k.jpg",
+            "md5": "b94f69f2731859b1087aa1e672d819f6"
+          },
+          "textures/food_lychee_01_rough_2k.jpg": {
+            "size": 625170,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_rough_2k.jpg",
+            "md5": "27b1cb6dfed96fd5843ea4182e6e2ff5"
+          },
+          "textures/food_lychee_01_diff_2k.jpg": {
+            "size": 615248,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_diff_2k.jpg",
+            "md5": "fb708bfdf7d83c7868c31495808c2139"
+          }
+        },
+        "size": 2715,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/food_lychee_01/food_lychee_01_2k.gltf",
+        "md5": "b083dbed12acaeb4f5bf0097c724d67c"
+      }
+    },
+    "1k": {
+      "gltf": {
+        "include": {
+          "food_lychee_01.bin": {
+            "size": 157852,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01.bin",
+            "md5": "fe40b08873f89b0d70bfef95cd0ec029"
+          },
+          "textures/food_lychee_01_nor_gl_1k.jpg": {
+            "size": 250477,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_nor_gl_1k.jpg",
+            "md5": "d4d975c6bfd6a8eec0495d7a1684bf29"
+          },
+          "textures/food_lychee_01_rough_1k.jpg": {
+            "size": 172668,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+            "md5": "2d972a68ff1126b44919b5a5f912223e"
+          },
+          "textures/food_lychee_01_diff_1k.jpg": {
+            "size": 188081,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+            "md5": "f9b780088cb265df0114ff0565bb0156"
+          }
+        },
+        "size": 2715,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_lychee_01/food_lychee_01_1k.gltf",
+        "md5": "f672486bf2f7a1beb4f95f258b800bd9"
+      }
+    }
+  },
+  "usd": {
+    "8k": {
+      "usd": {
+        "include": {
+          "textures/food_lychee_01_rough_8k.jpg": {
+            "size": 6275323,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_rough_8k.jpg",
+            "md5": "573dedeb03e50a4bfaf885d77a627c55"
+          },
+          "textures/food_lychee_01_diff_8k.jpg": {
+            "size": 4868064,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_diff_8k.jpg",
+            "md5": "fea93a70bc97a2060b86e2820ed84745"
+          },
+          "textures/food_lychee_01_nor_gl_8k.exr": {
+            "size": 65912074,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_nor_gl_8k.exr",
+            "md5": "9508cf3af72854d0f5738cdf9d5cee78"
+          }
+        },
+        "size": 485599,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/8k/food_lychee_01/food_lychee_01_8k.usdc",
+        "md5": "1cecb448e5c085c54adf8e4baa8ec901"
+      }
+    },
+    "4k": {
+      "usd": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_4k.exr": {
+            "size": 20499755,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_nor_gl_4k.exr",
+            "md5": "127b853633825751aa6194fe2fd269a1"
+          },
+          "textures/food_lychee_01_rough_4k.jpg": {
+            "size": 2007454,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_rough_4k.jpg",
+            "md5": "c644cf603a0f6f46b2db30787050d76d"
+          },
+          "textures/food_lychee_01_diff_4k.jpg": {
+            "size": 1798674,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_diff_4k.jpg",
+            "md5": "0e6b150c1354923eb5be5730dda9a92f"
+          }
+        },
+        "size": 485599,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/4k/food_lychee_01/food_lychee_01_4k.usdc",
+        "md5": "0a4209ec1cc08b7bf5c261b0c1f916b6"
+      }
+    },
+    "2k": {
+      "usd": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_2k.exr": {
+            "size": 5902949,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_nor_gl_2k.exr",
+            "md5": "d224d234f41c8b3ebb11fe04cec8adc3"
+          },
+          "textures/food_lychee_01_rough_2k.jpg": {
+            "size": 625170,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_rough_2k.jpg",
+            "md5": "27b1cb6dfed96fd5843ea4182e6e2ff5"
+          },
+          "textures/food_lychee_01_diff_2k.jpg": {
+            "size": 615248,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_diff_2k.jpg",
+            "md5": "fb708bfdf7d83c7868c31495808c2139"
+          }
+        },
+        "size": 485599,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/2k/food_lychee_01/food_lychee_01_2k.usdc",
+        "md5": "3306ad967aeab42907fa48d1c6adf470"
+      }
+    },
+    "1k": {
+      "usd": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_1k.exr": {
+            "size": 1589988,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_nor_gl_1k.exr",
+            "md5": "636c91d66ed82cd1c1b1cf9c56531456"
+          },
+          "textures/food_lychee_01_rough_1k.jpg": {
+            "size": 172668,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+            "md5": "2d972a68ff1126b44919b5a5f912223e"
+          },
+          "textures/food_lychee_01_diff_1k.jpg": {
+            "size": 188081,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+            "md5": "f9b780088cb265df0114ff0565bb0156"
+          }
+        },
+        "size": 485599,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/1k/food_lychee_01/food_lychee_01_1k.usdc",
+        "md5": "cbd9e35999c6d3c9edbfec97e3f2feac"
+      }
+    }
+  },
+  "fbx": {
+    "8k": {
+      "fbx": {
+        "include": {
+          "textures/food_lychee_01_rough_8k.jpg": {
+            "size": 6275323,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_rough_8k.jpg",
+            "md5": "573dedeb03e50a4bfaf885d77a627c55"
+          },
+          "textures/food_lychee_01_diff_8k.jpg": {
+            "size": 4868064,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_diff_8k.jpg",
+            "md5": "fea93a70bc97a2060b86e2820ed84745"
+          },
+          "textures/food_lychee_01_nor_gl_8k.exr": {
+            "size": 65912074,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_nor_gl_8k.exr",
+            "md5": "9508cf3af72854d0f5738cdf9d5cee78"
+          }
+        },
+        "size": 343532,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/8k/food_lychee_01/food_lychee_01_8k.fbx",
+        "md5": "1ae65ef2245ab9259eca3b1b6a0f7c01"
+      }
+    },
+    "4k": {
+      "fbx": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_4k.exr": {
+            "size": 20499755,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_nor_gl_4k.exr",
+            "md5": "127b853633825751aa6194fe2fd269a1"
+          },
+          "textures/food_lychee_01_rough_4k.jpg": {
+            "size": 2007454,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_rough_4k.jpg",
+            "md5": "c644cf603a0f6f46b2db30787050d76d"
+          },
+          "textures/food_lychee_01_diff_4k.jpg": {
+            "size": 1798674,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_diff_4k.jpg",
+            "md5": "0e6b150c1354923eb5be5730dda9a92f"
+          }
+        },
+        "size": 343532,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/4k/food_lychee_01/food_lychee_01_4k.fbx",
+        "md5": "51f5db0226dbd33e5ab652a305c89e74"
+      }
+    },
+    "2k": {
+      "fbx": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_2k.exr": {
+            "size": 5902949,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_nor_gl_2k.exr",
+            "md5": "d224d234f41c8b3ebb11fe04cec8adc3"
+          },
+          "textures/food_lychee_01_rough_2k.jpg": {
+            "size": 625170,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_rough_2k.jpg",
+            "md5": "27b1cb6dfed96fd5843ea4182e6e2ff5"
+          },
+          "textures/food_lychee_01_diff_2k.jpg": {
+            "size": 615248,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_diff_2k.jpg",
+            "md5": "fb708bfdf7d83c7868c31495808c2139"
+          }
+        },
+        "size": 343532,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/2k/food_lychee_01/food_lychee_01_2k.fbx",
+        "md5": "1ece8e7af9d31b3bc2d553e9702a3e86"
+      }
+    },
+    "1k": {
+      "fbx": {
+        "include": {
+          "textures/food_lychee_01_nor_gl_1k.exr": {
+            "size": 1589988,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_nor_gl_1k.exr",
+            "md5": "636c91d66ed82cd1c1b1cf9c56531456"
+          },
+          "textures/food_lychee_01_rough_1k.jpg": {
+            "size": 172668,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+            "md5": "2d972a68ff1126b44919b5a5f912223e"
+          },
+          "textures/food_lychee_01_diff_1k.jpg": {
+            "size": 188081,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+            "md5": "f9b780088cb265df0114ff0565bb0156"
+          }
+        },
+        "size": 343532,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/food_lychee_01/food_lychee_01_1k.fbx",
+        "md5": "545e539109779f1dff461cf969d4027b"
+      }
+    }
+  },
+  "arm": {
+    "8k": {
+      "jpg": {
+        "size": 5995810,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_arm_8k.jpg",
+        "md5": "5c8963133d5fae406a376e8ff5ddc7c9"
+      },
+      "png": {
+        "size": 36610746,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_lychee_01/food_lychee_01_arm_8k.png",
+        "md5": "7a4d30974b677c00d4e8a152c764ba78"
+      },
+      "exr": {
+        "size": 39003186,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_arm_8k.exr",
+        "md5": "0d86d2fb4b17b0aa25751a77128d0f07"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 1907023,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_arm_4k.jpg",
+        "md5": "ecb54bac29188872e528b8c5ed080d13"
+      },
+      "png": {
+        "size": 11618930,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_lychee_01/food_lychee_01_arm_4k.png",
+        "md5": "c0521594192dcfab6227f9f768ed02cd"
+      },
+      "exr": {
+        "size": 13467534,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_arm_4k.exr",
+        "md5": "1bc1827ef3ec1bb31cd6038cd6fe0e32"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 579448,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_arm_2k.jpg",
+        "md5": "626bb910b2d811723b1db037176da1b0"
+      },
+      "png": {
+        "size": 3535768,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_lychee_01/food_lychee_01_arm_2k.png",
+        "md5": "9f4937637ac3b880fd65ca6c730b70a8"
+      },
+      "exr": {
+        "size": 4389270,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_arm_2k.exr",
+        "md5": "01686ec51cc1dbe5eeb2b7072d6caf01"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 165624,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_arm_1k.jpg",
+        "md5": "dbe683781b92e6026ec0030d36c146a6"
+      },
+      "png": {
+        "size": 1031070,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_lychee_01/food_lychee_01_arm_1k.png",
+        "md5": "af991996f065740bebdc41ce25519443"
+      },
+      "exr": {
+        "size": 1285279,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_arm_1k.exr",
+        "md5": "780685e769881805468cb845f4a4251e"
+      }
+    }
+  },
+  "AO": {
+    "8k": {
+      "jpg": {
+        "size": 2535154,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_ao_8k.jpg",
+        "md5": "05f25f604db54d3685887a5fa4deb0a4"
+      },
+      "png": {
+        "size": 17210481,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_lychee_01/food_lychee_01_ao_8k.png",
+        "md5": "73f690ba2043cd57fffe9635d6204096"
+      },
+      "exr": {
+        "size": 7503297,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_ao_8k.exr",
+        "md5": "437bd85d3a7f69f396108bf6a7605cda"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 824273,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_ao_4k.jpg",
+        "md5": "61bbc3ea355021231f02dd5bb7675423"
+      },
+      "png": {
+        "size": 7620230,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_lychee_01/food_lychee_01_ao_4k.png",
+        "md5": "a9b5a9c6d628565d756e6e7e54dde463"
+      },
+      "exr": {
+        "size": 2585108,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_ao_4k.exr",
+        "md5": "7caeffe2cb7a396a5f2599bc92715757"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 292021,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_ao_2k.jpg",
+        "md5": "4f1b2112a9431a81cb50d4dcaed89404"
+      },
+      "png": {
+        "size": 4109458,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_lychee_01/food_lychee_01_ao_2k.png",
+        "md5": "d88986b61e34400c5b95b522eeaac75a"
+      },
+      "exr": {
+        "size": 918283,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_ao_2k.exr",
+        "md5": "0ec8a9d466a61bc673df8b708839a6ad"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 112038,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_ao_1k.jpg",
+        "md5": "177cd032e62847624e17995b5848401e"
+      },
+      "png": {
+        "size": 1487705,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_lychee_01/food_lychee_01_ao_1k.png",
+        "md5": "1fbd4059c892247a65a34c7a7e8248e4"
+      },
+      "exr": {
+        "size": 353116,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_ao_1k.exr",
+        "md5": "131decca036a9230001c64aed23d73a7"
+      }
+    }
+  },
+  "Rough": {
+    "8k": {
+      "jpg": {
+        "size": 6275323,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_lychee_01/food_lychee_01_rough_8k.jpg",
+        "md5": "573dedeb03e50a4bfaf885d77a627c55"
+      },
+      "png": {
+        "size": 42947526,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_lychee_01/food_lychee_01_rough_8k.png",
+        "md5": "9af6fda7be1f3f2e4fe5b57fc99f6b97"
+      },
+      "exr": {
+        "size": 19768854,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_lychee_01/food_lychee_01_rough_8k.exr",
+        "md5": "dfe8b6d3a96fd8735f69316106f7b4cc"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 2007454,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_lychee_01/food_lychee_01_rough_4k.jpg",
+        "md5": "c644cf603a0f6f46b2db30787050d76d"
+      },
+      "png": {
+        "size": 21651505,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_lychee_01/food_lychee_01_rough_4k.png",
+        "md5": "9ec4204933143b50c2f450041d804626"
+      },
+      "exr": {
+        "size": 6383695,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_lychee_01/food_lychee_01_rough_4k.exr",
+        "md5": "d11d8ce628d183f6b9e3fdf54c5c5e1d"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 625170,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_lychee_01/food_lychee_01_rough_2k.jpg",
+        "md5": "27b1cb6dfed96fd5843ea4182e6e2ff5"
+      },
+      "png": {
+        "size": 6920723,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_lychee_01/food_lychee_01_rough_2k.png",
+        "md5": "e41c039726a6aa842b6563a6676485d3"
+      },
+      "exr": {
+        "size": 1950666,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_lychee_01/food_lychee_01_rough_2k.exr",
+        "md5": "c4226063ba73e61cb7f332968614a3d8"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 172668,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+        "md5": "2d972a68ff1126b44919b5a5f912223e"
+      },
+      "png": {
+        "size": 2004471,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_lychee_01/food_lychee_01_rough_1k.png",
+        "md5": "781cd2df42be7ea1b1bac9dec3b1f58d"
+      },
+      "exr": {
+        "size": 567453,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_lychee_01/food_lychee_01_rough_1k.exr",
+        "md5": "bcf4badbd29054bd25b5389be8aecaaa"
+      }
+    }
+  }
+}

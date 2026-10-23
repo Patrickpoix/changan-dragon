@@ -1,0 +1,9 @@
+{
+  "source": "source.glb",
+  "runtime": "assets/character-faces.js",
+  "vertices": 1577,
+  "triangles": 2976,
+  "bytes": 99889,
+  "sha256": "50fe54df59722ba1305cb7394bae3fa7665dc221e432c961e2521ebf3b96c291",
+  "derivation": "Authored face and hair only, material colour regions retained; source seams welded, one subdivision, indexed typed-array geometry, normalized to unit height. Costume and straw hat excluded."
+}

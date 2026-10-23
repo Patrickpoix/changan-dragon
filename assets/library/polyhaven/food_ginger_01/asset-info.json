@@ -1,0 +1,51 @@
+{
+  "donated": true,
+  "date_published": 1625619600,
+  "name": "Food Ginger 01",
+  "categories": [
+    "food",
+    "nature"
+  ],
+  "type": 2,
+  "authors": {
+    "Oliver Harries": "All"
+  },
+  "max_resolution": [
+    8192,
+    8192
+  ],
+  "polycount": 7205,
+  "texel_density": 11245.909167468433,
+  "dimensions": [
+    239.93631452322006,
+    147.37514406442642,
+    574.5899783214554
+  ],
+  "files_hash": "e1d57e6942f5bb05eecd5902a89a1e365863825c",
+  "tags": [
+    "food",
+    "cooking",
+    "ginger",
+    "chef",
+    "resturant",
+    "organic",
+    "root",
+    "herbal",
+    "botanical",
+    "rhizome"
+  ],
+  "description": "Free 8K model, photoscanned ginger root with knobbly rhizome, fine skin wrinkles, subtle dirt specks and natural beige tones.",
+  "category_id": "1cbef808-1f4f-5fd2-9972-6b3eeed08fdf",
+  "category": "Food & Kitchen/Produce/Vegetables",
+  "attributes": {
+    "material": [
+      "food"
+    ],
+    "condition": [
+      "clean"
+    ]
+  },
+  "img_version": "eb66fcb1",
+  "download_count": 6072,
+  "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/food_ginger_01.png?width=256&height=256&format=webp&v=eb66fcb1"
+}

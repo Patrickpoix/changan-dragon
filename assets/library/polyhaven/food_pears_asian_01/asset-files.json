@@ -1,0 +1,904 @@
+{
+  "Diffuse": {
+    "8k": {
+      "jpg": {
+        "size": 17743466,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.jpg",
+        "md5": "a83ef5dab16418aec840f3e665299f4a"
+      },
+      "png": {
+        "size": 319943855,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.png",
+        "md5": "08acf213ffc465c74b48f5ed8a434df6"
+      },
+      "exr": {
+        "size": 31534307,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.exr",
+        "md5": "3f87730338054869e74e5357ff866540"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 5915789,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.jpg",
+        "md5": "3b2f3a07eebc1e06ec94d140f4688c5a"
+      },
+      "png": {
+        "size": 84700251,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.png",
+        "md5": "b430c24da4df81d4b307ae6d6b49d761"
+      },
+      "exr": {
+        "size": 11522547,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.exr",
+        "md5": "de3f88e88e35684f75a19c1b4a4ffefc"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 1840965,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.jpg",
+        "md5": "d6c8df83e147a634fc66f0de3f9961b3"
+      },
+      "png": {
+        "size": 22403191,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.png",
+        "md5": "23b358a4501ec12ea4c3d25541fe4e5f"
+      },
+      "exr": {
+        "size": 3914071,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.exr",
+        "md5": "88b251c84fc5a840cd92422c7828f2a3"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 539427,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.jpg",
+        "md5": "aab0f3b8e260a7a17216fefad72cb0c1"
+      },
+      "png": {
+        "size": 5796091,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.png",
+        "md5": "2a4b97b8728a5f7506769bc2cca444b4"
+      },
+      "exr": {
+        "size": 1203656,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.exr",
+        "md5": "70c80ff4b17a4632fafedf9531827cb7"
+      }
+    }
+  },
+  "nor_dx": {
+    "8k": {
+      "jpg": {
+        "size": 5484627,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_nor_dx_8k.jpg",
+        "md5": "ec21d1c343b53b0acadd371eda2d0d92"
+      },
+      "png": {
+        "size": 179032771,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_nor_dx_8k.png",
+        "md5": "f7380d5d3645e65629e47339f73c0fa7"
+      },
+      "exr": {
+        "size": 7357928,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_nor_dx_8k.exr",
+        "md5": "c65270d679449c0a333ff709ecaf9c39"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 2018756,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_nor_dx_4k.jpg",
+        "md5": "fb5045eedd4a7b8fa5602f93547119a1"
+      },
+      "png": {
+        "size": 46137224,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_nor_dx_4k.png",
+        "md5": "38fd33d20114732b0cb5875330569baf"
+      },
+      "exr": {
+        "size": 2829094,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_nor_dx_4k.exr",
+        "md5": "014df1fb0e68ccd71d5eee09ae309d36"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 714264,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_nor_dx_2k.jpg",
+        "md5": "37d1d736c77ca764d0339d48cd08b6df"
+      },
+      "png": {
+        "size": 14244096,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_nor_dx_2k.png",
+        "md5": "c170a4b29ecd2cb2796e88204dfa92f2"
+      },
+      "exr": {
+        "size": 1114168,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_nor_dx_2k.exr",
+        "md5": "1d06220f66865cdaf47f110dd4ae778f"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 245448,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_nor_dx_1k.jpg",
+        "md5": "15b35287ca46b7a03e2ba8b326135d52"
+      },
+      "png": {
+        "size": 4167360,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_nor_dx_1k.png",
+        "md5": "f57a1080fcf2baa821b88cda3925b4fb"
+      },
+      "exr": {
+        "size": 424050,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_nor_dx_1k.exr",
+        "md5": "0f8822a9517f082172933c0cecb6fb19"
+      }
+    }
+  },
+  "nor_gl": {
+    "8k": {
+      "jpg": {
+        "size": 5493605,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.jpg",
+        "md5": "b9c397633c499f0ab85875ba7a8cc897"
+      },
+      "png": {
+        "size": 179095524,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.png",
+        "md5": "343b2332b55b3e8d72489b01aec67033"
+      },
+      "exr": {
+        "size": 7357070,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.exr",
+        "md5": "e71abc8a0c1c0f11ac6beca3f6e0b892"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 2019716,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.jpg",
+        "md5": "e9e455ed3ba80dc27b4da5f2a0fad1bf"
+      },
+      "png": {
+        "size": 46142076,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.png",
+        "md5": "cc338b0a23e6ddfa0318c1d1a8fbc61e"
+      },
+      "exr": {
+        "size": 2828728,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.exr",
+        "md5": "57d67038a915be2ad3284bb3b173b792"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 714873,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.jpg",
+        "md5": "acdfda34304d7fcf56c6c583d5b70def"
+      },
+      "png": {
+        "size": 14245256,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.png",
+        "md5": "9760c15475d87af0bfeb6855a2c7442d"
+      },
+      "exr": {
+        "size": 1114149,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.exr",
+        "md5": "f0269376fecd91712676724e2e9fe04a"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 245203,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.jpg",
+        "md5": "78c8a12170c49d9217f86f7c04135e5b"
+      },
+      "png": {
+        "size": 4167564,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.png",
+        "md5": "1dc5355bca8442729212a4e94082b107"
+      },
+      "exr": {
+        "size": 423312,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.exr",
+        "md5": "f0be9d1287492263f3964c4092b16448"
+      }
+    }
+  },
+  "blend": {
+    "8k": {
+      "blend": {
+        "include": {
+          "textures/food_pears_asian_01_diff_8k.jpg": {
+            "size": 17743466,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.jpg",
+            "md5": "a83ef5dab16418aec840f3e665299f4a"
+          },
+          "textures/food_pears_asian_01_rough_8k.exr": {
+            "size": 57339930,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_rough_8k.exr",
+            "md5": "d7c25e5e170a998e1602258e53af0154"
+          },
+          "textures/food_pears_asian_01_nor_gl_8k.exr": {
+            "size": 7357070,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.exr",
+            "md5": "e71abc8a0c1c0f11ac6beca3f6e0b892"
+          }
+        },
+        "size": 390270,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/8k/food_pears_asian_01/food_pears_asian_01_8k.blend",
+        "md5": "3fae61e78052d5ed8ce0d8e442f1e2c8"
+      }
+    },
+    "4k": {
+      "blend": {
+        "include": {
+          "textures/food_pears_asian_01_rough_4k.exr": {
+            "size": 16512967,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_rough_4k.exr",
+            "md5": "2f2d1c900b28274e6f90dba25facf5f2"
+          },
+          "textures/food_pears_asian_01_diff_4k.jpg": {
+            "size": 5915789,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.jpg",
+            "md5": "3b2f3a07eebc1e06ec94d140f4688c5a"
+          },
+          "textures/food_pears_asian_01_nor_gl_4k.exr": {
+            "size": 2828728,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.exr",
+            "md5": "57d67038a915be2ad3284bb3b173b792"
+          }
+        },
+        "size": 390139,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/4k/food_pears_asian_01/food_pears_asian_01_4k.blend",
+        "md5": "f98684c66f95fe80ac3fc44d8ba357c0"
+      }
+    },
+    "2k": {
+      "blend": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_2k.exr": {
+            "size": 1114149,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.exr",
+            "md5": "f0269376fecd91712676724e2e9fe04a"
+          },
+          "textures/food_pears_asian_01_rough_2k.exr": {
+            "size": 4467063,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_rough_2k.exr",
+            "md5": "0a6cbcb8741f315d5d3bc4af485fa801"
+          },
+          "textures/food_pears_asian_01_diff_2k.jpg": {
+            "size": 1840965,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.jpg",
+            "md5": "d6c8df83e147a634fc66f0de3f9961b3"
+          }
+        },
+        "size": 390053,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/2k/food_pears_asian_01/food_pears_asian_01_2k.blend",
+        "md5": "5b45fb812f17081d6a70050bfc05abfd"
+      }
+    },
+    "1k": {
+      "blend": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_1k.exr": {
+            "size": 423312,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.exr",
+            "md5": "f0be9d1287492263f3964c4092b16448"
+          },
+          "textures/food_pears_asian_01_diff_1k.jpg": {
+            "size": 539427,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.jpg",
+            "md5": "aab0f3b8e260a7a17216fefad72cb0c1"
+          },
+          "textures/food_pears_asian_01_rough_1k.exr": {
+            "size": 1158986,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_rough_1k.exr",
+            "md5": "aedbc39e7a5a9e92af4fe54c00fa1ce2"
+          }
+        },
+        "size": 389935,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/1k/food_pears_asian_01/food_pears_asian_01_1k.blend",
+        "md5": "e0c5f40d53afd3c68967391725f331cd"
+      }
+    }
+  },
+  "gltf": {
+    "8k": {
+      "gltf": {
+        "include": {
+          "textures/food_pears_asian_01_diff_8k.jpg": {
+            "size": 17743466,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.jpg",
+            "md5": "a83ef5dab16418aec840f3e665299f4a"
+          },
+          "textures/food_pears_asian_01_nor_gl_8k.jpg": {
+            "size": 5493605,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.jpg",
+            "md5": "b9c397633c499f0ab85875ba7a8cc897"
+          },
+          "textures/food_pears_asian_01_arm_8k.jpg": {
+            "size": 24152860,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_arm_8k.jpg",
+            "md5": "04f8ef832cb812a70df9a81ca62f7353"
+          },
+          "food_pears_asian_01.bin": {
+            "size": 300136,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pears_asian_01/food_pears_asian_01.bin",
+            "md5": "77ae4efe197087f8441a8c98fe719f93"
+          }
+        },
+        "size": 9955,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pears_asian_01/food_pears_asian_01_8k.gltf",
+        "md5": "d8aa60f4f45ab431d9cb06e892286c9e"
+      }
+    },
+    "4k": {
+      "gltf": {
+        "include": {
+          "textures/food_pears_asian_01_arm_4k.jpg": {
+            "size": 8009277,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_arm_4k.jpg",
+            "md5": "7ef31f83e6bd6a7d1d4824ba73063e79"
+          },
+          "textures/food_pears_asian_01_diff_4k.jpg": {
+            "size": 5915789,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.jpg",
+            "md5": "3b2f3a07eebc1e06ec94d140f4688c5a"
+          },
+          "food_pears_asian_01.bin": {
+            "size": 300136,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pears_asian_01/food_pears_asian_01.bin",
+            "md5": "77ae4efe197087f8441a8c98fe719f93"
+          },
+          "textures/food_pears_asian_01_nor_gl_4k.jpg": {
+            "size": 2019716,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.jpg",
+            "md5": "e9e455ed3ba80dc27b4da5f2a0fad1bf"
+          }
+        },
+        "size": 9955,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/food_pears_asian_01/food_pears_asian_01_4k.gltf",
+        "md5": "f9cf49b6ce07b50515fd466a1b1c0aa1"
+      }
+    },
+    "2k": {
+      "gltf": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_2k.jpg": {
+            "size": 714873,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.jpg",
+            "md5": "acdfda34304d7fcf56c6c583d5b70def"
+          },
+          "food_pears_asian_01.bin": {
+            "size": 300136,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pears_asian_01/food_pears_asian_01.bin",
+            "md5": "77ae4efe197087f8441a8c98fe719f93"
+          },
+          "textures/food_pears_asian_01_arm_2k.jpg": {
+            "size": 2362610,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_arm_2k.jpg",
+            "md5": "94f89c17ed30b093e9fa7b096424437a"
+          },
+          "textures/food_pears_asian_01_diff_2k.jpg": {
+            "size": 1840965,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.jpg",
+            "md5": "d6c8df83e147a634fc66f0de3f9961b3"
+          }
+        },
+        "size": 9955,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/food_pears_asian_01/food_pears_asian_01_2k.gltf",
+        "md5": "62d3050270aceffd4fb570d454037d8b"
+      }
+    },
+    "1k": {
+      "gltf": {
+        "include": {
+          "textures/food_pears_asian_01_arm_1k.jpg": {
+            "size": 629396,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_arm_1k.jpg",
+            "md5": "050560a051eae1544158164078cb7823"
+          },
+          "textures/food_pears_asian_01_nor_gl_1k.jpg": {
+            "size": 245203,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.jpg",
+            "md5": "78c8a12170c49d9217f86f7c04135e5b"
+          },
+          "food_pears_asian_01.bin": {
+            "size": 300136,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_pears_asian_01/food_pears_asian_01.bin",
+            "md5": "77ae4efe197087f8441a8c98fe719f93"
+          },
+          "textures/food_pears_asian_01_diff_1k.jpg": {
+            "size": 539427,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.jpg",
+            "md5": "aab0f3b8e260a7a17216fefad72cb0c1"
+          }
+        },
+        "size": 9955,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_pears_asian_01/food_pears_asian_01_1k.gltf",
+        "md5": "de92255775de37f9dd685fd73fa2e0ec"
+      }
+    }
+  },
+  "usd": {
+    "8k": {
+      "usd": {
+        "include": {
+          "textures/food_pears_asian_01_diff_8k.jpg": {
+            "size": 17743466,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.jpg",
+            "md5": "a83ef5dab16418aec840f3e665299f4a"
+          },
+          "textures/food_pears_asian_01_rough_8k.exr": {
+            "size": 57339930,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_rough_8k.exr",
+            "md5": "d7c25e5e170a998e1602258e53af0154"
+          },
+          "textures/food_pears_asian_01_nor_gl_8k.exr": {
+            "size": 7357070,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.exr",
+            "md5": "e71abc8a0c1c0f11ac6beca3f6e0b892"
+          }
+        },
+        "size": 624491,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/8k/food_pears_asian_01/food_pears_asian_01_8k.usdc",
+        "md5": "67a13ae413614666e95279c0b96c0ae6"
+      }
+    },
+    "4k": {
+      "usd": {
+        "include": {
+          "textures/food_pears_asian_01_rough_4k.exr": {
+            "size": 16512967,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_rough_4k.exr",
+            "md5": "2f2d1c900b28274e6f90dba25facf5f2"
+          },
+          "textures/food_pears_asian_01_diff_4k.jpg": {
+            "size": 5915789,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.jpg",
+            "md5": "3b2f3a07eebc1e06ec94d140f4688c5a"
+          },
+          "textures/food_pears_asian_01_nor_gl_4k.exr": {
+            "size": 2828728,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.exr",
+            "md5": "57d67038a915be2ad3284bb3b173b792"
+          }
+        },
+        "size": 624490,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/4k/food_pears_asian_01/food_pears_asian_01_4k.usdc",
+        "md5": "8e53854d6a6ac311fb0f9e467288def0"
+      }
+    },
+    "2k": {
+      "usd": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_2k.exr": {
+            "size": 1114149,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.exr",
+            "md5": "f0269376fecd91712676724e2e9fe04a"
+          },
+          "textures/food_pears_asian_01_rough_2k.exr": {
+            "size": 4467063,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_rough_2k.exr",
+            "md5": "0a6cbcb8741f315d5d3bc4af485fa801"
+          },
+          "textures/food_pears_asian_01_diff_2k.jpg": {
+            "size": 1840965,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.jpg",
+            "md5": "d6c8df83e147a634fc66f0de3f9961b3"
+          }
+        },
+        "size": 624490,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/2k/food_pears_asian_01/food_pears_asian_01_2k.usdc",
+        "md5": "3799a167f101f34d05e7ec1542eab8eb"
+      }
+    },
+    "1k": {
+      "usd": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_1k.exr": {
+            "size": 423312,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.exr",
+            "md5": "f0be9d1287492263f3964c4092b16448"
+          },
+          "textures/food_pears_asian_01_diff_1k.jpg": {
+            "size": 539427,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.jpg",
+            "md5": "aab0f3b8e260a7a17216fefad72cb0c1"
+          },
+          "textures/food_pears_asian_01_rough_1k.exr": {
+            "size": 1158986,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_rough_1k.exr",
+            "md5": "aedbc39e7a5a9e92af4fe54c00fa1ce2"
+          }
+        },
+        "size": 624490,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/1k/food_pears_asian_01/food_pears_asian_01_1k.usdc",
+        "md5": "8037a34e7093571c462c9d8bf71fdaa5"
+      }
+    }
+  },
+  "fbx": {
+    "8k": {
+      "fbx": {
+        "include": {
+          "textures/food_pears_asian_01_diff_8k.jpg": {
+            "size": 17743466,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_diff_8k.jpg",
+            "md5": "a83ef5dab16418aec840f3e665299f4a"
+          },
+          "textures/food_pears_asian_01_rough_8k.exr": {
+            "size": 57339930,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_rough_8k.exr",
+            "md5": "d7c25e5e170a998e1602258e53af0154"
+          },
+          "textures/food_pears_asian_01_nor_gl_8k.exr": {
+            "size": 7357070,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_nor_gl_8k.exr",
+            "md5": "e71abc8a0c1c0f11ac6beca3f6e0b892"
+          }
+        },
+        "size": 409996,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/8k/food_pears_asian_01/food_pears_asian_01_8k.fbx",
+        "md5": "6000dfa0e97d56e17fe564b6c7bd8440"
+      }
+    },
+    "4k": {
+      "fbx": {
+        "include": {
+          "textures/food_pears_asian_01_rough_4k.exr": {
+            "size": 16512967,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_rough_4k.exr",
+            "md5": "2f2d1c900b28274e6f90dba25facf5f2"
+          },
+          "textures/food_pears_asian_01_diff_4k.jpg": {
+            "size": 5915789,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_diff_4k.jpg",
+            "md5": "3b2f3a07eebc1e06ec94d140f4688c5a"
+          },
+          "textures/food_pears_asian_01_nor_gl_4k.exr": {
+            "size": 2828728,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_nor_gl_4k.exr",
+            "md5": "57d67038a915be2ad3284bb3b173b792"
+          }
+        },
+        "size": 409996,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/4k/food_pears_asian_01/food_pears_asian_01_4k.fbx",
+        "md5": "803f36bba10ed52bb845753f81cef94a"
+      }
+    },
+    "2k": {
+      "fbx": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_2k.exr": {
+            "size": 1114149,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_nor_gl_2k.exr",
+            "md5": "f0269376fecd91712676724e2e9fe04a"
+          },
+          "textures/food_pears_asian_01_rough_2k.exr": {
+            "size": 4467063,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_rough_2k.exr",
+            "md5": "0a6cbcb8741f315d5d3bc4af485fa801"
+          },
+          "textures/food_pears_asian_01_diff_2k.jpg": {
+            "size": 1840965,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_diff_2k.jpg",
+            "md5": "d6c8df83e147a634fc66f0de3f9961b3"
+          }
+        },
+        "size": 409996,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/2k/food_pears_asian_01/food_pears_asian_01_2k.fbx",
+        "md5": "99f9a0fbe547a02a4af5de1421f5b8c6"
+      }
+    },
+    "1k": {
+      "fbx": {
+        "include": {
+          "textures/food_pears_asian_01_nor_gl_1k.exr": {
+            "size": 423312,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_nor_gl_1k.exr",
+            "md5": "f0be9d1287492263f3964c4092b16448"
+          },
+          "textures/food_pears_asian_01_diff_1k.jpg": {
+            "size": 539427,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_diff_1k.jpg",
+            "md5": "aab0f3b8e260a7a17216fefad72cb0c1"
+          },
+          "textures/food_pears_asian_01_rough_1k.exr": {
+            "size": 1158986,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_rough_1k.exr",
+            "md5": "aedbc39e7a5a9e92af4fe54c00fa1ce2"
+          }
+        },
+        "size": 409996,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/food_pears_asian_01/food_pears_asian_01_1k.fbx",
+        "md5": "e23c05543b45eb56876f328cb4925ac8"
+      }
+    }
+  },
+  "arm": {
+    "8k": {
+      "jpg": {
+        "size": 24152860,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_arm_8k.jpg",
+        "md5": "04f8ef832cb812a70df9a81ca62f7353"
+      },
+      "png": {
+        "size": 190967280,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_arm_8k.png",
+        "md5": "bb6440da82dfe41b00c62a4bd80b16a9"
+      },
+      "exr": {
+        "size": 40942783,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_arm_8k.exr",
+        "md5": "572f482c2c0ba8746c680d3b03fd3b2a"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 8009277,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_arm_4k.jpg",
+        "md5": "7ef31f83e6bd6a7d1d4824ba73063e79"
+      },
+      "png": {
+        "size": 51086760,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_arm_4k.png",
+        "md5": "3599bf8d6cbcb4231c73140aedffb5b6"
+      },
+      "exr": {
+        "size": 15460717,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_arm_4k.exr",
+        "md5": "b2a25b25196b24cf5a038e541f639d79"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 2362610,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_arm_2k.jpg",
+        "md5": "94f89c17ed30b093e9fa7b096424437a"
+      },
+      "png": {
+        "size": 12958036,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_arm_2k.png",
+        "md5": "0961d43f40698fa31d3a344ed0e79f14"
+      },
+      "exr": {
+        "size": 5066015,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_arm_2k.exr",
+        "md5": "363b78647456f0d5486114d96deec9a3"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 629396,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_arm_1k.jpg",
+        "md5": "050560a051eae1544158164078cb7823"
+      },
+      "png": {
+        "size": 3243420,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_arm_1k.png",
+        "md5": "44ba9f69ee5cdb19816ccef240839439"
+      },
+      "exr": {
+        "size": 1421106,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_arm_1k.exr",
+        "md5": "41e5237f718b011b61e0eeca6321c5c1"
+      }
+    }
+  },
+  "Displacement": {
+    "8k": {
+      "jpg": {
+        "size": 4482108,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_disp_8k.jpg",
+        "md5": "42f2800b5ee736963afe0ce25f67c8b2"
+      },
+      "png": {
+        "size": 51358483,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_disp_8k.png",
+        "md5": "534e2603bd177be9a9072650e2af7b82"
+      },
+      "exr": {
+        "size": 13670994,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_disp_8k.exr",
+        "md5": "cad4c3016602e069f231477b0ea849dc"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 1607467,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_disp_4k.jpg",
+        "md5": "3e4b36e2ef2746cc9926d47bada93c5a"
+      },
+      "png": {
+        "size": 14219709,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_disp_4k.png",
+        "md5": "312ee5fded6341b6fd5a7cc6014c898a"
+      },
+      "exr": {
+        "size": 5082809,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_disp_4k.exr",
+        "md5": "7cc88e9801fa1b23781a7d30b7fa284a"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 541959,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_disp_2k.jpg",
+        "md5": "066321f50f1f1b5018a8cf3871860f39"
+      },
+      "png": {
+        "size": 4886965,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_disp_2k.png",
+        "md5": "3c5257f7fd4d85282d0ef4d2e3c38bac"
+      },
+      "exr": {
+        "size": 1917497,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_disp_2k.exr",
+        "md5": "1a1dd74b8b496da749d650d5aff9ea49"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 175404,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_disp_1k.jpg",
+        "md5": "1602bee43716075a126e2a8fe3674e98"
+      },
+      "png": {
+        "size": 1424007,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_disp_1k.png",
+        "md5": "50ad0defe2e5845938a084b684208028"
+      },
+      "exr": {
+        "size": 684819,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_disp_1k.exr",
+        "md5": "1c77bfbe59f0827f52058f54689fc072"
+      }
+    }
+  },
+  "Rough": {
+    "8k": {
+      "jpg": {
+        "size": 19361828,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_rough_8k.jpg",
+        "md5": "4ab005f74910c723a74919e55ecffe58"
+      },
+      "png": {
+        "size": 96380918,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_rough_8k.png",
+        "md5": "2d62200e96c5ec3c5d81af164376f823"
+      },
+      "exr": {
+        "size": 57339930,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_rough_8k.exr",
+        "md5": "d7c25e5e170a998e1602258e53af0154"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 6869978,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_rough_4k.jpg",
+        "md5": "b21608e8592130e571fa002479c7c36d"
+      },
+      "png": {
+        "size": 25488720,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_rough_4k.png",
+        "md5": "f8e562ef35d11a4f7b2db7369972678c"
+      },
+      "exr": {
+        "size": 16512967,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_rough_4k.exr",
+        "md5": "2f2d1c900b28274e6f90dba25facf5f2"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 2063718,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_rough_2k.jpg",
+        "md5": "7b5e0e357fe05abaff8647d71495a15f"
+      },
+      "png": {
+        "size": 6736909,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_rough_2k.png",
+        "md5": "f097cdd9dcabb311b1c0cad998f802bf"
+      },
+      "exr": {
+        "size": 4467063,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_rough_2k.exr",
+        "md5": "0a6cbcb8741f315d5d3bc4af485fa801"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 553158,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_rough_1k.jpg",
+        "md5": "7ee792f4ac0b02877bc01f2621a5dc4c"
+      },
+      "png": {
+        "size": 1741019,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_rough_1k.png",
+        "md5": "8349153c8393e57c18fbbc6ff9fd0e8b"
+      },
+      "exr": {
+        "size": 1158986,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_rough_1k.exr",
+        "md5": "aedbc39e7a5a9e92af4fe54c00fa1ce2"
+      }
+    }
+  },
+  "AO": {
+    "8k": {
+      "jpg": {
+        "size": 9002651,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/food_pears_asian_01/food_pears_asian_01_ao_8k.jpg",
+        "md5": "2c5865bd04d544cde7a2002c08e73ad2"
+      },
+      "png": {
+        "size": 69104353,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/food_pears_asian_01/food_pears_asian_01_ao_8k.png",
+        "md5": "7252a9e3858d154b2bd5197a28b37470"
+      },
+      "exr": {
+        "size": 31162978,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/food_pears_asian_01/food_pears_asian_01_ao_8k.exr",
+        "md5": "f57ab237064c1bdc7ca00b850a87227d"
+      }
+    },
+    "4k": {
+      "jpg": {
+        "size": 1295916,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/food_pears_asian_01/food_pears_asian_01_ao_4k.jpg",
+        "md5": "d5c2c4cb16def1bdb4335970e9c8e802"
+      },
+      "png": {
+        "size": 16795818,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/food_pears_asian_01/food_pears_asian_01_ao_4k.png",
+        "md5": "0d7b4f026b7c060629349250a57198de"
+      },
+      "exr": {
+        "size": 6166625,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/food_pears_asian_01/food_pears_asian_01_ao_4k.exr",
+        "md5": "13d4822d68d1221be4613fb357221db6"
+      }
+    },
+    "2k": {
+      "jpg": {
+        "size": 247270,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/food_pears_asian_01/food_pears_asian_01_ao_2k.jpg",
+        "md5": "d771ec3a4fb643e129362f0043390daf"
+      },
+      "png": {
+        "size": 4093422,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/food_pears_asian_01/food_pears_asian_01_ao_2k.png",
+        "md5": "37c2b8419ff8ac4791ca3a1f8cbd172b"
+      },
+      "exr": {
+        "size": 1239421,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/food_pears_asian_01/food_pears_asian_01_ao_2k.exr",
+        "md5": "c5378437dabdca91c5e68d4fdc30b52c"
+      }
+    },
+    "1k": {
+      "jpg": {
+        "size": 65388,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_pears_asian_01/food_pears_asian_01_ao_1k.jpg",
+        "md5": "b71bfb2980484aefe9b74aca645bb3eb"
+      },
+      "png": {
+        "size": 985720,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/food_pears_asian_01/food_pears_asian_01_ao_1k.png",
+        "md5": "e88930f059dd0aa33af2fead080fffa0"
+      },
+      "exr": {
+        "size": 286902,
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/food_pears_asian_01/food_pears_asian_01_ao_1k.exr",
+        "md5": "35fed8db897d459a8ed60ca78c0cc0fd"
+      }
+    }
+  }
+}

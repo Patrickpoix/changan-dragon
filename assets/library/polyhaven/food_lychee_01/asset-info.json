@@ -1,0 +1,50 @@
+{
+  "donated": true,
+  "date_published": 1625619600,
+  "name": "Food Lychee 01",
+  "categories": [
+    "food",
+    "nature"
+  ],
+  "type": 2,
+  "authors": {
+    "Oliver Harries": "All"
+  },
+  "max_resolution": [
+    8192,
+    8192
+  ],
+  "polycount": 6783,
+  "texel_density": 80531.4406332374,
+  "dimensions": [
+    40.87286256253719,
+    41.9513713568449,
+    50.59902649372816
+  ],
+  "files_hash": "34546334279958a4ba4e3f598b699bc10b401db4",
+  "tags": [
+    "fruitbowl",
+    "fruit",
+    "food",
+    "lychee",
+    "fresh",
+    "lychee skin ",
+    "spikey",
+    "tropical",
+    "organic"
+  ],
+  "description": "Free 8K lychee model with realistic spiky skin, detailed organic bumps, subtle color variations and natural tropical texture.",
+  "category_id": "482e0c49-27e5-54ed-8039-54f7c4560e2d",
+  "category": "Food & Kitchen/Produce/Fruit",
+  "attributes": {
+    "material": [
+      "food"
+    ],
+    "condition": [
+      "clean"
+    ]
+  },
+  "img_version": "e7164887",
+  "download_count": 11198,
+  "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/food_lychee_01.png?width=256&height=256&format=webp&v=e7164887"
+}

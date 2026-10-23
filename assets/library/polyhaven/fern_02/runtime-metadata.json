@@ -1,0 +1,13 @@
+{
+  "source": "assets/library/polyhaven/fern_02/fern_02_1k.gltf",
+  "runtime": "assets/library/polyhaven/fern_02/runtime.glb",
+  "sourceTriangles": 6232,
+  "runtimeTriangles": 6232,
+  "textureMaxSize": 512,
+  "blenderDimensionsXYZ": [
+    1.97253,
+    1.724028,
+    0.427695
+  ],
+  "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+}

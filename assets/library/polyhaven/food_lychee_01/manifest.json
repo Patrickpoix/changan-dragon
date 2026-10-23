@@ -1,0 +1,48 @@
+{
+  "id": "food_lychee_01",
+  "license": "CC0-1.0",
+  "authors": {
+    "Oliver Harries": "All"
+  },
+  "asset_page": "https://polyhaven.com/a/food_lychee_01",
+  "retrieved_at": "2026-10-23",
+  "notes": "Era-neutral botanical produce, selected for Tang-inspired market dressing; no claim about a specific historical cultivar. Author material and UVs retained, optimized local 3D derivative. Pear nodes used separately; ginger laid flat on actual counters.",
+  "files": [
+    {
+      "file": "food_lychee_01_1k.gltf",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/food_lychee_01/food_lychee_01_1k.gltf",
+      "source_md5": "f672486bf2f7a1beb4f95f258b800bd9",
+      "bytes": 2715,
+      "sha256": "2defd06eccf002026e986023f75332ace25c7d22e80a32a28fd9aea639d488ef"
+    },
+    {
+      "file": "food_lychee_01.bin",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/food_lychee_01/food_lychee_01.bin",
+      "source_md5": "fe40b08873f89b0d70bfef95cd0ec029",
+      "bytes": 157852,
+      "sha256": "d083f18fab8430e7aa6ade350428a9b3eff31c81935a3a852781a3ee9b7c60bb"
+    },
+    {
+      "file": "textures/food_lychee_01_nor_gl_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_nor_gl_1k.jpg",
+      "source_md5": "d4d975c6bfd6a8eec0495d7a1684bf29",
+      "bytes": 250477,
+      "sha256": "e43f2b4dc649dbb816239e7fd101833e02d0c3392a9e8f1493c05c00da38ec46"
+    },
+    {
+      "file": "textures/food_lychee_01_rough_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_rough_1k.jpg",
+      "source_md5": "2d972a68ff1126b44919b5a5f912223e",
+      "bytes": 172668,
+      "sha256": "5d05a3309d3a9faf6548f35a62273ea9e58357f70c0437bb6541e94191441c4d"
+    },
+    {
+      "file": "textures/food_lychee_01_diff_1k.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/food_lychee_01/food_lychee_01_diff_1k.jpg",
+      "source_md5": "f9b780088cb265df0114ff0565bb0156",
+      "bytes": 188081,
+      "sha256": "e9075ea75d43a988c6a2b38321bf03e7966041fdb89970195097b0f4c57c5314"
+    }
+  ],
+  "status": "integrated_local_market_produce_browser_verified"
+}

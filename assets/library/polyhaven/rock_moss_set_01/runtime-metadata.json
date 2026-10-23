@@ -1,0 +1,13 @@
+{
+  "source": "assets/library/polyhaven/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+  "runtime": "assets/library/polyhaven/rock_moss_set_01/runtime.glb",
+  "sourceTriangles": 63127,
+  "runtimeTriangles": 8995,
+  "textureMaxSize": 512,
+  "blenderDimensionsXYZ": [
+    7.993898,
+    6.958234,
+    1.774635
+  ],
+  "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+}

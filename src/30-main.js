@@ -17,7 +17,7 @@ const UI = {
   nightBtn: $('#nightBtn'), soundBtn: $('#soundBtn'), helpBtn: $('#helpBtn'), fullBtn: $('#fullBtn'),
   modal: $('#modalLayer'), poemPanel: $('#poemPanel'), helpPanel: $('#helpPanel'), collectionPanel: $('#collectionPanel'),
   poemTitle: $('#poemTitle'), poemPlace: $('#poemPlace'), poemLine: $('#poemLine'), poemIndex: $('#poemIndex'),
-  collectionList: $('#collectionList'), collectionComplete: $('#collectionComplete'),
+  collectionList: $('#collectionList'), collectionComplete: $('#collectionComplete'), travelPanel: $('#travelPanel'),
 };
 
 const GAME = {
@@ -93,6 +93,7 @@ function saveCollectedPoems() {
 
 function restorePoems() {
   poems.forEach((p, i) => {
+    p.group.visible=!p.taken&&!Explore.film;
     p.taken = GAME.poemsFound.has(i);
     p.group.visible = !p.taken;
   });
@@ -189,14 +190,45 @@ const Cam = {
   mode: 0,
   userYaw: 0,
   orbitYaw: 0.45,
-  pitch: 0.28,
-  zoom: 1,
+  pitch: 0.1,
+  zoom: 0.9,
   fov: 55,
   look: new THREE.Vector3(0, 1.8, 420),
   dragging: false,
   lastX: 0,
   lastY: 0,
   autoOrbit: 0,
+
+  clearPosition(look, desired) {
+    const delta = desired.clone().sub(look);
+    const distance = delta.length();
+    if (distance < 0.1) return desired;
+    const steps = Math.max(12, Math.ceil(distance / 0.6));
+    const probe = new THREE.Vector3();
+    for (let i = 1; i <= steps; i++) {
+      const t = i / steps, p = probe.copy(look).addScaledVector(delta, t);
+      const candidates = colliderGrid.get(Math.floor(p.x / CELL) + ',' + Math.floor(p.z / CELL)) || [];
+      const blocked = candidates.some(c => p.x > c.minX - 0.35 && p.x < c.maxX + 0.35 && p.z > c.minZ - 0.35 && p.z < c.maxZ + 0.35 && p.y < Math.max(3, Explore.roofAt(p.x, p.z)) + 0.4);
+      if (blocked) return look.clone().addScaledVector(delta, Math.max(0.08, t - 0.75 / distance));
+    }
+    return desired;
+  },
+
+  resolvePosition(look, desired) {
+    let best=this.clearPosition(look,desired),distance=best.distanceTo(look);
+    if(distance>=2.6) return best;
+    // Near stalls and columns, sliding directly into the dragon's head is not
+    // a usable third-person view. Seek a free neighbouring angle first.
+    const offset=desired.clone().sub(look),radius=Math.max(4,Math.hypot(offset.x,offset.z));
+    const angle=Math.atan2(offset.x,offset.z);
+    for(const lift of [0,1.6]) for(const turn of [.65,-.65,1.2,-1.2,Math.PI]) {
+      const candidate=new THREE.Vector3(look.x+Math.sin(angle+turn)*radius,desired.y+lift,look.z+Math.cos(angle+turn)*radius);
+      const safe=this.clearPosition(look,candidate),available=safe.distanceTo(look);
+      if(available>distance){best=safe;distance=available;}
+      if(distance>=radius*.72) return best;
+    }
+    return best;
+  },
 
   cycle() {
     this.mode = (this.mode + 1) % this.modes.length;
@@ -216,20 +248,21 @@ const Cam = {
 
     if (mode === 'chase') {
       const angle = yaw + Math.PI + this.userYaw;
-      const d = 11.4 * this.zoom;
-      const h = 5.35 + Math.sin(this.pitch) * d * 0.55;
+      const d = 8.4 * this.zoom;
+      const h = 2.8 + Math.sin(this.pitch) * d * 0.28;
       desired.set(p.x + Math.sin(angle) * d * 0.92, p.y + h, p.z + Math.cos(angle) * d * 0.92);
-      look.x += Math.sin(yaw) * 8.0;
-      look.z += Math.cos(yaw) * 8.0;
-      look.y = p.y + 2.45;
+      look.x += Math.sin(yaw) * 3.4;
+      look.z += Math.cos(yaw) * 3.4;
+      look.y = p.y + 1.65;
       this.userYaw = damp(this.userYaw, 0, 0.32, dt);
       lambda = 4.8;
     } else if (mode === 'side') {
       const angle = yaw + Math.PI * 0.36 + this.userYaw;
-      const d = 8.1 * this.zoom;
-      desired.set(p.x + Math.sin(angle) * d, p.y + 3.9 + Math.sin(this.pitch) * 2.4, p.z + Math.cos(angle) * d);
-      look.x += Math.sin(yaw) * 1.8;
-      look.z += Math.cos(yaw) * 1.8;
+      const d = 6.9 * this.zoom;
+      desired.set(p.x + Math.sin(angle) * d, p.y + 2.65 + Math.sin(this.pitch) * 1.6, p.z + Math.cos(angle) * d);
+      look.x += Math.sin(yaw) * 0.7;
+      look.z += Math.cos(yaw) * 0.7;
+      look.y = p.y + 1.35;
       lambda = 3.8;
     } else if (mode === 'aerial') {
       this.autoOrbit += dt * 0.08;
@@ -247,6 +280,10 @@ const Cam = {
       lambda = 3.0;
     }
 
+    const anchor = new THREE.Vector3(p.x, p.y + 2.45, p.z);
+    look = this.clearPosition(anchor, look);
+    desired = this.resolvePosition(look, desired);
+    desired.y = Math.max(desired.y, 0.8);
     if (immediate) {
       camera.position.copy(desired);
       this.look.copy(look);
@@ -254,6 +291,8 @@ const Cam = {
       camera.position.lerp(desired, 1 - Math.exp(-lambda * dt));
       this.look.lerp(look, 1 - Math.exp(-6.5 * dt));
     }
+    this.look.copy(this.clearPosition(anchor, this.look));
+    camera.position.copy(this.resolvePosition(this.look, camera.position));
     camera.lookAt(this.look);
     const targetFov = 56 + (GAME.boosted ? 4.2 : 0);
     this.fov = damp(this.fov, targetFov, 3.4, dt);
@@ -294,18 +333,21 @@ function bindKeyboard() {
   window.addEventListener('keydown', e => {
     if (blocked.has(e.code)) e.preventDefault();
     if (e.repeat) return;
+    if (e.code === 'Escape') { if (Explore.film) Explore.stopFilm(); else closeModal(); return; }
+    if (!GAME.started || GAME.modalOpen) return;
+    if (Explore.film && !['KeyN', 'KeyM'].includes(e.code)) return;
     Input.keys[e.code] = true;
-    if (e.code === 'KeyC') cycleCamera();
+    if (e.code === 'KeyC') Cam.cycle();
     else if (e.code === 'KeyB') ringBell();
     else if (e.code === 'KeyE' && Explore.mode !== 'fly') tryPickup();
     else if (e.code === 'KeyN') toggleNight();
     else if (e.code === 'KeyL') openCollection();
     else if (e.code === 'KeyH' || e.code === 'Slash') openHelp();
     else if (e.code === 'KeyM') Sound.setEnabled(!Sound.enabled);
-    else if (e.code === 'Escape') closeModal();
+
   });
   window.addEventListener('keyup', e => { Input.keys[e.code] = false; });
-  window.addEventListener('blur', () => { Input.keys = Object.create(null); Input.touchBoost = false; });
+  window.addEventListener('blur', () => Explore.resetInput());
 }
 
 function axes() {
@@ -315,7 +357,7 @@ function axes() {
   if (Input.keys.KeyA || Input.keys.ArrowLeft) steer += 1;
   if (Input.keys.KeyD || Input.keys.ArrowRight) steer -= 1;
   throttle += Input.joyY;
-  steer += Input.joyX;
+  steer -= Input.joyX;
   return { throttle: clamp(throttle, -1, 1), steer: clamp(steer, -1, 1) };
 }
 
@@ -341,6 +383,7 @@ function bindJoystick() {
     UI.joyKnob.style.transform = 'translate(0px, 0px)';
   };
   el.addEventListener('pointerdown', e => {
+    if (Input.joyPointer !== null || !GAME.started || GAME.modalOpen || Explore.film) return;
     Input.joyPointer = e.pointerId;
     el.classList.add('active');
     el.setPointerCapture(e.pointerId);
@@ -357,7 +400,7 @@ function bindJoystick() {
 
 function bindViewGestures() {
   canvas.addEventListener('pointerdown', e => {
-    if (GAME.modalOpen) return;
+    if (GAME.modalOpen || Explore.film) return;
     Input.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     canvas.setPointerCapture?.(e.pointerId);
     if (Input.pointers.size === 1) {
@@ -387,27 +430,38 @@ function bindViewGestures() {
     Input.pointers.delete(e.pointerId);
     if (Input.pointers.size < 2) Input.pinching = false;
     if (Input.pointers.size === 0) Cam.dragging = false;
+    else if (Input.pointers.size === 1) { const remaining = [...Input.pointers.values()][0]; Cam.lastX = remaining.x; Cam.lastY = remaining.y; Cam.dragging = true; }
   };
   window.addEventListener('pointerup', end);
   window.addEventListener('pointercancel', end);
   canvas.addEventListener('wheel', e => {
     e.preventDefault();
+    if (Explore.film || GAME.modalOpen) return;
     Cam.zoomBy(e.deltaY > 0 ? 1.08 : 0.925);
   }, { passive: false });
 }
 
 function bindHold(el, onDown, onUp) {
   if (!el) return;
+  let heldPointer = null;
   el.addEventListener('pointerdown', e => {
     e.preventDefault();
+    if (heldPointer !== null || !GAME.started || GAME.modalOpen || Explore.film) return;
+    heldPointer = e.pointerId;
     el.setPointerCapture?.(e.pointerId);
     el.classList.add('held');
     onDown();
   });
-  const up = () => { el.classList.remove('held'); onUp(); };
+  const up = e => {
+    if (heldPointer === null || (e && e.pointerId !== undefined && e.pointerId !== heldPointer)) return;
+    heldPointer = null;
+    el.classList.remove('held'); onUp();
+  };
   el.addEventListener('pointerup', up);
   el.addEventListener('pointercancel', up);
   el.addEventListener('lostpointercapture', up);
+  window.addEventListener('blur', () => up());
+  document.addEventListener('visibilitychange', () => { if (document.hidden) up(); });
 }
 
 // ---------------------------------------------------------------- 诗笺 / 弹窗
@@ -436,20 +490,25 @@ function escapeHTML(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+let modalReturnFocus = null;
 function openModal(panel) {
+  if (!panel || !UI.modal || Explore.film) return;
+  modalReturnFocus = document.activeElement;
   Explore.resetInput();
-  if (!UI.modal) return;
   GAME.modalOpen = true;
-  [UI.poemPanel, UI.helpPanel, UI.collectionPanel].forEach(p => p?.classList.add('hidden'));
-  panel?.classList.remove('hidden');
+  [UI.poemPanel, UI.helpPanel, UI.collectionPanel, UI.travelPanel].forEach(p => p?.classList.add('hidden'));
+  panel.classList.remove('hidden');
   UI.modal.classList.remove('hidden');
+  panel.querySelector('button')?.focus();
 }
 
 function closeModal() {
-  if (!UI.modal) return;
+  if (!UI.modal || !GAME.modalOpen) return;
   GAME.modalOpen = false;
   UI.modal.classList.add('hidden');
-  Input.keys = Object.create(null);
+  Explore.resetInput();
+  modalReturnFocus?.focus?.();
+  modalReturnFocus = null;
 }
 
 function openPoem(i) {
@@ -518,6 +577,14 @@ function bindUI() {
   UI.fullBtn?.addEventListener('click', toggleFullscreen);
   UI.minimapWrap?.addEventListener('click', () => UI.minimapWrap.classList.toggle('expanded'));
   UI.modal?.addEventListener('click', e => { if (e.target === UI.modal || e.target.closest('[data-close]')) closeModal(); });
+  UI.modal?.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const panel = [...UI.modal.children].find(p => !p.classList.contains('hidden'));
+    const buttons = panel ? [...panel.querySelectorAll('button')].filter(b => !b.disabled) : [];
+    const first = buttons[0], last = buttons[buttons.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+  });
   bindHold(UI.boostBtn, () => { Input.touchBoost = true; ensureAudio(); }, () => { Input.touchBoost = false; });
 }
 
@@ -542,17 +609,17 @@ function ringBell() {
 
 // ---------------------------------------------------------------- 昼夜
 const Colors = {
-  dayTop: new THREE.Color(0x2eb7ed),
-  dayHorizon: new THREE.Color(0xffe1a3),
+  dayTop: new THREE.Color(0x85b6ce),
+  dayHorizon: new THREE.Color(0xf8e3c8),
   daySun: new THREE.Color(0xffc95e),
   nightTop: new THREE.Color(0x071b3b),
   nightHorizon: new THREE.Color(0x3e4c84),
   nightSun: new THREE.Color(0xdbe9ff),
-  dayFog: new THREE.Color(0xcde9df),
+  dayFog: new THREE.Color(0xc9d7d5),
   nightFog: new THREE.Color(0x1b2746),
-  dayDeep: new THREE.Color(0x1f969c),
+  dayDeep: new THREE.Color(0x2e6c70),
   nightDeep: new THREE.Color(0x0e4c70),
-  dayShallow: new THREE.Color(0x6fe0c5),
+  dayShallow: new THREE.Color(0x78b4aa),
   nightShallow: new THREE.Color(0x2c7891),
   dayHemi: new THREE.Color(0xfff3d8),
   nightHemi: new THREE.Color(0x9bb7ef),
@@ -585,19 +652,21 @@ function updateDayNight(dt) {
   scene.fog.near = lerp(175, 95, n);
   scene.fog.far = lerp(760, 590, n);
   starMat.opacity = n * 0.92;
-  hemi.intensity = lerp(0.82, 0.44, n);
+  hemi.intensity = lerp(0.42, 0.28, n);
   hemi.color.copy(Colors.dayHemi).lerp(Colors.nightHemi, n);
-  ambient.intensity = lerp(0.22, 0.26, n);
-  sun.intensity = lerp(1.78, 0.42, n);
+  ambient.intensity = lerp(0.06, 0.12, n);
+  sun.intensity = lerp(2.2, 0.32, n);
   sun.color.copy(Colors.daySunLight).lerp(Colors.nightSunLight, n);
   rim.color.copy(Colors.dayRim).lerp(Colors.nightRim, n);
   rim.intensity = lerp(0.27, 0.19, n);
-  renderer.toneMappingExposure = lerp(1.04, 0.92, n);
+  GameRendering.setExposure(lerp(1.06, 0.92, n));
   MAT.lantern.emissiveIntensity = lerp(0.35, 3.8, n);
   MAT.window.emissiveIntensity = lerp(0, 2.1, n);
   MAT.lanternGlow.opacity = lerp(0.2, 0.75, n);
   waterUniforms.deep.value.copy(Colors.dayDeep).lerp(Colors.nightDeep, n);
   waterUniforms.shallow.value.copy(Colors.dayShallow).lerp(Colors.nightShallow, n);
+  waterUniforms.sunColor.value.copy(sun.color);
+  waterUniforms.sunDir.value.copy(sun.position).sub(sun.target.position).normalize();
   if (fireflies) fireflies.pts.material.opacity = n * 0.95;
   if (stars) stars.visible = n > 0.015;
 }
@@ -671,18 +740,25 @@ function updatePlace(dt) {
 const Move = { speed: 0, steer: 0, yaw: Math.PI, bob: 0, bridgeY: 0, blockedUntil: 0 };
 
 function pointOnBridge(x, z) {
+  let closest = Infinity, height = null;
   for (const b of bridgeZones) {
     const pts = b.points;
     for (let i = 0; i < pts.length - 1; i++) {
       const [x1, z1] = pts[i], [x2, z2] = pts[i + 1];
       const vx = x2 - x1, vz = z2 - z1;
       const l2 = vx * vx + vz * vz || 1;
-      const t = clamp(((x - x1) * vx + (z - z1) * vz) / l2, 0, 1);
+      const along = ((x - x1) * vx + (z - z1) * vz) / l2;
+      if (b.squareEnds && (along < 0 || along > 1)) continue;
+      const t = clamp(along, 0, 1);
       const px = x1 + vx * t, pz = z1 + vz * t;
-      if (Math.hypot(x - px, z - pz) < (b.halfWidth || 1.9) + 0.38) return b.y || 0.36;
+      const distance = Math.hypot(x - px, z - pz);
+      if (distance < (b.halfWidth || 1.9) - 0.1 && distance < closest) {
+        closest = distance;
+        height = b.heights ? lerp(b.heights[i], b.heights[i + 1], t) : (b.y ?? 0.36);
+      }
     }
   }
-  return null;
+  return height;
 }
 
 function isLand(x, z) {
@@ -704,6 +780,18 @@ function isWaterPoint(x, z) {
 function canStandAt(x, z) {
   if (pointOnBridge(x, z) !== null || isLand(x, z)) return true;
   return !isWaterPoint(x, z);
+}
+
+function groundHeightAt(x, z) {
+  let height = pointOnBridge(x, z) ?? (isLand(x, z) ? 0.18 : 0);
+  if(Math.abs(x)<13 && Math.abs(z)<390) {
+    height=Math.max(height,.015+.055*(1-(x/13)**2),Math.abs(x)<3.8?.075:0);
+  }
+  const patches=groundPatchGrid.size ? groundPatchGrid.get(Math.floor(x/CELL)+','+Math.floor(z/CELL))||[] : groundPatches;
+  for (const patch of patches) {
+    if (x >= patch.x0 && x <= patch.x1 && z >= patch.z0 && z <= patch.z1) height = Math.max(height, patch.height);
+  }
+  return height;
 }
 
 function updateMovement(dt) {
@@ -743,14 +831,15 @@ function updateMovement(dt) {
   const oldX = player.group.position.x, oldZ = player.group.position.z;
   const nx = clamp(oldX + Math.sin(Move.yaw) * Move.speed * dt, WORLD.x0 + 2, WORLD.x1 - 2);
   const nz = clamp(oldZ + Math.cos(Move.yaw) * Move.speed * dt, WORLD.z0 + 2, WORLD.z1 - 2);
-  if (canStandAt(nx, nz)) {
+  const stepUp = groundHeightAt(nx, nz) - groundHeightAt(oldX, oldZ);
+  if (canStandAt(nx, nz) && stepUp <= 0.7) {
     player.group.position.x = nx;
     player.group.position.z = nz;
   } else {
     Move.speed *= -0.08;
     if (performance.now() - GAME.lastWaterToast > 2600) {
       GAME.lastWaterToast = performance.now();
-      toast('水光潋滟，还是从桥上过吧', 1900);
+      toast(stepUp > 0.7 ? '台基较高，请从正面台阶慢行' : '水光潋滟，还是从桥上过吧', 1900);
     }
   }
 
@@ -760,8 +849,10 @@ function updateMovement(dt) {
     if (Math.hypot(player.group.position.x - beforeX, player.group.position.z - beforeZ) > 0.6) GAME.blockedUntil = performance.now() + 350;
   }
 
-  const bridgeY = pointOnBridge(player.group.position.x, player.group.position.z);
-  let groundY = bridgeY !== null ? bridgeY : (isLand(player.group.position.x, player.group.position.z) ? 0.18 : 0);
+  if (!canStandAt(player.group.position.x, player.group.position.z)) {
+    player.group.position.x = oldX; player.group.position.z = oldZ; Move.speed = 0;
+  }
+  const groundY = groundHeightAt(player.group.position.x, player.group.position.z);
   player.group.position.y = damp(player.group.position.y, groundY, 12, dt);
   player.group.rotation.y = Move.yaw;
   player.group.rotation.z = damp(player.group.rotation.z, -Move.steer * clamp(Math.abs(Move.speed) / 9, 0, 1) * 0.105, 9, dt);
@@ -894,13 +985,16 @@ function animate(now) {
 
   if (GAME.ready) {
     if (!GAME.started) {
-      // 入城之前，镜头沿城郭缓缓环游
-      const a = -0.72 + Math.sin(t * 0.045) * 0.36;
-      const r = 390;
-      camera.position.set(Math.sin(a) * r, 77 + Math.sin(t * 0.12) * 4, Math.cos(a) * r + 70);
-      Cam.look.set(0, 2, 72);
-      camera.lookAt(Cam.look);
-      camera.fov = 52; camera.updateProjectionMatrix();
+      // Meet the real dragon at street height, with the gate behind it. The
+      // off-centre framing leaves the entry copy clear and follows saved places.
+      const p=player.group.position,a=player.yaw+.35+Math.sin(t*.08)*.15,r=8.8+Math.sin(t*.12)*.3;
+      const anchor=new THREE.Vector3(p.x,p.y+1.8,p.z);
+      const frameOffset=innerWidth>innerHeight?4.3:0;
+      const look=Cam.clearPosition(anchor,new THREE.Vector3(p.x-frameOffset*Math.cos(a),p.y+1.55,p.z+frameOffset*Math.sin(a)));
+      const desired=new THREE.Vector3(p.x+Math.sin(a)*r,p.y+3.1+Math.sin(t*.12)*.1,p.z+Math.cos(a)*r);
+      camera.position.copy(Cam.resolvePosition(look,desired));camera.lookAt(look);
+      camera.fov = 48; camera.updateProjectionMatrix();
+      player.update(dt,0,0,false,Explore.mode);
       updateNPCs(dt, t, player.group.position);
       updateBoats(dt, t);
       updateNature(dt, t);
@@ -921,7 +1015,7 @@ function animate(now) {
       // 镜头跟随玩家时，把太阳阴影框也移到附近
       if (!Explore.film) {
         sun.target.position.set(player.group.position.x, 0, player.group.position.z);
-        sun.position.set(player.group.position.x + 95, 155, player.group.position.z + 70);
+        sun.position.set(player.group.position.x + 125, 105, player.group.position.z + 75);
       }
 
       GAME.mapAge += dt;
@@ -937,14 +1031,17 @@ function animate(now) {
     }
 
     waterUniforms.time.value = t;
+    WorldAssets.update(dt);
     poemAnimate(t);
     updateLanternFlicker(t);
     sky.position.copy(camera.position);
     stars.position.copy(camera.position);
-    if (cloudMesh) cloudMesh.position.x = Math.sin(t * 0.008) * 18;
+    skyUniforms.time.value = t;
   }
 
-  renderer.render(scene, camera);
+  Session.tick();
+  WaterSurface.update(dt, GAME.nightT);
+  GameRendering.render(dt);
 }
 
 function poemAnimate(t) {
@@ -970,6 +1067,7 @@ let player = null;
 
 async function buildWorld() {
   installMaterials();
+  SurfaceLibrary.architecture();
   const stages = [
     ['铺开长安的街巷…', () => { buildGround(); buildRoads(); }],
     ['筑起一百零八坊…', () => buildWards()],
@@ -980,15 +1078,14 @@ async function buildWorld() {
     ['合拢外郭城墙…', () => addCityWalls()],
     ['描画宫阙飞檐…', () => { buildImperialCity(); buildDamingPalace(); }],
     ['种下兴庆宫的牡丹…', () => { buildXingqing(); buildPagodas(); }],
-    ['引一泓曲江春水…', () => { buildQujiang(); buildOutskirts(); }],
+    ['引一泓曲江春水…', () => { buildQujiang(); buildOutskirts(); clipRoadsForWater(); }],
     ['唤来商贾、行人和画舫…', () => { buildStreetLife(); spawnWorldLife(); }],
     ['雕琢斗拱、阁楼与石栏…', () => buildArchitecturalDetails()],
     ['把所有飞檐装进一台木车…', () => {
       Object.values(B).forEach(b => b?.build?.());
       wardSigns.build();
       shopSigns.build();
-      buildColliderHash();
-      Explore.buildRoofGrid();
+      // Imported solid objects join these indexes after asynchronous decoding.
     }],
   ];
 
@@ -997,29 +1094,36 @@ async function buildWorld() {
     await nextFrame();
     stages[i][1]();
   }
+  bootStatus('陈设陶器、藤篮与市井器物…');
+  const assets = await WorldAssets.populate();
+  if (assets.failures.length) throw new Error('部分本地三维素材未能载入，请检查控制台');
+  buildColliderHash(); Explore.buildRoofGrid();
   bootStatus('小青龙正在试车铃…');
   await nextFrame();
 
   player = createDragonBike();
   // 从明德门内起步，一抬头就是朱雀大街的开阔长卷
-  player.group.position.set(0, 0, 352);
+  player.group.position.set(0, groundHeightAt(0,352), 352);
   player.group.rotation.y = Math.PI;
   player.yaw = Math.PI;
+  LegacySkinning.prepareScene(player.group);
   scene.add(player.group);
   Move.yaw = Math.PI;
 
   loadCollectedPoems();
   restorePoems();
+  Session.restore();
   MapView.setup();
   MapView.draw(player.group.position, Move.yaw);
   updateDayNight(0.016);
   // 先编译一遍材质，减少第一次起步的卡顿
   try { renderer.compile(scene, camera); } catch (_) {}
 
+  GameRendering.refreshScene();
   GAME.ready = true;
   if (UI.boot) UI.boot.classList.add('hidden');
   if (UI.start) UI.start.classList.remove('hidden');
-  if (UI.soundBtn) UI.soundBtn.classList.add('active');
+  if (UI.soundBtn) UI.soundBtn.classList.toggle('active', Sound.enabled);
   if (UI.startControls) {
     UI.startControls.innerHTML = isTouch
       ? '<span><span class="keycap">左</span>摇杆漫游</span><span><span class="keycap">下</span>步行 / 骑行 / 飞行</span><span><span class="keycap">拖</span>环视与缩放</span>'
@@ -1028,7 +1132,7 @@ async function buildWorld() {
 }
 
 function startGame() {
-  if (!GAME.ready) return;
+  if (!GAME.ready || GAME.started) return;
   GAME.started = true;
   const openingPlace = getPlace(player.group.position.x, player.group.position.z);
   GAME.currentPlace = openingPlace.id;
@@ -1049,7 +1153,7 @@ function startGame() {
   player.ring();
   setTimeout(() => {
     if (!GAME.started) return;
-    showBanner('明德门 · 朱雀大街', '走入市井，骑过春风，或乘云看尽万家。', 3000);
+    showBanner(Session.hasResume ? openingPlace.name : '明德门 · 朱雀大街', Session.hasResume ? openingPlace.desc : '走入市井，骑过春风，或乘云看尽万家。', 3000);
     toast('随时切换步行、骑行、飞行，或打开「赏景」', 3000);
   }, 650);
 }
@@ -1063,11 +1167,16 @@ async function boot() {
     bindViewGestures();
     Explore.init();
     renderer.setSize(innerWidth, innerHeight);
+    GameRendering.init({ renderer, scene, camera, quality: params.get('quality') || Session.preferences.quality || 'auto', exposure: 1.06, environmentIntensity: 0.48 });
+    const qualitySelect = $('#qualitySelect');
+    qualitySelect.value = GameRendering.getDiagnostics().requestedQuality;
+    qualitySelect.addEventListener('change', () => { GameRendering.setQuality(qualitySelect.value); Session.save(); });
     window.addEventListener('resize', () => {
       camera.aspect = innerWidth / innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(innerWidth, innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
+      GameRendering.resize(innerWidth, innerHeight, renderer.getPixelRatio());
     });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) clearTimeout(Sound.ambientTimer);
@@ -1090,12 +1199,14 @@ window.__changan = {
   get state() { return GAME; },
   get speed() { return Move.speed; },
   get drawCalls() { return renderer.info.render.calls; },
+  get rendering() { return GameRendering.getDiagnostics(); },
   get exploration() { return Explore; },
   start: startGame,
   teleport(x, z, yaw = Math.PI) {
     if (!player) return;
     player.group.position.set(x, 0, z);
-    Move.yaw = yaw;
+    Explore.resetInput();
+    Move.yaw = player.yaw = yaw; player.group.rotation.set(0, yaw, 0);
     Cam.update(0.016, player, true);
   },
   setNight(on) {

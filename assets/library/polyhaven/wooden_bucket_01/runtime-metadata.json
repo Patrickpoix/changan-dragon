@@ -1,0 +1,13 @@
+{
+  "source": "assets/library/polyhaven/wooden_bucket_01/wooden_bucket_01_1k.gltf",
+  "runtime": "assets/library/polyhaven/wooden_bucket_01/runtime.glb",
+  "sourceTriangles": 5116,
+  "runtimeTriangles": 5116,
+  "textureMaxSize": 512,
+  "blenderDimensionsXYZ": [
+    0.366971,
+    0.342221,
+    0.549862
+  ],
+  "derivation": "Original PBR materials and UVs preserved; textures resized; meshes simplified only above the triangle budget."
+}

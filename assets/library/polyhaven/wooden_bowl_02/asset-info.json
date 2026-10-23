@@ -1,0 +1,51 @@
+{
+  "name": "Wooden Bowl 02",
+  "categories": [
+    "props",
+    "decorative",
+    "dishes"
+  ],
+  "type": 2,
+  "tags": [
+    "antique",
+    "vintage",
+    "old",
+    "wooden",
+    "ornate",
+    "traditional",
+    "fruitbowl",
+    "rustic decor",
+    "home decor"
+  ],
+  "authors": {
+    "Kuutti Siitonen": "All"
+  },
+  "max_resolution": [
+    8192,
+    8192
+  ],
+  "polycount": 4666,
+  "date_published": 1721952000,
+  "staging": null,
+  "texel_density": 30356.62414607518,
+  "dimensions": [
+    130.71347028017044,
+    124.53967705368996,
+    73.09794479806442
+  ],
+  "files_hash": "203f860d0142d73da28bfd91a7a982532caf87ee",
+  "description": "Free 8K 3D model of a wooden bowl with warm honey-brown patina, irregular carved rim, rich burl grain and worn antique surface with rustic, ornate character.",
+  "category_id": "2e20c653-c7cf-5e53-bb6b-378fa9ad5722",
+  "category": "Food & Kitchen/Tableware/Bowls",
+  "attributes": {
+    "condition": [
+      "worn"
+    ],
+    "material": [
+      "wood"
+    ]
+  },
+  "img_version": "850df4e1",
+  "download_count": 3949,
+  "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/wooden_bowl_02.png?width=256&height=256&format=webp&v=850df4e1"
+}

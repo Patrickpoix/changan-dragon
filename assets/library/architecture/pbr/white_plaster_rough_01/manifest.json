@@ -1,0 +1,24 @@
+{
+  "id": "white_plaster_rough_01",
+  "license": "CC0-1.0",
+  "authors": {
+    "Rob Tuytel": "All"
+  },
+  "files": [
+    {
+      "file": "normal.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_rough_01/white_plaster_rough_01_nor_gl_1k.jpg",
+      "md5": "a45f7354cab5014e5167e63ddbf9c571",
+      "sha256": "f9d15f0adb27a3cbcffe11bea7a14d486d036b0251e01ec24c3ca0ae05aef54b",
+      "bytes": 384190
+    },
+    {
+      "file": "roughness.jpg",
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_rough_01/white_plaster_rough_01_rough_1k.jpg",
+      "md5": "6a4f00696f958e42ad7bf3b1d48794d5",
+      "sha256": "459ab1eec7395a4617b4e043760be51eaac87828aae8816b6bf2c6030907225a",
+      "bytes": 594450
+    }
+  ],
+  "use": "Normal and roughness only; base color belongs to the game art direction. No archaeological dating claimed."
+}

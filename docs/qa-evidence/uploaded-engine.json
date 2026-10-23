@@ -1,0 +1,106 @@
+{
+  "url": "http://127.0.0.1:8877/?quality=low",
+  "output": "/tmp/changan-upload-engine-qa",
+  "browser": "Playwright Chromium",
+  "viewports": {
+    "compact": {
+      "size": [
+        667,
+        375
+      ],
+      "boot": {
+        "ready": true,
+        "started": false,
+        "fatal": false,
+        "fatalText": "",
+        "mode": "bike",
+        "position": [
+          0,
+          0.117,
+          352
+        ],
+        "film": false,
+        "calls": 324,
+        "triangles": 839898,
+        "engine": {
+          "source": "original",
+          "revision": "160"
+        }
+      },
+      "layout": {
+        "hud": {
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        "controls": [
+          {
+            "id": "travelBtn",
+            "x": 358,
+            "y": 10,
+            "w": 48,
+            "h": 48,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "filmBtn",
+            "x": 411,
+            "y": 10,
+            "w": 48,
+            "h": 48,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "joystick",
+            "x": 16,
+            "y": 265,
+            "w": 98,
+            "h": 98,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "cameraBtn",
+            "x": 557,
+            "y": 269,
+            "w": 44,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "walk",
+            "x": 219.5,
+            "y": 314,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "bike",
+            "x": 295.5,
+            "y": 314,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "id": "fly",
+            "x": 371.5,
+            "y": 314,
+            "w": 76,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "passed": true
+    }
+  }
+}

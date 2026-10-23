@@ -1,0 +1,50 @@
+{
+  "license": "CC0-1.0",
+  "copyright": "2020 Microsoft",
+  "source_repository": "https://github.com/KhronosGroup/glTF-Sample-Assets",
+  "status": "four_tiled_material_maps_for_integration_not_full_source_model",
+  "files": [
+    {
+      "file": "README-upstream.md",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenCloth/README.md",
+      "bytes": 2335,
+      "sha256": "6d3cac89b2aae1998bbaaaa1d536cd40ccfba873ca89d1ccfc8c08f12c915615"
+    },
+    {
+      "file": "SheenCloth-source.gltf",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenCloth/glTF/SheenCloth.gltf",
+      "bytes": 6854,
+      "sha256": "00a2cbc0d2ad4788dbfc00da3c51f252fd8e6003dbfda80b087a548fe3550f02"
+    },
+    {
+      "file": "technicalFabricSmall_basecolor_256.png",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenCloth/glTF/technicalFabricSmall_basecolor_256.png",
+      "bytes": 125026,
+      "sha256": "e945c0b2aa6e3987d8bb8af23aca58a3f75cce2992bb4803bec8cac6cde8474e"
+    },
+    {
+      "file": "technicalFabricSmall_normal_256.png",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenCloth/glTF/technicalFabricSmall_normal_256.png",
+      "bytes": 127852,
+      "sha256": "299b1ccf8957d451d7841672b1750b5cfcea65fee1c97eec6b086dc3fdeea838"
+    },
+    {
+      "file": "technicalFabricSmall_orm_256.png",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenCloth/glTF/technicalFabricSmall_orm_256.png",
+      "bytes": 131303,
+      "sha256": "41c04abdb9531d00a4ac832d41f02cd549c7be74886c4d492475cfb95d239a20"
+    },
+    {
+      "file": "technicalFabricSmall_sheen_256.png",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenCloth/glTF/technicalFabricSmall_sheen_256.png",
+      "bytes": 170368,
+      "sha256": "479c3c65b1b9161701c5587cdfccf42a2de38d4d5365b6b904daf9ba8b7b9aab"
+    },
+    {
+      "file": "CC0-1.0.txt",
+      "source_url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/LICENSES/CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    }
+  ]
+}

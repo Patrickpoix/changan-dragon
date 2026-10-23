@@ -1,1 +1,65 @@
-# changan-dragon
+# 龙游长安
+
+可编辑的 HTML / JavaScript / WebGL 三维漫游：小青龙在艺术化缩尺的唐长安步行、骑木自行车、飞行，游览坊市、宫苑、塔寺与曲江。建筑、角色、街景和舟船均为真实三维网格；概念图只作美术参考。
+
+横屏优先。诗笺为可选收集，没有倒计时或必须完成的骑行任务。
+
+## 运行与交付
+
+开发时保持 `index.html`、`src/`、`vendor/`、`assets/` 的相对位置，在仓库根目录启动静态服务：
+
+```sh
+python3 -m http.server 8877 --bind 0.0.0.0
+```
+
+完整单文件版的生成命令：
+
+```sh
+python3 tools/prepare_assets.py
+python3 tools/pack_scene_materials.py
+python3 tools/build_asset_bundle.py --bundle
+python3 tools/build_standalone.py
+```
+
+输出为 `dist/changan-dragon.html`。它内嵌游戏脚本、引擎、三维模型、材质、环境光、字体与许可，运行时无需 CDN、账号、API 密钥或后端。支持正常执行 JavaScript/WebGL 的浏览器可以直接打开该文件。部分手机系统的文件预览器不是完整浏览器；此时通过静态 HTTP/HTTPS 页面在 Safari/Chrome 打开。手机本地文件策略与实际 GPU 表现仍需在对应真机上核对。
+
+源码入口优先使用用户上传且与扩展匹配的 Three r160 原包 `vendor/three.min.js`；不存在或不兼容时使用独立的 `vendor/three.compat.min.js`。不会覆盖用户原包。单文件版固定内嵌经过校验的 r160 兼容包，与扩展构建版本一致。
+
+## 操作
+
+| 功能 | 桌面 | 手机 |
+| --- | --- | --- |
+| 漫游/转向 | WASD / 方向键 | 左下摇杆 |
+| 步行/骑行/飞行 | 1 / 2 / 3 | 底部三态按钮 |
+| 飞行升降 | Q / E | 飞行时的升降按钮 |
+| 加速 | Shift / 空格 | 按住加速 |
+| 环视/缩放 | 拖动画面 / 滚轮 | 拖动 / 双指缩放 |
+| 四种跟随镜头 | C | 镜头按钮 |
+| 景点直达 | G | 顶部景点 |
+| 电影赏景 | P | 顶部赏景 |
+| 昼夜 | N | 日/月按钮 |
+| 拾取附近诗笺 | E（地面） | 拾取按钮 |
+| 诗囊/帮助/退出面板 | L / H / Esc | 相应按钮 |
+
+赏景模式支持前后景、暂停、留影和返回游城。飞行落地会检查水面、建筑和地面安全。宫门、桥面、含元殿正面台阶可实际通行；水上长廊、湖心亭、临街店铺和停泊画舫有实际可进入空间。
+
+诗笺、位置、移动方式、镜头和音画设置保存在本机浏览器。无法使用本地存储时仍可游玩。声音在首次实际交互后启动。
+
+帮助内可选自动/流畅/精致/电影画面。手机自动优先流畅；精致/电影启用接触阴影和曲江实时倒影，电影档增加克制的泛光。画质选择影响功耗和帧率。
+
+## 修改与验证
+
+`src/00-core.js` 管理核心/材质/批次；`10-world.js` 管理坊市与建筑；`12-landmarks.js` 管理宫苑塔寺与水域；`20-character.js` 管理角色/人群/舟船；`25-exploration.js` 管理探索与电影镜头；`27-session.js` 管理本机存档；`30-main.js` 组合启动与游戏循环。渲染、表面材质、水面、外部模型与程序植物分别位于 `05`、`06`、`07`、`08`、`09` 模块。
+
+许可与下载证据见 [素材调研](docs/ASSET_RESEARCH.md)、[素材清单](docs/asset-manifest.json) 和各素材目录。正式使用的 Poly Haven 道具/植物/材质与环境光、Quaternius 马鹿、原作者动作与胡商面部几何均为 CC0，miniLibs 构件移植遵循 MIT，马善政字体遵循 OFL。已保留作者与源文件校验。没有将现代/清式套件标成唐代考古复原。
+
+已安装 Python Playwright 与 Chromium 的环境可运行：
+
+```sh
+python3 tools/smoke_test.py --viewports desktop landscape compact portrait
+python3 tools/offline_test.py
+```
+
+测试证据默认写到临时目录。完整说明见 [浏览器验收](docs/QA.md)。当前进展和剩余的视觉验收记录见 [续做记录](docs/CONTINUE.md)，不能把旧截图或概念图视为最终运行画面。
+
+开发环境恢复与启动见 [ENVIRONMENT.md](docs/ENVIRONMENT.md)。仓库保留可直接下载的 `dist/changan-dragon.html`；修改源码后重新运行打包脚本并更新该文件。
