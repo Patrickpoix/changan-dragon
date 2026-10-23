@@ -1,0 +1,379 @@
+{
+  "checked_on": "2026-10-24",
+  "scope": "Reconstructed studies and model review only",
+  "browser": "Chromium SwiftShader; not physical phone validation",
+  "checks": [
+    "24 GLB loads",
+    "GL error 0",
+    "bounds inside viewport",
+    "front/side/back/above controls",
+    "grey toggle",
+    "actual local file input and model replacement",
+    "invalid file preserves previous model"
+  ],
+  "results": [
+    {
+      "model": "street-lod0.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 6806,
+      "bounds": [
+        5.97018575668335,
+        8,
+        5.208473205566406
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8025575921581392
+    },
+    {
+      "model": "street-lod1.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 2958,
+      "bounds": [
+        5.76504111289978,
+        8.081754684448242,
+        5.064180493354797
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8068676916672326
+    },
+    {
+      "model": "street-lod2.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 1326,
+      "bounds": [
+        6.114821672439575,
+        8.089591979980469,
+        5.320035457611084
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8012472339059586
+    },
+    {
+      "model": "willow-lod0.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 11072,
+      "bounds": [
+        7.346018821001053,
+        9,
+        7.567737340927124
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.788279119303636
+    },
+    {
+      "model": "willow-lod1.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 4464,
+      "bounds": [
+        7.154313117265701,
+        9.346186220645905,
+        7.947388410568237
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.7935983644421998
+    },
+    {
+      "model": "willow-lod2.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 1582,
+      "bounds": [
+        7.199806943535805,
+        9.258132584393024,
+        7.687246799468994
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.7933829299961598
+    },
+    {
+      "model": "pine-lod0.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 18756,
+      "bounds": [
+        4.208468675613403,
+        10,
+        4.393101930618286
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8268744750167052
+    },
+    {
+      "model": "pine-lod1.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 7512,
+      "bounds": [
+        4.328404426574707,
+        10.030304908752441,
+        4.5077221393585205
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8271317035046969
+    },
+    {
+      "model": "pine-lod2.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 2378,
+      "bounds": [
+        4.133680820465088,
+        9.956322010606527,
+        4.388909578323364
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8271100959725457
+    },
+    {
+      "model": "blossom-lod0.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 6806,
+      "bounds": [
+        2.7256826162338257,
+        5,
+        3.6772595643997192
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8192783912461085
+    },
+    {
+      "model": "blossom-lod1.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 2958,
+      "bounds": [
+        2.8401376008987427,
+        5.036077976226807,
+        3.691017508506775
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8183401384620963
+    },
+    {
+      "model": "blossom-lod2.glb",
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "triangles": 1326,
+      "bounds": [
+        2.682738423347473,
+        5.043293476104736,
+        3.7262760400772095
+      ],
+      "gl": 0,
+      "webgl2": true,
+      "maxProjectedCorner": 0.8197370830131459
+    },
+    {
+      "model": "street-lod0.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 6806,
+      "bounds": [
+        5.97018575668335,
+        8,
+        5.208473205566406
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8025575921581392
+    },
+    {
+      "model": "street-lod1.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 2958,
+      "bounds": [
+        5.76504111289978,
+        8.081754684448242,
+        5.064180493354797
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8068676916672326
+    },
+    {
+      "model": "street-lod2.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 1326,
+      "bounds": [
+        6.114821672439575,
+        8.089591979980469,
+        5.320035457611084
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8012472339059586
+    },
+    {
+      "model": "willow-lod0.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 11072,
+      "bounds": [
+        7.346018821001053,
+        9,
+        7.567737340927124
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.788279119303636
+    },
+    {
+      "model": "willow-lod1.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 4464,
+      "bounds": [
+        7.154313117265701,
+        9.346186220645905,
+        7.947388410568237
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.7935983644421998
+    },
+    {
+      "model": "willow-lod2.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 1582,
+      "bounds": [
+        7.199806943535805,
+        9.258132584393024,
+        7.687246799468994
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.7933829299961598
+    },
+    {
+      "model": "pine-lod0.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 18756,
+      "bounds": [
+        4.208468675613403,
+        10,
+        4.393101930618286
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8268744750167052
+    },
+    {
+      "model": "pine-lod1.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 7512,
+      "bounds": [
+        4.328404426574707,
+        10.030304908752441,
+        4.5077221393585205
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8271317035046969
+    },
+    {
+      "model": "pine-lod2.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 2378,
+      "bounds": [
+        4.133680820465088,
+        9.956322010606527,
+        4.388909578323364
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8271100959725457
+    },
+    {
+      "model": "blossom-lod0.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 6806,
+      "bounds": [
+        2.7256826162338257,
+        5,
+        3.6772595643997192
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8192783912461085
+    },
+    {
+      "model": "blossom-lod1.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 2958,
+      "bounds": [
+        2.8401376008987427,
+        5.036077976226807,
+        3.691017508506775
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8183401384620963
+    },
+    {
+      "model": "blossom-lod2.glb",
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "triangles": 1326,
+      "bounds": [
+        2.682738423347473,
+        5.043293476104736,
+        3.7262760400772095
+      ],
+      "gl": 0,
+      "webgl2": false,
+      "maxProjectedCorner": 0.8197370830131459
+    }
+  ],
+  "page_console_errors": [],
+  "final_art_accepted": false,
+  "runtime_integrated": false
+}

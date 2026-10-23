@@ -2,6 +2,16 @@
 
 **新会话入口：先读 [PRODUCT_BRIEF.md](PRODUCT_BRIEF.md) 和根目录 [AGENTS.md](../AGENTS.md)。** 前者保存完整长期目标与验收标准，后者保存工作约束；本文件只承担实际进度交接。用户已经发布环境，并要求继续开发、持久记录要求。
 
+## 2026-10-24：旧环境未提交研究资产恢复
+
+- 本次起始在干净的work分支（6dfb352）；main/origin/main均为3515f00，已安全切回main。未删除分支、重置或覆盖用户文件。工作树、Git悬空对象和workspace缓存均未找到用户列出的原目录/脚本；缓存保留来源请求、旧预览脚本及独立树木依赖，故按来源重建，**不是逐字节恢复旧成果**。
+- 重建 `assets/library/production-materials/`：7组原件，21张512² basecolor/OpenGL-normal/roughness，来源/API/CC0/校验与脚本 `tools/prepare_production_materials.py`。详见目录README；本地哈希校验和尺寸检查通过，不声称已完成电影材质统一。
+- 重建 `assets/library/vegetation/ez-tree-source/` 固定提交源码/MIT/叶片及逐文件SHA256；`studies/` 包含street/willow/pine/blossom各3级LOD与完整参数。`tools/prepare_vegetation_studies.mjs`用独立Three0.167.1/esbuild工具构建，重跑12个GLB字节一致，不升级正式r160。
+- `tools/model_review.html`补回本站GLB路径查询、本地文件选择、自动包围盒取景/缩放范围/裁剪面/地面与阴影范围；保留已有多视角、灰模、米尺。加载错误保留前一个有效模型，替换时释放旧模型资源。
+- 本次浏览器结果见 `qa-evidence/resource-recovery/results.json`：Chromium SwiftShader现代1120×720及强制WebGL1 844×390，共24次GLB加载、包围盒取景、四视角/灰模、本地文件替换和无效输入保留通过，glError0、无页面/控制台错误。只验证这次重建产物和验收台，不沿用旧图冒充本次证据。已实际查看四类截图；原压缩包叶片为LFS指针导致首测纹理加载失败，已按LFS SHA256/大小取回图片并重生成后复测，失败版本未计为通过。非真机/全浏览器验收，最终美术仍为false。
+- 四种植物仍是研究样板：垂柳冠形仅近似，花树仅给绿色橡叶乘粉色，实际截图偏褐，不能作为花朵成品，树皮未完成，风动不在静态GLB中；未获G0/G1放行，未替换正式城市。src/vendor/正式运行素材包/dist保持不变，不重建整个项目。
+- 两张新增人物/店铺设计图**未找回**。workspace保留的6张生成图片逐一hash对应现有art-direction、market、palace、qujiang、dragon-turnaround、barge-study，没有人物/店铺新图；不伪造、不用旧图冒充。以后取得原文件再入库。
+
 ## 最新用户阶段：总体设计与资源研究先行，暂未正式整合
 
 - 最新要求：“先把总体的设计框架确定准确，把我要的元素都构思好具体怎么样才是对的，怎么改合适，联网找到所有需要的素材、材质包、模组、引擎、素材库等等，然后再开始正式整合。” **本段优先于下文旧的‘下一步直接改善单栋/铺实景’。** 不开子代理，不重复环境搭建，不继续批量添加旧造型。

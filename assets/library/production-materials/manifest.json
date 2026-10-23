@@ -1,0 +1,399 @@
+{
+  "status": "reconstructed_research_only",
+  "visual_accepted": false,
+  "runtime_integrated": false,
+  "derivation": "1k originals retained; Lanczos 512px PNG; normal vectors renormalized; no cinematic recoloring claimed",
+  "materials": [
+    {
+      "id": "fine_grained_wood",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "license": "CC0-1.0",
+      "page": "https://polyhaven.com/a/fine_grained_wood",
+      "files": [
+        {
+          "file": "source/basecolor_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_col_1k.jpg",
+          "official_md5": "3db9decdde678e087e67ff99d30c0a73",
+          "sha256": "d171f45ef01bc6e239b00dfaa4961bcd27f7d8e93e3962da3bd3d0ce703d802c",
+          "bytes": 336305
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "738cb11e9811d0a5bbb8f45051dc000e3e829bac277ddefe524f7b70a7fad4dd",
+          "bytes": 341336,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/normal_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_nor_gl_1k.jpg",
+          "official_md5": "a9e33e87ea5c32945fc30553767b7046",
+          "sha256": "ba95eadc009818e161d0f753191f1bacc3fc861e593be0bc6d82b437f9ec8044",
+          "bytes": 193626
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "aa66a0987f55c5aed9baee309e3c2b34ce4ae0264195e5e1e21b0eadedccd1ab",
+          "bytes": 199058,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/roughness_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/fine_grained_wood/fine_grained_wood_rough_1k.jpg",
+          "official_md5": "5e29204cca6747b5df219e9a7255540f",
+          "sha256": "f281f682e62fe322303dfeaa13dac18b5cb9e113617fe0aca43605b49161d82b",
+          "bytes": 215155
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "6e75b2585712aaf10891fa628b984181039864823e17fc8a3ba0de422e403652",
+          "bytes": 111205,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dark_wood",
+      "authors": {
+        "Dario Barresi": "Baking",
+        "Dimitrios Savva": "Photography",
+        "Rico Cilliers": "Tiling"
+      },
+      "license": "CC0-1.0",
+      "page": "https://polyhaven.com/a/dark_wood",
+      "files": [
+        {
+          "file": "source/basecolor_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_wood/dark_wood_diff_1k.jpg",
+          "official_md5": "47fa883f1bb33acc5711245f64b75975",
+          "sha256": "d68da31655bf47024af893156a6a01a6c95bb60f55d97e2dc9bdd47be320e5b5",
+          "bytes": 754754
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "b12c23425f8ea2c42734d75275d20be50d8bfa320f268ae7d68b92f600c00e95",
+          "bytes": 385667,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/normal_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_wood/dark_wood_nor_gl_1k.jpg",
+          "official_md5": "ca74ffa4c1b7ff5afe7316bbfa87f9a0",
+          "sha256": "c42541f1bda0a14b39f120c24407eeba699af8ac85b371c7cef98ffd7d7b13bf",
+          "bytes": 344338
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "2906c500d72a6f2dbe76a52dbb10cd8580a16ea946e360284ff1e9fbb12c8dd6",
+          "bytes": 186872,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/roughness_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_wood/dark_wood_rough_1k.jpg",
+          "official_md5": "b1acb7bf90785d3945a85eca408dbc6c",
+          "sha256": "47ea12dbf649109b02eaa164dde9732a74e839957f29ad0ec7f5266b575d1835",
+          "bytes": 574415
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "81ddb9b18109b8d353297b28f3ee0160b65f69ef478be2ce5fc26447a6e54f4a",
+          "bytes": 123381,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bark_willow_02",
+      "authors": {
+        "Charlotte Baglioni": "All"
+      },
+      "license": "CC0-1.0",
+      "page": "https://polyhaven.com/a/bark_willow_02",
+      "files": [
+        {
+          "file": "source/basecolor_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow_02/bark_willow_02_diff_1k.jpg",
+          "official_md5": "384e25dd87b6b606458c9aa5f84735aa",
+          "sha256": "95e1380566834aab220bd8ea9a5287f3bfff46910c18017fcb46ebbbe832024f",
+          "bytes": 998966
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "497775fb790d72184668d079b75ef82996a66799a15d46d7f604d8b1ee190055",
+          "bytes": 553668,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/normal_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow_02/bark_willow_02_nor_gl_1k.jpg",
+          "official_md5": "eb381e522a4053d6ca4ce7e31c77dcd3",
+          "sha256": "7d6f905fe7225d96741d191f6ee61c0681603570d28f14e7678df6a3019bc48d",
+          "bytes": 1358916
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "6f875bc29ad07acfaa09edde056216e31c8255b596a2009546c52589f126f711",
+          "bytes": 605800,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/roughness_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_willow_02/bark_willow_02_rough_1k.jpg",
+          "official_md5": "ab7b9a693d9edcfeaa606b7219c64193",
+          "sha256": "b9d690f5a5fc411b89c6301273ac03ab0a5910c8a16a96839df223aff4bf794d",
+          "bytes": 498100
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "642f12b9849cdbc34f801b0c239a1254097c697bf47115d624ffa37ec9910c66",
+          "bytes": 115180,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grey_stone_path",
+      "authors": {
+        "Amal Kumar": "All"
+      },
+      "license": "CC0-1.0",
+      "page": "https://polyhaven.com/a/grey_stone_path",
+      "files": [
+        {
+          "file": "source/basecolor_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_stone_path/grey_stone_path_diff_1k.jpg",
+          "official_md5": "587730d9d8cee8d49819cee606cfeff0",
+          "sha256": "9b98572f768a5ca2a050f060807c737e640da303eb1700383bf4d549def2835c",
+          "bytes": 839527
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "d0385e395460dcca1ccd284efbeec124daebbc332c85dbd3ecbdb80792cd75b2",
+          "bytes": 495776,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/normal_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_stone_path/grey_stone_path_nor_gl_1k.jpg",
+          "official_md5": "8a25acc911e56867569b5f473857e187",
+          "sha256": "a48a14b446ab1e9968e4a21b5a5e48b3de634680f988c9af26d1759a500e2d1c",
+          "bytes": 914614
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "e2433ed9b0f8999c4f1809bf4ffd1abad26fef04fb76f9619168e6f96d2c674a",
+          "bytes": 431173,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/roughness_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_stone_path/grey_stone_path_rough_1k.jpg",
+          "official_md5": "11781eb8a841729b219f55943f484090",
+          "sha256": "dccd822a0a6739aed29af3312f833ea29895bfcb2bf1a03e877fed1c712fb39c",
+          "bytes": 648416
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "d8e8d022b182dfdfa31765233fbbae8acd4bc78ee4e66bc6d286de417f41f278",
+          "bytes": 147685,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brown_leather",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "license": "CC0-1.0",
+      "page": "https://polyhaven.com/a/brown_leather",
+      "files": [
+        {
+          "file": "source/basecolor_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_albedo_1k.jpg",
+          "official_md5": "080b3bf1372766ff2c7ff121ed07b5e8",
+          "sha256": "7e9e1d6566d1fd91d4ceb4966c4820361e85d53a7a828b6bab3b2a093a876cd1",
+          "bytes": 503348
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "b61fe9dbd7dd4d7f632a7b6f64706e104607a754198034fa7f7a249d3b51982f",
+          "bytes": 437444,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/normal_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_nor_gl_1k.jpg",
+          "official_md5": "b63ae0121a415c23d74eed0b07fc6065",
+          "sha256": "506a0b7650c2dea285e247f26ed2d0d6ec38fc10dd584359f0d203e9c082236d",
+          "bytes": 863280
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "fa83fae4f74f665e302e88168be57e2dbc55ba1e2ae42fa191043b1f82ca2888",
+          "bytes": 470973,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/roughness_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_rough_1k.jpg",
+          "official_md5": "0f3a0148c8d2d25fbeca67e64e79bca0",
+          "sha256": "f9739ef2da2e3d17b9ec253f5042f61b10dc10f3ae28f6cf6491650d3d1b0ca3",
+          "bytes": 686142
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "8863aca457d682711f2c16646128bf34d2acfad09d0fce73176b242e90d826cc",
+          "bytes": 226084,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brown_mud_02",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "license": "CC0-1.0",
+      "page": "https://polyhaven.com/a/brown_mud_02",
+      "files": [
+        {
+          "file": "source/basecolor_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_mud_02/brown_mud_02_diff_1k.jpg",
+          "official_md5": "c3842f023e11a08c8cf521c947ce08c8",
+          "sha256": "058b6f12493305ec6b47cb5ea77f013c9e7e58216b34af3700a3d3d7d821732d",
+          "bytes": 527741
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "a0b97d5ea73795ffa781738bd602fe0e403e40ef3eee290fd0b62def15909823",
+          "bytes": 524697,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/normal_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_mud_02/brown_mud_02_nor_gl_1k.jpg",
+          "official_md5": "880720109b4fe95652137b2243e41ca4",
+          "sha256": "9ca6f68d25599c98ba5e594df221f5653d93faceda1ba26a0babb1143e8c615f",
+          "bytes": 1397011
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "2e2cfc255b9b23e23c7b6a962caf6686c673d3045648568257adeb7cdb1c07e1",
+          "bytes": 663618,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "source/roughness_1k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_mud_02/brown_mud_02_rough_1k.jpg",
+          "official_md5": "a9d397c45a366da1c62d78ca72340ab0",
+          "sha256": "c6d5891f090554c8f51172b2c4056f490ab1ed1a69127f1f876f9d58c46f0f23",
+          "bytes": 422119
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "e36f05252454545a33ee4d644633ff0dec3bb7cc2006ab72505e86ae3efda6ec",
+          "bytes": 171776,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Fabric081C",
+      "author": "ambientCG / Lennart Demes",
+      "license": "CC0-1.0",
+      "files": [
+        {
+          "file": "source/Fabric081C_1K-JPG.zip",
+          "url": "https://ambientcg.com/get?file=Fabric081C_1K-JPG.zip",
+          "sha256": "54cb93482845a9b74b34b1294ce40ff9427df88ec700c7fcfec72125551dca31",
+          "bytes": 5040951
+        },
+        {
+          "file": "basecolor_512.png",
+          "sha256": "389829ebf84a62bcd813ff379ce5ef5eee493b1d4a2c0486b1833da0f8571e50",
+          "bytes": 57758,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "normal_512.png",
+          "sha256": "8aac2917a96a9bca917a3c91621fc95714cf3f2aca451035eedd1fd29ec9618d",
+          "bytes": 239095,
+          "size": [
+            512,
+            512
+          ]
+        },
+        {
+          "file": "roughness_512.png",
+          "sha256": "97073f777596e1f9fd76a4c96b1a163a296542fccf7e64b468ba288a58232855",
+          "bytes": 81030,
+          "size": [
+            512,
+            512
+          ]
+        }
+      ],
+      "note": "Generic printed fabric microdetail; not historical silk evidence."
+    }
+  ]
+}

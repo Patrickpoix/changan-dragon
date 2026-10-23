@@ -1,0 +1,304 @@
+{
+  "status": "reconstructed_research_only",
+  "source_revision": "dcf309bd86bd521083d9c70f01f2de45fdc7c457",
+  "tool_three": "0.167.1",
+  "runtime_three_unchanged": "r160",
+  "runtime_integrated": false,
+  "visual_accepted": false,
+  "browser_compatibility_accepted": false,
+  "notes": "Same seeded skeleton across LODs; leaf cards remain alpha-masked. Willow form approximate, blossom leaf tint placeholder; no wind exported.",
+  "types": [
+    {
+      "type": "street",
+      "levels": [
+        {
+          "file": "street-lod0.glb",
+          "triangles": 6806,
+          "bytes": 629052,
+          "sha256": "e8f163e7f29611eda74dd00814b4d9b253ddbd531b6b772ed14c213066e9163e",
+          "bounds": {
+            "min": [
+              -3.1168737411499023,
+              0,
+              -3.157865285873413
+            ],
+            "max": [
+              2.8533120155334473,
+              8,
+              2.050607919692993
+            ]
+          },
+          "detail": {}
+        },
+        {
+          "file": "street-lod1.glb",
+          "triangles": 2958,
+          "bytes": 427496,
+          "sha256": "4325efcc2660dc45de136fac6d2d6341d9f8415ad2b79b0649df9883e6e19400",
+          "bounds": {
+            "min": [
+              -2.983196973800659,
+              0,
+              -3.2492568492889404
+            ],
+            "max": [
+              2.781844139099121,
+              8.081754684448242,
+              1.814923644065857
+            ]
+          },
+          "detail": {
+            "sectionStride": 3,
+            "segmentFactor": 0.75,
+            "leafStride": 2,
+            "leafScale": 1.25
+          }
+        },
+        {
+          "file": "street-lod2.glb",
+          "triangles": 1326,
+          "bytes": 322144,
+          "sha256": "c268afa3905aa910f19edae90d440a95dfe705c52b627c0fea2810bb18fc51b9",
+          "bounds": {
+            "min": [
+              -3.2086944580078125,
+              0,
+              -3.267535448074341
+            ],
+            "max": [
+              2.9061272144317627,
+              8.089591979980469,
+              2.052500009536743
+            ]
+          },
+          "detail": {
+            "sectionStride": 6,
+            "segmentFactor": 0.4,
+            "leafStride": 3,
+            "leafScale": 1.3,
+            "billboard": "single"
+          }
+        }
+      ]
+    },
+    {
+      "type": "willow",
+      "levels": [
+        {
+          "file": "willow-lod0.glb",
+          "triangles": 11072,
+          "bytes": 785876,
+          "sha256": "05059896bfddbb12898d5ac95613ed568fe733c74d39dff63404a44296c5ca48",
+          "bounds": {
+            "min": [
+              -0.23075535893440247,
+              0,
+              -4.393824577331543
+            ],
+            "max": [
+              7.11526346206665,
+              9,
+              3.173912763595581
+            ]
+          },
+          "detail": {}
+        },
+        {
+          "file": "willow-lod1.glb",
+          "triangles": 4464,
+          "bytes": 457136,
+          "sha256": "0d474057714324227a3f220572d8330df508bb02c58127a97d7be748c1659d28",
+          "bounds": {
+            "min": [
+              -0.23075535893440247,
+              -0.24147945642471313,
+              -4.551962852478027
+            ],
+            "max": [
+              6.923557758331299,
+              9.104706764221191,
+              3.39542555809021
+            ]
+          },
+          "detail": {
+            "sectionStride": 3,
+            "segmentFactor": 0.75,
+            "leafStride": 2,
+            "leafScale": 1.25
+          }
+        },
+        {
+          "file": "willow-lod2.glb",
+          "triangles": 1582,
+          "bytes": 284032,
+          "sha256": "5f9f15d92ade46fa430e0eae91aaa9d0cc44b1bff6caf7767f9f776870b8c7a6",
+          "bounds": {
+            "min": [
+              -0.11537767946720123,
+              -0.11994708329439163,
+              -4.59701681137085
+            ],
+            "max": [
+              7.0844292640686035,
+              9.138185501098633,
+              3.0902299880981445
+            ]
+          },
+          "detail": {
+            "sectionStride": 6,
+            "segmentFactor": 0.4,
+            "leafStride": 3,
+            "leafScale": 1.3,
+            "billboard": "single"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pine",
+      "levels": [
+        {
+          "file": "pine-lod0.glb",
+          "triangles": 18756,
+          "bytes": 1249760,
+          "sha256": "a8f3645de385d7b411f7a5869584a28f2716299b73930f38173e7466804fe18f",
+          "bounds": {
+            "min": [
+              -2.0658957958221436,
+              0,
+              -2.040719747543335
+            ],
+            "max": [
+              2.1425728797912598,
+              10,
+              2.352382183074951
+            ]
+          },
+          "detail": {}
+        },
+        {
+          "file": "pine-lod1.glb",
+          "triangles": 7512,
+          "bytes": 730904,
+          "sha256": "8b9ae621a02fb9b94bbad4bc6faad8a60768c64af736fc391e7eafa20be7ed55",
+          "bounds": {
+            "min": [
+              -2.0930120944976807,
+              0,
+              -2.071049928665161
+            ],
+            "max": [
+              2.2353923320770264,
+              10.030304908752441,
+              2.4366722106933594
+            ]
+          },
+          "detail": {
+            "sectionStride": 3,
+            "segmentFactor": 0.75,
+            "leafStride": 2,
+            "leafScale": 1.25
+          }
+        },
+        {
+          "file": "pine-lod2.glb",
+          "triangles": 2378,
+          "bytes": 452952,
+          "sha256": "a2cccaa5ec762724ca2fdc30a604918db571285c8ad05504ca64fe5841e65f02",
+          "bounds": {
+            "min": [
+              -1.928316354751587,
+              -0.03064947947859764,
+              -1.9846477508544922
+            ],
+            "max": [
+              2.205364465713501,
+              9.92567253112793,
+              2.404261827468872
+            ]
+          },
+          "detail": {
+            "sectionStride": 6,
+            "segmentFactor": 0.4,
+            "leafStride": 3,
+            "leafScale": 1.3,
+            "billboard": "single"
+          }
+        }
+      ]
+    },
+    {
+      "type": "blossom",
+      "levels": [
+        {
+          "file": "blossom-lod0.glb",
+          "triangles": 6806,
+          "bytes": 629052,
+          "sha256": "8744c55409d0219c32488e4853c7d4662e0df9826fac4cf9c70b4a8cf1cd6e55",
+          "bounds": {
+            "min": [
+              -1.4869627952575684,
+              0,
+              -1.8614788055419922
+            ],
+            "max": [
+              1.2387198209762573,
+              5,
+              1.815780758857727
+            ]
+          },
+          "detail": {}
+        },
+        {
+          "file": "blossom-lod1.glb",
+          "triangles": 2958,
+          "bytes": 427492,
+          "sha256": "5d3ef6e410611db432f8e485d91abb721c9bf2d999244da4250181b90c008910",
+          "bounds": {
+            "min": [
+              -1.5436744689941406,
+              0,
+              -1.8844480514526367
+            ],
+            "max": [
+              1.296463131904602,
+              5.036077976226807,
+              1.8065694570541382
+            ]
+          },
+          "detail": {
+            "sectionStride": 3,
+            "segmentFactor": 0.75,
+            "leafStride": 2,
+            "leafScale": 1.25
+          }
+        },
+        {
+          "file": "blossom-lod2.glb",
+          "triangles": 1326,
+          "bytes": 322132,
+          "sha256": "107e6438e165694dc61028d1d7133950f57b19c4ca3bc0713433916576da5b53",
+          "bounds": {
+            "min": [
+              -1.423784852027893,
+              0,
+              -1.8666186332702637
+            ],
+            "max": [
+              1.25895357131958,
+              5.043293476104736,
+              1.8596574068069458
+            ]
+          },
+          "detail": {
+            "sectionStride": 6,
+            "segmentFactor": 0.4,
+            "leafStride": 3,
+            "leafScale": 1.3,
+            "billboard": "single"
+          }
+        }
+      ]
+    }
+  ]
+}

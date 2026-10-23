@@ -1,0 +1,223 @@
+{
+  "repository": "https://github.com/dgreenheck/ez-tree",
+  "revision": "dcf309bd86bd521083d9c70f01f2de45fdc7c457",
+  "scope": "Unmodified src/lib, MIT license, README/package and four author leaf PNGs plus texture license; app and bark images omitted",
+  "files": [
+    {
+      "file": "LICENSE",
+      "bytes": 1073,
+      "sha256": "20e4afadfb10c67952b3d73cd2982d21d165ab4ae82b0dd9e4d6f2166ee349b6",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/LICENSE"
+    },
+    {
+      "file": "README.md",
+      "bytes": 7327,
+      "sha256": "1c758991522e87610b7459ea0a8fbfb0a22ec4bd90903459ff974d78e6be5282",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/README.md"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1411,
+      "sha256": "48f5ddc8af8ee19b1ee6d2ff7047a3a42575aa13e5f721bd871506e161a90131",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/package.json"
+    },
+    {
+      "file": "src/app/public/textures/LICENSE.md",
+      "bytes": 1378,
+      "sha256": "c4c67cf955536e61d9ac3fdf13830114edcd4c19c9aa0356ed0862cedf64140a",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/LICENSE.md"
+    },
+    {
+      "file": "src/app/public/textures/leaves/ash.png",
+      "bytes": 181423,
+      "sha256": "5ec987db3829a839856c32c79b18a33a78f209e911cad55c65abfb77f30e2d29",
+      "url": "https://media.githubusercontent.com/media/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/ash.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/ash.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "fc72b550e71b6390715248ae721ccec85885478683ea5ff0e6868baa5bba4f4a",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/ash.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/aspen.png",
+      "bytes": 142116,
+      "sha256": "6c8cbfa3eda0f070df6ebb3c8ec6899400f3c966d1658fcfd9ae518347c2dcb9",
+      "url": "https://media.githubusercontent.com/media/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/aspen.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/aspen.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "f526978f0fd948af06e655ea9d672fe9e1943c5df2e0d4c4466404643bd856da",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/aspen.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/oak.png",
+      "bytes": 238115,
+      "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+      "url": "https://media.githubusercontent.com/media/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/oak.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/oak.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "c4beca0e3685ee900e24c5ef3714e6bee4375cb8d6b464a44465a3ce34410325",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/oak.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/pine.png",
+      "bytes": 303684,
+      "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08",
+      "url": "https://media.githubusercontent.com/media/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/pine.png"
+    },
+    {
+      "file": "src/app/public/textures/leaves/pine.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "3fa31532e2686f18eb014e8edc95dbc347895789b6be1c2e7d96d3b8b03f2f7a",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/app/public/textures/leaves/pine.png"
+    },
+    {
+      "file": "src/lib/branch.js",
+      "bytes": 787,
+      "sha256": "f71a5e0df6b74ae521942f1722e5a0dd17707add05f12691da96231fdeff8571",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/branch.js"
+    },
+    {
+      "file": "src/lib/enums.js",
+      "bytes": 151,
+      "sha256": "d83df789447a421baaecfd18cc8187bf3f80f6cf6e7ba7866812ed527f104092",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/enums.js"
+    },
+    {
+      "file": "src/lib/index.js",
+      "bytes": 161,
+      "sha256": "a0a92be6d68505522f9d218710f7fd8bff197c77a188999757a9fdb802459546",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/index.js"
+    },
+    {
+      "file": "src/lib/options.js",
+      "bytes": 5186,
+      "sha256": "092e20ee9073d7402e2fa04d570c17ff150276b5f8c941b3da629edf4ecfe0b9",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/options.js"
+    },
+    {
+      "file": "src/lib/presets/ash_large.json",
+      "bytes": 1461,
+      "sha256": "fb630c9f4ae0e344c884f0380d23b35bd93af8924dc0244190b83811634d4f50",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/ash_large.json"
+    },
+    {
+      "file": "src/lib/presets/ash_medium.json",
+      "bytes": 1414,
+      "sha256": "4fbda008f54a1421c67bdff3022d64aba1d497253bc45dc7f186e3a4f78a9edd",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/ash_medium.json"
+    },
+    {
+      "file": "src/lib/presets/ash_small.json",
+      "bytes": 1416,
+      "sha256": "aa912b8789d348e751aea05c8bf7fd3e91919f7d2429a43150d0b171a57c7a1d",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/ash_small.json"
+    },
+    {
+      "file": "src/lib/presets/aspen_large.json",
+      "bytes": 1528,
+      "sha256": "91d66898f9a2edb0ac29482c137c295e8fefd2f39b9c328f690c4656e3edbf89",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/aspen_large.json"
+    },
+    {
+      "file": "src/lib/presets/aspen_medium.json",
+      "bytes": 1408,
+      "sha256": "0ccedf06c8777fc7e21f04852f43a52fbe454d71521f2abeaa1cbb5af656ed3f",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/aspen_medium.json"
+    },
+    {
+      "file": "src/lib/presets/aspen_small.json",
+      "bytes": 1497,
+      "sha256": "342fd45bf5243c927c56e499d1083e6d527ec875366b6d763a529069e7255473",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/aspen_small.json"
+    },
+    {
+      "file": "src/lib/presets/bush_1.json",
+      "bytes": 1500,
+      "sha256": "c15a079777169edbc8e7d99ddfde1f70b332049a1ca4b2469fb2987dfc195a4b",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/bush_1.json"
+    },
+    {
+      "file": "src/lib/presets/bush_2.json",
+      "bytes": 1602,
+      "sha256": "fee591915db8ee450151d30330c22ec9a980eaffe93bf58977d1113b749685ec",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/bush_2.json"
+    },
+    {
+      "file": "src/lib/presets/bush_3.json",
+      "bytes": 1673,
+      "sha256": "7b5fdf2bd190f8f61b792b32ac3a0eade9e09db6471bf422c6936c5855399926",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/bush_3.json"
+    },
+    {
+      "file": "src/lib/presets/index.js",
+      "bytes": 1360,
+      "sha256": "66f5c90aa49e18467bad26c21158a184fb33a6c019d9cc0efd403b514fb7dc5f",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/index.js"
+    },
+    {
+      "file": "src/lib/presets/oak_large.json",
+      "bytes": 1422,
+      "sha256": "da60d7104796e5dc099effe778f22e055a8365549e2eb6cfa6fb0bb6a8190d6b",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/oak_large.json"
+    },
+    {
+      "file": "src/lib/presets/oak_medium.json",
+      "bytes": 1421,
+      "sha256": "b71da9eeebbe88e7e216af549427f4ec368c4939bf4d4e47d5325f79364fc1ea",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/oak_medium.json"
+    },
+    {
+      "file": "src/lib/presets/oak_small.json",
+      "bytes": 1422,
+      "sha256": "56351f70c8d9432db4c2e80ad9e4f9a08cfb02cb511b5005bb451ddd76a384b4",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/oak_small.json"
+    },
+    {
+      "file": "src/lib/presets/pine_large.json",
+      "bytes": 1544,
+      "sha256": "80d3e4b0c8d283d995e9af515c54e1622750b620959fbfab06fb4fcf7de29189",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/pine_large.json"
+    },
+    {
+      "file": "src/lib/presets/pine_medium.json",
+      "bytes": 1408,
+      "sha256": "001254eff844a6d41aff3c409b78effe2a2995c8dd7a21ae301b1e7fb9da0118",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/pine_medium.json"
+    },
+    {
+      "file": "src/lib/presets/pine_small.json",
+      "bytes": 1397,
+      "sha256": "3e389bbcec2fb8965a6a77c014409394aa8e8b81f32b6d3b4d9de86eb02f0c17",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/pine_small.json"
+    },
+    {
+      "file": "src/lib/presets/trellis.json",
+      "bytes": 1701,
+      "sha256": "015e40156baa5f7778d5fb9f9a5e601001e632d40e6fdd34644db4f47d1abc1c",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/presets/trellis.json"
+    },
+    {
+      "file": "src/lib/rng.js",
+      "bytes": 586,
+      "sha256": "e4f2bfff79a0a6af3f909f106876e9208be1bb88cc7f7d1541a6858cbaa0c3c8",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/rng.js"
+    },
+    {
+      "file": "src/lib/tree.js",
+      "bytes": 40609,
+      "sha256": "a1b7bd933cb2078e9373c9c853c620be8a3edc84a9edda6a4073c8ad2a31f934",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/tree.js"
+    },
+    {
+      "file": "src/lib/trellis.js",
+      "bytes": 3805,
+      "sha256": "ca623b4fbbee1a11aa14be213f5132928ecbe37f91db7424081fe9d681fc765b",
+      "url": "https://raw.githubusercontent.com/dgreenheck/ez-tree/dcf309bd86bd521083d9c70f01f2de45fdc7c457/src/lib/trellis.js"
+    }
+  ]
+}

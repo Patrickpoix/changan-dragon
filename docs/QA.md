@@ -106,3 +106,9 @@ python3 tools/model_test.py --output /tmp/changan-timber-review
 实际查看了`timber-model-study.png`与`timber-model-grey.png`，以及生成的正侧背/俯视图。此前侧坡无瓦和斗拱穿屋面被人工否决后修正；首次源导出因Blender已删除对象引用报错也已修复，不能把那个失败版本当作通过。当前材质/陈设/造型风格仍需继续，与具体参考的差距见FILM_STYLE_RESEARCH第7节，最终美术验收状态为false。
 
 样板未部署正式城市，没有把它算作新增正式GLB来源；主游戏离线包SHA保持不变。本专项不重复宣称全城新模型已换完、手机真机已测或新增楼层已能在主游戏行走。
+
+## 2026-10-24 研究资产恢复专项
+
+`python tools/prepare_production_materials.py --verify`核验7组原件摘要和21张512²图；`node tools/prepare_vegetation_studies.mjs /path/to/tree-tools`重跑12GLB字节一致。叶片原先是Git LFS指针，首轮浏览器纹理失败，随后取得media原图并按LFS SHA256/大小核验后重跑；不计失败版本为通过。
+
+启动8877静态服务后运行`python tools/resource_recovery_test.py`（本机Playwright/Chromium，未发现Browser工具）。记录见`qa-evidence/resource-recovery/results.json`及四类截图：24次现代/强制WebGL1加载、包围盒取景、四视角/灰模、本地GLB替换、坏文件保留旧模型，零页面/控制台错误、glError0。四图已实际查看；柳冠/树皮/花树仍未通过美术，花树乘色偏褐。软件渲染与手机尺寸不是手机真机或所有浏览器兼容测试。正式场景、离线包本轮未改，未重复做整城验收。
