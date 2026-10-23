@@ -1,0 +1,59 @@
+{
+  "dragon": [
+    1.7135582213874443,
+    2.1957626880962806,
+    2.4862753926799073
+  ],
+  "headIncludingHorns": [
+    1.7135582213874443,
+    1.4092881054036073,
+    1.3816979840150836
+  ],
+  "adultMaleMesh": [
+    0.7019971224817425,
+    1.6494906459666403,
+    1.0685630758914417
+  ],
+  "adultFemaleMesh": [
+    0.7924030022946909,
+    1.8350131151609217,
+    1.0655416839871066
+  ],
+  "legacy": {
+    "enabled": true,
+    "meshes": 9,
+    "floatVertexTextures": true
+  },
+  "engine": {
+    "source": "original",
+    "revision": "160"
+  },
+  "galleryPatrons": 46,
+  "rendering": {
+    "initialized": true,
+    "quality": "high",
+    "requestedQuality": "high",
+    "suspended": false,
+    "antiAliasing": "MSAA",
+    "toneMapping": "ACESFilmic",
+    "exposure": 1.06,
+    "environment": "Poly Haven Venice Sunset PMREM",
+    "environmentIntensity": 0.48,
+    "aoWidth": 0,
+    "aoHeight": 0,
+    "bloom": false,
+    "postprocessing": false,
+    "width": 844,
+    "height": 390,
+    "pixelRatio": 1,
+    "frameCount": 33,
+    "drawCalls": 433,
+    "triangles": 1356049,
+    "lastFrameMs": 11.5,
+    "fallback": "HDR postprocessing unavailable; using filmic direct rendering"
+  },
+  "glError": 0,
+  "errors": [],
+  "passed": true,
+  "notes": "Source page with original uploaded r160; forced WebGL1. Actual geometry including horns measured after world transforms, bodies use meshes and exclude speech sprites. Fixed gallery camera; current model art is not approved."
+}

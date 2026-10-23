@@ -69,3 +69,17 @@ python3 tools/offline_test.py --output /tmp/changan-offline-review
 原先墙体脚本仅验证控制台/材质/通行会返回PASS，但实际高档近景全黑；人工否决后新增`tools/rendering_test.py`，真实复现并锁定像素检查。详见RENDERING_DIAGNOSIS.md。`rammed-walls-rendering.json`：18,687,084B版本在现代1120×630/强制WebGL1手机844×390通过，实际穿门、法线/粗糙度/物理UV/收分、断网高档、FOV43/58/35画面、原黑点恢复、零外部请求/页面/控制台错误、glError0。原始HDR输入少数NaN由后处理边界过滤与局部恢复保护；底层着色/驱动精确来源未确认，不将本次修复冒称所有输入浮点值都正常。
 
 同一18,687,084B应用版本进一步通过medium输出复验：`medium-rendering.json`，FOV43无黑区、均亮184.38、原故障点RGB212/189/159，glError0、无外部请求/页面/控制台错误。验证命令：`python3 tools/rendering_test.py --profiles modern --output /tmp/changan-rendering-medium-final`。
+
+## 内街通行基线与建模返工
+
+```sh
+python3 tools/market_test.py --output /tmp/changan-market-review
+```
+
+`qa-evidence/market-traversal.json`对应18,693,882B单文件：实际走过东西市连续目标，进入8间内街店铺；三态切换、飞行/赏景返回、手机844×390的44px命中、断网medium、1120×630建筑视点通过；零页面/控制台/外部请求错误，glError0。起点使用位置夹具，终点均由实际键盘与运动/碰撞求解到达。
+
+初次固定楼廊相机落在梁底，不能用它作视觉通过证据；已将维护脚本机位移至廊外，并在`source-model-review.json`对应源码专项重拍。该源码专项实际使用原上传r160、强制WebGL1，9蒙皮、几何、手机控件、飞行/电影和高档安全回退均正常，无错误。图片`market-model-baseline.png` / `gallery-model-baseline.png`已人工查看：它们只记录**需要造型返工的当前基线**，美术没有通过。
+
+初次scaleAudit对成人group测量误包含对话Sprite，不能当成人高度。维护脚本已改为直接测人物mesh，单独源码专项也已用纯mesh重新核对，见source-model-review.json；小龙约2.20m、成人约1.65/1.84m，主角比例同样需要重做。尺度随姿态变化，不能将不同姿态的AABB当作角色设定身高。
+
+用户最新否决的是模型基础造型；验收不能止于上述功能。继续时按 [FILM_STYLE_RESEARCH.md](FILM_STYLE_RESEARCH.md) 的完整模型试片检查轮廓、结构、比例、衣服剪裁、眼窝/口鼻、冠形、材质与多视角，再做代表性场景。真机性能、本地文件策略和最终电影美术仍未验收。

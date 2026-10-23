@@ -2,6 +2,8 @@
 
 工程是无后端的静态 HTML/JavaScript/WebGL 游戏。使用现有 `/workspace/changan-dragon`，保留本地开发改动，不为环境准备另建worktree。无需API密钥。
 
+新会话先读根目录AGENTS.md、PRODUCT_BRIEF.md、FILM_STYLE_RESEARCH.md和CONTINUE.md。环境快照可能固定在旧提交：先核对工作树与origin/main，干净工作树可正常fetch并快进更新main；脏树先保护修改，不reset/强推或覆盖用户文件。不要从旧快照遗漏用户最新“基础造型返工”的要求。
+
 ## 最小运行
 
 需要Python3；引擎、扩展、字体、运行模型和材质均已在仓库。先执行：

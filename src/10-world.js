@@ -111,6 +111,26 @@ function shopClothGeometry() {
 }
 const SHOP_CLOTH_GEOMETRY = shopClothGeometry();
 
+// Shared solid timber lattice: openings, mullions and frame all have depth.
+// This is an artistic geometric screen, not a claimed Tang excavation replica.
+function shopLatticeGeometry() {
+  const p = [], n = [], uv = [];
+  const bar = (x, y, w, h, depth = .075) => {
+    const g = new THREE.BoxGeometry(w, h, depth).translate(x, y, 0);
+    const flat = g.toNonIndexed();
+    p.push(...flat.attributes.position.array); n.push(...flat.attributes.normal.array);
+    uv.push(...flat.attributes.uv.array); g.dispose(); flat.dispose();
+  };
+  for (const side of [-1, 1]) { bar(side * .475, 0, .05, 1); bar(0, side * .475, .9, .05); }
+  for (let i = -3; i <= 3; i++) bar(i * .115, 0, .023, .9, .052);
+  for (const y of [-.27, 0, .27]) bar(0, y, .9, .023, .065);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(n, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  return g;
+}
+
 function stallClothGeometry() {
   const p=[],uv=[],ix=[],across=12,out=8;
   for(let j=0;j<=out;j++) for(let i=0;i<=across;i++) {
@@ -246,6 +266,9 @@ const B = {
   window: new Batch(UNIT_PLANE, MAT.window, { cast: false }),
   // Street-scale repeated details use simple geometry, shared materials and spatial batches.
   trim: new Batch(new THREE.BoxGeometry(1, 1, 1), MAT.wood, { maxDistance: 200, cast: false }),
+  galleryScreens: new Batch(shopLatticeGeometry(), MAT.wood, { maxDistance: 85, cellSize: 48, cast: false }),
+  galleryDeck: new Batch(UNIT_BOX, MAT.wood, { maxDistance: 85, cellSize: 48, cast: false }),
+  galleryBrackets: new Batch(miniLibsBracketGeometry(), MAT.wood, { maxDistance: 100, cellSize: 48, cast: false }),
   tileEnds: new Batch(new THREE.CylinderGeometry(0.5, 0.5, 1, 8).rotateX(Math.PI / 2), MAT.dark, { maxDistance: 80, cast: false }),
   doorStuds: new Batch(new THREE.IcosahedronGeometry(.5,0), MAT.gold, {maxDistance:45,cast:false}),
   pottery: new Batch(new THREE.LatheGeometry(POTTERY_PROFILE,24),MAT.plasterWarm,{maxDistance:140,cast:false,
@@ -355,6 +378,7 @@ function addSignMesh(text, x, y, z, ry, w = 7, h = 2.2, opts = {}) {
 // ---------------------------------------------------------------- 通用建筑
 const roofColors = NOISE_COLORS.roof;
 const hallDetails = [];
+const innerMarketShops = [];
 function addHall(x, z, w, d, opt = {}) {
   const {
     h = 6.2, roofH = 4.1, ry = 0, platform = 0.55, colorKind = 'plaster',
@@ -404,7 +428,8 @@ function addHall(x, z, w, d, opt = {}) {
     // A visible ceiling and upper front wall enclose the second floor.
     if (h > 6) {
       B.wood.add(x, platform + 3.6, z, w - 0.4, 0.2, d - 0.4, ry, 0x8f6545);
-      B.plaster.add(px(0, d / 2 - 0.18), platform + (h + 3.75) / 2, pz(0, d / 2 - 0.18), w, h - 3.75, 0.36, ry, wallTint);
+      const upperFront = d / 2 - .18 - (opt.galleryDepth || 0);
+      B.plaster.add(px(0, upperFront), platform + (h + 3.75) / 2, pz(0, upperFront), w, h - 3.75, 0.36, ry, wallTint);
     }
   } else B.plaster.add(x, wallY, z, w, h, d - porch * 2, ry, wallTint);
   // 前后墙面木框
@@ -869,7 +894,7 @@ function addShop(x, z, w, d, ry, name, opt = {}) {
   const put = (batch, lx, y, lz, sx, sy, sz, tint, rx = 0) => {
     const [wx, wz] = pos(lx, lz); batch.add(wx, y, wz, sx, sy, sz, ry, tint, rx);
   };
-  addHall(x, z, w, d, { h: twoStory ? 7.2 : 4.6, roofH: 3.4, ry, doors: false, columns: true, windows: false, collider: true, openFront: true });
+  addHall(x, z, w, d, { h: twoStory ? 7.2 : 4.6, roofH: 3.4, ry, doors: false, columns: true, windows: false, collider: true, openFront: true, galleryDepth: twoStory ? 1.15 : 0 });
   const front = d / 2;
   for (const side of [-1, 1]) {
     const edge = side * (w / 2 + 0.05), height = twoStory ? 7.2 : 4.6;
@@ -882,16 +907,48 @@ function addShop(x, z, w, d, ry, name, opt = {}) {
     }
   }
   if (twoStory) {
-    put(B.wood, 0, 4.6, front + 0.7, w + 1, 0.26, 1.65, 0x7b4830);
-    for (const y of [4.95, 5.47]) put(B.trim, 0, y, front + 1.4, w + 0.8, 0.12, 0.12, 0xad7049);
-    const n = Math.ceil(w / 1.1);
-    for (let i = 0; i <= n; i++) put(B.trim, -w / 2 + w * i / n, 5.15, front + 1.4, 0.09, 0.75, 0.09, 0xa56946);
-    for (const side of [-1, 1]) put(B.trim, side * w / 2, 5.45, front + 0.7, 0.12, 0.12, 1.5, 0xa56946);
-    // Shallow second-storey shutters and upper lintel remain readable from the street.
-    for (const lx of [-w * 0.3, 0, w * 0.3]) {
-      put(B.dark, lx, 6.0, front + 0.4, w * 0.2, 1.4, 0.08, 0x453b2e);
-      for (let k = -2; k <= 2; k++) put(B.trim, lx + k * w * 0.033, 6.0, front + 0.48, 0.07, 1.42, 0.09, 0xc08b5c);
+    // The 3.6m ground-floor ceiling and gallery now share the same floor.
+    // Recessed upper rooms leave a real 2.55m-deep open timber gallery, rather
+    // than gluing a floating railing and dark rectangles onto a flat wall.
+    const floor = 4.25, rear = front - 1.15, edge = front + 1.4, depth = edge - rear;
+    put(B.wood, 0, floor - .10, (rear + edge) / 2, w + .8, .2, depth + .25, 0x795137);
+    const planks = Math.ceil(w / .28);
+    for (let i = 0; i < planks; i++) put(B.galleryDeck, -w / 2 + (i + .5) * w / planks, floor + .022, (rear + edge) / 2,
+      w / planks - .012, .044, depth + .22, [0xa8784d, 0x96704c, 0xad8055][i % 3]);
+    for (const y of [floor + .13, floor + .57, floor + .95]) put(B.trim, 0, y, edge, w + .8, .10, .13, 0xa56d43);
+    const n = Math.ceil(w / 1.5);
+    for (let i = 0; i <= n; i++) {
+      const lx = -w / 2 + w * i / n;
+      put(B.trim, lx, floor + .52, edge, .12, 1.07, .12, 0xb48151);
+      if (i < n) put(B.galleryScreens, lx + w / n / 2, floor + .37, edge, w / n - .20, .41, 1, 0xa87849);
     }
+    for (const side of [-1, 1]) {
+      put(B.trim, side * (w / 2 + .22), floor + .95, (rear + edge) / 2, .12, .12, depth, 0x9a603d);
+      put(B.trim, side * (w / 2 + .22), floor + .48, edge - .65, .12, .95, .12, 0xac774c);
+    }
+    const bays = Math.max(3, Math.round(w / 4.4));
+    for (let i = 0; i < bays; i++) {
+      const lx = -w / 2 + w * (i + .5) / bays, panelW = w / bays * .66;
+      put(B.dark, lx, 6.04, rear + .03, panelW + .18, 1.72, .10, 0x493a2d);
+      put(B.galleryScreens, lx, 6.04, rear + .12, panelW, 1.6, 1, 0xc1935e);
+      // Paired solid shutters project at their hinges, giving a readable
+      // silhouette in side views as well as through the open gallery.
+      for (const side of [-1, 1]) {
+        const [sx, sz] = pos(lx + side * (panelW / 2 + .17), rear + .24);
+        B.galleryDeck.add(sx, 6.04, sz, .31, 1.7, .07, ry + side * .65, 0x93613d);
+      }
+    }
+    for (let i = 0; i <= bays; i++) {
+      const lx = -w / 2 + w * i / bays;
+      put(B.galleryBrackets, lx, floor - .72, front + .6, .68, .62, .84, 0xa87948);
+      put(B.trim, lx, floor - .23, front + .5, .19, .24, 2.05, 0x98603c);
+    }
+    // Patrons use the same shared 3D clothing/portrait system as the city.
+    // These are stationary observers, so the default depth shader matches.
+    if (!B.galleryPatrons) B.galleryPatrons = new Batch(makePersonGeometry({woman:true,robe:0x9b757b}), personMat, {maxDistance:90,cellSize:48});
+    const [gx, gz] = pos(w * .26, front + .65);
+    B.galleryPatrons.add(gx, floor + .045, gz, .94, .94, .94, ry - .15);
+    if (opt.galleryPlant) put(B.pottery, -w * .34, floor + .045, front + .55, .5, .32, .5, 0xa67c59);
   }
   for (const side of [-1, 1]) {
     const shelfX = side * w * 0.30;
@@ -999,32 +1056,41 @@ function buildMarket(cx, cz, w, d, name, east = false) {
     addShop(cx - halfW + 10, cz + offsets[i] * d * 0.9, shopD, shopW, Math.PI / 2, names[(i + 1) % names.length], { awning: 0x4b7d74 });
     addShop(cx + halfW - 10, cz + offsets[i] * d * 0.9, shopD, shopW, -Math.PI / 2, names[(i + 3) % names.length], { awning: 0xb95a4a });
   }
+  // Four inhabited inner blocks form two shopping streets and a clear cross
+  // street. The central walking lanes x=+/-7.4 and z=+/-8 remain open; roof
+  // overhangs are above them, while every counter/post has real collision.
+  for (const side of [-1, 1]) for (const row of [-1, 1]) {
+    const index = (side > 0 ? 2 : 0) + (row > 0 ? 1 : 0);
+    const spec = {x:cx + side * 18.5,z:cz + row * 23,w:19,d:10,
+      ry:side < 0 ? Math.PI / 2 : -Math.PI / 2,
+      name:names[(index + (east ? 0 : 2)) % names.length],market:name};
+    addShop(spec.x, spec.z, spec.w, spec.d, spec.ry, spec.name,
+      {galleryPlant:true,awning:(east ? [0x6f8588,0xad9161,0x7f7189,0x678578] : [0xab745a,0x768678,0x84718b,0xaa925e])[index]});
+    innerMarketShops.push(spec);
+  }
   // 中央市楼
   addPavilion(cx, cz, 5.6, { h: 4.0, roofH: 3.4, roofKind: 'gold', railing: true, collider: true });
   B.wood.add(cx, 1.5, cz, 7.5, 3, 7.5, 0, 0x7b4b31);
   addCollider(cx - 3.75, cx + 3.75, cz - 3.75, cz + 3.75, 'market-tower-base');
   // 摊位
   const stallColors = [0xc74f3c, 0x4c7f8c, 0xd1a043, 0x7b5b8f, 0x5d8b66];
-  for (let i = 0; i < 18; i++) {
-    const angle = rr(0, TAU), rad = rr(10, Math.min(w, d) * 0.38);
-    const sx = cx + Math.cos(angle) * rad * (w / Math.min(w, d)), sz = cz + Math.sin(angle) * rad * (d / Math.min(w, d));
-    if (Math.abs(sx - cx) < 13 || Math.abs(sz - cz) < 9) continue;
-    addMarketStall(sx, sz, rr(0, TAU), pick(stallColors));
-  }
-  // Ordered merchant rows retain clear cross streets and walkable shop edges.
+  // Purposeful outer lanes replace random stands that would intersect the new
+  // shop blocks. Keep the back lane, the shop entrances and the central axes
+  // clear rather than accumulating stalls in every empty square metre.
   for (const side of [-1, 1]) for (const row of [-1, 1]) {
-    for (let i = 0; i < 3; i++) {
-      addMarketStall(cx + side * (19 + i * 10), cz + row * 16, row > 0 ? Math.PI : 0, stallColors[(i + (east ? 2 : 0)) % stallColors.length]);
+    for (let i = 0; i < 2; i++) {
+      addMarketStall(cx + side * (36 + i * 9), cz + row * 23, row > 0 ? Math.PI : 0, stallColors[(i + (east ? 2 : 0)) % stallColors.length]);
     }
   }
   // 旗幡
-  for (let i = 0; i < 6; i++) {
-    addBanner(pick(['酒', '茶', '香', '绸', '饼', '药']), cx + rr(-w * 0.4, w * 0.4), cz + rr(-d * 0.4, d * 0.4), rr(0, TAU), pick(['#b64438', '#3f6d72', '#7a4b70', '#a66a2f']));
+  for (const side of [-1, 1]) for (const row of [-1, 1]) {
+    addBanner(east ? (row > 0 ? '绸' : '茶') : (row > 0 ? '酒' : '香'),
+      cx + side * 11.8, cz + row * 11.1, side < 0 ? Math.PI / 2 : -Math.PI / 2,
+      east ? '#3f6d72' : '#a66a2f');
   }
   // 灯笼串
-  for (let i = 0; i < 4; i++) {
-    addLanternString(cx - w * 0.3 + i * w * 0.2, cz - d * 0.42, cx - w * 0.3 + i * w * 0.2, cz + d * 0.42, 5.5, 5);
-  }
+  for (const row of [-1, 1])
+    addLanternString(cx - 13.2, cz + row * 23, cx + 13.2, cz + row * 23, 6.9, 7);
   marketDefs.push({ x: cx, z: cz, w, d, name });
   landmarks.push({
     id: east ? 'east-market' : 'west-market', name,

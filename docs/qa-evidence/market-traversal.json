@@ -1,0 +1,432 @@
+{
+  "url": "http://127.0.0.1:8877/dist/changan-dragon.html?quality=low",
+  "browser": "Playwright; Browser plugin not available",
+  "passed": true,
+  "bundle": {
+    "bytes": 18693882,
+    "sha256": "d9ede61fd366a3cbd2f056aab21b521ca69c75fd0995f41a1884fb3f2230e373"
+  },
+  "streets": {
+    "west": [
+      {
+        "target": [
+          -250.6,
+          21
+        ],
+        "position": [
+          -250.6,
+          0,
+          21.32699999999998
+        ],
+        "steps": 146,
+        "error": 0.3269999999999804
+      },
+      {
+        "target": [
+          -250.6,
+          -3
+        ],
+        "position": [
+          -250.6,
+          0,
+          -2.6835000000000817
+        ],
+        "steps": 229,
+        "error": 0.3164999999999183
+      },
+      {
+        "target": [
+          -223,
+          -6
+        ],
+        "position": [
+          -223.29839962694334,
+          0,
+          -5.96414339265372
+        ],
+        "steps": 260,
+        "error": 0.30054622548005405
+      },
+      {
+        "target": [
+          -223,
+          -22
+        ],
+        "position": [
+          -223.00657005327187,
+          0,
+          -21.646928405205948
+        ],
+        "steps": 155,
+        "error": 0.3531327181817207
+      },
+      {
+        "target": [
+          -250.6,
+          -22
+        ],
+        "position": [
+          -250.27733769562212,
+          0,
+          -21.99587137609907
+        ],
+        "steps": 258,
+        "error": 0.32268871719003994
+      },
+      {
+        "target": [
+          -250.6,
+          -49
+        ],
+        "position": [
+          -250.59646876030382,
+          0,
+          -48.70446485485719
+        ],
+        "steps": 253,
+        "error": 0.29555624112573226
+      }
+    ],
+    "east": [
+      {
+        "target": [
+          181.4,
+          21
+        ],
+        "position": [
+          181.4,
+          0,
+          21.32699999999998
+        ],
+        "steps": 146,
+        "error": 0.3269999999999804
+      },
+      {
+        "target": [
+          181.4,
+          -3
+        ],
+        "position": [
+          181.4,
+          0,
+          -2.6835000000000817
+        ],
+        "steps": 229,
+        "error": 0.3164999999999183
+      },
+      {
+        "target": [
+          209,
+          -6
+        ],
+        "position": [
+          208.70160037305666,
+          0,
+          -5.96414339265372
+        ],
+        "steps": 260,
+        "error": 0.30054622548005405
+      },
+      {
+        "target": [
+          209,
+          -22
+        ],
+        "position": [
+          208.99342994672813,
+          0,
+          -21.646928405205948
+        ],
+        "steps": 155,
+        "error": 0.3531327181817207
+      },
+      {
+        "target": [
+          181.4,
+          -22
+        ],
+        "position": [
+          181.72266230437788,
+          0,
+          -21.99587137609907
+        ],
+        "steps": 258,
+        "error": 0.32268871719003994
+      },
+      {
+        "target": [
+          181.4,
+          -49
+        ],
+        "position": [
+          181.40353123969618,
+          0,
+          -48.70446485485719
+        ],
+        "steps": 253,
+        "error": 0.29555624112573226
+      }
+    ]
+  },
+  "entrances": [
+    {
+      "shop": {
+        "x": -276.5,
+        "z": -37,
+        "w": 19,
+        "d": 10,
+        "ry": 1.5707963267948966,
+        "name": "香药铺",
+        "market": "西市"
+      },
+      "walk": [
+        {
+          "target": [
+            -273.5,
+            -43.65
+          ],
+          "position": [
+            -273.17300000000034,
+            0.5497746457615612,
+            -43.65
+          ],
+          "steps": 66,
+          "error": 0.3269999999996571
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": -276.5,
+        "z": 9,
+        "w": 19,
+        "d": 10,
+        "ry": 1.5707963267948966,
+        "name": "胡饼铺",
+        "market": "西市"
+      },
+      "walk": [
+        {
+          "target": [
+            -273.5,
+            2.3500000000000005
+          ],
+          "position": [
+            -273.17300000000034,
+            0.5497746457615612,
+            2.350000000000001
+          ],
+          "steps": 66,
+          "error": 0.3269999999996571
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": -239.5,
+        "z": -37,
+        "w": 19,
+        "d": 10,
+        "ry": -1.5707963267948966,
+        "name": "骆驼店",
+        "market": "西市"
+      },
+      "walk": [
+        {
+          "target": [
+            -242.5,
+            -30.35
+          ],
+          "position": [
+            -242.8269999999996,
+            0.5497746457615612,
+            -30.35
+          ],
+          "steps": 66,
+          "error": 0.3269999999996003
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": -239.5,
+        "z": 9,
+        "w": 19,
+        "d": 10,
+        "ry": -1.5707963267948966,
+        "name": "酒家",
+        "market": "西市"
+      },
+      "walk": [
+        {
+          "target": [
+            -242.5,
+            15.649999999999999
+          ],
+          "position": [
+            -242.8269999999996,
+            0.5497746457615612,
+            15.649999999999999
+          ],
+          "steps": 66,
+          "error": 0.3269999999996003
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": 155.5,
+        "z": -37,
+        "w": 19,
+        "d": 10,
+        "ry": 1.5707963267948966,
+        "name": "珠玉行",
+        "market": "东市"
+      },
+      "walk": [
+        {
+          "target": [
+            158.5,
+            -43.65
+          ],
+          "position": [
+            158.8269999999996,
+            0.5497746457615612,
+            -43.65
+          ],
+          "steps": 66,
+          "error": 0.3269999999996003
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": 155.5,
+        "z": 9,
+        "w": 19,
+        "d": 10,
+        "ry": 1.5707963267948966,
+        "name": "绫锦行",
+        "market": "东市"
+      },
+      "walk": [
+        {
+          "target": [
+            158.5,
+            2.3500000000000005
+          ],
+          "position": [
+            158.8269999999996,
+            0.5497746457615612,
+            2.350000000000001
+          ],
+          "steps": 66,
+          "error": 0.3269999999996003
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": 192.5,
+        "z": -37,
+        "w": 19,
+        "d": 10,
+        "ry": -1.5707963267948966,
+        "name": "乐器行",
+        "market": "东市"
+      },
+      "walk": [
+        {
+          "target": [
+            189.5,
+            -30.35
+          ],
+          "position": [
+            189.1730000000004,
+            0.5497746457615612,
+            -30.35
+          ],
+          "steps": 66,
+          "error": 0.3269999999996003
+        }
+      ]
+    },
+    {
+      "shop": {
+        "x": 192.5,
+        "z": 9,
+        "w": 19,
+        "d": 10,
+        "ry": -1.5707963267948966,
+        "name": "书肆",
+        "market": "东市"
+      },
+      "walk": [
+        {
+          "target": [
+            189.5,
+            15.649999999999999
+          ],
+          "position": [
+            189.1730000000004,
+            0.5497746457615612,
+            15.649999999999999
+          ],
+          "steps": 66,
+          "error": 0.3269999999996003
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sources": 15,
+    "failures": [],
+    "animals": 8,
+    "crowd": 192,
+    "galleryPatrons": 46
+  },
+  "scaleAudit": {
+    "dragon": [
+      2.5448983849767615,
+      2.313007607511347,
+      1.712767342689908
+    ],
+    "head": [
+      1.381623077928566,
+      1.4069685543196295,
+      1.712767342689908
+    ],
+    "adult": [
+      0.7924030022946909,
+      3.361290787230184,
+      3.687119884997607
+    ]
+  },
+  "rendering": {
+    "initialized": true,
+    "quality": "medium",
+    "requestedQuality": "medium",
+    "suspended": false,
+    "antiAliasing": "FXAA",
+    "toneMapping": "ACESFilmic",
+    "exposure": 1.06,
+    "environment": "Poly Haven Venice Sunset PMREM",
+    "environmentIntensity": 0.48,
+    "aoWidth": 422,
+    "aoHeight": 195,
+    "bloom": false,
+    "postprocessing": true,
+    "width": 844,
+    "height": 390,
+    "pixelRatio": 1,
+    "frameCount": 59,
+    "drawCalls": 1131,
+    "triangles": 3707140,
+    "lastFrameMs": 24.6,
+    "fallback": null
+  },
+  "glError": 0,
+  "errors": [],
+  "external": [],
+  "measurementNotes": "Functional acceptance only. The initial scaleAudit.adult includes a speech sprite and is not a valid human body height; use source-model-review.json for corrected mesh-only dimensions. The initial fixed gallery photograph clipped the floor beam; its camera fixture was corrected and source-model-review.json/gallery-model-baseline.png document the replacement. No cinematic art approval."
+}

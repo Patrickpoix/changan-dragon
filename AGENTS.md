@@ -4,6 +4,7 @@
 
 1. [产品目标与验收标准](docs/PRODUCT_BRIEF.md)：用户长期要求、认可美术方向、工作方式与完成标准。
 2. [当前续做记录](docs/CONTINUE.md)：实际进度、已知缺口、最近测试证据；以最新记录和实际代码为准。
+   美术工作还必须读 [影视风格研究与模型重做规范](docs/FILM_STYLE_RESEARCH.md)：用户指定《长安三万里》《大理寺日志》，明确当前建模语言需要返工，不能只加细节或扩建旧模型。
 3. [环境恢复](docs/ENVIRONMENT.md) 与 [浏览器验收](docs/QA.md)：恢复运行，再验证将修改的真实流程。
 4. 涉及素材时读 [素材调研](docs/ASSET_RESEARCH.md) 与 [素材清单](docs/asset-manifest.json)。
 

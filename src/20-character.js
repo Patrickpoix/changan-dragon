@@ -1226,6 +1226,14 @@ function updateBoats(dt, t) {
 
 // ---------------------------------------------------------------- 场景人物布置
 function spawnWorldLife() {
+  // Each new inner shop has an actual shopkeeper behind its counter; the
+  // shared mesh/cloth/CC0 portrait pipeline keeps the city style consistent.
+  innerMarketShops.forEach((shop,i)=>{
+    const lz=shop.d/2-.3;
+    addNPC(shop.x+Math.sin(shop.ry)*lz,shop.z+Math.cos(shop.ry)*lz,
+      {woman:i%3===1,foreign:shop.market==='西市'&&i%3!==1,ry:shop.ry,
+        bubble:/茶/.test(shop.name)?'茶汤初沸，客官歇脚。':/绫|绸/.test(shop.name)?'新到的蜀锦，且来看看。':/饼/.test(shop.name)?'胡饼刚出炉，热的！':'四方好物，客官慢慢挑。'});
+  });
   // 西市
   addNPC(-292, -60, { foreign:true, bubble: '胡饼——刚出炉的胡饼！', ry: 0 });
   addNPC(-276, -36, { foreign:true, bubble: '西域葡萄，甜得很！', ry: 1.2 });

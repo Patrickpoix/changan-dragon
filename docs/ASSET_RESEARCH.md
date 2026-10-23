@@ -195,3 +195,9 @@ Ships Pack小船候选已联网取得CC0作者页面并做离线3D预览，但�
 实际检索Poly Haven目录并下载预览/作者数据，对比clay_plaster（Amal Kumar）、excavated_soil_wall（Amal Kumar）、bark_willow_02（Charlotte Baglioni）。开挖土壁裂隙过强，不用于城墙；柳树皮有清楚纵向纹理，但程序树还需专门的枝干UV/叶片材质分离，当前只作候选，不计入运行素材。
 
 正式采用clay_plaster约2×2m的1k OpenGL法线784921B和粗糙度345709B，官方MD5验证通过，SHA256/作者/许可在architecture/pbr/clay_plaster。暖色和夯层仍是可编辑代码生成，墙体真实收分、物理比例UV、薄石基压顶；未借用明清砖墙套件。两份贴图已打入scene-materials.js；仍是15GLB+2索引几何来源，不能把新增PBR当新增整栋建筑来源。
+
+## 影视造型研究与旧模型返工
+
+用户指出当前模型语言本身有问题，指定《长安三万里》《大理寺日志》。已读取制作报道、实际查看公开三维市街/水岸/人物设定/城坊对照图，以及大理寺院落/亭廊背景，官方番剧元数据核实第一集“洛阳寻兄”。逐项来源、已看与未取得的边界、模型问题及重做规范见 [FILM_STYLE_RESEARCH.md](FILM_STYLE_RESEARCH.md)。这些图像只作研究参考，没有进入游戏或资产清单，不具备CC0等游戏复用授权。
+
+内街实验重用既有miniLibs MIT构件算法、已有CC0器物与蕨类，未新增GLB来源。已再次通过GitHub公开仓库元数据核对miniLibs的MIT标识；完整许可仍以随仓库保存的LICENSE为准。格窗、木地板、退廊和空间布置是本项目代码。该实验解决部分空间组织，不能被当作已经达到国漫电影造型标准的生产资产。

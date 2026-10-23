@@ -165,6 +165,35 @@ const WorldAssets = (() => {
         }
       }
     }
+    // Reuse the reviewed, authored props for the new inner shopfronts rather
+    // than filling their close-up counters with undifferentiated primitives.
+    for (const [i,shop] of innerMarketShops.entries()) {
+      const c=Math.cos(shop.ry),s=Math.sin(shop.ry),front=shop.d/2;
+      const local=(lx,lz)=>[shop.x+lx*c+lz*s,shop.z-lx*s+lz*c];
+      for (const [id,lx,lz,y,height] of [
+        ['wooden_bowl_02',-2.1,front+1.45,1.37,.20],
+        ['food_ginger_01',2.0,front+1.45,1.37,.17],
+        ['ceramic_pot',-shop.w*.44,front+.9,.55,.56],
+        ['wicker_basket_01',shop.w*.44,front+.9,.55,.18],
+        ['chinese_stool',shop.w*.44,front-1.6,.55,.52],
+      ]) {
+        const [x,z]=local(lx,lz);
+        const yaw=shop.ry+i*.23;
+        if(place(id,x,y,z,height,yaw,shop.market+'-inner-'+i+'-'+id)) {
+          count++;
+          if(id==='ceramic_pot'||id==='chinese_stool') {
+            const dims=templates.get(id).dimensions,scale=height/dims.y;
+            const hw=(dims.x*Math.abs(Math.cos(yaw))+dims.z*Math.abs(Math.sin(yaw)))*scale*.48;
+            const hd=(dims.z*Math.abs(Math.cos(yaw))+dims.x*Math.abs(Math.sin(yaw)))*scale*.48;
+            addCollider(x-hw,x+hw,z-hd,z+hd,'inner-shop-prop');
+          }
+        }
+      }
+      // Real fern variants add a silhouette above the gallery rail without
+      // touching the pedestrian aisle or requiring a new source download.
+      const [x,z]=local(-shop.w*.34,front+.55);
+      if(place('fern_02_'+['a','b','c','d'][i%4],x,4.57,z,.66,shop.ry,shop.market+'-gallery-fern-'+i))count++;
+    }
     // A few carefully composed foreground groups make the opening street as
     // tangible as the markets. Keep the central roadway fully clear.
     for (const side of [-1, 1]) {
