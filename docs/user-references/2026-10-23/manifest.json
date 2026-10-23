@@ -1,0 +1,30 @@
+{
+  "received": "2026-10-23",
+  "instruction": "电影国漫与3A沉浸式质感，非简单卡通；长安三万里为主，大理寺日志辅助",
+  "files": [
+    {
+      "path": "docs/user-references/2026-10-23/material-contact.jpg",
+      "original_name": "1-照片-1.jpg",
+      "bytes": 60047,
+      "sha256": "9417ee10c5844dc3e2d7c349bf6cacd0268cbb7112c0438dc72a35ea72365d5d",
+      "viewed": true,
+      "status": "user-provided prior-session reference; not 3D production asset; not archaeological authority"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/people-study.jpg",
+      "original_name": "2-照片-2.jpg",
+      "bytes": 240727,
+      "sha256": "67ee16c3a711da9be5ff0941c2b38abe5d7dc4f61139a77022d3fc7944644496",
+      "viewed": true,
+      "status": "user-provided prior-session reference; not 3D production asset; not archaeological authority"
+    },
+    {
+      "path": "docs/user-references/2026-10-23/timber-shop-study.jpg",
+      "original_name": "3-照片-3.jpg",
+      "bytes": 328299,
+      "sha256": "aef7aa64bb2cf559b3c12f7dab8067d2e4c8b15eb530155d035269bebdac795d",
+      "viewed": true,
+      "status": "user-provided prior-session reference; not 3D production asset; not archaeological authority"
+    }
+  ]
+}
