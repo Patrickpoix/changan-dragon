@@ -6,8 +6,8 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'dist' / 'changan-dragon.html'
-SOURCES = ['vendor/rendering-addons.js', 'assets/materials.js', 'assets/scene-materials.js', 'assets/runtime-models.js', 'assets/character-faces.js', 'src/00-core.js', 'src/04-compatibility.js', 'src/05-rendering.js', 'src/06-surfaces.js', 'src/07-water.js', 'src/09-botany.js', 'src/10-world.js',
-           'src/12-landmarks.js', 'src/20-character.js',
+SOURCES = ['vendor/rendering-addons.js', 'assets/materials.js', 'assets/scene-materials.js', 'assets/runtime-models.js', 'assets/character-faces.js', 'assets/boat-hulls.js', 'src/00-core.js', 'src/04-compatibility.js', 'src/05-rendering.js', 'src/06-surfaces.js', 'src/07-water.js', 'src/09-botany.js', 'src/10-world.js',
+           'src/11-shorelines.js', 'src/12-landmarks.js', 'src/20-character.js',
            'src/25-exploration.js', 'src/27-session.js', 'src/08-assets.js', 'src/30-main.js']
 
 

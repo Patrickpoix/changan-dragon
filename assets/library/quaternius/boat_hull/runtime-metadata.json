@@ -1,0 +1,16 @@
+{
+  "source": "source.glb",
+  "runtime": "assets/boat-hulls.js",
+  "vertices": 790,
+  "triangles": 1460,
+  "bytes": 49927,
+  "sha256": "42e63bac837e1a603f7e014f0678bc8c8a5e54d7ae44c041bf9bb9c6cb17f3cf",
+  "dimensions": [
+    2.15,
+    0.83,
+    4.4
+  ],
+  "keel": -0.2,
+  "gunwale": 0.63,
+  "derivation": "Original hollow hull, seam weld, 22mm three-segment timber edge bevel and weighted normals; original wood material regions retained as indexed vertex-colour data. Normalized in metres; seats, planks, oars and people added by editable JS."
+}

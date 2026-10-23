@@ -863,13 +863,13 @@ function addCamel(x, z, ry = 0) {
 // ---------------------------------------------------------------- 画舫 / 游船
 const boats = [];
 const bargeTimberMaterial=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.83});
-function makePaintedBarge() {
+function makePaintedBarge(curtain = 0xd3a17c) {
   const group = new THREE.Group(), timber = [];
   const part = (geo, color, matrix) => timber.push({ geo, color, matrix });
   const box = (x, y, z, w, h, d, color = 0x925137) =>
     part(new THREE.BoxGeometry(1, 1, 1), color, matrixTRS(x, y, z, w, h, d));
   const positions = [], uv = [], indices = [], rings = 32;
-  const section = [[-0.30,0.12],[-0.48,0.42],[-0.5,0.85],[-0.46,1.02],[0.46,1.02],[0.5,0.85],[0.48,0.42],[0.3,0.12]];
+  const section = [[-0.30,-0.22],[-0.48,0.42],[-0.5,0.85],[-0.46,1.02],[0.46,1.02],[0.5,0.85],[0.48,0.42],[0.3,-0.22]];
   for (let i = 0; i <= rings; i++) {
     const t = i / rings, beam = 3.8 * Math.max(0.045, Math.sin(t * Math.PI) ** 0.46), lift = Math.abs(t - 0.5) ** 4 * 6;
     for (let j = 0; j < section.length; j++) {
@@ -882,6 +882,7 @@ function makePaintedBarge() {
   hullGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
   hullGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uv,2)); hullGeo.setIndex(indices); hullGeo.computeVertexNormals();
   const hull = new THREE.Mesh(hullGeo, new THREE.MeshStandardMaterial({ map:TEX.wood,color:0x875438,roughness:0.82,side:THREE.DoubleSide }));
+  hull.name="painted-hull";hull.userData.navigationHull=true;
   hull.castShadow = hull.receiveShadow = true; group.add(hull);
   box(0,1.01,0,3.35,0.17,10.6,0xb68959);
   for(let z=-5;z<=5;z+=0.43) box(0,1.105,z,3.3,0.025,0.025,0x704a35);
@@ -911,7 +912,7 @@ function makePaintedBarge() {
   box(0,5.76,0,0.24,0.24,5.5,0x596e61);
   // Rolled silk curtains and lanterns sit below, rather than inside, the eaves.
   for(const side of [-1,1]) for(const end of [-1,1]) {
-    const drape = new THREE.Mesh(SHOP_CLOTH_GEOMETRY,SurfaceLibrary.cloth(0xd3a17c));
+    const drape = new THREE.Mesh(SHOP_CLOTH_GEOMETRY,SurfaceLibrary.cloth(curtain));
     drape.position.set(side*1.34,3.45,end*2.8);drape.rotation.y=side*Math.PI/2;drape.scale.set(1.9,0.48,0.6);group.add(drape);
     part(new THREE.SphereGeometry(0.22,10,8),0xedc18a,matrixTRS(side*1.6,3.33,end*3.15,1,1.25,1));
     box(side*1.6,3.65,end*3.15,0.035,0.35,0.035,0x584232);
@@ -924,31 +925,131 @@ function makePaintedBarge() {
   return group;
 }
 
-function makeBoat(spec) {
-  const g = new THREE.Group();
-  const scale = spec.scale || 1;
-  if (spec.type === 'painted') {
-    g.add(makePaintedBarge()); g.scale.setScalar(scale); scene.add(g);
-    const curve = new THREE.CatmullRomCurve3(spec.path.map(([x,z]) => new THREE.Vector3(x,0,z)),true,'catmullrom',0.3);
-    boats.push({group:g,curve,t:0.72,speed:spec.speed,phase:rr(0,TAU),spec}); return g;
+let rowboatHullGeometry = null;
+function getRowboatHullGeometry() {
+  if(rowboatHullGeometry) return rowboatHullGeometry;
+  const source=BOAT_HULLS.rowboat;
+  const decode=(value,Type)=>new Type(Uint8Array.from(atob(value),c=>c.charCodeAt(0)).buffer);
+  const geometry=new THREE.BufferGeometry();
+  for(const [name,key] of [['position','positions'],['normal','normals'],['color','colours']])
+    geometry.setAttribute(name,new THREE.BufferAttribute(decode(source[key],Float32Array),3));
+  geometry.setIndex(new THREE.BufferAttribute(decode(source.indices,Uint16Array),1));
+  geometry.computeBoundingBox();geometry.computeBoundingSphere();
+  return rowboatHullGeometry=geometry;
+}
+const rowboatHullMaterial=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.88});
+const boatPeopleGeometry=new Map();
+function boatPerson(woman=false,rowing=false) {
+  const key=woman?'passenger':rowing?'rower':'merchant';
+  if(!boatPeopleGeometry.has(key)) {
+    const geometry=makePersonGeometry({woman,foreign:!woman,robe:woman?0x8f747b:rowing?0x70858b:0xad8060,moving:rowing});
+    // Standing scullers move both arms together. Legs and hem stay planted;
+    // the same vertex pose is used by the crowd colour and shadow materials.
+    if(rowing) {
+      const gait=geometry.attributes.citizenGait;
+      for(let i=0;i<gait.count;i++) {
+        if(Math.abs(gait.getW(i)-1)<.1) gait.setX(i,1);
+        else gait.setW(i,0);
+      }
+    }
+    boatPeopleGeometry.set(key,geometry);
   }
-  const wood = new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xb55e32, roughness: 0.8 });
-  const red = new THREE.MeshStandardMaterial({ color: 0xdf4334, roughness: 0.8 });
-  // 船体
-  const shape = new THREE.Shape();
-  shape.moveTo(0, 2.2); shape.bezierCurveTo(1.1, 1.6, 1.15, -1.3, 0, -2.1); shape.bezierCurveTo(-1.15, -1.3, -1.1, 1.6, 0, 2.2);
-  const hullGeo = new THREE.ExtrudeGeometry(shape, { depth: 0.55, bevelEnabled: true, bevelSize: 0.08, bevelThickness: 0.08, bevelSegments: 2 });
-  const hull = new THREE.Mesh(hullGeo, wood); hull.rotation.x = -Math.PI / 2; hull.position.y = 0.45; hull.castShadow = true; g.add(hull);
-  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.16, 3.2), wood); deck.position.y = 0.75; g.add(deck);
-  // 船头
-  const prow = new THREE.Mesh(new THREE.SphereGeometry(0.55, 10, 8), wood); prow.scale.set(0.85, 0.4, 1.2); prow.position.set(0, 0.7, 1.8); g.add(prow);
-  // Small rowing boats retain their simple open benches and oars.
-  const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.1, 0.4), red); seat.position.set(0, 0.9, -0.5); g.add(seat);
-  const oar = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 2.2, 6), wood); oar.position.set(0.65, 1.0, -0.4); oar.rotation.z = 0.5; oar.rotation.x = 0.3; g.add(oar);
-  g.scale.setScalar(scale);
-  scene.add(g);
-  const curve = new THREE.CatmullRomCurve3(spec.path.map(([x, z]) => new THREE.Vector3(x, 0, z)), true, 'catmullrom', 0.3);
-  boats.push({ group: g, curve, t: rr(0, 1), speed: spec.speed, phase: rr(0, TAU), spec });
+  let geometry=boatPeopleGeometry.get(key);
+  if(rowing) {
+    const shared=geometry;geometry=new THREE.BufferGeometry();
+    for(const [name,attribute] of Object.entries(shared.attributes))geometry.setAttribute(name,attribute);
+    geometry.setIndex(shared.index);
+    const phases=new Float32Array(shared.attributes.position.count).fill(shared.attributes.citizenPhase.getX(0)+boats.length*1.9);
+    geometry.setAttribute('citizenPhase',new THREE.BufferAttribute(phases,1));
+  }
+  const mesh=new THREE.Mesh(geometry,personMat);
+  mesh.customDepthMaterial=personDepthMat;mesh.castShadow=mesh.receiveShadow=true;
+  mesh.name=key;return mesh;
+}
+
+const boatWakeMaterial=new THREE.ShaderMaterial({
+  transparent:true,depthWrite:false,fog:true,
+  uniforms:{...THREE.UniformsUtils.clone(THREE.UniformsLib.fog),time:waterUniforms.time,wakeColor:waterUniforms.shallow},
+  vertexShader:`#include <fog_pars_vertex>
+    varying vec2 vWakeUV;
+    void main(){vWakeUV=uv;vec4 mvPosition=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mvPosition;
+    #include <fog_vertex>
+    }`,
+  fragmentShader:`#include <fog_pars_fragment>
+    uniform float time;uniform vec3 wakeColor;varying vec2 vWakeUV;
+    void main(){
+      float edge=sin(vWakeUV.x*3.14159265),tail=pow(1.-vWakeUV.y,1.4);
+      float pulse=.6+.4*sin(vWakeUV.y*48.-time*4.);
+      gl_FragColor=vec4(clamp(wakeColor*1.2+vec3(.02),0.,1.),edge*tail*(.12+.1*pulse));
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+      #include <fog_fragment>
+    }`,
+});
+const boatWakeGeometries={};
+function makeBoatWake(painted) {
+  const key=painted?'barge':'rowboat';
+  if(!boatWakeGeometries[key]) {
+    const positions=[],uv=[],indices=[],length=painted?6:2.6,stern=painted?5.8:1.9,beam=painted?1.05:.6;
+    for(const side of [-1,1]) {
+      const base=positions.length/3;
+      for(let i=0;i<=16;i++)for(const edge of [-1,1]) {
+        const t=i/16,width=.045+t*.16;
+        positions.push(side*(beam+t*length*.24)+edge*width,0,-stern-t*length);uv.push((edge+1)/2,t);
+      }
+      for(let i=0;i<16;i++){const a=base+i*2;indices.push(a,a+1,a+2,a+1,a+3,a+2);}
+    }
+    const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
+    geometry.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geometry.setIndex(indices);geometry.computeVertexNormals();
+    boatWakeGeometries[key]=geometry;
+  }
+  const wake=new THREE.Mesh(boatWakeGeometries[key],boatWakeMaterial);wake.name='boat-surface-wake';scene.add(wake);return wake;
+}
+
+function makeBoat(spec) {
+  const g = new THREE.Group(), scale=spec.scale||1;
+  g.name=spec.name;g.userData.people=[];g.userData.oars=[];
+  if(spec.type==='painted') {
+    g.add(makePaintedBarge(spec.curtain));
+    if(!spec.moored) for(const side of [-1,1]) {
+      const passenger=boatPerson(side>0);passenger.position.set(side*.6,1.1,side*.85);passenger.rotation.y=side*.8;
+      passenger.scale.setScalar(.95);g.add(passenger);g.userData.people.push(passenger);
+    }
+  } else {
+    // An authored, genuinely hollow shell replaces the old solid extrusion.
+    // Its -0.20m keel is below the water while the 0.63m gunwale stays clear.
+    const hull=new THREE.Mesh(getRowboatHullGeometry(),rowboatHullMaterial);
+    hull.name='authored-hollow-hull';hull.userData.navigationHull=true;
+    hull.userData.source='Quaternius / Ships Pack / Boat / CC0';
+    hull.castShadow=hull.receiveShadow=true;g.add(hull);
+    const parts=[];
+    const timber=(x,y,z,w,h,d,color)=>parts.push({geo:UNIT_BOX,color,matrix:matrixTRS(x,y,z,w,h,d)});
+    for(let x=-.46;x<=.47;x+=.155)timber(x,.17,0,.145,.055,2.45,0xa57c51);
+    for(const z of [-.94,.94]) {
+      timber(0,.52,z,1.45,.09,.32,0x9e6945);
+      for(const side of [-1,1])timber(side*.55,.34,z,.085,.33,.21,0x704c36);
+    }
+    for(const side of [-1,1]) {
+      // Timber thole pins and paired oars pivot in the actual gunwale.
+      timber(side*.88,.67,-.32,.08,.15,.08,0x704936);
+      const pivot=new THREE.Group();pivot.position.set(side*.88,.64,-.32);
+      const oarWood=new THREE.MeshStandardMaterial({color:0xa87c4f,roughness:.84,map:TEX.wood});
+      pivot.add(tubeBetween(new THREE.Vector3(-side*.54,.11,0),new THREE.Vector3(side*1.32,-.66,0),.028,oarWood,8));
+      const blade=new THREE.Mesh(UNIT_SPHERE,oarWood);
+      blade.position.set(side*1.3,-.66,0);blade.scale.set(.12,.023,.38);pivot.add(blade);
+      pivot.traverse(o=>{if(o.isMesh)o.castShadow=o.receiveShadow=true;});
+      g.add(pivot);g.userData.oars.push({pivot,side});
+    }
+    const interior=new THREE.Mesh(mergeColored(parts),bargeTimberMaterial);interior.castShadow=interior.receiveShadow=true;g.add(interior);
+    const rower=boatPerson(false,true);rower.position.set(0,.19,-.3);rower.rotation.y=Math.PI;rower.scale.setScalar(.9);
+    g.add(rower);g.userData.people.push(rower);
+    g.userData.rowPhase=rower.geometry.attributes.citizenPhase.getX(0);
+  }
+  g.scale.setScalar(scale);scene.add(g);
+  const curve=new THREE.CatmullRomCurve3(spec.path.map(([x,z])=>new THREE.Vector3(x,0,z)),true,'catmullrom',.3);
+  const speed=spec.moored?0:spec.cruiseSpeed?spec.cruiseSpeed/curve.getLength():spec.speed;
+  const wake=spec.moored?null:makeBoatWake(spec.type==='painted');
+  boats.push({group:g,wake,curve,t:spec.type==='painted'?.72:rr(0,1),speed,phase:rr(0,TAU),spec});
   return g;
 }
 
@@ -1109,6 +1210,17 @@ function updateBoats(dt, t) {
     b.group.position.set(p.x, 0.1 + Math.sin(t * 1.4 + b.phase) * 0.035, p.z);
     b.group.rotation.y = Math.atan2(tan.x, tan.z);
     b.group.rotation.z = Math.sin(t * 1.1 + b.phase) * 0.01;
+    if(b.wake) {
+      b.wake.position.set(p.x,.049,p.z);b.wake.rotation.y=b.group.rotation.y;b.wake.scale.copy(b.group.scale);
+      b.wake.visible=camera.position.distanceToSquared(b.group.position)<32400;
+    }
+    const stroke=Math.sin(t*4.2+(b.group.userData.rowPhase||0));
+    for(const {pivot,side} of b.group.userData.oars) {
+      pivot.rotation.y=side*.28*stroke;
+      pivot.rotation.z=side*.06*Math.cos(t*4.2+b.group.userData.rowPhase);
+    }
+    const peopleVisible=camera.position.distanceToSquared(b.group.position)<10000;
+    for(const person of b.group.userData.people)person.visible=peopleVisible;
   }
 }
 

@@ -47,6 +47,10 @@ async def main():
    if name=='pavilion': assert 315<position[2]<321 and abs(position[1]-.45)<.06,position
    if name=='barge': assert 298.1<position[0]<301 and abs(position[1]-1.11)<.07,position
    if name=='shop': assert position[0]<-24 and abs(position[1]-.55)<.08,position
+  # Inspect the real new bank-side garden from its playable chase camera.
+  await page.evaluate('() => {const p=shorePaths[0].points[80];__changan.teleport(p[0],p[1],Math.PI);Cam.mode=0;Cam.userYaw=0;Cam.zoom=.8;Cam.update(.016,player,true);}')
+  await smoke.frames(page,.1)
+  await page.screenshot(path=str(out/'shore-promenade.png'))
   # Eighteen separate stair treads reach the actual palace terrace.
   await page.evaluate('__changan.teleport(150,-394.5,Math.PI); Explore.resetInput()')
   await page.keyboard.down('w')

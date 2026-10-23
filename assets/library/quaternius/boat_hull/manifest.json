@@ -1,0 +1,18 @@
+{
+  "id": "quaternius_boat_hull",
+  "author": "Quaternius",
+  "license": "CC0-1.0",
+  "source": "https://quaternius.com/packs/ships.html",
+  "mirror": "https://github.com/trebeljahr/quaternius-showcase",
+  "source_revision": "722c39e964360beff2728a8ee4d103e2d11d457c",
+  "source_file": "public/glb/ships_pack/Boat.glb",
+  "download_url": "https://raw.githubusercontent.com/trebeljahr/quaternius-showcase/722c39e964360beff2728a8ee4d103e2d11d457c/public/glb/ships_pack/Boat.glb",
+  "sha256": "971239c4d24de2a30385acd94c09d9f76ea825488db135c88d7b3bc8c0cd5d05",
+  "bytes": 11828,
+  "license_evidence": [
+    "ships.html",
+    "../mirror-LICENSES.md",
+    "../LICENSE-CC0-1.0.txt"
+  ],
+  "status": "integrated_hollow_geometry_bevelled_synchronised_oars_browser_reviewed"
+}

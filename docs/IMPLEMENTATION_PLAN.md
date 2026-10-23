@@ -2,7 +2,7 @@
 
 ## 继续现有工程
 
-本轮以 `/workspace/changan-dragon` 为实际工程；当前云环境未找到用户提及的 `sa/changandragon`。保留 HTML / JavaScript / Three.js 的本地静态交付，不引入框架、后端或运行时 CDN。用户原有 22 张 PNG 和 `vendor/three.min.js` 尚待上传，不覆盖、仿造或改变其预期路径。
+本轮以 `/workspace/changan-dragon` 为实际工程；当前云环境未找到用户提及的 `sa/changandragon`。保留 HTML / JavaScript / Three.js 的本地静态交付，不引入框架、后端或运行时 CDN。原上传的 `vendor/three.min.js` 已取回且与当前r160兼容包一致；图片按仓库实际文件采用，保留用户素材和路径。
 
 ## 美术与空间方向
 

@@ -1,7 +1,7 @@
 {
   "researched_at": "2026-10-23",
   "game_integration": "15_local_GLTF_sources_with_materials_HDR_and_authored_rig_animation",
-  "notes": "13 reviewed Poly Haven GLB sources, 2 Quaternius animated animal GLBs, and one Quaternius-derived indexed merchant face. Source provenance, original and derived files remain separate. Kenney stays an unused optional library. Runtime geometry, bone ownership, animations and placement require browser verification; research-only candidates are not bundled.",
+  "notes": "13 reviewed Poly Haven GLB sources, 2 Quaternius animated animal GLBs, and two Quaternius-derived indexed geometry sources (merchant face and hollow boat hull). Source provenance, original and derived files remain separate. Kenney stays an unused optional library. Runtime geometry, bone ownership, animations and placement require browser verification; research-only candidates are not bundled.",
   "assets": [
     {
       "file": "kenney-city/grass-trees.glb",
@@ -1345,6 +1345,42 @@
         "bytes": 99889,
         "sha256": "50fe54df59722ba1305cb7394bae3fa7665dc221e432c961e2521ebf3b96c291",
         "derivation": "Authored face and hair only, material colour regions retained; source seams welded, one subdivision, indexed typed-array geometry, normalized to unit height. Costume and straw hat excluded."
+      }
+    }
+  ],
+  "selected_boat_hulls": [
+    {
+      "id": "quaternius_boat_hull",
+      "author": "Quaternius",
+      "license": "CC0-1.0",
+      "source": "https://quaternius.com/packs/ships.html",
+      "mirror": "https://github.com/trebeljahr/quaternius-showcase",
+      "source_revision": "722c39e964360beff2728a8ee4d103e2d11d457c",
+      "source_file": "public/glb/ships_pack/Boat.glb",
+      "download_url": "https://raw.githubusercontent.com/trebeljahr/quaternius-showcase/722c39e964360beff2728a8ee4d103e2d11d457c/public/glb/ships_pack/Boat.glb",
+      "sha256": "971239c4d24de2a30385acd94c09d9f76ea825488db135c88d7b3bc8c0cd5d05",
+      "bytes": 11828,
+      "license_evidence": [
+        "ships.html",
+        "../mirror-LICENSES.md",
+        "../LICENSE-CC0-1.0.txt"
+      ],
+      "status": "integrated_hollow_geometry_bevelled_synchronised_oars_browser_reviewed",
+      "runtime": {
+        "source": "source.glb",
+        "runtime": "assets/boat-hulls.js",
+        "vertices": 790,
+        "triangles": 1460,
+        "bytes": 49927,
+        "sha256": "42e63bac837e1a603f7e014f0678bc8c8a5e54d7ae44c041bf9bb9c6cb17f3cf",
+        "dimensions": [
+          2.15,
+          0.83,
+          4.4
+        ],
+        "keel": -0.2,
+        "gunwale": 0.63,
+        "derivation": "Original hollow hull, seam weld, 22mm three-segment timber edge bevel and weighted normals; original wood material regions retained as indexed vertex-colour data. Normalized in metres; seats, planks, oars and people added by editable JS."
       }
     }
   ]

@@ -49,9 +49,9 @@ python3 tools/build_standalone.py
 
 ## 修改与验证
 
-`src/00-core.js` 管理核心/材质/批次；`10-world.js` 管理坊市与建筑；`12-landmarks.js` 管理宫苑塔寺与水域；`20-character.js` 管理角色/人群/舟船；`25-exploration.js` 管理探索与电影镜头；`27-session.js` 管理本机存档；`30-main.js` 组合启动与游戏循环。渲染、表面材质、水面、外部模型与程序植物分别位于 `05`、`06`、`07`、`08`、`09` 模块。
+`src/00-core.js` 管理核心/材质/批次；`10-world.js` 管理坊市与建筑；`12-landmarks.js` 管理宫苑塔寺与水域；`20-character.js` 管理角色/人群/舟船；`25-exploration.js` 管理探索与电影镜头；`27-session.js` 管理本机存档；`30-main.js` 组合启动与游戏循环。渲染、表面材质、水面、外部模型与程序植物分别位于 `05`、`06`、`07`、`08`、`09` 模块；`11-shorelines.js` 管理真实湖岸步道与园地。
 
-许可与下载证据见 [素材调研](docs/ASSET_RESEARCH.md)、[素材清单](docs/asset-manifest.json) 和各素材目录。正式使用的 Poly Haven 道具/植物/材质与环境光、Quaternius 马鹿、原作者动作与胡商面部几何均为 CC0，miniLibs 构件移植遵循 MIT，马善政字体遵循 OFL。已保留作者与源文件校验。没有将现代/清式套件标成唐代考古复原。
+许可与下载证据见 [素材调研](docs/ASSET_RESEARCH.md)、[素材清单](docs/asset-manifest.json) 和各素材目录。正式使用的 Poly Haven 道具/植物/材质与环境光、Quaternius 马鹿、原作者动作、胡商面部和中空船体几何均为 CC0，miniLibs 构件移植遵循 MIT，马善政字体遵循 OFL。已保留作者与源文件校验。没有将现代/清式套件标成唐代考古复原。
 
 已安装 Python Playwright 与 Chromium 的环境可运行：
 
@@ -63,3 +63,5 @@ python3 tools/offline_test.py
 测试证据默认写到临时目录。完整说明见 [浏览器验收](docs/QA.md)。当前进展和剩余的视觉验收记录见 [续做记录](docs/CONTINUE.md)，不能把旧截图或概念图视为最终运行画面。
 
 开发环境恢复与启动见 [ENVIRONMENT.md](docs/ENVIRONMENT.md)。仓库保留可直接下载的 `dist/changan-dragon.html`；修改源码后重新运行打包脚本并更新该文件。
+
+舟船采用真实吃水的画舫和中空小舟，含划桨人物/双桨动作与轻尾流。曲江东岸新增可行走的园路；可见湖岸、水域判断与小地图使用同一实际轮廓。

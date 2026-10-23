@@ -4,16 +4,16 @@
 
 ## 工作约束与文件安全
 
-- 工程 `/workspace/changan-dragon`，work分支，已快进纳入用户上传提交 `39357e2`，保留全部本地开发修改。用户现已明确要求提交并推送备份；准备保存到 `codex/changan-dragon-progress`，完成后以git实际状态为准。保护当前源码和素材，不reset或覆盖。
+- 工程 `/workspace/changan-dragon`，main分支。原成果 `9493a63` 已按用户要求快进合并并推送到origin/main，独立备份分支codex/changan-dragon-progress也保留。后续在main继续，完成检查后提交推送，保护用户文件，不reset或强推。
 - 用户明确停止新子代理以节省额度，由主代理继续。未创建定时“继续”消息，当前没有可靠的会话定时工具。
-- 用户授权不限域名网络；配置草稿保存 `allowed_domains:["*"]`。当前环境状态API显示running/connected、策略mode unrestricted但state unknown；以实际请求结果为准，不宣称发布或新环境恢复已验证。
+- 用户授权不限域名网络；配置草稿保存 `allowed_domains:["*"]`。当前环境状态API显示running/connected、策略mode unrestricted/state enforced、spec_revision=3。当前运行正常，不将当前实例验证冒充新实例恢复验证。
 - 2026-10-23用户说原本地剩余文件已上传。已核对远端main `39357e2d13c42c069e7341cd42face4e93c2040e`，只取回本地缺失文件并逐一校验Git blob SHA1，保留所有本地改动。新取回 `vendor/three.min.js` 与3张旧版验收截图。原引擎SHA256与本地兼容包完全一致（Three0.160.1），可直接使用原入口。导入清单见 `upload-import.json`。此远端树没有22张独立PNG；现有代码素材/运行模型自包含，不因此停工。
 
 ## 已实际实现
 
 - 本地静态HTML/JS/WebGL；独立r160兼容引擎、官方GLTF/RGBE/PMREM/Water/SAO/Bloom/Output/FXAA/SkeletonUtils。原上传r160引擎优先，单文件固定校验兼容包。自动手机流畅，medium/high增强渲染。
 - `04-compatibility.js` 新补WebGL1蒙皮：采用Three r150官方MIT骨纹理读取公式，为每个骨纹理宽度注入uniform，含蒙皮阴影材质。修复r160在WebGL1使用textureSize/texelFetch/int取余导致尾巴、马鹿消失。WebGL2不修改。低能力水面走兼容shader，不尝试HDR倒影。
-- 核心/渲染05/表面06/水面07/导入08/植物09/城市10/地标12/人物20/探索25/存档27/循环30分模块；两处脚本清单位于src/boot.js和tools/build_standalone.py，增加模块必须同步。
+- 核心/渲染05/表面06/水面07/导入08/植物09/城市10/地标12/人物20/探索25/存档27/循环30分模块；新增11-shorelines沿湖园路模块；两处脚本清单位于src/boot.js和tools/build_standalone.py，增加模块必须同步。
 - 程序柳/桃/松真实枝叶，空间合批/近远几何、地面高度、树干碰撞与飞行冠层包络。成熟作者树8处。共享镜头和庙阶/宫阶/街铺种植净空。
 - 软边噪声云/昼夜天空、HDR只作环境光；圆角几何正确归一；城市土色与局部园地、实比例石材/近景圆角铺路石、空间地面高度索引。
 - 含元殿重檐庑殿裙顶+真实木构上层/歇山顶、逐开间屏门格窗、斗拱、真实盖瓦条；城门上层窗廊/栏杆、下层木门金钉；upperStorey避免楼上出现巨大石台。
@@ -25,11 +25,11 @@
 
 ## 正式素材与体积
 
-- 当前15个GLB源：13个Poly Haven CC0（陶锅、木凳、藤篮、木碗、木桶、苔石6形、阔叶树、蕨、草、姜、荔枝、亚洲梨5形、石榴），2个Quaternius CC0（马、鹿）；另1种Quaternius Farmer面部衍生索引几何1577顶点/2976面。
+- 当前15个GLB源：13个Poly Haven CC0（陶锅、木凳、藤篮、木碗、木桶、苔石6形、阔叶树、蕨、草、姜、荔枝、亚洲梨5形、石榴），2个Quaternius CC0（马、鹿）；另2种Quaternius索引几何：Farmer面部1577顶点/2976面，以及Ships Pack中空小船790顶点/1460面。
 - GLB二进制7,182,492B，runtime-models.js 9,582,151B。市场果品约900余处实例，单次布局总计约1045–1075个逻辑模型摆放（代码消耗固定随机序列，改布局会改计数）；实际对象约273–280，不能将逻辑数误称绘制调用。
-- CC0瓦/灰泥法线粗糙、布料normal/ORM、Venice Sunset HDR；MIT miniLibs斗拱与Three；OFL马善政字体子集432760B。原许可/作者/源哈希/优化元数据保留在assets/library。Quaternius旧CC0包使用固定公开镜像commit722c39e…，作者具体许可页也保存，未用镜像仓库许可冒充模型许可。
-- 最新单文件 `dist/changan-dragon.html` 17,110,151B；源变动后重建。内嵌代码/字体/材质/GLB/许可，加载后移除脚本DOM并释放GLB原base64，保留解码共享资源。
-- 当前在/tmp审阅Quaternius Ships Pack小船（CC0），尚未采用：轮廓过于简化，需评估能否通过平滑和增加内饰融入风格。不能将候选当已接入。
+- CC0瓦/灰泥法线粗糙、布料normal/ORM、Venice Sunset HDR；MIT miniLibs斗拱与Three；OFL马善政字体子集433168B。原许可/作者/源哈希/优化元数据保留在assets/library。Quaternius旧CC0包使用固定公开镜像commit722c39e…，作者具体许可页也保存，未用镜像仓库许可冒充模型许可。
+- 最新单文件 `dist/changan-dragon.html` 17,171,852B；源变动后重建。内嵌代码/字体/材质/GLB/许可，加载后移除脚本DOM并释放GLB原base64，保留解码共享资源。
+- Ships Pack小船已加工接入：22mm三段圆角/加权法线，保留作者中空轮廓与木色分区；数据在assets/boat-hulls.js，源文件、CC0作者页、固定镜像SHA和加工元数据在quaternius/boat_hull。船板/坐凳/桨座/人物/双桨/尾流为可编辑JS。
 
 ## 最新测试证据（不要把旧测试当最新）
 
@@ -40,12 +40,23 @@
 - `/tmp/changan-round6-art/`相机距目标5.79m，地面空间索引与穷举误差0。`/tmp/changan-entry-review/entry.png`确认hero在右侧画面内。`/tmp/changan-merchant-review/merchant.png`已人工检查闭合肩口/作者脸/腰带。
 - Browser插件当前缺失，Python Playwright + /usr/bin/chromium SwiftShader；同一时刻只跑一个完整WebGL浏览器。软件渲染不证明实际手机帧率。管理策略阻止file://，不绕过；单文件以HTTP取文档再断网验收，未宣称手机本地文件已测。
 
+## 合并main后的舟船与湖岸精修
+
+- 画舫龙骨从水面上方下延至局部y=-.22，保留停泊甲板1.11及登船通行面。小船替换为作者真中空船壳，龙骨-.20、舷边.63，增加木板横凳/桨座/划桨人物/同步双桨。每船独立动作相位，浅尾流跟随水面/昼夜，人物远景裁剪。
+- 曲江增加小型碧帘画舫；总共6船，含2移动画舫、1停泊画舫、曲江2小舟和兴庆1小舟。旧小船航线中心两次各有6/256采样落在低桥上，现改分离航线并按米/秒设小舟速度。
+- 新11-shorelines：曲江东岸2.4米宽园路，随真实湖岸并绕开作者石块/树根/亭柱。225几何中心点、地面高度索引、岸边低栏柱碰撞、柳桃与共享CC0蕨草地被。树根避让道路；栏杆独立沿岸布置，避免凹弯栏柱侵入邻近路段。
+- 首轮点采样通过后，真实走路暴露弯道问题，已增加路径细分/根部净空，并检查每20cm细段；栏柱和路面分开沿岸布置后重跑通过。保留失败原因，不把失败目录称为通过。
+- 水域碰撞由旧椭圆改为真正ShapeGeometry的多边形，小地图同源。湖心岛通行边界与17×12m实际平台一致；修复可见水面能走、可见干岸不能走的问题。低档水面减白色Fresnel冲淡、增加细波，柳叶投影面积提高但没有增加叶片三角形数。
+- `docs/qa-evidence/boats-and-shore.json` 对应 `/tmp/changan-boats-final4/results.json`：最新单文件通过。6船每条512位置，真实变换后的船壳足迹/桨范围对可见水多边形、岛、桥检查无侵入；15组独立航线包络最小间隔约.542m。11163个水域网格与画面轮廓无不符；园路细段无碰撞；224个连续目标由真实键盘+updateMovement求解走完，仅设置起点，未注入终点。实际1120×630/844×390截图、船动作、glError=0和零页面/控制台错误均通过。
+- 上一轮round12动作检查两时点恰遇正弦对称，夹具误报不动；现观察三个时点，真实动作变化已通过。旧final/final2/final3发现路面转角/栏柱问题，最终通过目录是final4。
+- 最新单文件offline_test已通过（/tmp/changan-offline-round15/results.json，仓库证据offline-boats-shore.json）：四处真实通行/宫阶/刷新存档、断网high倒影+SAO/Bloom/FXAA/PNG，零外部请求/页面/控制台错误。WebGL1也已通过（/tmp/changan-webgl1-round16/results.json，仓库证据webgl1-boats-shore.json），9蒙皮、飞行/赏景/高档安全回退、glError=0、零错误。
+
 ## 继续工作优先项
 
-1. 原上传引擎启动专项已通过：docs/qa-evidence/uploaded-engine.json，source=original/revision160，实际帧和667×375触控布局正常、无必需资源或页面/控制台错误；6个必需HTTP入口均200。当前8877服务日志写/tmp/changan-http.log；环境启动指令见ENVIRONMENT.md。
-2. 舟船修正：画舫龙骨当前最低.22高于水面.04，小船实心Extrude且船底约.47，存在悬浮。保留停泊画舫甲板1.11与通行面，只下延船底；换真中空小船、增加桨/人物。小船旧航线穿过低曲桥，必须审查全航线的船体足迹/岸线/湖心岛/桥/船间距。
-3. 继续对照认可的art-direction.png和concept-market/palace/qujiang.png：当前岸线庭园层次、建筑密度、人物服饰和灯光仍明显简化，不能以数量替代美术质量。每次素材筛选后看实际3D截图再采用。
-4. 新改动做针对性真实浏览器验证并重建单文件，更新ASSET_RESEARCH/manifest/QA/本记录；测试通过后不无谓重复全部旧套件。
+1. 上述离线/WebGL1/完整园路行走均已通过，代码和记录准备提交推送main。新实际截图shore-camera-before.png显示林下追随镜头被近处叶片遮挡，应继续解决叶片遮挡角色的问题，并做实际截图复验。
+2. 继续实际截图对照认可的art-direction.png和concept-market/palace/qujiang.png；电影级美术仍未达标。城墙在曲江镜头中过于单一，角色服饰、岸线庭园和城市层次仍需继续精修。
+3. 后续可先改善城墙材质与近景物理尺度：addCityWalls目前BoxGeometry默认UV将TEX.dirt拉伸到长墙，需按真实尺寸重映射并保留唐代夯土风格；不要误改为明清城墙套件。当前只是发现，尚未实施。
+4. 若新增素材继续核对具体作者许可、固定来源/hash、真实3D预览，再做代码整合和实际浏览器检查；不以概念图当场景。
 
 ## 环境与命令
 

@@ -34,6 +34,7 @@ python3 tools/compatibility_test.py
 Python fontTools用于字体子集，Blender4.3.2用于原始素材加工，Node24与Three0.160.1/esbuild0.25.12用于重建官方扩展；这些不是启动游戏的必需步骤。开发依赖位于 `/workspace/.environment/changan-rendering`，可在此目录执行 `npm install --no-audit --no-fund --save-exact three@0.160.1 esbuild@0.25.12`。不把node_modules/cache放进工程。
 
 - 修改官方扩展：`node tools/build_rendering_addons.mjs`
+- 修改作者小船的圆角加工：`python3 tools/prepare_boats.py`
 - 修改采用的GLB：`python3 tools/build_asset_bundle.py --bundle`
 - 修改字体覆盖：`python3 tools/subset_font.py`
 - 原模型/许可/哈希在assets/library；运行模型已优化，不把约95MB原树二进制当手机运行包体积。

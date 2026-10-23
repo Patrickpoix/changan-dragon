@@ -183,3 +183,9 @@ Poly Haven 的 Pine Tree 01 虽提供 1k 贴图，完整 glTF 依赖仍约958 MB
 WebGL1蒙皮兼容复用Three r150官方MIT ShaderChunk骨纹理读取公式，原文件/来源记录在vendor，SHA256 517c25af653e1d79e33d16cf201de84202ab48bc89ba9d2bb87d29986da51fbd。现有r160引擎保持原样，由独立模块仅对WebGL1补齐材质uniform及阴影材质。
 
 Ships Pack小船候选已联网取得CC0作者页面并做离线3D预览，但尚未接入。其粗折面船体不直接满足当前圆润风格，需要进一步评估和加工；不能把本次检索计作已采用模型。
+
+## Ships Pack中空船体正式采用
+
+在审阅原船体与实际3D预览后，保留其内外船壳，而不是直接搬入整套西式船只。原source.glb11828B，作者包页ships.html明确CC0，固定镜像722c39e…路径及SHA256保存在quaternius/boat_hull/manifest.json。加工脚本prepare_boats.py焊接接缝、22mm三段圆角/加权法线，导出790顶点/1460面、49927B的可编辑索引几何boat-hulls.js；去除源金属感，保留木色分区。
+
+实际中空舱、木板/横凳、人物、双桨及浅尾流已在运行截图核对。人物沿用单独记录的作者面部；身体和服饰、桨姿/船姿/船道均为本项目代码。GLB来源仍15种，另有面部与船壳2种索引几何来源，不将其混算为第16种GLB或近千个独立模型来源。

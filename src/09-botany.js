@@ -72,7 +72,7 @@ const CityBotany = (() => {
             points.push(p);
             if (j === 0) continue;
             colour.setHSL(0.23 + random() * 0.045, 0.36 + random() * 0.12, 0.30 + random() * 0.12);
-            for (const side of [-1, 1]) leaf(p, new V(Math.cos(a + side * 0.8) * (coarse ? .24 : .13), -(coarse ? .65 : .24) - random() * .12, Math.sin(a + side * 0.8) * (coarse ? .24 : .13)), coarse ? .18 : .045, colour);
+            for (const side of [-1, 1]) leaf(p, new V(Math.cos(a + side * 0.8) * (coarse ? .30 : .18), -(coarse ? .95 : .38) - random() * .12, Math.sin(a + side * 0.8) * (coarse ? .30 : .18)), coarse ? .28 : .075, colour);
           }
           if (!coarse) twig(points, 0.014);
         }

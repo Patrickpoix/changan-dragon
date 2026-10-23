@@ -23,7 +23,7 @@
     if (document.fonts) {
       await Promise.race([document.fonts.load('18px "Ma Shan Zheng"'), new Promise(resolve => setTimeout(resolve, 1800))]);
     }
-    for (const file of ['vendor/rendering-addons.js', 'assets/materials.js', 'assets/scene-materials.js', 'assets/runtime-models.js', 'assets/character-faces.js', 'src/00-core.js', 'src/04-compatibility.js', 'src/05-rendering.js', 'src/06-surfaces.js', 'src/07-water.js', 'src/09-botany.js', 'src/10-world.js', 'src/12-landmarks.js', 'src/20-character.js', 'src/25-exploration.js', 'src/27-session.js', 'src/08-assets.js', 'src/30-main.js']) {
+    for (const file of ['vendor/rendering-addons.js', 'assets/materials.js', 'assets/scene-materials.js', 'assets/runtime-models.js', 'assets/character-faces.js', 'assets/boat-hulls.js', 'src/00-core.js', 'src/04-compatibility.js', 'src/05-rendering.js', 'src/06-surfaces.js', 'src/07-water.js', 'src/09-botany.js', 'src/10-world.js', 'src/11-shorelines.js', 'src/12-landmarks.js', 'src/20-character.js', 'src/25-exploration.js', 'src/27-session.js', 'src/08-assets.js', 'src/30-main.js']) {
       await load(file);
     }
   } catch (error) {

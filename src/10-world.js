@@ -655,6 +655,7 @@ function addCorridor(x1, z1, x2, z2, opt = {}) {
 }
 
 function addTree(x, z, kind = 'willow', s = 1) {
+  if(nearShorePath(x,z))return;
   if (MATURE_TREE_SPOTS.some(([tx,tz])=>Math.hypot(tx-x,tz-z)<5.0)) return;
   if(TREE_CLEAR_AREAS.some(a=>x>a.x0&&x<a.x1&&z>a.z0&&z<a.z1))return;
   if(Math.abs(Math.abs(x)-26)<8&&AVENUE_SHOP_Z.some(sz=>Math.abs(z-sz)<10)) return;

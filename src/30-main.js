@@ -761,19 +761,22 @@ function pointOnBridge(x, z) {
   return height;
 }
 
-function isLand(x, z) {
-  return landZones.some(l => {
-    const dx = (x - l.cx) / l.rx, dz = (z - l.cz) / l.rz;
-    return dx * dx + dz * dz < 1;
-  });
-}
-
-function isWaterPoint(x, z) {
-  for (const w of waterZones) {
-    const dx = (x - w.cx) / w.rx, dz = (z - w.cz) / w.rz;
-    if (dx * dx + dz * dz < 1) return true;
+function inPolygon(x,z,points) {
+  let inside=false;
+  for(let i=0,j=points.length-1;i<points.length;j=i++) {
+    const [ax,az]=points[i],[bx,bz]=points[j];
+    if((az>z)!==(bz>z)&&x<(bx-ax)*(z-az)/(bz-az)+ax)inside=!inside;
   }
-  for (const r of waterRects) if (x > r.minX && x < r.maxX && z > r.minZ && z < r.maxZ) return true;
+  return inside;
+}
+function isLand(x,z) {
+  return landZones.some(l=>x>=l.x0&&x<=l.x1&&z>=l.z0&&z<=l.z1);
+}
+function isWaterPoint(x,z) {
+  for(const w of waterZones) {
+    if(x>=w.x0&&x<=w.x1&&z>=w.z0&&z<=w.z1&&inPolygon(x,z,w.points))return true;
+  }
+  for(const r of waterRects)if(x>r.minX&&x<r.maxX&&z>r.minZ&&z<r.maxZ)return true;
   return false;
 }
 
@@ -900,7 +903,7 @@ const MapView = {
     ctx.fillStyle = '#3fbfc0';
     for (const w of waterZones) {
       ctx.beginPath();
-      ctx.ellipse(this.x(w.cx), this.y(w.cz), Math.max(1, w.rx * this.scale), Math.max(1, w.rz * this.scale), 0, 0, TAU);
+      w.points.forEach(([x,z],i)=>{if(i)ctx.lineTo(this.x(x),this.y(z));else ctx.moveTo(this.x(x),this.y(z));});ctx.closePath();
       ctx.fill();
     }
     for (const r of waterRects) {

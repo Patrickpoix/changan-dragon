@@ -177,8 +177,7 @@ const WorldAssets = (() => {
       ]) if (place(modelId, x * side, 0.04, z, height, side * 0.35, 'avenue-' + side + '-' + modelId + '-' + z)) count++;
     }
     // Real scanned stone silhouettes break the smooth lawn/water boundary.
-    const shore = [[280,319,1.5],[283,325,1.1],[305,275,1.7],[312,270,.9],[398,278,1.3],[409,287,1.6],[420,308,1.6],[419,347,1.4],[395,365,1.1],[366,375,1.7],[329,372,1.1],[313,360,.9]];
-    shore.forEach(([x,z,height],i)=>{
+    SHORE_ROCK_SPOTS.forEach(([x,z,height],i)=>{
       const variant='rock_moss_set_01_rock'+String(i%6+1).padStart(2,'0');
       if(!place(variant,x,-.18,z,height,i*1.29,'qujiang-shore-rock-'+i)) throw new Error('Missing reviewed rock node: '+variant);
       count++;
@@ -194,7 +193,7 @@ const WorldAssets = (() => {
     let count = 0;
     // Set dressing frames rocks and tree roots; the boardwalk, bridge, shop
     // entrances and landing areas retain their checked clear walking space.
-    const gardens = [[279,324],[301,273],[405,283],[421,333],[410,351],[384,373],[329,373],[309,357],[325,252],[423,280],[419,346],[295,369]];
+    const gardens = [[279,324],[301,273],[405,283],[421,333],[410,351],[384,373],[329,373],[309,357],[325,252],[423,280],[419,346],[295,369],...shorePlantSpots];
     gardens.forEach(([x,z], i) => {
       const offsets = [[0,0],[-.55,.42],[.72,-.28],[1.22,.6]];
       offsets.forEach(([dx,dz],j) => {

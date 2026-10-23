@@ -51,11 +51,15 @@ const waterMat = new THREE.ShaderMaterial({
       float w2 = sin(p.x*0.18 - p.y*0.31 - time*0.8);
       float w3 = sin(length(p-vec2(350.0,320.0))*0.5 - time*1.6);
       float ripple = (w1 + w2 + w3) / 3.0;
-      vec3 n = normalize(vNormalW + vec3(w1*0.035, 0.0, w2*0.035));
+      float fine1=sin(p.x*2.2+p.y*1.7+time*1.8),fine2=sin(p.x*1.4-p.y*2.6-time*1.3);
+      vec3 n = normalize(vNormalW + vec3(w1*0.04+fine1*0.017, 0.0, w2*0.04+fine2*0.017));
       vec3 viewDir = normalize(cameraPosition - vWorld);
       float fres = pow(1.0 - max(dot(viewDir,n),0.0), 2.5);
       vec3 col = mix(deep, shallow, 0.42 + ripple*0.12);
-      col = mix(col, vec3(0.84,0.93,0.93), fres*0.55);
+      // Keep the cheaper mobile surface jade-coloured at grazing angles.
+      // Linear white reflection previously washed the whole lake into grey.
+      vec3 reflectedSky=mix(shallow,vec3(0.34,0.52,0.55),.4);
+      col = mix(col,reflectedSky,fres*.34);
       vec3 refl = reflect(-sunDir, n);
       float spec = pow(max(dot(refl, viewDir), 0.0), 90.0);
       col += sunColor * spec * 0.8;
@@ -71,13 +75,14 @@ const waterMat = new THREE.ShaderMaterial({
 function addWater(cx, cz, rx, rz, seed, opts = {}) {
   const { wobble = 0.16, y = 0.04, name = '' } = opts;
   const b = blobShape(cx, cz, rx, rz, seed, wobble);
-  const shore = new THREE.Mesh(new THREE.ShapeGeometry(b.shape, 32), new THREE.MeshStandardMaterial({ color: 0xb8d98c, roughness: 1 }));
+  const shore = new THREE.Mesh(new THREE.ShapeGeometry(b.shape, 32), new THREE.MeshStandardMaterial({ color: 0x89996a, roughness: 1 }));
   shore.rotation.x = -Math.PI / 2; shore.position.set(cx, 0.012, cz); shore.receiveShadow = true; shore.scale.set(1.06, 1.06, 1.06);
   scene.add(shore);
   const water = WaterSurface.create(new THREE.ShapeGeometry(b.shape, 32), waterMat, rx);
   water.rotation.x = -Math.PI / 2; water.position.set(cx, y, cz);
   scene.add(water);
-  waterZones.push({ cx, cz, rx: rx * 1.02, rz: rz * 1.02 });
+  const points=b.shape.getPoints().map(p=>[cx+p.x,cz-p.y]);
+  waterZones.push({cx,cz,rx,rz,points,x0:Math.min(...points.map(p=>p[0])),x1:Math.max(...points.map(p=>p[0])),z0:Math.min(...points.map(p=>p[1])),z1:Math.max(...points.map(p=>p[1]))});
   pondMeshes.push(water);
   // 荷叶
   const lotus = new Batch(new THREE.CircleGeometry(0.5, 10), toon(0x5c9a62), { cast: false });
@@ -315,8 +320,9 @@ function buildPagodas() {
 
 // ---------------------------------------------------------------- 曲江池
 function buildQujiang() {
-  addWater(354, 318, 66, 54, 2.4, { wobble: 0.18 });
-  landZones.push({ cx: 354, cz: 318, rx: 10.5, rz: 7.5 });
+  const qujiang=addWater(354, 318, 66, 54, 2.4, { wobble: 0.18 });
+  landZones.push({cx:354,cz:318,x0:345.5,x1:362.5,z0:312,z1:324});
+  buildLakeGarden(qujiang);
   // 湖心岛
   B.stone.add(354, 0.18, 318, 17, 0.36, 12, 0, 0xd9c7a5);
   addPavilion(354, 318, 3.6, { h: 3.6, roofH: 2.8, platform: 0.45, roofKind: 'gold' });
@@ -414,6 +420,10 @@ function buildQujiang() {
     path: [[365, 292], [388, 302], [402, 322], [390, 340], [368, 343], [374, 320]],
     speed: 0.0045, scale: 1, name: '曲江画舫',
   });
+  // Quiet northwestern and eastern courses are disjoint from the low bridge,
+  // island and each other. Physical footprints are checked in boat_test.py.
+  boatSpecs.push({type:'painted',path:[[316,297],[330,290],[344,292],[343,301],[328,308],[316,305]],
+    cruiseSpeed:.58,scale:.72,curtain:0x84aaa2,name:'碧帘画舫'});
   // A moored pleasure barge can be boarded from the western landing.
   B.wood.add(290.5,0.23,311,15,0.46,3.6,0,0xaa8058);
   bridgeZones.push({points:[[283,311],[298,311]],halfWidth:1.9,y:0.46,squareEnds:true});
@@ -425,16 +435,16 @@ function buildQujiang() {
   boatSpecs.push({type:'painted',path:[[299,311],[299,311]],moored:true,scale:1,name:'临水画舫'});
   boatSpecs.push({
     type: 'boat',
-    path: [[330, 342], [350, 355], [378, 342], [390, 320], [365, 300], [335, 306]],
-    speed: 0.008, scale: 0.8, name: '小游船',
+    path: [[313,347],[319,344],[326,348],[323,354],[316,355],[311,351]],
+    cruiseSpeed: .58, scale: 0.8, name: '采风小舟',
   });
   boatSpecs.push({
     type: 'boat',
-    path: [[320, 295], [345, 288], [372, 300], [360, 330], [330, 330]],
-    speed: 0.007, scale: 0.75, name: '小游船',
+    path: [[411,311],[414,315],[414,328],[411,332],[411,325],[411,317]],
+    cruiseSpeed: .5, scale: 0.75, name: '柳岸小舟',
   });
   // 兴庆宫龙池游船
-  boatSpecs.push({ type: 'boat', path: [[318, -160], [335, -172], [365, -160], [370, -140], [345, -130], [320, -140]], speed: 0.006, scale: 0.65, name: '龙池小舟' });
+  boatSpecs.push({ type: 'boat', path: [[318, -160], [335, -172], [365, -160], [370, -140], [345, -130], [320, -140]], cruiseSpeed: .6, scale: 0.65, name: '龙池小舟' });
 }
 
 // ---------------------------------------------------------------- 城外田园 / 曲江入口
