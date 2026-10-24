@@ -1,0 +1,47 @@
+{
+  "schema": "changan-free-source-v1",
+  "id": "chinese_screen_panels",
+  "category": "interior",
+  "source": "https://polyhaven.com/a/chinese_screen_panels",
+  "license": "Poly Haven CC0-1.0",
+  "stage": "local_acquired_only",
+  "approved": false,
+  "integrated": false,
+  "files": [
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/chinese_screen_panels/chinese_screen_panels_4k.gltf",
+      "path": "chinese_screen_panels_4k.gltf",
+      "md5": "ddbcafece204188ff371ca12a002fe4a",
+      "sha256": "4da9bb5ddd87a548658ac50837067ddc800273edcf17b2f5fbb016a09e625394",
+      "bytes": 4225
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/chinese_screen_panels/chinese_screen_panels_arm_4k.jpg",
+      "path": "textures/chinese_screen_panels_arm_4k.jpg",
+      "md5": "6f2b9ceb4e8f29e683054f26e6c4de7d",
+      "sha256": "1c5827c688aae2f7f47a38147460657ecc357584faf4f3f14f4010d25082f83f",
+      "bytes": 8620150
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/chinese_screen_panels/chinese_screen_panels_diff_4k.jpg",
+      "path": "textures/chinese_screen_panels_diff_4k.jpg",
+      "md5": "3f9d1826bd459422e2e77d08df18e7c1",
+      "sha256": "3d83acb54ef6e5a72710c4fb8bb6148d17fecdaf362c01dfff32713aa26ce6ee",
+      "bytes": 9723625
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/chinese_screen_panels/chinese_screen_panels_nor_gl_4k.jpg",
+      "path": "textures/chinese_screen_panels_nor_gl_4k.jpg",
+      "md5": "3f91a9f61f3f6a311ce724fda2eb72d3",
+      "sha256": "9f4a3015cea7ee4a70efd36285e3d60da71d91ea3f504af776622a1b4221b0ee",
+      "bytes": 6917563
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/chinese_screen_panels/chinese_screen_panels.bin",
+      "path": "chinese_screen_panels.bin",
+      "md5": "f3ec2d7d0c14165e764e930112a31616",
+      "sha256": "34a2f03180313ed4dbf6ac8dd6c0277b1b873929daf6bf8f06a209af6c9b2fc3",
+      "bytes": 35936
+    }
+  ]
+}

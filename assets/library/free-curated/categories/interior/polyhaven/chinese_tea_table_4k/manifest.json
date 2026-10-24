@@ -1,0 +1,47 @@
+{
+  "schema": "changan-free-source-v1",
+  "id": "chinese_tea_table",
+  "category": "interior",
+  "source": "https://polyhaven.com/a/chinese_tea_table",
+  "license": "Poly Haven CC0-1.0",
+  "stage": "local_acquired_only",
+  "approved": false,
+  "integrated": false,
+  "files": [
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/chinese_tea_table/chinese_tea_table_4k.gltf",
+      "sha256": "46e2c1061c17e4578f16e92db1dbff47f6144df37d126705f6ccadffde8178c3",
+      "bytes": 2793,
+      "md5": "9ba5b67dd7e5324d3e08371c38b6f627",
+      "path": "chinese_tea_table_4k.gltf"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/chinese_tea_table/chinese_tea_table_arm_4k.jpg",
+      "sha256": "9a664c414f49541f49c60cc7a73f535e2e69c8424ad59bd65c2833ac8ba21c93",
+      "bytes": 7926255,
+      "md5": "0ef9d785732df683a62e59998a877e35",
+      "path": "textures/chinese_tea_table_arm_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/chinese_tea_table/chinese_tea_table.bin",
+      "sha256": "e584dbcf8d654c662ef849ef6111b11dc9f87e9a7ea8dc98c7d32dbfe10b7e52",
+      "bytes": 78792,
+      "md5": "8dcb405bff1e509e3c846278ce2f3ad9",
+      "path": "chinese_tea_table.bin"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/chinese_tea_table/chinese_tea_table_diff_4k.jpg",
+      "sha256": "126ad95e287c4c58b95137ba99bf0413c73153161f568af1bee697e0ef2623ec",
+      "bytes": 6751904,
+      "md5": "e4285f01a6fc8d83787fe0b505d6077a",
+      "path": "textures/chinese_tea_table_diff_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/chinese_tea_table/chinese_tea_table_nor_gl_4k.jpg",
+      "sha256": "9910382eb00fc8fc40b1a4544a1542f5cb9fa048a8b4d68a7877e874267eccd1",
+      "bytes": 9507397,
+      "md5": "b0491e99aec65209b4c03cc20a5ef902",
+      "path": "textures/chinese_tea_table_nor_gl_4k.jpg"
+    }
+  ]
+}
