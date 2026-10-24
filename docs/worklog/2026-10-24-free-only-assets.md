@@ -13,3 +13,12 @@
 **Safety/data/research boundaries**: no paid purchase or bypassed account/subscription, no third-party scripts run, no original private files overwritten, no main engine or user uploaded models touched. Codex Cloud concurrent model work must be protected.
 
 **Next**: AGENTS -> PRODUCT_BRIEF -> FREE_ONLY_RESOURCES_20261024 -> resource-catalog -> CONTINUE -> asset-manifest. Obtain only verified zero-cost production assets, store full-resolution masters in permitted storage (LFS/object store if large), make high-quality complete Tang street/bridge/river demo, review actual visual outcomes.
+
+## 提交后实际回读验证（已执行）
+
+- main 提交 `fbea4a11c8892d6a8ef23e58a84f0509d7590512` 已从远端回读。
+- `docs/resource-catalog.json`：JSON 实际解析通过，资源条数、resource_count、分类合计、状态合计四项均为 **280**；新增 **23** 条 free-only 条目，价格上限 0，原已取得资产保留。
+- `docs/asset-manifest.json`：实际解析并看到研究性 CC0 来源集合共 **4** 条（包含此前2条）。
+- 茶桌原 glTF 实际回读解析成功；5个文件共 **1,581,290 B**，其BIN声明长度与仓库文件大小都是 **78,792 B**，4条 BIN/纹理相对引用均存在。
+- 河床PBR三张原件已回读，文件数3，共 **3,326,723 B**。合并茶桌 **8个原始文件、4,908,013 B**。
+- 这些验证只涉及原字节完整性、目录和 glTF 引用路径，**没有**假称 Blender 五视角、最终质量、真实流水动画或 GPU 性能测试通过。
