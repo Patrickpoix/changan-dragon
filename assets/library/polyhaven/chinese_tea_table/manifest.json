@@ -1,0 +1,44 @@
+{
+  "name": "chinese_tea_table",
+  "source": "polyhaven",
+  "page_url": "https://polyhaven.com/a/chinese_tea_table",
+  "license": "CC0-1.0",
+  "author": "Kirill Sannikov",
+  "version": "1k-gltf",
+  "download_date": "2026-10-24",
+  "triangle_count": 3000,
+  "files": [
+    {
+      "path": "chinese_tea_table_1k.gltf",
+      "size": 2793,
+      "md5": "742112f24cdcf8c357aacc8f255664e5",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/chinese_tea_table/chinese_tea_table_1k.gltf"
+    },
+    {
+      "path": "chinese_tea_table.bin",
+      "size": 78792,
+      "md5": "8dcb405bff1e509e3c846278ce2f3ad9",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/chinese_tea_table/chinese_tea_table.bin"
+    },
+    {
+      "path": "textures/chinese_tea_table_diff_1k.jpg",
+      "size": 447131,
+      "md5": "eec9f6e3d2c3f7335abd4760e3a30ba2",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/chinese_tea_table/chinese_tea_table_diff_1k.jpg"
+    },
+    {
+      "path": "textures/chinese_tea_table_nor_gl_1k.jpg",
+      "size": 548449,
+      "md5": "f3398ab803461ee8247b05ad9b9992ba",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/chinese_tea_table/chinese_tea_table_nor_gl_1k.jpg"
+    },
+    {
+      "path": "textures/chinese_tea_table_arm_1k.jpg",
+      "size": 504125,
+      "md5": "c87805fa83058c7d08056446b0589f7e",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/chinese_tea_table/chinese_tea_table_arm_1k.jpg"
+    }
+  ],
+  "verified": true,
+  "notes": "中式矮茶桌，深色木纹，3K三角。用于茶馆、食铺、民居厅堂。"
+}
