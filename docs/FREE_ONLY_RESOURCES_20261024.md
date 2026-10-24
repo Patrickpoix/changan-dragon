@@ -11,7 +11,7 @@
 | 类型 | 精选免费来源 | 真实状态/限制 |
 | --- | --- | --- |
 | 中国四角亭 | [VVayToyek — CC0](https://vvaytoyek.itch.io/chinese-four-corner-pavilion-free) | $0可下载2.6MB Blender亭子；无纹理，有UV，后续需要精细木构材质与唐代形制验证 |
-| 中式传统围墙 | [VVayToyek](https://vvaytoyek.itch.io/chinese-classical-garden-wall-free) | $0下载18MB，门洞、花窗、墙高、转角成套；**页面没写清具体许可，rights hold，取得和使用前需确认商用权** |
+| 中式传统围墙 | [VVayToyek](https://vvaytoyek.itch.io/chinese-classical-garden-wall-free) | $0下载18MB，门洞、花窗、墙高、转角成套；原作者的 [Godot Asset Store 同款发布页](https://store.godotengine.org/asset/vvaytoyek/chinese-classical-garden-wall/) 已标示 CC0 1.0。下载后仍须核对压缩包内文件及附加依赖，暂未入库。 |
 | 曲面中式房屋 | [Sketchfab — CC BY](https://sketchfab.com/3d-models/traditional-chinese-house-low-poly-stylized-0f5fbcbf1489432a81e372e6d38699dd) | 236.9k三角，曲瓦/木窗/台阶，免费账户下载；与唐木构形制/内外细节仍需比较 |
 | 中式石桥 | [Sketchfab — CC BY](https://sketchfab.com/3d-models/chinese-detailed-bridge-d7b336d1ab24418ea1a429dbe2c59bfe) | 70.7k三角，桥栏/桥面可编辑候选；需实测碰撞和溪流贴合 |
 | 东方中国龙动画 | [Sketchfab — CC BY](https://sketchfab.com/3d-models/chinese-dragon-a5ad5ec06f43461f95bb93e95fe7553b) | 50.6k三角，页面声称动画已就绪；**尚未下载检查骨骼/动作/完整拓扑或小青龙风格** |
@@ -32,3 +32,7 @@
 `assets/library/free-curated/polyhaven/` 新增中式茶桌 1K glTF + BIN + 3 PBR，以及河底石 1K 的漫反射、法线GL、ARM，合计 8 个**实际字节文件**。全部来自 Poly Haven 官方公开 URL 并对照官方 API MD5；这只是资产工艺预览源，不是画质上限。请从原站后续获取4K+（存在时最高8K）主资产在受控高精素材仓库储存；不要以1K降模/降纹理替代用户电影质量。
 
 下一阶段优先把三类免费成熟高质资源真正取得（建筑/唐服、可动人物小龙、风动植被/桥溪），通过 Bl​​ender 五面完整真实渲染 + 动态水视频 + 实机高画质。仍不可将模型网页当已下载成果。
+
+## 本轮免费四角亭源包追加状态（未入库）
+
+在 [Godot Asset Store 的原作者免费 CC0 页面](https://store.godotengine.org/asset/vvaytoyek/chinese-four-corner-pavilion-free/) 实际取得 2,777,866 字节 ZIP，下载时计算 SHA256 为 `008fb5c4508ce57c4203e5763fd01a177ded16ca94fd5de34ea26c422b483efa`。但向 GitHub main 提交这个 ZIP 的操作被系统安全检查阻止；因此**未将该 ZIP 计入仓库已取得资产**。仅保留公开来源与校验信息，禁止宣称文件已在 GitHub；后续应先安全检查其内容和许可，不绕过检查强行提交。
