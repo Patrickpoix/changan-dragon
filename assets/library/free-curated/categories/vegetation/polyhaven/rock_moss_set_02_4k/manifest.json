@@ -1,0 +1,47 @@
+{
+  "schema": "changan-free-source-v1",
+  "id": "rock_moss_set_02",
+  "category": "vegetation",
+  "source": "https://polyhaven.com/a/rock_moss_set_02",
+  "license": "Poly Haven CC0-1.0",
+  "stage": "local_acquired_only",
+  "approved": false,
+  "integrated": false,
+  "files": [
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/rock_moss_set_02/rock_moss_set_02_4k.gltf",
+      "sha256": "2ee8f3e231ee13250fa5a9340834abec48d604d0715c62df0dfe16d1c1a52296",
+      "bytes": 11608,
+      "md5": "f14e2640ad380c371b1d5423fdc362d0",
+      "path": "rock_moss_set_02_4k.gltf"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/rock_moss_set_02/rock_moss_set_02_nor_gl_4k.jpg",
+      "sha256": "db381487b6b52dce6bd73235dd1d943d0da1b75791714b1a3686bf08eaedf4b1",
+      "bytes": 3597653,
+      "md5": "a719a2d3f901ba275970f125488ede09",
+      "path": "textures/rock_moss_set_02_nor_gl_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/rock_moss_set_02/rock_moss_set_02_rough_4k.jpg",
+      "sha256": "3abc61dd81678c44dd277d7fd0415629ce1a83ee429a44c7e7530ea8a86ef2f3",
+      "bytes": 1663773,
+      "md5": "3a713fbcb0512e69f7c042e954095169",
+      "path": "textures/rock_moss_set_02_rough_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_moss_set_02/rock_moss_set_02.bin",
+      "sha256": "2df9d8eaaca4207529b0f613d4886d3962d0b9ffc0cdfd2bc4bf35dbcd391cb5",
+      "bytes": 1316572,
+      "md5": "a63878339f14feceab7347cc28110eaa",
+      "path": "rock_moss_set_02.bin"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/rock_moss_set_02/rock_moss_set_02_diff_4k.jpg",
+      "sha256": "c605c4b3d2cdf92eb4a4b65d825b7ec27d6e6e138a77849de50948bc485710be",
+      "bytes": 2893305,
+      "md5": "b16253d14fa2f3b23f182767779cb775",
+      "path": "textures/rock_moss_set_02_diff_4k.jpg"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "changan-free-source-v1",
+  "id": "shrub_02",
+  "category": "vegetation",
+  "source": "https://polyhaven.com/a/shrub_02",
+  "license": "Poly Haven CC0-1.0",
+  "stage": "local_acquired_only",
+  "approved": false,
+  "integrated": false,
+  "files": [
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/shrub_02/shrub_02_4k.gltf",
+      "sha256": "2ee6eddd85e14e5105553e9930605db634c8c3d60bbbe54be1b10346ef0d0a69",
+      "bytes": 8083,
+      "md5": "f0d08863a8fcfaf77eb491e88ac75acc",
+      "path": "shrub_02_4k.gltf"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/shrub_02/shrub_02_arm_4k.jpg",
+      "sha256": "bb728f8edb948ca515266b5d99de393f2c63ded68d616b4c521155203d6b8fa1",
+      "bytes": 3544064,
+      "md5": "9fa6a966878c8f31662e105d234a1108",
+      "path": "textures/shrub_02_arm_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/shrub_02/shrub_02.bin",
+      "sha256": "5c1b79da1cfdbac90599542ccd1f75ba433a3a4d356b1ea03655adb39b0e2c96",
+      "bytes": 758692,
+      "md5": "683b5475238310899eac1458520903e6",
+      "path": "shrub_02.bin"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/shrub_02/shrub_02_diff_4k.jpg",
+      "sha256": "4b2b0ab0f5c760c7e58086c2f79ef09c58b295d4b988e8c685fdc4638d2bf94b",
+      "bytes": 4283120,
+      "md5": "480184d1591bed2953db04663015b06a",
+      "path": "textures/shrub_02_diff_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/shrub_02/shrub_02_nor_gl_4k.jpg",
+      "sha256": "b0c25bddf4fab38561fec40ff09f3ae853869b8da1f834bb5656c7697656d898",
+      "bytes": 5504410,
+      "md5": "ceb649f3d77374b96a7b7879adef0ad6",
+      "path": "textures/shrub_02_nor_gl_4k.jpg"
+    }
+  ]
+}

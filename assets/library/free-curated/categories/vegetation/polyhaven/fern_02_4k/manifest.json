@@ -1,0 +1,47 @@
+{
+  "schema": "changan-free-source-v1",
+  "id": "fern_02",
+  "category": "vegetation",
+  "source": "https://polyhaven.com/a/fern_02",
+  "license": "Poly Haven CC0-1.0",
+  "stage": "local_acquired_only",
+  "approved": false,
+  "integrated": false,
+  "files": [
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/fern_02/fern_02_4k.gltf",
+      "sha256": "7d5d458d4be38edceff922586234fa906377db5257e66d7cdde34b37e79788f7",
+      "bytes": 6899,
+      "md5": "10425c45145273a2899b8cc585592d2e",
+      "path": "fern_02_4k.gltf"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/fern_02/fern_02_diff_4k.jpg",
+      "sha256": "f924354b032fcde77830b0c33c4dff80b4b143f793e70126894788f199b61960",
+      "bytes": 3025392,
+      "md5": "07642c942fe65ae5b03b212398ba7004",
+      "path": "textures/fern_02_diff_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/fern_02/fern_02_nor_gl_4k.jpg",
+      "sha256": "14125a030e3fab96f52343215a65167ea46bcabae4bdef3444ba8ae22cb05e41",
+      "bytes": 5058951,
+      "md5": "1a35f2135cd71a64a255406b11f988a2",
+      "path": "textures/fern_02_nor_gl_4k.jpg"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/fern_02/fern_02.bin",
+      "sha256": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c",
+      "bytes": 176176,
+      "md5": "c061e9255f7d36ae9ce0e92ef3e100b2",
+      "path": "fern_02.bin"
+    },
+    {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/fern_02/fern_02_arm_4k.jpg",
+      "sha256": "0ccfb4d98966c0e69769e9ddd5be872e34bb1d2f8aece3aff6d42fd3e61f8f1c",
+      "bytes": 2569142,
+      "md5": "37426a24b433a05fe3958acc34232ede",
+      "path": "textures/fern_02_arm_4k.jpg"
+    }
+  ]
+}
