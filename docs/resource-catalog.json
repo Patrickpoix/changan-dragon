@@ -16,34 +16,36 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 159,
+    "records": 211,
     "by_category": {
       "runtime-engine": 10,
-      "vegetation-tool": 2,
-      "character-tool": 3,
+      "vegetation-tool": 4,
+      "character-tool": 5,
       "material-tool": 1,
       "asset-optimization": 4,
       "spatial-query": 2,
       "navigation": 2,
-      "rendering": 8,
-      "architecture": 22,
-      "boats": 5,
-      "clothing": 7,
+      "rendering": 14,
+      "architecture": 26,
+      "boats": 9,
+      "clothing": 9,
       "dragon": 8,
-      "vegetation": 4,
-      "animals": 8,
+      "vegetation": 11,
+      "animals": 12,
       "bicycle": 1,
-      "market": 2,
-      "characters": 7,
-      "props": 4,
-      "bridges": 2,
-      "interior": 1,
+      "market": 7,
+      "characters": 10,
+      "props": 10,
+      "bridges": 3,
+      "interior": 2,
       "environment": 3,
-      "material": 27,
+      "material": 28,
       "historical-reference": 12,
-      "audio": 8,
+      "audio": 10,
       "source-check": 5,
-      "character-source": 1
+      "character-source": 1,
+      "clothing-tool": 1,
+      "animation-tool": 1
     },
     "by_stage": {
       "existing_runtime": 1,
@@ -57,12 +59,12 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 49,
+      "preview_candidate": 101,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired."
   },
   "resources": [
     {
@@ -6246,6 +6248,1150 @@
         "measured": false,
         "cost": "desktop-first not phone-limited"
       }
+    },
+    {
+      "id": "resource-sweep-20261024-31342a68-5574-44df-8862-0851efa3ddcb",
+      "name": "古式中式完整庭院",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/31342a68-5574-44df-8862-0851efa3ddcb",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "FBX/OBJ/USD；厅堂庭院廊道齐全；平台商业授权、非唐史实",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category architecture",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-adcb95c8-1270-4b6e-83e4-0ec6a9bd5e0d",
+      "name": "唐风模块殿柱与歇山屋顶",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/adcb95c8-1270-4b6e-83e4-0ec6a9bd5e0d",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "唐式屋顶拼装系统；仅UE蓝图，AI生成标签，迁移待核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category architecture",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-116112f1-1d13-4afe-b1f2-de6aa16821e9",
+      "name": "中国传统院落景观",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/116112f1-1d13-4afe-b1f2-de6aa16821e9",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "庭院建筑和植被全场景 FBX OBJ USD；现代院落非唐",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category architecture",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-tang-dynasty-chinese-palace-architecture-imperial-palac",
+      "name": "唐代宫苑商品场景",
+      "category": "architecture",
+      "source_url": "https://www.cgtrader.com/3d-models/exterior/historic-exterior/tang-dynasty-chinese-palace-architecture-imperial-palace",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "宫殿亭榭和莲池大型模型候选；真实性仅卖家宣称",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category architecture",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-b4f3d9b3-0850-42f1-8689-85362d3fcc76",
+      "name": "中式茶果铺完整环境",
+      "category": "market",
+      "source_url": "https://www.fab.com/listings/b4f3d9b3-0850-42f1-8689-85362d3fcc76",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "茶柜水果铺木亭与大量器物 FBX OBJ；付费，食材年代待核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category market",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-low-poly-traditional-market-stall-83f6b14a28094a5ab5f83",
+      "name": "古代东南亚市场摊位",
+      "category": "market",
+      "source_url": "https://sketchfab.com/3d-models/low-poly-traditional-market-stall-83f6b14a28094a5ab5f8396ea6f4c1e9",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "8.4k三角形CC BY；木摊结构适合改造，非唐文化",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category market",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-medieval-market-tent-prop-01-328464a4350745ffbfdab11d32",
+      "name": "成熟精细市集帐篷+蔬菜货品",
+      "category": "market",
+      "source_url": "https://sketchfab.com/3d-models/medieval-market-tent-prop-01-328464a4350745ffbfdab11d328320ab",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "660k三角形2K贴图CC BY公开页；另有购买包，不确定免费文件范围",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category market",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-medieval-market-table-and-decorative-objects-c2752265b4",
+      "name": "市场桌布篮子果品装饰",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/medieval-market-table-and-decorative-objects-c2752265b43c4e4898515d6e0a8d7f50",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "82.6k三角形2K贴图CC BY公开页；西式需唐化，另有购买入口",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category props",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-medieval-market-stall-b5d87398b87a4e7ab8959da2c6a47056",
+      "name": "中古木质果摊",
+      "category": "market",
+      "source_url": "https://sketchfab.com/3d-models/medieval-market-stall-b5d87398b87a4e7ab8959da2c6a47056",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "21.7k三角形CC BY；完整摊铺局部，可深度改造",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category market",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-market-stall-6bb15dc7056241bfac6ee747fc866e45",
+      "name": "果蔬摊游戏道具",
+      "category": "market",
+      "source_url": "https://sketchfab.com/3d-models/market-stall-6bb15dc7056241bfac6ee747fc866e45",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "25.1k三角形CC BY；完整蔬果货架但低美术完成度",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category market",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-tableware-8008b8c234c048369d329483afacaf46",
+      "name": "中式古餐盒",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-tableware-8008b8c234c048369d329483afacaf46",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "27k三角形CC BY；餐盒和贴图，年代需核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category props",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-tea-table-set-36b31b3484df46a781409825a9903d00",
+      "name": "中式茶桌茶具",
+      "category": "interior",
+      "source_url": "https://sketchfab.com/3d-models/tea-table-set-36b31b3484df46a781409825a9903d00",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "11.9k三角形CC BY；Blender Substance制作",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category interior",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-old-chinese-lantern-lowpoly-for-free-download-73b1e6090",
+      "name": "可发光纸灯笼",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/old-chinese-lantern-lowpoly-for-free-download-73b1e60901e6494fb0cb39affca6f850",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "976三角形CC BY；PBR发光贴图；灯型未必唐制",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category props",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-lamp-4096px2-9eddb4de98274410b7405f7ea6667f3a",
+      "name": "4K细节中式宫灯",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-lamp-4096px2-9eddb4de98274410b7405f7ea6667f3a",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "47.8k三角形/4K贴图CC BY；高精灯饰非唐证据",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category props",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-lantern-690d8633f7f5460fa886fb87edc96645",
+      "name": "带动画中国灯笼",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-lantern-690d8633f7f5460fa886fb87edc96645",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "6.2k三角形CC BY；animated标签但绑定文件需核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category props",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-teapot-707c02279e1c4be4a45007c4321c962b",
+      "name": "写实中式茶壶扫描",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-teapot-707c02279e1c4be4a45007c4321c962b",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "398k三角形CC BY；现代实物非唐代器形",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category props",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-tang-dynasty-chest-length-printed-hanfu-427e40b1f7134b2",
+      "name": "Style3D唐齐胸印花汉服A",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/tang-dynasty-chest-length-printed-hanfu-427e40b1f7134b2b8ca2e79b8651b236",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "136.6k三角形CC BY页面；齐胸汉服PBR，完整导出格式需联系作者",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category clothing",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chest-length-printed-hanfu-of-tang-dynasty-cdcb01bcd113",
+      "name": "Style3D唐齐胸印花汉服B",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/chest-length-printed-hanfu-of-tang-dynasty-cdcb01bcd11342c19446d9037732c3fe",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "303.7k三角形CC BY页面；复杂褶皱，无现成完整Rig",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category clothing",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024--assets",
+      "name": "Blender Studio Human Base Meshes",
+      "category": "characters",
+      "source_url": "https://www.blender.org/download/demo-files/#assets",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC0 page label; texture dependencies must be checked",
+      "assessment": "官方演示CC0专业人体基础拓扑约49MB；并非完成唐人",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category characters",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-3d-gen",
+      "name": "3D-Gen全身角色与62动作",
+      "category": "character-tool",
+      "source_url": "https://github.com/olatunde85/3d-gen",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC0 page label; texture dependencies must be checked",
+      "assessment": "MIT代码+CC0 MakeHuman自述，65骨，骑车划船骑马动作；需跑实测/查依赖",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category character-tool",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-CharacterCreator",
+      "name": "CharacterCreator可换装人体方案",
+      "category": "character-tool",
+      "source_url": "https://github.com/kblood/CharacterCreator",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "Blender MPFB glTF布物理动画人体；授权变更需按固定提交审查，已有穿模缺陷",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category character-tool",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-opensew-2",
+      "name": "OpenSew-2专业服装缝纫",
+      "category": "clothing-tool",
+      "source_url": "https://github.com/MarcelloMorettoni/opensew-2",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "GPL authoring plugin; legal applicability to workflow must be reviewed",
+      "assessment": "GPL Blender5.2裁片缝合/动态褶皱/权重传递；需单独设计唐服裁片",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category clothing-tool",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-VitruvianGodot",
+      "name": "VitruvianGodot成人FACS脸",
+      "category": "characters",
+      "source_url": "https://github.com/ibrews/VitruvianGodot",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC0 page label; texture dependencies must be checked",
+      "assessment": "CC0写实人体声称，真实FACS表情和皮肤；Godot渲染不能直接搬网页",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category characters",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-3d-hanfu-hero-8fa0155c8dd042a28bf84119a0ce9712",
+      "name": "Hanfu Hero男装绑定角色",
+      "category": "characters",
+      "source_url": "https://sketchfab.com/3d-models/3d-hanfu-hero-8fa0155c8dd042a28bf84119a0ce9712",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "32.8k三角形，Rig/7脸部动画；付费Fab另有资产，形象偏动漫",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category characters",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-www-mixamo-com",
+      "name": "Mixamo人物自动绑定和动作",
+      "category": "animation-tool",
+      "source_url": "https://www.mixamo.com/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "Adobe账户服务/授权单独核对；人物步行闲逛动画",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category animation-tool",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-rigged-animated-weeping-willows-c315c039042240dbbc0c270",
+      "name": "四株骨骼与动画垂柳",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/rigged-animated-weeping-willows-c315c039042240dbbc0c2704f7cec83c",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "760k三角形CC BY，单树约250骨；高精风动但性能需LOD",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-willow-tree-2378d616b9da4ba39b5ccbe157e22e86",
+      "name": "高精密柳树",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/willow-tree-2378d616b9da4ba39b5ccbe157e22e86",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "405.8k三角形CC BY；真实树型，风动材质未核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-old-willow-high-poly-96c207c7da174429b304b6129c6d04ce",
+      "name": "老柳枝干裸树",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/old-willow-high-poly-96c207c7da174429b304b6129c6d04ce",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "276.8k三角形CC BY；树干8000枝，无树叶",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-realistic-trees-collection-fe67c886eebf4bcb988d7c45e699",
+      "name": "七款真实树种包",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/realistic-trees-collection-fe67c886eebf4bcb988d7c45e69995ad",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "127.7k三角形CC BY；七类树冠实际树种待核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-realistic-tree-d989c0f801d847b9a74992ec4ddcfdfc",
+      "name": "优化的真实树模型",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/realistic-tree-d989c0f801d847b9a74992ec4ddcfdfc",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "19.9k三角形CC BY；真实冠形OpenGL法线",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-cd525b36-f8d3-4aea-9b91-7bec96ebcafb",
+      "name": "五款垂柳花树资产",
+      "category": "vegetation",
+      "source_url": "https://www.fab.com/listings/cd525b36-f8d3-4aea-9b91-7bec96ebcafb",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "5套 Blend/FBX/GLB+PBR2K，含柳和花树；商业，无LOD",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-dc5976d8-1175-4d5d-8d3c-c2752dfa550a",
+      "name": "十款柳银杏花树",
+      "category": "vegetation",
+      "source_url": "https://www.fab.com/listings/dc5976d8-1175-4d5d-8d3c-c2752dfa550a",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "10套完整GLB/Blend/FBX/PBR；付费且尚无风动",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-modular-tree",
+      "name": "MTree现代Blender树生成",
+      "category": "vegetation-tool",
+      "source_url": "https://github.com/GoodPie/modular_tree",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "Blender4.3+柳/松生长与风动数据；许可证以固定提交核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation-tool",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-treegen-llm",
+      "name": "TreeGen LLM树形试验",
+      "category": "vegetation-tool",
+      "source_url": "https://github.com/YuutoSeki/treegen-llm",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "MIT code claimed upstream; pin a version and inspect source notices",
+      "assessment": "MIT Blender4.3+ Geometry Nodes；只能做辅助，不当最后美术",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category vegetation-tool",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-leaves-forest-ground",
+      "name": "Poly Haven森林落叶地面",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/leaves_forest_ground",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC0 page label; texture dependencies must be checked",
+      "assessment": "CC0最高8K，树林土壤草叶/置换法线材质，非立体模型",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category material",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-stone-bridge-low-poly-21042e4094c6453b8ea997d602de6dac",
+      "name": "PBR古石桥",
+      "category": "bridges",
+      "source_url": "https://sketchfab.com/3d-models/stone-bridge-low-poly-21042e4094c6453b8ea997d602de6dac",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "87.6k三角形CC BY，2K完整PBR；并非唐石桥制式",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category bridges",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-junk-a331d56c34ff4d958763114dc8e7c275",
+      "name": "中国古商帆船",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/chinese-junk-a331d56c34ff4d958763114dc8e7c275",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "23.4k三角形CC BY，海船非曲江画舫",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category boats",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-junk-inspired-boat-with-sails-paddles-683ba5a44",
+      "name": "中国木船分离船帆和橹",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/chinese-junk-inspired-boat-with-sails-paddles-683ba5a442ae43ebbe041fe69327ad7e",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "10.4k三角形CC BY，作者注明不是准确中国古船",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category boats",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-chinese-junk-ship-35b340bce9fb4e0680bc0116cebc35c9",
+      "name": "高面中国帆船",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/chinese-junk-ship-35b340bce9fb4e0680bc0116cebc35c9",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "205k三角形CC BY；学习模型不等于成熟商用美术",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category boats",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-gabarre-freight-river-boat-2dc4f3fb8e884b74af4d3674895a",
+      "name": "内河木制货船",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/gabarre-freight-river-boat-2dc4f3fb8e884b74af4d3674895a35fe",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "CC BY page label; attribution and original files must be checked",
+      "assessment": "13.3k三角形CC BY；欧洲船体仅供船身结构参考",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category boats",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-2182ce90-52db-470c-9987-671112831f3c",
+      "name": "30动作真马GLB FBX",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/2182ce90-52db-470c-9987-671112831f3c",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "10.4k三角形30动作PBR，2K/FBX GLB；商业授权未购",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category animals",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-3fb40390-633d-43c1-bf82-6a3b33a34c9c",
+      "name": "十二毛色高质马",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/3fb40390-633d-43c1-bf82-6a3b33a34c9c",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "真实毛皮和多动作，必须核下载原格式与动画",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category animals",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-4848b5cc-9434-429d-8d4b-07897a08efc3",
+      "name": "骆驼Rig和五动作",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/4848b5cc-9434-429d-8d4b-07897a08efc3",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "Blender/FBX/GLB，Idle/Walk/Run/Eat，唐双峰驼形制待核",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category animals",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-86b1d3a4-60cb-4c3a-b502-ef21bbf78d71",
+      "name": "骆驼另一版模型包",
+      "category": "animals",
+      "source_url": "https://www.fab.com/listings/86b1d3a4-60cb-4c3a-b502-ef21bbf78d71",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Platform commercial license; login/payment and embedded rights must be checked",
+      "assessment": "BLEND FBX OBJ GLB，可能和前者同源需要去重购买",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category animals",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-gdc-sonniss-com",
+      "name": "Sonniss 2026 GDC音效库",
+      "category": "audio",
+      "source_url": "https://gdc.sonniss.com/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "7.47GB 347+真实素材，商业媒体授权，但不允许AI训练或原声库再分发",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category audio",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-gdc-bundle-license",
+      "name": "Sonniss 2026音频授权文本",
+      "category": "audio",
+      "source_url": "https://sonniss.com/gdc-bundle-license/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "2026年8月27日版本EULA，必须按媒体成品声音而非原包分发",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category audio",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-webgpu-sky-html",
+      "name": "Three WebGPU天空云日照",
+      "category": "rendering",
+      "source_url": "https://threejs.org/examples/webgpu_sky.html",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "官方WebGPU大气太阳云材质，需现代Three迁移后整合",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category rendering",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-clearwater",
+      "name": "Clearwater WebGL2浅水焦散",
+      "category": "rendering",
+      "source_url": "https://github.com/Aureliengmz/clearwater",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "MIT code claimed upstream; pin a version and inspect source notices",
+      "assessment": "MIT FFT/涟漪/透明浅水+焦散，不含完整弯溪河流",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category rendering",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-webgpu-water-playcanvas",
+      "name": "PlayCanvas WebGPU高阶水",
+      "category": "rendering",
+      "source_url": "https://github.com/willeastcott/webgpu-water-playcanvas",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "MIT code claimed upstream; pin a version and inspect source notices",
+      "assessment": "MIT水波/反射/折射WebGPU-WebGL2双后端，池水几何限制",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category rendering",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-swek-webgl2-water",
+      "name": "原生WebGL2涟漪焦散",
+      "category": "rendering",
+      "source_url": "https://github.com/HowdyKeith/swek-webgl2-water",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "MIT code claimed upstream; pin a version and inspect source notices",
+      "assessment": "MIT GPU乒乓波纹/菲涅尔/焦散，非溪流方向场",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category rendering",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-web-ocean-3d",
+      "name": "Web Ocean Three TSL水体",
+      "category": "rendering",
+      "source_url": "https://github.com/2600th/web-ocean-3d",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "FFT/岸泡沫/船尾波/反射，许可和高GPU成本核实",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category rendering",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-caustic-volume-threejs-water",
+      "name": "Caustic Volume高级水透射",
+      "category": "rendering",
+      "source_url": "https://github.com/JesusGalindez/caustic-volume-threejs-water",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_RESEARCH_ONLY; NO MODEL OR SOURCE FILE ACQUIRED IN THIS PASS",
+      "license_scope": "Site-specific license and ownership must be checked",
+      "assessment": "Three r186水下焦散/浮力/灯光复杂demo，溪流适配未完成",
+      "review_notes": "Candidate only: dimensions, usable source files, era accuracy, third-party texture licenses, rig, Blender five-view, dynamic water/animation and desktop real frame cost NOT independently validated",
+      "target_scene": "Candidate for cohesive high fidelity cinematic desktop Tang Chang'an; category rendering",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_pending_source",
+        "reason": "real meshes, topo/UV/rights and art fit remain untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "optional compatibility tier only"
+      }
     }
   ],
   "design_studies": [
@@ -6286,5 +7432,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 159
+  "resource_count": 211
 }
