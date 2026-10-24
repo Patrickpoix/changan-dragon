@@ -1,5 +1,13 @@
 # 当前续做记录（2026-10-24）
 
+## 最新：免费素材369条与本地验证的16个4K原件（GitHub大文件推送未完成）
+
+- 免费/开源素材持续检索，38个新非重复候选已在 docs/resource-catalog.json 增至369条。严格只用$0，已排除收费或非商用许可；电影级造型要求不变。
+- 从Poly Haven官方实际下载并在本机隔离目录 E:\\ChanganResearch_20261024 验证3套完整原始4K CC0：木码头8文件77,659,602B、河床石纹3文件43,106,238B、后世中式案几5文件29,237,476B；共16个原件150,003,316B，官方MD5/size和SHA256均通过，完整glTF依赖检查通过。
+- **重要：大素材 git push 的网络连接已超时/重置，16个原始文件及manifest目前仅在本机两个本地提交中，未确认推送到GitHub，不能把资源目录的获取状态当作远端已收录。** 不强推、不覆盖Codex并行变更。具体说明和实际未执行测试见 docs/worklog/2026-10-24-free-4k-acquisition-push-blocked.md。
+- Blender真实多视角、美术/唐代历史适配、曲溪水流、实际游戏集成、桌面GPU回归均未运行。优先解决同步失败后再做艺术样板。
+
+
 ## 最新：真实取得完整4K CC0模型，并追加零元候选（2026-10-24）
 
 - 已下载Poly Haven Antique Ceramic Vase 01的完整4K glTF/BIN/PBR五个原始文件（3,129,647B），各自官方MD5与下载字节匹配并留存SHA256；位于 assets/library/free-curated/polyhaven/antique_ceramic_vase_01_4k。此陶器**未经唐代形制/Blender视觉/运行时审核**，不能直接作为唐器成品。
