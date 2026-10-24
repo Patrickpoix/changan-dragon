@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 369,
+    "records": 372,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 5,
@@ -38,15 +38,15 @@
       "props": 25,
       "bridges": 7,
       "interior": 8,
-      "environment": 14,
+      "environment": 15,
       "material": 35,
-      "historical-reference": 32,
+      "historical-reference": 33,
       "audio": 23,
       "source-check": 6,
       "character-source": 2,
       "clothing-tool": 2,
       "animation-tool": 2,
-      "architecture-tool": 1
+      "architecture-tool": 2
     },
     "by_stage": {
       "existing_runtime": 1,
@@ -55,17 +55,17 @@
       "source_acquired": 2,
       "offline_tool_candidate": 5,
       "runtime_candidate": 4,
-      "reference_only": 42,
+      "reference_only": 44,
       "account_required": 12,
       "rejected": 16,
-      "rights_hold": 10,
+      "rights_hold": 11,
       "purchase_candidate": 6,
       "preview_candidate": 235,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (6 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added. Continued strict-$0 page-level sweep recorded 38 new nonduplicate leads: free official BlenderKit CC0 complex Chinese buildings/pavilions/4K, Sketchfab Tang forms and natural trees/boats, GPL/MIT water systems, CC0 real ambience; no source files acquired or shaders implemented, no quality acceptance."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (6 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added. Continued strict-$0 page-level sweep recorded 38 new nonduplicate leads: free official BlenderKit CC0 complex Chinese buildings/pavilions/4K, Sketchfab Tang forms and natural trees/boats, GPL/MIT water systems, CC0 real ambience; no source files acquired or shaders implemented, no quality acceptance. Later comparative sweep 2026-10-24: 3 new de-duplicated sources: a verifiable 782 Nanchan Tang historical reference (no model licence), Tekton historical geometry evidence method (rights_hold, no source-code licence found), and clearly CC0 but low-detail 63-piece Chinese palace scene for layout studies only. No binary acquired."
   },
   "resources": [
     {
@@ -11216,6 +11216,78 @@
         "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
         "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
       }
+    },
+    {
+      "id": "tang-nanchan-782-moonstone",
+      "name": "Nanchan Temple Hall 782 CE verified-era measurements and form reference",
+      "category": "historical-reference",
+      "source_url": "https://www.moonstone.fun/%E5%8F%A4%E5%BB%BA/%E5%8D%97%E7%A6%85%E5%AF%BA%E5%A4%A7%E6%AE%BF/",
+      "stage": "reference_only",
+      "priority": "A",
+      "zero_cost_access": "Public no-fee web reading only; source 3D mesh not offered as a licensed download",
+      "license_scope": "Page reference rights only, not a free-to-reuse 3D asset licence",
+      "assessment": "Nanchan Temple was built in 782 CE, three by three bay structural form with single-eave hip-and-gable timber roof; valuable correct Tang structural/anatomical comparison.",
+      "review_notes": "Later than project's Kaiyuan-Tianbao mood, do NOT transplant full temple as historical 730s Chang'an or copy photos/meshes without rights.",
+      "acquisition_status": "Public source page checked 2026-10-24; no reusable source 3D file downloaded/verified or integrated",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Not obtained for 3D evaluation. Historical/research document only.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "not tested",
+        "acceptance": "Do not integrate until rights and scene visual/type fit verified"
+      }
+    },
+    {
+      "id": "tang-tekton-provenance-structural",
+      "name": "Tekton Nanchan 782 provenance-measured reconstruction architecture tool",
+      "category": "architecture-tool",
+      "source_url": "https://github.com/tangxiya-star/Tekton",
+      "stage": "rights_hold",
+      "priority": "A",
+      "zero_cost_access": "Public GitHub browsing, but no positively verified code redistribution licence; do not reuse code",
+      "license_scope": "RIGHTS_HOLD: no repository licence found in reviewed public repository; copyright remains reserved absent grant",
+      "assessment": "Period-grounded Nanchan Tang timber hall rules/cai-fen modular construction, dimensions re-derived from geometric output and provenance-labelled component confidence.",
+      "review_notes": "Research methodology only; do not copy code or derived geometry to project without clear open permission. No evidence source file downloaded.",
+      "acquisition_status": "Public source page checked 2026-10-24; no reusable source 3D file downloaded/verified or integrated",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Not obtained for 3D evaluation. Historical/research document only.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "not tested",
+        "acceptance": "Do not integrate until rights and scene visual/type fit verified"
+      }
+    },
+    {
+      "id": "cc0-imperial-china-63-modules",
+      "name": "Imperial China Palace and Garden 63-model cohesive CC0 starter scene",
+      "category": "environment",
+      "source_url": "https://3dassets.dev/packs/imperial-china-palace-and-garden",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Official public 0-dollar CC0 1.0 direct pack and 2.7MB starter GLB, no paid edition required",
+      "license_scope": "CC0 1.0 as explicitly stated by provider; 63 of 63 models AI generated according to page",
+      "assessment": "63 coordinated +Y metre-scale GLBs (combined 6.2MB, 255,434 triangles), palace/bridge/moongate/lotus/garden, useful single-scale authoring layout and scene interface comparisons.",
+      "review_notes": "Very small stylized AI-generated pieces; do NOT use as film-quality main palace or claim true Tang architecture. Avoid low-poly art replacing the existing user-vetoed architecture.",
+      "acquisition_status": "Public source page checked 2026-10-24; no reusable source 3D file downloaded/verified or integrated",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Not obtained for 3D evaluation. Historical/research document only.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "not tested",
+        "acceptance": "Do not integrate until rights and scene visual/type fit verified"
+      }
     }
   ],
   "design_studies": [
@@ -11256,7 +11328,7 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 369,
+  "resource_count": 372,
   "free_only_policy": {
     "effective_date": "2026-10-24",
     "price_ceiling_usd": 0,
