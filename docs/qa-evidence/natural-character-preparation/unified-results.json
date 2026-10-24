@@ -1,0 +1,257 @@
+{
+  "checked_on": "2026-10-24",
+  "model": "natural-unified.glb",
+  "sha256": "b6ffea5d53183c773d57b3c128bc39796a0ab499134cb7d858b26567a4ec3b07",
+  "browser": "Browser plugin not available; local Chromium SwiftShader",
+  "scope": "Independent preparation assembly; no physical phone or final art approval",
+  "results": [
+    {
+      "mode": "modern 1120x720",
+      "ready": true,
+      "error": null,
+      "revision": "160",
+      "webgl2": true,
+      "invalid": 0,
+      "mask": 1,
+      "helpers": [],
+      "textures": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "Image_0",
+          "width": 1024,
+          "height": 1024,
+          "colorSpace": "srgb"
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "brown_eye",
+          "width": 512,
+          "height": 512,
+          "colorSpace": "srgb"
+        }
+      ],
+      "actors": {
+        "dragon_1255m_silhouette_study": [
+          0.8184475600719452,
+          1.2244729399681091,
+          1.0555603802204132
+        ],
+        "wood_bicycle_wheel_diameter_050m": [
+          0.36000001430511475,
+          0.8140000104904175,
+          1.345950722694397
+        ],
+        "male_natural_connected_tailoring_static_pose": [
+          0.6917007565498352,
+          1.8019998562522233,
+          0.7910372018814087
+        ],
+        "female_natural_connected_tailoring_static_pose": [
+          0.6821039319038391,
+          1.7593448471743613,
+          0.7580343633890152
+        ]
+      },
+      "triangles": 188650,
+      "bounds": [
+        19.033143043518066,
+        10.282538838684559,
+        16
+      ],
+      "gl": 0,
+      "render": {
+        "frame": 36,
+        "calls": 119,
+        "triangles": 192732,
+        "points": 0,
+        "lines": 0
+      },
+      "grey_alpha_masks": 1,
+      "errors": [],
+      "failed_requests": []
+    },
+    {
+      "mode": "WebGL1 844x390",
+      "ready": true,
+      "error": null,
+      "revision": "160",
+      "webgl2": false,
+      "invalid": 0,
+      "mask": 1,
+      "helpers": [],
+      "textures": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "Image_0",
+          "width": 1024,
+          "height": 1024,
+          "colorSpace": "srgb"
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "colorSpace": ""
+        },
+        {
+          "name": "brown_eye",
+          "width": 512,
+          "height": 512,
+          "colorSpace": "srgb"
+        }
+      ],
+      "actors": {
+        "dragon_1255m_silhouette_study": [
+          0.8184475600719452,
+          1.2244729399681091,
+          1.0555603802204132
+        ],
+        "wood_bicycle_wheel_diameter_050m": [
+          0.36000001430511475,
+          0.8140000104904175,
+          1.345950722694397
+        ],
+        "male_natural_connected_tailoring_static_pose": [
+          0.6917007565498352,
+          1.8019998562522233,
+          0.7910372018814087
+        ],
+        "female_natural_connected_tailoring_static_pose": [
+          0.6821039319038391,
+          1.7593448471743613,
+          0.7580343633890152
+        ]
+      },
+      "triangles": 188650,
+      "bounds": [
+        19.033143043518066,
+        10.282538838684559,
+        16
+      ],
+      "gl": 0,
+      "render": {
+        "frame": 36,
+        "calls": 119,
+        "triangles": 192732,
+        "points": 0,
+        "lines": 0
+      },
+      "grey_alpha_masks": 1,
+      "errors": [],
+      "failed_requests": []
+    }
+  ],
+  "final_art_accepted": false,
+  "runtime_integrated": false
+}

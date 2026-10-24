@@ -1410,7 +1410,7 @@
   ],
   "preparation_research_only": {
     "formal_runtime_unchanged": true,
-    "notes": "Research-only libraries are separate from the 15 runtime GLB sources. Snow/Rain character style rejected by user; natural adult MH targets govern latest assembly. No final art or rig approval. Three independent boat hull/cabin types and dock/alpha fixture are construction studies only; not game sailing or final art.",
+    "notes": "All new donors are independent research, not runtime. Snow/Rain AND new natural/tang faces are user-rejected production styles. Mature full-resolution Einar and two original static dragon sources acquired; no Tang character/hero approved. Original geometry and texture resolution retained for desktop.",
     "manifests": [
       "assets/library/production-materials/manifest.json",
       "assets/library/vegetation/ez-tree-source/source-manifest.json",
@@ -1421,7 +1421,13 @@
       "assets/library/characters/blender-studio/rain/manifest.json",
       "assets/library/preparation-study/manifest.json",
       "assets/library/environment-audio/manifest.json",
-      "assets/library/boats/construction-studies/manifest.json"
+      "assets/library/boats/construction-studies/manifest.json",
+      "assets/library/characters/makehuman-details/manifest.json",
+      "assets/library/characters/tang-studies/manifest.json",
+      "assets/library/preparation-study/natural-unified.json",
+      "assets/library/characters/blender-studio/einar/manifest.json",
+      "assets/library/dragons/grab3d/cartoon-dragon/manifest.json",
+      "assets/library/dragons/grab3d/chinese-dragon/manifest.json"
     ],
     "design_reference_manifest": "docs/user-references/2026-10-23/manifest.json",
     "curated_cc0_sources": [

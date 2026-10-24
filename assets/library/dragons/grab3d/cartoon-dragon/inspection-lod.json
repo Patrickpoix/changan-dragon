@@ -1,0 +1,40 @@
+{
+  "file": "inspection-lod.glb",
+  "source_sha256": "cbe6afbb01e21f7bc272fe6aa706bf3d234cf1c768f01836fedf924aaf80c6cc",
+  "generator": "tools/prepare_mature_dragons.py",
+  "generator_sha256": "81ac3355fc8b544f0cb3fa13a6e7fe8cb4abe2073062ec42f4e95c0e94fbc38f",
+  "source_triangles": 799999,
+  "triangles": 45000,
+  "bytes": 3460828,
+  "sha256": "f25599b27e916baa7b3f452401d9ebd61589a9c878e2e863bb2ce8432e58a80a",
+  "textures": [
+    {
+      "role": "basecolor",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "role": "normal",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "role": "ORM",
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "uv_and_bake": "New Smart UV charts, 16px dilated margins, selected high-to-low emission-channel and tangent-normal baking; original dense atlas not directly downsampled",
+  "runtime_integrated": false,
+  "final_art_accepted": false,
+  "scope": "Rebaked static inspection donor, no hero redesign, wing removal, retopology rig or animation claimed",
+  "status": "rejected_conversion_visual_artifacts",
+  "use_for_production": false,
+  "user_instruction": "Do not reduce geometry to save file size; desktop original is default"
+}

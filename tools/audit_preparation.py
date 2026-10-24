@@ -55,9 +55,15 @@ def main():
         if not p.is_file() or '__pycache__' in p.parts:continue
         files.append({'path':str(p.relative_to(ROOT)),'bytes':p.stat().st_size,'sha256':sha(p)})
     study_paths=[ROOT/'assets/library/preparation-study/assembly.glb',ROOT/'assets/library/architecture/timber-shop/runtime.glb']
-    for sub in ['vegetation/studies','vegetation/authored-studies','boats/construction-studies']:
+    for sub in ['vegetation/studies','vegetation/authored-studies','boats/construction-studies','characters/tang-studies']:
         study_paths+=sorted((ROOT/'assets/library'/sub).glob('*.glb'))
+    if (ROOT/'assets/library/preparation-study/natural-unified.glb').exists():study_paths.append(ROOT/'assets/library/preparation-study/natural-unified.glb')
+    study_paths+=sorted((ROOT/'assets/library/dragons/grab3d').glob('*/source.glb'))
     models=[glb_cost(p) for p in study_paths]
+    detail=ROOT/'assets/library/characters/makehuman-details'
+    for item in json.loads((detail/'manifest.json').read_text())['files']:
+        path=detail/item['file'];data=path.read_bytes();assert sha(path)==item['sha256']
+        assert hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()==item['git_blob_sha1']
     official=[]
     matroot=ROOT/'assets/library/production-materials'
     for mat in json.loads((matroot/'manifest.json').read_text())['materials']:

@@ -1,0 +1,53 @@
+{
+  "source_page": "https://grab3d.com/models/creatures/cartoon-dragon/",
+  "author": "Grab3D",
+  "license": "CC0-1.0, publisher LICENSE.txt retained",
+  "origin": {
+    "method": "ai-assisted",
+    "detail": "Base mesh and textures generated with an AI image-to-3D tool (Meshy), then cleaned up, scaled, textured and checked in Blender.",
+    "ai_content": true
+  },
+  "status": "acquired_high_detail_static_sculpt_source_not_production_actor",
+  "files": [
+    {
+      "file": "LICENSE.txt",
+      "url": "https://grab3d.com/dl/cartoon-dragon/LICENSE.txt",
+      "bytes": 665,
+      "sha256": "a15412842aa03ed7746551767e80808a9303edbbca02a06cfbcf354dfbd0ad27"
+    },
+    {
+      "file": "upstream-manifest.json",
+      "url": "https://grab3d.com/dl/cartoon-dragon/manifest.json",
+      "bytes": 1144,
+      "sha256": "bcd46a575609400c7985d21119f3250d269e3d9c16235b78c2930b605b0cc01d"
+    },
+    {
+      "file": "source.glb",
+      "url": "https://grab3d.com/dl/cartoon-dragon/cartoon-dragon.glb",
+      "bytes": 26105836,
+      "sha256": "cbe6afbb01e21f7bc272fe6aa706bf3d234cf1c768f01836fedf924aaf80c6cc"
+    },
+    {
+      "file": "source.blend",
+      "url": "https://grab3d.com/dl/cartoon-dragon/cartoon-dragon.blend",
+      "bytes": 33660170,
+      "sha256": "4a2d07d527703233d49b968307a52d395d58774043b4c3016dceef86754c9713"
+    }
+  ],
+  "native_blend_acquired_in_cache": {
+    "url": "https://grab3d.com/dl/cartoon-dragon/cartoon-dragon.blend",
+    "file": "cartoon-dragon.blend",
+    "bytes": 33660170,
+    "sha256": "4a2d07d527703233d49b968307a52d395d58774043b4c3016dceef86754c9713"
+  },
+  "runtime_integrated": false,
+  "final_art_accepted": false,
+  "limitations": [
+    "AI-assisted Meshy draft cleaned in Blender, not hand-retopologized game-ready character",
+    "No rig or animation in acquired source",
+    "Cartoon donor has wings and quadruped seated proportions; Chinese donor is a large ornamental serpentine dragon; neither directly equals the approved hero design"
+  ],
+  "native_blend_preserved": "source.blend",
+  "desktop_default": "source.glb; unchanged original geometry and full source texture resolution",
+  "reduced_derivative_status": "Rejected: visible seam/fragment artifacts; never use in desktop default or game"
+}

@@ -6,11 +6,11 @@
 <title>龙游长安 · 建模验收台</title>
 <style>
   *{box-sizing:border-box}body{margin:0;overflow:hidden;background:#e4e1d8;color:#23403c;font-family:system-ui,sans-serif}canvas{display:block;touch-action:none;width:100vw;height:100vh}
-  header{position:fixed;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;pointer-events:none}header>*{pointer-events:auto}strong{padding:10px 14px;background:#fff9eae8;border-radius:5px;font-size:14px;margin-right:auto}button{font:500 13px system-ui;min-width:44px;min-height:44px;border:1px solid #8c9a8c;background:#fff9eae8;color:#23403c;border-radius:5px;padding:6px 12px;cursor:pointer}button[aria-pressed=true]{background:#234d43;color:#fff2d2}output{position:fixed;left:16px;bottom:12px;max-width:calc(100vw - 32px);font-size:12px;background:#fff9eae8;padding:9px 12px;border-radius:4px}#error{color:#8b302c;font-size:15px;white-space:pre-wrap}
+  header{position:fixed;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;pointer-events:none}header>*{pointer-events:auto}strong{padding:10px 14px;background:#fff9eae8;border-radius:5px;font-size:14px;margin-right:auto}select{min-height:44px;max-width:150px;background:#fff9ea;color:#23403c}#scrub{width:100px}button{font:500 13px system-ui;min-width:44px;min-height:44px;border:1px solid #8c9a8c;background:#fff9eae8;color:#23403c;border-radius:5px;padding:6px 12px;cursor:pointer}button[aria-pressed=true]{background:#234d43;color:#fff2d2}output{position:fixed;left:16px;bottom:12px;max-width:calc(100vw - 32px);font-size:12px;background:#fff9eae8;padding:9px 12px;border-radius:4px}#error{color:#8b302c;font-size:15px;white-space:pre-wrap}
   @media(max-width:700px){strong{font-size:12px;padding:8px}header{gap:4px;top:6px;left:6px;right:6px}button{padding:6px 9px}output{font-size:11px;left:8px;bottom:8px}}
 </style>
 <canvas id="view"></canvas>
-<header><strong>研究样板 · 建模验收台</strong><button data-view="front">正面</button><button data-view="side">侧面</button><button data-view="back">背面</button><button data-view="above">俯视</button><button id="grey" aria-pressed="false">灰模</button><button id="grid" aria-pressed="false">米尺</button><button id="reset">复位</button><button id="open">打开本地GLB</button><input id="file" type="file" accept=".glb,model/gltf-binary" hidden></header>
+<header><strong>研究样板 · 建模验收台</strong><select id="source" aria-label="高精原始素材"><option value="">选择原始素材</option><option value="../assets/library/dragons/grab3d/cartoon-dragon/source.glb">幼龙原件 · 80万面</option><option value="../assets/library/dragons/grab3d/chinese-dragon/source.glb">中国龙原件 · 80万面</option><option value="../assets/library/curated-polyhaven/chinese_screen_panels/chinese_screen_panels_1k.gltf">新增屏风原件</option><option value="../assets/library/curated-polyhaven/chinese_stool/chinese_stool_1k.gltf">新增木凳原件</option></select><button data-view="front">正面</button><button data-view="side">侧面</button><button data-view="back">背面</button><button data-view="above">俯视</button><button id="grey" aria-pressed="false">灰模</button><button id="grid" aria-pressed="false">米尺</button><button id="reset">复位</button><select id="morph" aria-label="面部表情" hidden><option value="">自然表情</option><option value="Blink">眨眼</option><option value="Smile">微笑</option><option value="Speak">说话口型</option><option value="BrowRaise">抬眉</option></select><select id="clip" aria-label="动画片段" hidden></select><button id="play" aria-pressed="false" hidden>播放</button><input id="scrub" aria-label="动画时间" type="range" min="0" max="1" step=".001" value="0" hidden><button id="open">打开本地GLB</button><input id="file" type="file" accept=".glb,model/gltf-binary" hidden></header>
 <output id="status">载入完整三维样板…</output><output id="error" hidden></output>
 <script src="../vendor/three.compat.min.js"></script>
 <script src="../vendor/rendering-addons.js"></script>
@@ -18,8 +18,12 @@
 'use strict';
 const T=THREE, canvas=document.querySelector('#view');
 const renderer=new T.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+</script>
+<script src="../src/04-compatibility.js"></script>
+<script>
+'use strict';
 renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.06;
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.setPixelRatio(devicePixelRatio);
 const scene=new T.Scene();scene.background=new T.Color(0xe4e1d8);
 const camera=new T.PerspectiveCamera(42,1,.08,160);
 scene.add(new T.HemisphereLight(0xfff6e6,0x747c69,.85));
@@ -33,6 +37,25 @@ const ground=new T.Mesh(new T.PlaneGeometry(80,80),new T.MeshStandardMaterial({c
 const grid=new T.GridHelper(32,32,0x6a8574,0xa1ab9b);grid.position.y=.006;grid.visible=false;scene.add(grid);
 const neutral=new T.MeshStandardMaterial({color:0x90958f,roughness:.86});
 let model=null,theta=.62,phi=1.29,radius=24,dirty=true,grey=false,modelRadius=10,loadId=0;
+let mixer=null,clipAction=null,clips=[],playing=false,lastAnimationTime=0;
+const morphSelect=document.querySelector('#morph');
+morphSelect.addEventListener('change',()=>{model?.traverse(o=>{if(!o.morphTargetInfluences)return;o.morphTargetInfluences.fill(0);const i=o.morphTargetDictionary[morphSelect.value];if(i!==undefined)o.morphTargetInfluences[i]=morphSelect.value==='Blink'?1:.45;});dirty=true;draw()});
+const clipSelect=document.querySelector('#clip'),playButton=document.querySelector('#play'),scrub=document.querySelector('#scrub');
+function chooseClip(name){
+ mixer?.stopAllAction();playing=false;playButton.textContent='播放';playButton.setAttribute('aria-pressed','false');
+ const clip=clips.find(c=>c.name===name);clipAction=clip?mixer.clipAction(clip):null;
+ if(clipAction){clipAction.reset().play();mixer.setTime(0);frameAnimatedPose()}scrub.value=0;dirty=true;draw();
+}
+clipSelect.addEventListener('change',()=>chooseClip(clipSelect.value));
+playButton.addEventListener('click',()=>{if(!clipAction)return;playing=!playing;playButton.textContent=playing?'暂停':'播放';playButton.setAttribute('aria-pressed',String(playing));lastAnimationTime=performance.now();if(playing)requestAnimationFrame(animateReview)});
+scrub.addEventListener('input',()=>{if(!clipAction)return;playing=false;playButton.textContent='播放';playButton.setAttribute('aria-pressed','false');mixer.setTime(Number(scrub.value)*clipAction.getClip().duration);dirty=true;draw()});
+function frameAnimatedPose(){
+ if(!model)return;model.updateMatrixWorld(true);model.traverse(o=>{if(o.isSkinnedMesh)o.skeleton.update()});
+ const box=new T.Box3().setFromObject(model,true),size=box.getSize(new T.Vector3());
+ if(box.isEmpty())return;target.copy(box.getCenter(new T.Vector3()));modelRadius=size.length()/2;fit();
+ ground.position.y=box.min.y-.012;grid.position.y=box.min.y+.006;window.__modelReview.bounds=size.toArray();
+}
+function animateReview(now){if(!playing||!clipAction)return;mixer.update(Math.min(.05,(now-lastAnimationTime)/1000));lastAnimationTime=now;scrub.value=clipAction.time/clipAction.getClip().duration;dirty=true;draw();requestAnimationFrame(animateReview)}
 const target=new T.Vector3(0,4.15,0),savedMaterials=new Map();
 function draw(){
  if(!dirty)return;dirty=false;
@@ -60,37 +83,42 @@ document.querySelector('#grid').addEventListener('click',e=>{grid.visible=!grid.
 document.querySelector('#reset').addEventListener('click',()=>{theta=.62;phi=1.29;fit();dirty=true;draw()});
 resize();
 const loader=new ChanganRenderingAddons.GLTFLoader();
-window.__modelReview={ready:false,view,draw,renderer,scene,camera,get model(){return model},get grey(){return grey}};
+window.__modelReview={ready:false,view,draw,renderer,scene,camera,get mixer(){return mixer},get clips(){return clips},get playing(){return playing},chooseClip,get model(){return model},get grey(){return grey}};
 function dispose(object){
- const geometries=new Set(),materials=new Set(),textures=new Set();
- object?.traverse(o=>{if(!o.isMesh)return;geometries.add(o.geometry);const original=savedMaterials.get(o)??(Array.isArray(o.material)?o.material:[o.material]);const greySet=[o.userData.reviewGreyMaterial].flat();for(const m of [...original,...greySet]){if(!m||m===neutral)continue;materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
- geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
+ const geometries=new Set(),materials=new Set(),textures=new Set(),skeletons=new Set();
+ object?.traverse(o=>{if(!o.isMesh)return;geometries.add(o.geometry);if(o.isSkinnedMesh)skeletons.add(o.skeleton);const original=savedMaterials.get(o)??(Array.isArray(o.material)?o.material:[o.material]);const greySet=[o.userData.reviewGreyMaterial].flat();for(const m of [...original,...greySet]){if(!m||m===neutral)continue;materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
+ skeletons.forEach(s=>s.dispose());geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
 }
 function failure(error,id){if(id!==loadId)return;document.querySelector('#error').hidden=false;document.querySelector('#error').textContent='样板载入失败：'+(error.message||error);window.__modelReview.error=String(error);window.__modelReview.ready=!!model;}
 function install(gltf,label,id){
  if(id!==loadId){dispose(gltf.scene);return;}
  const next=gltf.scene;next.updateMatrixWorld(true);const box=new T.Box3().setFromObject(next),size=box.getSize(new T.Vector3());
  if(box.isEmpty()||!size.toArray().every(Number.isFinite)||size.length()<=0){dispose(next);throw Error('模型为空或包围盒无效');}
- if(model){scene.remove(model);dispose(model);}savedMaterials.clear();model=next;let triangles=0,meshes=0;
+ playing=false;mixer?.stopAllAction();if(model){scene.remove(model);dispose(model);}savedMaterials.clear();model=next;LegacySkinning.prepareScene(model);let triangles=0,meshes=0;
  model.traverse(o=>{if(!o.isMesh)return;meshes++;triangles+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;o.castShadow=o.receiveShadow=true;
  const materials=Array.isArray(o.material)?o.material:[o.material];savedMaterials.set(o,materials);o.userData.reviewMaterial=o.material;
  const greys=materials.map(m=>{
-  m.envMapIntensity=.35;
-  if(!m.alphaTest&&!m.transparent)return neutral;
+  // Preserve source PBR material values in the desktop review.
+  if(!m.alphaTest&&!m.transparent){
+   if(!o.isSkinnedMesh||renderer.capabilities.isWebGL2)return neutral;
+   const g=neutral.clone(),size=o.skeleton.boneTexture.image.width;g.onBeforeCompile=s=>{s.uniforms.boneTextureSize={value:size}};g.customProgramCacheKey=()=> 'review-grey-webgl1-bones-'+size;return g;
+  }
   const g=new T.MeshStandardMaterial({color:0x90958f,roughness:.86,map:m.map,alphaMap:m.alphaMap,alphaTest:m.alphaTest,transparent:m.transparent,opacity:m.opacity,side:m.side,depthWrite:m.depthWrite});
   // Keep source image alpha, while removing image RGB from the grey silhouette.
   g.onBeforeCompile=s=>{s.fragmentShader=s.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\n diffuseColor.rgb = vec3(0.2789, 0.3005, 0.2747);');};
+  if(o.isSkinnedMesh&&!renderer.capabilities.isWebGL2){const hook=g.onBeforeCompile,size=o.skeleton.boneTexture.image.width;g.onBeforeCompile=(s,r)=>{hook(s,r);s.uniforms.boneTextureSize={value:size}};g.customProgramCacheKey=()=> 'review-mask-grey-webgl1-bones-'+size;}
   return g;
  });
  o.userData.reviewGreyMaterial=Array.isArray(o.material)?greys:greys[0];if(grey)o.material=o.userData.reviewGreyMaterial;
  });
+ morphSelect.hidden=true;morphSelect.value='';model.traverse(o=>{if(o.morphTargetInfluences?.length)morphSelect.hidden=false;});clips=gltf.animations||[];mixer=new T.AnimationMixer(model);clipSelect.replaceChildren();for(const clip of clips){const option=document.createElement('option');option.value=option.textContent=clip.name;clipSelect.append(option);}for(const control of [clipSelect,playButton,scrub])control.hidden=!clips.length;clipAction=null;playButton.textContent='播放';playButton.setAttribute('aria-pressed','false');scrub.value=0;
  scene.add(model);target.copy(box.getCenter(new T.Vector3()));modelRadius=size.length()/2;fit();
  ground.position.y=box.min.y-.012;ground.scale.setScalar(Math.max(1,modelRadius/20));grid.position.y=box.min.y+.006;
  sun.position.copy(target).add(new T.Vector3(1,1.7,1.5).multiplyScalar(modelRadius*2));sun.target.position.copy(target);
  Object.assign(sun.shadow.camera,{left:-modelRadius*1.5,right:modelRadius*1.5,top:modelRadius*1.5,bottom:-modelRadius*1.5,near:.01,far:modelRadius*10});sun.shadow.camera.updateProjectionMatrix();
  Object.assign(window.__modelReview,{ready:true,error:null,triangles,meshes,bounds:size.toArray(),source:label});
  document.querySelector('#error').hidden=true;document.querySelector('#status').textContent=`研究样板，未部署全城 · ${label} · 拖动旋转 / 滚轮缩放 · ${Math.round(triangles).toLocaleString()} 三角形`;
- dirty=true;draw();
+ if(clips.length)chooseClip(clips[0].name);dirty=true;draw();
 }
 async function loadLocal(file){
  if(!file)return;const id=++loadId;window.__modelReview.ready=false;
@@ -98,8 +126,9 @@ async function loadLocal(file){
 }
 document.querySelector('#open').addEventListener('click',()=>document.querySelector('#file').click());
 document.querySelector('#file').addEventListener('change',e=>{loadLocal(e.target.files[0]);e.target.value='';});
+document.querySelector('#source').addEventListener('change',e=>{if(e.target.value){const u=new URL(location.href);u.searchParams.set('model',e.target.value);location.href=u.href;}});
 const requested=new URLSearchParams(location.search).get('model')||'../assets/library/architecture/timber-shop/runtime.glb';
 const id=++loadId;
-try{const url=new URL(requested,location.href);if(url.origin!==location.origin||!url.pathname.toLowerCase().endsWith('.glb'))throw Error('仅允许本站GLB路径');loader.load(url.href,gltf=>{try{install(gltf,decodeURIComponent(url.pathname.split('/').pop()),id);}catch(e){failure(e,id);}},undefined,e=>failure(e,id));}catch(e){failure(e,id);}
+try{const url=new URL(requested,location.href);if(url.origin!==location.origin||!(/\.(glb|gltf)$/i).test(url.pathname))throw Error('仅允许本站GLB/glTF路径');loader.load(url.href,gltf=>{try{install(gltf,decodeURIComponent(url.pathname.split('/').pop()),id);}catch(e){failure(e,id);}},undefined,e=>failure(e,id));}catch(e){failure(e,id);}
 </script>
 </html>

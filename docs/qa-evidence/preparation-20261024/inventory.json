@@ -1,7 +1,7 @@
 {
   "checked_on": "2026-10-24",
   "scope": "Preparation inventory and input/cost audit only; separate from browser tests, licence legal interpretation and visual release",
-  "resource_records": 116,
+  "resource_records": 140,
   "contract_families": 17,
   "metadata_complete": true,
   "source_inputs_exist": true,
@@ -216,6 +216,336 @@
       "path": "assets/library/characters/blender-studio/README.md",
       "bytes": 2636,
       "sha256": "61ebdcff4d242adb4c13fa9f159fe17de69cb25a0c7e50ab1ec1832c0a1978f9"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/ReadMe.txt",
+      "bytes": 586,
+      "sha256": "7ff178c6b8640951567c85debc5520323cc2f4fb64f071df618ef75261d98399"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/einar_release_v1.blend.gz",
+      "bytes": 90952226,
+      "sha256": "fc2b89eaff4156ae06666b33d193637ce025a1eba96e2505322e33285977fbc3"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/manifest.json",
+      "bytes": 12682,
+      "sha256": "bce9c268e08410e6c179cbe1441a47be614b35e5034a1faee3f2011dce6ba46c"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/clothing/disp_clothing_default.exr",
+      "bytes": 3465390,
+      "sha256": "382a1a05a0e35a163021d744910b660e2fb82dc47d65800a221af4cd763525ae"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/clothing/disp_clothing_shapes_A.exr",
+      "bytes": 3667799,
+      "sha256": "d9520005291b59a83afa564efbe14913fc86d6929f1d79f827c0a49d550c1b69"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/clothing/disp_clothing_shapes_B.exr",
+      "bytes": 3501817,
+      "sha256": "e9aa4ee9887d9709f8d2b82e7db4c895dcce7337b0773785b3567751c1fd947f"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/clothing/disp_clothing_shapes_C.exr",
+      "bytes": 3539328,
+      "sha256": "ebf1544f895ce0826fce411f8fc40b71e773d4a9c8914f28ff8d3b7aa1a349f2"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/clothing/disp_clothing_shapes_D.exr",
+      "bytes": 3468853,
+      "sha256": "24462afb8695e42c28302e88fbb1ac0aec634cf793f7466b39e33908d5d90fed"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/clothing/disp_clothing_shapes_E.exr",
+      "bytes": 3489396,
+      "sha256": "89da98afe9705dee7ba2eb89c248823c1adb81f8b82d3131522a599336064a92"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_default.exr",
+      "bytes": 3351552,
+      "sha256": "782488ea8f9107c41a93465a0dcdf31894ce18885cc65c0e2e88241a7d6fe116"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_facial_shapes_A.exr",
+      "bytes": 3420824,
+      "sha256": "ffbd1a8ecf04d319f9b1b9c71a95814c270c3f25a9d075ca2f68b4e9a5762255"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_facial_shapes_B.exr",
+      "bytes": 3373479,
+      "sha256": "2fde161c4d2876d703bc12c74abbcc87ad91293ad45ee522b2239bdaf9468a76"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_facial_shapes_C.exr",
+      "bytes": 3385990,
+      "sha256": "6454b77ae02686b809d6ce2e5377030f02c0aa35b4216bd31518c08e7fe10442"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_facial_shapes_D.exr",
+      "bytes": 3367862,
+      "sha256": "c43549bf6853d8491c84e7b037e366dff3ca1f59a4fb2d8d7f5bf75235d21bc0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_facial_shapes_E.exr",
+      "bytes": 3480125,
+      "sha256": "e2d1c9e7a22e9e6ad96676eaa2836dc693d4c5742b2ba6da6fd5d7472d6ccd0a"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/disp_facial_shapes_F.exr",
+      "bytes": 3405600,
+      "sha256": "57602b83193efee09adfa8d00513b50a09920b42eafd7d95eb5810ba7813c1f5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/shapes-A-B-C-D.tif",
+      "bytes": 63992578,
+      "sha256": "5e41e600bce906e23cfc641fe7a573c73384d136967c5532185f4b3e5fbc1ac1"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/displacement/face/shapes-E-F-DEFAULT-DETAIL.tif",
+      "bytes": 72356430,
+      "sha256": "28dab7a1dd6cdad9056c1413b2b8459d2fbe231ec7f664feb34980824b3bc638"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.clothing.color_base.tif",
+      "bytes": 1248466,
+      "sha256": "b15a6419326dba8fd8dfe581100c81c36f0228a2ffb88b6dd660ae5dc1d7733b"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.clothing.normal_base.tif",
+      "bytes": 17831598,
+      "sha256": "e6dcf88e032270c9ab31b69c6d10257343832e3ce9ad16dc2c6127b6bdde9688"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.clothing.pointiness.tif",
+      "bytes": 7717336,
+      "sha256": "dd693f72d17a4f0e820e67e025bf2f5a24061d234cc979b5bfec73acf8778ed0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.fingers.normal.tif",
+      "bytes": 874228,
+      "sha256": "4c3f00dd34bbae113282b0c05a21455f8f8f42b8ff531d6d210204a01912e392"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.fingers.pointiness.tif",
+      "bytes": 116966,
+      "sha256": "7fc3b64060c7244546d45c7bb6e6b54e5ab3b149abadc0e4eacf22cb1b18868a"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.fingers.vector_displacement.tif",
+      "bytes": 942366,
+      "sha256": "6150045232f0fdcbfc0db0e6a19f539dc8403513c3ff1e8f3935218102451a69"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.hair.color.tif",
+      "bytes": 107628,
+      "sha256": "981d152ea5cc45875ef7e0a6736f847c7f541f7e75dc7939cadf4d545a104a4b"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.normal_base.1001.tif",
+      "bytes": 74198808,
+      "sha256": "5b8ad24446c1c530e3d632da5340cc95dd0262186b7c6d42a33bf19827af4c15"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.normal_base.1002.tif",
+      "bytes": 59056942,
+      "sha256": "a645b2d0260fed72474cea1664795135af71fa492e554ad77805da69567262c3"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.normal_base.1003.tif",
+      "bytes": 55457316,
+      "sha256": "5b08341eb028d7be7e5eaafe2220055ded8793e8c32886f3d8c17ce9b818711a"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.pointiness.1001.tif",
+      "bytes": 2073408,
+      "sha256": "7da66485d76e2905bb56c6955acde4315bca6e123b396a59f89895b0f8e64c61"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.pointiness.1002.tif",
+      "bytes": 1843174,
+      "sha256": "84ee72b4c160eab6def9040da63e6d81644beb5c983b20ba873b468db2cf863d"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.pointiness.1003.tif",
+      "bytes": 1894968,
+      "sha256": "d19af4a56dfe35f3b497ffea15d51797fdadf5bc8612715078269723c18f4099"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.robot_arm.pointiness.1004.tif",
+      "bytes": 353850,
+      "sha256": "42e7cab51c3269998df6682ac5879acf5fcea94e6af507d356a21a8e4bb9641b"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/einar.shoes.bump.tif",
+      "bytes": 857858,
+      "sha256": "a9a39cf3613fa6f0bcd0c78e8f9ec67c21885921a88e148db1f6201262a2dbe9"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/distress_stages.tif",
+      "bytes": 64278,
+      "sha256": "83a9d86658c42677e97bccd3ebe6c8f394b47e8359beb996b7616fde313ca101"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/einar.beard.dirt.tif",
+      "bytes": 82764,
+      "sha256": "ea426a525ed923f0ef86c31ad9686e3c773f5a0f9df854239e4ab109bcb2a540"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/einar.bruises.albedo.tif",
+      "bytes": 5022924,
+      "sha256": "b426cf24c48cc9392fa21c4ada85b2f17d76c5287cf96cea78b6f5d5262709fd"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/einar_skin.albedo.tif",
+      "bytes": 10533376,
+      "sha256": "c0ec5e11fae8e516f3a0dd18e612ab4b9a9ab810bf01f63d098a401fe05af7a4"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/einar_skin.dirt.tif",
+      "bytes": 170710,
+      "sha256": "e85b6ff460a91e0d74a24f7e93f37456bb99302be553a74ea07adf1d58e08533"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/einar_skin.roughness.tif",
+      "bytes": 66630,
+      "sha256": "e35cb48cd5b62918682b9f1d8064493b587304a0efc254520991e25efd0766b7"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/eyes.albedo.tif",
+      "bytes": 2723828,
+      "sha256": "71b34e20f7041108f2e1d0dbe3183d3126c157dde7f88b631d2a88ede527829e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/face/iris_depth.tif",
+      "bytes": 517662,
+      "sha256": "57d00aabf3a12a720b50a67876fdb88758d39bb85e702b81d8a34efe7de920dc"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/road_sign.color.tif",
+      "bytes": 14684,
+      "sha256": "069a2f2f4e783e79c442012a51922de948bdfe5b4ab1481878ebb1ee3896862a"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/road_sign.distance.tif",
+      "bytes": 62136,
+      "sha256": "4b21daa43a06b91e6f7babdafc251366c572cb126e99e7400a7e26c903e919da"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/road_sign.normal.tif",
+      "bytes": 150892,
+      "sha256": "6705071456fd745f885255b0e090d684f8a2d98f452a34923dadc6394dfa04ec"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/satchel.base.tif",
+      "bytes": 254406,
+      "sha256": "c96b6b2f3f33db8f4cfaafcf6e0324bcb3d6fdcde82fdcf84964785358f3bef2"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/sweater.pattern.tif",
+      "bytes": 820,
+      "sha256": "de968f5d9a8a8f1a24bf04a3ef5f3adeef25b9fce55e08cec156c21afc6bf42e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/canvas_01.disp.tif",
+      "bytes": 2060368,
+      "sha256": "50fdd43c7003ef6181cb2d5476ae0d7b25ca671b165633d10134fd72f46eb7e9"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/canvas_01.normal.tif",
+      "bytes": 6269982,
+      "sha256": "aed8ee49f4f6ff77695d263e998733ceb90bc19a775aab85ee3230279f0a8e93"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/dents_01.normal.tif",
+      "bytes": 344014,
+      "sha256": "cc285e2b4bc9607faca452aaf32dc4fdc777271e5daee364923598139fc912bb"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/grime_01.tif",
+      "bytes": 2052658,
+      "sha256": "4086baedd73bc03dd8ca05768cfef177ded4444e3b62c5ac2754a1662526ed9c"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/knit_01.disp.tif",
+      "bytes": 2037980,
+      "sha256": "bd6e6659ca3230d9788864f7b4fdc31040e048bc0d17547afce6cd05c0b5ba5d"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/knit_01.normal.tif",
+      "bytes": 6290060,
+      "sha256": "25de366896c9d04595f2c9ce017834557571606e12d382dded2afb291cd782ed"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/knit_01.tile_uv.tif",
+      "bytes": 1496626,
+      "sha256": "0ac310656208d3dad414f61a302fb94f833c3a26b6d7ccc6e0039c852bb69e97"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/noise_01.tif",
+      "bytes": 1542264,
+      "sha256": "76792bf7aff765dd77ded49bf55797d49bbf65991c08317504b1a1b957346460"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/noise_03.tif",
+      "bytes": 6151092,
+      "sha256": "d443a9a2990c88ffd3d991d53f8b0a14504bf501dab8d63a843eb38d7aa595a4"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/noise_04.tif",
+      "bytes": 6162662,
+      "sha256": "325887d12dbe7ca0a37bdd1e67491ca0e325b27f3e9b476fa6505d6867084238"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/noise_06.tif",
+      "bytes": 1559162,
+      "sha256": "4a3a34e3de87dfd3248ca3b338680c12738212b9e2c502f895464301e27c7067"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/scratches_01.disp.tif",
+      "bytes": 1919118,
+      "sha256": "efad77cf6cd66a0166f3b7ce56deaa8d6ccb49d277fe00ddb1a93a65d774520e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/scratches_01.normal.tif",
+      "bytes": 5657578,
+      "sha256": "0b051c01c054e82501c4f935c1b866a5e4e865f596f448ea1e49947c463cbc7d"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/seams.disp.tif",
+      "bytes": 357926,
+      "sha256": "6af1fc063752a4f6bee3b185a16c3d9050976eab3c5c3d408001723d0b5de431"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/seams.normal.tif",
+      "bytes": 1042446,
+      "sha256": "1fa10aaf3b27f2219be19af01a54372f61e6176858efadd4a1223a03a4c7b76c"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/textile_01.disp.tif",
+      "bytes": 2036036,
+      "sha256": "9cc9b50f5041143b29edf65d339e3949a2f0c50d1fb04fb6302f341b71948133"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/textile_01.normal.tif",
+      "bytes": 6269742,
+      "sha256": "4fd5f950c4119b3f8321437a392ab1bd80bfdee4ae1be04159c9959d9cd7ed68"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/textile_02.disp.tif",
+      "bytes": 2020112,
+      "sha256": "ee09aa2625f73ffe98521cf96e0fb11c6680b0a54b91e693de3ff8838c2574db"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/textile_02.normal.tif",
+      "bytes": 6272712,
+      "sha256": "8f1e8e0c595d3c0968530ad8099039a07b9353c61cee5984f2afc3182065588b"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/einar/textures/tileable/textile_02.tile_uv.tif",
+      "bytes": 3143352,
+      "sha256": "e899c28daef393f4c5e7fb6d48aeba1d86fbf0b8484daa73639fc4426f9617c8"
     },
     {
       "path": "assets/library/characters/blender-studio/rain/ReadMe.txt",
@@ -531,6 +861,211 @@
       "path": "assets/library/characters/makehuman-base/manifest.json",
       "bytes": 3168,
       "sha256": "06542f3df5af3a893a18e1de745d75fb7375a1e0dc440e0e38069ce601c507b7"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/README.md",
+      "bytes": 1522,
+      "sha256": "812ce7ea4ef7712885032912a8d292ebb9e324568237f7d1133d4cf1f4d282c7"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/brown.mhmat",
+      "bytes": 1247,
+      "sha256": "4abad93ce50541c08127721e77bce035640c9f16bed16cd0f5524b1cd5908465"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/brown_eye.png",
+      "bytes": 610817,
+      "sha256": "4659691c7295ad6206c78b003e5fd0e5f91dcd53032fa914a229bb48cabe424b"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/eye-left-closure.target",
+      "bytes": 3926,
+      "sha256": "96d43015f95af63d1d5d64c2d234ac29571d7b05a21e900cf5ee15a246337ebf"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/eye-right-closure.target",
+      "bytes": 3756,
+      "sha256": "772a8a1c62dac36fa2ed6b0808d167bda298ec1ece956af0561e7324a0c91a6b"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/eyebrows-left-up.target",
+      "bytes": 1381,
+      "sha256": "4f770b7281ed9502c2e164850e41265310a445d0534bbc9a8faa949c05677775"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/eyebrows-right-up.target",
+      "bytes": 1486,
+      "sha256": "496a446cb77aad463dfd952a8a648e758ee0954c64a96a4e4412f9a042391881"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/high-poly.mhclo",
+      "bytes": 72490,
+      "sha256": "b183cfe37120ab726f9b3f2ea6cd3a64c44ce7b4bd91a77c841cf70c04f83a0d"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/high-poly.obj",
+      "bytes": 100882,
+      "sha256": "da2493215b708a344c33dc72f2a9a5b8fa985dcc5a70ad3b208995cf871da8e1"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/manifest.json",
+      "bytes": 5261,
+      "sha256": "fa5e2456d7c82e5d57bf12358b7d6f63bffb3bf1237b472bc0f1c060c4c9dbf6"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/mouth-corner-puller.target",
+      "bytes": 15163,
+      "sha256": "75ec1f2356c381aa44065f2b812daafae85c5a918843b978d04cf6d8bc79dbe4"
+    },
+    {
+      "path": "assets/library/characters/makehuman-details/mouth-parling.target",
+      "bytes": 4095,
+      "sha256": "2da1d3143b3fcf4193629fc5c26b015b8c505cc3258dc41ecd3e20d598b65ccb"
+    },
+    {
+      "path": "assets/library/characters/tang-studies/README.md",
+      "bytes": 3780,
+      "sha256": "6d83798451405a939ff2d6fc100b3d83b32b4588e47f4b9d070183db306cdcc3"
+    },
+    {
+      "path": "assets/library/characters/tang-studies/female.glb",
+      "bytes": 2019336,
+      "sha256": "4f44a66518a72f9a04dafdade445cf4a349d08e6e5016182bd106f1b4006370f"
+    },
+    {
+      "path": "assets/library/characters/tang-studies/male.glb",
+      "bytes": 2137380,
+      "sha256": "17529cd8f214c6a4e8104b5334e9a8be5b6bd3979b9d1b53367f7900173d23f0"
+    },
+    {
+      "path": "assets/library/characters/tang-studies/manifest.json",
+      "bytes": 2292,
+      "sha256": "1683ab775177aeea2c2a625ed180ccb290df8f384649436e7d2c0d61e97050fe"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/README.md",
+      "bytes": 2774,
+      "sha256": "6192c835c65705eabddd1137e20960441a479803b4511e7cd738060d914ceb5a"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_screen_panels/chinese_screen_panels.bin",
+      "bytes": 35936,
+      "sha256": "34a2f03180313ed4dbf6ac8dd6c0277b1b873929daf6bf8f06a209af6c9b2fc3"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_screen_panels/chinese_screen_panels_1k.gltf",
+      "bytes": 4225,
+      "sha256": "80eea5b87ed1355f4628c791dc14d7c45ce77888ee9314aa97d92438d43b61a2"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_screen_panels/textures/chinese_screen_panels_arm_1k.jpg",
+      "bytes": 558223,
+      "sha256": "fec093ccc5d21ed333c3ef489c0b71cc067359a6fbda62146fb39826425d5f93"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_screen_panels/textures/chinese_screen_panels_diff_1k.jpg",
+      "bytes": 666440,
+      "sha256": "2240dd186b02a778871cc55348e392f05f9bc451882896ec7457895cf7cbcb9d"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_screen_panels/textures/chinese_screen_panels_nor_gl_1k.jpg",
+      "bytes": 428108,
+      "sha256": "e887b7e2ce2483fe835ddc8978dd42704505d110ec72e07c84bfef916205ef80"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_stool/chinese_stool.bin",
+      "bytes": 40172,
+      "sha256": "e35c9440fc0751aa9346e6edbfe0bf948f0f7dd1b40be2ef57d0b6debec5b8af"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_stool/chinese_stool_1k.gltf",
+      "bytes": 2883,
+      "sha256": "6db83b16076496830f956780890480d3cb1e34c80359b5ea8cb0e7afd42572c6"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_stool/textures/chinese_stool_arm_1k.jpg",
+      "bytes": 578268,
+      "sha256": "59fb42eb0c3c1684905d94bbf11fd640921325e19dfe8b46cae04ac5b7be36d5"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_stool/textures/chinese_stool_diff_1k.jpg",
+      "bytes": 542758,
+      "sha256": "a7f84ff302df80b079b47a268ecaea6e9f072b51d7e5dcebdeb7ee6278595e85"
+    },
+    {
+      "path": "assets/library/curated-polyhaven/chinese_stool/textures/chinese_stool_nor_gl_1k.jpg",
+      "bytes": 629035,
+      "sha256": "a44344f2d8ea289ec7642272de42d449059f2f2b175cf64d5db5d2447c56f7aa"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/LICENSE.txt",
+      "bytes": 665,
+      "sha256": "a15412842aa03ed7746551767e80808a9303edbbca02a06cfbcf354dfbd0ad27"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/inspection-lod.glb",
+      "bytes": 3460828,
+      "sha256": "f25599b27e916baa7b3f452401d9ebd61589a9c878e2e863bb2ce8432e58a80a"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/inspection-lod.json",
+      "bytes": 1227,
+      "sha256": "b24e3a194610a6f74118067512f6b1a3e7d31caeb6ae8e305417ce05180629c1"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/manifest.json",
+      "bytes": 2251,
+      "sha256": "fc09ee665d7749e749b1026c6c369e40293b5146fd8ef9d4f034c60e15df3490"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/source.blend",
+      "bytes": 33660170,
+      "sha256": "4a2d07d527703233d49b968307a52d395d58774043b4c3016dceef86754c9713"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/source.glb",
+      "bytes": 26105836,
+      "sha256": "cbe6afbb01e21f7bc272fe6aa706bf3d234cf1c768f01836fedf924aaf80c6cc"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/upstream-manifest.json",
+      "bytes": 1144,
+      "sha256": "bcd46a575609400c7985d21119f3250d269e3d9c16235b78c2930b605b0cc01d"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/LICENSE.txt",
+      "bytes": 665,
+      "sha256": "a15412842aa03ed7746551767e80808a9303edbbca02a06cfbcf354dfbd0ad27"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/inspection-lod.glb",
+      "bytes": 4360320,
+      "sha256": "35d657d3411f7c7e6fb978f864cbc743f47ed3c099c8f972a7d8a2a8ffd59a76"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/inspection-lod.json",
+      "bytes": 1227,
+      "sha256": "4ae6e35d4e8bbadfafc85f285b75df0c0c7cfaba348f066f8bef4385aca3ab93"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/manifest.json",
+      "bytes": 2251,
+      "sha256": "17ad4cff8130b77025f5962a7fa581dc9c8968a78ec8f0ba2ab2efc330df2f3e"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/source.blend",
+      "bytes": 37459029,
+      "sha256": "3357556ea7f37d5f8e2f89c463315cb79c5a43d241dc99039bd97b6ad81fe3d6"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/source.glb",
+      "bytes": 30352284,
+      "sha256": "20efc219f26dccd9ca8dba4ee92e559918f45dace451bbc06ec072f47dbc01e5"
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/upstream-manifest.json",
+      "bytes": 1144,
+      "sha256": "7c0cbe5df2e24998a67832e39786303970f08953b537f928eee7065d4ad924f4"
     },
     {
       "path": "assets/library/environment-audio/README.md",
@@ -1566,6 +2101,16 @@
       "path": "assets/library/preparation-study/manifest.json",
       "bytes": 2210,
       "sha256": "df1f9c04864563662cee8510a6cb60edd3e2c5c8821bfafe1b908624e40a173c"
+    },
+    {
+      "path": "assets/library/preparation-study/natural-unified.glb",
+      "bytes": 9336256,
+      "sha256": "b6ffea5d53183c773d57b3c128bc39796a0ab499134cb7d858b26567a4ec3b07"
+    },
+    {
+      "path": "assets/library/preparation-study/natural-unified.json",
+      "bytes": 2199,
+      "sha256": "f304e8cb8feba0ddd62b6b95231fb9931b720dd28210af8f8fd9b88c85e6726d"
     },
     {
       "path": "assets/library/production-materials/Fabric081C/asset-info.json",
@@ -3106,6 +3651,268 @@
       "skins": 0,
       "animations": 0,
       "external_dependencies": false
+    },
+    {
+      "path": "assets/library/characters/tang-studies/female.glb",
+      "sha256": "4f44a66518a72f9a04dafdade445cf4a349d08e6e5016182bd106f1b4006370f",
+      "bytes": 2019336,
+      "triangles": 33504,
+      "mesh_primitives": 10,
+      "vertices_after_uv_normal_splits": 19709,
+      "images": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "8aac2917a96a9bca917a3c91621fc95714cf3f2aca451035eedd1fd29ec9618d",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "brown_eye",
+          "width": 512,
+          "height": 512,
+          "sha256": "c74cc6b65f82046ffa99934424ef9409ecd2b379db68df894a4665bb5525dc16",
+          "rgba_mip_upper_bytes": 1398102
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 2796204,
+      "estimated_geometry_bytes": 1258196,
+      "alpha_materials": [
+        {
+          "name": "author brown eyes ordinary PBR",
+          "mode": "BLEND",
+          "cutoff": null
+        }
+      ],
+      "skins": 1,
+      "animations": 2,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/characters/tang-studies/male.glb",
+      "sha256": "17529cd8f214c6a4e8104b5334e9a8be5b6bd3979b9d1b53367f7900173d23f0",
+      "bytes": 2137380,
+      "triangles": 38388,
+      "mesh_primitives": 9,
+      "vertices_after_uv_normal_splits": 22328,
+      "images": [
+        {
+          "name": "brown_eye",
+          "width": 512,
+          "height": 512,
+          "sha256": "c74cc6b65f82046ffa99934424ef9409ecd2b379db68df894a4665bb5525dc16",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "8aac2917a96a9bca917a3c91621fc95714cf3f2aca451035eedd1fd29ec9618d",
+          "rgba_mip_upper_bytes": 1398102
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 2796204,
+      "estimated_geometry_bytes": 1376892,
+      "alpha_materials": [
+        {
+          "name": "author brown eyes ordinary PBR",
+          "mode": "BLEND",
+          "cutoff": null
+        }
+      ],
+      "skins": 1,
+      "animations": 2,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/preparation-study/natural-unified.glb",
+      "sha256": "b6ffea5d53183c773d57b3c128bc39796a0ab499134cb7d858b26567a4ec3b07",
+      "bytes": 9336256,
+      "triangles": 188650,
+      "mesh_primitives": 116,
+      "vertices_after_uv_normal_splits": 137252,
+      "images": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "aa66a0987f55c5aed9baee309e3c2b34ce4ae0264195e5e1e21b0eadedccd1ab",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "d303258a997ee2e867c0b47a021e4b790b1b9781f89076d4e32678144ee4f71a",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "Image_0",
+          "width": 1024,
+          "height": 1024,
+          "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08",
+          "rgba_mip_upper_bytes": 5592406
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "2e2cfc255b9b23e23c7b6a962caf6686c673d3045648568257adeb7cdb1c07e1",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "32c55c41aa7117495c2b0bc01520d029a8240c4fa019b7b8ec65c8b797364fc9",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "e2433ed9b0f8999c4f1809bf4ffd1abad26fef04fb76f9619168e6f96d2c674a",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "8cdabea48b433d6f96153513d02bcadd0a38694639fbe343ede40a7ae203ba8f",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "6f875bc29ad07acfaa09edde056216e31c8255b596a2009546c52589f126f711",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "659367e4418e2ff50ac3afbd4e8e25f3b6b8363ef43820c51b55ec6eb18440ee",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "8aac2917a96a9bca917a3c91621fc95714cf3f2aca451035eedd1fd29ec9618d",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "498baa86421b4b8dd84d1c475e09d2d12b811c44133d3ee8191c7542055e01dd",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "brown_eye",
+          "width": 512,
+          "height": 512,
+          "sha256": "c74cc6b65f82046ffa99934424ef9409ecd2b379db68df894a4665bb5525dc16",
+          "rgba_mip_upper_bytes": 1398102
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 20971528,
+      "estimated_geometry_bytes": 5436092,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": null
+        },
+        {
+          "name": "author brown eyes ordinary PBR",
+          "mode": "BLEND",
+          "cutoff": null
+        },
+        {
+          "name": "author brown eyes ordinary PBR.001",
+          "mode": "BLEND",
+          "cutoff": null
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/dragons/grab3d/cartoon-dragon/source.glb",
+      "sha256": "cbe6afbb01e21f7bc272fe6aa706bf3d234cf1c768f01836fedf924aaf80c6cc",
+      "bytes": 26105836,
+      "triangles": 799999,
+      "mesh_primitives": 1,
+      "vertices_after_uv_normal_splits": 426379,
+      "images": [
+        {
+          "name": "Image_2",
+          "width": 4096,
+          "height": 4096,
+          "sha256": "8c8fa10fdfab16c5be8e7f22f8ad8c30b8cbc2998fc0779e55c5d92d33c43d3c",
+          "rgba_mip_upper_bytes": 89478486
+        },
+        {
+          "name": "Image_0",
+          "width": 4096,
+          "height": 4096,
+          "sha256": "839eb5a19732fecd0bde86cefb1cf3ba49a8a2cdfb364851c1453d9fce63edef",
+          "rgba_mip_upper_bytes": 89478486
+        },
+        {
+          "name": "Image_1",
+          "width": 4096,
+          "height": 4096,
+          "sha256": "e8e20fb83e989927739b398c2012e8c5ad98019082a73f7635265845d5ded16f",
+          "rgba_mip_upper_bytes": 89478486
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 268435458,
+      "estimated_geometry_bytes": 23244116,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/dragons/grab3d/chinese-dragon/source.glb",
+      "sha256": "20efc219f26dccd9ca8dba4ee92e559918f45dace451bbc06ec072f47dbc01e5",
+      "bytes": 30352284,
+      "triangles": 800000,
+      "mesh_primitives": 1,
+      "vertices_after_uv_normal_splits": 448018,
+      "images": [
+        {
+          "name": "Image_2",
+          "width": 4096,
+          "height": 4096,
+          "sha256": "a72f900432fb204d44962e4efab86e0c08f2af25ddf21f6e0b767cd0886eb08f",
+          "rgba_mip_upper_bytes": 89478486
+        },
+        {
+          "name": "Image_0",
+          "width": 4096,
+          "height": 4096,
+          "sha256": "7aebb00ce289c6116a3f2e3a5ecb07048b0641b8f4424269885c1847d0ab2059",
+          "rgba_mip_upper_bytes": 89478486
+        },
+        {
+          "name": "Image_1",
+          "width": 4096,
+          "height": 4096,
+          "sha256": "7bfa8d747b20692414fa5686b30f85e5539462f431725f50b8ab9585dbfd6625",
+          "rgba_mip_upper_bytes": 89478486
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 268435458,
+      "estimated_geometry_bytes": 23936576,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
     }
   ],
   "coverage": [
@@ -3209,7 +4016,7 @@
     {
       "id": "human-base",
       "target_scene": "男女/店主/商旅/文士/守卫/船夫",
-      "acquisition_status": "MakeHuman CC0核心与官方自然成年男/女宏目标取得，最新试片不放大头眼；Snow/Rain原件保留研究，已被用户否决作为造型基准",
+      "acquisition_status": "自然成年男女源+10项官方眼球/表情原件已取得；2个连接唐服/61骨/4morph/2站立经营动作GLB已生成，未部署城市或通过最终美术",
       "source_inputs": [
         {
           "path": "assets/library/characters/makehuman-base/manifest.json",
@@ -3234,6 +4041,18 @@
         {
           "path": "tools/prepare_studio_heads.py",
           "exists": true
+        },
+        {
+          "path": "tools/build_character_studies.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/characters/makehuman-details/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "assets/library/characters/tang-studies/manifest.json",
+          "exists": true
         }
       ],
       "recipe": [
@@ -3244,7 +4063,7 @@
         "输出face/hand.L/R/hip/foot.L/R/prop sockets，近景眼球实几何；头发用体积发束，不引入UE Groom"
       ],
       "production_released": false,
-      "remaining_gap": "自然人物尚需服装剪裁/领袖连接、发式/肤材/表情、精简骨架；不再人为古代化脸型。"
+      "remaining_gap": "自然五官/眼球/表情与缩骨导出已可用；发际/肤材/配饰随表情、生产人脸美术与LOD仍待精修。Snow/Rain仍仅隔离研究。"
     },
     {
       "id": "tang-clothing",
@@ -3505,7 +4324,7 @@
     {
       "id": "animation",
       "target_scene": "角色走骑飞/市井经营/船桨/树叶",
-      "acquisition_status": "旧代码动作/动物动作取得；新人物龙未绑定",
+      "acquisition_status": "自然成年男女源+10项官方眼球/表情原件已取得；2个连接唐服/61骨/4morph/2站立经营动作GLB已生成，未部署城市或通过最终美术",
       "source_inputs": [
         {
           "path": "src/20-character.js",
@@ -3518,6 +4337,18 @@
         {
           "path": "tools/build_preparation_study.py",
           "exists": true
+        },
+        {
+          "path": "tools/build_character_studies.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/characters/makehuman-details/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "assets/library/characters/tang-studies/manifest.json",
+          "exists": true
         }
       ],
       "recipe": [
@@ -3527,7 +4358,7 @@
         "loop首尾姿态/速度一致；glTF普通骨骼+shape keys，禁止依赖离线工具shader或WASM角色框架"
       ],
       "production_released": false,
-      "remaining_gap": "新骨架/权重和动作试片尚缺，不能沿用旧动画通过声明"
+      "remaining_gap": "已执行OfferTray/InspectFabric真实骨骼与道具归属夹具，4真实morph；尚非店铺状态机/生产抓握/走骑飞或脚步接地系统，后续按原合同完成。"
     },
     {
       "id": "soundscape",

@@ -1,0 +1,51 @@
+{
+ "slug": "cartoon-dragon",
+ "triangles": 799999,
+ "texture_px": 4096,
+ "triangles_light": 399998,
+ "texture_px_light": 1024,
+ "files": {
+  "glb": {
+   "name": "cartoon-dragon.glb",
+   "bytes": 26105836
+  },
+  "blend": {
+   "name": "cartoon-dragon.blend",
+   "bytes": 33660170
+  },
+  "fbx": {
+   "name": "cartoon-dragon.fbx",
+   "bytes": 47700844
+  },
+  "obj": {
+   "name": "cartoon-dragon-obj.zip",
+   "bytes": 19149312
+  },
+  "usdz": {
+   "name": "cartoon-dragon.usdz",
+   "bytes": 42256301
+  },
+  "glb_light": {
+   "name": "cartoon-dragon-light.glb",
+   "bytes": 12192752
+  },
+  "fbx_light": {
+   "name": "cartoon-dragon-light.fbx",
+   "bytes": 24077644
+  }
+ },
+ "extras": {
+  "license": "CC0-1.0",
+  "source": "grab3d.com",
+  "dimensions_m": "0.883 x 0.732 x 0.900",
+  "triangles": 799999,
+  "variant": "download",
+  "generator": "Created by grab3d",
+  "created": "2026-09-28"
+ },
+ "origin": {
+  "method": "ai-assisted",
+  "detail": "Base mesh and textures generated with an AI image-to-3D tool (Meshy), then cleaned up, scaled, textured and checked in Blender.",
+  "ai_content": true
+ }
+}

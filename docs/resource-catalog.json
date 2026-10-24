@@ -6,7 +6,7 @@
   "formal_integration_started": false,
   "all_required_production_assets_acquired": false,
   "runtime_glb_sources_before_and_after": 15,
-  "new_acquired_development_source": "MakeHuman core OBJ/rig/weights only; no finished Tang character; plus two Poly Haven CC0 interior glTF source sets (unapproved research only)",
+  "new_acquired_development_source": "MakeHuman source/eyes/expression files; rejected tailoring research; two curated Poly Haven CC0 prop sets; original Einar and two original Grab3D high-resolution dragon sculpts now actually acquired (see local manifests). No production actor approved.",
   "open_critical_gaps": [
     "Approved-style continuous-mesh dragon, expressions, rig, walk/bike/flight motions",
     "Complete Tang-compatible production architecture type families with materials and LOD",
@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 135,
+    "records": 140,
     "by_category": {
       "runtime-engine": 5,
       "vegetation-tool": 2,
@@ -28,8 +28,8 @@
       "rendering": 2,
       "architecture": 22,
       "boats": 5,
-      "clothing": 6,
-      "dragon": 6,
+      "clothing": 7,
+      "dragon": 8,
       "vegetation": 4,
       "animals": 8,
       "bicycle": 1,
@@ -42,13 +42,14 @@
       "material": 24,
       "historical-reference": 12,
       "audio": 8,
-      "source-check": 4
+      "source-check": 5,
+      "character-source": 1
     },
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
       "source_acquired_research": 14,
-      "source_acquired": 1,
+      "source_acquired": 2,
       "offline_tool_candidate": 4,
       "runtime_candidate": 2,
       "reference_only": 26,
@@ -56,8 +57,9 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 31,
-      "rejected_character_style_research_only": 2
+      "preview_candidate": 30,
+      "rejected_character_style_research_only": 4,
+      "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
     "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed."
@@ -5345,25 +5347,24 @@
     },
     {
       "id": "research-20261024-blenderstudio-einar-realistic",
-      "name": "Blender Studio Charge Einar realistic face/rig",
-      "category": "characters",
+      "name": "Einar full original mature human source",
+      "category": "character-source",
       "source_url": "https://studio.blender.org/characters/einar/v1/",
-      "stage": "preview_candidate",
+      "stage": "original_source_acquired_not_production_approved",
       "license_scope": "Public listing claims CC BY; exact file license must be checked",
-      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
-      "target_scene": "Real face rig/deformation, hair, wardrobe and skin craft exemplar, not ready-to-use Tang NPC",
+      "acquisition_status": "Full original editable file and all texture dependencies actually preserved locally; exact source hashes verified",
+      "target_scene": "Independent full-resolution desktop review; not city integration",
       "assessment": "high priority: free CC BY model public page; another Codex cloud thread reports downloading ~580MB source; this turn did not verify downloaded bytes; Modern clothes/robotic arm; verify complete rig and credit, do not double-download",
       "desktop_source_format": "Blend, Blender 3.5+ on published page",
       "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
       "runtime_integrated_this_round": false,
-      "style_modification_cost": {
-        "level": "unknown_until_files_inspected",
-        "reason": "Modern clothes/robotic arm; verify complete rig and credit, do not double-download"
-      },
-      "mobile_cost": {
-        "measured": false,
-        "cost": "Optional future mobile conversion only; not desktop art gate."
-      }
+      "style_modification_cost": "Einar: adapt original professional face/skin to Tang elder without modern costume. Dragons: cute donor winged/quadruped; Chinese donor ornamental, both static/no rig. Neither equals final approved hero.",
+      "mobile_cost": "Historical fallback only; must not reduce desktop default to fit mobile. Original high-resolution geometry and textures preserved. Actual desktop GPU performance not measured.",
+      "license": "CC BY 4.0; exact required credit in manifest/ReadMe",
+      "local_path": "assets/library/characters/blender-studio/einar",
+      "desktop_quality": "No geometry reduction or texture downsampling; raw donor quality preserved",
+      "runtime_integrated": false,
+      "final_art_accepted": false
     },
     {
       "id": "research-20261024-blenderstudio-scales-baby-v2",
@@ -5716,6 +5717,136 @@
         "measured": false,
         "cost": "Optional future mobile conversion only; not desktop art gate."
       }
+    },
+    {
+      "id": "makehuman-eyes-expression-units",
+      "name": "MakeHuman official natural eyes and six expression units",
+      "category": "characters",
+      "source_url": "https://github.com/makehumancommunity/makehuman/tree/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data",
+      "stage": "source_acquired",
+      "license_scope": "Official bundled graphic assets CC0; eye mhclo/mhmat explicit 2020 CC0 header; linked full core asset license retained",
+      "local_manifest": "assets/library/characters/makehuman-details/manifest.json",
+      "acquisition_status": "10原文件已实际取得；固定提交Git blob SHA1/字节/SHA256核验",
+      "target_scene": "自然人物眼球UV/比例适配、闭眼/微笑/说话/抬眉制作",
+      "style_modification_cost": {
+        "level": "medium",
+        "reason": "自然结构可直接作为制作基础；肤材/发式/配饰随表情与最终脸部审查仍需精修"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "source inventory and derived GLB; not phone GPU",
+        "eye_runtime_texture": 512,
+        "expression_morphs": 4,
+        "note": "原targets不在运行时解释；派生为普通glTF morph，保留近景才更新"
+      },
+      "assessment": "已在自然人体上导出为普通PBR眼球与真实顶点morph，原Litsphere shader不进入r160",
+      "runtime_integrated_this_round": false,
+      "evidence": [
+        {
+          "path": "assets/library/characters/makehuman-details/README.md",
+          "type": "licence and derivation"
+        }
+      ]
+    },
+    {
+      "id": "natural-connected-tailoring-rig-studies",
+      "name": "Natural adults, connected shoulder/sleeve tailoring and two prop gestures",
+      "category": "clothing",
+      "source_url": "tools/build_character_studies.py",
+      "stage": "rejected_character_style_research_only",
+      "license_scope": "MakeHuman body/eyes/expression CC0 + acquired ambientCG cloth micro-normal CC0; original project garments/props/IK, repository terms unchanged",
+      "local_manifest": "assets/library/characters/tang-studies/manifest.json",
+      "acquisition_status": "男女2GLB实际生成，61骨/4morph/2片段和真实道具均可加载；原制作源由脚本恢复",
+      "target_scene": "自然唐服/发髻/表情与站立递食、验布动作工艺验证",
+      "style_modification_cost": {
+        "level": "high",
+        "reason": "肩袖已连续连接、自然五官不夸张；发际肤材、服装褶皱/抓握/行走坐姿与最终电影美术仍未放行"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "GLB geometry/materials/textures and software rendering; not phone performance",
+        "male_triangles": 38388,
+        "female_triangles": 33504,
+        "primitives": [
+          9,
+          10
+        ],
+        "bones": 61,
+        "skins": 1,
+        "clips": 2,
+        "unique_rgba_mip_upper_bytes_per_file": 2796204,
+        "note": "含2活动道具夹具，超普通NPC预算，须提取共享道具并保护脸/衣摆减面与降骨；不能192人直接使用"
+      },
+      "assessment": "用户于2026-10-24明确否决当前脸和小龙的观感：粗糙、不像人。技术验证真实保留，但不得作为默认生产造型；下一步实际取得/查看成熟完整模型，不能继续给当前脸/拼接龙加细节自称完成。",
+      "runtime_integrated_this_round": false,
+      "evidence": [
+        {
+          "path": "docs/qa-evidence/natural-character-preparation/results.json",
+          "type": "actual r160/WebGL1 interaction QA"
+        }
+      ],
+      "style_rejected_by_user": true
+    },
+    {
+      "id": "natural-unified-preparation-study",
+      "name": "Unified architecture, natural adults, vegetation, materials and dragon/bike scale proof",
+      "category": "source-check",
+      "source_url": "tools/build_unified_study.py",
+      "stage": "rejected_character_style_research_only",
+      "license_scope": "Inherited MIT architecture/EZ-Tree notices, acquired CC0 source anatomy/eyes/cloth/PBR and project-authored geometry; reference images not embedded",
+      "local_manifest": "assets/library/preparation-study/natural-unified.json",
+      "acquisition_status": "新同场静态GLB已生成，旧assembly及全部用户参考保留",
+      "target_scene": "完整建筑/自然人物姿态/植物alpha/材质/龙车同尺度多视角核对",
+      "style_modification_cost": {
+        "level": "high",
+        "reason": "组合用于对照并暴露缺口，建筑/龙/植物原有电影造型差距仍在，非G1整套美术验收"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "manifest geometry and GLB; not phone GPU",
+        "note": "独立样板，非正式整城载入；多个近景源同时可见，不把样板面数当全城预算达标"
+      },
+      "assessment": "用户于2026-10-24明确否决当前脸和小龙的观感：粗糙、不像人。技术验证真实保留，但不得作为默认生产造型；下一步实际取得/查看成熟完整模型，不能继续给当前脸/拼接龙加细节自称完成。",
+      "runtime_integrated_this_round": false,
+      "evidence": [
+        {
+          "path": "docs/qa-evidence/natural-unified-preparation/results.json",
+          "type": "joint scale/material/alpha proof"
+        }
+      ],
+      "style_rejected_by_user": true
+    },
+    {
+      "id": "grab3d-cartoon-dragon-original",
+      "name": "High-resolution cute dragon original",
+      "category": "dragon",
+      "source_url": "https://grab3d.com/models/creatures/cartoon-dragon/",
+      "license": "CC0 publisher license; AI-assisted Meshy origin disclosed",
+      "stage": "original_source_acquired_not_production_approved",
+      "acquisition_status": "Full original editable file and all texture dependencies actually preserved locally; exact source hashes verified",
+      "local_path": "assets/library/dragons/grab3d/cartoon-dragon",
+      "target_scene": "Independent full-resolution desktop review; not city integration",
+      "style_modification_cost": "Einar: adapt original professional face/skin to Tang elder without modern costume. Dragons: cute donor winged/quadruped; Chinese donor ornamental, both static/no rig. Neither equals final approved hero.",
+      "mobile_cost": "Historical fallback only; must not reduce desktop default to fit mobile. Original high-resolution geometry and textures preserved. Actual desktop GPU performance not measured.",
+      "desktop_quality": "No geometry reduction or texture downsampling; raw donor quality preserved",
+      "runtime_integrated": false,
+      "final_art_accepted": false
+    },
+    {
+      "id": "grab3d-chinese-dragon-original",
+      "name": "High-resolution serpentine Chinese dragon original",
+      "category": "dragon",
+      "source_url": "https://grab3d.com/models/creatures/chinese-dragon/",
+      "license": "CC0 publisher license; AI-assisted Meshy origin disclosed",
+      "stage": "original_source_acquired_not_production_approved",
+      "acquisition_status": "Full original editable file and all texture dependencies actually preserved locally; exact source hashes verified",
+      "local_path": "assets/library/dragons/grab3d/chinese-dragon",
+      "target_scene": "Independent full-resolution desktop review; not city integration",
+      "style_modification_cost": "Einar: adapt original professional face/skin to Tang elder without modern costume. Dragons: cute donor winged/quadruped; Chinese donor ornamental, both static/no rig. Neither equals final approved hero.",
+      "mobile_cost": "Historical fallback only; must not reduce desktop default to fit mobile. Original high-resolution geometry and textures preserved. Actual desktop GPU performance not measured.",
+      "desktop_quality": "No geometry reduction or texture downsampling; raw donor quality preserved",
+      "runtime_integrated": false,
+      "final_art_accepted": false
     }
   ],
   "design_studies": [
@@ -5756,5 +5887,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 135
+  "resource_count": 140
 }

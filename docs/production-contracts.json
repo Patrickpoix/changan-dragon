@@ -135,10 +135,13 @@
         "docs/user-references/2026-10-23/people-study.jpg",
         "assets/library/characters/blender-studio/snow/manifest.json",
         "assets/library/characters/blender-studio/rain/manifest.json",
-        "tools/prepare_studio_heads.py"
+        "tools/prepare_studio_heads.py",
+        "tools/build_character_studies.py",
+        "assets/library/characters/makehuman-details/manifest.json",
+        "assets/library/characters/tang-studies/manifest.json"
       ],
       "license_scope": "MakeHuman bundled core graphics CC0; app AGPL not bundled; Snow/Rain source rigs CC BY 4.0, attribution retained",
-      "acquisition_status": "MakeHuman CC0核心与官方自然成年男/女宏目标取得，最新试片不放大头眼；Snow/Rain原件保留研究，已被用户否决作为造型基准",
+      "acquisition_status": "自然成年男女源+10项官方眼球/表情原件已取得；2个连接唐服/61骨/4morph/2站立经营动作GLB已生成，未部署城市或通过最终美术",
       "recipe": [
         "用户已否决夸张变形的人物：Snow/Rain仅保留为绑定/拓扑研究，不用作本项目脸形基准。以MakeHuman原比例及官方男女宏目标为自然人体基础，不放大头眼；时代感通过发型服饰妆容和角色身份表现。",
         "OBJ只保留g body面与引用顶点，去全部helper/joint；按实际Y范围归一至1.74/1.68m，再转换Y-up，原点双脚",
@@ -152,15 +155,16 @@
         "LOD0/1/2"
       ],
       "style_modification_cost": "高",
-      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "mobile_cost": "已测含道具男38388面/9批次，女33504面/10批次，61骨、2动画、2张512²图；超普通NPC预算，先分离共享道具/保护面部减面/中远降骨，不可192人直接加载",
       "acceptance": [
         "脸部3/4/侧面/表情",
         "排除helper",
         "肩颈/腕口连续",
         "同场身高尺"
       ],
-      "remaining_gap": "自然人物尚需服装剪裁/领袖连接、发式/肤材/表情、精简骨架；不再人为古代化脸型。",
-      "production_released": false
+      "remaining_gap": "自然五官/眼球/表情与缩骨导出已可用；发际/肤材/配饰随表情、生产人脸美术与LOD仍待精修。Snow/Rain仍仅隔离研究。",
+      "production_released": false,
+      "user_style_override": "Tang-studies faces rejected by user; technical reference only, never production basis. Prioritize acquired mature full-resolution source, desktop quality first."
     },
     {
       "id": "tang-clothing",
@@ -459,10 +463,13 @@
       "source_paths": [
         "src/20-character.js",
         "assets/library/quaternius/",
-        "tools/build_preparation_study.py"
+        "tools/build_preparation_study.py",
+        "tools/build_character_studies.py",
+        "assets/library/characters/makehuman-details/manifest.json",
+        "assets/library/characters/tang-studies/manifest.json"
       ],
       "license_scope": "authored clips/kinematics; retained CC0 animal clips",
-      "acquisition_status": "旧代码动作/动物动作取得；新人物龙未绑定",
+      "acquisition_status": "自然成年男女源+10项官方眼球/表情原件已取得；2个连接唐服/61骨/4morph/2站立经营动作GLB已生成，未部署城市或通过最终美术",
       "recipe": [
         "全部人形in-place，根运动由既有移动器；走周期0.9–1.1s，脚接触0–.18/.5–.68锁地，两骨IK接地，髋按支撑脚平移2–4cm",
         "步行/骑行/飞行状态过渡.2–.35s；骑行脚圆轨迹、手握把，飞行头前伸/尾延迟相位、转弯侧倾，悬停与起落独立",
@@ -475,15 +482,16 @@
         "LOD update scheduling"
       ],
       "style_modification_cost": "高",
-      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "mobile_cost": "已测含道具男38388面/9批次，女33504面/10批次，61骨、2动画、2张512²图；超普通NPC预算，先分离共享道具/保护面部减面/中远降骨，不可192人直接加载",
       "acceptance": [
         "脚滑<=2cm",
         "首尾接缝",
         "走骑飞真实变化",
         "WebGL1蒙皮和阴影"
       ],
-      "remaining_gap": "新骨架/权重和动作试片尚缺，不能沿用旧动画通过声明",
-      "production_released": false
+      "remaining_gap": "已执行OfferTray/InspectFabric真实骨骼与道具归属夹具，4真实morph；尚非店铺状态机/生产抓握/走骑飞或脚步接地系统，后续按原合同完成。",
+      "production_released": false,
+      "user_style_override": "Tang-studies faces rejected by user; technical reference only, never production basis. Prioritize acquired mature full-resolution source, desktop quality first."
     },
     {
       "id": "soundscape",

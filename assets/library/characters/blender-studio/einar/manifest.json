@@ -1,0 +1,341 @@
+{
+  "source": "https://studio.blender.org/characters/einar/v1/",
+  "download": "https://studio.blender.org/download-source/files/41/419e83fb75f30b989adf7920dec7a21c/419e83fb75f30b989adf7920dec7a21c.zip",
+  "archive_bytes": 579834421,
+  "archive_sha256": "3cbb5a1dd9ffd3ca39edab420a83ea7f7db337b435a78ef27a0c87ff3e6977f7",
+  "author": "Blender Foundation / Blender Studio; published by Demeter Dzadik",
+  "license": "CC-BY-4.0, original blend ReadMe explicitly confirms",
+  "required_credit": "Einar Rig (CC-BY) Blender Foundation | studio.blender.org",
+  "scope": "Realistic film character from Charge, 2022; mature face/shading/expressions research source, not a Tang costume or generic Chinese face approved by user",
+  "status": "actual_original_source_acquired_and_preserved",
+  "preserved_files": [
+    {
+      "file": "einar_release_v1.blend.gz",
+      "compression": "gzip; exact original recovered on decompression",
+      "bytes": 90952226,
+      "sha256": "fc2b89eaff4156ae06666b33d193637ce025a1eba96e2505322e33285977fbc3",
+      "original_bytes": 91323760,
+      "original_sha256": "1c6663da0a2e9d6822978467c244e9186edc76083bae2414e02f9e695e711f7b"
+    },
+    {
+      "file": "textures/displacement/clothing/disp_clothing_default.exr",
+      "bytes": 3465390,
+      "sha256": "382a1a05a0e35a163021d744910b660e2fb82dc47d65800a221af4cd763525ae"
+    },
+    {
+      "file": "textures/displacement/clothing/disp_clothing_shapes_A.exr",
+      "bytes": 3667799,
+      "sha256": "d9520005291b59a83afa564efbe14913fc86d6929f1d79f827c0a49d550c1b69"
+    },
+    {
+      "file": "textures/displacement/clothing/disp_clothing_shapes_B.exr",
+      "bytes": 3501817,
+      "sha256": "e9aa4ee9887d9709f8d2b82e7db4c895dcce7337b0773785b3567751c1fd947f"
+    },
+    {
+      "file": "textures/displacement/clothing/disp_clothing_shapes_C.exr",
+      "bytes": 3539328,
+      "sha256": "ebf1544f895ce0826fce411f8fc40b71e773d4a9c8914f28ff8d3b7aa1a349f2"
+    },
+    {
+      "file": "textures/displacement/clothing/disp_clothing_shapes_D.exr",
+      "bytes": 3468853,
+      "sha256": "24462afb8695e42c28302e88fbb1ac0aec634cf793f7466b39e33908d5d90fed"
+    },
+    {
+      "file": "textures/displacement/clothing/disp_clothing_shapes_E.exr",
+      "bytes": 3489396,
+      "sha256": "89da98afe9705dee7ba2eb89c248823c1adb81f8b82d3131522a599336064a92"
+    },
+    {
+      "file": "textures/displacement/face/disp_default.exr",
+      "bytes": 3351552,
+      "sha256": "782488ea8f9107c41a93465a0dcdf31894ce18885cc65c0e2e88241a7d6fe116"
+    },
+    {
+      "file": "textures/displacement/face/disp_facial_shapes_A.exr",
+      "bytes": 3420824,
+      "sha256": "ffbd1a8ecf04d319f9b1b9c71a95814c270c3f25a9d075ca2f68b4e9a5762255"
+    },
+    {
+      "file": "textures/displacement/face/disp_facial_shapes_B.exr",
+      "bytes": 3373479,
+      "sha256": "2fde161c4d2876d703bc12c74abbcc87ad91293ad45ee522b2239bdaf9468a76"
+    },
+    {
+      "file": "textures/displacement/face/disp_facial_shapes_C.exr",
+      "bytes": 3385990,
+      "sha256": "6454b77ae02686b809d6ce2e5377030f02c0aa35b4216bd31518c08e7fe10442"
+    },
+    {
+      "file": "textures/displacement/face/disp_facial_shapes_D.exr",
+      "bytes": 3367862,
+      "sha256": "c43549bf6853d8491c84e7b037e366dff3ca1f59a4fb2d8d7f5bf75235d21bc0"
+    },
+    {
+      "file": "textures/displacement/face/disp_facial_shapes_E.exr",
+      "bytes": 3480125,
+      "sha256": "e2d1c9e7a22e9e6ad96676eaa2836dc693d4c5742b2ba6da6fd5d7472d6ccd0a"
+    },
+    {
+      "file": "textures/displacement/face/disp_facial_shapes_F.exr",
+      "bytes": 3405600,
+      "sha256": "57602b83193efee09adfa8d00513b50a09920b42eafd7d95eb5810ba7813c1f5"
+    },
+    {
+      "file": "textures/displacement/face/shapes-A-B-C-D.tif",
+      "bytes": 63992578,
+      "sha256": "5e41e600bce906e23cfc641fe7a573c73384d136967c5532185f4b3e5fbc1ac1"
+    },
+    {
+      "file": "textures/displacement/face/shapes-E-F-DEFAULT-DETAIL.tif",
+      "bytes": 72356430,
+      "sha256": "28dab7a1dd6cdad9056c1413b2b8459d2fbe231ec7f664feb34980824b3bc638"
+    },
+    {
+      "file": "textures/einar.clothing.color_base.tif",
+      "bytes": 1248466,
+      "sha256": "b15a6419326dba8fd8dfe581100c81c36f0228a2ffb88b6dd660ae5dc1d7733b"
+    },
+    {
+      "file": "textures/einar.clothing.normal_base.tif",
+      "bytes": 17831598,
+      "sha256": "e6dcf88e032270c9ab31b69c6d10257343832e3ce9ad16dc2c6127b6bdde9688"
+    },
+    {
+      "file": "textures/einar.clothing.pointiness.tif",
+      "bytes": 7717336,
+      "sha256": "dd693f72d17a4f0e820e67e025bf2f5a24061d234cc979b5bfec73acf8778ed0"
+    },
+    {
+      "file": "textures/einar.fingers.normal.tif",
+      "bytes": 874228,
+      "sha256": "4c3f00dd34bbae113282b0c05a21455f8f8f42b8ff531d6d210204a01912e392"
+    },
+    {
+      "file": "textures/einar.fingers.pointiness.tif",
+      "bytes": 116966,
+      "sha256": "7fc3b64060c7244546d45c7bb6e6b54e5ab3b149abadc0e4eacf22cb1b18868a"
+    },
+    {
+      "file": "textures/einar.fingers.vector_displacement.tif",
+      "bytes": 942366,
+      "sha256": "6150045232f0fdcbfc0db0e6a19f539dc8403513c3ff1e8f3935218102451a69"
+    },
+    {
+      "file": "textures/einar.hair.color.tif",
+      "bytes": 107628,
+      "sha256": "981d152ea5cc45875ef7e0a6736f847c7f541f7e75dc7939cadf4d545a104a4b"
+    },
+    {
+      "file": "textures/einar.robot_arm.normal_base.1001.tif",
+      "bytes": 74198808,
+      "sha256": "5b8ad24446c1c530e3d632da5340cc95dd0262186b7c6d42a33bf19827af4c15"
+    },
+    {
+      "file": "textures/einar.robot_arm.normal_base.1002.tif",
+      "bytes": 59056942,
+      "sha256": "a645b2d0260fed72474cea1664795135af71fa492e554ad77805da69567262c3"
+    },
+    {
+      "file": "textures/einar.robot_arm.normal_base.1003.tif",
+      "bytes": 55457316,
+      "sha256": "5b08341eb028d7be7e5eaafe2220055ded8793e8c32886f3d8c17ce9b818711a"
+    },
+    {
+      "file": "textures/einar.robot_arm.pointiness.1001.tif",
+      "bytes": 2073408,
+      "sha256": "7da66485d76e2905bb56c6955acde4315bca6e123b396a59f89895b0f8e64c61"
+    },
+    {
+      "file": "textures/einar.robot_arm.pointiness.1002.tif",
+      "bytes": 1843174,
+      "sha256": "84ee72b4c160eab6def9040da63e6d81644beb5c983b20ba873b468db2cf863d"
+    },
+    {
+      "file": "textures/einar.robot_arm.pointiness.1003.tif",
+      "bytes": 1894968,
+      "sha256": "d19af4a56dfe35f3b497ffea15d51797fdadf5bc8612715078269723c18f4099"
+    },
+    {
+      "file": "textures/einar.robot_arm.pointiness.1004.tif",
+      "bytes": 353850,
+      "sha256": "42e7cab51c3269998df6682ac5879acf5fcea94e6af507d356a21a8e4bb9641b"
+    },
+    {
+      "file": "textures/einar.shoes.bump.tif",
+      "bytes": 857858,
+      "sha256": "a9a39cf3613fa6f0bcd0c78e8f9ec67c21885921a88e148db1f6201262a2dbe9"
+    },
+    {
+      "file": "textures/face/distress_stages.tif",
+      "bytes": 64278,
+      "sha256": "83a9d86658c42677e97bccd3ebe6c8f394b47e8359beb996b7616fde313ca101"
+    },
+    {
+      "file": "textures/face/einar.beard.dirt.tif",
+      "bytes": 82764,
+      "sha256": "ea426a525ed923f0ef86c31ad9686e3c773f5a0f9df854239e4ab109bcb2a540"
+    },
+    {
+      "file": "textures/face/einar.bruises.albedo.tif",
+      "bytes": 5022924,
+      "sha256": "b426cf24c48cc9392fa21c4ada85b2f17d76c5287cf96cea78b6f5d5262709fd"
+    },
+    {
+      "file": "textures/face/einar_skin.albedo.tif",
+      "bytes": 10533376,
+      "sha256": "c0ec5e11fae8e516f3a0dd18e612ab4b9a9ab810bf01f63d098a401fe05af7a4"
+    },
+    {
+      "file": "textures/face/einar_skin.dirt.tif",
+      "bytes": 170710,
+      "sha256": "e85b6ff460a91e0d74a24f7e93f37456bb99302be553a74ea07adf1d58e08533"
+    },
+    {
+      "file": "textures/face/einar_skin.roughness.tif",
+      "bytes": 66630,
+      "sha256": "e35cb48cd5b62918682b9f1d8064493b587304a0efc254520991e25efd0766b7"
+    },
+    {
+      "file": "textures/face/eyes.albedo.tif",
+      "bytes": 2723828,
+      "sha256": "71b34e20f7041108f2e1d0dbe3183d3126c157dde7f88b631d2a88ede527829e"
+    },
+    {
+      "file": "textures/face/iris_depth.tif",
+      "bytes": 517662,
+      "sha256": "57d00aabf3a12a720b50a67876fdb88758d39bb85e702b81d8a34efe7de920dc"
+    },
+    {
+      "file": "textures/road_sign.color.tif",
+      "bytes": 14684,
+      "sha256": "069a2f2f4e783e79c442012a51922de948bdfe5b4ab1481878ebb1ee3896862a"
+    },
+    {
+      "file": "textures/road_sign.distance.tif",
+      "bytes": 62136,
+      "sha256": "4b21daa43a06b91e6f7babdafc251366c572cb126e99e7400a7e26c903e919da"
+    },
+    {
+      "file": "textures/road_sign.normal.tif",
+      "bytes": 150892,
+      "sha256": "6705071456fd745f885255b0e090d684f8a2d98f452a34923dadc6394dfa04ec"
+    },
+    {
+      "file": "textures/satchel.base.tif",
+      "bytes": 254406,
+      "sha256": "c96b6b2f3f33db8f4cfaafcf6e0324bcb3d6fdcde82fdcf84964785358f3bef2"
+    },
+    {
+      "file": "textures/sweater.pattern.tif",
+      "bytes": 820,
+      "sha256": "de968f5d9a8a8f1a24bf04a3ef5f3adeef25b9fce55e08cec156c21afc6bf42e"
+    },
+    {
+      "file": "textures/tileable/canvas_01.disp.tif",
+      "bytes": 2060368,
+      "sha256": "50fdd43c7003ef6181cb2d5476ae0d7b25ca671b165633d10134fd72f46eb7e9"
+    },
+    {
+      "file": "textures/tileable/canvas_01.normal.tif",
+      "bytes": 6269982,
+      "sha256": "aed8ee49f4f6ff77695d263e998733ceb90bc19a775aab85ee3230279f0a8e93"
+    },
+    {
+      "file": "textures/tileable/dents_01.normal.tif",
+      "bytes": 344014,
+      "sha256": "cc285e2b4bc9607faca452aaf32dc4fdc777271e5daee364923598139fc912bb"
+    },
+    {
+      "file": "textures/tileable/grime_01.tif",
+      "bytes": 2052658,
+      "sha256": "4086baedd73bc03dd8ca05768cfef177ded4444e3b62c5ac2754a1662526ed9c"
+    },
+    {
+      "file": "textures/tileable/knit_01.disp.tif",
+      "bytes": 2037980,
+      "sha256": "bd6e6659ca3230d9788864f7b4fdc31040e048bc0d17547afce6cd05c0b5ba5d"
+    },
+    {
+      "file": "textures/tileable/knit_01.normal.tif",
+      "bytes": 6290060,
+      "sha256": "25de366896c9d04595f2c9ce017834557571606e12d382dded2afb291cd782ed"
+    },
+    {
+      "file": "textures/tileable/knit_01.tile_uv.tif",
+      "bytes": 1496626,
+      "sha256": "0ac310656208d3dad414f61a302fb94f833c3a26b6d7ccc6e0039c852bb69e97"
+    },
+    {
+      "file": "textures/tileable/noise_01.tif",
+      "bytes": 1542264,
+      "sha256": "76792bf7aff765dd77ded49bf55797d49bbf65991c08317504b1a1b957346460"
+    },
+    {
+      "file": "textures/tileable/noise_03.tif",
+      "bytes": 6151092,
+      "sha256": "d443a9a2990c88ffd3d991d53f8b0a14504bf501dab8d63a843eb38d7aa595a4"
+    },
+    {
+      "file": "textures/tileable/noise_04.tif",
+      "bytes": 6162662,
+      "sha256": "325887d12dbe7ca0a37bdd1e67491ca0e325b27f3e9b476fa6505d6867084238"
+    },
+    {
+      "file": "textures/tileable/noise_06.tif",
+      "bytes": 1559162,
+      "sha256": "4a3a34e3de87dfd3248ca3b338680c12738212b9e2c502f895464301e27c7067"
+    },
+    {
+      "file": "textures/tileable/scratches_01.disp.tif",
+      "bytes": 1919118,
+      "sha256": "efad77cf6cd66a0166f3b7ce56deaa8d6ccb49d277fe00ddb1a93a65d774520e"
+    },
+    {
+      "file": "textures/tileable/scratches_01.normal.tif",
+      "bytes": 5657578,
+      "sha256": "0b051c01c054e82501c4f935c1b866a5e4e865f596f448ea1e49947c463cbc7d"
+    },
+    {
+      "file": "textures/tileable/seams.disp.tif",
+      "bytes": 357926,
+      "sha256": "6af1fc063752a4f6bee3b185a16c3d9050976eab3c5c3d408001723d0b5de431"
+    },
+    {
+      "file": "textures/tileable/seams.normal.tif",
+      "bytes": 1042446,
+      "sha256": "1fa10aaf3b27f2219be19af01a54372f61e6176858efadd4a1223a03a4c7b76c"
+    },
+    {
+      "file": "textures/tileable/textile_01.disp.tif",
+      "bytes": 2036036,
+      "sha256": "9cc9b50f5041143b29edf65d339e3949a2f0c50d1fb04fb6302f341b71948133"
+    },
+    {
+      "file": "textures/tileable/textile_01.normal.tif",
+      "bytes": 6269742,
+      "sha256": "4fd5f950c4119b3f8321437a392ab1bd80bfdee4ae1be04159c9959d9cd7ed68"
+    },
+    {
+      "file": "textures/tileable/textile_02.disp.tif",
+      "bytes": 2020112,
+      "sha256": "ee09aa2625f73ffe98521cf96e0fb11c6680b0a54b91e693de3ff8838c2574db"
+    },
+    {
+      "file": "textures/tileable/textile_02.normal.tif",
+      "bytes": 6272712,
+      "sha256": "8f1e8e0c595d3c0968530ad8099039a07b9353c61cee5984f2afc3182065588b"
+    },
+    {
+      "file": "textures/tileable/textile_02.tile_uv.tif",
+      "bytes": 3143352,
+      "sha256": "e899c28daef393f4c5e7fb6d48aeba1d86fbf0b8484daa73639fc4426f9617c8"
+    }
+  ],
+  "full_archive_and_other_maps": "cache; source URL/hash restore full package if needed",
+  "runtime_integrated": false,
+  "final_art_accepted": false,
+  "automatic_source_scripts_executed": false,
+  "preservation": "Exact original blend (lossless gzip) and ALL original external textures; no decimation or texture downscaling"
+}

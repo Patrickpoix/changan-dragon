@@ -1,0 +1,8 @@
+{
+  "scope": "Same final source re-executed offline; two GLB outputs byte-identical",
+  "files": {
+    "male.glb": "17529cd8f214c6a4e8104b5334e9a8be5b6bd3979b9d1b53367f7900173d23f0",
+    "female.glb": "4f44a66518a72f9a04dafdade445cf4a349d08e6e5016182bd106f1b4006370f"
+  },
+  "generator_sha256": "4d9d31571d2e53cc6c0821cb24b28b86c5d2475dfc33367a23e6f44e2aa03c1f"
+}

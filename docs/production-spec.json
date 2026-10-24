@@ -204,6 +204,7 @@
     "size": "Hundreds of MB or reasonable GBs acceptable with evidence of real detail and responsible loading. Neither a fixed limit nor a requirement to bloat.",
     "performance": "Benchmark true PC hardware for frame time, GPU memory, startup, steady-state, bandwidth and quality. Avoid hard claims before measuring.",
     "legacy_budget_scope": "budgets_not_measured_performance contains historical mobile figures; never use its 45MiB/1K/192MiB limits for desktop hero assets.",
-    "migration": "Keep effective Three.js r160 and game systems unless demonstrated reasons to switch."
+    "migration": "Keep effective Three.js r160 and game systems unless demonstrated reasons to switch.",
+    "geometry": "User explicitly forbids reducing model detail to save bytes. Desktop default retains original high-resolution geometry/texture detail; rejected 45k/1K dragon experiments are not production assets."
   }
 }

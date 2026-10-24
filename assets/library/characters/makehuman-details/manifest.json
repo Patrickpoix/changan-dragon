@@ -1,0 +1,89 @@
+{
+  "author": "MakeHuman Team and contributors; specific eye copyright in high-poly.mhclo",
+  "revision": "a8bc2d54ff0ac92e78ff71431b1023eda42bf482",
+  "source": "https://github.com/makehumancommunity/makehuman",
+  "license": "CC0-1.0 core graphical assets; see ../makehuman-base/LICENSE.md and LICENSE.ASSETS.md, plus eye mhclo header",
+  "runtime_integrated": false,
+  "files": [
+    {
+      "file": "high-poly.obj",
+      "upstream_path": "makehuman/data/eyes/high-poly/high-poly.obj",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/high-poly/high-poly.obj",
+      "bytes": 100882,
+      "git_blob_sha1": "01562a9caf4dca9ebb1fd5c24db083c17e724330",
+      "sha256": "da2493215b708a344c33dc72f2a9a5b8fa985dcc5a70ad3b208995cf871da8e1"
+    },
+    {
+      "file": "high-poly.mhclo",
+      "upstream_path": "makehuman/data/eyes/high-poly/high-poly.mhclo",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/high-poly/high-poly.mhclo",
+      "bytes": 72490,
+      "git_blob_sha1": "22bc5f77f398c59088804f7f4c9bb0e39d38661d",
+      "sha256": "b183cfe37120ab726f9b3f2ea6cd3a64c44ce7b4bd91a77c841cf70c04f83a0d"
+    },
+    {
+      "file": "brown_eye.png",
+      "upstream_path": "makehuman/data/eyes/materials/brown_eye.png",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/materials/brown_eye.png",
+      "bytes": 610817,
+      "git_blob_sha1": "bda1b4b0d94f4b7b34ca4f58063eab04f05cd2e7",
+      "sha256": "4659691c7295ad6206c78b003e5fd0e5f91dcd53032fa914a229bb48cabe424b"
+    },
+    {
+      "file": "brown.mhmat",
+      "upstream_path": "makehuman/data/eyes/materials/brown.mhmat",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/eyes/materials/brown.mhmat",
+      "bytes": 1247,
+      "git_blob_sha1": "4935d95e41a628307ed01278908c0fe48220b031",
+      "sha256": "4abad93ce50541c08127721e77bce035640c9f16bed16cd0f5524b1cd5908465"
+    },
+    {
+      "file": "eye-left-closure.target",
+      "upstream_path": "makehuman/data/targets/expression/units/asian/eye-left-closure.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/eye-left-closure.target",
+      "bytes": 3926,
+      "git_blob_sha1": "9d79b6be9dc69a69c065e608fcc6e13db5de7d36",
+      "sha256": "96d43015f95af63d1d5d64c2d234ac29571d7b05a21e900cf5ee15a246337ebf"
+    },
+    {
+      "file": "eye-right-closure.target",
+      "upstream_path": "makehuman/data/targets/expression/units/asian/eye-right-closure.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/eye-right-closure.target",
+      "bytes": 3756,
+      "git_blob_sha1": "1b15e49f9e441fdf4a81a6db652487432ef6884e",
+      "sha256": "772a8a1c62dac36fa2ed6b0808d167bda298ec1ece956af0561e7324a0c91a6b"
+    },
+    {
+      "file": "mouth-corner-puller.target",
+      "upstream_path": "makehuman/data/targets/expression/units/asian/mouth-corner-puller.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/mouth-corner-puller.target",
+      "bytes": 15163,
+      "git_blob_sha1": "d68d7ad1f2b34d63e160a032704fe511279c7f0c",
+      "sha256": "75ec1f2356c381aa44065f2b812daafae85c5a918843b978d04cf6d8bc79dbe4"
+    },
+    {
+      "file": "mouth-parling.target",
+      "upstream_path": "makehuman/data/targets/expression/units/asian/mouth-parling.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/mouth-parling.target",
+      "bytes": 4095,
+      "git_blob_sha1": "f38d835ac0b7b76654dc76502bb5353f0e90efec",
+      "sha256": "2da1d3143b3fcf4193629fc5c26b015b8c505cc3258dc41ecd3e20d598b65ccb"
+    },
+    {
+      "file": "eyebrows-left-up.target",
+      "upstream_path": "makehuman/data/targets/expression/units/asian/eyebrows-left-up.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/eyebrows-left-up.target",
+      "bytes": 1381,
+      "git_blob_sha1": "e67c79a77e01ed938b3008eb1d28a1d9e662c2ec",
+      "sha256": "4f770b7281ed9502c2e164850e41265310a445d0534bbc9a8faa949c05677775"
+    },
+    {
+      "file": "eyebrows-right-up.target",
+      "upstream_path": "makehuman/data/targets/expression/units/asian/eyebrows-right-up.target",
+      "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/expression/units/asian/eyebrows-right-up.target",
+      "bytes": 1486,
+      "git_blob_sha1": "3efb6f0aafab20ef882ee28a1c2980daa93c98a6",
+      "sha256": "496a446cb77aad463dfd952a8a648e758ee0954c64a96a4e4412f9a042391881"
+    }
+  ]
+}

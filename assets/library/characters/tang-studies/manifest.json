@@ -1,0 +1,64 @@
+{
+  "stage": "natural_anatomy_connected_tailoring_rig_studies",
+  "generator": "tools/build_character_studies.py",
+  "generator_sha256": "3f74428d3b105c4f04343aa7cb0dc5f1d3def24d992bf3c74228ac18579c9c8b",
+  "source_manifests": [
+    "assets/library/characters/makehuman-base/manifest.json",
+    "assets/library/characters/makehuman-details/manifest.json",
+    "assets/library/production-materials/manifest.json"
+  ],
+  "units": "metres; glTF Y-up, face +Z",
+  "runtime_integrated": false,
+  "final_art_accepted": false,
+  "types": [
+    {
+      "type": "male",
+      "file": "male.glb",
+      "sha256": "17529cd8f214c6a4e8104b5334e9a8be5b6bd3979b9d1b53367f7900173d23f0",
+      "bytes": 2137380,
+      "anatomical_body_height": 1.74,
+      "reduced_bones": 61,
+      "source_bones": 163,
+      "max_analytical_wrist_reach_error": 0.0028369128076347234,
+      "morphs": [
+        "Blink",
+        "Smile",
+        "Speak",
+        "BrowRaise"
+      ],
+      "clips": [
+        "OfferTray",
+        "InspectFabric"
+      ]
+    },
+    {
+      "type": "female",
+      "file": "female.glb",
+      "sha256": "4f44a66518a72f9a04dafdade445cf4a349d08e6e5016182bd106f1b4006370f",
+      "bytes": 2019336,
+      "anatomical_body_height": 1.68,
+      "reduced_bones": 61,
+      "source_bones": 163,
+      "max_analytical_wrist_reach_error": 0.008316276759094457,
+      "morphs": [
+        "Blink",
+        "Smile",
+        "Speak",
+        "BrowRaise"
+      ],
+      "clips": [
+        "OfferTray",
+        "InspectFabric"
+      ]
+    }
+  ],
+  "limits": [
+    "Tailoring is authored connected shoulder/armhole topology and layered skirt, not historical garment pattern proof",
+    "Root-fixed skirts require dedicated leg/cloth bones for walking and sitting; no walking production acceptance",
+    "Gesture clips are real skeleton curves and analytic wrist targets; hand/object ownership, finger grip and shop state machine require scene validation",
+    "No phone GPU performance or final film-style skin/hair/material approval"
+  ],
+  "style_rejected_by_user": true,
+  "production_basis_allowed": false,
+  "user_feedback": "2026-10-24用户否决当前人脸与小龙：丑、不精细、不像人。保留技术验证，不作为默认生产造型；重新寻找并实际取得/查看成熟模型。"
+}
