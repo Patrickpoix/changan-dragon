@@ -1,0 +1,46 @@
+{
+  "asset": "antique_ceramic_vase_01",
+  "source": "https://polyhaven.com/a/antique_ceramic_vase_01",
+  "source_api": "https://api.polyhaven.com/files/antique_ceramic_vase_01",
+  "license": "CC0-1.0",
+  "quality": "4k-original-provider-bytes",
+  "status": "downloaded-md5-sha256-verified; Blender/art/history/runtime NOT approved",
+  "files": [
+    {
+      "path": "antique_ceramic_vase_01_4k.gltf",
+      "bytes": 2789,
+      "md5": "b436f23f88a67621574203105f018af7",
+      "sha256": "058b5be697c970c359752513cb43b3ccd128802dafb5b3a0eab7daf894c11e7c",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/antique_ceramic_vase_01/antique_ceramic_vase_01_4k.gltf"
+    },
+    {
+      "path": "antique_ceramic_vase_01.bin",
+      "bytes": 217216,
+      "md5": "0758bc04ce9826b1ae61c931aed19715",
+      "sha256": "ff3224b67b0a20e5033e651c405382fbfcc26ceb034f8dc59065ea0e0b6b708e",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/antique_ceramic_vase_01/antique_ceramic_vase_01.bin"
+    },
+    {
+      "path": "textures/antique_ceramic_vase_01_arm_4k.jpg",
+      "bytes": 753763,
+      "md5": "cfa172c1a7128a6606b3bc335d6d00c2",
+      "sha256": "6e3d52c873452c1bfc67d2dd43584452a45cdddbfa27fd5c8c581e628564e5dc",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/antique_ceramic_vase_01/antique_ceramic_vase_01_arm_4k.jpg"
+    },
+    {
+      "path": "textures/antique_ceramic_vase_01_nor_gl_4k.jpg",
+      "bytes": 387938,
+      "md5": "15af78685bf2408ea8e4e8bba22b77c7",
+      "sha256": "6bd74e535a8f448709fd5e97af1f106c07856fe79cc37ab82ce5ef43a7ea4261",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/antique_ceramic_vase_01/antique_ceramic_vase_01_nor_gl_4k.jpg"
+    },
+    {
+      "path": "textures/antique_ceramic_vase_01_diff_4k.jpg",
+      "bytes": 1767941,
+      "md5": "f649d021151216a00bb6048a655ed80e",
+      "sha256": "f2142c500330f9d0bde3ce204461ed7c0b9c692b57ece3ba37f1aea45a7c2509",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/antique_ceramic_vase_01/antique_ceramic_vase_01_diff_4k.jpg"
+    }
+  ],
+  "total_bytes": 3129647
+}
