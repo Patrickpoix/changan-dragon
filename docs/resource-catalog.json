@@ -16,16 +16,16 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 140,
+    "records": 159,
     "by_category": {
-      "runtime-engine": 5,
+      "runtime-engine": 10,
       "vegetation-tool": 2,
       "character-tool": 3,
       "material-tool": 1,
-      "asset-optimization": 2,
-      "spatial-query": 1,
-      "navigation": 1,
-      "rendering": 2,
+      "asset-optimization": 4,
+      "spatial-query": 2,
+      "navigation": 2,
+      "rendering": 8,
       "architecture": 22,
       "boats": 5,
       "clothing": 7,
@@ -36,10 +36,10 @@
       "market": 2,
       "characters": 7,
       "props": 4,
-      "bridges": 1,
+      "bridges": 2,
       "interior": 1,
       "environment": 3,
-      "material": 24,
+      "material": 27,
       "historical-reference": 12,
       "audio": 8,
       "source-check": 5,
@@ -57,12 +57,12 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 30,
+      "preview_candidate": 49,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B."
   },
   "resources": [
     {
@@ -5847,6 +5847,405 @@
       "desktop_quality": "No geometry reduction or texture downsampling; raw donor quality preserved",
       "runtime_integrated": false,
       "final_art_accepted": false
+    },
+    {
+      "id": "system-20261024-three-webgpu-tsl",
+      "name": "three webgpu tsl",
+      "category": "runtime-engine",
+      "source_url": "https://threejs.org/manual/pages/webgpurenderer",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "official MIT reference",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Current Three.js WebGPU renderer/TSL with WebGL2 fallback; old ShaderMaterial and EffectComposer require rewriting",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-babylon-engine-specs",
+      "name": "babylon engine specs",
+      "category": "runtime-engine",
+      "source_url": "https://www.babylonjs.com/specifications/",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "open-source engine; verify module license",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Babylon mature game engine WebGPU, FrameGraph, PBR, physics, animations, water and large world",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-playcanvas-2026-engine",
+      "name": "playcanvas 2026 engine",
+      "category": "runtime-engine",
+      "source_url": "https://developer.playcanvas.com/user-manual/engine/",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT core, editor service separate",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "PlayCanvas JS game engine WebGPU/WebGL2, ECS and async glTF scene streaming",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-unreal-pixel-streaming",
+      "name": "unreal pixel streaming",
+      "category": "runtime-engine",
+      "source_url": "https://dev.epicgames.com/documentation/unreal-engine/pixel-streaming-in-unreal-engine",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Epic EULA/server dependency",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Server-side UE rendering delivered by WebRTC if local browser fidelity cannot meet targets; GPU costs and latency",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-three-migration-guide",
+      "name": "three migration guide",
+      "category": "runtime-engine",
+      "source_url": "https://github.com/mrdoob/three.js/wiki/Migration-Guide",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "official MIT source",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Version-by-version documented migration from old Three r160 and addon shader differences",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-water-three-tsl",
+      "name": "water three tsl",
+      "category": "rendering",
+      "source_url": "https://github.com/norio/three-stylized-water",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT source/demos with original copyright retained",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "MIT Three r185 WebGPU/TSL water depth waves refraction caustics shoreline foam and reflections; creek flowfield still needed",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-water-three-simulation",
+      "name": "water three simulation",
+      "category": "rendering",
+      "source_url": "https://github.com/jeantimex/threejs-water",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT and prior Evan Wallace copyright",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "MIT water interaction ripples raytraced reflection/refraction and caustics; originally simulated pool not bent river",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-water-babylon-official",
+      "name": "water babylon official",
+      "category": "rendering",
+      "source_url": "https://github.com/BabylonJS/Babylon.js/blob/master/packages/dev/materials/src/water/readme.md",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "official Babylon docs; exact library license recheck",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Babylon WaterMaterial reflections/refractions normal-map waves; does not solve spline river flow alone",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-water-three-official",
+      "name": "water three official",
+      "category": "rendering",
+      "source_url": "https://threejs.org/docs/pages/Water.html",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "MIT official addon",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "WebGLRenderer-only planar reflecting water baseline, cannot directly run under WebGPURenderer",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-polyhaven-river-small-rocks",
+      "name": "polyhaven river small rocks",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/river_small_rocks",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven CC0; files NOT downloaded",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "CC0 real riverbed 16K master available; official 2K diffuse/GL normal/ARM file sizes and MD5 audited in SYSTEM_ARCHITECTURE",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-polyhaven-low-tide-rocks",
+      "name": "polyhaven low tide rocks",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/low_tide_rocks",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven CC0",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "CC0 wet rocky riverbank surface for wetness and shoreline integration, not an animated water shader",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-polyhaven-pebbles",
+      "name": "polyhaven pebbles",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/pebbles",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Poly Haven CC0",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "CC0 pebble terrain PBR for shallow streams paths",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-sketchfab-stone-bridge",
+      "name": "sketchfab stone bridge",
+      "category": "bridges",
+      "source_url": "https://sketchfab.com/3d-models/ancient-stone-bridge-in-china-03633f83044448d79b6ff7e8711854e2",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "CC BY listing, requires attribution; no model acquired",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "31.6k triangle public CC BY ancient Chinese stone bridge; Tang period, topology, asset download unverified",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-fab-stylized-water-ue",
+      "name": "fab stylized water ue",
+      "category": "rendering",
+      "source_url": "https://www.fab.com/listings/63a444e4-623b-4088-9ccf-319bbf898bff",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Fab commercial / engine-specific; not acquired",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Commercial Unreal 5.8 river spline and waterfall shader with glints/shore foam, reference only; no direct JS transfer",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-fab-ultimate-river-tool",
+      "name": "fab ultimate river tool",
+      "category": "rendering",
+      "source_url": "https://www.fab.com/s/cd5336225e62",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "Fab commercial UE source; not acquired",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Commercial UE river spline tool with flow maps, cascades, buoyancy and environment materials",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-gltf-transform-toolkit",
+      "name": "gltf transform toolkit",
+      "category": "asset-optimization",
+      "source_url": "https://gltf-transform.dev/",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "open source dependency; verify license/version",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Editable source to glTF2 runtime with KTX2/meshopt/LOD pipeline and reproducible transformations",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-khronos-gltf-ktx2",
+      "name": "khronos gltf ktx2",
+      "category": "asset-optimization",
+      "source_url": "https://www.khronos.org/gltf/",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "royalty-free specification",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Engine-neutral standard for meshes, skins, animations, PBR and GPU-friendly KTX2 textures",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-rapier-physics",
+      "name": "rapier physics",
+      "category": "navigation",
+      "source_url": "https://github.com/dimforge/rapier",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "upstream MIT/Apache 2.0 dual license verify",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "WASM physics candidate for collision, kinematic controller, dynamic actors and boats if present ad hoc model fails",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
+    },
+    {
+      "id": "system-20261024-cesium-3dtiles-streaming",
+      "name": "cesium 3dtiles streaming",
+      "category": "spatial-query",
+      "source_url": "https://github.com/CesiumGS/3d-tiles",
+      "stage": "preview_candidate",
+      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "runtime_integrated_this_round": false,
+      "license_scope": "open specification",
+      "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
+      "assessment": "Hierarchical streamed 3D chunks/HLOD reference, optional not mandatory for artistic city",
+      "technical_status": "not installed, no same-scene A/B, no artistic approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "must verify license, availability, style and real POC"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first not phone-limited"
+      }
     }
   ],
   "design_studies": [
@@ -5887,5 +6286,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 140
+  "resource_count": 159
 }

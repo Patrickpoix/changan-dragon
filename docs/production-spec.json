@@ -5,7 +5,9 @@
   "runtime": {
     "three_revision": "160",
     "engine_migration": false,
-    "tools_isolated": true
+    "tools_isolated": true,
+    "engine_migration_authorized": true,
+    "architecture_review": "docs/SYSTEM_ARCHITECTURE.md — source-independent core + isolated engine/water POC; existing runtime unchanged"
   },
   "coordinates": {
     "up": "+Y",
@@ -206,5 +208,39 @@
     "legacy_budget_scope": "budgets_not_measured_performance contains historical mobile figures; never use its 45MiB/1K/192MiB limits for desktop hero assets.",
     "migration": "Keep effective Three.js r160 and game systems unless demonstrated reasons to switch.",
     "geometry": "User explicitly forbids reducing model detail to save bytes. Desktop default retains original high-resolution geometry/texture detail; rejected 45k/1K dragon experiments are not production assets."
+  },
+  "system_architecture": {
+    "authority": "docs/SYSTEM_ARCHITECTURE.md",
+    "decision": "top-down district/story/complete environments + bottom-up licensed mature sources/visual water/physics/audio and PC profiling",
+    "engine_candidates": [
+      "modern Three WebGPU TSL",
+      "Babylon.js",
+      "PlayCanvas"
+    ],
+    "engine_migration_policy": "User allows now, but only after controlled same-scene A/B with rollback and retire obsolete code",
+    "content_contract": "single world/district graph, asset registry, water domain/collider/river geometry, streamed GLB/KTX2",
+    "asset_pipeline": "editable Blender source -> provenance/hash -> glTF2 GLB and runtime LOD, keyed by sole asset id"
+  },
+  "water_system_requirements": {
+    "status": "SPEC_ONLY_NOT_IMPLEMENTED",
+    "lake": [
+      "camera/sun-dependent real specular glitter",
+      "small continuous waves",
+      "environment reflections and transparent shallow shore",
+      "boat/splash interaction"
+    ],
+    "creek": [
+      "spline-shaped riverbed and continuous local velocity flow field",
+      "normals/foam/suspended matter move along bent local flow",
+      "rocks/bridge pillars create eddies/foam and small rapids",
+      "transparent PBR pebble bottom",
+      "positional flowing water audio"
+    ],
+    "waterfall": [
+      "height drop foam and spray",
+      "local 3D audio"
+    ],
+    "consistency": "surface geometry, navigability, collision, water map and boat waterline from same source",
+    "acceptance": "dynamic multiple-frame real-browser capture, continuous flow and reflection, NaN guards and actual desktop frametimes"
   }
 }
