@@ -16,31 +16,31 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 315,
+    "records": 331,
     "by_category": {
       "runtime-engine": 10,
-      "vegetation-tool": 4,
+      "vegetation-tool": 5,
       "character-tool": 6,
       "material-tool": 1,
       "asset-optimization": 5,
       "spatial-query": 3,
       "navigation": 2,
       "rendering": 22,
-      "architecture": 42,
-      "boats": 10,
-      "clothing": 11,
+      "architecture": 47,
+      "boats": 11,
+      "clothing": 12,
       "dragon": 9,
       "vegetation": 22,
       "animals": 12,
       "bicycle": 1,
       "market": 7,
       "characters": 12,
-      "props": 19,
-      "bridges": 5,
+      "props": 21,
+      "bridges": 6,
       "interior": 8,
       "environment": 13,
-      "material": 32,
-      "historical-reference": 25,
+      "material": 35,
+      "historical-reference": 27,
       "audio": 21,
       "source-check": 6,
       "character-source": 2,
@@ -53,19 +53,19 @@
       "not_selected": 12,
       "source_acquired_research": 17,
       "source_acquired": 2,
-      "offline_tool_candidate": 4,
+      "offline_tool_candidate": 5,
       "runtime_candidate": 2,
-      "reference_only": 29,
+      "reference_only": 33,
       "account_required": 12,
       "rejected": 16,
-      "rights_hold": 8,
+      "rights_hold": 9,
       "purchase_candidate": 6,
-      "preview_candidate": 199,
+      "preview_candidate": 209,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (7 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added."
   },
   "resources": [
     {
@@ -9920,6 +9920,390 @@
         "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
         "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
       }
+    },
+    {
+      "id": "blend-chinese-temple-cc0",
+      "name": "Chinese Temple - floppino native Blender source",
+      "category": "architecture",
+      "source_url": "https://blendswap.com/blend/24990",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "BlendSwap labels free CC0 source; free sign-in required for native .blend download",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "16 MB Blender 2.8x Cycles source, author explicitly warns some meshes have excess vertices.",
+      "review_notes": "Native source behind free account sign-in; inspect full structure, historical shape, UVs, materials and triangles before hero architectural usage.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "blend-chinese-bridge-cc0",
+      "name": "Covered Chinese bridge - kiskit with Blender modifiers",
+      "category": "bridges",
+      "source_url": "https://blendswap.com/blend/23566",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "BlendSwap labels free CC0 source; free sign-in required for native .blend download",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "781 KB Blender 2.8x covered bridge with modifier-controlled length.",
+      "review_notes": "Basic untextured structure; author feedback says roof inside needs filling, not film-quality final model.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "blend-chinese-kiosque-2f-cc0",
+      "name": "Chinese two-storey pavilion - yqysy",
+      "category": "architecture",
+      "source_url": "https://blendswap.com/blend/18707",
+      "stage": "reference_only",
+      "priority": "medium",
+      "zero_cost_access": "BlendSwap labels free CC0 source; free sign-in required for native .blend download",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "1.16 MB Blender 2.7 two-storey kiosk/pavilion.",
+      "review_notes": "Author explicitly says upper floor cannot be reached; structural reference only, not production-ready enterable building.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "blend-rigged-chinese-lantern-cc0",
+      "name": "Chinese lantern - kiskit force-field rigged",
+      "category": "props",
+      "source_url": "https://blendswap.com/blend/23730",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "BlendSwap labels free CC0 source; free sign-in required for native .blend download",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "109 MB textured Blender source, author says the rig reacts to force fields.",
+      "review_notes": "Potential wind/lantern motion authoring source; validate licenses, embedded references, animation export and Tang period.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "blend-six-panel-lantern-cc0",
+      "name": "Traditional Chinese Lantern - RyanANeily01",
+      "category": "props",
+      "source_url": "https://blendswap.com/blend/26978",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "BlendSwap labels free CC0 source; free sign-in required for native .blend download",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "331 MB Blender 2.9 lantern with six visual-panel variants, original creator says panel illustrations are public-domain or personally made.",
+      "review_notes": "Requires close source check for per-panel images, old Blender materials and final 3D scale; not a Tang verified lantern.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "sf-modular-chinese-palace-lolpop",
+      "name": "Chinese Palace modular scene - Lol-pop",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-palace-04c66c0a2c764b2fafc5a77b201741b1",
+      "stage": "rights_hold",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC BY listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "Maya-made, Photoshop-textured Chinese palace Modular Environment Kit, search shows free downloadable CC BY.",
+      "review_notes": "Direct model page returned 403 from web fetch, so rights/format/complete editable meshes NOT independently read from page; free account access and original texture rights pending.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "sf-chinese-palace-phuong",
+      "name": "Chinese Palace - PhuongLinh128, 428.8K triangles",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-palace-10eeb1a5c90a436db648264532c19db3",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC BY listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "428.8k triangles / 209.2k vertices, made with Maya and Blender; public free Sketchfab download.",
+      "review_notes": "Candidate palace facade/roof source, not proven Tang and incomplete interior/backside material/structural inspection.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "sf-ancient-chinese-structure-xyz",
+      "name": "Chinese Ancient Architecture - 3d.xyz, 266.7K triangles",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-ancient-architecture-eca6012ee88349aea1912ad12f984a42",
+      "stage": "reference_only",
+      "priority": "low",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC BY listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "266.7k triangles, free model uploaded by 3d.xyz; web-based editor used to make it.",
+      "review_notes": "Preliminary whole-building structural comparator only; likely needs complete refactoring, not approved movie-grade art.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "sf-golden-temple-museum-cc0",
+      "name": "Golden Temple Wan fa Gui yi Hall - Swedish museum model scan",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/model-of-the-golden-temple-wan-fa-gui-yi-hall-97673d5721d743328022c282b77b33ae",
+      "stage": "reference_only",
+      "priority": "medium",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "2.8M-triangle museum photogrammetric scan of full 1932 made scale model at Stockholm Ethnographic Museum.",
+      "review_notes": "Describes Qing-era Chengde Tibetan-Buddhist temple; strictly NOT a Tang imperial palace; structural detailing/historic miniature study only.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "mia-678-tang-buddhist-stele-cc0",
+      "name": "Minneapolis museum Tang Buddhist votive stele, dated 678 CE",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/votive-stele-buddha-and-two-bodhisattvas-e97f95d5781a4359b5a744b0cf0328fa",
+      "stage": "reference_only",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "64k triangles, photogrammetric cultural object; museum confirms Tang commissioned 678 CE, identifiable Buddha plus two bodhisattvas.",
+      "review_notes": "High-confidence dated Tang sculptural reference for monastery area; do not use sacred artifact casually and verify attribution/provenance in original file.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "sf-style3d-tang-chest-high-hanfu",
+      "name": "Style3D Tang Dynasty chest-high Hanfu, 174.4K triangles",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/tang-dynasty-chest-high-hanfu-63fc3f79926c4e999accc0a6407c23bd",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC BY listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "174.4k triangles and 87.2k vertices with detailed textures incl. normal, diffuse, roughness, SSS and specular according to author.",
+      "review_notes": "Artist mentions email/Atelier for alternate source formats: Sketchfab free download alone does NOT establish availability of raw .sproj, bones or animation; strict $0 if asking for additional files.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "easy-tree-geometry-nodes-gpl",
+      "name": "Easy Tree procedural Blender tree/wind authoring addon",
+      "category": "vegetation-tool",
+      "source_url": "https://github.com/jacobcjohnston/Easy-Tree",
+      "stage": "offline_tool_candidate",
+      "priority": "medium",
+      "zero_cost_access": "GitHub open-source source repository; $0 local authoring",
+      "license_scope": "GPL-3.0 code + CC0 sample textures listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "Blender 4.5+ Geometry Nodes tree/branch/leaf preset and simple wind tool, ambientCG CC0 bark materials bundled.",
+      "review_notes": "Only offline authoring candidate. Existing project Blender4.3.2 is below addon requirement, so must test separate version. Tree morphology needs custom willow/pine research; GPL code not copied into proprietary runtime.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "sf-boat-junk-game-fbx-bgb",
+      "name": "BG Builds Chinese Junk Ship - FBX game source",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/chinese-junk-ship-model-dca48504de4e4794b790e249983238cc",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Sketchfab Download 3D Model public page, free account sign-in may be necessary; no purchase supported",
+      "license_scope": "CC BY listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "43.4k triangles, author specifies FBX modelled in Blender, historical Junk construction drawing reference.",
+      "review_notes": "Sea-going junk, not Tang lake-painted barge; support structural hull/deck construction study and evaluate UV/interior before selection.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "poly-hinoki-planks-16k",
+      "name": "Poly Haven Hinoki Planks 16K",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/hinoki_planks",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Poly Haven official free direct asset, no account",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "16K PBR light honey-brown timber planks with grain knots, UV/normal/roughness/height; 1.9m sample.",
+      "review_notes": "Material for controlled timber surface trials; Hinoki species/board coating must not be assumed Tang and must match physical size.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "poly-oak-planks-8k",
+      "name": "Poly Haven Oak Wood Planks 8K",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/oak_wood_planks",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Poly Haven official free direct asset, no account",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "8K warm varnished plank PBR, 1.2m tile with color/normal/rough/height.",
+      "review_notes": "Potential interior floorboards/merchant counters, not default all-building historic timber or glossy columns.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
+    },
+    {
+      "id": "poly-white-stucco02-8k",
+      "name": "Poly Haven White Stucco 02 8K",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/white_stucco_02",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Poly Haven official free direct asset, no account",
+      "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
+      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "assessment": "8K rough off-white stucco wall PBR, includes height/roughness/AO/openGL normal maps.",
+      "review_notes": "Possible earthen plaster/neutral study only; modern stucco surface is not period evidence, match Tang material recipe by art reference.",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "No actual model file/rig/scene art review; visual and technical scope to be measured",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
+        "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
+      }
     }
   ],
   "design_studies": [
@@ -9960,7 +10344,7 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 315,
+  "resource_count": 331,
   "free_only_policy": {
     "effective_date": "2026-10-24",
     "price_ceiling_usd": 0,
