@@ -1,0 +1,37 @@
+{
+  "schema": "changan-asset-source-v1",
+  "category": "animation",
+  "source_repo": "https://github.com/Mesh2Motion/mesh2motion-assets",
+  "source_ref": "main as checked 2026-10-24; blob SHAs immutable per file",
+  "license": "CC0-1.0",
+  "license_evidence": "https://github.com/Mesh2Motion/mesh2motion-assets/blob/main/LICENSE",
+  "acquisition_status": "source_acquired_pending_blender_import_visual_facial_and_retarget_test",
+  "game_integrated": false,
+  "scopes": "technical Blender reference rigs only; dragon skeletal template is for winged 4-legged dragons, snake may assist no-wing Chinese long-body prototype",
+  "files": [
+    {
+      "file": "rig-dragon.blend",
+      "source_file": "rigs/rig-dragon.blend",
+      "source_git_blob_sha": "732728937137903d5e2517b819406873d0243dc4",
+      "bytes": 1417754,
+      "sha256": "d1556f3b5b785d2719045d621aea4fdb2498f270a770d761ee7f06bcb894f01d",
+      "original_blender_version_header": "BLENDER17-01"
+    },
+    {
+      "file": "rig-snake.blend",
+      "source_file": "rigs/rig-snake.blend",
+      "source_git_blob_sha": "df502ffd78e95b33ec166a33d8e7a1e0d646f405",
+      "bytes": 905783,
+      "sha256": "67e7c594e011ae8893b79391ec3ab1aa94616b786d9164db9d8b6757647c7c68",
+      "original_blender_version_header": "BLENDER17-01"
+    },
+    {
+      "file": "rig-human.blend",
+      "source_file": "rigs/rig-human.blend",
+      "source_git_blob_sha": "58b1f85532cc142b9931605eaa0e9d7360047125",
+      "bytes": 1558350,
+      "sha256": "3e4a63a6c9740a95e0589611f160f9377a3c55ab78284a7f55251b1a8e40cc0c",
+      "original_blender_version_header": "BLENDER17-01"
+    }
+  ]
+}
