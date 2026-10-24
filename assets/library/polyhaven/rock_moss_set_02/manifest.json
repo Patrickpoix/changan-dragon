@@ -1,0 +1,43 @@
+{
+  "name": "rock_moss_set_02",
+  "source": "polyhaven",
+  "page_url": "https://polyhaven.com/a/rock_moss_set_02",
+  "license": "CC0-1.0",
+  "author": "Poly Haven",
+  "version": "1k-gltf",
+  "download_date": "2026-10-24",
+  "files": [
+    {
+      "path": "rock_moss_set_02_1k.gltf",
+      "size": 11608,
+      "md5": "257569e8c064d0cf198ff866446a5f96",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/rock_moss_set_02/rock_moss_set_02_1k.gltf"
+    },
+    {
+      "path": "rock_moss_set_02.bin",
+      "size": 1316572,
+      "md5": "a63878339f14feceab7347cc28110eaa",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_moss_set_02/rock_moss_set_02.bin"
+    },
+    {
+      "path": "textures/rock_moss_set_02_diff_1k.jpg",
+      "size": 194307,
+      "md5": "50a31622ba7d6f3b8157035ce375de4d",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_02/rock_moss_set_02_diff_1k.jpg"
+    },
+    {
+      "path": "textures/rock_moss_set_02_nor_gl_1k.jpg",
+      "size": 273527,
+      "md5": "936601de53528f15a12d16a7e187a4f1",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_02/rock_moss_set_02_nor_gl_1k.jpg"
+    },
+    {
+      "path": "textures/rock_moss_set_02_rough_1k.jpg",
+      "size": 146226,
+      "md5": "5de4c0669f19304230fa550a8f3ac0f4",
+      "download_url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/rock_moss_set_02/rock_moss_set_02_rough_1k.jpg"
+    }
+  ],
+  "verified": true,
+  "notes": "第二套青苔石，与 rock_moss_set_01 形态互补。用于曲江岸边、园林假山。"
+}
