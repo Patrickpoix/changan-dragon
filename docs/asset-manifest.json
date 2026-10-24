@@ -1442,6 +1442,20 @@
         "source": "https://polyhaven.com/a/chinese_stool",
         "folder": "assets/library/curated-polyhaven/chinese_stool/",
         "status": "original complete, MD5 verified, not integrated, art pending"
+      },
+      {
+        "id": "polyhaven-chinese-tea-table-source-1k",
+        "folder": "assets/library/free-curated/polyhaven/chinese_tea_table/",
+        "source": "https://polyhaven.com/a/chinese_tea_table",
+        "license": "CC0",
+        "verified": "5 raw original files, official MD5 each; 1K authoring preview and not final hero quality; runtime not integrated"
+      },
+      {
+        "id": "polyhaven-river-small-rocks-source-1k",
+        "folder": "assets/library/free-curated/polyhaven/river_small_rocks/",
+        "source": "https://polyhaven.com/a/river_small_rocks",
+        "license": "CC0",
+        "verified": "3 raw original maps, official MD5 each; 1K waterbed prototype only, 2K/4K highest quality pending, no animated water"
       }
     ]
   }

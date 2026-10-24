@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 257,
+    "records": 280,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 4,
@@ -26,32 +26,32 @@
       "spatial-query": 3,
       "navigation": 2,
       "rendering": 19,
-      "architecture": 36,
-      "boats": 9,
+      "architecture": 41,
+      "boats": 10,
       "clothing": 9,
-      "dragon": 8,
-      "vegetation": 17,
+      "dragon": 9,
+      "vegetation": 20,
       "animals": 12,
       "bicycle": 1,
       "market": 7,
-      "characters": 10,
-      "props": 12,
-      "bridges": 3,
-      "interior": 2,
-      "environment": 10,
-      "material": 28,
+      "characters": 11,
+      "props": 16,
+      "bridges": 4,
+      "interior": 4,
+      "environment": 12,
+      "material": 29,
       "historical-reference": 20,
       "audio": 15,
-      "source-check": 5,
+      "source-check": 6,
       "character-source": 1,
       "clothing-tool": 1,
-      "animation-tool": 1,
+      "animation-tool": 2,
       "architecture-tool": 1
     },
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
-      "source_acquired_research": 14,
+      "source_acquired_research": 16,
       "source_acquired": 2,
       "offline_tool_candidate": 4,
       "runtime_candidate": 2,
@@ -60,12 +60,12 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 147,
+      "preview_candidate": 168,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive."
   },
   "resources": [
     {
@@ -6045,12 +6045,12 @@
       "name": "polyhaven river small rocks",
       "category": "material",
       "source_url": "https://polyhaven.com/a/river_small_rocks",
-      "stage": "preview_candidate",
-      "acquisition_status": "OFFICIAL_PAGE_REVIEWED_ONLY; no bytes fetched or new engine installed",
+      "stage": "source_acquired_research",
+      "acquisition_status": "ACTUAL_1K_CC0_PBR_SOURCE_FILES_ACQUIRED_MD5_VERIFIED; 2K/4K/8K PRODUCTION SOURCE NOT YET DOWNLOADED",
       "runtime_integrated_this_round": false,
       "license_scope": "Poly Haven CC0; files NOT downloaded",
       "target_scene": "PC cinematic Chang'an complete environment/engine/water asset research",
-      "assessment": "CC0 real riverbed 16K master available; official 2K diffuse/GL normal/ARM file sizes and MD5 audited in SYSTEM_ARCHITECTURE",
+      "assessment": "CC0 real riverbed 16K master available; official 2K diffuse/GL normal/ARM file sizes and MD5 audited in SYSTEM_ARCHITECTURE 2026-10-24 current pass added actual 1K diffuse/normalGL/ARM for prototype with official MD5; NOT water shader/finished high-fidelity.",
       "technical_status": "not installed, no same-scene A/B, no artistic approval",
       "style_modification_cost": {
         "level": "pending",
@@ -6059,7 +6059,9 @@
       "mobile_cost": {
         "measured": false,
         "cost": "desktop-first not phone-limited"
-      }
+      },
+      "local_manifest": "assets/library/free-curated/polyhaven/README.md",
+      "zero_cost_access": "downloaded-0"
     },
     {
       "id": "system-20261024-polyhaven-low-tide-rocks",
@@ -8586,6 +8588,512 @@
         "cost": "desktop-first"
       },
       "runtime_integrated_this_round": false
+    },
+    {
+      "id": "free-only-20261024-chinese-four-corner-pavilion-free",
+      "name": "Chinese Four-corner Pavilion",
+      "category": "architecture",
+      "source_url": "https://vvaytoyek.itch.io/chinese-four-corner-pavilion-free",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0",
+      "priority": "high",
+      "assessment": "Blender-authored 4-sided pavilion 2.6 MB ZIP, no textures, multi-material UV, user retexture needed; project-specific roof geometry study",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-classical-garden-wall-free",
+      "name": "Chinese Classical Garden Wall Modular",
+      "category": "architecture",
+      "source_url": "https://vvaytoyek.itch.io/chinese-classical-garden-wall-free",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0-rights-hold",
+      "license_scope": "license-not-displayed",
+      "priority": "high",
+      "assessment": "18 MB free Chinese garden wall: 3 door types, 2 window and flower window variants, 4 wall heights, corner pieces; FREE price but license not explicit",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-traditional-chinese-house-low-poly-stylized-0f5fbcbf148",
+      "name": "Traditional Chinese House 236k PBR",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/traditional-chinese-house-low-poly-stylized-0f5fbcbf1489432a81e372e6d38699dd",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "high",
+      "assessment": "236.9k triangles. Blender curved-tile roof, wood windows and stone stairs, not verified Tang form",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-detailed-bridge-d7b336d1ab24418ea1a429dbe2c59bf",
+      "name": "Chinese Detailed Bridge",
+      "category": "bridges",
+      "source_url": "https://sketchfab.com/3d-models/chinese-detailed-bridge-d7b336d1ab24418ea1a429dbe2c59bfe",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "high",
+      "assessment": "70.7k triangle detailed ornamental bridge, ancient structure candidate, intended source material on Polycount; not Tang proof",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-dragon-a5ad5ec06f43461f95bb93e95fe7553b",
+      "name": "Chinese Dragon animated rigged",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/chinese-dragon-a5ad5ec06f43461f95bb93e95fe7553b",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "high",
+      "assessment": "50.6k triangles, author states animated game-ready Chinese dragon; inspect actual bones, connected topology and source animation before dragon study",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-weeping-willow-tree-48c090ce93d543cf8b19d3c6f2b6788a",
+      "name": "Rigged Weeping Willow",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/weeping-willow-tree-48c090ce93d543cf8b19d3c6f2b6788a",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "high",
+      "assessment": "144.3k triangles, simple Blender rig, diffuse solid colors, no texture; for moving canopy geometry not cinematic final",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-pavilion-80ae931f96cb44af8faa6c5821a75175",
+      "name": "Chinese Pavilion 67k",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-pavilion-80ae931f96cb44af8faa6c5821a75175",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "medium",
+      "assessment": "67.3k tris Chinese pavilion, free download, inspect underside/roof and actual texture sources",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-pavilion-memoriam-87f4931714d7481baa54e5050f679",
+      "name": "Chinese Pavilion Memoriam",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-pavilion-memoriam-87f4931714d7481baa54e5050f679be2",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "medium",
+      "assessment": "14.7k tris full pavilion using Maya/Zbrush/Substance (author student work); inspect separate materials, not final hero model",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-ancient-chinese-city-4a33a2f55f7b46949950c8256441af5d",
+      "name": "Ancient Chinese City free scene",
+      "category": "environment",
+      "source_url": "https://sketchfab.com/3d-models/ancient-chinese-city-4a33a2f55f7b46949950c8256441af5d",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "medium",
+      "assessment": "268.6k triangle free downloadable Chinese city scene, weak historical details but useful top-down spatial completeness",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-boat-df5de16d9aa249eda96e9efa4944b69a",
+      "name": "Chinese Boat free source",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/chinese-boat-df5de16d9aa249eda96e9efa4944b69a",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "free-account",
+      "license_scope": "CC-BY-4.0",
+      "priority": "medium",
+      "assessment": "54.1k tris, on-page author advertises $0/free; stylized boat layout; historical and readme risk",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-3d-character-riggedema",
+      "name": "Female Game Character rigged 76k CC0",
+      "category": "characters",
+      "source_url": "https://theunseenvulga.itch.io/3d-character-riggedema",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "Free 76k-tris textured complete female rig; FBX/OBJ/GLTF published, hand-painted style vs natural Tang model still needs change",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-medieval-village-megakit",
+      "name": "Quaternius Medieval Village MegaKit Standard",
+      "category": "environment",
+      "source_url": "https://quaternius.itch.io/medieval-village-megakit",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0-standard-only",
+      "license_scope": "CC0-1.0",
+      "priority": "medium",
+      "assessment": "153MB standard free FBX/OBJ/glTF with modular exterior/interior/stairs; Pro $9.99 and Source $14.99 EXCLUDED; European lowpoly only modular pipeline sample",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-universalanimationlibrary-html",
+      "name": "Quaternius Universal Animation Library free Standard",
+      "category": "animation-tool",
+      "source_url": "https://quaternius.com/packs/universalanimationlibrary.html",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-free-subset",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "120+ animation full catalog, site says Standard 60-70% free with glTF/FBX; no paid source kit; retarget animation to Tang skeleton only after QA",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-stylizednaturemegakit-html",
+      "name": "Quaternius Stylized Nature MegaKit free subset",
+      "category": "vegetation",
+      "source_url": "https://quaternius.com/packs/stylizednaturemegakit.html",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-free-subset",
+      "license_scope": "CC0-1.0",
+      "priority": "medium",
+      "assessment": "116 total models (40 trees,35 flowers,etc) but only 60-70% Standard FREE, texture and leaves edit; must not treat entire collection as free",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-nature-kit",
+      "name": "Kenney Nature Kit (free blockout)",
+      "category": "vegetation",
+      "source_url": "https://kenney.nl/assets/nature-kit",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "low",
+      "assessment": "330 CC0 nature pieces in glTF/FBX/Blend; explicitly low-poly blockout or far distance filler, not final hero foliage",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-tea-table",
+      "name": "Poly Haven Chinese Tea Table original 1K acquired",
+      "category": "interior",
+      "source_url": "https://polyhaven.com/a/chinese_tea_table",
+      "stage": "source_acquired_research",
+      "acquisition_status": "ORIGINAL_LOW_RES_PREVIEW_ONLY; NOT ART APPROVED OR IN GAME",
+      "zero_cost_access": "downloaded-0",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "Official 1K glTF/BIN/3 PBR textures actually downloaded, MD5 verified, editor source available up to 8K on provider; Ming/modern vintage style not certified Tang",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-cabinet",
+      "name": "Poly Haven Chinese Cabinet",
+      "category": "interior",
+      "source_url": "https://polyhaven.com/a/chinese_cabinet",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "High-quality wooden storage cabinet with editable multi-angle source/normal/roughness; historical form not certified Tang",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-chinese-chandelier",
+      "name": "Poly Haven Chinese Chandelier",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/chinese_chandelier",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "medium",
+      "assessment": "CC0 carved octagonal hanging light with fabric and silk tassels; dynamic emissive development after era review",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-wicker-basket-01",
+      "name": "Poly Haven wicker basket",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/wicker_basket_01",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "CC0 scanned woven basket source suitable as interior shop display after size and texture review",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-food-pears-asian-01",
+      "name": "Poly Haven food Asian pears",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/food_pears_asian_01",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "medium",
+      "assessment": "CC0 real photo-sourced Asian pears prop; botanical/era food suitability to research",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-food-lychee-01",
+      "name": "Poly Haven food lychee",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/food_lychee_01",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "medium",
+      "assessment": "CC0 lychee fruit prop near-market detailed study; historically Tang court motif; verify food period",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-models",
+      "name": "Poly Haven Official Models Index",
+      "category": "source-check",
+      "source_url": "https://polyhaven.com/models",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "Official CC0 multi-category search for scanned models rather than paid curated editor; free and no login",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
+    },
+    {
+      "id": "free-only-20261024-ambientcg-com",
+      "name": "ambientCG PBR materials official",
+      "category": "material",
+      "source_url": "https://ambientcg.com/",
+      "stage": "preview_candidate",
+      "acquisition_status": "PUBLIC_FREE_SOURCE_VERIFIED; FILES NOT DOWNLOADED IN CURRENT TURN",
+      "zero_cost_access": "confirmed-0",
+      "license_scope": "CC0-1.0",
+      "priority": "high",
+      "assessment": "High-resolution PBR surfaces including stone, tile, bark and earth with CC0 direct file sources",
+      "target_scene": "Tang-period art directed high fidelity source research; not approved without art, physics and historical checks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unassessed",
+        "reason": "license and any third-party textures, visual and topology must be checked after obtaining original"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first; no old mobile limits"
+      }
     }
   ],
   "design_studies": [
@@ -8626,5 +9134,13 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 257
+  "resource_count": 280,
+  "free_only_policy": {
+    "effective_date": "2026-10-24",
+    "price_ceiling_usd": 0,
+    "strict": true,
+    "allowed": "Only legitimately $0, including official CC0, CC BY and other commercial-use-permitted free downloads, or free subset (Standard) of mixed-tier packs. Gratis login accepted if no payment or trial charge. Source credits still mandatory for CC BY.",
+    "excluded": "Any nonzero fee, purchase candidate, paid Source/Pro tier, trial-to-pay, mandatory donation, paid subscription or uncertain commercial entitlement is not eligible for acquisition. Previous paid records are historical, not a to-buy queue. 'Free preview' is not downloadable licensed content.",
+    "quality": "Free-only never licenses using low poly/unfinished assets as final hero assets. Keep art_pending, validate source bytes and visual outcome."
+  }
 }
