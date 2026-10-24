@@ -16,17 +16,17 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 280,
+    "records": 298,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 4,
-      "character-tool": 5,
+      "character-tool": 6,
       "material-tool": 1,
       "asset-optimization": 5,
       "spatial-query": 3,
       "navigation": 2,
-      "rendering": 19,
-      "architecture": 41,
+      "rendering": 21,
+      "architecture": 42,
       "boats": 10,
       "clothing": 9,
       "dragon": 9,
@@ -34,24 +34,24 @@
       "animals": 12,
       "bicycle": 1,
       "market": 7,
-      "characters": 11,
-      "props": 16,
-      "bridges": 4,
-      "interior": 4,
-      "environment": 12,
+      "characters": 12,
+      "props": 18,
+      "bridges": 5,
+      "interior": 8,
+      "environment": 13,
       "material": 29,
-      "historical-reference": 20,
-      "audio": 15,
+      "historical-reference": 22,
+      "audio": 16,
       "source-check": 6,
-      "character-source": 1,
-      "clothing-tool": 1,
+      "character-source": 2,
+      "clothing-tool": 2,
       "animation-tool": 2,
       "architecture-tool": 1
     },
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
-      "source_acquired_research": 16,
+      "source_acquired_research": 17,
       "source_acquired": 2,
       "offline_tool_candidate": 4,
       "runtime_candidate": 2,
@@ -60,12 +60,12 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 168,
+      "preview_candidate": 185,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated."
   },
   "resources": [
     {
@@ -9094,6 +9094,424 @@
         "measured": false,
         "cost": "desktop-first; no old mobile limits"
       }
+    },
+    {
+      "id": "free-verified-20261024-modular-wooden-pier",
+      "name": "Modular Wooden Pier (Poly Haven)",
+      "category": "architecture",
+      "source_url": "https://polyhaven.com/a/modular_wooden_pier",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC0 official Poly Haven",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC0 modular pier: rope, timber piles, 85K tris, 4K provider pack 77,659,602 B; use for waterfront wharf source",
+      "review_notes": "Generic weathered dock, not authenticated Tang, no download",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Generic weathered dock, not authenticated Tang, no download"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "official_4k_source_plan": {
+        "status": "API metadata verified but NOT downloaded",
+        "file_count": 8,
+        "total_bytes": 77659602,
+        "root_md5": "3e4e2fdea9c8123d3871333d4c7dd273",
+        "source_api": "https://api.polyhaven.com/files/modular_wooden_pier"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-armchair",
+      "name": "Chinese Armchair (Poly Haven)",
+      "category": "interior",
+      "source_url": "https://polyhaven.com/a/chinese_armchair",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC0 official Poly Haven",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC0 8K hand-carved wood, useful finished PBR lacquer source",
+      "review_notes": "Ming-like shape explicitly not Tang historical source",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Ming-like shape explicitly not Tang historical source"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-sofa",
+      "name": "Chinese Sofa (Poly Haven)",
+      "category": "interior",
+      "source_url": "https://polyhaven.com/a/chinese_sofa",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC0 official Poly Haven",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC0 8K vintage carved sofa; surface finish and wood profiles",
+      "review_notes": "Not Tang furniture type",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Not Tang furniture type"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-console-table",
+      "name": "Chinese Console Table (Poly Haven)",
+      "category": "interior",
+      "source_url": "https://polyhaven.com/a/chinese_console_table",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC0 official Poly Haven",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC0 8K old Chinese wood, 4K pack 29,237,476 B provider API",
+      "review_notes": "Later-era style; not acquired; never label as Tang",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Later-era style; not acquired; never label as Tang"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "official_4k_source_plan": {
+        "status": "API metadata verified but NOT downloaded",
+        "file_count": 5,
+        "total_bytes": 29237476,
+        "root_md5": "c1d9c447d59a88ecc96006f8bf6270b7",
+        "source_api": "https://api.polyhaven.com/files/chinese_console_table"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-commode",
+      "name": "Chinese Commode (Poly Haven)",
+      "category": "interior",
+      "source_url": "https://polyhaven.com/a/chinese_commode",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC0 official Poly Haven",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC0 ornate storage cabinet, finish/material reference",
+      "review_notes": "Later-era hardware and form",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Later-era hardware and form"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-antique-ceramic-vase-01",
+      "name": "Antique Ceramic Vase 01 (Poly Haven) actual 4K",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/antique_ceramic_vase_01",
+      "stage": "source_acquired_research",
+      "priority": "B",
+      "zero_cost_access": "downloaded-free-original-4k",
+      "license_scope": "CC0 official Poly Haven",
+      "acquisition_status": "ORIGINAL_4K_SOURCE_BYTES_MD5_SHA256_VERIFIED_BLENDER_ART_PENDING",
+      "assessment": "CC0 full 4K editable glTF geometry+PBR and original textures acquired, all hashes verified",
+      "review_notes": "Exact historical dating unknown, not a verified Tang vessel or user-approved art",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Exact historical dating unknown, not a verified Tang vessel or user-approved art"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "actual_acquired_source": {
+        "repository_path": "assets/library/free-curated/polyhaven/antique_ceramic_vase_01_4k",
+        "files": 5,
+        "total_bytes": 3129647,
+        "license": "CC0",
+        "source_manifest": "assets/library/free-curated/polyhaven/antique_ceramic_vase_01_4k/manifest.json",
+        "stage": "original downloaded + hashes verified, no art approval"
+      }
+    },
+    {
+      "id": "free-verified-20261024-SeedOcean-threejs",
+      "name": "SeedOcean WebGPU river/lake engine",
+      "category": "rendering",
+      "source_url": "https://github.com/expertping/SeedOcean-threejs",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "MIT source code, check dependencies",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "MIT v0.6-alpha WebGPU/WebGL2, bounded river and mountain lake presets, foam/wake; fork of upstream",
+      "review_notes": "Experimental fork; actual river direction, performance and bundled licenses untested",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Experimental fork; actual river direction, performance and bundled licenses untested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-threejs-water-free",
+      "name": "Three Water Free JONSWAP FFT",
+      "category": "rendering",
+      "source_url": "https://github.com/baditaflorin/threejs-water-free",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "MIT source code, check dependencies",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "MIT r181+ TSL WebGPU ocean, sun glints/refraction/caustics and buoyancy",
+      "review_notes": "Ocean math more suitable for lake than shallow curved creek",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Ocean math more suitable for lake than shallow curved creek"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-about",
+      "name": "Spring Open Movie production source",
+      "category": "character-source",
+      "source_url": "https://studio.blender.org/projects/spring/pages/about/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "individual asset CC0 / CC BY; check each",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "Blender Studio full film CC BY source including forest, animated animals and detailed cloth workflow",
+      "review_notes": "Source download/account may vary; character/forest aesthetic is not Tang",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Source download/account may vary; character/forest aesthetic is not Tang"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-v1",
+      "name": "Spring Hero Production Rig",
+      "category": "characters",
+      "source_url": "https://studio.blender.org/characters/spring/v1/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "individual asset CC0 / CC BY; check each",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "Free CC BY full film-quality heroine rig, skin and garment deformation",
+      "review_notes": "Stylized young heroine not normal Tang adult; old rig Blender2.8-3.6",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Stylized young heroine not normal Tang adult; old rig Blender2.8-3.6"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-en",
+      "name": "Cloth Lab Blender cloth sewing GPL",
+      "category": "clothing-tool",
+      "source_url": "https://slohero.com/tools/blender/en/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "GPL 3.0-or-later Blender authoring",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "Free $0 GPL 3.0+ Blender5.2 cloth pattern/physics/sewing add-on, 6 starter patterns",
+      "review_notes": "Not a Tang pattern; independent install/license/runtime separation required",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Not a Tang pattern; independent install/license/runtime separation required"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-old-bridge-and-riverbank-fdbcbceb954b49af9234e997869",
+      "name": "Anhui Bridge and Riverbank scan",
+      "category": "bridges",
+      "source_url": "https://sketchfab.com/3d-models/old-bridge-and-riverbank-fdbcbceb954b49af9234e997869d6312",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC BY or CC BY-SA shown, author and textures must be audited",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC BY ~972K triangle real stone bridge riverbank photogrammetry",
+      "review_notes": "Late Anhui/photogram scene, not Tang city",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Late Anhui/photogram scene, not Tang city"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-residential-buildings-by-the-river-and-bridge-708109",
+      "name": "Anhui Riverside Buildings and Bridge scan",
+      "category": "environment",
+      "source_url": "https://sketchfab.com/3d-models/residential-buildings-by-the-river-and-bridge-7081097d56f04ba38f1a890a7ec5400b",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC BY or CC BY-SA shown, author and textures must be audited",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC BY ~977K real riverside building bridge photoscan",
+      "review_notes": "Region/period wrong; only structural/material reference",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Region/period wrong; only structural/material reference"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-pavilion-82b254fe1f5b4381959db8799181edbe",
+      "name": "Chinese Pavilion Grease Pencil study",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/chinese-pavilion-82b254fe1f5b4381959db8799181edbe",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC BY or CC BY-SA shown, author and textures must be audited",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC BY Blender Grease Pencil ink pavilion art ~1.1M triangles",
+      "review_notes": "Not guaranteed usable watertight 3D building, art direction only",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Not guaranteed usable watertight 3D building, art direction only"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-coin-384f557db51a407e807c59af188cc9cc",
+      "name": "Tang Chinese Coin downloadable",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-coin-384f557db51a407e807c59af188cc9cc",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC BY or CC BY-SA shown, author and textures must be audited",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "CC BY 30.9K triangle Tang coin, small close-up cultural item",
+      "review_notes": "Mint and inscription authenticity not checked",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Mint and inscription authenticity not checked"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-chinese-bronze-mirror-81e693050be345dd9db8ace54fea5d",
+      "name": "Tang Bronze Mirror scanned",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/chinese-bronze-mirror-81e693050be345dd9db8ace54fea5de5",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC BY or CC BY-SA shown, author and textures must be audited",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "Museum Tang 705-907 ~960K triangle bronze mirror, bird grape lion relief",
+      "review_notes": "CC BY-SA, obligation before derivatives; research only until reviewed",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "CC BY-SA, obligation before derivatives; research only until reviewed"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-sound-effects-pack",
+      "name": "CC0 OpenGameArt OwlishMedia Foley",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/sound-effects-pack",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "CC0 creator pack",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "OpenGameArt CC0 142MB foley: footsteps, cloth, water, doors, people",
+      "review_notes": "Real audio screening/mixing required; not yet downloaded",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Real audio screening/mixing required; not yet downloaded"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
+    },
+    {
+      "id": "free-verified-20261024-demo-files",
+      "name": "Blender Demo Files Official CC0 subsets",
+      "category": "character-tool",
+      "source_url": "https://www.blender.org/download/demo-files/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "listed-0-official-or-free-download-with-account",
+      "license_scope": "individual asset CC0 / CC BY; check each",
+      "acquisition_status": "FREE_SOURCE_PAGE_VERIFIED_ONLY_NOT_DOWNLOADED",
+      "assessment": "Blender human base 49MB CC0, procedural Tree Leaves Grass & Pebble Scattering CC0",
+      "review_notes": "Per-demo license differs; do not infer CC0 for whole page",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "untested",
+        "reason": "Per-demo license differs; do not infer CC0 for whole page"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      }
     }
   ],
   "design_studies": [
@@ -9134,7 +9552,7 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 280,
+  "resource_count": 298,
   "free_only_policy": {
     "effective_date": "2026-10-24",
     "price_ceiling_usd": 0,

@@ -1,5 +1,13 @@
 # 当前续做记录（2026-10-24）
 
+## 最新：真实取得完整4K CC0模型，并追加零元候选（2026-10-24）
+
+- 已下载Poly Haven Antique Ceramic Vase 01的完整4K glTF/BIN/PBR五个原始文件（3,129,647B），各自官方MD5与下载字节匹配并留存SHA256；位于 assets/library/free-curated/polyhaven/antique_ceramic_vase_01_4k。此陶器**未经唐代形制/Blender视觉/运行时审核**，不能直接作为唐器成品。
+- 继续联网筛选并去重18条免费高画质/开源/CC BY来源，覆盖模块木码头、古桥河岸实扫、唐钱币、GPL布料工具、Blender电影制作源、水面SeedOcean与免费音频。执行上遵守只允许0元素材。见 FREE_ONLY_RESOURCES_20261024.md 最新节。
+- 核实官方4K木码头（8文件77,659,602B）和中式案几（5文件29,237,476B）的API大小/rootMD5，但它们仍只属于候选**未下载**。没有修改游戏src/dist/引擎，不宣称流水/电影美术已经通过。工作验证详情见 docs/worklog/2026-10-24-free-4k-source.md。
+
+
+
 ## 最新预算规则：只能免费资源（2026-10-24）
 
 - 用户明确要求：只要 **$0 免费资源**，无付费产品、商业购买/订阅/试用付费。质量目标不降：完整精细电影级唐长安。新规范在 AGENTS、PRODUCT_BRIEF、[FREE_ONLY_RESOURCES_20261024.md](FREE_ONLY_RESOURCES_20261024.md)、resource-catalog.free_only_policy；旧收费候选仅历史备查，自动获取/制作仅限真正零元且授权清楚的 CC0、CC BY 或开源资源。
