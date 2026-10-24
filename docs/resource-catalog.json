@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 331,
+    "records": 369,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 5,
@@ -25,23 +25,23 @@
       "asset-optimization": 5,
       "spatial-query": 3,
       "navigation": 2,
-      "rendering": 22,
-      "architecture": 47,
-      "boats": 11,
+      "rendering": 27,
+      "architecture": 57,
+      "boats": 12,
       "clothing": 12,
-      "dragon": 9,
-      "vegetation": 22,
+      "dragon": 13,
+      "vegetation": 26,
       "animals": 12,
       "bicycle": 1,
       "market": 7,
-      "characters": 12,
-      "props": 21,
-      "bridges": 6,
+      "characters": 13,
+      "props": 25,
+      "bridges": 7,
       "interior": 8,
-      "environment": 13,
+      "environment": 14,
       "material": 35,
-      "historical-reference": 27,
-      "audio": 21,
+      "historical-reference": 32,
+      "audio": 23,
       "source-check": 6,
       "character-source": 2,
       "clothing-tool": 2,
@@ -54,18 +54,18 @@
       "source_acquired_research": 17,
       "source_acquired": 2,
       "offline_tool_candidate": 5,
-      "runtime_candidate": 2,
-      "reference_only": 33,
+      "runtime_candidate": 4,
+      "reference_only": 42,
       "account_required": 12,
       "rejected": 16,
-      "rights_hold": 9,
+      "rights_hold": 10,
       "purchase_candidate": 6,
-      "preview_candidate": 209,
+      "preview_candidate": 235,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (6 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (6 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added. Continued strict-$0 page-level sweep recorded 38 new nonduplicate leads: free official BlenderKit CC0 complex Chinese buildings/pavilions/4K, Sketchfab Tang forms and natural trees/boats, GPL/MIT water systems, CC0 real ambience; no source files acquired or shaders implemented, no quality acceptance."
   },
   "resources": [
     {
@@ -10304,6 +10304,918 @@
         "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
         "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
       }
+    },
+    {
+      "id": "bk-chinese-temple-a",
+      "name": "Blendkit Chinese Temple / timber two-story",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/27de2944-5605-4075-a409-e0dfb85dc12a/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "349725 polygons; 104.2 MiB; two-story timber building shown with windows, veranda and roof, Free asset badge",
+      "review_notes": "Tang form, true back/interior, stair reachability, mesh repair and 4/8K textures must be tested",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-chinese-temple-2",
+      "name": "Blendkit Chinese Temple 2",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/8701a79a-1635-437c-b1d2-6b14f14fc351/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "519281 polygons; 64.1 MiB; site explicitly says Free, CC0; Blender source via free Blenderkit add-on/account",
+      "review_notes": "Check full structural geometry, Tang roof and exterior/indoor spaces; zero-cost registered download not yet performed",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-chinese-pavilion",
+      "name": "Blendkit Chinese Pavilion 896K",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/30a0078c-8465-43a5-82a2-66c327f30a71/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "896001 polygons, 129.5 MiB; Free, CC0; detailed traditional pavilion",
+      "review_notes": "Photoreal-looking material does not imply period; check actual roof, columns, underside, usable walk floor; high memory",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-chinese-high-house",
+      "name": "Blendkit Chinese High House Wood",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/6a944c19-fa36-4f4f-bc72-24d61eb5aa88/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "365768 polygons, 80.4 MiB, 4K textured wood building, Free, CC0",
+      "review_notes": "Promising complete type for two-story street; inspect editable mesh, rooms, stairs and back",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-old-chinese-roof-house1",
+      "name": "Blendkit Old Chinese Roof House",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/c12863fd-af2f-42e9-b436-00b5af5b2d5d/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "338453 polygons; 48.0 MiB; 4K textures; Free, CC0",
+      "review_notes": "Could replace weak shop exterior only after historical/structural tests",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-old-chinese-roof-house2",
+      "name": "Blendkit Old Chinese Roof House 2",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/82071f8a-47af-4d3f-8d20-5b886d01cebe/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "696267 polygons, 54.1 MiB, 4K texture, Free, CC0; detailed roof-front-step profile",
+      "review_notes": "Promising full exterior source; possible later-period ornate ridge/roof needs simplification and remodelling",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-chinese-building-wall",
+      "name": "Blendkit Chinese Building Wall",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/a9096e48-c281-498a-ace7-d00ce49b9251/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "628104 polygons, 91.6 MiB; 4K wall asset, Free, CC0",
+      "review_notes": "Useful for courtyard/enclosure geometry, but inspect true modular continuity and wall joints before layout",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-old-building-scan",
+      "name": "Blendkit Scan Old Building",
+      "category": "architecture",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/ce754851-bcb8-411f-9c6b-7bbc03e0e545/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "1.135M polygons, 724.8 MiB; site Free, CC0",
+      "review_notes": "Huge photoscan-like source, high reconstruction cost, likely not Tang. Only façade/stone/wood surface case",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-dasheng-pagoda-scan",
+      "name": "Blendkit scanned Dasheng Pagoda",
+      "category": "historical-reference",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/d831a8dc-788a-4b21-8187-26112bd3592c/",
+      "stage": "reference_only",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "594296 polygons, 84.2 MiB; Free CC0, detailed historical pagoda scan",
+      "review_notes": "Author's own description dates structure NOT earlier than Song, so cannot be Tang Big Wild Goose Pagoda; construction/material study only",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-porcelain-lion",
+      "name": "Blendkit Chinese Porcelain Lion",
+      "category": "props",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/50b661cb-119d-4e80-8a9c-5c6996cbb0c8/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "16.4 MiB and 4K texture, Free CC0",
+      "review_notes": "Indoor ornamental reference; verify later styles before using as Tang décor",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-scan-chinese-relief1",
+      "name": "Blendkit scanned Chinese Relief",
+      "category": "props",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/dbb32246-01a8-4ec2-be8b-b4834d4af42c/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "29045 polygons, 72.7 MiB, Free CC0",
+      "review_notes": "Useful for custom relief carving/tile mould reference; ornament period must be independently checked",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-scan-chinese-relief2",
+      "name": "Blendkit scanned Chinese Relief 02",
+      "category": "props",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/9f90a9d1-487f-4e2d-ada2-757c1566cfec/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "40637 polygons, 82.7 MiB, Free CC0",
+      "review_notes": "High-res relief surface study, UV/detail map and style untested",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-chinese-wood-room-hdri",
+      "name": "Blendkit Chinese Wood Room 18K HDRI",
+      "category": "rendering",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/6e008a1f-d235-4170-9afb-9bc3d15ec817/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "18K interior HDRI, 365.6 MiB; Free CC0",
+      "review_notes": "Interior PBR comparison, not editable wood architectural model nor source of Tang interiors",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "bk-bell-park-pier-hdri",
+      "name": "Blendkit Bell Park Pier 16K HDRI",
+      "category": "rendering",
+      "source_url": "https://www.blendkit.com/asset-gallery-detail/7b29eb67-0ff9-4548-a8c8-c416fbce492a/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Blendkit/BlenderKit: asset separately marked Free and CC0; Blender add-on + free registered account, NOT a paid Full Plan",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "16K unclipped soft sunrise/sunset lake HDRI, 330.9 MiB, Free CC0",
+      "review_notes": "Water glint/ambient sunlight A-B benchmark; modern pier background must not be used as final ancient landscape",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-dougong-structure-tang",
+      "name": "Tang/Song Dougong Temple exercise by Vincerew",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/temple-7e3027994592462093cf7095b5f5ea5e",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "32200 triangles; uploader explicitly calls dougong structure and Tang dynasty study, downloadable",
+      "review_notes": "Complement existing architectural bracket source, educational not complete film-quality building",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-chinese-gate-photoscan",
+      "name": "Chinese reconstructed gate photogrammetry by ToucanTech",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/chinese-building-32786e16fddb4bbca4eb66f1930db0f7",
+      "stage": "reference_only",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "406700 triangles; northern Chinese ancient-style gate newly constructed in recent years, downloaded model available",
+      "review_notes": "Modern reconstruction explicitly NOT ancient Tang gate; use masonry/roof camera reference",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-summer-palace-student-rebuild",
+      "name": "Old Summer Palace school reconstruction",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/the-3d-restoration-of-the-old-summer-palace-015ba522a8fd47e79587840c18916f3c",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "26700 triangles; student model of Yuanmingyuan, CC BY",
+      "review_notes": "Qing-era garden, very basic; reference only not Tang and not film-quality production art",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-ancient-generals-characters",
+      "name": "Ancient Chinese Generals collection",
+      "category": "characters",
+      "source_url": "https://sketchfab.com/3d-models/ancient-chinese-generals-bee0c0a3b6fa482dafe75726fb86b1eb",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "14800 triangles; published as CC BY free download",
+      "review_notes": "Too low detail for close-up natural-human Tang guards, only posture/armour lineup study; period unknown",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-dragon-island-spline",
+      "name": "Dragon Island Chinese dragon curve flight",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/dragon-island-fc0b856e973a47a6bf834d7f486c37f4",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "9700 triangles; original Chinese dragon flight curve animation with Chinese house island",
+      "review_notes": "Uploader mentions Sketchfab animation jitter; use path rig diagnostic, not hero art or final motion",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-chinese-dragon-skeleton-basic",
+      "name": "Chinese Dragon skeletal animation - haber_n",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/chinese-dragon-with-skeletal-animation-b77dd17c4cac45bf9e72e90806af4984",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "4300 triangles, complete basic skeleton according to uploader; downloadable",
+      "review_notes": "Excellent continuous long-body motion/Rig prototype only. Insufficient movie-quality face/skin/shape",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-leviathan-animated-rig",
+      "name": "Animated Leviathan three-dimensional film rig",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/leviathan-normal-material-531f6c585b194f9bb32f70cf23c8477b",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "16600 triangles, multiple animation loops, animated tail optional physics-based",
+      "review_notes": "Western/sea monster form not Chinese dragon; isolated animation/cloth/tail comparison only",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-dragon-three-motion-loops",
+      "name": "Dragon with three animation loops",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/animated-dragon-three-motion-loops-eca98cf6cd084c1596cecf716e110c29",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "19500 triangles, 3 independent motion loops, source accessible for free",
+      "review_notes": "Western dragon silhouette unsuitable for no-wing jade baby dragon; animation pipeline tests only",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-pine-15-lod-pack",
+      "name": "Realistic pine tree 15-variant LOD pack",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/pine-trees-pack-lowpoly-game-ready-lods-e1e9c07b8e2e445c943fec660beefba2",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "15 distinct pine meshes; all have 3 mesh LODs + billboard; foliage 2K, bark 1Kx2K and wind-driving vertex-color gradient",
+      "review_notes": "Useful for realistic natural landscape production; Russian/Scots pine form, must adjust as Tang garden pine and validate provenance and Alpha",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-pine-tree-gaming-lods",
+      "name": "Scots Pine 2 LOD mesh with PBR",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/pine-tree-6c0ca146235e49529828136cd0cee63a",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "20500 triangles; LOD0/LOD1; bark and branch diffuse/normal plus impostor textures",
+      "review_notes": "Test shader wind and true Chinese garden branch silhouette before hero use",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-pine-tree-realistic-352k",
+      "name": "Realistic pine tree 352K Blender GLTF",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/realistic-pine-tree-3d-model-9844e6ca4f624675a6448ca5804824c7",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "352200 triangles; exporter claims actual GLB/GLTF and included textures",
+      "review_notes": "Large single tree reference; complexity cost and true 3D leaf accuracy require investigation",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-lotus-flower-7k",
+      "name": "Lotus Water Lily 7.2K",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/lotus-water-lily-e47d27d644f845fea9bf27af2c27124b",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "7200 triangles small flowering lotus; free model",
+      "review_notes": "Could adapt distant pond lotus in spite of lowpoly; no complete high-end near-camera plant",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-chinese-junk-sriwijaya",
+      "name": "Chinese Junk Ship - Srivijaya merchant source",
+      "category": "boats",
+      "source_url": "https://sketchfab.com/3d-models/chinese-junk-ship-a331d56c34ff4d958763114dc8e7c275",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "23400 triangles, Blender/Substance source, merchant junk near Sumatra",
+      "review_notes": "Study wood hull and sail craft; NOT river barge, period and scale uncertain",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-wooden-bridge-mod-pack",
+      "name": "Wooden Bridge Pack (one material/UV)",
+      "category": "bridges",
+      "source_url": "https://sketchfab.com/3d-models/wooden-bridge-pack-bbcda64fe4fa4af29edf096c6e039ae2",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "15600 triangles; pack of wooden bridges, single material, UV organized",
+      "review_notes": "Useful walkway plank/rail/geometry joint prototype; mostly lowpoly, not Chinese historical bridge",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-tang-vase-cc-by",
+      "name": "Chinese Vase claimed circa Tang Dynasty",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-vase-a7bb0877228446ab94f98ac408a9f7d1",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "52200 triangles PBR source; author describes as Tang-period vase",
+      "review_notes": "Period claim unsupported by museum/provenance; shape/check against dated Tang pottery before using",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-chinese-stone-engraving-taiwan",
+      "name": "Chinese stone engraving temple Taiwan scan",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/chinese-engraving-5206a26921e54baa9603fb535e9795da",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "244300 triangles; photoscan of temple wall relief in Taiwan",
+      "review_notes": "Modern location and undated relief, reference craftsmanship only, not Tang sculpture",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-anyue-water-moon-guanyin",
+      "name": "Anyue Water-Moon Guanyin stone-carving scan",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/water-moon-guanyin-in-anyue-37cd3aca5fb24454802d92bd7319dd6f",
+      "stage": "reference_only",
+      "priority": "B",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "500000 triangles photogrammetric stone sculpture; uploader describes Tang but chronology unverified",
+      "review_notes": "Sacred artifact and dating have contextual/cultural risks, compare external provenance; not generic game NPC",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "sf-chinese-garden-basic",
+      "name": "Chinese Garden simple 3D scene",
+      "category": "environment",
+      "source_url": "https://sketchfab.com/3d-models/chinese-garden-695e78a7ccc945acbda9f9f20ef7dba3",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Sketchfab public Download 3D Model, free registered account may be needed",
+      "license_scope": "CC BY as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "10700 triangles Chinese Garden downloadable",
+      "review_notes": "Layout/silhouette only, low-detail unsuitable for 16-inch desktop final 3D environment",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "grab-cc0-tea-house",
+      "name": "Grab3D Tea House 39K 2K CC0",
+      "category": "architecture",
+      "source_url": "https://grab3d.com/models/buildings/tea-house/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "zero_cost_access": "Direct zero-dollar no-login GLB/FBX/BLEND",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "38,954 triangles, full 2K GLB/FBX/BLEND/OBJ/USDZ direct no-login $0, Japan/East-Asian-inspired building",
+      "review_notes": "Not Tang and main geometry lower detail; craft/form comparator only, may be source to rebuild props/door",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "godot-waterways-mit",
+      "name": "Waterways Bezier curve flow/foam map authoring",
+      "category": "rendering",
+      "source_url": "https://github.com/Arnklit/Waterways",
+      "stage": "runtime_candidate",
+      "priority": "A",
+      "zero_cost_access": "Public open-source GitHub repository, source code free",
+      "license_scope": "MIT as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "Open-source Godot river meshes from Bezier curves, baked flow/foam maps and buoyancy/height zones",
+      "review_notes": "Strong water-domain authoring reference, not drop-in Three.js plugin. Preserve MIT notice if ported; Godot version branches must be checked",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "godot-waterways-net-license-hold",
+      "name": "waterways-net Godot 4 spline water flow integration",
+      "category": "rendering",
+      "source_url": "https://github.com/Tshmofen/waterways-net",
+      "stage": "rights_hold",
+      "priority": "B",
+      "zero_cost_access": "Public open-source GitHub repository, source code free",
+      "license_scope": "rights_hold as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "Godot 4 Bezier river meshes, velocity direction and buoyancy via RiverFloatSystem; licence not verified at source in this pass",
+      "review_notes": "Engineering research only until repository license verified, no source code reuse if license absent",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "webgpu-ocean-iodiot",
+      "name": "iodiot WebGPU FFT lake-glint comparison",
+      "category": "rendering",
+      "source_url": "https://github.com/iodiot/webgpu-ocean",
+      "stage": "runtime_candidate",
+      "priority": "B",
+      "zero_cost_access": "Public open-source GitHub repository, source code free",
+      "license_scope": "MIT as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "Three/WebGPU live open code; FFT spectrum, GGX sunlight glitter, foam Jacobian decay, camera-relative LOD",
+      "review_notes": "Ocean is NOT curved shallow creek. Check exact LICENSE and dependencies; build isolated A/B after actual scene inputs",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "audio-river-vistula-cc0",
+      "name": "OpenGameArt Vistula riverside recordings",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/sea-and-river-wave-sounds",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "zero_cost_access": "Direct official CC0 sound file no subscription",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "Author's CC0 riverbank waves, preview 12MB 5-minute MP3 and long full recording zip 180MB",
+      "review_notes": "Find/trim real water sections, measure loops, natural rolling waves not suitable every shallow creek bend",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
+    },
+    {
+      "id": "audio-horse-trot-cc0",
+      "name": "OpenGameArt DIY Horse Trotting loop",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/horse-trotting",
+      "stage": "reference_only",
+      "priority": "C",
+      "zero_cost_access": "Direct official CC0 sound file no subscription",
+      "license_scope": "CC0 as stated on public original source listing; downloaded binaries/third-party dependencies not yet audited",
+      "acquisition_status": "2026-10-24 web source page inspected; NOT downloaded/hash validated/Blender-tested or integrated; research lead only",
+      "assessment": "138KB OGG synthesized by coat/hands/water-bottle foley, site CC0",
+      "review_notes": "Not realistic by source description, audition only as fallback or replace with actual recorded horses",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Source not obtained. Website screenshots/triangle counts are not evidence of accepted Tang film art.",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "16-inch desktop-primary GPU/LOD unknown; no benchmark",
+        "acceptance": "Original source rights and checksum, full Blender import, four sides+top grey model, final light PBR/rig wind and in-scene frame-time A/B"
+      }
     }
   ],
   "design_studies": [
@@ -10344,7 +11256,7 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 331,
+  "resource_count": 369,
   "free_only_policy": {
     "effective_date": "2026-10-24",
     "price_ceiling_usd": 0,
