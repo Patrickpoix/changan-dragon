@@ -83,7 +83,7 @@
 ## 许可与使用边界
 
 1. **CC0 素材**: Poly Haven 全部资产、ambientCG 全部材质、VVayToyek itch.io 标注 CC0 的模型，可自由使用、修改、商用，无需署名。
-2. **CC BY 素材**: Sketchfab 上标注 CC BY 4.0 的模型，使用时需保留原作者署名，衍生作品同样 CC BY。
+2. **CC BY 素材**: Sketchfab 上标注 CC BY 4.0 的模型，使用时须按 CC BY 4.0 提供适当作者署名、许可证链接及修改说明；CC BY 本身没有 SA（相同方式共享）要求，不能误写成衍生作品必须继续采用 CC BY。也须核对实际包内第三方纹理与权利。
 3. **待核实项**:
    - Summer Engine 的 AI 生成灯笼需确认是否真为 CC0，以及训练数据来源。
    - CGTrader 上标注 "CC0 base" 的摊位需下载后检查包内实际 LICENSE。
