@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 118,
+    "records": 135,
     "by_category": {
       "runtime-engine": 5,
       "vegetation-tool": 2,
@@ -26,19 +26,19 @@
       "spatial-query": 1,
       "navigation": 1,
       "rendering": 2,
-      "architecture": 13,
+      "architecture": 22,
       "boats": 5,
-      "clothing": 4,
-      "dragon": 2,
+      "clothing": 6,
+      "dragon": 6,
       "vegetation": 4,
       "animals": 8,
       "bicycle": 1,
       "market": 2,
-      "characters": 6,
+      "characters": 7,
       "props": 4,
       "bridges": 1,
       "interior": 1,
-      "environment": 2,
+      "environment": 3,
       "material": 24,
       "historical-reference": 12,
       "audio": 8,
@@ -56,11 +56,11 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 14,
+      "preview_candidate": 31,
       "rejected_character_style_research_only": 2
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed."
   },
   "resources": [
     {
@@ -5342,6 +5342,380 @@
         "measured": false,
         "cost": "source JPGs only; no runtime metrics"
       }
+    },
+    {
+      "id": "research-20261024-blenderstudio-einar-realistic",
+      "name": "Blender Studio Charge Einar realistic face/rig",
+      "category": "characters",
+      "source_url": "https://studio.blender.org/characters/einar/v1/",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; exact file license must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Real face rig/deformation, hair, wardrobe and skin craft exemplar, not ready-to-use Tang NPC",
+      "assessment": "high priority: free CC BY model public page; another Codex cloud thread reports downloading ~580MB source; this turn did not verify downloaded bytes; Modern clothes/robotic arm; verify complete rig and credit, do not double-download",
+      "desktop_source_format": "Blend, Blender 3.5+ on published page",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Modern clothes/robotic arm; verify complete rig and credit, do not double-download"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-blenderstudio-scales-baby-v2",
+      "name": "Blender Studio Scales baby dragon v2",
+      "category": "dragon",
+      "source_url": "https://studio.blender.org/characters/5703a17dc379cf032c7b2616/v2/",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Candidate high-quality expressive continuous baby-dragon source; redesign Chinese-inspired silhouette and palette; rig retarget/animations",
+      "assessment": "high priority: public character page confirms CC-BY, full character rig; download may need studio login, NOT acquired; Rights, visual similarity, tail/wings and Tang art fit, full download requires account",
+      "desktop_source_format": "Blender rig, v2 shading and mesh modifiers",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Rights, visual similarity, tail/wings and Tang art fit, full download requires account"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-thomas-chinese-temple",
+      "name": "Thomas.Osterhammel Chinese Temple",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-temple-01c6a525a8144693b1eb2446f761051c",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Mature complete wooden temple shape reference/source for separate building study",
+      "assessment": "high priority: public CC-BY download listing; model file not obtained; Account needed to download; historical period unspecified; model/material inspection pending",
+      "desktop_source_format": "352k triangles listed",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Account needed to download; historical period unspecified; model/material inspection pending"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-kunal-chinese-temple",
+      "name": "Kunal Production Chinese Temple",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-temple-a6bed450aaa0405db776d90fc250b3c0",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Alternative high-detail temple source / structural comparator",
+      "assessment": "medium priority: public CC-BY download listing; not obtained; Maya source implied, exact delivered format/topology unverified, period unclear",
+      "desktop_source_format": "400.6k triangles listed",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Maya source implied, exact delivered format/topology unverified, period unclear"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-ancient-pagoda-sibeyu",
+      "name": "SibeYu Chinese pagoda",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-pagoda-9368be07f47949e2b6eaa962ea9c58ad",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Pagoda detail standard and structural research",
+      "assessment": "medium priority: public CC-BY downloadable listing 541.8k tris, also marked NoAI; not obtained; NoAI label requires avoid AI development/ingestion until terms reconciled; era unspecified; no automatic reuse",
+      "desktop_source_format": "541.8k triangles",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "NoAI label requires avoid AI development/ingestion until terms reconciled; era unspecified; no automatic reuse"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-fab-ancient-complex-scene",
+      "name": "Fab Traditional Chinese Ancient Architecture Complex Scene",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/a6767d19-24c6-4b1c-8f31-5bbb45413d03",
+      "stage": "preview_candidate",
+      "license_scope": "Listing / product terms require checking; purchase/account may be required; no redistribution of proprietary source",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Complete courtyard, timber, paving and volumes as coherent large-scale environmental sample",
+      "assessment": "high priority: commercial listing / entitlement not checked; NOT acquired; Period not necessarily Tang; license purchase and native files must be verified",
+      "desktop_source_format": "FBX, OBJ, USD, converted glTF/GLB",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Period not necessarily Tang; license purchase and native files must be verified"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-fab-ancient-building-pbr",
+      "name": "Fab Chinese Ancient Building",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/1f4de8ef-799b-4d7e-9d2a-063c3fd4173f",
+      "stage": "preview_candidate",
+      "license_scope": "Listing / product terms require checking; purchase/account may be required; no redistribution of proprietary source",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Standalone detailed architectural building test; PBR and curving roof",
+      "assessment": "medium priority: commercial listing; NOT acquired; Self-described product quality not independently validated; exact historical design/licence uncertain",
+      "desktop_source_format": "FBX, GLB, glTF/USDZ formats listed",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Self-described product quality not independently validated; exact historical design/licence uncertain"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-fab-ancient-chinese-city-wall",
+      "name": "Fab Ancient Chinese city wall modular pack",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/3ee6f242-7056-4710-9a00-6b39b5acee15",
+      "stage": "preview_candidate",
+      "license_scope": "Listing / product terms require checking; purchase/account may be required; no redistribution of proprietary source",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "High detailed modular gates and wall research",
+      "assessment": "medium priority: commercial UE-only listing; NOT acquired; UE-only and Lumen; substantial conversion cost, chronology unclear",
+      "desktop_source_format": "53 modular construction pieces, 14 unique meshes, 2K/4K textures; Unreal only",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "UE-only and Lumen; substantial conversion cost, chronology unclear"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-unity-ancient-city-dills-doodles",
+      "name": "Unity Modular Ancient Chinese City Pack",
+      "category": "architecture",
+      "source_url": "https://assetstore.unity.com/packages/3d/environments/modular-ancient-chinese-city-pack-186607",
+      "stage": "preview_candidate",
+      "license_scope": "Listing / product terms require checking; purchase/account may be required; no redistribution of proprietary source",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Compact proof of modules and street density; quality likely insufficient for hero architecture without extensive changes",
+      "assessment": "medium priority: paid Unity listing, not purchased; page displayed $4.99 on 2026-10-24; Unity license/export rules and original file formats require checking",
+      "desktop_source_format": "26 building prefabs, 12 PBR materials, 2K textures, 169.3MB package",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Unity license/export rules and original file formats require checking"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-booth-a-ji-chinese-street",
+      "name": "BOOTH A-ji Chinese street 33 buildings",
+      "category": "architecture",
+      "source_url": "https://booth.pm/ja/items/9027360",
+      "stage": "preview_candidate",
+      "license_scope": "Listing / product terms require checking; purchase/account may be required; no redistribution of proprietary source",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Single coherent street scene, densification/layout reference",
+      "assessment": "medium priority: paid creator source (¥500 shown 2026-10-24), not purchased; Not verified Tang-era; commercial use/redistribution terms per creator, no paid source re-upload",
+      "desktop_source_format": "Editable Blender+FBX; 33 buildings, 720228 triangles, 10 textures, ~108m x 118m",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Not verified Tang-era; commercial use/redistribution terms per creator, no paid source re-upload"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-hanfu-603k",
+      "name": "Sketchfab 漢服 Chinese Hanfu",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/chinese-hanfu-de545ac1516f499db21aa16726587f20",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Reference for elaborate fabric shapes and cloth layering; possibly printable/mannequin not rigged",
+      "assessment": "medium priority: public CC-BY downloadable listing; NOT acquired; Topology, actual meshes, period, commercial redistribution/third-party textures must be inspected",
+      "desktop_source_format": "1.2M tris / 603.7k vertices",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Topology, actual meshes, period, commercial redistribution/third-party textures must be inspected"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-tang-chest-673k",
+      "name": "Style3D Chest-length Hanfu of Tang Dynasty",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/chest-length-hanfu-of-tang-dynasty-bdf94b5384414899a81a15016b4f13ca",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Tang women's costume seam/pattern/fabric proportion exemplar, rigging/LOD needed",
+      "assessment": "high priority: public CC-BY download listing; NOT acquired; same author family as existing Style3D entry but distinct model; Large cloth source; platform download/API access may require account; license on final exported format verify",
+      "desktop_source_format": "673.1k triangles; author states multiple export formats via Style3D Atelier",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Large cloth source; platform download/API access may require account; license on final exported format verify"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-baby-dragon-green",
+      "name": "Sketchfab k13473117 cute baby dragon",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/cute-baby-dragon-84cfa387398141349a800ff0c7ee426f",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Face/eye/material and complete dragon comparator, potential retopology base",
+      "assessment": "medium priority: public CC-BY downloadable listing; NOT acquired; May still be too simple/stylized vs user expectation; rig/animation unspecified",
+      "desktop_source_format": "34.5k triangles, green stylized dragon",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "May still be too simple/stylized vs user expectation; rig/animation unspecified"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-spriggle-baby-dragon",
+      "name": "Sketchfab Ar3Designer Spriggle the Hatchling",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/spriggle-the-hatchling-a293fa67fbaf426190a716f9b78a7efa",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Alternative continuous young dragon geometry/texture reference",
+      "assessment": "medium priority: public CC-BY downloadable listing; NOT acquired; Character design/fine detail must be compared to approved jade dragon; binding unspecified",
+      "desktop_source_format": "34.9k triangles, UV, hand-painted textures",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Character design/fine detail must be compared to approved jade dragon; binding unspecified"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-cute-dragon-shakiller",
+      "name": "Sketchfab shakiller Cute Dragon",
+      "category": "dragon",
+      "source_url": "https://sketchfab.com/3d-models/cute-dragon-df14ec74767c4598920132758dab8a49",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; attribution required and exact downloaded asset chain must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Existing alternate baseline requiring mature deformation and art direction",
+      "assessment": "medium priority: public CC-BY downloadable listing; NOT acquired; earlier project discussion already previewed; Previously previewed not adopted; do not reintroduce without real improvement",
+      "desktop_source_format": "27.9k triangles; animation tag",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Previously previewed not adopted; do not reintroduce without real improvement"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-fab-modular-canal-town-II",
+      "name": "Fab Modular Chinese Canal Town II",
+      "category": "environment",
+      "source_url": "https://www.fab.com/listings/883b6450-196d-408b-a251-89fb6c37a4a9",
+      "stage": "preview_candidate",
+      "license_scope": "Listing / product terms require checking; purchase/account may be required; no redistribution of proprietary source",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Environment scene density and realistic PBR construction workflow",
+      "assessment": "low priority: commercial UE-only listing, NOT acquired; Huizhou chronological/regional difference; UE-only requires proper legal extraction",
+      "desktop_source_format": "Realistic Huizhou style, modular assets + objects and plants",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Huizhou chronological/regional difference; UE-only requires proper legal extraction"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
+    },
+    {
+      "id": "research-20261024-sketchfab-small-imperial-andertan",
+      "name": "andertan Small Chinese imperial style building",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/small-chinese-imperial-style-building-631615777ba4421a98814559dc2d4c5a",
+      "stage": "preview_candidate",
+      "license_scope": "Public listing claims CC BY; exact file license must be checked",
+      "acquisition_status": "PUBLIC_PAGE_VERIFIED_ONLY — NOT DOWNLOADED, NOT TECHNICALLY OR ART APPROVED",
+      "target_scene": "Dense roof details, hip-gable, close-up comparison",
+      "assessment": "medium priority: already existing catalog entry, do not add again; public CC BY downloadable listing, NOT acquired; Explicit Forbidden City/Ming Qing inspiration; not Tang",
+      "desktop_source_format": "681.6k triangles",
+      "desktop_quality_route": "Retain native high-detail source and meaningful full-resolution texture maps; inspect and tailor for actual 16-inch PC game before producing streaming LOD variants",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "unknown_until_files_inspected",
+        "reason": "Explicit Forbidden City/Ming Qing inspiration; not Tang"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Optional future mobile conversion only; not desktop art gate."
+      }
     }
   ],
   "design_studies": [
@@ -5382,5 +5756,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 118
+  "resource_count": 135
 }

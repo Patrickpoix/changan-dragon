@@ -1,6 +1,6 @@
 {
-  "version": "preparation-v2",
-  "status": "working production specification; aesthetic release withheld pending reference comparison",
+  "version": "preparation-v3-desktop-first",
+  "status": "Primary cinematic desktop browser production. Prior mobile metrics are NOT binding for desktop art; aesthetic acceptance remains pending.",
   "units": "metres",
   "runtime": {
     "three_revision": "160",
@@ -34,7 +34,7 @@
     "shop_bay": 3.6,
     "ground_eave": 3.5,
     "column_diameter": 0.3,
-    "gallery_clear_width": 2.0,
+    "gallery_clear_width": 2,
     "door_clear_width": 1.2,
     "gallery_guard_height": 1.05,
     "stair_width": 1.2,
@@ -74,7 +74,7 @@
     "human_anatomy": "Natural human proportions and familiar facial structure; do not enlarge heads or eyes. Tang identity through hair, clothing, grooming and role. Ranges are loose reference checks, never forced deformation."
   },
   "barge": {
-    "length": 12.0,
+    "length": 12,
     "beam": 3.6,
     "cabin_clear_height": 2.2,
     "central_aisle_min": 1.2,
@@ -112,7 +112,7 @@
       ],
       "plaster": [
         0.85,
-        1.0
+        1
       ],
       "tile": [
         0.72,
@@ -173,7 +173,8 @@
     "resident_textures_mib_max": 96,
     "gpu_total_mib_max": 192,
     "offline_package_mib_target": 45,
-    "mobile_fps_target": 30
+    "mobile_fps_target": 30,
+    "scope": "LEGACY MOBILE FALLBACK ONLY; numeric values retained for compatibility, not desktop production caps"
   },
   "small_boats": {
     "skiff": {
@@ -192,5 +193,17 @@
       "deck": 0.19,
       "thickness": 0.045
     }
+  },
+  "desktop_first": {
+    "priority": "2026-10-24 user decision: main target is a high-fidelity PC web game on user's 16-inch laptop, not phone or mandatory single-HTML offline delivery.",
+    "viewport": "16 inches is physical size, not known pixel resolution. Test responsive 16:10 1920x1200 and 2560x1600 windows and validate actual device.",
+    "art": "No premature low-poly/unfinished characters; complete human faces, expressions, historically adapted apparel, continuous dragon topology, architecture interiors and full four-side models.",
+    "source": "Editable full-resolution Blender/FBX/glTF masters with verified licensing and recorded checksums; runtime variants separate.",
+    "textures": "2K/4K details and selective 8K authoring sources permitted when visually meaningful; no blanket 1024 texture limit for desktop.",
+    "distribution": "Multi-file HTTPS / server-hosted delivery with per-zone or per-LOD streaming and caching allowed. Single HTML and phone are optional compatibility.",
+    "size": "Hundreds of MB or reasonable GBs acceptable with evidence of real detail and responsible loading. Neither a fixed limit nor a requirement to bloat.",
+    "performance": "Benchmark true PC hardware for frame time, GPU memory, startup, steady-state, bandwidth and quality. Avoid hard claims before measuring.",
+    "legacy_budget_scope": "budgets_not_measured_performance contains historical mobile figures; never use its 45MiB/1K/192MiB limits for desktop hero assets.",
+    "migration": "Keep effective Three.js r160 and game systems unless demonstrated reasons to switch."
   }
 }
