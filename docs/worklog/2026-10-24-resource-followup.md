@@ -17,3 +17,6 @@ Sketchfab单页有时403，故检索结果仍需在实际下载阶段核验；�
 
 ## 下一位执行者
 依序阅读 AGENTS.md、docs/PRODUCT_BRIEF.md、docs/SYSTEM_ARCHITECTURE.md、docs/CONTINUE.md、docs/RESOURCE_SWEEP_FOLLOWUP_20261024.md；先检查Codex当前进度，优先正规取得唐木构/CC0高精石植被/真正适用水天shader，动态实景验证并留艺术待用户批准记录。
+
+## 继续核实：Poly Haven 4K精确下载队列
+实际调用官方API读取 fern_02、moss_01、boulder_01、rock_moss_set_02、shrub_02 的4K glTF和4个依赖文件大小/MD5及下载地址；5组25个文件总计 89262365 B。完整元数据追加到**现有**resource-catalog同URL条目，未新建平行素材库。**未实际下载、哈希文件字节、导入Blender或验收视觉。**

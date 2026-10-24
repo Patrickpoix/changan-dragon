@@ -101,3 +101,17 @@
 2. 验证官方文件及材质依赖/许可证/作者、取得 SHA256。对于巨型8K/17M三角形松树，源项目可保留高模母版，实际网页要做分区加载与适度 LOD；体积变大不是允许直接耗尽16英寸笔记本显存。
 3. 历史参考以博物馆实物编号、年代、材质和作者/许可存证，与幻想青龙、影视美术风格分离。模型美术验收前不得以“唐代”字样作为真实性合格证明。
 4. 一组可进入店铺、柳岸、弯曲溪流、小桥、唐人和主角完整高精区，用统一镜头、真实动态视频、历史正确性与GPU测试最终选引擎和材质管线。
+
+## 可复现的官方高精资源获取队列（官方4K glTF元数据已校验）
+
+我单独通过Poly Haven files API核验以下5套完整4K GLTF原件及其`.bin`/贴图来源，保留**所有25个文件的官方精确下载URL、单件大小和MD5**于已有唯一资产目录 `resource-catalog.json` 对应项的 `official_download_metadata_4k`。这不是从搜索标题推测的URL，也**不是下载完成**。
+
+| 素材 | 文件总数 | 官网声明压缩文件总大小 | 主页 |
+|---|---:|---:|---|
+| fern_02 | 5 | 10.33 MiB | [Poly Haven](https://polyhaven.com/a/fern_02) |
+| moss_01 | 5 | 11.06 MiB | [Poly Haven](https://polyhaven.com/a/moss_01) |
+| boulder_01 | 5 | 41.24 MiB | [Poly Haven](https://polyhaven.com/a/boulder_01) |
+| rock_moss_set_02 | 5 | 9.04 MiB | [Poly Haven](https://polyhaven.com/a/rock_moss_set_02) |
+| shrub_02 | 5 | 13.45 MiB | [Poly Haven](https://polyhaven.com/a/shrub_02) |
+
+合计 85.13 MiB / 89262365 bytes。后续 Codex 从官方提供的 `files[].url` 逐件下载，按 `files[].path` 恢复相对目录，逐个计算MD5和元数据比较，通过后才标识 acquired；高精源存 Git LFS 或授权资产存储而不是普通 Git 反复追加。实际 Blender PBR/多视角/剪裁、史实植物种属与真机性能仍待验证。

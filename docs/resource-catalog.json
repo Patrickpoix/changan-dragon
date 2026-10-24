@@ -7999,7 +7999,45 @@
         "measured": false,
         "cost": "desktop-first"
       },
-      "runtime_integrated_this_round": false
+      "runtime_integrated_this_round": false,
+      "official_download_metadata_4k": {
+        "source_api": "https://api.polyhaven.com/files/boulder_01",
+        "status": "official_API_metadata_verified_no_file_bytes_downloaded",
+        "license": "CC0",
+        "files": [
+          {
+            "path": "boulder_01_4k.gltf",
+            "md5": "64a2ae2d9b1d8bc95f8334fd4cc9f72b",
+            "bytes": 2773,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/boulder_01/boulder_01_4k.gltf"
+          },
+          {
+            "path": "boulder_01.bin",
+            "md5": "27a19fa031d8b4c3a09261f19c444dc5",
+            "bytes": 2938808,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/boulder_01/boulder_01.bin"
+          },
+          {
+            "path": "textures/boulder_01_arm_4k.jpg",
+            "md5": "f3bc62981f695346b621b545d4771417",
+            "bytes": 7802675,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/boulder_01/boulder_01_arm_4k.jpg"
+          },
+          {
+            "path": "textures/boulder_01_nor_gl_4k.jpg",
+            "md5": "c4d95f5c52d4552b10636c94cc54835e",
+            "bytes": 19220463,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/boulder_01/boulder_01_nor_gl_4k.jpg"
+          },
+          {
+            "path": "textures/boulder_01_diff_4k.jpg",
+            "md5": "0bceced14031539cff10d992df24be0e",
+            "bytes": 13282817,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/boulder_01/boulder_01_diff_4k.jpg"
+          }
+        ],
+        "total_bytes": 43247536
+      }
     },
     {
       "id": "curated-20261024-rock-moss-set-01",
@@ -8043,7 +8081,45 @@
         "measured": false,
         "cost": "desktop-first"
       },
-      "runtime_integrated_this_round": false
+      "runtime_integrated_this_round": false,
+      "official_download_metadata_4k": {
+        "source_api": "https://api.polyhaven.com/files/rock_moss_set_02",
+        "status": "official_API_metadata_verified_no_file_bytes_downloaded",
+        "license": "CC0",
+        "files": [
+          {
+            "path": "rock_moss_set_02_4k.gltf",
+            "md5": "f14e2640ad380c371b1d5423fdc362d0",
+            "bytes": 11608,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/rock_moss_set_02/rock_moss_set_02_4k.gltf"
+          },
+          {
+            "path": "rock_moss_set_02.bin",
+            "md5": "a63878339f14feceab7347cc28110eaa",
+            "bytes": 1316572,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_moss_set_02/rock_moss_set_02.bin"
+          },
+          {
+            "path": "textures/rock_moss_set_02_nor_gl_4k.jpg",
+            "md5": "a719a2d3f901ba275970f125488ede09",
+            "bytes": 3597653,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/rock_moss_set_02/rock_moss_set_02_nor_gl_4k.jpg"
+          },
+          {
+            "path": "textures/rock_moss_set_02_rough_4k.jpg",
+            "md5": "3a713fbcb0512e69f7c042e954095169",
+            "bytes": 1663773,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/rock_moss_set_02/rock_moss_set_02_rough_4k.jpg"
+          },
+          {
+            "path": "textures/rock_moss_set_02_diff_4k.jpg",
+            "md5": "b16253d14fa2f3b23f182767779cb775",
+            "bytes": 2893305,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/rock_moss_set_02/rock_moss_set_02_diff_4k.jpg"
+          }
+        ],
+        "total_bytes": 9482911
+      }
     },
     {
       "id": "curated-20261024-moss-01",
@@ -8065,7 +8141,45 @@
         "measured": false,
         "cost": "desktop-first"
       },
-      "runtime_integrated_this_round": false
+      "runtime_integrated_this_round": false,
+      "official_download_metadata_4k": {
+        "source_api": "https://api.polyhaven.com/files/moss_01",
+        "status": "official_API_metadata_verified_no_file_bytes_downloaded",
+        "license": "CC0",
+        "files": [
+          {
+            "path": "moss_01_4k.gltf",
+            "md5": "840f3d9f2417f6154b5c0d7345a73f24",
+            "bytes": 18481,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/moss_01/moss_01_4k.gltf"
+          },
+          {
+            "path": "moss_01.bin",
+            "md5": "cdb092878a81b3208a162d79546892fe",
+            "bytes": 7260,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/moss_01/moss_01.bin"
+          },
+          {
+            "path": "textures/moss_01_nor_gl_4k.jpg",
+            "md5": "c0924ee9fc1365a0d0510748e6f15628",
+            "bytes": 6643244,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/moss_01/moss_01_nor_gl_4k.jpg"
+          },
+          {
+            "path": "textures/moss_01_diff_4k.jpg",
+            "md5": "f5e3cb94fddab99ad6fd840eff617bfc",
+            "bytes": 1562699,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/moss_01/moss_01_diff_4k.jpg"
+          },
+          {
+            "path": "textures/moss_01_arm_4k.jpg",
+            "md5": "e58801aaf4f23793247bd5e35396fa27",
+            "bytes": 3365305,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/moss_01/moss_01_arm_4k.jpg"
+          }
+        ],
+        "total_bytes": 11596989
+      }
     },
     {
       "id": "curated-20261024-fern-02",
@@ -8087,7 +8201,45 @@
         "measured": false,
         "cost": "desktop-first"
       },
-      "runtime_integrated_this_round": false
+      "runtime_integrated_this_round": false,
+      "official_download_metadata_4k": {
+        "source_api": "https://api.polyhaven.com/files/fern_02",
+        "status": "official_API_metadata_verified_no_file_bytes_downloaded",
+        "license": "CC0",
+        "files": [
+          {
+            "path": "fern_02_4k.gltf",
+            "md5": "10425c45145273a2899b8cc585592d2e",
+            "bytes": 6899,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/fern_02/fern_02_4k.gltf"
+          },
+          {
+            "path": "fern_02.bin",
+            "md5": "c061e9255f7d36ae9ce0e92ef3e100b2",
+            "bytes": 176176,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/fern_02/fern_02.bin"
+          },
+          {
+            "path": "textures/fern_02_diff_4k.jpg",
+            "md5": "07642c942fe65ae5b03b212398ba7004",
+            "bytes": 3025392,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/fern_02/fern_02_diff_4k.jpg"
+          },
+          {
+            "path": "textures/fern_02_nor_gl_4k.jpg",
+            "md5": "1a35f2135cd71a64a255406b11f988a2",
+            "bytes": 5058951,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/fern_02/fern_02_nor_gl_4k.jpg"
+          },
+          {
+            "path": "textures/fern_02_arm_4k.jpg",
+            "md5": "37426a24b433a05fe3958acc34232ede",
+            "bytes": 2569142,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/fern_02/fern_02_arm_4k.jpg"
+          }
+        ],
+        "total_bytes": 10836560
+      }
     },
     {
       "id": "curated-20261024-pine-tree-01",
@@ -8175,7 +8327,45 @@
         "measured": false,
         "cost": "desktop-first"
       },
-      "runtime_integrated_this_round": false
+      "runtime_integrated_this_round": false,
+      "official_download_metadata_4k": {
+        "source_api": "https://api.polyhaven.com/files/shrub_02",
+        "status": "official_API_metadata_verified_no_file_bytes_downloaded",
+        "license": "CC0",
+        "files": [
+          {
+            "path": "shrub_02_4k.gltf",
+            "md5": "f0d08863a8fcfaf77eb491e88ac75acc",
+            "bytes": 8083,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/shrub_02/shrub_02_4k.gltf"
+          },
+          {
+            "path": "shrub_02.bin",
+            "md5": "683b5475238310899eac1458520903e6",
+            "bytes": 758692,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/shrub_02/shrub_02.bin"
+          },
+          {
+            "path": "textures/shrub_02_arm_4k.jpg",
+            "md5": "9fa6a966878c8f31662e105d234a1108",
+            "bytes": 3544064,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/shrub_02/shrub_02_arm_4k.jpg"
+          },
+          {
+            "path": "textures/shrub_02_diff_4k.jpg",
+            "md5": "480184d1591bed2953db04663015b06a",
+            "bytes": 4283120,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/shrub_02/shrub_02_diff_4k.jpg"
+          },
+          {
+            "path": "textures/shrub_02_nor_gl_4k.jpg",
+            "md5": "ceb649f3d77374b96a7b7879adef0ad6",
+            "bytes": 5504410,
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/shrub_02/shrub_02_nor_gl_4k.jpg"
+          }
+        ],
+        "total_bytes": 14098369
+      }
     },
     {
       "id": "curated-20261024-single-root",
