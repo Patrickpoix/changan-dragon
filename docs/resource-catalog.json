@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 298,
+    "records": 315,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 4,
@@ -25,23 +25,23 @@
       "asset-optimization": 5,
       "spatial-query": 3,
       "navigation": 2,
-      "rendering": 21,
+      "rendering": 22,
       "architecture": 42,
       "boats": 10,
-      "clothing": 9,
+      "clothing": 11,
       "dragon": 9,
-      "vegetation": 20,
+      "vegetation": 22,
       "animals": 12,
       "bicycle": 1,
       "market": 7,
       "characters": 12,
-      "props": 18,
+      "props": 19,
       "bridges": 5,
       "interior": 8,
       "environment": 13,
-      "material": 29,
-      "historical-reference": 22,
-      "audio": 16,
+      "material": 32,
+      "historical-reference": 25,
+      "audio": 21,
       "source-check": 6,
       "character-source": 2,
       "clothing-tool": 2,
@@ -55,17 +55,17 @@
       "source_acquired": 2,
       "offline_tool_candidate": 4,
       "runtime_candidate": 2,
-      "reference_only": 26,
+      "reference_only": 29,
       "account_required": 12,
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 185,
+      "preview_candidate": 199,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration."
   },
   "resources": [
     {
@@ -9512,6 +9512,414 @@
         "measured": false,
         "cost": "desktop-first"
       }
+    },
+    {
+      "id": "free-tang-ruqun-dream-changan",
+      "name": "Tang Qi chest Ruqun – Dream Chang'an",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/tang-qi-chest-ruqun-dream-chang-an-69d42f3ee7a046289dc097c1fa6efad1",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "250k triangles; Style3D CG; public Sketchfab download listing, UV and PBR maps",
+      "review_notes": "Tang women's costume study; need inspect separate cloth pieces, bone fit, fabric physics and inclusion of real downloadable textures",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-tang-red-splicing-ruqun",
+      "name": "Tang Dynasty red splicing chest-length skirt",
+      "category": "clothing",
+      "source_url": "https://sketchfab.com/3d-models/tang-dynasty-red-splicing-chest-length-skirt-4884f1345dd747cbb58e4e2a51e408f6",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "292.6k triangles; Style3D CG; public Sketchfab download listing with texture maps",
+      "review_notes": "Rich garment reference; no evidence of rigged wearer or open native Style3D project in the download",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-ming-qing-supreme-harmony-roof",
+      "name": "Hall of Supreme Harmony roof photoreference",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/hall-of-supreme-harmony-c354afbc1a4f428d80a26f5904d27fe6",
+      "stage": "reference_only",
+      "priority": "low",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "3.3M triangles; explicit Ming/Qing Forbidden City glazed roof tile reconstruction",
+      "review_notes": "Strictly surface/ornamental comparative research: Ming-Qing roof NOT acceptable as Tang imperial building",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-chinese-monk-sculpture-mia",
+      "name": "Minneapolis Institute of Art wooden Chinese monk sculpture",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/10th-c-bce-chinese-monk-c6efb650b99c45928b3f0c9b89006a60",
+      "stage": "reference_only",
+      "priority": "medium",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "50k triangles; official museum upload; iconography related to Tang tradition; page title and chronology ambiguous",
+      "review_notes": "Cultural museum reference for temple sculpture: chronology ambiguity must be settled, not a Tang NPC",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-tang-statuette-scan",
+      "name": "Believed Tang Chinese statuette – ceramic scan",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/tang-dynasty-statuette-4434b282cc1343f0bfa9b140004e75a2",
+      "stage": "reference_only",
+      "priority": "medium",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "60k triangles; uploader describes it as believed Tang, not securely attributed",
+      "review_notes": "Use as comparative ceramic object and research; provenance not a verified Tang court artifact",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-lotus-pond-cluster-467k",
+      "name": "GA Free 351 realistic lotus leaf cluster",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/ga-free-351-small-lotus-leaf-cluster--tt-79024211401e4cf1a26f2ef8c71fe1be",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "467k triangles; detailed leaf veins and clustered geometry; Sketchfab public download listed",
+      "review_notes": "Potential palace pond hero water plants; check true geometry/alpha maps, source provenance, LOD and wind rig before integration",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-lotus-vase-plant",
+      "name": "Lotus plant and vase",
+      "category": "vegetation",
+      "source_url": "https://sketchfab.com/3d-models/lotus-plant-0b5d6f7c256345b3b7c343d66212e38f",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "96.9k triangles; flower plus vase; public download listed",
+      "review_notes": "Reference flower/leaf structure and materials; potted version NOT a substitute for aquatic rhizome and lily-pad water placement",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-chinese-lantern-festival-shade",
+      "name": "Chinese Lantern Festival lampshade",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/chinese-lantern-festival-lampshade-d119b7429911469fb9e6918371b66a06",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Sketchfab public Download 3D Model listing; free account login likely needed; no paid tier verified",
+      "license_scope": "CC BY on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "18.2k triangles; public Sketchfab free download",
+      "review_notes": "Could supply rounded lamp-shade topology; inspect interior/back face, transmission & Tang-specific shape",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-ambient-bird-sounds-cc0",
+      "name": "OpenGameArt Ambient Bird Sounds",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/ambient-bird-sounds",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Direct free OpenGameArt attachment",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "Original bird field recording; small 544.7KB OGG downloadable",
+      "review_notes": "Layer sparse location-sensitive bird calls in palace gardens; not automatically regional Tang-era bird species",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-water-splash-footsteps-cc0",
+      "name": "OpenGameArt Water Splash and Sand Footsteps",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/water-splash-and-sand-footsteps",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Direct free OpenGameArt attachment",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "Source page has WAV water splashes 225.4/150.6KB and sand footsteps MP3",
+      "review_notes": "For dragon stepping in water / boat oar splashes; preview loudness/noise and editorial sound suitability",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-water-splash-40-cc0",
+      "name": "OpenGameArt 40 CC0 Water / Splash / Slime SFX",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Direct free OpenGameArt attachment",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "40-item 2.3MB ZIP; 15 splashes, 6 loop water/bubble/rain",
+      "review_notes": "Use natural water only: exclude cartoon slime layers; audition seamless loops, doppler and near-bank spatial zones",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-winter-sky-hdri",
+      "name": "Poly Haven Winter Sky 16K HDRI",
+      "category": "rendering",
+      "source_url": "https://polyhaven.com/a/winter_sky",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Direct free official download, no login",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "Real unclipped high contrast winter lake/sun HDRI up to 16K",
+      "review_notes": "Neutral daylight/reflective-water A/B; winter setting is lighting reference only, not an automatic summer landscape match",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-lacquered-cherry-16k",
+      "name": "Poly Haven Lacquered Cherry Wood 16K",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/lacquered_cherry_wood",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Direct free official download, no login",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "16K PBR lacquered hardwood, glossy finish, wood-grain+roughness maps",
+      "review_notes": "For red lacquer furniture/rail/indoor timber tests after hue modification; do not place whole sample unmodified on every column",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-wooden-gate-16k",
+      "name": "Poly Haven Wooden Gate 16K",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/wooden_gate",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Direct free official download, no login",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "16K varnished wood plank PBR with nail marks and map set",
+      "review_notes": "For wooden door plank detail as material source only; actual Tang door geometry must be modeled",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-multicolor-pebble-8k",
+      "name": "Poly Haven Multicolored Pebble Floor 8K",
+      "category": "material",
+      "source_url": "https://polyhaven.com/a/multicolored_pebble_floor",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Direct free official download, no login",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "8K PBR wet-looking rounded stones embedded in cement mortar",
+      "review_notes": "Only material/normal research: artificial cement surface wrong for natural creek bed, not to substitute for loose rocks",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-different-steps-cc0",
+      "name": "OpenGameArt Different steps on wood, stone, leaves, gravel and mud",
+      "category": "audio",
+      "source_url": "https://opengameart.org/node/5701",
+      "stage": "preview_candidate",
+      "priority": "high",
+      "zero_cost_access": "Direct free OpenGameArt attachment",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "8 distinct CC0 footsteps in 77.7KB ZIP",
+      "review_notes": "Separate ground material triggers (wooden galleries, earth alleys, stone staircases), compare with existing foley and master levels",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
+    },
+    {
+      "id": "free-workshop-68-cc0",
+      "name": "OpenGameArt 68 Workshop Sounds",
+      "category": "audio",
+      "source_url": "https://opengameart.org/content/68-workshop-sounds",
+      "stage": "preview_candidate",
+      "priority": "medium",
+      "zero_cost_access": "Direct free OpenGameArt attachment",
+      "license_scope": "CC0 on originating public source page; check downloaded files and any embedded third-party media before use",
+      "acquisition_status": "Source webpage examined on 2026-10-24; files NOT downloaded, no source SHA, Blender import or art approval",
+      "assessment": "68 workshop tool/hit recordings, 24.6MB 7z",
+      "review_notes": "For pottery/woodworking markets; modern electric tool and noisy recordings must be manually excluded",
+      "runtime_integrated_this_round": false,
+      "style_modification_cost": {
+        "level": "to_assess",
+        "assessment_basis": "Only source page reviewed; complete actual source files and artistic outcome not inspected",
+        "estimate_only": true
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "Desktop first; actual GPU/memory/LOD cost not yet tested",
+        "acceptance": "Import complete source, profile triangles, textures, meshes, skinning and LOD on representative scene"
+      }
     }
   ],
   "design_studies": [
@@ -9552,7 +9960,7 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 298,
+  "resource_count": 315,
   "free_only_policy": {
     "effective_date": "2026-10-24",
     "price_ceiling_usd": 0,
