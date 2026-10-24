@@ -15,8 +15,8 @@
 
 1. 读取最新 GitHub 的 AGENTS、PRODUCT_BRIEF、CONTINUE、资源目录、清单和脚本，确认技术进度及美术否决/新阶段仍有效。
 2. 从 Poly Haven 官方 API 读取 1K glTF 依赖列表；**10 个文件下载时计算 MD5，均与 API 原值一致**；仅完整来源进入仓库。
-3. 检查官方屏风 glTF 的 BIN 与纹理相对引用路径，规划目录保持原相对结构。入库后回读仓库树、JSON 可解析和 glTF 依赖存在性（如执行，以提交后验证结果为准）。
-4. 文档不涉及运行时改动，因此未重新运行全城交互、离线构建、WebGL1/Playwright 大回归，避免虚假的“全面通过”。
+3. **提交后实际回读 main 仓库**：两个资产目录共 10 文件、3,486,048 B。分别解析两份 glTF JSON 并对照 GitHub 目录，8 条 BIN/贴图引用均能解析且相对路径存在，两份 BIN 声明 byteLength 均等于仓库实际文件大小；屏风 2 个 mesh primitives，木凳 1 个。\n4. **提交后解析资源 JSON**：resource-catalog.json 有 118 条，resource_count=118、by_stage 合计=118、by_category 合计=118；asset-manifest 的 curated_cc0_sources=2。
+5. 文档不涉及运行时改动，因此未重新运行全城交互、离线构建、WebGL1/Playwright 大回归，避免虚假的“全面通过”。
 
 ## 未运行、未知与未解决项
 
