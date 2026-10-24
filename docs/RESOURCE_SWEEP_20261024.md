@@ -158,3 +158,19 @@
 - 同价货源可能同一供应商重售，应查 SHA、截图和原创声明以免重复购买；若找不到合法可编辑成熟源，研究专业造型/雕刻工艺，不以低精几何代替。
 - 商用音效库通常允许**作品中使用声音**，不意味着允许将原音频全集原样公开传播，也不允许用于 AI 训练。
 - 进行视觉验收前，状态必须停留在 candidate。下载后明确 source SHA256、许可和字节，真正导入 Blender 验证前后侧/俯视/灰模/PBR/绑定或流动帧视频；用户最终主观验收另列。
+
+## 第二轮补充：宫苑、庭院与可定位溪流原声
+
+| 级别 | 成熟来源 | 公开规格、局限 |
+|---|---|---|
+| A | [唐代宫殿建筑群5座原始Blend](https://www.cgtrader.com/3d-models/exterior/historic-exterior/tang-dynasty-palace-complex) | 五座唐式宫苑建筑组合；纹理内置Blend，卖家明确无室内，仅可外景，商业购买待核 |
+| B | [Sketchfab中式庭院公园大场景](https://sketchfab.com/3d-models/ancient-chinese-courtyard-park-55d8371278844dbbbe43e1f867b5fcde) | 268.6k三角形 CC BY，庭院/园林全景，非严格唐代；需四向检查 |
+| C | [Sketchfab中国民居院落结构](https://sketchfab.com/3d-models/ancient-chinese-courtyard-house-ed4ea9eb5f024d989eec182d48fa72d8) | 7.7k三角形CC BY，只作院落类型结构草样，精细程度不足最终近景 |
+| B | [Sketchfab现代高精中式庭院景观](https://sketchfab.com/3d-models/contemporary-zen-chinese-courtyard-f4e8ebb55f9b49b7b763b97a6436c6fb) | 140万三角形CC BY，完整庭院花园/水景空间，现代风格只借园林多层构图 |
+| A | [Freesound野外河溪实录30秒](https://freesound.org/people/kentspublicdomain/sounds/325182/) | 44.1kHz双声道30.55s约5.1MB，作者原录溪流水声CC0；Freesound下载需登录 |
+| A | [Freesound瀑布入溪实录67秒](https://freesound.org/people/Tom_Kaszuba/sounds/660252/) | 48kHz24bit双声道1:07约18.4MB，近距离跌水/小瀑布CC0，下载条件待核 |
+| A | [Freesound苏格兰温柔溪流](https://freesound.org/people/BurghRecords/sounds/415151/) | 24bit96kHz约29s/15.9MB，流水氛围CC0；需平滑循环和空间化 |
+| A | [Freesound环境小溪流64秒](https://freesound.org/people/BurghRecords/sounds/446019/) | 24bit96kHz 63.7s/35MB CC0，柔缓水声；可能与其另一声音内容重合 |
+| B | [Freesound长时溪流水实录](https://freesound.org/people/INNORECORDS/sounds/469009/) | CC0 5分钟/50MB真实流水，长时自然声底；登录下载和循环音色待听 |
+
+水声建议：在主溪浅滩、桥下、跌水位置用不同CC0源作为空间化声音层，动态根据 WaterDomain 的流速/水高衰减。**CC0原声尚未下载，更未试听、切循环或入城。**

@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 211,
+    "records": 220,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 4,
@@ -26,7 +26,7 @@
       "spatial-query": 2,
       "navigation": 2,
       "rendering": 14,
-      "architecture": 26,
+      "architecture": 28,
       "boats": 9,
       "clothing": 9,
       "dragon": 8,
@@ -38,10 +38,10 @@
       "props": 10,
       "bridges": 3,
       "interior": 2,
-      "environment": 3,
+      "environment": 5,
       "material": 28,
       "historical-reference": 12,
-      "audio": 10,
+      "audio": 15,
       "source-check": 5,
       "character-source": 1,
       "clothing-tool": 1,
@@ -59,12 +59,12 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 101,
+      "preview_candidate": 110,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired."
   },
   "resources": [
     {
@@ -7392,6 +7392,195 @@
         "measured": false,
         "cost": "optional compatibility tier only"
       }
+    },
+    {
+      "id": "resource-sweep-20261024-tang-dynasty-palace-complex",
+      "name": "唐代宫殿建筑群5座原始Blend",
+      "category": "architecture",
+      "source_url": "https://www.cgtrader.com/3d-models/exterior/historic-exterior/tang-dynasty-palace-complex",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Commercial marketplace license; no file acquired",
+      "assessment": "五座唐式宫苑建筑组合；纹理内置Blend，卖家明确无室内，仅可外景，商业购买待核",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-ancient-chinese-courtyard-park-55d8371278844dbbbe43e1f867b5f",
+      "name": "Sketchfab中式庭院公园大场景",
+      "category": "environment",
+      "source_url": "https://sketchfab.com/3d-models/ancient-chinese-courtyard-park-55d8371278844dbbbe43e1f867b5fcde",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Sketchfab CC BY public page; credited original author and dependencies required",
+      "assessment": "268.6k三角形 CC BY，庭院/园林全景，非严格唐代；需四向检查",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-ancient-chinese-courtyard-house-ed4ea9eb5f024d989eec182d48fa",
+      "name": "Sketchfab中国民居院落结构",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/ancient-chinese-courtyard-house-ed4ea9eb5f024d989eec182d48fa72d8",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Sketchfab CC BY public page; credited original author and dependencies required",
+      "assessment": "7.7k三角形CC BY，只作院落类型结构草样，精细程度不足最终近景",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-contemporary-zen-chinese-courtyard-f4e8ebb55f9b49b7b763b97a6",
+      "name": "Sketchfab现代高精中式庭院景观",
+      "category": "environment",
+      "source_url": "https://sketchfab.com/3d-models/contemporary-zen-chinese-courtyard-f4e8ebb55f9b49b7b763b97a6436c6fb",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Sketchfab CC BY public page; credited original author and dependencies required",
+      "assessment": "140万三角形CC BY，完整庭院花园/水景空间，现代风格只借园林多层构图",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-325182",
+      "name": "Freesound野外河溪实录30秒",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/kentspublicdomain/sounds/325182/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Creator says CC0 in specific Freesound page; download requires platform login",
+      "assessment": "44.1kHz双声道30.55s约5.1MB，作者原录溪流水声CC0；Freesound下载需登录",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-660252",
+      "name": "Freesound瀑布入溪实录67秒",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/Tom_Kaszuba/sounds/660252/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Creator says CC0 in specific Freesound page; download requires platform login",
+      "assessment": "48kHz24bit双声道1:07约18.4MB，近距离跌水/小瀑布CC0，下载条件待核",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-415151",
+      "name": "Freesound苏格兰温柔溪流",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/BurghRecords/sounds/415151/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Creator says CC0 in specific Freesound page; download requires platform login",
+      "assessment": "24bit96kHz约29s/15.9MB，流水氛围CC0；需平滑循环和空间化",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-446019",
+      "name": "Freesound环境小溪流64秒",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/BurghRecords/sounds/446019/",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Creator says CC0 in specific Freesound page; download requires platform login",
+      "assessment": "24bit96kHz 63.7s/35MB CC0，柔缓水声；可能与其另一声音内容重合",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
+    },
+    {
+      "id": "resource-sweep-20261024-469009",
+      "name": "Freesound长时溪流水实录",
+      "category": "audio",
+      "source_url": "https://freesound.org/people/INNORECORDS/sounds/469009/",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "acquisition_status": "PUBLIC_PAGE_ONLY_NOT_DOWNLOADED",
+      "license_scope": "Creator says CC0 in specific Freesound page; download requires platform login",
+      "assessment": "CC0 5分钟/50MB真实流水，长时自然声底；登录下载和循环音色待听",
+      "runtime_integrated_this_round": false,
+      "technical_status": "not downloaded or tested, no model art approval",
+      "style_modification_cost": {
+        "level": "pending",
+        "reason": "actual editable files and artistic fit unknown"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop quality first"
+      }
     }
   ],
   "design_studies": [
@@ -7432,5 +7621,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 211
+  "resource_count": 220
 }
