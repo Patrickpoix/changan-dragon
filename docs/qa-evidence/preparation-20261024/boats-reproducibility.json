@@ -1,0 +1,17 @@
+{
+  "scope": "Final source repeated offline; unchanged 9 boats plus revised dock pile depth/alpha fixture",
+  "byte_identical_glbs": 10,
+  "generator_sha256": "2b6b44056a4413c70e94fb71fd3d0d3f58a57cfe6cf7b29430db5aac59c2f498",
+  "files": {
+    "skiff-lod2.glb": "3e071f8a848de58d79387e58523c834d8e276eafe87a8835d3b5fc055fa180e0",
+    "covered-lod0.glb": "c3f3ed30d1b16627936679f71014d617854d33c2e5bf0a47ca68abd58d4bb0c6",
+    "skiff-lod0.glb": "cc2d366ab9cb81086f7e30537579580c8202d27cd319d78b91545a5e9c18e85d",
+    "covered-lod2.glb": "20323536951cc863283c2458b30f9432f32d84b5b45fdd855e28f7fa3e9976e5",
+    "barge-lod1.glb": "ef15d7a9c4f3aa355be4513141d22e22b349b63a77762f989c107951ee86c137",
+    "barge-lod0.glb": "976cf082c8c05cc1ee4415b379b75226b3e0aed8bc781c4fbd841c4ddf081829",
+    "barge-lod2.glb": "dc829b534c96272b2d618036673c9b6547dfa4261f2b7077a3e94ba04ecf12ad",
+    "skiff-lod1.glb": "b74142a06936be1027dfb79fbb63f1fc67bf09c36807ae645a3dae211b390978",
+    "covered-lod1.glb": "f16cc04915d5d2975a213798931f0536eae15b79fa3b23ace3edc9acebbac39a",
+    "boarding-fixture.glb": "c800516db0ee75448291afbef64f313feaeaa792f7f200d4fd13a35ebeb17ebd"
+  }
+}

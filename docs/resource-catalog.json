@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-10-23",
+  "checked_on": "2026-10-24",
   "purpose": "Design/research catalogue; separate from actual runtime docs/asset-manifest.json",
   "baseline_commit": "6dfb35265e05980b176a8661caa56b72c41e8ab0",
   "formal_integration_started": false,
@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 115,
+    "records": 116,
     "by_category": {
       "runtime-engine": 5,
       "vegetation-tool": 2,
@@ -27,7 +27,7 @@
       "navigation": 1,
       "rendering": 2,
       "architecture": 13,
-      "boats": 4,
+      "boats": 5,
       "clothing": 4,
       "dragon": 2,
       "vegetation": 4,
@@ -47,7 +47,7 @@
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
-      "source_acquired_research": 11,
+      "source_acquired_research": 12,
       "source_acquired": 1,
       "offline_tool_candidate": 4,
       "runtime_candidate": 2,
@@ -5247,6 +5247,57 @@
       "assessment": "解决根点/长叶/花瓣工艺，不放行最终美术",
       "runtime_integrated_this_round": false,
       "evidence": []
+    },
+    {
+      "id": "authored-boat-construction-studies",
+      "name": "Three separate hull/cabin boat construction studies with LODs",
+      "category": "boats",
+      "source_url": "tools/build_boat_studies.py",
+      "stage": "source_acquired_research",
+      "license_scope": "Original project-authored geometry; no external models, samples or textures; repository terms retained, no blanket relicensing",
+      "acquisition_status": "三种船各3级LOD实际生成，9GLB已取得；另有实际码头/搭板/透明水面fixture。非仅候选链接。",
+      "target_scene": "曲江小舟/轻篷游船/完整画舫的独立结构、船舱与登船尺度研究",
+      "local_manifest": "assets/library/boats/construction-studies/manifest.json",
+      "style_modification_cost": {
+        "level": "high",
+        "reason": "结构/尺度已可调整；完整唐风材质/历史校准/生活陈设及电影轮廓尚未放行"
+      },
+      "mobile_cost": {
+        "measured": true,
+        "measurement_scope": "exported geometry/bytes and r160 software rendering; not physical phone",
+        "triangles_L0_L1_L2": {
+          "skiff": [
+            6516,
+            2672,
+            1336
+          ],
+          "covered": [
+            8420,
+            3936,
+            2232
+          ],
+          "barge": [
+            23076,
+            8760,
+            2704
+          ]
+        },
+        "mesh_material_batches_max": 6,
+        "textures": 0,
+        "note": "外观批次≤6；阴影/环境与额外pass另计；LOD切换/全场景/真机成本仍待测"
+      },
+      "assessment": "9个船型LOD与码头fixture在现代/WebGL1共20次加载，检查四面/灰模/甲板射线/登船净空/透明性与具名接口；美术未放行。已修正中舷门槛。刚体fixture不是游戏乘船实现。",
+      "runtime_integrated_this_round": false,
+      "evidence": [
+        {
+          "path": "docs/qa-evidence/preparation-20261024/boats-results.json",
+          "type": "browser validation"
+        },
+        {
+          "path": "assets/library/boats/construction-studies/manifest.json",
+          "type": "hashes, closed hull and dimension records"
+        }
+      ]
     }
   ],
   "design_studies": [
@@ -5287,5 +5338,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 115
+  "resource_count": 116
 }

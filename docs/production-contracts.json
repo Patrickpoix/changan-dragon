@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "checked_on": "2026-10-23",
+  "checked_on": "2026-10-24",
   "purpose": "Executable methods or precise parameterized code-generation routes for every required asset family; plans are not claimed as finished assets",
   "spec": "docs/production-spec.json",
   "reference": "docs/user-references/2026-10-23/README.md",
@@ -264,12 +264,14 @@
       "source_paths": [
         "assets/library/quaternius/boat_hull/manifest.json",
         "src/20-character.js",
-        "docs/concept-barge-study.png"
+        "docs/concept-barge-study.png",
+        "tools/build_boat_studies.py",
+        "assets/library/boats/construction-studies/manifest.json"
       ],
       "license_scope": "CC0 hull + project-generated cabin/rig; concept reference only",
-      "acquisition_status": "中空小舟壳实际取得并用；完整新画舫未做",
+      "acquisition_status": "现有CC0船壳保留；三种原创独立完整结构样板各3LOD已实际生成/加载，非最终电影美术",
       "recipe": [
-        "船体沿纵向12/3.6m截面采样，半宽w(t)=1.8*sin(pi*t)^0.45，两侧用圆弧肋剖面构内外壳，法向内偏0.06m封舷口；设计水线y0，龙骨-.35",
+        "已执行tools/build_boat_studies.py：三型独立4.2×1.3/6.2×1.8/12×3.6m船壳，纵向sin(pi*t)^.60半宽、弧形肋截面和真实内外壁/封舷；每条边恰好两面，设计水线y0。负载/稳性未实证，不声称水力设计通过。",
         "甲板+单层舱净高2.2m，中通路>=1.2m；栏杆中部留1.2m舷门、同宽水平搭板，前后甲板和屋顶柱距由同一轴网输出",
         "轻篷船用独立6.2x1.8m船体与弧肋篷，不缩放完整画舫；小舟复用已核验船壳；桨座/桨叶/坐凳/人脚同源",
         "逐段航线检测变换后的船壳和桨包络/桥下净高；登乘记录船局部坐标，随船刚体变换，靠岸才允许下船"
@@ -280,14 +282,14 @@
         "collision hull and moving deck transforms"
       ],
       "style_modification_cost": "高",
-      "mobile_cost": "预算起点见production-spec；实际派生/真机另测",
+      "mobile_cost": "已测skiff 6516/2672/1336面，covered 8420/3936/2232面，barge 23076/8760/2704面；≤6材质批次/无贴图，真机及整场景成本未测",
       "acceptance": [
         "艏艉/侧/俯视/舱内",
         "吃水/舷厚",
         "码头到甲板实走",
         "随船位移不滑落"
       ],
-      "remaining_gap": "现有停泊船通行不等于移动搭乘；完整新船和原型水线仍需制作",
+      "remaining_gap": "已落实9GLB/甲板/净空/登船开口/接口/LOD；近景风化/唐风船形/材质和电影美术未放行，随船乘客系统尚未实现；刚体fixture不等于游戏登乘。",
       "production_released": false
     },
     {

@@ -1,0 +1,3595 @@
+{
+  "checked_on": "2026-10-24",
+  "scope": "Preparation inventory and input/cost audit only; separate from browser tests, licence legal interpretation and visual release",
+  "resource_records": 116,
+  "contract_families": 17,
+  "metadata_complete": true,
+  "source_inputs_exist": true,
+  "official_material_file_hashes_verified": 40,
+  "library_files": [
+    {
+      "path": "assets/library/architecture/minilibs-source/LICENSE",
+      "bytes": 1062,
+      "sha256": "644b6ec8ea98e177a2eb828319ac8e033280c2677e7b2eddedea60ac67baf23c"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/README.md",
+      "bytes": 450,
+      "sha256": "aa058a59bc96084dbf74023cf89e5b28932063b6cfda88dc1a68b3d8f28e13a1"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/miniLibs/CalculatorRule.cs",
+      "bytes": 2864,
+      "sha256": "8826a4e98e1643638e0fe8ea17e7b53c02689926304495d82b84ac528eba186c"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/miniLibs/Column.cs",
+      "bytes": 1708,
+      "sha256": "31384765c1dc024f31e44e2cbea7ac9036aa2c7b3899b9c4c893bd01fb0a7cf9"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/miniLibs/ExtendData.cs",
+      "bytes": 7619,
+      "sha256": "83ad150d50c013b7fc3f8c5eba60a23321280fa1e6f1f021805d88232e808bbc"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/miniLibs/PrimitiveModel.cs",
+      "bytes": 9981,
+      "sha256": "30a96547ac9816a4f23e317ac8a4a2339d3df833158fb3bbaaa502f34766e293"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/miniLibs/TouKungData.cs",
+      "bytes": 7812,
+      "sha256": "f5663a6d4f20474c6c67160554d3981a5de4e35db042b905dc8ae1bf67c5cdaf"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/miniLibs/Utils.cs",
+      "bytes": 5150,
+      "sha256": "fb7bfbe06e2ea4f64832e63536a971a35e7f02a2584c2da8583bce154837368e"
+    },
+    {
+      "path": "assets/library/architecture/minilibs-source/source-manifest.json",
+      "bytes": 2457,
+      "sha256": "901e61475c5c01d82805c5e8a27e6e6ae60cd3dc083b47144099478fd177cbf1"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_plaster/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_plaster/README.md",
+      "bytes": 509,
+      "sha256": "90f38e07a9e784928fe7c6c3f034d49bc6cf0bd21d6aa73614d70e48c626d29a"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_plaster/asset-info.json",
+      "bytes": 1223,
+      "sha256": "4b0429c6b099f465371d5792cf7b949b37627fe1e10312fb6f94465aa5b57400"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_plaster/manifest.json",
+      "bytes": 863,
+      "sha256": "1e2600773f5d635a4cb1fcae920db5cfe668998f7109088ad87bb87a779d2f5b"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_plaster/normal.jpg",
+      "bytes": 784921,
+      "sha256": "359f814292005ab16be86807678a4a51e8256a87c282ebf5f5333ce18c428fba"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_plaster/roughness.jpg",
+      "bytes": 345709,
+      "sha256": "e91a6238456b54a82dbf2c025e0b046851c90e7e772fe2affd26a46b243ce7b7"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_roof_tiles_02/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_roof_tiles_02/asset-info.json",
+      "bytes": 1192,
+      "sha256": "cfedf329861e82ef73bc925eacae62cdc2639868e555f48a466c7732d7b5cbbe"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_roof_tiles_02/manifest.json",
+      "bytes": 893,
+      "sha256": "d1c1b883a84745af97a9133fd324741ac131914bc6cdb4341105d90ca132dbf5"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_roof_tiles_02/normal.jpg",
+      "bytes": 990101,
+      "sha256": "1548d3ebce335a4590d9e421556c4189a7b63852c793a568c71b9e533f8b62d5"
+    },
+    {
+      "path": "assets/library/architecture/pbr/clay_roof_tiles_02/roughness.jpg",
+      "bytes": 341520,
+      "sha256": "6d7596c4f3644ac50237381aeadf58f9b68a6dddeb66b6eef4f64462dcbbf82f"
+    },
+    {
+      "path": "assets/library/architecture/pbr/white_plaster_rough_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/architecture/pbr/white_plaster_rough_01/asset-info.json",
+      "bytes": 1125,
+      "sha256": "565f27b1f122274d51ffc56ac5814a6c6becde47fbfcea6d95913d0f4423f495"
+    },
+    {
+      "path": "assets/library/architecture/pbr/white_plaster_rough_01/manifest.json",
+      "bytes": 913,
+      "sha256": "e99ba8dc17f96b26ef736c7b6a67d891c1eab5d9a48188d7765f9f9d955f47bf"
+    },
+    {
+      "path": "assets/library/architecture/pbr/white_plaster_rough_01/normal.jpg",
+      "bytes": 384190,
+      "sha256": "f9d15f0adb27a3cbcffe11bea7a14d486d036b0251e01ec24c3ca0ae05aef54b"
+    },
+    {
+      "path": "assets/library/architecture/pbr/white_plaster_rough_01/roughness.jpg",
+      "bytes": 594450,
+      "sha256": "459ab1eec7395a4617b4e043760be51eaac87828aae8816b6bf2c6030907225a"
+    },
+    {
+      "path": "assets/library/architecture/timber-shop/README.md",
+      "bytes": 2596,
+      "sha256": "c3150fe2ba4a2b3b2b71bf7702912e9f92616d94d11dd16213727755d9c8802e"
+    },
+    {
+      "path": "assets/library/architecture/timber-shop/bracket-component.json",
+      "bytes": 85110,
+      "sha256": "0a60228ab5e5a31708c187816ae509318298ab83f04b27bc4e92402362ea5e72"
+    },
+    {
+      "path": "assets/library/architecture/timber-shop/manifest.json",
+      "bytes": 893,
+      "sha256": "e05d347a2613b49ccd7a1468015c0a1b1aa3e63a15ff2798cfdb03172612678b"
+    },
+    {
+      "path": "assets/library/architecture/timber-shop/runtime.glb",
+      "bytes": 2587440,
+      "sha256": "a05e98a19167431ad7fdd93f323738c79d59291754c3cb79efb351d42df1103c"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/README.md",
+      "bytes": 3018,
+      "sha256": "5811856e334bab95334a124c7d5b5a8da02880ededcb08ae493d6720b0de487d"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/barge-lod0.glb",
+      "bytes": 1225284,
+      "sha256": "976cf082c8c05cc1ee4415b379b75226b3e0aed8bc781c4fbd841c4ddf081829"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/barge-lod1.glb",
+      "bytes": 483308,
+      "sha256": "ef15d7a9c4f3aa355be4513141d22e22b349b63a77762f989c107951ee86c137"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/barge-lod2.glb",
+      "bytes": 169780,
+      "sha256": "dc829b534c96272b2d618036673c9b6547dfa4261f2b7077a3e94ba04ecf12ad"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/boarding-fixture.glb",
+      "bytes": 1291196,
+      "sha256": "c800516db0ee75448291afbef64f313feaeaa792f7f200d4fd13a35ebeb17ebd"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/covered-lod0.glb",
+      "bytes": 404080,
+      "sha256": "c3f3ed30d1b16627936679f71014d617854d33c2e5bf0a47ca68abd58d4bb0c6"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/covered-lod1.glb",
+      "bytes": 190324,
+      "sha256": "f16cc04915d5d2975a213798931f0536eae15b79fa3b23ace3edc9acebbac39a"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/covered-lod2.glb",
+      "bytes": 115904,
+      "sha256": "20323536951cc863283c2458b30f9432f32d84b5b45fdd855e28f7fa3e9976e5"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/manifest.json",
+      "bytes": 8741,
+      "sha256": "11ef65ef6ddd58fb338bc1c04e24219d30a2148062f222d187634fa5d80b31ef"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/skiff-lod0.glb",
+      "bytes": 306240,
+      "sha256": "cc2d366ab9cb81086f7e30537579580c8202d27cd319d78b91545a5e9c18e85d"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/skiff-lod1.glb",
+      "bytes": 123004,
+      "sha256": "b74142a06936be1027dfb79fbb63f1fc67bf09c36807ae645a3dae211b390978"
+    },
+    {
+      "path": "assets/library/boats/construction-studies/skiff-lod2.glb",
+      "bytes": 68516,
+      "sha256": "3e071f8a848de58d79387e58523c834d8e276eafe87a8835d3b5fc055fa180e0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/README.md",
+      "bytes": 2636,
+      "sha256": "61ebdcff4d242adb4c13fa9f159fe17de69cb25a0c7e50ab1ec1832c0a1978f9"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/ReadMe.txt",
+      "bytes": 581,
+      "sha256": "2009ec5ebe690c97b3d7b6240f2682202714ada7f96385da5452137f4bb70d88"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/head-study.glb",
+      "bytes": 1782796,
+      "sha256": "88c658934a4d2017415400616cfa8bae4fc6ff692d3e772a0ffb403765639591"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/head-study.json",
+      "bytes": 985,
+      "sha256": "774ac74060cd423f2782c2a45b9e76002d511c06a8638ffa8679825253474166"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/inspection.json",
+      "bytes": 18995,
+      "sha256": "fe2392b407f03c5f15ca405783435dec1dde0b0717782a77baafa45b14c5d343"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/manifest.json",
+      "bytes": 9644,
+      "sha256": "69ac95066781e33f5436de448902cb69a52278adad1c68e4761988278bbf52db"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.1001.png",
+      "bytes": 677145,
+      "sha256": "79294db9cccc7c395b3c95c5692eae454554611e8cad89e898f8b325b504bad5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.1002.png",
+      "bytes": 266895,
+      "sha256": "d4abb09a50d846f57179d61bb0a72431cc57d261b1646b6439de1724afce4afc"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.1003.png",
+      "bytes": 2410048,
+      "sha256": "64e0f179a1a872758801ce433b2b5b20ba0e9a399e01574b5a0f9266868c86ca"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_diffuse.png",
+      "bytes": 677145,
+      "sha256": "79294db9cccc7c395b3c95c5692eae454554611e8cad89e898f8b325b504bad5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.1001.png",
+      "bytes": 908287,
+      "sha256": "22becb2fe72f49931f3dd278c78ae94f182da956f0ba2c77e324f7d3fca2f179"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.1002.png",
+      "bytes": 287300,
+      "sha256": "12a6d25dc64fa1b31fade64f64ca7568e3f11f691de1ffd1be59c9c92ffa2378"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.1003.png",
+      "bytes": 3349102,
+      "sha256": "ab8a673417a762a78a0db1ae1489b13016799da8c24bfe9fea57763dedff9962"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_body_roughness.png",
+      "bytes": 908287,
+      "sha256": "22becb2fe72f49931f3dd278c78ae94f182da956f0ba2c77e324f7d3fca2f179"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_eyes_diffuse.png",
+      "bytes": 105103,
+      "sha256": "d317ff17cc702ded44dc63961e208bf772124d1fe05e48ff717c3e1fbd7efb70"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_diffuse.png",
+      "bytes": 1934798,
+      "sha256": "01c35d3fc4b3e961acf3446fdc4a5de83937e09c1b05b074b27c87e511d50ad6"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_direction.png",
+      "bytes": 1762802,
+      "sha256": "127b0931218222a312c023cb5dcebaa54c1056f0fdcafe90dbf7825a061704d7"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_direction_bw.png",
+      "bytes": 889543,
+      "sha256": "29c81f2184b52e6a40dcde738cff9336bb20b089e331f1d0099b28b68515ff31"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hair_roughness.png",
+      "bytes": 775126,
+      "sha256": "dba093c1b8493a2cccedafe897b5c999de53ab4cbf4c0704990921c31ce53a63"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hands_diffuse.png",
+      "bytes": 266895,
+      "sha256": "d4abb09a50d846f57179d61bb0a72431cc57d261b1646b6439de1724afce4afc"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_hands_roughness.png",
+      "bytes": 287300,
+      "sha256": "12a6d25dc64fa1b31fade64f64ca7568e3f11f691de1ffd1be59c9c92ffa2378"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_head_diffuse.png",
+      "bytes": 2410048,
+      "sha256": "64e0f179a1a872758801ce433b2b5b20ba0e9a399e01574b5a0f9266868c86ca"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/maps/TEX-rain_head_roughness.png",
+      "bytes": 3349102,
+      "sha256": "ab8a673417a762a78a0db1ae1489b13016799da8c24bfe9fea57763dedff9962"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/rain_rig.blend",
+      "bytes": 8264551,
+      "sha256": "16a9510b898f243ba17ea85e753fe4a561701511ddc842edc23fa9d892e19f03"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/rain/source-page.html",
+      "bytes": 205627,
+      "sha256": "04b88ff06da3f2f67ab1c3b4f4dc1b29ad9a0e1b3ad7ea55333731c21c494078"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/ReadMe.txt",
+      "bytes": 586,
+      "sha256": "7ff178c6b8640951567c85debc5520323cc2f4fb64f071df618ef75261d98399"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/head-study.glb",
+      "bytes": 1288352,
+      "sha256": "2c4c8c0cf9dfcf0d663e48b26234681edd59d848502b4ead6a501cafae978438"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/head-study.json",
+      "bytes": 985,
+      "sha256": "26f2daa6d334ddd005ae4185684799c78ecb2a0ed0d1d6c2392637113c800e2d"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/inspection.json",
+      "bytes": 14365,
+      "sha256": "30b570a7c9088af57d796b1e63a329ad25b24cdaa99a6866c560a6ce85f8edab"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/manifest.json",
+      "bytes": 8112,
+      "sha256": "56003fac3e3a8f334529012abfe1c0f94bf381ec0ba007a7d38d47f28ec1b8a0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_diffuse.png",
+      "bytes": 1286452,
+      "sha256": "7ec88aa8ddb70b7cad01fe96d82179c1b440ddfa4fb91f413d0cae71f9cd746f"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_metalic.png",
+      "bytes": 13572,
+      "sha256": "917d508ea8820f519380046faeae19fec954d76f6972d5a8ef4e447f4ce786a2"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_normal.png",
+      "bytes": 322608,
+      "sha256": "f0908a7026ee93b73abbf1aed8d344f6c20cbd3b90e1bac421003dd3f51051ee"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/eyes_specular.png",
+      "bytes": 141770,
+      "sha256": "e58894b7f3542070bf19b75e884b7a878c615c3928960c4864355f83a0938589"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_anisotropy.png",
+      "bytes": 49957,
+      "sha256": "eb82ac01fbc1cda036223e26cf52849f1d528f94c8a63407ff121d87fa7410db"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_anisotropy_rotation.png",
+      "bytes": 1436352,
+      "sha256": "38edd91acc6452ae5d30a5d92e8f4454c66836c3cb56699dc363217b0c2f80c6"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_diffuse.png",
+      "bytes": 1509001,
+      "sha256": "fce48207536ffbe836c67577cf1590d3a85373e40439445b4e03d38560f5df97"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_roughness.png",
+      "bytes": 522116,
+      "sha256": "ef1e5883f0b44ca074da92e6b73e6c15b0b8b1a2bb82650fa3226d787cae50e2"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_specular.png",
+      "bytes": 791790,
+      "sha256": "cdf5014b23dca5c4f550f199a9068f2f6ac0a91ac17d46531f8be21e1730158e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_sss_color.png",
+      "bytes": 16586,
+      "sha256": "96d86d6ddb440b9ddf58c8cca7268a6545fb380943db7064b7603e60da1fc860"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/hair_sss_value.png",
+      "bytes": 312142,
+      "sha256": "64010747b5197acbcecdb6faaaf73781b5a905c4ead622489e92574549c603a0"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_diffuse.1001.png",
+      "bytes": 7739547,
+      "sha256": "d8658b31dcc9d8611c9ad74b50778eebcad2c0f0d08a5162d622d5ec55d7f417"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_diffuse.1002.png",
+      "bytes": 777615,
+      "sha256": "3b3ce7927a90887fef733fd3bfe4c39fba0ec2e10c3ca724bd49512d0b829799"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_diffuse.1003.png",
+      "bytes": 1749732,
+      "sha256": "18746c5f7f1ad1dea1a5c430f27b34671f0876a22f43cb22ffa7205af642a6d5"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_roughness.1001.png",
+      "bytes": 5908666,
+      "sha256": "f11c0f1b6aa15f820c026b4a484dcf662b6fbc148fe7283278a1df04524bfcf6"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_roughness.1002.png",
+      "bytes": 628553,
+      "sha256": "85f23ee7e68e6e9cd9f21304347198849e97b1cb719d426587317860f4399332"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_roughness.1003.png",
+      "bytes": 1754544,
+      "sha256": "cd85a058e80385bacff31ea25358a97dad9a7d5e6dee6177f12ce2a814cb7744"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_color.1001.png",
+      "bytes": 5923576,
+      "sha256": "677ad2978226451e493e5de2610821a5eda9f72d0cdf9cead02344f45491186e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_color.1002.png",
+      "bytes": 623679,
+      "sha256": "33097f751f9cdf52a367d08b6c125bc2ba83c67ae5894fb45bd1995bcd0f6a51"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_color.1003.png",
+      "bytes": 1501218,
+      "sha256": "ec68a5e0bcde2dbb478bec15ff4d33583daaf0cc8b767f3ebcc17d6b9de42692"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_value.1001.png",
+      "bytes": 66762,
+      "sha256": "fc1962f72975717e88082f66ea8c30e2f546b63d2a4dcb1503aba321b43f77d8"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_value.1002.png",
+      "bytes": 16836,
+      "sha256": "4c3a702b13df13ff389b5f00211f3e366c54a1ef31b5abb8b27b703c598d951e"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/maps/bake/skin_sss_value.1003.png",
+      "bytes": 29233,
+      "sha256": "e785cc6f4c58f0ea04f1b802b37f3646ea239ed4f023c3b9fb005e55d7529a31"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/snow_v02.blend",
+      "bytes": 7580771,
+      "sha256": "038463b0d793c2a619fbcd93a0220b21191f87079af03698e4056642d7032876"
+    },
+    {
+      "path": "assets/library/characters/blender-studio/snow/source-page.html",
+      "bytes": 239322,
+      "sha256": "2a198129be80d942b529b79d060af4996701375da608aaedae4beb1aea99b08e"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/LICENSE.ASSETS.md",
+      "bytes": 6962,
+      "sha256": "f6089cba01cb570a24712b41ab8a586ccd3cc5ef53dc266ca50b95c288956d2c"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/LICENSE.md",
+      "bytes": 3598,
+      "sha256": "edd99571ca62698f78c943fd4fffb159a413c315fa0d4819d3cec5cadaf8b4f1"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/README.md",
+      "bytes": 1842,
+      "sha256": "3383e18b53c8e865792c570a64d70449e559eb4737e9414328359c9f2a3fc785"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/asian-female-young.target",
+      "bytes": 435553,
+      "sha256": "095fe79694fa19e1fe98d93009ec116199bd524e081c640351a10eccf2cca1eb"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/asian-male-young.target",
+      "bytes": 421040,
+      "sha256": "ed2e8c191cb6b87b4a2d97c80486acb2604fa549316c7aa2a738a5d5a14334dc"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/base.obj",
+      "bytes": 1749303,
+      "sha256": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/default.mhskel",
+      "bytes": 117790,
+      "sha256": "99f179bce0aa850b45d4191a1d0d234c5851f881c057439470ded3bddf729a24"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/default_weights.mhw",
+      "bytes": 897521,
+      "sha256": "0f3641d651ae3d00ad6b4ccee43142edb109d3bd909d27d9e4139ef1beed8625"
+    },
+    {
+      "path": "assets/library/characters/makehuman-base/manifest.json",
+      "bytes": 3168,
+      "sha256": "06542f3df5af3a893a18e1de745d75fb7375a1e0dc440e0e38069ce601c507b7"
+    },
+    {
+      "path": "assets/library/environment-audio/README.md",
+      "bytes": 881,
+      "sha256": "e2b204e83365f38513b71ff45c3d3de8cfd9ab644a1618713039ee3ac6b28eda"
+    },
+    {
+      "path": "assets/library/environment-audio/distant-bell.wav",
+      "bytes": 132344,
+      "sha256": "5df9d169ca0e1dc815034a7a6ffc5952ece9d76727e67709168ab866fe911ed4"
+    },
+    {
+      "path": "assets/library/environment-audio/earth-step.wav",
+      "bytes": 13274,
+      "sha256": "a559f378cb8ce19a583df7d27a386ce789ae738df5d3f369c0ee0673f4acf547"
+    },
+    {
+      "path": "assets/library/environment-audio/manifest.json",
+      "bytes": 2464,
+      "sha256": "8f0cb984f02ef75b974bd3edb4e13a9f854657b110c49dc7fa7fdbe546b46b97"
+    },
+    {
+      "path": "assets/library/environment-audio/water.wav",
+      "bytes": 529244,
+      "sha256": "c1718050e6505934c0540f54caa66c164f5bb79c1fe070fbb4e88097c4f370bd"
+    },
+    {
+      "path": "assets/library/environment-audio/wind.wav",
+      "bytes": 529244,
+      "sha256": "0e52569dd5a6649b73cf344453231f85d1269b22040d35ac5aedf4c1ccfb5778"
+    },
+    {
+      "path": "assets/library/environment-audio/wood-wheel.wav",
+      "bytes": 176444,
+      "sha256": "a23e45912e166432c22e306979071ddf6f48c9d9c9b101ba9ce900a6a9cd9363"
+    },
+    {
+      "path": "assets/library/kenney/README.md",
+      "bytes": 762,
+      "sha256": "c9837d06f9ce871443702ecb4fb85d463739a7f55ec07b1da6aac63bfb6fc8a9"
+    },
+    {
+      "path": "assets/library/kenney/kenney-city/LICENSE.md",
+      "bytes": 1062,
+      "sha256": "8e99e4045f71bb96d77a1765c815511c63c9f9185bfada2b8917e041ced00754"
+    },
+    {
+      "path": "assets/library/kenney/kenney-city/README.md",
+      "bytes": 3353,
+      "sha256": "0d6f9a90d2177658b56c47d4cbc4d759b151f8c3a09b24586da450c969de697d"
+    },
+    {
+      "path": "assets/library/kenney/kenney-city/Textures/colormap.png",
+      "bytes": 10108,
+      "sha256": "106cf02e0d6dccded6d9f90c2ae6a51eb94c6301645fea159e834c44ed4708a3"
+    },
+    {
+      "path": "assets/library/kenney/kenney-city/grass-trees-tall.glb",
+      "bytes": 47016,
+      "sha256": "d23e3b722453236bf6f4f8922b7bf64f81a7f3f804848a89c4b100ccbf13abef"
+    },
+    {
+      "path": "assets/library/kenney/kenney-city/grass-trees.glb",
+      "bytes": 38160,
+      "sha256": "cb06d03cc1c64ca7e7692c0aef3628d8e7cd4afee69093025f9ddd668653a4ce"
+    },
+    {
+      "path": "assets/library/kenney/kenney-platformer/LICENSE.md",
+      "bytes": 1062,
+      "sha256": "f755bf8f21002f8d5baedaf75564141d363971f3f7bc8c4062956b0b15a6f04f"
+    },
+    {
+      "path": "assets/library/kenney/kenney-platformer/README.md",
+      "bytes": 1688,
+      "sha256": "d8f51d172d58e62d289105a5a1561e02e54cccc4c6d1215472169bc50ff2f91f"
+    },
+    {
+      "path": "assets/library/kenney/kenney-platformer/Textures/colormap.png",
+      "bytes": 10108,
+      "sha256": "106cf02e0d6dccded6d9f90c2ae6a51eb94c6301645fea159e834c44ed4708a3"
+    },
+    {
+      "path": "assets/library/kenney/kenney-platformer/cloud.glb",
+      "bytes": 23788,
+      "sha256": "09c6f071d3a9ab64993248ee5c8d50debcd9c6cc4369236a01155ff7ff87f30a"
+    },
+    {
+      "path": "assets/library/kenney/kenney-platformer/grass-small.glb",
+      "bytes": 9048,
+      "sha256": "4b94e8dd9cbdc3eedff99cbf614fe828f0c2342d21a7d0edb125b129d0422d51"
+    },
+    {
+      "path": "assets/library/kenney/manifest.json",
+      "bytes": 4886,
+      "sha256": "302e665f5814daf362fd1dca95feeeea4c8005344d194c6c1033cc1079c93de5"
+    },
+    {
+      "path": "assets/library/pbr-cloth/CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/pbr-cloth/README-upstream.md",
+      "bytes": 2335,
+      "sha256": "6d3cac89b2aae1998bbaaaa1d536cd40ccfba873ca89d1ccfc8c08f12c915615"
+    },
+    {
+      "path": "assets/library/pbr-cloth/README.md",
+      "bytes": 1380,
+      "sha256": "b712e9ed77325c8f6f9bd4195226aec882c46177bc0cd2dd45caffc4c28dfc71"
+    },
+    {
+      "path": "assets/library/pbr-cloth/SheenCloth-source.gltf",
+      "bytes": 6854,
+      "sha256": "00a2cbc0d2ad4788dbfc00da3c51f252fd8e6003dbfda80b087a548fe3550f02"
+    },
+    {
+      "path": "assets/library/pbr-cloth/manifest.json",
+      "bytes": 2356,
+      "sha256": "51a07c5c0c8d496ca4c414f43ad4cdc5be19fc6547c2326a3e93650b3a5e327b"
+    },
+    {
+      "path": "assets/library/pbr-cloth/technicalFabricSmall_basecolor_256.png",
+      "bytes": 125026,
+      "sha256": "e945c0b2aa6e3987d8bb8af23aca58a3f75cce2992bb4803bec8cac6cde8474e"
+    },
+    {
+      "path": "assets/library/pbr-cloth/technicalFabricSmall_normal_256.png",
+      "bytes": 127852,
+      "sha256": "299b1ccf8957d451d7841672b1750b5cfcea65fee1c97eec6b086dc3fdeea838"
+    },
+    {
+      "path": "assets/library/pbr-cloth/technicalFabricSmall_orm_256.png",
+      "bytes": 131303,
+      "sha256": "41c04abdb9531d00a4ac832d41f02cd549c7be74886c4d492475cfb95d239a20"
+    },
+    {
+      "path": "assets/library/pbr-cloth/technicalFabricSmall_sheen_256.png",
+      "bytes": 170368,
+      "sha256": "479c3c65b1b9161701c5587cdfccf42a2de38d4d5365b6b904daf9ba8b7b9aab"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/README.md",
+      "bytes": 799,
+      "sha256": "3c18b74a1ff713f111331cef21e1852e7b3358dd94d1e9f3f63353f2c37a13df"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/asset-files.json",
+      "bytes": 21745,
+      "sha256": "f55b85f6f25953728993d86a49546cfc05c48731c6b60b0c55efadea86bd54c2"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/asset-info.json",
+      "bytes": 1025,
+      "sha256": "0c2d87704d45c26b6651f3c1a4b897929caca84e605f951c950eefc9073c88f7"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/ceramic_pot.bin",
+      "bytes": 87952,
+      "sha256": "f47636aa57f9a258c0ae6874763b9fe5dc87943ea932367e9d5526cdf914ff04"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/ceramic_pot_1k.gltf",
+      "bytes": 2990,
+      "sha256": "7d8c28f171f701a422341c82322d439ea5041a6edd4443a85e3c8f88ce12ab0e"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/manifest.json",
+      "bytes": 3289,
+      "sha256": "1b1cc0bb98dcf284866021bd1c8f37067e1301c3998638f67d0f4a90042ce727"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/runtime-metadata.json",
+      "bytes": 422,
+      "sha256": "336a867abf67834fd30c401ece37b31d8989cd772b793e90c1e94fdc425e0cc0"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/runtime.glb",
+      "bytes": 182396,
+      "sha256": "457c2f1d42d016e7d49b3ee3695905241dbfaee67d2ff53940ff4e1f9979d4e8"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/textures/ceramic_pot_arm_1k.jpg",
+      "bytes": 633246,
+      "sha256": "b688549e4defe29de262ccba81278360cd2f42037a40b70f8f4693a96c14bc45"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/textures/ceramic_pot_diff_1k.jpg",
+      "bytes": 664480,
+      "sha256": "583e49e8be2ba460700f2dcd6466ab347f5285ccc651dd9054b59ef6a78d812b"
+    },
+    {
+      "path": "assets/library/polyhaven/ceramic_pot/textures/ceramic_pot_nor_gl_1k.jpg",
+      "bytes": 252874,
+      "sha256": "2102b4345882c9648de7ee3b3e547bf7a2a3c9fd35db0ded322df60df16a5c57"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/README.md",
+      "bytes": 289,
+      "sha256": "7eff528e320b7765cd7f890f68c5d90dd062a81c06e11199572d64c5bd57c7a6"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/asset-files.json",
+      "bytes": 33540,
+      "sha256": "14f459144359ec6129ef42901d96c11741941a52a7565f6b5a920ea85ed07c1a"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/asset-info.json",
+      "bytes": 1124,
+      "sha256": "e9022f84a47caaf0f5dd1bffaddebefb95b5a77e2987f7629b817499d0b4d922"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/chinese_stool.bin",
+      "bytes": 40172,
+      "sha256": "e35c9440fc0751aa9346e6edbfe0bf948f0f7dd1b40be2ef57d0b6debec5b8af"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/chinese_stool_1k.gltf",
+      "bytes": 2883,
+      "sha256": "6db83b16076496830f956780890480d3cb1e34c80359b5ea8cb0e7afd42572c6"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/manifest.json",
+      "bytes": 1985,
+      "sha256": "aca4ad038612dd1637a46c73bf2f502223b3ec6c6591f31203cd887e9e65bd70"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/runtime-metadata.json",
+      "bytes": 429,
+      "sha256": "cf5901a028d62687dff4375524b5215d54dfe60f49bb64b4c4532b36e33cb3e2"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/runtime.glb",
+      "bytes": 124308,
+      "sha256": "5c76ef20aebcf96bb09b2c858b2fd66836fe6936d67350a155dcc94579fe0336"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/textures/chinese_stool_arm_1k.jpg",
+      "bytes": 578268,
+      "sha256": "59fb42eb0c3c1684905d94bbf11fd640921325e19dfe8b46cae04ac5b7be36d5"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/textures/chinese_stool_diff_1k.jpg",
+      "bytes": 542758,
+      "sha256": "a7f84ff302df80b079b47a268ecaea6e9f072b51d7e5dcebdeb7ee6278595e85"
+    },
+    {
+      "path": "assets/library/polyhaven/chinese_stool/textures/chinese_stool_nor_gl_1k.jpg",
+      "bytes": 629035,
+      "sha256": "a44344f2d8ea289ec7642272de42d449059f2f2b175cf64d5db5d2447c56f7aa"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/README.md",
+      "bytes": 287,
+      "sha256": "f383a6724ca7d40d776985c49d17ed0c6c892dac6583f95d783280250e833ef6"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/asset-files.json",
+      "bytes": 39412,
+      "sha256": "79ee07e9bc6c63080f74791d66e04baef550bed57ebf1dbf61c23b962afa2d80"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/asset-info.json",
+      "bytes": 1360,
+      "sha256": "6d5fb91e82f4b80b3eb325654efedcf1f65c51248af1fc7f49d12ba55ccd5769"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/fern_02.bin",
+      "bytes": 176176,
+      "sha256": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/fern_02_1k.gltf",
+      "bytes": 6899,
+      "sha256": "33974295ee19670af4877705fc7d91f33f42d6302f0d44a625e072271223031f"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/manifest.json",
+      "bytes": 2021,
+      "sha256": "57e58acc431bba113d2fb46423bc1c683eacdb2f2ed496fca5e667ad4d65a595"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/runtime-metadata.json",
+      "bytes": 410,
+      "sha256": "a4cc12ba0626de925055c6b14ac85dab470b0658f333087789b245a3bdfe84d0"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/runtime.glb",
+      "bytes": 470436,
+      "sha256": "0302034245d5c439c387275d488acd124d40e09f001e72ffd21fe255059e5cfe"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/textures/fern_02_arm_1k.jpg",
+      "bytes": 280359,
+      "sha256": "ebfb5d76ce9cbdaec20bcd22dce9b755f0b1b8650ef29ca13555e3e6961025d7"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/textures/fern_02_diff_1k.jpg",
+      "bytes": 315705,
+      "sha256": "a828a6e7b4c01c826911e2eac4b3afc7457dab7b3b392a31c681ed88b7d50029"
+    },
+    {
+      "path": "assets/library/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg",
+      "bytes": 367222,
+      "sha256": "45bce132c6e96a0864bc89ab5da51361ab3f4afa83a6669ae499ab5ca811f621"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/README.md",
+      "bytes": 290,
+      "sha256": "0321b452eeffce2c726650e645f5b01343870f01eda48f532aaf0ee220a4db70"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/asset-files.json",
+      "bytes": 33827,
+      "sha256": "c9235c3e516d1ef99cdd2ac1881f4dd05371207a00c5763ee5744160fe71619d"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/asset-info.json",
+      "bytes": 1146,
+      "sha256": "276e410e748444267235e3c45fed9306f2d34ad98017bde8698bc28c9fe07b22"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/food_ginger_01.bin",
+      "bytes": 175232,
+      "sha256": "b1967c29b2f38dbc63ca2374486c9eb1d90870795b40bc1c2728ffcc760ebcd4"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/food_ginger_01_1k.gltf",
+      "bytes": 2715,
+      "sha256": "d08d23765047a58ba29dcebd72a4aa481690cc7774179e42a4af5cb66b2c9ffb"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/manifest.json",
+      "bytes": 2236,
+      "sha256": "d889b77d3621ed02e2fd14a440c2d0038fbdf696e8410a44a5beed8689cb84c0"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/runtime-metadata.json",
+      "bytes": 431,
+      "sha256": "c16a2eb71009e5bd2fbf1b9dc9c75da5d2840ae716ba1c33fd863d6bc7300689"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/runtime.glb",
+      "bytes": 156620,
+      "sha256": "c8cd7bdd3d41b0bba91575feff02870cf87332867d057bb6163636872417b6fb"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/textures/food_ginger_01_diff_1k.jpg",
+      "bytes": 201419,
+      "sha256": "3f2117a9f5718a797bcbb22557cad1599ffb6eec50232b71ee4be3c7cf304890"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/textures/food_ginger_01_nor_gl_1k.jpg",
+      "bytes": 151771,
+      "sha256": "0bcef5efbb8c14fe758278a42713dfd6a5cc25c5eaaaffa9ff594fcaee0a5910"
+    },
+    {
+      "path": "assets/library/polyhaven/food_ginger_01/textures/food_ginger_01_rough_1k.jpg",
+      "bytes": 55655,
+      "sha256": "19eba8b9048838849a4cb033d83b43efcaaf45bff14364285fa19b0c9aa12951"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/README.md",
+      "bytes": 290,
+      "sha256": "7975685d1b0deffe143a18cdc99a5b4beefee08bb4569cf3a4c5fa28a76cecb4"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/asset-files.json",
+      "bytes": 33859,
+      "sha256": "6df9930f03d3288ddae83320bd2c9f83836d38b0dd0cc25bed9e147b08660e56"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/asset-info.json",
+      "bytes": 1128,
+      "sha256": "b31ad1d99ad4fa4a0de0c6ce1102b183373680205c474ea5a812ae3638a78613"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/food_lychee_01.bin",
+      "bytes": 157852,
+      "sha256": "d083f18fab8430e7aa6ade350428a9b3eff31c81935a3a852781a3ee9b7c60bb"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/food_lychee_01_1k.gltf",
+      "bytes": 2715,
+      "sha256": "2defd06eccf002026e986023f75332ace25c7d22e80a32a28fd9aea639d488ef"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/manifest.json",
+      "bytes": 2237,
+      "sha256": "35d7df9d2f460ccdb38d529ae943fd4162b1b44b993bc4131b9eb8ca08ff4181"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/runtime-metadata.json",
+      "bytes": 432,
+      "sha256": "77fcbce8166f1057f434cdb0e3c884d3a4331f7c51ed8967603c74886e2f3e01"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/runtime.glb",
+      "bytes": 178000,
+      "sha256": "eacfc960e56db1e754684bd812f54f4d2f795806efbbec448e883776f3e30d47"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/textures/food_lychee_01_diff_1k.jpg",
+      "bytes": 188081,
+      "sha256": "e9075ea75d43a988c6a2b38321bf03e7966041fdb89970195097b0f4c57c5314"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/textures/food_lychee_01_nor_gl_1k.jpg",
+      "bytes": 250477,
+      "sha256": "e43f2b4dc649dbb816239e7fd101833e02d0c3392a9e8f1493c05c00da38ec46"
+    },
+    {
+      "path": "assets/library/polyhaven/food_lychee_01/textures/food_lychee_01_rough_1k.jpg",
+      "bytes": 172668,
+      "sha256": "5d05a3309d3a9faf6548f35a62273ea9e58357f70c0437bb6541e94191441c4d"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/README.md",
+      "bytes": 291,
+      "sha256": "42d83e1a1a4959079c8906cd4de035932e7078464c823947482713494fcfc18a"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/asset-files.json",
+      "bytes": 38296,
+      "sha256": "be245da68fb9035c3a3f69f3ed1e1677e6e49ff55d3a7a6fbd4b2b65f727e6fa"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/asset-info.json",
+      "bytes": 1266,
+      "sha256": "51ca40b74f997ca0da5039edc0c03e27c468d9f95bbb7272a8256b78fb823bcf"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/food_pears_asian_01.bin",
+      "bytes": 300136,
+      "sha256": "a647edc202dbdeec6e4eb3c4d721f0acb91ddf5a82f26a3a751ec709cebdd77e"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/food_pears_asian_01_1k.gltf",
+      "bytes": 9955,
+      "sha256": "ff3373b91eef143a3921198f61a3b10aa87bcb870f905b2271ce3917b34ff300"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/manifest.json",
+      "bytes": 2314,
+      "sha256": "8c4b36dde55cef31cbfcce03744820a1fd250d979190a517ed94c57f39de2500"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/runtime-metadata.json",
+      "bytes": 448,
+      "sha256": "6bd39736b0a09b1c0683ca3619638f6adaa4ef809fbcbfd3eabc5c7f1d202d2d"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/runtime.glb",
+      "bytes": 219964,
+      "sha256": "fc79261c21cf0ec261bbcc1008ea18ba55b22767a598757ab4ca62b4efd8cf89"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/textures/food_pears_asian_01_arm_1k.jpg",
+      "bytes": 629396,
+      "sha256": "e62f7cb1045a7b82906940c3c9e1f7ae1b733cb39e9532c4ec79988f1ba1aa51"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/textures/food_pears_asian_01_diff_1k.jpg",
+      "bytes": 539427,
+      "sha256": "c07a55c97b966d49a0a3e6a628fcd38ce9d2abdddc57e24a742110245f4085c5"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pears_asian_01/textures/food_pears_asian_01_nor_gl_1k.jpg",
+      "bytes": 245203,
+      "sha256": "5e31717c809fd7237e3be31b191dcbe52e317b8d4cc7af27abcb404658dceb05"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/README.md",
+      "bytes": 300,
+      "sha256": "3489020baa36ad584b7a949bddbe86e4fbf678942bd5a8896307b96b3c69eb06"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/asset-files.json",
+      "bytes": 35499,
+      "sha256": "66f2cbca52c3e0c7dd6cf13f7a86f94ca626c4df4027f2b26a0a9511bd2691d3"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/asset-info.json",
+      "bytes": 1155,
+      "sha256": "a779f813e4950d6d03acf2d878894afa89798f4bc455ac6beac46e9985d77d2d"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/food_pomegranate_01.bin",
+      "bytes": 195828,
+      "sha256": "29df7ac780b968c82958f881dba50837811c6d0b428db5099ba3f418969a1951"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/food_pomegranate_01_1k.gltf",
+      "bytes": 2761,
+      "sha256": "75e8bac9feda588189245fe8d145313fe382ee11766101d4b97f1c63476d6698"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/manifest.json",
+      "bytes": 2321,
+      "sha256": "ed4acb044372ab4c3010c840f8e665563d0d5ec8fdcd8b405d9ce0d0847f707c"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/runtime-metadata.json",
+      "bytes": 447,
+      "sha256": "d17061da83cacbffb717c0134a7377a11d56b8260143e88123084e2587c0f3e4"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/runtime.glb",
+      "bytes": 151244,
+      "sha256": "863e9c2092fdaf2c4e16cd00e5d319aacbe4b27ab9a5bd32dbbdc56852fb0397"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/textures/food_pomegranate_01_diff_1k.jpg",
+      "bytes": 164205,
+      "sha256": "b5223d9988b083d850404faf995a23c607ecbcc6ddefed341f67d20fc4a495aa"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/textures/food_pomegranate_01_nor_gl_1k.jpg",
+      "bytes": 93096,
+      "sha256": "1e040ab1af8c27f390eaf70d0dbef973554df31ecac6395375f1aed9d2d64df9"
+    },
+    {
+      "path": "assets/library/polyhaven/food_pomegranate_01/textures/food_pomegranate_01_rough_1k.jpg",
+      "bytes": 154956,
+      "sha256": "9d7de886f101623d0d5beec5067734eed455a760445d27fbc7cdf4c7a9704898"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/README.md",
+      "bytes": 293,
+      "sha256": "18c9aac3a6e402d0b273cc99c0ba7654b97de5ea77e366f3bdb66307a4eca43f"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/asset-files.json",
+      "bytes": 38289,
+      "sha256": "1345987d6c3f163ca862ca5830721043c3f646e414fed0c4ded10f9fefede42e"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/asset-info.json",
+      "bytes": 1397,
+      "sha256": "73500f35dd9cd8cd0fbd834a4d49c446a45555e41dba6dbef159c095599ca1be"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/grass_bermuda_01.bin",
+      "bytes": 32260,
+      "sha256": "b98be48b43afb9d57f6c722d918a49996635064b829b16dc14ef4a48c0f04dae"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/grass_bermuda_01_1k.gltf",
+      "bytes": 32912,
+      "sha256": "a1e5bb7fcf33721dc4844d7acacab80759fccec659f1ea643f8701afc542e207"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/manifest.json",
+      "bytes": 2139,
+      "sha256": "eeaea2cb3adbde468f74bfdcad343b8525415c6eb032d027a051319a8da3d85b"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/runtime-metadata.json",
+      "bytes": 436,
+      "sha256": "343a9f8270a822d8c24b05d75341d22e6892b57e96397aaaaef786294396a2ec"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/runtime.glb",
+      "bytes": 142852,
+      "sha256": "cb07cb8c3f93160ee54a5ac91e98ca26f7f6da0eb3caee34f1eab4a8a2a18904"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/textures/grass_bermuda_01_arm_1k.jpg",
+      "bytes": 500088,
+      "sha256": "38190d342fe951c33ff8c37dd2e3de37aca4cc7633e91be8b0d1c1f71057a641"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/textures/grass_bermuda_01_diff_1k.jpg",
+      "bytes": 175425,
+      "sha256": "ef202eeb8f8fb3312446009acecc87e5679a7d612e4dee859d8a849e00af5fcb"
+    },
+    {
+      "path": "assets/library/polyhaven/grass_bermuda_01/textures/grass_bermuda_01_nor_gl_1k.jpg",
+      "bytes": 709845,
+      "sha256": "4475b37d6e4d217ce03547216f62d1ef6e65cafda2355fd0cb2aeb6d919b9338"
+    },
+    {
+      "path": "assets/library/polyhaven/manifest.json",
+      "bytes": 44874,
+      "sha256": "89d86c32c301311834cdb4014af99660335f4f19d20357bd5a91f3acd3a4b61b"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/README.md",
+      "bytes": 291,
+      "sha256": "16a3c4b739c795e2e518b9595f1f4560c9f515f5658edc60da3bbe3f8afd9265"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/asset-files.json",
+      "bytes": 34531,
+      "sha256": "d786809f6af1272c05eb2c00ee5b90fc0a27021f4fade647e4b8e8d19e00294b"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/asset-info.json",
+      "bytes": 1234,
+      "sha256": "75ea370d4476742efbe7c00cacfc39fc47532a48707bf0b174f48e7122b9b7c7"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/manifest.json",
+      "bytes": 2121,
+      "sha256": "5131cb6e2b42d343e7b6652dca55735410dd046f17fab1c4bd46d4b0c91a5ede"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/rock_moss_set_01.bin",
+      "bytes": 1466380,
+      "sha256": "de8360e6175879aaf02c171911069cf5f1852547f9ca7f10e440085dbcc3315e"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/rock_moss_set_01_1k.gltf",
+      "bytes": 9987,
+      "sha256": "c36675aca9c6b2be7785c2534cf413b03ec82a5a2a5407a2b1c0cdb0346c9727"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/runtime-metadata.json",
+      "bytes": 439,
+      "sha256": "f5eaffba74092463050bf669d1a767da047ca3144ce4d1fdccd1b7c8c626ad09"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/runtime.glb",
+      "bytes": 342984,
+      "sha256": "7ccf1de83c7cb75c4d7e60a4028c02e967afeb9f30e9be5304a6e7e5046c6602"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/textures/rock_moss_set_01_diff_1k.jpg",
+      "bytes": 168099,
+      "sha256": "40cea65d8aa4ee73a93b04af19963834d061eee9779c3fc2c1cba76eef812ccc"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/textures/rock_moss_set_01_nor_gl_1k.jpg",
+      "bytes": 209975,
+      "sha256": "eb4aad3f207f1dc5b624d74ae240372171626a66912bd71adf7bd3e518181d6e"
+    },
+    {
+      "path": "assets/library/polyhaven/rock_moss_set_01/textures/rock_moss_set_01_rough_1k.jpg",
+      "bytes": 82624,
+      "sha256": "4d6ec46623abd8e2cdb855f59c7ce31873ad61b36b60e4de579e9e776a497c6b"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/README.md",
+      "bytes": 884,
+      "sha256": "8cd33509f806ab3686064420f8c9933a869032feab57e8c36329561b412d2cf4"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/asset-files.json",
+      "bytes": 106974,
+      "sha256": "b3edf27ae0a7300edbeeddbf793b901157bc245f4f4208337dce37736dc3b9bf"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/asset-info.json",
+      "bytes": 1538,
+      "sha256": "da9f8c8acf2099d00a75654a30b7d1f25d5e8f97303326d38ed7c71ba1e8f185"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/manifest.json",
+      "bytes": 4139,
+      "sha256": "9e1cd5538fe7c8ade992b005940e159f21c1b1a3258af8dfa3cfd4792cddb2f6"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/runtime-metadata.json",
+      "bytes": 518,
+      "sha256": "c59973920adb1bc882eab6409fe9baadce87e9ef86f7786b76aab4e01d90db35"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/runtime.glb",
+      "bytes": 2953344,
+      "sha256": "2f63508b057dc9a5dbb5cd21ea68c36e9f6c4a943178dda813c4ed8270952650"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_arm_1k.jpg",
+      "bytes": 708242,
+      "sha256": "891c5a1bb124292984b01558e9f2b0302d27d2fa3ccf9dfc6c34f9ea4ca24e6c"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_branch_arm_1k.jpg",
+      "bytes": 375732,
+      "sha256": "8968b46d76c67da09ebbf4eed04b8123c9e0ddf5b55d123968b35b32aa76d27a"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_branch_diff_1k.jpg",
+      "bytes": 449977,
+      "sha256": "a71b768e330c0c6cca097e30314f6b4e842ef724a1370f6aab14b4434eec64cb"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_branch_nor_gl_1k.jpg",
+      "bytes": 581596,
+      "sha256": "a2efae9e7fede259601188cd5cb7e561fc502bd87e04d862a9532b2d8e647a62"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_diff_1k.jpg",
+      "bytes": 863246,
+      "sha256": "4e0093f407b3a1120a36de49a48ebe5a465a9a9b77e361c7a3e66866e115e404"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_leaves_arm_1k.jpg",
+      "bytes": 633698,
+      "sha256": "71f81374daf5a8f3e6eb2c694264a1769fdb0bea508178e4105618eecea83c3e"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_leaves_diff_1k.jpg",
+      "bytes": 340003,
+      "sha256": "261e7d7a5ac7d2e16ea8823ff8510be8f3f615999724232994039ad2885e5c36"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_leaves_nor_gl_1k.jpg",
+      "bytes": 681604,
+      "sha256": "8c72e04fb23e16ae1df79c01385a638473d1dd4dede3d51e83d70153c129f09b"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/textures/tree_small_02_nor_gl_1k.jpg",
+      "bytes": 1228646,
+      "sha256": "9c83be074c950ea1b94c732c0c0291b53b9ba357f932d378bafe3ca3b4418871"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/tree_small_02.bin",
+      "bytes": 95102324,
+      "sha256": "8da6c3c389ad8748286d1b7488cd827f75ebdad9d8f59ef7dfb0916df5edc634"
+    },
+    {
+      "path": "assets/library/polyhaven/tree_small_02/tree_small_02_1k.gltf",
+      "bytes": 9075,
+      "sha256": "3062a709614c05b80fdc1e56583998bc3cb1027b0d52f956c8ecfb882ff8ca6d"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/README.md",
+      "bytes": 806,
+      "sha256": "62f13be486b691ee1b6ee43d16ee0cfec8a406b7a8b3e76d3e7ce63eb6428d7b"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/asset-files.json",
+      "bytes": 26408,
+      "sha256": "d5d6f32d51337ebcef7c6bf4b87401692644ccfacdba20cdc6ce9c4d0d134686"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/asset-info.json",
+      "bytes": 1083,
+      "sha256": "d3391a4ff9a65732eac3b81a573f97a3e1b2c347a8a4358c92060d85a86ee71c"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/manifest.json",
+      "bytes": 3397,
+      "sha256": "eb7812c2aeffbd40bc626d41bbf6a32e9ff1e00f55354a39cc56a58f9fdeb9f8"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/runtime-metadata.json",
+      "bytes": 439,
+      "sha256": "0e7fda04f9420ea5e0453c4e6e1850a01b1a480e5a7f06a05a743788ea1f5207"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/runtime.glb",
+      "bytes": 330044,
+      "sha256": "39d6f74da4f711fd3a43c4aa912ccb247037a02d6864b53be788fe3658a00682"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/textures/wicker_basket_01_arm_1k.jpg",
+      "bytes": 874111,
+      "sha256": "5150638cbcd8f1bc07b76af3b60b31a4c5e7d38ce66ac8906b9c3192f3283b9a"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/textures/wicker_basket_01_diff_1k.jpg",
+      "bytes": 679110,
+      "sha256": "15156c7855d5642f6bb594edfad5bcdcfe11f87f3e109956cb9e8fdb15fef921"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/textures/wicker_basket_01_nor_gl_1k.jpg",
+      "bytes": 549218,
+      "sha256": "d06024a37ef330d05bf128b8488f72769af05e72d266ffbc810d7f09ea2b32f9"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/wicker_basket_01.bin",
+      "bytes": 624920,
+      "sha256": "8e96025ffcdc64a7e75d1aa980f2491b1219912a4554272cd1e192a966c399f8"
+    },
+    {
+      "path": "assets/library/polyhaven/wicker_basket_01/wicker_basket_01_1k.gltf",
+      "bytes": 2792,
+      "sha256": "9ad86c33f00f46a18c9bc8bfc28c0036090ee819f7270d0028ec408512c04094"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/README.md",
+      "bytes": 291,
+      "sha256": "d9a8bd4e30b5ad9b9e728bf8fb61b816fe059ef9fbb3600ba25b7ae1a38a49f3"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/asset-files.json",
+      "bytes": 33892,
+      "sha256": "13569cc37d42998a1491fd931833600bda67281a365f9517c2fb27093dc8fb74"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/asset-info.json",
+      "bytes": 1193,
+      "sha256": "dff68af87cdf687aad157f0208bc3304f60c263bfcbeaffc30012b9f31eccc63"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/manifest.json",
+      "bytes": 2003,
+      "sha256": "13f6409f89209423d06789c3c9984677701e390fd9a15435bd7df1c2320ed0e5"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/runtime-metadata.json",
+      "bytes": 431,
+      "sha256": "ab040a9d026e34da1f28458e28b28796ded6ca2df259b7ab5c6560a5c11c1429"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/runtime.glb",
+      "bytes": 258752,
+      "sha256": "9dc2394984384bea1ad0eb5ed4fb0f405618d7c2b9b503e8cc10b79dd15fa94d"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/textures/wooden_bowl_02_arm_1k.jpg",
+      "bytes": 770851,
+      "sha256": "0715dde81d3a8acbdf67031702c80e994e0b418a9973237f2964f1d0be9f4645"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/textures/wooden_bowl_02_diff_1k.jpg",
+      "bytes": 805338,
+      "sha256": "a3bb80f6ea747491fe91628badc0b98d320fc6d427682564095aba6033a523dc"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/textures/wooden_bowl_02_nor_gl_1k.jpg",
+      "bytes": 816221,
+      "sha256": "1951d9aae111412f4bd262c18e232b0b11962f33145e46acb936e314a442ec7d"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/wooden_bowl_02.bin",
+      "bytes": 116156,
+      "sha256": "6e3e1fb30969e9a52db3519b01ace016628a361c2cd9e2817c5e50c1ffb8a1dd"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bowl_02/wooden_bowl_02_1k.gltf",
+      "bytes": 2800,
+      "sha256": "18ba4fb40b1880d9b776f6d98eefdaa9e01e41fbe362ba1dc40a831422e38336"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/PolyHaven-asset-license.json",
+      "bytes": 2216,
+      "sha256": "a9d88b758d1751dd41713381115ed309ea659e219c1654157b709dce7757e779"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/README.md",
+      "bytes": 294,
+      "sha256": "751c6cf55e23463e2755f6799960fd683a7e9c4bfb18dd0f6f7eeb4c9612933d"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/asset-files.json",
+      "bytes": 40526,
+      "sha256": "e98b852227121cc0d0bf8c9e15c129eb3bcd60b9206b7b75328bc369a60b21e0"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/asset-info.json",
+      "bytes": 1320,
+      "sha256": "776d90e6027715d9670075ca16eb1d3d0995882f0cb6b59977d3469ff55dc7af"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/manifest.json",
+      "bytes": 2036,
+      "sha256": "1fcf0ca38b737e04f1caf8891c7d616fe0eca5982a72362ab4aa8328148c3827"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/runtime-metadata.json",
+      "bytes": 438,
+      "sha256": "bc14ba1f5110591785533cb131d1e3c745dabf236b758b263026d64bdd05f730"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/runtime.glb",
+      "bytes": 275820,
+      "sha256": "9236a2c1b90c689cdd1d3df2a1b2ade4195bcbd55b7cbfd66df02e8201ffe8a9"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/textures/wooden_bucket_01_arm_1k.jpg",
+      "bytes": 777463,
+      "sha256": "3f093ca45792584632bbcc94fcc6a6521e5338a19202545f143303de6f6e8f17"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/textures/wooden_bucket_01_diff_1k.jpg",
+      "bytes": 698083,
+      "sha256": "d9a8ec311099bc94510abdc4b246b67c893df5e829ada4a1014021dbc7c84561"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/textures/wooden_bucket_01_nor_gl_1k.jpg",
+      "bytes": 693440,
+      "sha256": "ae12106f8dd1e69813d42d714e9c99b70af3b5fcce6953cfbf8d8a741b4da40f"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/wooden_bucket_01.bin",
+      "bytes": 158408,
+      "sha256": "7dbce867270cbb1efe7b0970ebeb9b0d40dd53bcb62f57bfa541c04726ed4b7e"
+    },
+    {
+      "path": "assets/library/polyhaven/wooden_bucket_01/wooden_bucket_01_1k.gltf",
+      "bytes": 4248,
+      "sha256": "f5338d760391b1f6183f09cbb3dfcb0d6b5d954d9a1d388e7debabce46fd999d"
+    },
+    {
+      "path": "assets/library/preparation-study/README.md",
+      "bytes": 1837,
+      "sha256": "d70614097be382f28ad2e1e15209242efb2fb3562699fa22955893f7fd1e5274"
+    },
+    {
+      "path": "assets/library/preparation-study/assembly.glb",
+      "bytes": 8720028,
+      "sha256": "fdddc2eb0178c93f55577cb9e62e2a50e571d5594b72aa022da55e6d15635de9"
+    },
+    {
+      "path": "assets/library/preparation-study/manifest.json",
+      "bytes": 2210,
+      "sha256": "df1f9c04864563662cee8510a6cb60edd3e2c5c8821bfafe1b908624e40a173c"
+    },
+    {
+      "path": "assets/library/production-materials/Fabric081C/asset-info.json",
+      "bytes": 12973,
+      "sha256": "85bd2895e3a5c93ac57d9dbf9b023de1fb8fc07d45ba4e43554c3a193c0492d9"
+    },
+    {
+      "path": "assets/library/production-materials/Fabric081C/basecolor_512.png",
+      "bytes": 57758,
+      "sha256": "389829ebf84a62bcd813ff379ce5ef5eee493b1d4a2c0486b1833da0f8571e50"
+    },
+    {
+      "path": "assets/library/production-materials/Fabric081C/license-evidence.html",
+      "bytes": 34106,
+      "sha256": "60138e09b277c89977841462634b36e99d7bae5b77174777813502069c59461c"
+    },
+    {
+      "path": "assets/library/production-materials/Fabric081C/normal_512.png",
+      "bytes": 239095,
+      "sha256": "8aac2917a96a9bca917a3c91621fc95714cf3f2aca451035eedd1fd29ec9618d"
+    },
+    {
+      "path": "assets/library/production-materials/Fabric081C/roughness_512.png",
+      "bytes": 81030,
+      "sha256": "97073f777596e1f9fd76a4c96b1a163a296542fccf7e64b468ba288a58232855"
+    },
+    {
+      "path": "assets/library/production-materials/Fabric081C/source/Fabric081C_1K-JPG.zip",
+      "bytes": 5040951,
+      "sha256": "54cb93482845a9b74b34b1294ce40ff9427df88ec700c7fcfec72125551dca31"
+    },
+    {
+      "path": "assets/library/production-materials/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/production-materials/README.md",
+      "bytes": 1453,
+      "sha256": "5822bab9849aa65de9198d9b6728e7c417698380bf49b78490cf3bc842cb0a35"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/asset-files.json",
+      "bytes": 26553,
+      "sha256": "480d9cba41be4712bb690c8fe414c51287cb20b788ebdf4ea32f1c727a1b309a"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/asset-info.json",
+      "bytes": 900,
+      "sha256": "cccd0f6c3df03444ba2d2447a8e27d68c1f12740272a7c5abc2eecb1e9c7684e"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/basecolor_512.png",
+      "bytes": 553668,
+      "sha256": "497775fb790d72184668d079b75ef82996a66799a15d46d7f604d8b1ee190055"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/normal_512.png",
+      "bytes": 605800,
+      "sha256": "6f875bc29ad07acfaa09edde056216e31c8255b596a2009546c52589f126f711"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/roughness_512.png",
+      "bytes": 115180,
+      "sha256": "642f12b9849cdbc34f801b0c239a1254097c697bf47115d624ffa37ec9910c66"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/source/basecolor_1k.jpg",
+      "bytes": 998966,
+      "sha256": "95e1380566834aab220bd8ea9a5287f3bfff46910c18017fcb46ebbbe832024f"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/source/normal_1k.jpg",
+      "bytes": 1358916,
+      "sha256": "7d6f905fe7225d96741d191f6ee61c0681603570d28f14e7678df6a3019bc48d"
+    },
+    {
+      "path": "assets/library/production-materials/bark_willow_02/source/roughness_1k.jpg",
+      "bytes": 498100,
+      "sha256": "b9d690f5a5fc411b89c6301273ac03ab0a5910c8a16a96839df223aff4bf794d"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/asset-files.json",
+      "bytes": 26283,
+      "sha256": "c988de9b099cc47ac170a2fdb55622684be5df102323a447bdc511a5525a6baa"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/asset-info.json",
+      "bytes": 920,
+      "sha256": "30f86a94dac61f7bd1b43264b88e42e60c2669b84ec2d6ed600020e96b0e133b"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/basecolor_512.png",
+      "bytes": 437444,
+      "sha256": "b61fe9dbd7dd4d7f632a7b6f64706e104607a754198034fa7f7a249d3b51982f"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/normal_512.png",
+      "bytes": 470973,
+      "sha256": "fa83fae4f74f665e302e88168be57e2dbc55ba1e2ae42fa191043b1f82ca2888"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/roughness_512.png",
+      "bytes": 226084,
+      "sha256": "8863aca457d682711f2c16646128bf34d2acfad09d0fce73176b242e90d826cc"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/source/basecolor_1k.jpg",
+      "bytes": 503348,
+      "sha256": "7e9e1d6566d1fd91d4ceb4966c4820361e85d53a7a828b6bab3b2a093a876cd1"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/source/normal_1k.jpg",
+      "bytes": 863280,
+      "sha256": "506a0b7650c2dea285e247f26ed2d0d6ec38fc10dd584359f0d203e9c082236d"
+    },
+    {
+      "path": "assets/library/production-materials/brown_leather/source/roughness_1k.jpg",
+      "bytes": 686142,
+      "sha256": "f9739ef2da2e3d17b9ec253f5042f61b10dc10f3ae28f6cf6491650d3d1b0ca3"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/asset-files.json",
+      "bytes": 29928,
+      "sha256": "5c3ef300a47279975772c5c18c328b6d696cd8c46a2463c19c7c2fcc46382a79"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/asset-info.json",
+      "bytes": 969,
+      "sha256": "6ac99d0ef72add8a5fa0929461f98e1b80cca22991ad051431def5e8bdc882eb"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/basecolor_512.png",
+      "bytes": 524697,
+      "sha256": "a0b97d5ea73795ffa781738bd602fe0e403e40ef3eee290fd0b62def15909823"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/normal_512.png",
+      "bytes": 663618,
+      "sha256": "2e2cfc255b9b23e23c7b6a962caf6686c673d3045648568257adeb7cdb1c07e1"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/roughness_512.png",
+      "bytes": 171776,
+      "sha256": "e36f05252454545a33ee4d644633ff0dec3bb7cc2006ab72505e86ae3efda6ec"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/source/basecolor_1k.jpg",
+      "bytes": 527741,
+      "sha256": "058b6f12493305ec6b47cb5ea77f013c9e7e58216b34af3700a3d3d7d821732d"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/source/normal_1k.jpg",
+      "bytes": 1397011,
+      "sha256": "9ca6f68d25599c98ba5e594df221f5653d93faceda1ba26a0babb1143e8c615f"
+    },
+    {
+      "path": "assets/library/production-materials/brown_mud_02/source/roughness_1k.jpg",
+      "bytes": 422119,
+      "sha256": "c6d5891f090554c8f51172b2c4056f490ab1ed1a69127f1f876f9d58c46f0f23"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/asset-files.json",
+      "bytes": 24871,
+      "sha256": "345b92e082cb37654afa7c6176c6312e336c682f9f91dc76c01fad64f111e421"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/asset-info.json",
+      "bytes": 956,
+      "sha256": "bc3c7eb19d23d67a81fc05db57e36bb888576d4f56735078bf2a7cb440de5763"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/basecolor_512.png",
+      "bytes": 385667,
+      "sha256": "b12c23425f8ea2c42734d75275d20be50d8bfa320f268ae7d68b92f600c00e95"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/normal_512.png",
+      "bytes": 186872,
+      "sha256": "2906c500d72a6f2dbe76a52dbb10cd8580a16ea946e360284ff1e9fbb12c8dd6"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/roughness_512.png",
+      "bytes": 123381,
+      "sha256": "81ddb9b18109b8d353297b28f3ee0160b65f69ef478be2ce5fc26447a6e54f4a"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/source/basecolor_1k.jpg",
+      "bytes": 754754,
+      "sha256": "d68da31655bf47024af893156a6a01a6c95bb60f55d97e2dc9bdd47be320e5b5"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/source/normal_1k.jpg",
+      "bytes": 344338,
+      "sha256": "c42541f1bda0a14b39f120c24407eeba699af8ac85b371c7cef98ffd7d7b13bf"
+    },
+    {
+      "path": "assets/library/production-materials/dark_wood/source/roughness_1k.jpg",
+      "bytes": 574415,
+      "sha256": "47ea12dbf649109b02eaa164dde9732a74e839957f29ad0ec7f5266b575d1835"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/asset-files.json",
+      "bytes": 23631,
+      "sha256": "e8a6525e7ac57d511ca234e995be9680fcca1a4a49332790b98f9dd3626bf4c3"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/asset-info.json",
+      "bytes": 930,
+      "sha256": "41c0944017803d85d06ca2eb561069b38a010056b5371a933039e9710531e604"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/basecolor_512.png",
+      "bytes": 341336,
+      "sha256": "738cb11e9811d0a5bbb8f45051dc000e3e829bac277ddefe524f7b70a7fad4dd"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/normal_512.png",
+      "bytes": 199058,
+      "sha256": "aa66a0987f55c5aed9baee309e3c2b34ce4ae0264195e5e1e21b0eadedccd1ab"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/roughness_512.png",
+      "bytes": 111205,
+      "sha256": "6e75b2585712aaf10891fa628b984181039864823e17fc8a3ba0de422e403652"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/source/basecolor_1k.jpg",
+      "bytes": 336305,
+      "sha256": "d171f45ef01bc6e239b00dfaa4961bcd27f7d8e93e3962da3bd3d0ce703d802c"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/source/normal_1k.jpg",
+      "bytes": 193626,
+      "sha256": "ba95eadc009818e161d0f753191f1bacc3fc861e593be0bc6d82b437f9ec8044"
+    },
+    {
+      "path": "assets/library/production-materials/fine_grained_wood/source/roughness_1k.jpg",
+      "bytes": 215155,
+      "sha256": "f281f682e62fe322303dfeaa13dac18b5cb9e113617fe0aca43605b49161d82b"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/asset-files.json",
+      "bytes": 33725,
+      "sha256": "169aada1c3289c8d57f041665cc4f53cc6179cc0432db9906e6754b205ab9ade"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/asset-info.json",
+      "bytes": 986,
+      "sha256": "1691dab52c82915555521e8a1160032736f7c46c5f46ace2bd1936b131010f8e"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/basecolor_512.png",
+      "bytes": 495776,
+      "sha256": "d0385e395460dcca1ccd284efbeec124daebbc332c85dbd3ecbdb80792cd75b2"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/normal_512.png",
+      "bytes": 431173,
+      "sha256": "e2433ed9b0f8999c4f1809bf4ffd1abad26fef04fb76f9619168e6f96d2c674a"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/roughness_512.png",
+      "bytes": 147685,
+      "sha256": "d8e8d022b182dfdfa31765233fbbae8acd4bc78ee4e66bc6d286de417f41f278"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/source/basecolor_1k.jpg",
+      "bytes": 839527,
+      "sha256": "9b98572f768a5ca2a050f060807c737e640da303eb1700383bf4d549def2835c"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/source/normal_1k.jpg",
+      "bytes": 914614,
+      "sha256": "a48a14b446ab1e9968e4a21b5a5e48b3de634680f988c9af26d1759a500e2d1c"
+    },
+    {
+      "path": "assets/library/production-materials/grey_stone_path/source/roughness_1k.jpg",
+      "bytes": 648416,
+      "sha256": "dccd822a0a6739aed29af3312f833ea29895bfcb2bf1a03e877fed1c712fb39c"
+    },
+    {
+      "path": "assets/library/production-materials/manifest.json",
+      "bytes": 13527,
+      "sha256": "f6414a7c9d27f1e57d3766065650ac32a9950c0ce6521d2cf12072439e5ebeca"
+    },
+    {
+      "path": "assets/library/quaternius/LICENSE-CC0-1.0.txt",
+      "bytes": 6533,
+      "sha256": "a43fc2004d1e073f1107a1f6146664d08dae6cea93cb828742a4bec6da828e91"
+    },
+    {
+      "path": "assets/library/quaternius/README.md",
+      "bytes": 719,
+      "sha256": "8c7aea5a55ee07b5ab5f593fa3965655c419cdd31966550d55601b50c2311854"
+    },
+    {
+      "path": "assets/library/quaternius/boat_hull/README.md",
+      "bytes": 1100,
+      "sha256": "8e0e7c72d8245b3cb62938e7fb78327e6a3956a02cf267e88f88e5688ac40ba4"
+    },
+    {
+      "path": "assets/library/quaternius/boat_hull/manifest.json",
+      "bytes": 768,
+      "sha256": "c566d8c48fbfa9efbfe065eb55a1d842990e15de30e496f4b726e94c8b663c55"
+    },
+    {
+      "path": "assets/library/quaternius/boat_hull/runtime-metadata.json",
+      "bytes": 547,
+      "sha256": "8c1bf8cb9bc466037806b4bfaeb5368ea3bcbc4ddc650965cc2806cfad9cdc94"
+    },
+    {
+      "path": "assets/library/quaternius/boat_hull/ships.html",
+      "bytes": 14781,
+      "sha256": "3d65c3a9b48bd07924c18148661a07a25a5a3b89863c313126deac81a3f68951"
+    },
+    {
+      "path": "assets/library/quaternius/boat_hull/source.glb",
+      "bytes": 11828,
+      "sha256": "971239c4d24de2a30385acd94c09d9f76ea825488db135c88d7b3bc8c0cd5d05"
+    },
+    {
+      "path": "assets/library/quaternius/deer/manifest.json",
+      "bytes": 801,
+      "sha256": "fdddba25f66d11b11c5835207c007cd9a6c65595a9ee3ca2c5ad238e92b8e1c0"
+    },
+    {
+      "path": "assets/library/quaternius/deer/runtime-metadata.json",
+      "bytes": 368,
+      "sha256": "a99f232fce55928efaec48e50a9bb2662f41118de2549e134d7e94cd584937a5"
+    },
+    {
+      "path": "assets/library/quaternius/deer/runtime.glb",
+      "bytes": 691736,
+      "sha256": "09c17ca47d2f09b205bd16460dfd1a776fed935312bae6b1a1ade970ce7b6355"
+    },
+    {
+      "path": "assets/library/quaternius/deer/source.glb",
+      "bytes": 662108,
+      "sha256": "b6558249bfb225313c35dd1b6c91d832b2031d064039bb6b3600a624a882a174"
+    },
+    {
+      "path": "assets/library/quaternius/horse/manifest.json",
+      "bytes": 804,
+      "sha256": "a00579914040c95c94ac6c8f7d4e2f3b14ec461ff20d8b2d96e3221346b991e5"
+    },
+    {
+      "path": "assets/library/quaternius/horse/runtime-metadata.json",
+      "bytes": 368,
+      "sha256": "c5919d4fd9d2ff2e5c54cd048261abc825e8a5818fbdc75dd2fed494f772ebeb"
+    },
+    {
+      "path": "assets/library/quaternius/horse/runtime.glb",
+      "bytes": 703992,
+      "sha256": "53724c920b5cca1cbe5f1bc6180f1b9f735dc8c9e5c20d35322f6ba57e7a2caf"
+    },
+    {
+      "path": "assets/library/quaternius/horse/source.glb",
+      "bytes": 682356,
+      "sha256": "fbddb2c97179eca896ec69c985cd9cc74540484510776c400df64e088e9f2414"
+    },
+    {
+      "path": "assets/library/quaternius/manifest.json",
+      "bytes": 3073,
+      "sha256": "511a079c00ca73609332f6e4f821c12e0bdf0818d82527ced48cc83710910fc7"
+    },
+    {
+      "path": "assets/library/quaternius/merchant_face/manifest.json",
+      "bytes": 856,
+      "sha256": "ce9c556103bdeccdc1407bfce2cec56ab8f08cb8f020150db96c2ed207704318"
+    },
+    {
+      "path": "assets/library/quaternius/merchant_face/runtime-metadata.json",
+      "bytes": 419,
+      "sha256": "9b6ac85eb4afcf3155348c48e322f3382603b3a8020bc6872a78a3cd6dac89db"
+    },
+    {
+      "path": "assets/library/quaternius/merchant_face/source.glb",
+      "bytes": 699104,
+      "sha256": "4c7606e3372eb974525ae237f2038376ae72abb9a59e24a5623ba675c6855f18"
+    },
+    {
+      "path": "assets/library/quaternius/mirror-LICENSES.md",
+      "bytes": 6917,
+      "sha256": "a59ca1463ae02529bc8866817aaae5891323eb8a6481959503b7530c1522798f"
+    },
+    {
+      "path": "assets/library/quaternius/ultimateanimatedanimals.html",
+      "bytes": 15482,
+      "sha256": "a25ddbaa9a84d7c9dad1dab4d3796cd26edb642d4c70f022e08679cb95d5c2b8"
+    },
+    {
+      "path": "assets/library/quaternius/ultimatemodularcharacters.html",
+      "bytes": 15332,
+      "sha256": "803529ae0669a3220436be17de5d842876d8cf5e959b1d6f664186dea4854a31"
+    },
+    {
+      "path": "assets/library/vegetation/README.md",
+      "bytes": 2168,
+      "sha256": "733990594425b3002f425ecce7e62129006d6010555f54b5891f34801df920e0"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/README.md",
+      "bytes": 1386,
+      "sha256": "22b60f244271370aecc6856e280801e890dca9d80c11b89748602cc68a501f0b"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod0.glb",
+      "bytes": 807868,
+      "sha256": "b575e3a84201eaf8a39fb9e535a5eca5e07c67fb0d4789772ed5efe5d98cb00a"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod1.glb",
+      "bytes": 425020,
+      "sha256": "0037ffeea6c49fc5aa4f76e6cfee25525f927176337e1ba2a0951fa687e6fa3b"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod2.glb",
+      "bytes": 234168,
+      "sha256": "b8ad5a2ca0d59cdafaf57b51e3b9bb9a1c3df182163076995ad9ac95663d690a"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/manifest.json",
+      "bytes": 7499,
+      "sha256": "b009a37a95e7107285ad9b5d3cd9884a63ccc951044bc78d4187ae1a3fa4d952"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod0.glb",
+      "bytes": 1306732,
+      "sha256": "eb4a79728043f6cbe636ec32b305122bf6fc9e1e263f73f8e2c7fb25c6905fff"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod1.glb",
+      "bytes": 655924,
+      "sha256": "c6b826248e8e813508bb7cb1849b3d3b0a86e127ec8b2ccab035bf2de158f9e0"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod2.glb",
+      "bytes": 331220,
+      "sha256": "165f8d9e331d941d141abc0d60b7ba6763f819d0b35a66e92cd48ae13b632d3d"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod0.glb",
+      "bytes": 390188,
+      "sha256": "089136d4550d5de98e6cae5b90a8ca13c2421a4672f4e59cdc81425fa57def5d"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod1.glb",
+      "bytes": 197420,
+      "sha256": "daa250b54a44f7dfe3da1f29455f519e5f71a7070d8c38f5cd402a9ecf05989b"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod2.glb",
+      "bytes": 101604,
+      "sha256": "f5854ba19f4d54c29ca353ed5e3036c86a3280e11dbd81a04c36c40c9fc91c12"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod0.glb",
+      "bytes": 660044,
+      "sha256": "f764d07ea3e0b31646257ce136f169f5fe27b374f16df06749505e180adb9a8a"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod1.glb",
+      "bytes": 342584,
+      "sha256": "4ce5aaea34bc6f24630f590017069e7c884c0273c4e3375ecac7e14122252071"
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod2.glb",
+      "bytes": 173332,
+      "sha256": "65049d0478f2509d65572b8948ebe082b2ba93634b47572987b916d317d5e57d"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/LICENSE",
+      "bytes": 1073,
+      "sha256": "20e4afadfb10c67952b3d73cd2982d21d165ab4ae82b0dd9e4d6f2166ee349b6"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/README.md",
+      "bytes": 7327,
+      "sha256": "1c758991522e87610b7459ea0a8fbfb0a22ec4bd90903459ff974d78e6be5282"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/package.json",
+      "bytes": 1411,
+      "sha256": "48f5ddc8af8ee19b1ee6d2ff7047a3a42575aa13e5f721bd871506e161a90131"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/source-manifest.json",
+      "bytes": 11194,
+      "sha256": "f860a568ec7c81879971dda195ba5d7c826080cca7f86cdbac1dbd00f89eef6c"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/LICENSE.md",
+      "bytes": 1378,
+      "sha256": "c4c67cf955536e61d9ac3fdf13830114edcd4c19c9aa0356ed0862cedf64140a"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/ash.png",
+      "bytes": 181423,
+      "sha256": "5ec987db3829a839856c32c79b18a33a78f209e911cad55c65abfb77f30e2d29"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/ash.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "fc72b550e71b6390715248ae721ccec85885478683ea5ff0e6868baa5bba4f4a"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/aspen.png",
+      "bytes": 142116,
+      "sha256": "6c8cbfa3eda0f070df6ebb3c8ec6899400f3c966d1658fcfd9ae518347c2dcb9"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/aspen.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "f526978f0fd948af06e655ea9d672fe9e1943c5df2e0d4c4466404643bd856da"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/oak.png",
+      "bytes": 238115,
+      "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/oak.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "c4beca0e3685ee900e24c5ef3714e6bee4375cb8d6b464a44465a3ce34410325"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/pine.png",
+      "bytes": 303684,
+      "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/app/public/textures/leaves/pine.png.lfs-pointer",
+      "bytes": 131,
+      "sha256": "3fa31532e2686f18eb014e8edc95dbc347895789b6be1c2e7d96d3b8b03f2f7a"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/branch.js",
+      "bytes": 787,
+      "sha256": "f71a5e0df6b74ae521942f1722e5a0dd17707add05f12691da96231fdeff8571"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/enums.js",
+      "bytes": 151,
+      "sha256": "d83df789447a421baaecfd18cc8187bf3f80f6cf6e7ba7866812ed527f104092"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/index.js",
+      "bytes": 161,
+      "sha256": "a0a92be6d68505522f9d218710f7fd8bff197c77a188999757a9fdb802459546"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/options.js",
+      "bytes": 5186,
+      "sha256": "092e20ee9073d7402e2fa04d570c17ff150276b5f8c941b3da629edf4ecfe0b9"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/ash_large.json",
+      "bytes": 1461,
+      "sha256": "fb630c9f4ae0e344c884f0380d23b35bd93af8924dc0244190b83811634d4f50"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/ash_medium.json",
+      "bytes": 1414,
+      "sha256": "4fbda008f54a1421c67bdff3022d64aba1d497253bc45dc7f186e3a4f78a9edd"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/ash_small.json",
+      "bytes": 1416,
+      "sha256": "aa912b8789d348e751aea05c8bf7fd3e91919f7d2429a43150d0b171a57c7a1d"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/aspen_large.json",
+      "bytes": 1528,
+      "sha256": "91d66898f9a2edb0ac29482c137c295e8fefd2f39b9c328f690c4656e3edbf89"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/aspen_medium.json",
+      "bytes": 1408,
+      "sha256": "0ccedf06c8777fc7e21f04852f43a52fbe454d71521f2abeaa1cbb5af656ed3f"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/aspen_small.json",
+      "bytes": 1497,
+      "sha256": "342fd45bf5243c927c56e499d1083e6d527ec875366b6d763a529069e7255473"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/bush_1.json",
+      "bytes": 1500,
+      "sha256": "c15a079777169edbc8e7d99ddfde1f70b332049a1ca4b2469fb2987dfc195a4b"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/bush_2.json",
+      "bytes": 1602,
+      "sha256": "fee591915db8ee450151d30330c22ec9a980eaffe93bf58977d1113b749685ec"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/bush_3.json",
+      "bytes": 1673,
+      "sha256": "7b5fdf2bd190f8f61b792b32ac3a0eade9e09db6471bf422c6936c5855399926"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/index.js",
+      "bytes": 1360,
+      "sha256": "66f5c90aa49e18467bad26c21158a184fb33a6c019d9cc0efd403b514fb7dc5f"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/oak_large.json",
+      "bytes": 1422,
+      "sha256": "da60d7104796e5dc099effe778f22e055a8365549e2eb6cfa6fb0bb6a8190d6b"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/oak_medium.json",
+      "bytes": 1421,
+      "sha256": "b71da9eeebbe88e7e216af549427f4ec368c4939bf4d4e47d5325f79364fc1ea"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/oak_small.json",
+      "bytes": 1422,
+      "sha256": "56351f70c8d9432db4c2e80ad9e4f9a08cfb02cb511b5005bb451ddd76a384b4"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/pine_large.json",
+      "bytes": 1544,
+      "sha256": "80d3e4b0c8d283d995e9af515c54e1622750b620959fbfab06fb4fcf7de29189"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/pine_medium.json",
+      "bytes": 1408,
+      "sha256": "001254eff844a6d41aff3c409b78effe2a2995c8dd7a21ae301b1e7fb9da0118"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/pine_small.json",
+      "bytes": 1397,
+      "sha256": "3e389bbcec2fb8965a6a77c014409394aa8e8b81f32b6d3b4d9de86eb02f0c17"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/presets/trellis.json",
+      "bytes": 1701,
+      "sha256": "015e40156baa5f7778d5fb9f9a5e601001e632d40e6fdd34644db4f47d1abc1c"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/rng.js",
+      "bytes": 586,
+      "sha256": "e4f2bfff79a0a6af3f909f106876e9208be1bb88cc7f7d1541a6858cbaa0c3c8"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/tree.js",
+      "bytes": 40609,
+      "sha256": "a1b7bd933cb2078e9373c9c853c620be8a3edc84a9edda6a4073c8ad2a31f934"
+    },
+    {
+      "path": "assets/library/vegetation/ez-tree-source/src/lib/trellis.js",
+      "bytes": 3805,
+      "sha256": "ca623b4fbbee1a11aa14be213f5132928ecbe37f91db7424081fe9d681fc765b"
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-lod0.glb",
+      "bytes": 629052,
+      "sha256": "8744c55409d0219c32488e4853c7d4662e0df9826fac4cf9c70b4a8cf1cd6e55"
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-lod1.glb",
+      "bytes": 427492,
+      "sha256": "5d3ef6e410611db432f8e485d91abb721c9bf2d999244da4250181b90c008910"
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-lod2.glb",
+      "bytes": 322132,
+      "sha256": "107e6438e165694dc61028d1d7133950f57b19c4ca3bc0713433916576da5b53"
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-options.json",
+      "bytes": 1820,
+      "sha256": "aa332e6bc18a6eccfdaa1629009ccbf47affa19cb009adc7378a015e04c13a08"
+    },
+    {
+      "path": "assets/library/vegetation/studies/manifest.json",
+      "bytes": 8096,
+      "sha256": "c6aa5d4b908727f21f4893f926802c7f249353927ff5e19eceeb803e2d9781f0"
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-lod0.glb",
+      "bytes": 1249760,
+      "sha256": "a8f3645de385d7b411f7a5869584a28f2716299b73930f38173e7466804fe18f"
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-lod1.glb",
+      "bytes": 730904,
+      "sha256": "8b9ae621a02fb9b94bbad4bc6faad8a60768c64af736fc391e7eafa20be7ed55"
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-lod2.glb",
+      "bytes": 452952,
+      "sha256": "a2cccaa5ec762724ca2fdc30a604918db571285c8ad05504ca64fe5841e65f02"
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-options.json",
+      "bytes": 1800,
+      "sha256": "f6393822dbdf8375f880dd563b7165cfa9a7361c6403cbbacccf0c50b8217b41"
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-lod0.glb",
+      "bytes": 629052,
+      "sha256": "e8f163e7f29611eda74dd00814b4d9b253ddbd531b6b772ed14c213066e9163e"
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-lod1.glb",
+      "bytes": 427496,
+      "sha256": "4325efcc2660dc45de136fac6d2d6341d9f8415ad2b79b0649df9883e6e19400"
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-lod2.glb",
+      "bytes": 322144,
+      "sha256": "c268afa3905aa910f19edae90d440a95dfe705c52b627c0fea2810bb18fc51b9"
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-options.json",
+      "bytes": 1820,
+      "sha256": "7e52ac54a93625b9686e9dbf0b7ae7d9850d65488de2426de55f8c86728367d5"
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-lod0.glb",
+      "bytes": 785876,
+      "sha256": "05059896bfddbb12898d5ac95613ed568fe733c74d39dff63404a44296c5ca48"
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-lod1.glb",
+      "bytes": 457136,
+      "sha256": "0d474057714324227a3f220572d8330df508bb02c58127a97d7be748c1659d28"
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-lod2.glb",
+      "bytes": 284032,
+      "sha256": "5f9f15d92ade46fa430e0eae91aaa9d0cc44b1bff6caf7767f9f776870b8c7a6"
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-options.json",
+      "bytes": 1816,
+      "sha256": "70b5e5efa3917f1b78813511f27a12f12a5631a34993a95018b0a422ab8bd67c"
+    }
+  ],
+  "study_models": [
+    {
+      "path": "assets/library/preparation-study/assembly.glb",
+      "sha256": "fdddc2eb0178c93f55577cb9e62e2a50e571d5594b72aa022da55e6d15635de9",
+      "bytes": 8720028,
+      "triangles": 169486,
+      "mesh_primitives": 133,
+      "vertices_after_uv_normal_splits": 131619,
+      "images": [
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "8aac2917a96a9bca917a3c91621fc95714cf3f2aca451035eedd1fd29ec9618d",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "498baa86421b4b8dd84d1c475e09d2d12b811c44133d3ee8191c7542055e01dd",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "aa66a0987f55c5aed9baee309e3c2b34ce4ae0264195e5e1e21b0eadedccd1ab",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "d303258a997ee2e867c0b47a021e4b790b1b9781f89076d4e32678144ee4f71a",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "Image_0",
+          "width": 1024,
+          "height": 1024,
+          "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08",
+          "rgba_mip_upper_bytes": 5592406
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "2e2cfc255b9b23e23c7b6a962caf6686c673d3045648568257adeb7cdb1c07e1",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "32c55c41aa7117495c2b0bc01520d029a8240c4fa019b7b8ec65c8b797364fc9",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "e2433ed9b0f8999c4f1809bf4ffd1abad26fef04fb76f9619168e6f96d2c674a",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "8cdabea48b433d6f96153513d02bcadd0a38694639fbe343ede40a7ae203ba8f",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "normal_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "6f875bc29ad07acfaa09edde056216e31c8255b596a2009546c52589f126f711",
+          "rgba_mip_upper_bytes": 1398102
+        },
+        {
+          "name": "roughness_512",
+          "width": 512,
+          "height": 512,
+          "sha256": "659367e4418e2ff50ac3afbd4e8e25f3b6b8363ef43820c51b55ec6eb18440ee",
+          "rgba_mip_upper_bytes": 1398102
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 19573426,
+      "estimated_geometry_bytes": 5057596,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": null
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/architecture/timber-shop/runtime.glb",
+      "sha256": "a05e98a19167431ad7fdd93f323738c79d59291754c3cb79efb351d42df1103c",
+      "bytes": 2587440,
+      "triangles": 73096,
+      "mesh_primitives": 19,
+      "vertices_after_uv_normal_splits": 67494,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 2568304,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-lod0.glb",
+      "sha256": "8744c55409d0219c32488e4853c7d4662e0df9826fac4cf9c70b4a8cf1cd6e55",
+      "bytes": 629052,
+      "triangles": 6806,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 9544,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 387080,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-lod1.glb",
+      "sha256": "5d3ef6e410611db432f8e485d91abb721c9bf2d999244da4250181b90c008910",
+      "bytes": 427492,
+      "triangles": 2958,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 4688,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 185512,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/blossom-lod2.glb",
+      "sha256": "107e6438e165694dc61028d1d7133950f57b19c4ca3bc0713433916576da5b53",
+      "bytes": 322132,
+      "triangles": 1326,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 2008,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 80168,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-lod0.glb",
+      "sha256": "a8f3645de385d7b411f7a5869584a28f2716299b73930f38173e7466804fe18f",
+      "bytes": 1249760,
+      "triangles": 18756,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 22412,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 942256,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-lod1.glb",
+      "sha256": "8b9ae621a02fb9b94bbad4bc6faad8a60768c64af736fc391e7eafa20be7ed55",
+      "bytes": 730904,
+      "triangles": 7512,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 10413,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 423360,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/pine-lod2.glb",
+      "sha256": "a2cccaa5ec762724ca2fdc30a604918db571285c8ad05504ca64fe5841e65f02",
+      "bytes": 452952,
+      "triangles": 2378,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 3652,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "88be36a2387554ac4b7c7d1549eae454a37ad896e8e33a7d6ae5956bd169ab08",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 145400,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-lod0.glb",
+      "sha256": "e8f163e7f29611eda74dd00814b4d9b253ddbd531b6b772ed14c213066e9163e",
+      "bytes": 629052,
+      "triangles": 6806,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 9544,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 387080,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-lod1.glb",
+      "sha256": "4325efcc2660dc45de136fac6d2d6341d9f8415ad2b79b0649df9883e6e19400",
+      "bytes": 427496,
+      "triangles": 2958,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 4688,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 185512,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/street-lod2.glb",
+      "sha256": "c268afa3905aa910f19edae90d440a95dfe705c52b627c0fea2810bb18fc51b9",
+      "bytes": 322144,
+      "triangles": 1326,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 2008,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "24451223cf396d22910a4932b8bb996a7274e63d81e24128c96a430ab67822b1",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 80168,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-lod0.glb",
+      "sha256": "05059896bfddbb12898d5ac95613ed568fe733c74d39dff63404a44296c5ca48",
+      "bytes": 785876,
+      "triangles": 11072,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 14618,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "5ec987db3829a839856c32c79b18a33a78f209e911cad55c65abfb77f30e2d29",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 600640,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-lod1.glb",
+      "sha256": "0d474057714324227a3f220572d8330df508bb02c58127a97d7be748c1659d28",
+      "bytes": 457136,
+      "triangles": 4464,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 6821,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "5ec987db3829a839856c32c79b18a33a78f209e911cad55c65abfb77f30e2d29",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 271840,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/studies/willow-lod2.glb",
+      "sha256": "5f9f15d92ade46fa430e0eae91aaa9d0cc44b1bff6caf7767f9f776870b8c7a6",
+      "bytes": 284032,
+      "triangles": 1582,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 2492,
+      "images": [
+        {
+          "name": null,
+          "width": 1024,
+          "height": 1024,
+          "sha256": "5ec987db3829a839856c32c79b18a33a78f209e911cad55c65abfb77f30e2d29",
+          "rgba_mip_upper_bytes": 5592406
+        }
+      ],
+      "unique_rgba_mip_upper_bytes": 5592406,
+      "estimated_geometry_bytes": 98728,
+      "alpha_materials": [
+        {
+          "name": "MIT leaf texture",
+          "mode": "MASK",
+          "cutoff": 0.5
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod0.glb",
+      "sha256": "b575e3a84201eaf8a39fb9e535a5eca5e07c67fb0d4789772ed5efe5d98cb00a",
+      "bytes": 807868,
+      "triangles": 16188,
+      "mesh_primitives": 3,
+      "vertices_after_uv_normal_splits": 22088,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 803944,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod1.glb",
+      "sha256": "0037ffeea6c49fc5aa4f76e6cfee25525f927176337e1ba2a0951fa687e6fa3b",
+      "bytes": 425020,
+      "triangles": 8840,
+      "mesh_primitives": 3,
+      "vertices_after_uv_normal_splits": 11502,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 421104,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/blossom-lod2.glb",
+      "sha256": "b8ad5a2ca0d59cdafaf57b51e3b9bb9a1c3df182163076995ad9ac95663d690a",
+      "bytes": 234168,
+      "triangles": 5192,
+      "mesh_primitives": 3,
+      "vertices_after_uv_normal_splits": 6222,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 230256,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod0.glb",
+      "sha256": "eb4a79728043f6cbe636ec32b305122bf6fc9e1e263f73f8e2c7fb25c6905fff",
+      "bytes": 1306732,
+      "triangles": 35664,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 34064,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 1304032,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod1.glb",
+      "sha256": "c6b826248e8e813508bb7cb1849b3d3b0a86e127ec8b2ccab035bf2de158f9e0",
+      "bytes": 655924,
+      "triangles": 17864,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 17064,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 653232,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/pine-lod2.glb",
+      "sha256": "165f8d9e331d941d141abc0d60b7ba6763f819d0b35a66e92cd48ae13b632d3d",
+      "bytes": 331220,
+      "triangles": 8996,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 8580,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 328536,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod0.glb",
+      "sha256": "089136d4550d5de98e6cae5b90a8ca13c2421a4672f4e59cdc81425fa57def5d",
+      "bytes": 390188,
+      "triangles": 11292,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 9992,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 387496,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod1.glb",
+      "sha256": "daa250b54a44f7dfe3da1f29455f519e5f71a7070d8c38f5cd402a9ecf05989b",
+      "bytes": 197420,
+      "triangles": 5672,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 5022,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 194736,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/street-lod2.glb",
+      "sha256": "f5854ba19f4d54c29ca353ed5e3036c86a3280e11dbd81a04c36c40c9fc91c12",
+      "bytes": 101604,
+      "triangles": 2888,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 2550,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 98928,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod0.glb",
+      "sha256": "f764d07ea3e0b31646257ce136f169f5fe27b374f16df06749505e180adb9a8a",
+      "bytes": 660044,
+      "triangles": 22092,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 16400,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 657352,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod1.glb",
+      "sha256": "4ce5aaea34bc6f24630f590017069e7c884c0273c4e3375ecac7e14122252071",
+      "bytes": 342584,
+      "triangles": 11432,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 8478,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 339888,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/vegetation/authored-studies/willow-lod2.glb",
+      "sha256": "65049d0478f2509d65572b8948ebe082b2ba93634b47572987b916d317d5e57d",
+      "bytes": 173332,
+      "triangles": 5624,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 4278,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 170640,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/barge-lod0.glb",
+      "sha256": "976cf082c8c05cc1ee4415b379b75226b3e0aed8bc781c4fbd841c4ddf081829",
+      "bytes": 1225284,
+      "triangles": 23076,
+      "mesh_primitives": 4,
+      "vertices_after_uv_normal_splits": 27132,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 1219176,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/barge-lod1.glb",
+      "sha256": "ef15d7a9c4f3aa355be4513141d22e22b349b63a77762f989c107951ee86c137",
+      "bytes": 483308,
+      "triangles": 8760,
+      "mesh_primitives": 4,
+      "vertices_after_uv_normal_splits": 10804,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 477376,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/barge-lod2.glb",
+      "sha256": "dc829b534c96272b2d618036673c9b6547dfa4261f2b7077a3e94ba04ecf12ad",
+      "bytes": 169780,
+      "triangles": 2704,
+      "mesh_primitives": 4,
+      "vertices_after_uv_normal_splits": 3796,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 163856,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/boarding-fixture.glb",
+      "sha256": "c800516db0ee75448291afbef64f313feaeaa792f7f200d4fd13a35ebeb17ebd",
+      "bytes": 1291196,
+      "triangles": 23390,
+      "mesh_primitives": 15,
+      "vertices_after_uv_normal_splits": 28605,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 1275316,
+      "alpha_materials": [
+        {
+          "name": "water transparency compatibility study",
+          "mode": "BLEND",
+          "cutoff": null
+        }
+      ],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/covered-lod0.glb",
+      "sha256": "c3f3ed30d1b16627936679f71014d617854d33c2e5bf0a47ca68abd58d4bb0c6",
+      "bytes": 404080,
+      "triangles": 8420,
+      "mesh_primitives": 3,
+      "vertices_after_uv_normal_splits": 8733,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 399104,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/covered-lod1.glb",
+      "sha256": "f16cc04915d5d2975a213798931f0536eae15b79fa3b23ace3edc9acebbac39a",
+      "bytes": 190324,
+      "triangles": 3936,
+      "mesh_primitives": 3,
+      "vertices_after_uv_normal_splits": 4234,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 185504,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/covered-lod2.glb",
+      "sha256": "20323536951cc863283c2458b30f9432f32d84b5b45fdd855e28f7fa3e9976e5",
+      "bytes": 115904,
+      "triangles": 2232,
+      "mesh_primitives": 3,
+      "vertices_after_uv_normal_splits": 2542,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 111088,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/skiff-lod0.glb",
+      "sha256": "cc2d366ab9cb81086f7e30537579580c8202d27cd319d78b91545a5e9c18e85d",
+      "bytes": 306240,
+      "triangles": 6516,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 6583,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 302416,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/skiff-lod1.glb",
+      "sha256": "b74142a06936be1027dfb79fbb63f1fc67bf09c36807ae645a3dae211b390978",
+      "bytes": 123004,
+      "triangles": 2672,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 2754,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 119328,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    },
+    {
+      "path": "assets/library/boats/construction-studies/skiff-lod2.glb",
+      "sha256": "3e071f8a848de58d79387e58523c834d8e276eafe87a8835d3b5fc055fa180e0",
+      "bytes": 68516,
+      "triangles": 1336,
+      "mesh_primitives": 2,
+      "vertices_after_uv_normal_splits": 1514,
+      "images": [],
+      "unique_rgba_mip_upper_bytes": 0,
+      "estimated_geometry_bytes": 64848,
+      "alpha_materials": [],
+      "skins": 0,
+      "animations": 0,
+      "external_dependencies": false
+    }
+  ],
+  "coverage": [
+    {
+      "id": "architecture-A-B",
+      "target_scene": "民居/作坊/五类单层店铺",
+      "acquisition_status": "木构算法/样板已取得；未完成各生产类型",
+      "source_inputs": [
+        {
+          "path": "tools/build_timber_shop.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/architecture/minilibs-source/",
+          "exists": true
+        },
+        {
+          "path": "docs/user-references/2026-10-23/timber-shop-study.jpg",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "以3.6m柱网生成2/3开间、1/2进深格；台基0.42、檐口3.5、柱径0.30、出檐0.95；门洞由墙段留空，不用贴图洞",
+        "屋面按production-spec曲线采样为前后/两侧闭合四坡；四边均有壳厚、瓦流、椽与檐板；开间/进深决定脊长，不缩放整栋",
+        "五种经营套件挂在柜台/门板/棚杆具名节点，侧后墙、后门、院墙接口齐全；L0瓦垄几何，L1保留近檐，L2闭合屋顶/屋脊",
+        "Blender命令沿用build_timber_shop；下一生产版本在新目录使用上述受限参数，不覆盖旧样板"
+      ],
+      "production_released": false,
+      "remaining_gap": "现有7.3万面双层样板不能直接缩为所有单层；新类型及LOD待执行"
+    },
+    {
+      "id": "architecture-C",
+      "target_scene": "完整双层楼店/酒肆",
+      "acquisition_status": "完整研究GLB取得，材质/交通/LOD未放行",
+      "source_inputs": [
+        {
+          "path": "tools/build_timber_shop.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/architecture/timber-shop/runtime.glb",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "保持下层柱网，上层楼板标高3.95、廊净宽2.0；腰檐必须在楼板外缘下方；楼梯宽1.2、踏步高<=0.16/深>=0.28",
+        "按总高计算阶数ceil(rise/0.16)，统一立板/踏板/扶栏；前后/侧楼板有支承、室内门/床/桌区与后院可达",
+        "木纹沿梁长；柱脚污色和灰泥接触信息烘焙进低频图集；保持灰青瓦，不全城朱漆"
+      ],
+      "production_released": false,
+      "remaining_gap": "尚需按新店铺图重塑体量、做交通与LOD"
+    },
+    {
+      "id": "architecture-D",
+      "target_scene": "亭/廊/桥/转角",
+      "acquisition_status": "现有运行基线可复用；新造型未取得",
+      "source_inputs": [
+        {
+          "path": "tools/build_timber_shop.py",
+          "exists": true
+        },
+        {
+          "path": "src/12-landmarks.js",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "直廊按柱网2.8m复制完整屋面跨；90度转角先生成共享转角柱与交线屋面，再接两侧瓦流，去重交叉梁",
+        "亭3.6/4.8m跨度独立低阔屋顶；桥面样条等弧长采样横截面，栏高1.05、步道>=1.5m；柱脚延到水下地形",
+        "输出同源走面三角形和桥下净空包络；不以穿插两条直廊作为完成转角"
+      ],
+      "production_released": false,
+      "remaining_gap": "新完整类型尚未制作；使用明确算法及既有曲面/木构函数"
+    },
+    {
+      "id": "architecture-E-F-G",
+      "target_scene": "城门/坊墙/殿堂/塔寺",
+      "acquisition_status": "旧运行几何具备，生产美术仍否决",
+      "source_inputs": [
+        {
+          "path": "src/10-world.js",
+          "exists": true
+        },
+        {
+          "path": "src/12-landmarks.js",
+          "exists": true
+        },
+        {
+          "path": "docs/FILM_STYLE_RESEARCH.md",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "墙用上下两截面收分放样、门洞两侧/上部独立封口；门楼按专属柱网，宫殿用台地/前庭/侧廊序列，禁止放大小铺",
+        "塔身逐层改变墙厚/收分/窗口尺寸，层高独立；以四面闭合壳体、真实洞口和檐厚生成，不等比叠同一个楼层",
+        "在既有坐标锚保留门洞与景点ID；视觉/简碰撞/步阶/相机焦点从同一参数表导出"
+      ],
+      "production_released": false,
+      "remaining_gap": "各完整类型仍需G1后逐型制作；无可合法直接采用的现成全套"
+    },
+    {
+      "id": "human-base",
+      "target_scene": "男女/店主/商旅/文士/守卫/船夫",
+      "acquisition_status": "MakeHuman CC0核心与官方自然成年男/女宏目标取得，最新试片不放大头眼；Snow/Rain原件保留研究，已被用户否决作为造型基准",
+      "source_inputs": [
+        {
+          "path": "assets/library/characters/makehuman-base/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "tools/build_preparation_study.py",
+          "exists": true
+        },
+        {
+          "path": "docs/user-references/2026-10-23/people-study.jpg",
+          "exists": true
+        },
+        {
+          "path": "assets/library/characters/blender-studio/snow/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "assets/library/characters/blender-studio/rain/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "tools/prepare_studio_heads.py",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "用户已否决夸张变形的人物：Snow/Rain仅保留为绑定/拓扑研究，不用作本项目脸形基准。以MakeHuman原比例及官方男女宏目标为自然人体基础，不放大头眼；时代感通过发型服饰妆容和角色身份表现。",
+        "OBJ只保留g body面与引用顶点，去全部helper/joint；按实际Y范围归一至1.74/1.68m，再转换Y-up，原点双脚",
+        "保留自然成人体态和五官关系，脸形与现代人无本质区别；只按个体与表情需要调整颊/眼窝/眉弓/唇，保留连续眼睑及口内；不能把放大头当成电影脸验收",
+        "权重按原顶点映射转存；设计42–65骨近景人群子集，手指/表情按距离降级；先做笑/说话/惊讶三套表情再扩展",
+        "输出face/hand.L/R/hip/foot.L/R/prop sockets，近景眼球实几何；头发用体积发束，不引入UE Groom"
+      ],
+      "production_released": false,
+      "remaining_gap": "自然人物尚需服装剪裁/领袖连接、发式/肤材/表情、精简骨架；不再人为古代化脸型。"
+    },
+    {
+      "id": "tang-clothing",
+      "target_scene": "劳动短衣/圆领袍/襦裙披帛/守卫衣甲",
+      "acquisition_status": "参数放样研究取得；成熟唐服成品未取得",
+      "source_inputs": [
+        {
+          "path": "tools/build_preparation_study.py",
+          "exists": true
+        },
+        {
+          "path": "docs/user-references/2026-10-23/people-study.jpg",
+          "exists": true
+        },
+        {
+          "path": "docs/FILM_STYLE_RESEARCH.md",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "时代识别以自然人物上的发型、服饰、妆容和身份装束实现，禁止通过脸/肢体畸变制造唐人区别。",
+        "在基体表面指定颈/肩/胸/腰/髋/膝截面，外偏移0.012–0.035m；袖轴从肩到腕而非上翘圆筒，袖口闭合有0.006m厚度",
+        "劳动服用交领短上衣+裤/裹腿，文士圆领长袍，商旅袍有腰带/旅行附件，女性高腰裙+短襦+披帛；剪裁分片而非只换色",
+        "腰收/胸松/肘部/裙摆的褶脊由半径函数加2–5cm设计频段；花纹进入UV，主褶进入轮廓；肩/肘/髋权重转移后修正",
+        "披帛用6–10节骨或离线关键帧；不在手机全城做实时布料"
+      ],
+      "production_released": false,
+      "remaining_gap": "静态放样是工艺原型，未成生产唐服；需做剪裁和变形"
+    },
+    {
+      "id": "dragon",
+      "target_scene": "步行/骑行/无翼飞行主角",
+      "acquisition_status": "连续头身体素雕塑研究已生成，非生产拓扑",
+      "source_inputs": [
+        {
+          "path": "docs/concept-dragon-turnaround.png",
+          "exists": true
+        },
+        {
+          "path": "docs/art-direction.png",
+          "exists": true
+        },
+        {
+          "path": "tools/build_preparation_study.py",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "头/吻/颊/肩/髋通过0.018m体素并体与平滑形成雕塑基础；再围眼睑/唇口/肩髋/尾根重拓扑四边面，不能保留外挂眼和分离尾根",
+        "脚到头1.0m、含角1.20–1.35m；暖奶腹与角/鬃分材质；龙体粗糙0.52–0.78，少量鳞，不镀金属/玉石镜面",
+        "骨架根/髋/脊柱/颈/头、四肢、手脚、7节尾、耳鬃与围巾，眼球lookAt/眼睑shape keys；根运动由现有移动器驱动",
+        "输出walk/ride/flight对齐套件，与+Z前向及木车具名接口同步；无翅膀"
+      ],
+      "production_released": false,
+      "remaining_gap": "当前雕塑过简，只用于尺度；尚未满足电影主角造型"
+    },
+    {
+      "id": "bicycle",
+      "target_scene": "木自行车及上/下车",
+      "acquisition_status": "0.50m轮/0.80m轴距试片实际生成",
+      "source_inputs": [
+        {
+          "path": "tools/build_preparation_study.py",
+          "exists": true
+        },
+        {
+          "path": "src/20-character.js",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "轮毂/轴/12辐/环形轮缘，车架梁连接轴心/坐垫/把手；木纹沿梁，轴/曲柄少量金属，幻想设计不称唐代史实",
+        "曲柄0.11m，左右相位pi；脚目标=轴心+R(theta)*曲柄，腿用二骨IK，手跟随转向把；车轮转角=路程/0.25",
+        "座/手/足/轮轴具名节点；上车/下车短过渡检查尾巴、膝和车架包络，不以瞬间显隐作为最终效果"
+      ],
+      "production_released": false,
+      "remaining_gap": "当前试片无传动/IK和绑定；仅尺度可查"
+    },
+    {
+      "id": "boats",
+      "target_scene": "小舟/轻篷船/完整画舫",
+      "acquisition_status": "现有CC0船壳保留；三种原创独立完整结构样板各3LOD已实际生成/加载，非最终电影美术",
+      "source_inputs": [
+        {
+          "path": "assets/library/quaternius/boat_hull/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "src/20-character.js",
+          "exists": true
+        },
+        {
+          "path": "docs/concept-barge-study.png",
+          "exists": true
+        },
+        {
+          "path": "tools/build_boat_studies.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/boats/construction-studies/manifest.json",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "已执行tools/build_boat_studies.py：三型独立4.2×1.3/6.2×1.8/12×3.6m船壳，纵向sin(pi*t)^.60半宽、弧形肋截面和真实内外壁/封舷；每条边恰好两面，设计水线y0。负载/稳性未实证，不声称水力设计通过。",
+        "甲板+单层舱净高2.2m，中通路>=1.2m；栏杆中部留1.2m舷门、同宽水平搭板，前后甲板和屋顶柱距由同一轴网输出",
+        "轻篷船用独立6.2x1.8m船体与弧肋篷，不缩放完整画舫；小舟复用已核验船壳；桨座/桨叶/坐凳/人脚同源",
+        "逐段航线检测变换后的船壳和桨包络/桥下净高；登乘记录船局部坐标，随船刚体变换，靠岸才允许下船"
+      ],
+      "production_released": false,
+      "remaining_gap": "已落实9GLB/甲板/净空/登船开口/接口/LOD；近景风化/唐风船形/材质和电影美术未放行，随船乘客系统尚未实现；刚体fixture不等于游戏登乘。"
+    },
+    {
+      "id": "shoreline",
+      "target_scene": "泥岸/石岸/草坡/码头",
+      "acquisition_status": "现有同源岸线/走面/水域与岩石取得",
+      "source_inputs": [
+        {
+          "path": "src/11-shorelines.js",
+          "exists": true
+        },
+        {
+          "path": "src/12-landmarks.js",
+          "exists": true
+        },
+        {
+          "path": "assets/library/polyhaven/rock_moss_set_01/",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "岸线多边形等弧长采样，沿法向偏移生成水下/水线/湿线/路肩四条环带；凹角限长miter或圆接，避免偏移自交",
+        "水下坡至少延至-.6m，湿线0–.12m，步道高程按同源地形；岸石/草根只在经营/导航排除带外",
+        "步道宽2.4m，从同一三角形导出ground height与碰撞；码头台阶和船门净空独立标注"
+      ],
+      "production_released": false,
+      "remaining_gap": "需要新代表水岸构图而非重新下载岩石"
+    },
+    {
+      "id": "vegetation",
+      "target_scene": "街树/垂柳/松/花树/荷/芦苇/地被",
+      "acquisition_status": "恢复的4类12LOD与新长叶/悬垂枝/真实花瓣4类12LOD取得；新树24次加载通过，最终冠形仍需精修",
+      "source_inputs": [
+        {
+          "path": "assets/library/vegetation/ez-tree-source/source-manifest.json",
+          "exists": true
+        },
+        {
+          "path": "assets/library/vegetation/studies/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "tools/prepare_vegetation_studies.mjs",
+          "exists": true
+        },
+        {
+          "path": "assets/library/polyhaven/fern_02/",
+          "exists": true
+        },
+        {
+          "path": "assets/library/polyhaven/grass_bermuda_01/",
+          "exists": true
+        },
+        {
+          "path": "tools/build_botanical_studies.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/vegetation/authored-studies/manifest.json",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "固定seed和主枝骨架；柳树从主枝端生成4–7条悬垂二次Bezier枝，P1外伸、P2/P3向下，长叶沿切线成簇；不是普通树全体弯向一边",
+        "松树保留主干与3–5级横展不对称枝盘，针叶卡片只组成簇；花树树干/枝与五瓣浅杯花独立材质和几何，不再粉色乘绿橡叶",
+        "荷叶为中心向边的低曲面+厚边，芦苇为有弯曲的茎/长叶；花/叶分簇抽样，LOD共享簇中心；不得用整棵树贴片",
+        "树皮纵向UV，叶Alpha MASK .5；风动仅叶端/细枝权重，根固定；导出普通GLB给r160"
+      ],
+      "production_released": false,
+      "remaining_gap": "新枝层仍过于规律，近景材质/透光/冠簇构图及风动未达电影标准"
+    },
+    {
+      "id": "ground",
+      "target_scene": "主街土路/石基/台阶/排水/车辙",
+      "acquisition_status": "7组/21图及旧瓦/灰泥已取得",
+      "source_inputs": [
+        {
+          "path": "assets/library/production-materials/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "assets/library/architecture/pbr/clay_plaster/",
+          "exists": true
+        },
+        {
+          "path": "src/06-surfaces.js",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "主街压实土为低频平面高度+两条浅车辙带；边渠/阶沿真实截面，台基砖缝按尺寸，避免全城杂石铺装",
+        "所有UV采用米制，木纹沿梁、树皮沿干；normal/roughness线性、颜色sRGB；法线强度起点.16",
+        "每种表面先1m色板和中性球/斜坡，再进近景；512小物共享，普通1k，禁止逐构件独立贴图"
+      ],
+      "production_released": false,
+      "remaining_gap": "灰泥/瓦/木/布需要针对新几何烘焙与风化，候选PNG不等于电影材质"
+    },
+    {
+      "id": "market-props",
+      "target_scene": "食/布/陶/药/笔墨五种经营套件",
+      "acquisition_status": "锅/篮/碗/桶/果品等真实原件取得；完整经营套件未齐",
+      "source_inputs": [
+        {
+          "path": "assets/library/polyhaven/",
+          "exists": true
+        },
+        {
+          "path": "docs/asset-manifest.json",
+          "exists": true
+        },
+        {
+          "path": "src/10-world.js",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "台面0.78–.85m、柜深.55–.7m，碗/托盘/挂货具名接口；食摊炉具用内外壁回转面+炉口，不混辣椒/玉米/土豆",
+        "陶器按器口/颈/肩/腹/足半径控制点旋转放样，口沿/内壁闭合；唐器参考仅取比例，不采用现代青花贴花",
+        "布卷用带厚度螺旋端面和卷轴，药匣/衡器/笔墨有用途区分；按铺面经营表固定陈列，主通路空出",
+        "整理/称量/递食/卷绢/磨墨绑定手部目标与物件状态，不能只让商贩循环走路"
+      ],
+      "production_released": false,
+      "remaining_gap": "完整套件与活动动画待生产，现成器物不等于店铺已完成"
+    },
+    {
+      "id": "animals-caravan",
+      "target_scene": "马鹿/双峰驼商队",
+      "acquisition_status": "马鹿与动作已取得；合适双峰驼成品未取得",
+      "source_inputs": [
+        {
+          "path": "assets/library/quaternius/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "src/20-character.js",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "马鹿保留作者骨架动作与独立SkeletonUtils克隆；原始源和减面派生分离",
+        "双峰驼备用：躯干/双峰/颈/头体素雕塑后按膝踝/颈重拓扑，脚掌宽垫、两峰脂肪体区别单峰；42骨以内、负载架和牵引点单独",
+        "牵引绳样条端绑定人手/笼头，队列路径保持最小间距；货包重量视觉与步幅一致，停靠/卸货具名活动节点"
+      ],
+      "production_released": false,
+      "remaining_gap": "双峰驼备用制作尚未执行，不把付费候选写成已拥有"
+    },
+    {
+      "id": "animation",
+      "target_scene": "角色走骑飞/市井经营/船桨/树叶",
+      "acquisition_status": "旧代码动作/动物动作取得；新人物龙未绑定",
+      "source_inputs": [
+        {
+          "path": "src/20-character.js",
+          "exists": true
+        },
+        {
+          "path": "assets/library/quaternius/",
+          "exists": true
+        },
+        {
+          "path": "tools/build_preparation_study.py",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "全部人形in-place，根运动由既有移动器；走周期0.9–1.1s，脚接触0–.18/.5–.68锁地，两骨IK接地，髋按支撑脚平移2–4cm",
+        "步行/骑行/飞行状态过渡.2–.35s；骑行脚圆轨迹、手握把，飞行头前伸/尾延迟相位、转弯侧倾，悬停与起落独立",
+        "经营状态机idle->invite->work->handover->reset，每段手部目标/道具归属/队列标记；动作3–5个相位，离开可见区降低更新率",
+        "loop首尾姿态/速度一致；glTF普通骨骼+shape keys，禁止依赖离线工具shader或WASM角色框架"
+      ],
+      "production_released": false,
+      "remaining_gap": "新骨架/权重和动作试片尚缺，不能沿用旧动画通过声明"
+    },
+    {
+      "id": "soundscape",
+      "target_scene": "区域音景/脚步/木轮/钟/炉火/叫卖",
+      "acquisition_status": "5层PCM研究已生成；外部混制包权利隔离；叫卖未取得",
+      "source_inputs": [
+        {
+          "path": "tools/prepare_environment_audio.py",
+          "exists": true
+        },
+        {
+          "path": "assets/library/environment-audio/manifest.json",
+          "exists": true
+        },
+        {
+          "path": "docs/audio-rights-review.md",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "12s FFT周期噪声按频段塑形为风/水层，木轮4s周期脉冲，3s衰减非谐波钟与0.3s脚步；固定seed，PCM16 mono22.05k，可离线重建",
+        "区域混音以世界距离smoothstep衰减，跨坊1.5–3s交叉淡入；风/水/市声每区最多3–4循环，短声共用AudioBuffer；首次用户手势后resume",
+        "中文录音合同：胡饼、茶汤、绢帛、香药四摊每类招呼/闲谈各2条3–6s，2–3名演员自愿书面游戏/离线包许可，录48k mono后裁切/去噪/响度匹配；尚未录制不得造假",
+        "无可用演员时先采用非语义活动/器具声音；不伪造中文喊声、不依赖运行时WebSpeech联网"
+      ],
+      "production_released": false,
+      "remaining_gap": "合成层未最终听审；中文叫卖需独立取得授权录音"
+    },
+    {
+      "id": "city-layout-cameras",
+      "target_scene": "十类地区/三条代表路线/多视角",
+      "acquisition_status": "城市方向/坐标/活动表已定，旧操作基线保留",
+      "source_inputs": [
+        {
+          "path": "docs/DESIGN_FRAMEWORK.md",
+          "exists": true
+        },
+        {
+          "path": "src/10-world.js",
+          "exists": true
+        },
+        {
+          "path": "src/25-exploration.js",
+          "exists": true
+        }
+      ],
+      "recipe": [
+        "地区->街段->院落->建筑->经营位的布局表统一输出视觉/导航/碰撞/地图/镜头；北-Z，现有八景锚不变",
+        "西市织物香药/商旅暖赭靛蓝，东市茶酒文墨米白绢青，坊巷安静井院，大明宫台地轴线，兴庆花木，慈恩寺塔院，曲江曲岸候船，门楼以暗洞开阔透视",
+        "每区抵达/进入/停留/回望四机位及地面/侧后/俯视；先做西市完整通行线，再水岸/宫苑，不随机铺满旧模型",
+        "镜头FOV43/距离4.6m起点，碰撞半径.25m，飞行远景仍完整屋海，夜灯局部暖色而非全城霓虹"
+      ],
+      "production_released": false,
+      "remaining_gap": "代表实景属于G2，当前试片不等于完整城市"
+    }
+  ],
+  "runtime": {
+    "three_revision": "160",
+    "standalone_sha256": "d9ede61fd366a3cbd2f056aab21b521ca69c75fd0995f41a1884fb3f2230e373",
+    "standalone_unchanged": true
+  },
+  "production_art_accepted": false,
+  "all_preparation_visual_gaps_closed": false,
+  "cost_limits": "RGBA mip upper estimates assume full RGBA8 with mipmaps, no hardware compression; geometry estimate excludes runtime copies, render targets and driver overhead. Do not sum all LODs as one active scene."
+}

@@ -1,5 +1,32 @@
 # 浏览器验收
 
+## 2026-10-24：三型舟船、搭板与准备审计
+
+入口沿用`http://127.0.0.1:8877/tools/model_review.html?model=../assets/library/boats/construction-studies/barge-lod0.glb`，正式城市不变。
+
+```sh
+blender -b -t 2 -P tools/build_boat_studies.py
+python3 tools/boat_study_test.py --output /tmp/changan-boat-studies
+python3 tools/boat_study_test.py --fixture-only --output /tmp/changan-boarding-fixture
+python3 tools/audit_preparation.py
+```
+
+Browser插件不可用，使用既有Python Playwright/Chromium SwiftShader，单浏览器顺序运行。现代1120×720/强制WebGL1 844×390：
+
+| 检查 | 证据及结果范围 |
+| --- | --- |
+| 页面身份/非空/错误 | 建模验收台标题、ready/真实模型/有限顶点法线、r160、glError0、无页面/控制台/必需请求错误 |
+| 三型三级LOD | 18次真实加载，正侧背/俯视、灰模按钮实际切换；≤6批次，具名接口跨LOD一致、模型摘要验证 |
+| 画舫内部 | 中央走道与横向入口真实甲板射线均落Y≈.65，头部净空通过；无栏杆穿过中舷门 |
+| 静态登船结构 | 码头—搭板—船舷—甲板5条横向采样线，5cm纵向步进，无缺面/高门槛；透明水材质在灰模下保持 |
+| 视觉回查修正 | 合并前烘焙变换消除虚增AABB；降低登船口船壳/舷条修正约8cm门槛；下移码头桩顶消除与板面共面闪烁 |
+| 离线重建 | 最终源连续两次生成10GLB逐字节一致；不是只比较旧缓存 |
+| 库存/依赖/成本 | 116目录记录、17合同本地输入、460文件SHA256、36研究GLB自包含、40项材质文件摘要；贴图RGBA/mip上界独立记录 |
+
+证据在`qa-evidence/preparation-20261024/`：`boats-results.json`汇合未变化9船18次加载与最终fixture2次专项，列明运行来源；`boats-fixture-final.json`保留最终fixture原报告；`boats-reproducibility.json`、`inventory.json`与精选截图可恢复。首次常规加载/栏杆开口检查未发现舷条门槛，实际搭板联测才暴露，失败版本不计通过。整船旧截图中的码头桩顶共面问题也不算最终视觉证据。
+
+**通过的是结构/兼容/恢复，不是电影美术/产品放行。** 已看最终船型多视角与登船近景，仍缺唐风船形/近景材质/生活陈设、负载稳性验证及实际游戏控制器/随船乘客/靠岸上下船。没有手机真机性能、全浏览器、本地文件或全城新模型验收；没有因为上述技术PASS将G0/G1改成全部通过。
+
 ## 最新：总体设计与资源研究检查
 
 本轮用户要求在正式整合前先完成设计/资源研究。记录见 [design-research.json](qa-evidence/design-research.json)，**不是新游戏画面的浏览器/美术/真机验收**：
