@@ -4,7 +4,7 @@
 
 **文件**：修改 AGENTS.md、docs/PRODUCT_BRIEF.md、docs/ART_ASSET_EXECUTION.md、docs/CONTINUE.md、docs/production-spec.json、docs/resource-catalog.json；新增 docs/HIGH_FIDELITY_RESOURCE_LEADS_20261024.md 和本日志。**没有删除、重命名或移动文件**；未更改已取得资源原件和 dist。
 
-**实际验证**：读取并校验 GitHub main 当前文件；研究涉及多个官方 Blender Studio、Sketchfab、Fab、BOOTH、Unity 商品页并记录下载/许可状态。变更之后实际解析 production-spec.json 与 resource-catalog.json，并核查资源总量、分类与阶段计数（提交后回读以真实结果为准）。此次修改文档/目录不影响游戏逻辑，故不机械运行全城冒险/移动测试。
+**实际验证**：读取并校验 GitHub main 当前文件；研究涉及多个官方 Blender Studio、Sketchfab、Fab、BOOTH、Unity 商品页并记录下载/许可状态。提交后已通过 GitHub 回读并解析 production-spec.json 与 resource-catalog.json：资源目录 135 条，resource_count=135、by_stage 合计=135、by_category 合计=135，均一致；新检索文档可回读并含 23 个外部 URL 出现次数（含已有来源复核），并非 23 个新模型。核查 audit_preparation.py、build_boat_studies.py 和 build_preparation_study.py 的现有源码，只按 runtime.three_revision 与现有 spec 键读取，未见依赖旧 version 字符串；这不是运行验证。此次修改文档/目录不影响游戏逻辑，故不机械运行全城冒险/移动测试。
 
 **未运行及原因**：未实际登录受限网站、下载上述新候选、购买许可证、导入 Blender 或做灰模/材质/动画/手机/PC 实渲；不存在真实文件，不可宣称模型/游戏通过。也未重复正在 Codex Cloud 下载中的 Einar，以防互相覆盖。
 
