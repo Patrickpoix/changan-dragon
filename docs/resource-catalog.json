@@ -16,36 +16,37 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 220,
+    "records": 257,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 4,
       "character-tool": 5,
       "material-tool": 1,
-      "asset-optimization": 4,
-      "spatial-query": 2,
+      "asset-optimization": 5,
+      "spatial-query": 3,
       "navigation": 2,
-      "rendering": 14,
-      "architecture": 28,
+      "rendering": 19,
+      "architecture": 36,
       "boats": 9,
       "clothing": 9,
       "dragon": 8,
-      "vegetation": 11,
+      "vegetation": 17,
       "animals": 12,
       "bicycle": 1,
       "market": 7,
       "characters": 10,
-      "props": 10,
+      "props": 12,
       "bridges": 3,
       "interior": 2,
-      "environment": 5,
+      "environment": 10,
       "material": 28,
-      "historical-reference": 12,
+      "historical-reference": 20,
       "audio": 15,
       "source-check": 5,
       "character-source": 1,
       "clothing-tool": 1,
-      "animation-tool": 1
+      "animation-tool": 1,
+      "architecture-tool": 1
     },
     "by_stage": {
       "existing_runtime": 1,
@@ -59,12 +60,12 @@
       "rejected": 16,
       "rights_hold": 8,
       "purchase_candidate": 6,
-      "preview_candidate": 110,
+      "preview_candidate": 147,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded."
   },
   "resources": [
     {
@@ -7581,6 +7582,820 @@
         "measured": false,
         "cost": "desktop quality first"
       }
+    },
+    {
+      "id": "curated-20261024-temple-e28da4013d554cb7b1fb6bc46cb71615",
+      "name": "唐宋斗拱整殿结构研究",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/temple-e28da4013d554cb7b1fb6bc46cb71615",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "60.3k tris; 唐宋寺庙斗拱结构教学模型（引用南禅寺研究）",
+      "review_notes": "CC BY; 并非完整精雕唐殿，仅木构制作源参考",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-brackets-9ac0f880d6d44b46a6dfdbd30caafb25",
+      "name": "木构斗拱分件组",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/brackets-9ac0f880d6d44b46a6dfdbd30caafb25",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "27.8k tris; 木构件可分离研究",
+      "review_notes": "CC BY; 是否有层级与榫卯、唐宋时代、UV需核",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-bracketing-components-e4495d2427a240bcb706761f1af7",
+      "name": "建筑斗拱单构件工艺参考",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/bracketing-components-e4495d2427a240bcb706761f1af77a24",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "3.1k tris; 基于1103年宋《营造法式》的斗拱尺寸重建",
+      "review_notes": "CC BY; **宋式不是盛唐式**，仅研究构件术语/关系",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-chinese-pavilion-b0f6c1fb43e744ec876faecaba3d4925",
+      "name": "中国古亭完整中面数",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-pavilion-b0f6c1fb43e744ec876faecaba3d4925",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "62.7k tris；独立中式亭子完整模型",
+      "review_notes": "CC BY; 唐代轮廓/内部和贴图待验",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-chinese-style-tea-pavilion-7625f6818cab4fe58a4e1a0",
+      "name": "中国庭园湖中茶亭",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-style-tea-pavilion-7625f6818cab4fe58a4e1a09f186d7b1",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "4.9k tris；湖中茶亭实际完整结构",
+      "review_notes": "CC BY; Maya/Photoshop，几何细节不足近景最终版",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-temple-prop-82293facfae94157b6132db43a27e05d",
+      "name": "中式多层寺塔轻量可编辑参考",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/temple-prop-82293facfae94157b6132db43a27e05d",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "101.7k tris；多层屋檐立体结构",
+      "review_notes": "CC BY；时代地域模糊，必须唐化",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-langya-pavilion-a5855420988e48b7a767758a95db83da",
+      "name": "中式阁楼/庭亭写实扫描",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/langya-pavilion-a5855420988e48b7a767758a95db83da",
+      "stage": "preview_candidate",
+      "priority": "C",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "984.5k tris；无人机扫描五层琅琊阁",
+      "review_notes": "CC BY；真实建筑始建明代，不能作为唐阁直接入城",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-1f7bf050-0e26-46bd-a58a-b03c81ab5fee",
+      "name": "中国古建可调模块包",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/1f7bf050-0e26-46bd-a58a-b03c81ab5fee",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "以苏州园林为基的院墙/殿堂/塔式模块，可自定义拼接",
+      "review_notes": "商业、Unreal Engine only；购前评估合法跨引擎及唐制差异",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-f083b1c2-05df-4de8-b01c-6ee7dce60228",
+      "name": "中国模块寺庙 PBR 构件",
+      "category": "architecture",
+      "source_url": "https://www.fab.com/listings/f083b1c2-05df-4de8-b01c-6ee7dce60228",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "砖墙、木门、石瓦、青瓦/柱梁多个模块，现代PBR",
+      "review_notes": "UE Marketplace商业专用授权，非直接Blender/Three项目源",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-chinese-hut-1b9c99b0fa9d49b88c4aa5b8c9c097da",
+      "name": "传统中国楼阁单建筑",
+      "category": "architecture",
+      "source_url": "https://sketchfab.com/3d-models/chinese-hut-1b9c99b0fa9d49b88c4aa5b8c9c097da",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "40k tris；红木柱/曲线屋顶/雕刻",
+      "review_notes": "CC BY；通用中国风不等于唐代形制",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-abandoned-7th-century-fortress-bffb7b6929824b43b90",
+      "name": "唐代城堡遗址大场景扫描",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/abandoned-7th-century-fortress-bffb7b6929824b43b9051ad2c67a576c",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "3.2M tris；开阳堡整体夯土城墙实景扫描约300×215m",
+      "review_notes": "CC BY；遗址混合后世时期，**布局与土城墙研究**而非直接复原盛唐长安",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-kneeling-attendant-bodhisattva-129635ad396947a7975",
+      "name": "敦煌唐代第328窟菩萨写实扫描",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/kneeling-attendant-bodhisattva-129635ad396947a7975c9e5ba6095f32",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Harvard Art Museums；七世纪唐代泥塑上彩，999.3k tris",
+      "review_notes": "CC BY；仅用于唐代服饰、色彩、雕塑实证，非普通活人 rig",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-standing-chinese-woman-figure-tang-dynasty-d2118ef",
+      "name": "唐代站立女俑真实扫描",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/standing-chinese-woman-figure-tang-dynasty-d2118efe2b8d4df28661e4ff0501b75e",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Mount Holyoke College 博物馆618–906唐女子陶俑，6M tris",
+      "review_notes": "CC BY；制作成人体比例与高髻衣裙形制参考，彩釉与实人脸区别",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-chinese-equestrian-figures-tang-dynasty-55e4c6ae75",
+      "name": "唐代骑马俑二件扫描",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/chinese-equestrian-figures-tang-dynasty-55e4c6ae757b455d970debc51a742e6c",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Mount Holyoke 唐代骑马陶俑 10.5M tris",
+      "review_notes": "CC BY；胡服/鞍马姿态参考，陶俑本身不能直接当动态人物",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-19435322-model-caea-university-of-chicago-04723567",
+      "name": "唐代天龙山坐佛扫描",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/19435322-model-caea-university-of-chicago-047235675c0242bb90398a1f333042ed",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Harvard/Chicago大学石佛造像8世纪，1.8M tris",
+      "review_notes": "CC BY；寺院造像唐代材质/比例艺术参考，不随意当城市路边装饰",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-tang-dynasty-tomb-guardian-zhenmushou-46a7591d54a4",
+      "name": "唐代镇墓兽三彩雕塑",
+      "category": "historical-reference",
+      "source_url": "https://sketchfab.com/3d-models/tang-dynasty-tomb-guardian-zhenmushou-46a7591d54a443248d95a6fa394ac210",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Mount Holyoke真文物扫描约6M tris，唐代釉色与瑞兽参考",
+      "review_notes": "CC BY；墓葬器物不能随意在市街摆设或冒充小青龙",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-stone-big-lion-01-68e7b4db10214d12bf4ae6ec53bf1e4f",
+      "name": "真实雕刻门口石狮高精源",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/stone-big-lion-01-68e7b4db10214d12bf4ae6ec53bf1e4f",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "游戏艺术家高模约400k tris，原高模约10M tris",
+      "review_notes": "CC BY；不等于唐狮子造型；下载是否附高模待核",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-3d-scanned-chinese-lion-517afad18b154b3f9ded1052b2",
+      "name": "写实石狮摄影扫描",
+      "category": "props",
+      "source_url": "https://sketchfab.com/3d-models/3d-scanned-chinese-lion-517afad18b154b3f9ded1052b2ce5fad",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "504k tris，可做宫墙石雕真实材质实验",
+      "review_notes": "CC BY-SA；衍生分享约束应评估后再正式采用",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-boulder-01",
+      "name": "CC0巨石真实扫描 1.8m",
+      "category": "environment",
+      "source_url": "https://polyhaven.com/a/boulder_01",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven Boulder 01；1.8m/124k tris/8K、青苔矿物自然雕刻面",
+      "review_notes": "CC0；曲江园林山石/溪石源，岩性未必对应长安需美术调色",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-rock-moss-set-01",
+      "name": "CC0六件青苔岩石套装",
+      "category": "environment",
+      "source_url": "https://polyhaven.com/a/rock_moss_set_01",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven 6种形态/约63k tris/8K，林间溪岸组景",
+      "review_notes": "CC0；河石、苔藓地表和暗部湿度需真实统一",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-rock-moss-set-02",
+      "name": "CC0第二套苔石",
+      "category": "environment",
+      "source_url": "https://polyhaven.com/a/rock_moss_set_02",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven青苔石组合约58k tris/8K",
+      "review_notes": "CC0；同站多套近景可复用纹理，需一致湿润度与真机成本",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-moss-01",
+      "name": "CC0苔藓实体模型",
+      "category": "vegetation",
+      "source_url": "https://polyhaven.com/a/moss_01",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven Moss 01、246k tris/4K、Geometry Nodes源/LOD、0.8m覆盖",
+      "review_notes": "CC0；精细近景供溪石、瓦缝、园林，远景需实例或贴图烘焙",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-fern-02",
+      "name": "CC0真实蕨类草丛",
+      "category": "vegetation",
+      "source_url": "https://polyhaven.com/a/fern_02",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven四丛蕨/约6k tris/8K、精细叶缘",
+      "review_notes": "CC0；园林背阴/近溪植被，具体植物地域适配待核",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-pine-tree-01",
+      "name": "CC0松树林三株高精",
+      "category": "vegetation",
+      "source_url": "https://polyhaven.com/a/pine_tree_01",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven松树原始源约17M tris/8K/LOD、自然树皮和枝针",
+      "review_notes": "CC0；仅保存高精制作母版，运行时优化/风动画；树种和形态需唐长安园林化",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-fir-tree-01",
+      "name": "CC0常绿冷杉组三株",
+      "category": "vegetation",
+      "source_url": "https://polyhaven.com/a/fir_tree_01",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven冷杉源约8M tris/8K、3棵不同体量",
+      "review_notes": "CC0；可能不适合长安气候常见树种，仅山间可选",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-tree-small-02",
+      "name": "CC0小树树冠近景",
+      "category": "vegetation",
+      "source_url": "https://polyhaven.com/a/tree_small_02",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven完整树干、树皮、稀疏透光树冠，8K源",
+      "review_notes": "CC0；逐项校树种与动物生态/实际可下载几何",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-shrub-02",
+      "name": "CC0真实灌木丛",
+      "category": "vegetation",
+      "source_url": "https://polyhaven.com/a/shrub_02",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven多枝树苗与自然叶片、约52k tris",
+      "review_notes": "CC0；近景生态变化与过渡植栽，动态风需验证",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-single-root",
+      "name": "CC0树根/枯落物",
+      "category": "environment",
+      "source_url": "https://polyhaven.com/a/single_root",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven真实外露树根、落叶与泥土完整底座",
+      "review_notes": "CC0；用于曲江岸边树根侵蚀、潮湿地面",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-river-rocks",
+      "name": "CC0清晨河岸真实照明HDRI",
+      "category": "rendering",
+      "source_url": "https://polyhaven.com/a/river_rocks",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven River Rocks HDRI、16K解压动态范围21EV自然河岸晴天",
+      "review_notes": "CC0；主要作为真实光照/太阳/水面反射标定，不是湖泊动态水代码",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-rock-09",
+      "name": "CC0 8K单体岩石材质母版",
+      "category": "environment",
+      "source_url": "https://polyhaven.com/a/rock_09",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "CC0 direct producer site; author listed, files not downloaded",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Poly Haven 8K近景岩石约23k tris",
+      "review_notes": "CC0；供脚底近景及溪流散石",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-sky",
+      "name": "Three现代WebGPU物理天空系统",
+      "category": "rendering",
+      "source_url": "https://github.com/pmndrs/sky",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Upstream open source technical reference; exact LICENSE and bundled content require auditing",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "MIT @pmndrs/sky：太阳角驱动空气散射、夜空星河、IMBL与远景雾，WebGPU专用",
+      "review_notes": "初期独立基准，真实渲染GPU耗时/Three版本约束需实测",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-Eanpa-Sky",
+      "name": "Eanpa-Sky高精云雨光实验",
+      "category": "rendering",
+      "source_url": "https://github.com/SkyeShark/Eanpa-Sky",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Upstream open source technical reference; exact LICENSE and bundled content require auditing",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "MIT Three WebGPU天气：体积云、雷暴、云前线、日夜、可行走世界",
+      "review_notes": "v0.1早期demo，云层性能/兼容仍不稳定；且第三方鸟鸣可能NC不可一并复用",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-tideline-threejs",
+      "name": "Tideline水天海面完整实验",
+      "category": "rendering",
+      "source_url": "https://github.com/expertping/tideline-threejs",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Upstream open source technical reference; exact LICENSE and bundled content require auditing",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "MIT Three Gerstner海面/镜面反射/折射/太阳闪光/体积云雨雪等",
+      "review_notes": "fork上游通知/版权和技术质量要评估；大海波形不适合溪流，取工艺而不是直接移植",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-meshoptimizer",
+      "name": "gltfpack高精资源压缩工具",
+      "category": "asset-optimization",
+      "source_url": "https://github.com/zeux/meshoptimizer",
+      "stage": "preview_candidate",
+      "priority": "A",
+      "license_scope": "Upstream open source technical reference; exact LICENSE and bundled content require auditing",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "meshoptimizer gltfpack: glTF量化/meshopt压缩/KTX2、运行时各引擎支持",
+      "review_notes": "MIT；需要与动画形变及PBR实画对照，不能只求包小",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-39ad6fb8-fc5f-4429-acc4-04ed27ecdef3",
+      "name": "完整可编辑瀑布喷泉GLB套件",
+      "category": "rendering",
+      "source_url": "https://www.fab.com/listings/39ad6fb8-fc5f-4429-acc4-04ed27ecdef3",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Fab page listing; platform license, entitlement and resell/embed terms unresolved",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Fab免费 17 个瀑布/喷泉/跌水静态组件、GLB+Blender+FBX",
+      "review_notes": "AI-assisted，512贴图且**仅静态水几何、没有动态缓存**，不能直接称流水动画",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-super-terrain",
+      "name": "Three WebGPU地形/城市chunk实验",
+      "category": "spatial-query",
+      "source_url": "https://github.com/vibe-stack/super-terrain",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Upstream open source technical reference; exact LICENSE and bundled content require auditing",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "4km×4km逻辑地形、5 LOD、洞穴CSG、资源分区/WebGPU",
+      "review_notes": "项目早期，许可/依赖要固定版本检查；没有WebGL2回退",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
+    },
+    {
+      "id": "curated-20261024-ProceduralBuildingsThreeJS",
+      "name": "自定义中式建筑模块JS程序集",
+      "category": "architecture-tool",
+      "source_url": "https://github.com/achrefelouafi/ProceduralBuildingsThreeJS",
+      "stage": "preview_candidate",
+      "priority": "B",
+      "license_scope": "Upstream open source technical reference; exact LICENSE and bundled content require auditing",
+      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "assessment": "Blender导出kit/graph、UTF文字牌匾/UV/PBR的可编辑建筑模块构成",
+      "review_notes": "未知LICENSE需核；最重要的是画质/唐式比例，不可再拿自动拼积木当终稿",
+      "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
+      "style_modification_cost": {
+        "level": "pending_test",
+        "reason": "history/authoring topology/rights/engine suitability and artistic approval not tested"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "desktop-first"
+      },
+      "runtime_integrated_this_round": false
     }
   ],
   "design_studies": [
@@ -7621,5 +8436,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 220
+  "resource_count": 257
 }
