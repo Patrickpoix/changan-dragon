@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 372,
+    "records": 374,
     "by_category": {
       "runtime-engine": 10,
       "vegetation-tool": 5,
@@ -41,17 +41,17 @@
       "environment": 15,
       "material": 35,
       "historical-reference": 33,
-      "audio": 23,
+      "audio": 24,
       "source-check": 6,
       "character-source": 2,
       "clothing-tool": 2,
-      "animation-tool": 2,
+      "animation-tool": 3,
       "architecture-tool": 2
     },
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
-      "source_acquired_research": 17,
+      "source_acquired_research": 23,
       "source_acquired": 2,
       "offline_tool_candidate": 5,
       "runtime_candidate": 4,
@@ -60,12 +60,12 @@
       "rejected": 16,
       "rights_hold": 11,
       "purchase_candidate": 6,
-      "preview_candidate": 235,
+      "preview_candidate": 231,
       "rejected_character_style_research_only": 4,
       "original_source_acquired_not_production_approved": 3
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (6 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added. Continued strict-$0 page-level sweep recorded 38 new nonduplicate leads: free official BlenderKit CC0 complex Chinese buildings/pavilions/4K, Sketchfab Tang forms and natural trees/boats, GPL/MIT water systems, CC0 real ambience; no source files acquired or shaders implemented, no quality acceptance. Later comparative sweep 2026-10-24: 3 new de-duplicated sources: a verifiable 782 Nanchan Tang historical reference (no model licence), Tekton historical geometry evidence method (rights_hold, no source-code licence found), and clearly CC0 but low-detail 63-piece Chinese palace scene for layout studies only. No binary acquired."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved. Latest desktop-first review added 17 explicitly NOT acquired public-page sources; no art or license approval claimed. System 2026-10-24: 19 new engine/water/riverbed/bridge/physics/streaming candidates, link-only no downloads, migration authorized only after real A/B. 2026-10-24 broad multi-category asset sweep added 52 link-only candidates, no new 3D file acquired. Additional 2026-10-24 Tang palace/courtyard and CC0 stream ambience links +9; no binary acquired. Research follow-up 2026-10-24 new 37 source-verified Tang structural/art/scanned evidence + CC0 high-fidelity nature/renderer leads; no source bytes downloaded. FREE-ONLY budget policy effective 2026-10-24; current pass adds 23 only confirmed-0/free-tier/new sources, and acquired real river PBR & tea table low-res studies. Paid historical leads inactive. Free-only 2026-10-24: 18 high-quality relevant sources, with 1 full-resolution 4K original model actually downloaded and separately validated. 2026-10-24 continued free-only research appended 17 de-duplicated source-page candidates (clothing 2, historical reference 3, water plants 2, lantern 1, sound 5, HDRI 1, PBR material 3); no source bytes acquired or production integration. 2026-10-24 next free-only sweep added 16 de-duplicated evidenced sources (6 architecture/bridges, 2 lantern props, 2 museum historic scans, 1 Tang costume, 1 tree authoring tool, 1 boat, 3 CC0 PBR materials); source-page stage only, no binary download. Ara 3D Gen, CharacterCreator and 205k ship already present and not re-added. Continued strict-$0 page-level sweep recorded 38 new nonduplicate leads: free official BlenderKit CC0 complex Chinese buildings/pavilions/4K, Sketchfab Tang forms and natural trees/boats, GPL/MIT water systems, CC0 real ambience; no source files acquired or shaders implemented, no quality acceptance. Later comparative sweep 2026-10-24: 3 new de-duplicated sources: a verifiable 782 Nanchan Tang historical reference (no model licence), Tekton historical geometry evidence method (rights_hold, no source-code licence found), and clearly CC0 but low-detail 63-piece Chinese palace scene for layout studies only. No binary acquired. 2026-10-24 actual assets archived on curation branch: full 4K PolyHaven rock moss/shrub/fern/screen/tea (5 complete bundles), three CC0 original Mesh2Motion Blender rigs (upstream blob-identical), one complete original CC0 Kenney 51-OGG ZIP. Hinoki 4K complete locally; branch glTF+BIN/manifest only, textures not uploaded. No production artwork approved."
   },
   "resources": [
     {
@@ -5311,7 +5311,7 @@
       "source_url": "https://polyhaven.com/a/chinese_screen_panels",
       "stage": "source_acquired_research",
       "license_scope": "Poly Haven official CC0; author Kirill Sannikov",
-      "acquisition_status": "Actual original glTF/BIN/3 JPG committed with official API MD5 check; Blender/visual not yet tested; NOT Tang-authentic or runtime integrated",
+      "acquisition_status": "OFFICIAL_FULL_4K_SOURCE: complete original glTF/BIN/PBR files verified official provider API MD5+size and local SHA256; branch archive present and no artist/runtime approval",
       "target_scene": "Only editable shop interior furnishing study, not approved Tang-era asset",
       "local_manifest": "assets/library/curated-polyhaven/README.md",
       "assessment": "Two-part painted antique screen may be later-period ornament; style/history needs independent user-led visual acceptance; does not solve architecture/character gaps",
@@ -5324,7 +5324,11 @@
       "mobile_cost": {
         "measured": false,
         "cost": "source JPGs only; no runtime metrics"
-      }
+      },
+      "archive_path": "assets/library/free-curated/categories/interior/polyhaven/chinese_screen_panels_4k/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "archive_verify_date": "2026-10-24",
+      "quality_approved": false
     },
     {
       "id": "polyhaven-chinese-stool-1k",
@@ -8068,10 +8072,10 @@
       "name": "CC0第二套苔石",
       "category": "environment",
       "source_url": "https://polyhaven.com/a/rock_moss_set_02",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "priority": "A",
       "license_scope": "CC0 direct producer site; author listed, files not downloaded",
-      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "acquisition_status": "OFFICIAL_FULL_4K_SOURCE: complete original glTF/BIN/PBR files verified official provider API MD5+size and local SHA256; branch archive present and no artist/runtime approval",
       "assessment": "Poly Haven青苔石组合约58k tris/8K",
       "review_notes": "CC0；同站多套近景可复用纹理，需一致湿润度与真机成本",
       "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
@@ -8121,7 +8125,11 @@
           }
         ],
         "total_bytes": 9482911
-      }
+      },
+      "archive_path": "assets/library/free-curated/categories/vegetation/polyhaven/rock_moss_set_02_4k/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "archive_verify_date": "2026-10-24",
+      "quality_approved": false
     },
     {
       "id": "curated-20261024-moss-01",
@@ -8188,10 +8196,10 @@
       "name": "CC0真实蕨类草丛",
       "category": "vegetation",
       "source_url": "https://polyhaven.com/a/fern_02",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "priority": "A",
       "license_scope": "CC0 direct producer site; author listed, files not downloaded",
-      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "acquisition_status": "OFFICIAL_FULL_4K_SOURCE: complete original glTF/BIN/PBR files verified official provider API MD5+size and local SHA256; branch archive present and no artist/runtime approval",
       "assessment": "Poly Haven四丛蕨/约6k tris/8K、精细叶缘",
       "review_notes": "CC0；园林背阴/近溪植被，具体植物地域适配待核",
       "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
@@ -8241,7 +8249,11 @@
           }
         ],
         "total_bytes": 10836560
-      }
+      },
+      "archive_path": "assets/library/free-curated/categories/vegetation/polyhaven/fern_02_4k/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "archive_verify_date": "2026-10-24",
+      "quality_approved": false
     },
     {
       "id": "curated-20261024-pine-tree-01",
@@ -8314,10 +8326,10 @@
       "name": "CC0真实灌木丛",
       "category": "vegetation",
       "source_url": "https://polyhaven.com/a/shrub_02",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "priority": "A",
       "license_scope": "CC0 direct producer site; author listed, files not downloaded",
-      "acquisition_status": "WEB_PUBLISHER_PAGE_CONFIRMED; original file NOT downloaded or hash checked",
+      "acquisition_status": "OFFICIAL_FULL_4K_SOURCE: complete original glTF/BIN/PBR files verified official provider API MD5+size and local SHA256; branch archive present and no artist/runtime approval",
       "assessment": "Poly Haven多枝树苗与自然叶片、约52k tris",
       "review_notes": "CC0；近景生态变化与过渡植栽，动态风需验证",
       "target_scene": "Cinematic desktop Chang'an high fidelity asset/tool candidate",
@@ -8367,7 +8379,11 @@
           }
         ],
         "total_bytes": 14098369
-      }
+      },
+      "archive_path": "assets/library/free-curated/categories/vegetation/polyhaven/shrub_02_4k/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "archive_verify_date": "2026-10-24",
+      "quality_approved": false
     },
     {
       "id": "curated-20261024-single-root",
@@ -8925,7 +8941,7 @@
       "category": "interior",
       "source_url": "https://polyhaven.com/a/chinese_tea_table",
       "stage": "source_acquired_research",
-      "acquisition_status": "ORIGINAL_LOW_RES_PREVIEW_ONLY; NOT ART APPROVED OR IN GAME",
+      "acquisition_status": "OFFICIAL_FULL_4K_SOURCE: complete original glTF/BIN/PBR files verified official provider API MD5+size and local SHA256; branch archive present and no artist/runtime approval",
       "zero_cost_access": "downloaded-0",
       "license_scope": "CC0-1.0",
       "priority": "high",
@@ -8939,7 +8955,11 @@
       "mobile_cost": {
         "measured": false,
         "cost": "desktop-first; no old mobile limits"
-      }
+      },
+      "archive_path": "assets/library/free-curated/categories/interior/polyhaven/chinese_tea_table_4k/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "archive_verify_date": "2026-10-24",
+      "quality_approved": false
     },
     {
       "id": "free-only-20261024-chinese-cabinet",
@@ -10238,11 +10258,11 @@
       "name": "Poly Haven Hinoki Planks 16K",
       "category": "material",
       "source_url": "https://polyhaven.com/a/hinoki_planks",
-      "stage": "preview_candidate",
+      "stage": "source_acquired_research",
       "priority": "high",
       "zero_cost_access": "Poly Haven official free direct asset, no account",
       "license_scope": "CC0 listed by originating creator/site; individual source files and third-party dep rights must be checked after legitimate $0 acquisition",
-      "acquisition_status": "2026-10-24 public-source research only; NOT downloaded, hashed, Blender-tested, art-approved or integrated into game",
+      "acquisition_status": "LOCAL_FULL_4K_SOURCE_VERIFIED_OFFICIAL_MD5_SHA256; GitHub branch has glTF+BIN+README+manifest, but THREE JPG 4K PBR ORIGINALS REMAIN LOCAL ONLY (upload incomplete); model not directly usable remotely without textures",
       "assessment": "16K PBR light honey-brown timber planks with grain knots, UV/normal/roughness/height; 1.9m sample.",
       "review_notes": "Material for controlled timber surface trials; Hinoki species/board coating must not be assumed Tang and must match physical size.",
       "runtime_integrated_this_round": false,
@@ -10255,7 +10275,11 @@
         "measured": false,
         "cost": "Desktop-first game, source/LOD/GPU footprint not benchmarked",
         "acceptance": "Evaluate five-angle neutral Blender render plus materials, skeleton, scene scale, dynamic motion and GPU residency before use"
-      }
+      },
+      "archive_path": "assets/library/free-curated/categories/material/polyhaven/hinoki_planks_4k/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "remote_source_complete": false,
+      "quality_approved": false
     },
     {
       "id": "poly-oak-planks-8k",
@@ -11288,6 +11312,40 @@
         "cost": "not tested",
         "acceptance": "Do not integrate until rights and scene visual/type fit verified"
       }
+    },
+    {
+      "id": "best-free-mesh2motion-blender-rigs-20261024",
+      "name": "Mesh2Motion 3 original Blender skeleton rigs – human dragon snake",
+      "category": "animation-tool",
+      "source_url": "https://github.com/Mesh2Motion/mesh2motion-assets",
+      "stage": "source_acquired_research",
+      "priority": "A",
+      "zero_cost_access": "Public CC0 Blender .blend originals; source GitHub and target repo exact Git blob SHA verified; no account/paywall",
+      "license_scope": "CC0-1.0 upstream LICENSE; preserved LICENSE-CC0.txt",
+      "acquisition_status": "3 ACTUAL ORIGINAL SOURCE .blend models, 3,881,887 bytes, upstream identical Git SHA in private branch; Blender runtime import and practical rig retarget NOT performed",
+      "archive_path": "assets/library/free-curated/categories/animation/mesh2motion/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "assessment": "Rigged reference: dragon variant is winged quadruped, snake rig for long no-wing body, human skeleton for ordinary people. Bones/IK may be studied in Blender 4.5+, but no final hero dragon included.",
+      "review_notes": "No ready Tang face, outfit, jade dragon geometry, or walk/bike/flight animation quality accepted; only authoring sources.",
+      "runtime_integrated_this_round": false,
+      "quality_approved": false
+    },
+    {
+      "id": "best-free-kenney-rpg-audio-20261024",
+      "name": "Kenney RPG Audio pack – original 51 OGG CC0 foley clips",
+      "category": "audio",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "stage": "source_acquired_research",
+      "priority": "B",
+      "zero_cost_access": "Official direct download zip, no account/payment",
+      "license_scope": "CC0-1.0 confirmed from original ZIP License.txt; no attribution required",
+      "acquisition_status": "ORIGINAL_ZIP 964837 bytes and SHA256 6dbeaf8544da958d8f2adcb4a4a4b76c1ade34a05f8ab9edccd327da7375f38b; GitHub branch archived binary SHA matching; 51 OGG clips unpacked and ZIP CRC checked locally",
+      "archive_path": "assets/library/free-curated/categories/audio/kenney/rpg_audio/",
+      "archive_branch": "chatgpt/free-assets-best-curated-20261024",
+      "assessment": "Footsteps, cloth, books, door/creaks, coins and wooden/metal utensil foley for ambient market and household interactions",
+      "review_notes": "Archive published as 50 sounds but actual 51 Audio/*.ogg verified; not listened to yet, commercial suitability period authenticity uncertain, not in game.",
+      "runtime_integrated_this_round": false,
+      "quality_approved": false
     }
   ],
   "design_studies": [
@@ -11328,7 +11386,7 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 372,
+  "resource_count": 374,
   "free_only_policy": {
     "effective_date": "2026-10-24",
     "price_ceiling_usd": 0,
