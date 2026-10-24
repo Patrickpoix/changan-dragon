@@ -6,7 +6,7 @@
   "formal_integration_started": false,
   "all_required_production_assets_acquired": false,
   "runtime_glb_sources_before_and_after": 15,
-  "new_acquired_development_source": "MakeHuman core OBJ/rig/weights only; no finished Tang character",
+  "new_acquired_development_source": "MakeHuman core OBJ/rig/weights only; no finished Tang character; plus two Poly Haven CC0 interior glTF source sets (unapproved research only)",
   "open_critical_gaps": [
     "Approved-style continuous-mesh dragon, expressions, rig, walk/bike/flight motions",
     "Complete Tang-compatible production architecture type families with materials and LOD",
@@ -16,7 +16,7 @@
     "Auditioned offline Chinese hawker voices and coherent soundscape"
   ],
   "summary": {
-    "records": 116,
+    "records": 118,
     "by_category": {
       "runtime-engine": 5,
       "vegetation-tool": 2,
@@ -35,7 +35,7 @@
       "bicycle": 1,
       "market": 2,
       "characters": 6,
-      "props": 2,
+      "props": 4,
       "bridges": 1,
       "interior": 1,
       "environment": 2,
@@ -47,7 +47,7 @@
     "by_stage": {
       "existing_runtime": 1,
       "not_selected": 12,
-      "source_acquired_research": 12,
+      "source_acquired_research": 14,
       "source_acquired": 1,
       "offline_tool_candidate": 4,
       "runtime_candidate": 2,
@@ -60,7 +60,7 @@
       "rejected_character_style_research_only": 2
     },
     "preview_reviewed_records": 76,
-    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance."
+    "note": "Counts are catalog records, not acquired production assets; rejected Snow/Rain are retained technical research only. Preview count 76 is historical reviewed-record count, not new full visual acceptance. Two 1K Chinese furniture glTF source sets acquired CC0 on 2026-10-24; neither is runtime, Tang historical or art approved."
   },
   "resources": [
     {
@@ -5298,6 +5298,50 @@
           "type": "hashes, closed hull and dimension records"
         }
       ]
+    },
+    {
+      "id": "polyhaven-chinese-screen-panels-1k",
+      "name": "Poly Haven Chinese Screen Panels 1k glTF",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/chinese_screen_panels",
+      "stage": "source_acquired_research",
+      "license_scope": "Poly Haven official CC0; author Kirill Sannikov",
+      "acquisition_status": "Actual original glTF/BIN/3 JPG committed with official API MD5 check; Blender/visual not yet tested; NOT Tang-authentic or runtime integrated",
+      "target_scene": "Only editable shop interior furnishing study, not approved Tang-era asset",
+      "local_manifest": "assets/library/curated-polyhaven/README.md",
+      "assessment": "Two-part painted antique screen may be later-period ornament; style/history needs independent user-led visual acceptance; does not solve architecture/character gaps",
+      "runtime_integrated_this_round": false,
+      "source_file_api": "https://api.polyhaven.com/files/chinese_screen_panels",
+      "style_modification_cost": {
+        "level": "medium",
+        "reason": "Painted ornament and historical fit unresolved"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "source JPGs only; no runtime metrics"
+      }
+    },
+    {
+      "id": "polyhaven-chinese-stool-1k",
+      "name": "Poly Haven Chinese Stool 1k glTF",
+      "category": "props",
+      "source_url": "https://polyhaven.com/a/chinese_stool",
+      "stage": "source_acquired_research",
+      "license_scope": "Poly Haven official CC0; author Kirill Sannikov",
+      "acquisition_status": "Actual original glTF/BIN/3 JPG committed with official API MD5 check; Blender/visual not yet tested; NOT Tang-authentic or runtime integrated",
+      "target_scene": "Editable market/tea shop interior prop study only",
+      "local_manifest": "assets/library/curated-polyhaven/README.md",
+      "assessment": "Timber construction and PBR surfaces suitable to evaluate, but historical shape and film art direction still require review",
+      "runtime_integrated_this_round": false,
+      "source_file_api": "https://api.polyhaven.com/files/chinese_stool",
+      "style_modification_cost": {
+        "level": "medium",
+        "reason": "Timber colour and silhouette need matched review"
+      },
+      "mobile_cost": {
+        "measured": false,
+        "cost": "source JPGs only; no runtime metrics"
+      }
     }
   ],
   "design_studies": [
@@ -5338,5 +5382,5 @@
   ],
   "preparation_contracts": "docs/production-contracts.json",
   "production_spec": "docs/production-spec.json",
-  "resource_count": 116
+  "resource_count": 118
 }

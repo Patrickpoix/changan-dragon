@@ -1,5 +1,12 @@
 # 当前续做记录（2026-10-24）
 
+## 新增：跨会话美术生产纠偏和已实际入库的 CC0 研究物件（2026-10-24）
+
+- 新执行入口 [ART_ASSET_EXECUTION.md](ART_ASSET_EXECUTION.md)：正式游戏的技术测试通过不等于电影级形体/角色/材质获得认可；下一轮优先成熟合法可编辑源 → Blender 有针对性的改造/专门造型 → 正侧背俯灰模与 PBR → 独立同场街段艺术验证，禁止仅堆程序化几何和资源目录。
+- 从 Poly Haven 官方取得原始 1K **Chinese Screen Panels** 和 **Chinese Stool** 两套完整 glTF（各 1 glTF、1 BIN、3 JPG），按官方 API 逐文件 MD5 校验。存放 assets/library/curated-polyhaven/，许可 CC0、作者与链接见 README。二者是未加入运行时的**小道具研究资产**，年代/艺术可用性和 Blender 多视角尚未验收，不代表取得唐代建筑/人物/小龙的成熟生产资源。
+- 正式城市的 15 个 GLB 来源、src/dist 与 Three r160 均未改；**不重跑游戏测试冒充新视觉通过**。具体变更、已执行及未执行检查见 [本轮工作记录](worklog/2026-10-24-curated-art-assets.md)。核心缺口和 G0/G1 关口仍然未解除，后续优先新建完整建筑、自然唐服、连续龙的视觉样板。
+
+
 **新会话入口：先读 [PRODUCT_BRIEF.md](PRODUCT_BRIEF.md) 和根目录 [AGENTS.md](../AGENTS.md)。** 前者保存完整长期目标与验收标准，后者保存工作约束；本文件只承担实际进度交接。用户已经发布环境，并要求继续开发、持久记录要求。
 
 ## 最新：三型舟船、实际搭板与准备库存审计（2026-10-24）

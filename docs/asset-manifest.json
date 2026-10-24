@@ -1423,6 +1423,20 @@
       "assets/library/environment-audio/manifest.json",
       "assets/library/boats/construction-studies/manifest.json"
     ],
-    "design_reference_manifest": "docs/user-references/2026-10-23/manifest.json"
+    "design_reference_manifest": "docs/user-references/2026-10-23/manifest.json",
+    "curated_cc0_sources": [
+      {
+        "id": "polyhaven-chinese-screen-panels-1k",
+        "source": "https://polyhaven.com/a/chinese_screen_panels",
+        "folder": "assets/library/curated-polyhaven/chinese_screen_panels/",
+        "status": "original complete, MD5 verified, not integrated, art pending"
+      },
+      {
+        "id": "polyhaven-chinese-stool-1k",
+        "source": "https://polyhaven.com/a/chinese_stool",
+        "folder": "assets/library/curated-polyhaven/chinese_stool/",
+        "status": "original complete, MD5 verified, not integrated, art pending"
+      }
+    ]
   }
 }
