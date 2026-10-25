@@ -143,6 +143,7 @@
       'src/124-cinematic-lighting.js',
       'src/125-cinematic-sky.js',
       'src/126-real-water.js',
+      'src/127-tang-vegetation.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
