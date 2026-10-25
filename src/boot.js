@@ -56,6 +56,7 @@
       'src/36-qujiang-detail.js',
       'src/37-color-grading.js',
       'src/38-vegetation.js',
+      'src/39-water-enhance.js',
       'src/08-assets.js',
       'src/30-main.js',
     ]) {
