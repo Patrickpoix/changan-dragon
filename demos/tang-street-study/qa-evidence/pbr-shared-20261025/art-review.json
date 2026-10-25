@@ -1,0 +1,45 @@
+{
+  "checkedOn": "2026-10-25",
+  "codeVersion": "8adf5b476a74aab8185c8a7c3d999a7ad566c344",
+  "testProvenance": "Playwright/Chromium SwiftShader test executed on the locally edited files; all 3 changed tracked source files were then byte-for-byte normalized to GitHub main at codeVersion. A subsequent fresh clone failed on a 95MB unrelated library file due to Git fetch disconnect; do not label this as a clean-clone pass.",
+  "softwareRendererOnly": true,
+  "technical": {
+    "browser": "Chromium SwiftShader",
+    "sceneTriangles": 467959,
+    "drawCalls": 70,
+    "pbrMeshGroups": 25,
+    "sourceModelInstances": 11,
+    "cameraViews": [
+      "street",
+      "quarter",
+      "roof",
+      "detail",
+      "pavilion",
+      "gate"
+    ],
+    "travelDistanceMeters": 3.049,
+    "lightToggle": true,
+    "pageErrors": 0,
+    "httpErrors": 0,
+    "status": "pass"
+  },
+  "materials": [
+    "CC0 Poly Haven fine_grained_wood base/normal/rough",
+    "CC0 Poly Haven grey_stone_path base/normal/rough",
+    "CC0 Poly Haven clay_roof_tiles_02 normal/rough",
+    "CC0 Poly Haven clay_plaster normal/rough"
+  ],
+  "keyArchitecture": "No new geometry GLB artifacts: original GitHub main GLBs plus shared source textures and runtime generated UVs. Materials reused, original sources unchanged.",
+  "artVerdict": "NOT_ACCEPTED",
+  "deficiencies": [
+    "Clear improvement over untextured surfaces but the building silhouettes, historical roof proportions and bracketing remain prototype-level",
+    "Both structures lack complete realistic rooms, courtyard and functional stalls",
+    "Wood coloring and tile relief are research color grading, not approved final shading",
+    "Architecture sits in an empty scene without coherent street enclosure, NPC, planting strata or realistic local light response",
+    "No desktop RTX4060 benchmark or professionally art-directed 4K final material review"
+  ],
+  "screenshots": [
+    "pavilion.jpg",
+    "gate.jpg"
+  ]
+}
