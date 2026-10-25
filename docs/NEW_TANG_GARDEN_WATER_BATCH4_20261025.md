@@ -1,57 +1,31 @@
 # 新发现唐代园林水景素材源清单（第四批）
 
-> 文档版本：v4.0
-> 日期：2026-10-25 15:01
+> 文档版本：v4.1
+> 日期：2026-10-25 15:08
 > 新发现的唐代园林/水景/池塘/湖泊/石桥/假山/凉亭相关模型（补充3）
 
 ---
 
-## 一、重要发现：扫描古代凉亭
+## 一、免费古代中式庭院公园
 
-### BlenderKit - 扫描古代凉亭（免费）
-- URL: https://www.blenderkit.com/asset-gallery-detail/255df60f-f741-40e4-8da0-2392f41a1026/
-- 特点：扫描古代凉亭3D模型
-- 特点：8K纹理
-- 面数：3,500,143多边形
-- 大小：263.3 MiB
-- 用途：唐代长安园林凉亭直接参考
+### RigModels - 古代中式庭院公园（免费）
+- URL: https://rigmodels.com/model.php?view=Ancient_Chinese_courtyard_Park-3d-model__55d8371278844dbbbe43e1f867b5fcde&searchkeyword=animal&manualsearch=1
+- 特点：古代中式庭院公园3D模型
 
 ---
 
-## 二、免费听雨轩
+## 二、中式园林设计合集
 
-### MakerWorld - 听雨轩（免费）
-- URL: https://makerworld.com/en/models/2896007-ting-yu-xuan-pavilion-of-falling-rain
-- 特点：听雨轩3D打印模型
-- 特点：双层飞檐，精致栏杆，太湖石，庭院灯笼
-- 特点：优雅蓝白色调
-- 用途：唐代长安园林水榭直接参考
+### Open3dModel - 中式园林设计（免费）
+- URL: https://open3dmodel.com/3d-models/garden-design
+- 特点：中式园林设计3D模型
 
 ---
 
-## 三、其他园林模型
-
-### CGTrader - 传统东亚寺庙庭院莲池
-- URL: https://www.cgtrader.com/3d-models/space/other/traditional-east-asian-temple-grounds-lotus-pond-3d
-- 特点：传统东亚寺庙庭院莲池3D场景
-- 特点：经典木构凉亭建筑，瓦屋顶
-- 特点：石拱桥，宁静莲池
-- 特点：石塔，红栏走廊，秋树
+## 三、下一步行动
+1. 下载RigModels免费古代中式庭院公园模型
+2. 参考唐代长安园林设计：曲江池/太液池/芙蓉园/乐游原/假山/石桥
 
 ---
 
-## 四、下一步行动
-1. 下载BlenderKit免费扫描古代凉亭模型
-2. 下载MakerWorld免费听雨轩模型
-3. 参考唐代长安园林设计：
-   - 曲江池（皇家园林，城南）
-   - 太液池（大明宫内）
-   - 芙蓉园（皇家禁苑）
-   - 乐游原（登高望远）
-   - 假山（太湖石）
-   - 石桥（石拱桥、石板桥）
-4. 特点：唐代长安园林艺术发达，曲江池是最著名的游览胜地
-
----
-
-更新日期：2026-10-25 15:01
+更新日期：2026-10-25 15:08
