@@ -1,0 +1,34 @@
+{
+  "city-viewer": {
+    "status": "pass",
+    "hud": "全城流加载技术预览 / 历史位置未审 / 非正式游戏美术 WASD移动 Shift加速 Space升高 Ctrl降低 点击锁定鼠标 布局96/目标108; 未研究12; 恢复生成93; 特殊区3 加载块 15 / 请求中 0 / 可用块 50 / DrawCalls 10",
+    "page_errors": [],
+    "http_errors": [],
+    "movement": {
+      "start_z": -4100,
+      "end_z": -4975.189999985695,
+      "before_loaded_chunks": 3,
+      "after_loaded_chunks": 15,
+      "changed": true
+    }
+  },
+  "integrated": {
+    "status": "pass",
+    "hud": "整合技术预览 / 历史位置未审 / 非正式游戏美术 WASD移动 Shift加速 Space升高 Ctrl降低 点击锁定鼠标 布局96/目标108; 未研究12; 恢复生成93; 特殊区3 加载块 15 / 请求中 0 / 可用块 50 / DrawCalls 10",
+    "page_errors": [],
+    "http_errors": [],
+    "movement": {
+      "start_z": -4100,
+      "end_z": -4965.49999999106,
+      "before_loaded_chunks": 3,
+      "after_loaded_chunks": 15,
+      "changed": true
+    }
+  },
+  "postprocessing": {
+    "status": "pass",
+    "hud": "后处理独立技术样板 / 非正式唐代场景\nP: 后处理 / DrawCalls 1\n现有SSAO/Bloom/Vignette/Film/FXAA已接线；LUT预设仍是研究代码",
+    "page_errors": [],
+    "http_errors": []
+  }
+}

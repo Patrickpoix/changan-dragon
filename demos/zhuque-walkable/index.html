@@ -137,8 +137,8 @@ const trunkGeo = new THREE.CylinderGeometry(0.3, 0.5, 6, 6);
 const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4a3a, roughness: 0.9 });
 const crownGeo = new THREE.SphereGeometry(3, 8, 6);
 const crownMat = new THREE.MeshStandardMaterial({ color: 0x4a6b3a, roughness: 0.9 });
-const trunkMesh = new THREE.InstancedMesh(trunkGeo, trunkMat, 40);
-const crownMesh = new THREE.InstancedMesh(crownGeo, crownMat, 40);
+const trunkMesh = new THREE.InstancedMesh(trunkGeo, trunkMat, 78);
+const crownMesh = new THREE.InstancedMesh(crownGeo, crownMat, 78);
 trunkMesh.castShadow = true; crownMesh.castShadow = true;
 const dummy = new THREE.Object3D();
 let ti = 0;
@@ -290,11 +290,11 @@ function loop() {
 
   const speed = (keys['ShiftLeft'] ? 12 : 5) * dt;
   let mx = 0, mz = 0;
-  if (keys['KeyW']) mz -= 1;
-  if (keys['KeyS']) mz += 1;
+  if (keys['KeyW']) mz += 1;
+  if (keys['KeyS']) mz -= 1;
   if (keys['KeyA']) mx -= 1;
   if (keys['KeyD']) mx += 1;
-  if (autoWalk) mz -= 1;
+  if (autoWalk) mz += 1;
   const len = Math.hypot(mx, mz);
   if (len > 0) {
     mx /= len; mz /= len;

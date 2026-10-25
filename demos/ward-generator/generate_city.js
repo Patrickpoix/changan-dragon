@@ -8,13 +8,13 @@
 const fs = require('fs');
 const path = require('path');
 const { generateWard } = require('./generate_ward.js');
+const { out: wardsJSON } = require('./generate_layout.js');
 
 const OUT_DIR = path.join(__dirname, 'output');
 const WARDS_ALL_DIR = path.join(OUT_DIR, 'wards_all');
-const SPECIAL_DIR = path.join(OUT_DIR, 'special-areas');
 
 const t0 = Date.now();
-const wardsJSON = JSON.parse(fs.readFileSync(path.join(OUT_DIR, 'wards.json'), 'utf8'));
+fs.mkdirSync(WARDS_ALL_DIR,{recursive:true});
 
 // ---------- 12 外郭城门 ----------
 // 考古坐标：X∈[0,9721] 东向，Z∈[0,8652] 北向；南墙 Z=0，北墙 Z=8652。
@@ -43,9 +43,10 @@ for (const w of wardsJSON.wards) {
   if (w.isMarket || w.isLake) {
     skipped++;
     let ref;
-    if (w.pinyin === 'dongshi') ref = 'special-areas/dongshi.json';
-    else if (w.pinyin === 'xishi') ref = 'special-areas/xishi.json';
-    else if (w.isLake) ref = 'special-areas/qujiang.json';
+    if (w.name === '东市') ref = '../../special-areas/eastMarket.json';
+    else if (w.name === '西市') ref = '../../special-areas/westMarket.json';
+    else if (w.isLake) ref = '../../special-areas/quchi.json';
+    if (!ref || !fs.existsSync(path.join(OUT_DIR,ref))) throw new Error('Missing special area '+w.name);
     wardsIndex.push({
       id: w.id, name: w.name, pinyin: w.pinyin,
       type: w.type, typeName: w.typeName,
@@ -59,13 +60,14 @@ for (const w of wardsJSON.wards) {
   }
 
   const result = generateWard({
-    name: w.name, pinyin: w.pinyin, bbox: w.bbox,
+    name: w.name, pinyin: 'slot_'+w.id, bbox: w.bbox,
     wardType: w.type, seed: w.seed,
     isTemple: w.isTemple, hasPagoda: w.hasPagoda,
   });
-  const fname = `ward_${String(w.id).padStart(3, '0')}_${w.pinyin}.json`;
+  const fname = `ward_${String(w.id).padStart(3, '0')}.json`;
   const fpath = path.join(WARDS_ALL_DIR, fname);
-  fs.writeFileSync(fpath, JSON.stringify(result, null, 2));
+  // Lossless compact JSON: preserves all positions, avoids >1M whitespace-only lines in Git.
+  fs.writeFileSync(fpath, JSON.stringify(result)+'\n');
 
   generated++;
   totalObjects += result.objects.length;
@@ -93,9 +95,12 @@ const cityIndex = {
     city: '唐长安城（隋大兴城）',
     coordinateSystem: '考古坐标，原点在外郭城西南角，X 东向正，Z 北向正',
     cityBounds: [0, 0, 9721, 8652],
-    wardCount: 108,
+    wardCount: wardsJSON.wards.length,
     generatedWards: generated,
     skippedWards: skipped,
+    missingSlots: wardsJSON.meta.missingSlots,
+    historicalVerified: false,
+    provenance: 'Rebuilt from pushed 96-slot layout, NOT byte-exact recovery of lost cloud data',
   },
   zhuqueAvenue: { name: '朱雀大街', centerX: 4860, width: 150, bbox: [4785, 0, 4935, 5316] },
   gates: GATES,
@@ -103,5 +108,5 @@ const cityIndex = {
   stats: { totalObjects, totalNpcs, totalTrees, totalLanterns, typeStats },
 };
 
-fs.writeFileSync(path.join(OUT_DIR, 'city_index.json'), JSON.stringify(cityIndex, null, 2));
-console.log(`✓ 生成完成，坊: ${generated}, 跳过: ${skipped}, 物体: ${totalObjects}, NPC: ${totalNpcs}`);
+fs.writeFileSync(path.join(OUT_DIR, 'city_index.json'), JSON.stringify(cityIndex, null, 2)+'\n');
+console.log(`Regenerated ${generated} research slots, ${skipped} special placeholders, ${wardsJSON.meta.missingSlots} missing slots, objects=${totalObjects}, NPC=${totalNpcs}, ms=${Date.now()-t0}`);

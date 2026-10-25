@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 龙游长安 108坊布局生成器
+// 遗留96槽位研究布局恢复器。不是完整108坊或考古复原，不得覆盖正式世界数据。
 // 考古坐标：原点外郭城西南角，X东向正，Z北向正。Three.js worldZ = -archZ
 'use strict';
 const fs = require('fs');
@@ -35,7 +35,8 @@ const WEST = [
 
 function build() {
   const wards = []; let id = 0;
-  const rows = 8, rowStreet = 35, rowMargin = 40;
+  const rows = EAST.length, rowStreet = 35, rowMargin = 40;
+  if (WEST.length !== rows || EAST.some(a => a.length !== 6) || WEST.some(a => a.length !== 6)) throw new Error('Layout tables must have six columns per matching row');
   const wardDepth = (IMPERIAL.minZ - (rows-1)*rowStreet - 2*rowMargin) / rows;
   // 街东 X[4935,9721] 6列
   const eEdge = ZHUQUE.centerX + ZHUQUE.width/2;
@@ -66,7 +67,7 @@ function build() {
 
 const wards = build();
 const out = {
-  meta: { city:'唐长安城', generated:'2026-10-25', cityBounds:[0,0,9721,8652], zhuqueAve:{centerX:4860,width:150}, wardCount:wards.length },
+  meta: { city:'唐长安城（研究布局草案）', generated:'2026-10-25', cityBounds:[0,0,9721,8652], zhuqueAve:{centerX:4860,width:150}, wardCount:wards.length, claimedTarget:108, missingSlots:108-wards.length, historicalVerified:false, warning:'只有96个原始研究槽位；没有依据补出另外12个；云端105个JSON原件未找回。' },
   specialZones: [
     {name:'宫城(太极宫)',type:'PALACE',bbox:[3450,7160,6270,8652]},
     {name:'皇城',type:'IMPERIAL',bbox:[3450,5316,6270,7160]},
@@ -76,5 +77,9 @@ const out = {
   ],
   wards: wards
 };
-fs.writeFileSync(path.join(__dirname,'data','wards.json'), JSON.stringify(out,null,2));
-console.log('Generated', wards.length, 'wards');
+if (require.main === module) {
+  fs.mkdirSync(path.join(__dirname,'data'),{recursive:true});
+  fs.writeFileSync(path.join(__dirname,'data','wards.json'), JSON.stringify(out,null,2)+'\n');
+  console.log('Generated', wards.length, 'provisional slots; missing', out.meta.missingSlots);
+}
+module.exports = { build, out };
