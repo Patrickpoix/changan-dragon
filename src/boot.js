@@ -81,6 +81,7 @@
       'src/61-lighting-enhance.js',
       'src/62-post-processing.js',
       'src/63-performance-enhance.js',
+      'src/64-city-atmosphere.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
