@@ -117,6 +117,7 @@
       'src/97-lid-peak.js',
       'src/98-lid-band.js',
       'src/100-inner-pot.js',
+      'src/101-ash-layer.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
