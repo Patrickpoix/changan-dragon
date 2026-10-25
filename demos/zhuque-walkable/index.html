@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>朱雀大街 1km Demo — 龙游长安</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:sans-serif;color:#fff}
+  #hud{position:fixed;left:8px;top:8px;z-index:10;background:rgba(0,0,0,.55);padding:8px 10px;font:12px/1.5 monospace;border-radius:4px;white-space:pre}
+  #help{position:fixed;left:8px;bottom:8px;background:rgba(0,0,0,.4);padding:6px 10px;font:11px/1.4 monospace}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<div id="hud">booting…</div>
+<div id="help">WASD 移动 / 鼠标视角 / Shift 跑 / R 雨 / N 昼夜 / Q 自动漫游</div>
+<script type="module">
+import * as THREE from 'three';
+
+const hud = document.getElementById('hud');
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x87a8c8);
+scene.fog = new THREE.Fog(0xcfd8e0, 100, 1200);
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.5, 3000);
+
+const sun = new THREE.DirectionalLight(0xfff2d9, 2.5);
+sun.position.set(200, 300, 100);
+sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+sun.shadow.camera.left = -300; sun.shadow.camera.right = 300;
+sun.shadow.camera.top = 1000; sun.shadow.camera.bottom = -200;
+sun.shadow.camera.far = 1000;
+scene.add(sun, new THREE.HemisphereLight(0xbfd4e6, 0x4a3f2f, 0.7));
+
+const roadMat = new THREE.MeshStandardMaterial({ color: 0x9a8a6a, roughness: 0.95 });
+const road = new THREE.Mesh(new THREE.PlaneGeometry(150, 1000), roadMat);
+road.rotation.x = -Math.PI / 2;
+road.position.set(0, 0, 500);
+road.receiveShadow = true;
+scene.add(road);
+
+const dirtMat = new THREE.MeshStandardMaterial({ color: 0x8a7a5a, roughness: 1 });
+for (const side of [-1, 1]) {
+  const dirt = new THREE.Mesh(new THREE.PlaneGeometry(175, 1000), dirtMat);
+  dirt.rotation.x = -Math.PI / 2;
+  dirt.position.set(side * 162.5, -0.01, 500);
+  dirt.receiveShadow = true;
+  scene.add(dirt);
+}
+
+const wallMat = new THREE.MeshStandardMaterial({ color: 0xb8a080, roughness: 0.95 });
+for (const side of [-1, 1]) {
+  const wall = new THREE.Mesh(new THREE.BoxGeometry(1, 3, 1000), wallMat);
+  wall.position.set(side * 250, 1.5, 500);
+  wall.castShadow = true; wall.receiveShadow = true;
+  scene.add(wall);
+}
+
+function makeGateTower() {
+  const g = new THREE.Group();
+  const base = new THREE.Mesh(new THREE.BoxGeometry(60, 10, 20), new THREE.MeshStandardMaterial({ color: 0x9a7a5a, roughness: 0.9 }));
+  base.position.y = 5; base.castShadow = true; base.receiveShadow = true;
+  const roof = new THREE.Mesh(new THREE.BoxGeometry(70, 5, 30), new THREE.MeshStandardMaterial({ color: 0x8a3a2a, roughness: 0.8 }));
+  roof.position.y = 12.5; roof.castShadow = true;
+  g.add(base, roof);
+  return g;
+}
+const gateTower = makeGateTower();
+gateTower.position.set(0, 0, -20);
+scene.add(gateTower);
+
+function makeFangGate() {
+  const g = new THREE.Group();
+  const pillarMat = new THREE.MeshStandardMaterial({ color: 0x8a6a4a, roughness: 0.9 });
+  for (const s of [-1, 1]) {
+    const p = new THREE.Mesh(new THREE.BoxGeometry(1.5, 5, 1.5), pillarMat);
+    p.position.set(s * 4, 2.5, 0); p.castShadow = true;
+    g.add(p);
+  }
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(10, 1, 2), new THREE.MeshStandardMaterial({ color: 0x7a5a3a, roughness: 0.9 }));
+  lintel.position.y = 5.5; lintel.castShadow = true;
+  g.add(lintel);
+  return g;
+}
+for (let z = 100; z < 1000; z += 100) {
+  for (const side of [-1, 1]) {
+    const gate = makeFangGate();
+    gate.position.set(side * 250, 0, z);
+    gate.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2;
+    scene.add(gate);
+  }
+}
+
+function makeShop() {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(8, 4, 6), new THREE.MeshStandardMaterial({ color: 0xc8a878, roughness: 0.9 }));
+  body.position.y = 2; body.castShadow = true; body.receiveShadow = true;
+  const roof = new THREE.Mesh(new THREE.BoxGeometry(9, 1.5, 7), new THREE.MeshStandardMaterial({ color: 0x6a3a2a, roughness: 0.85 }));
+  roof.position.y = 4.75; roof.castShadow = true;
+  g.add(body, roof);
+  return g;
+}
+for (let z = 150; z < 900; z += 80) {
+  for (const side of [-1, 1]) {
+    const shop = makeShop();
+    shop.position.set(side * 80, 0, z);
+    shop.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2;
+    scene.add(shop);
+  }
+}
+
+const hall = new THREE.Group();
+const hallBase = new THREE.Mesh(new THREE.BoxGeometry(80, 8, 40), new THREE.MeshStandardMaterial({ color: 0xb89868, roughness: 0.9 }));
+hallBase.position.y = 4; hallBase.castShadow = true; hallBase.receiveShadow = true;
+const hallRoof = new THREE.Mesh(new THREE.BoxGeometry(90, 6, 50), new THREE.MeshStandardMaterial({ color: 0x8a3a2a, roughness: 0.8 }));
+hallRoof.position.y = 11; hallRoof.castShadow = true;
+hall.add(hallBase, hallRoof);
+hall.position.set(0, 0, 950);
+scene.add(hall);
+
+const trunkGeo = new THREE.CylinderGeometry(0.3, 0.5, 6, 6);
+const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4a3a, roughness: 0.9 });
+const crownGeo = new THREE.SphereGeometry(3, 8, 6);
+const crownMat = new THREE.MeshStandardMaterial({ color: 0x4a6b3a, roughness: 0.9 });
+const trunkMesh = new THREE.InstancedMesh(trunkGeo, trunkMat, 40);
+const crownMesh = new THREE.InstancedMesh(crownGeo, crownMat, 40);
+trunkMesh.castShadow = true; crownMesh.castShadow = true;
+const dummy = new THREE.Object3D();
+let ti = 0;
+for (let z = 25; z < 1000; z += 25) {
+  for (const side of [-1, 1]) {
+    dummy.position.set(side * 95, 3, z);
+    dummy.updateMatrix();
+    trunkMesh.setMatrixAt(ti, dummy.matrix);
+    dummy.position.y = 8;
+    dummy.updateMatrix();
+    crownMesh.setMatrixAt(ti, dummy.matrix);
+    ti++;
+  }
+}
+trunkMesh.count = crownMesh.count = ti;
+scene.add(trunkMesh, crownMesh);
+
+const bushGeo = new THREE.SphereGeometry(1.5, 6, 4);
+const bushMat = new THREE.MeshStandardMaterial({ color: 0x3a5a2a, roughness: 1 });
+const bushMesh = new THREE.InstancedMesh(bushGeo, bushMat, 60);
+const bDummy = new THREE.Object3D();
+let bi = 0;
+for (let z = 10; z < 1000; z += 20) {
+  for (const side of [-1, 1]) {
+    if (bi >= 60) break;
+    bDummy.position.set(side * 230, 1, z + Math.random() * 10);
+    bDummy.scale.set(1 + Math.random(), 0.6 + Math.random()*0.5, 1 + Math.random());
+    bDummy.updateMatrix();
+    bushMesh.setMatrixAt(bi++, bDummy.matrix);
+  }
+}
+bushMesh.count = bi;
+bushMesh.castShadow = true;
+scene.add(bushMesh);
+
+const npcs = [];
+const npcColors = [0x884433, 0x336688, 0x664488, 0x448844, 0x888844, 0x886644, 0x446688];
+for (let i = 0; i < 50; i++) {
+  const npc = new THREE.Group();
+  const body = new THREE.Mesh(
+    new THREE.CapsuleGeometry(0.4, 1.2, 4, 8),
+    new THREE.MeshStandardMaterial({ color: npcColors[i % npcColors.length], roughness: 0.8 })
+  );
+  body.position.y = 1; body.castShadow = true;
+  npc.add(body);
+  npc.position.set((Math.random() - 0.5) * 100, 0, 50 + i * 18);
+  npc.userData.dir = i % 2 === 0 ? 1 : -1;
+  npc.userData.speed = 2 + Math.random() * 3;
+  scene.add(npc);
+  npcs.push(npc);
+}
+
+const cart = new THREE.Group();
+const cartBody = new THREE.Mesh(
+  new THREE.BoxGeometry(4, 2, 6),
+  new THREE.MeshStandardMaterial({ color: 0x6b4a2a, roughness: 0.8 })
+);
+cartBody.position.y = 1.5; cartBody.castShadow = true;
+const horse = new THREE.Mesh(
+  new THREE.BoxGeometry(1.5, 2, 3),
+  new THREE.MeshStandardMaterial({ color: 0x8a6a3a, roughness: 0.9 })
+);
+horse.position.set(0, 1.5, 4.5); horse.castShadow = true;
+cart.add(cartBody, horse);
+cart.position.set(-30, 0, 300);
+cart.userData.dir = 1;
+scene.add(cart);
+
+const lanternGeo = new THREE.CylinderGeometry(0.3, 0.3, 0.8, 8);
+const lanternMat = new THREE.MeshStandardMaterial({
+  color: 0xff6633, emissive: 0xff4400, emissiveIntensity: 0.0,
+  roughness: 0.5, transparent: true, opacity: 0.9
+});
+const lanternCount = 40;
+const lanternMesh = new THREE.InstancedMesh(lanternGeo, lanternMat, lanternCount);
+const lDummy = new THREE.Object3D();
+let li = 0;
+for (let z = 50; z < 1000; z += 50) {
+  for (const side of [-1, 1]) {
+    if (li >= lanternCount) break;
+    lDummy.position.set(side * 75, 4, z);
+    lDummy.updateMatrix();
+    lanternMesh.setMatrixAt(li++, lDummy.matrix);
+  }
+}
+lanternMesh.count = li;
+scene.add(lanternMesh);
+
+const rainCount = 3000;
+const rainGeo = new THREE.BufferGeometry();
+const rainPos = new Float32Array(rainCount * 3);
+for (let i = 0; i < rainCount; i++) {
+  rainPos[i * 3] = (Math.random() - 0.5) * 300;
+  rainPos[i * 3 + 1] = Math.random() * 100;
+  rainPos[i * 3 + 2] = Math.random() * 1000;
+}
+rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+const rainMat = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.3, transparent: true, opacity: 0.6 });
+const rain = new THREE.Points(rainGeo, rainMat);
+rain.visible = false;
+scene.add(rain);
+
+const player = new THREE.Group();
+player.position.set(0, 0, 100);
+scene.add(player);
+const playerBody = new THREE.Mesh(
+  new THREE.CapsuleGeometry(0.5, 1.5, 4, 8),
+  new THREE.MeshStandardMaterial({ color: 0x884433 })
+);
+playerBody.position.y = 1;
+playerBody.castShadow = true;
+player.add(playerBody);
+
+const keys = {};
+addEventListener('keydown', e => { keys[e.code] = true; if (e.code === 'KeyR') rain.visible = !rain.visible; if (e.code === 'KeyN') isNight = !isNight; if (e.code === 'KeyQ') autoWalk = !autoWalk; });
+addEventListener('keyup', e => keys[e.code] = false);
+
+let yaw = 0, pitch = 0;
+addEventListener('mousemove', e => {
+  if (document.pointerLockElement) {
+    yaw -= e.movementX * 0.002;
+    pitch -= e.movementY * 0.002;
+    pitch = Math.max(-0.5, Math.min(0.5, pitch));
+  }
+});
+renderer.domElement.addEventListener('click', () => renderer.domElement.requestPointerLock());
+
+let dayTime = 0.3;
+let isNight = false;
+let autoWalk = false;
+const clock = new THREE.Clock();
+
+let frames = 0, fpsAcc = 0, fpsCount = 0, fps = 0, lastT = performance.now();
+
+function loop() {
+  requestAnimationFrame(loop);
+  const dt = clock.getDelta();
+
+  dayTime = (dayTime + dt / 1200) % 1;
+  const sunAngle = (dayTime - 0.25) * Math.PI * 2;
+  const sunHeight = Math.sin(sunAngle);
+  sun.position.set(Math.cos(sunAngle) * 300, Math.max(sunHeight, -0.2) * 400, 100);
+  sun.intensity = isNight ? 0.05 : Math.max(0.1, sunHeight) * 2.5;
+  sun.color.setHSL(0.08, isNight ? 0 : 0.5, isNight ? 0.2 : 0.5 + Math.max(0, sunHeight) * 0.3);
+  renderer.toneMappingExposure = isNight ? 0.6 : 1.0;
+  lanternMat.emissiveIntensity = isNight ? 2.0 : 0.0;
+  scene.fog.color.setHSL(0.6, isNight ? 0.3 : 0.1, isNight ? 0.05 : 0.75);
+  scene.background.setHSL(0.6, isNight ? 0.3 : 0.1, isNight ? 0.05 : 0.6);
+
+  const speed = (keys['ShiftLeft'] ? 12 : 5) * dt;
+  let mx = 0, mz = 0;
+  if (keys['KeyW']) mz -= 1;
+  if (keys['KeyS']) mz += 1;
+  if (keys['KeyA']) mx -= 1;
+  if (keys['KeyD']) mx += 1;
+  if (autoWalk) mz -= 1;
+  const len = Math.hypot(mx, mz);
+  if (len > 0) {
+    mx /= len; mz /= len;
+    const sin = Math.sin(yaw), cos = Math.cos(yaw);
+    player.position.x += (mx * cos - mz * sin) * speed;
+    player.position.z += (mx * sin + mz * cos) * speed;
+    player.position.x = Math.max(-70, Math.min(70, player.position.x));
+    player.position.z = Math.max(10, Math.min(990, player.position.z));
+    player.rotation.y = yaw;
+  }
+
+  const camDist = 5;
+  camera.position.set(
+    player.position.x - Math.sin(yaw) * camDist,
+    player.position.y + 3 + pitch * 5,
+    player.position.z - Math.cos(yaw) * camDist
+  );
+  camera.lookAt(player.position.x, player.position.y + 0.5, player.position.z + 2);
+
+  for (const npc of npcs) {
+    npc.position.z += npc.userData.speed * npc.userData.dir * dt;
+    if (npc.position.z > 900) npc.userData.dir = -1;
+    if (npc.position.z < 100) npc.userData.dir = 1;
+    npc.rotation.y = npc.userData.dir > 0 ? 0 : Math.PI;
+  }
+
+  cart.position.z += cart.userData.dir * 3 * dt;
+  if (cart.position.z > 900) cart.userData.dir = -1;
+  if (cart.position.z < 100) cart.userData.dir = 1;
+  cart.rotation.y = cart.userData.dir > 0 ? 0 : Math.PI;
+
+  if (rain.visible) {
+    const pos = rainGeo.attributes.position.array;
+    for (let i = 0; i < rainCount; i++) {
+      pos[i * 3 + 1] -= 30 * dt;
+      if (pos[i * 3 + 1] < 0) pos[i * 3 + 1] = 100;
+    }
+    rainGeo.attributes.position.needsUpdate = true;
+  }
+
+  frames++;
+  fpsAcc += dt; fpsCount++;
+  const now = performance.now();
+  if (now - lastT > 500) {
+    fps = fpsCount / fpsAcc;
+    fpsAcc = 0; fpsCount = 0; lastT = now;
+  }
+
+  const hour = Math.floor(dayTime * 24);
+  hud.textContent =
+    `朱雀大街 1km demo  fps=${fps.toFixed(1)}\n` +
+    `pos=(${player.position.x.toFixed(0)}, ${player.position.z.toFixed(0)})  time=${hour}:00 ${isNight?'夜':'日'}\n` +
+    `dc=${renderer.info.render.calls}  tris=${(renderer.info.render.triangles/1000).toFixed(1)}k  geos=${renderer.info.memory.geometries}\n` +
+    `rain=${rain.visible?'on':'off'}  sun=${sun.intensity.toFixed(2)}`;
+
+  renderer.render(scene, camera);
+}
+loop();
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+window.__DEMO__ = { scene, renderer, player, npcs };
+</script>
+</body>
+</html>
