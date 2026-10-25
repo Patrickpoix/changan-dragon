@@ -1,0 +1,122 @@
+{
+  "scope": "Isolated recovery streaming demos, not formal game src or RTX hardware",
+  "date": "2026-10-25",
+  "tests": {
+    "nodeResourceRegistry": {
+      "pass": 5,
+      "fail": 0
+    },
+    "pythonSharedWebRelease": {
+      "pass": 3,
+      "fail": 0
+    },
+    "viteBuilds": {
+      "cityViewer": true,
+      "integrated": true,
+      "postprocessing": true
+    }
+  },
+  "browser": {
+    "engine": "Chromium SwiftShader software renderer",
+    "cityViewer": {
+      "status": "pass",
+      "movement": {
+        "start_z": -4100,
+        "end_z": -5222.270000010725,
+        "before_loaded_chunks": 3,
+        "after_loaded_chunks": 10,
+        "changed": true,
+        "resource_stats_before": {
+          "liveAssets": 8,
+          "references": 24,
+          "pendingLoads": 0,
+          "created": 8,
+          "disposed": 0,
+          "cacheHits": 16
+        },
+        "resource_stats_after": {
+          "liveAssets": 8,
+          "references": 80,
+          "pendingLoads": 0,
+          "created": 8,
+          "disposed": 0,
+          "cacheHits": 112
+        }
+      },
+      "resource_lifecycle": {
+        "after_all_chunks_unloaded": {
+          "liveAssets": 0,
+          "references": 0,
+          "pendingLoads": 0,
+          "created": 8,
+          "disposed": 8,
+          "cacheHits": 112
+        },
+        "after_reentry": {
+          "liveAssets": 8,
+          "references": 24,
+          "pendingLoads": 0,
+          "created": 16,
+          "disposed": 8,
+          "cacheHits": 128
+        }
+      }
+    },
+    "integrated": {
+      "status": "pass",
+      "movement": {
+        "start_z": -4100,
+        "end_z": -4929.589999994637,
+        "before_loaded_chunks": 3,
+        "after_loaded_chunks": 15,
+        "changed": true,
+        "resource_stats_before": {
+          "liveAssets": 8,
+          "references": 24,
+          "pendingLoads": 0,
+          "created": 8,
+          "disposed": 0,
+          "cacheHits": 16
+        },
+        "resource_stats_after": {
+          "liveAssets": 8,
+          "references": 120,
+          "pendingLoads": 0,
+          "created": 8,
+          "disposed": 0,
+          "cacheHits": 112
+        }
+      },
+      "resource_lifecycle": {
+        "after_all_chunks_unloaded": {
+          "liveAssets": 0,
+          "references": 0,
+          "pendingLoads": 0,
+          "created": 8,
+          "disposed": 8,
+          "cacheHits": 112
+        },
+        "after_reentry": {
+          "liveAssets": 8,
+          "references": 24,
+          "pendingLoads": 0,
+          "created": 16,
+          "disposed": 8,
+          "cacheHits": 128
+        }
+      }
+    },
+    "postprocessing": {
+      "status": "pass"
+    }
+  },
+  "realSourceDedupe": {
+    "example": "Two existing research copies of Poly Haven Chinese Stool's three identical CC0 textures",
+    "references": 6,
+    "uniqueObjects": 3,
+    "requestedBytes": 3500122,
+    "uniqueBytes": 1750061,
+    "exactDuplicateBytesAvoided": 1750061
+  },
+  "limits": "No measured desktop RTX frame-time gains; release packer only removes byte-identical assets (does not dedupe internal GLB textures or approve rights). Original masters retained; formal city not migrated."
+}

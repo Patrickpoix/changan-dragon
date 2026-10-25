@@ -1,5 +1,12 @@
 # 当前续做记录（2026-10-24）
 
+## 2026-10-25：跨区块共享资源与HTTP发布按字节去重（技术验证通过）
+
+- 独立技术Demo的公共资源池（demos/shared/resource-registry.mjs）已接入city-viewer及integrated：按资源ID复用几何/材质，并发加载去重、加载取消、失败重试、按区块引用计数与最后使用者释放；5项Node测试通过。Chromium软件浏览器在3→10/15个区块之间切换时仅持有8个公共GPU对象；退出全部区域引用归零且释放8个，回来后只重建一套8个。实际记录见 demos/qa-evidence/shared-registry-20261025/results.json。
+- HTTP发布构建工具 tools/build_shared_web_assets.py 按SHA256给多个资产ID生成共享不可变文件URL，不降面、不压缩母版、不替代现有资源目录；3项Python测试通过。真实重复CC0木凳贴图6引用共3,500,122B，去重发布3个对象共1,750,061B；仅针对该组字节重复，Git仓库和正式游戏本体并不因此等比例缩小。
+- 正式 src/assets/vendor/dist 未更改。电影美术和唐代史料审核、桌面GPU帧率、完整GLB内部共用纹理/KTX2流水线尚未验收；无需创建第二套素材数据库。
+
+
 ## 2026-10-25：共享源/实例复用实测（通过，不代表最终画质）
 
 - 最新西市研究试片在原6类GLB源、11处场景模型实例上增加可验证复用检查：67个Mesh实例/58个独立几何对象，2栋不同建筑实际共享12个PBR材质对象，3树+3凳+2篮篓复用对应BufferGeometry/Material引用；同一份GLB不需要因不同坐标而重复维护或上传。Chromium SwiftShader完整六机位、漫游、昼夜测试通过，0页面/HTTP错误；验证数据在 `demos/tang-street-study/qa-evidence/shared-reuse-20261025.json`。这不是GPU内存绝对字节指标或用户实机帧率。
