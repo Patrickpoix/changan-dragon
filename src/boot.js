@@ -64,6 +64,7 @@
       'src/44-characters.js',
       'src/45-materials-upgrade.js',
       'src/46-render-enhance.js',
+      'src/47-cinematic-light.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
