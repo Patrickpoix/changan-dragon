@@ -125,6 +125,7 @@
       'src/106-plaque-frame.js',
       'src/107-plaque-hanger.js',
       'src/108-plaque-text.js',
+      'src/109-base-relief.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
