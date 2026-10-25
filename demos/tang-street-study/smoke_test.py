@@ -29,7 +29,9 @@ def run():
             page.goto(url,wait_until='domcontentloaded',timeout=50000)
             page.wait_for_function('() => window.__tangStreet?.ready === true',timeout=95000)
             page.wait_for_timeout(1300)
-            data['loaded']=page.evaluate('() => ({assets:window.__tangStreet.loaded,models:window.__tangStreet.modelBounds,errors:window.__tangStreet.errors,triangles:window.__tangStreet.renderer.info.render.triangles,drawCalls:window.__tangStreet.renderer.info.render.calls})')
+            data['loaded']=page.evaluate('() => ({assets:window.__tangStreet.loaded,models:window.__tangStreet.modelBounds,errors:window.__tangStreet.errors,pbrMeshes:window.__tangStreet.pbrMeshes,triangles:window.__tangStreet.renderer.info.render.triangles,drawCalls:window.__tangStreet.renderer.info.render.calls})')
+            if data['loaded']['pbrMeshes'] < 20:
+                raise AssertionError('CC0 shared PBR materials were not actually assigned to both GLBs')
             if len(data['loaded']['models'])<10:raise AssertionError('Less than 10 real model instances')
             architectural = [m for m in data['loaded']['models'] if any(s in m['name'] for s in ('双层','单层','院门'))]
             if len(architectural)!=3:raise AssertionError('Expected three distinct architectural mother assets')

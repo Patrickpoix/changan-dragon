@@ -32,3 +32,10 @@
 - 已用全新原创GLB **market-pavilion（独立单层开敞市场铺棚）**、**courtyard-gate（开敞院门+侧墙）** 分别替代之前三处重复双层木构中的两处；仍保留原一座双层木构作对照，三者确实是不同的3D三角网格，不是简单缩放/换色。
 - 原创源见 `tools/build_ward_architecture_studies.py`，哈希、面数和尺寸见 `assets/library/architecture/ward-archetypes/manifest.json`。两者暂为**结构和材料色彩研究级**，缺最终PBR/传统工艺细化与美术验收，不得声称4K电影级成品。
 - 新增 3D 模型全部提交GitHub main，正式游戏 `src/` 和运行资产不变；独立试片重检结果以 `qa-evidence/` 为准。
+
+## 共用PBR材质改进（2026-10-25，研究级）
+
+- 采用已经在GitHub入库的亭屋/院门原始GLB；不再为每种建筑保存重复嵌入纹理的GLB派生副本。
+- 浏览器按木构、石材、瓦面、灰泥四组规则，恢复缺失的法线并在原几何上生成世界比例UV，之后共享赋予CC0 PBR。输入来自 Poly Haven fine_grained_wood、grey_stone_path、clay_roof_tiles_02、clay_plaster 本地原件与对应许可凭据。
+- 母源木纹过黑，研究版在Canvas中独立调色；不覆盖原始贴图。纹理从本地素材库加载，允许以后保留4K/8K母源和分别构建KTX2/LOD。
+- UV/材质绑定和真实浏览器测试是技术条件；**造型、结构、院落与唐制审美仍未获得艺术审批**，禁止因为材质升级就批量替换正式城市。

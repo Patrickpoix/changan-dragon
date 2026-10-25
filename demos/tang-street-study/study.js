@@ -34,7 +34,14 @@ const paths={
  pavingRough:'/assets/library/production-materials/grey_stone_path/source/roughness_1k.jpg',
  earth:'/assets/library/production-materials/brown_mud_02/source/basecolor_1k.jpg',
  earthNormal:'/assets/library/production-materials/brown_mud_02/source/normal_1k.jpg',
- earthRough:'/assets/library/production-materials/brown_mud_02/source/roughness_1k.jpg'
+ earthRough:'/assets/library/production-materials/brown_mud_02/source/roughness_1k.jpg',
+ woodBase:'/assets/library/production-materials/fine_grained_wood/source/basecolor_1k.jpg',
+ woodNormal:'/assets/library/production-materials/fine_grained_wood/source/normal_1k.jpg',
+ woodRough:'/assets/library/production-materials/fine_grained_wood/source/roughness_1k.jpg',
+ roofNormal:'/assets/library/architecture/pbr/clay_roof_tiles_02/normal.jpg',
+ roofRough:'/assets/library/architecture/pbr/clay_roof_tiles_02/roughness.jpg',
+ plasterNormal:'/assets/library/architecture/pbr/clay_plaster/normal.jpg',
+ plasterRough:'/assets/library/architecture/pbr/clay_plaster/roughness.jpg'
 };
 const loader=new A.GLTFLoader(),texLoader=new T.TextureLoader();
 const records=[];
@@ -69,12 +76,83 @@ for(const side of [-1,1]){
 }
 const loaderError=e=>{const s=String(e?.message||e);window.__tangStreet.errors.push(s);progress.textContent='资源加载失败，请检查仓库实际文件';fatal.hidden=false;fatal.textContent=s};
 try{
- const [shop,pavilion,gate,tree,stool,basket,base,normal,rough,earth,earthNormal,earthRough]=await Promise.all([
+ const [shop,pavilion,gate,tree,stool,basket,base,normal,rough,earth,earthNormal,earthRough,
+   woodBase,woodNormal,woodRough,roofNormal,roofRough,plasterNormal,plasterRough]=await Promise.all([
  loader.loadAsync(paths.shop),loader.loadAsync(paths.pavilion),loader.loadAsync(paths.gate),
  loader.loadAsync(paths.tree),loader.loadAsync(paths.stool),loader.loadAsync(paths.basket),
  texLoader.loadAsync(paths.paving),texLoader.loadAsync(paths.pavingNormal),texLoader.loadAsync(paths.pavingRough),
- texLoader.loadAsync(paths.earth),texLoader.loadAsync(paths.earthNormal),texLoader.loadAsync(paths.earthRough)
+ texLoader.loadAsync(paths.earth),texLoader.loadAsync(paths.earthNormal),texLoader.loadAsync(paths.earthRough),
+ texLoader.loadAsync(paths.woodBase),texLoader.loadAsync(paths.woodNormal),texLoader.loadAsync(paths.woodRough),
+ texLoader.loadAsync(paths.roofNormal),texLoader.loadAsync(paths.roofRough),
+ texLoader.loadAsync(paths.plasterNormal),texLoader.loadAsync(paths.plasterRough)
  ]);
+ // Reuse one CC0 texture set across both original GLBs. Source geometry is never
+ // rewritten and desktop visual quality need not be capped by a mobile bundle.
+ const palette={
+  timber:[255,238,221], timber_lit:[255,244,223], beam_end:[255,230,193],
+  post:[255,213,184], bracket:[255,230,205], screens:[235,220,204],
+  shutter:[238,207,184],stone:[240,229,211],stone_dark:[196,187,176]
+ };
+ const family=(name)=>{
+  if(['timber','timber_lit','beam_end','post','bracket','screens','shutter'].includes(name))return 'wood';
+  if(['stone','stone_dark'].includes(name))return 'stone';
+  if(['roof','roof_alt','tile_joint'].includes(name))return 'roof';
+  if(['plaster','panel'].includes(name))return 'plaster';
+  return null;
+ };
+ const c=document.createElement('canvas');c.width=woodBase.image.width;c.height=woodBase.image.height;
+ const ctx=c.getContext('2d');if(!ctx)throw Error('Canvas 2D required for wood tone study');
+ ctx.filter='brightness(1.55)';ctx.drawImage(woodBase.image,0,0);
+ const brighterWood=new T.CanvasTexture(c);brighterWood.colorSpace=T.SRGBColorSpace;
+ const maps={
+  wood:{base:brighterWood,normal:woodNormal,rough:woodRough,scale:.85},
+  stone:{base:null,normal:null,rough:null,scale:1.3},
+  roof:{base:null,normal:roofNormal,rough:roofRough,scale:.68},
+  plaster:{base:null,normal:plasterNormal,rough:plasterRough,scale:1.5}
+ };
+ // Stone uses one shared source, not a duplicate GPU upload.
+ maps.stone.base=base;maps.stone.normal=normal;maps.stone.rough=rough;
+ for(const entries of Object.values(maps))
+  for(const texture of [entries.base,entries.normal,entries.rough])if(texture){
+   texture.wrapS=texture.wrapT=T.RepeatWrapping;
+   texture.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);
+  }
+ base.colorSpace=T.SRGBColorSpace;
+ const pbrMaterials=new Map();let pbrMeshes=0;
+ function applyModelPbr(model){
+  model.traverse(o=>{
+   if(!o.isMesh||Array.isArray(o.material))return;
+   const key=o.material.name,kind=family(key);if(!kind)return;
+   const g=o.geometry,p=g.getAttribute('position');
+   // The earlier authored GLBs contain complete faces but omit NORMAL in some
+   // primitives. Three can deterministically derive it; never fake UVs.
+   if(!g.getAttribute('normal'))g.computeVertexNormals();
+   const n=g.getAttribute('normal');
+   if(!p||!n||p.count!==n.count)throw Error('Invalid mesh for PBR UVs: '+key);
+   const uv=new Float32Array(p.count*2),unit=maps[kind].scale;
+   for(let i=0;i<p.count;i++){
+    const x=p.getX(i),y=p.getY(i),z=p.getZ(i);
+    const a=Math.abs(n.getX(i)),b=Math.abs(n.getY(i)),d=Math.abs(n.getZ(i));
+    const pair=a>=b&&a>=d?[z,y]:b>=d?[x,z]:[x,y];
+    uv[i*2]=pair[0]/unit;uv[i*2+1]=pair[1]/unit;
+   }
+   g.setAttribute('uv',new T.BufferAttribute(uv,2));
+   if(!pbrMaterials.has(key)){
+    const map=maps[kind],rgb=palette[key];
+    const opts={
+     color:rgb?new T.Color().setRGB(...rgb.map(v=>v/255),T.SRGBColorSpace):o.material.color.clone(),
+     map:map.base,normalMap:map.normal,roughnessMap:map.rough,
+     roughness:1,metalness:0,side:T.DoubleSide
+    };
+    const material=new T.MeshStandardMaterial(opts);
+    material.normalScale.set(kind==='roof'?.45:.28,kind==='roof'?.45:.28);
+    pbrMaterials.set(key,material);
+   }
+   o.material=pbrMaterials.get(key);pbrMeshes++;
+  });
+ }
+ applyModelPbr(pavilion.scene);applyModelPbr(gate.scene);
+ window.__tangStreet.pbrMeshes=pbrMeshes;
  mark(shop.scene,'timber-shop (research geometry, MIT bracket)');
  mark(pavilion.scene,'independent market pavilion study (original 3D geometry)');
  mark(gate.scene,'independent courtyard gate study (original 3D geometry)');
@@ -94,7 +172,8 @@ try{
  [[-7.9,18,2.1], [7.9,-18,2.0], [17,22,1.7]].forEach(([x,z,s],i)=>addCopy(tree.scene,'乔木 '+(i+1),x,z,i*1.37,s));
  [[-4.9,9.7],[-4.0,6.9],[5.2,-7.2]].forEach(([x,z],i)=>addCopy(stool.scene,'木凳 '+(i+1),x,z,i*.7));
  [[-4.3,9.4],[4.2,-7.9]].forEach(([x,z],i)=>addCopy(basket.scene,'篮篓 '+(i+1),x,z,i*.5));
- window.__tangStreet.loaded=[...records,'grey_stone_path CC0 PBR','brown_mud_02 CC0 PBR'];window.__tangStreet.ready=true;
+ window.__tangStreet.loaded=[...records,'grey_stone_path CC0 PBR','brown_mud_02 CC0 PBR',
+  'shared wood/stone/roof/plaster CC0 PBR, UV projected at runtime'];window.__tangStreet.ready=true;
  progress.textContent='已载入 '+records.length+'种GLB母体、真实泥土/石材PBR · 11处实物模型';
 }catch(e){loaderError(e);return;}
 const views={
