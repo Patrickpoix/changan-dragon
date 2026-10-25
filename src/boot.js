@@ -104,6 +104,7 @@
       'src/84-chime-details.js',
       'src/85-burner-lid.js',
       'src/86-burner-handle.js',
+      'src/87-burner-legs.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
