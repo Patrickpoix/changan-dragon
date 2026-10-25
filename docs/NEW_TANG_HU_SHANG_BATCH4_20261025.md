@@ -1,31 +1,31 @@
 # 新发现唐代胡商西域人物素材源清单（第四批）
 
-> 文档版本：v4.1
-> 日期：2026-10-25 15:11
-> 新发现的唐代胡商/西域人物/波斯商人/粟特人相关模型（补充3）
+> 文档版本：v4.2
+> 日期：2026-10-25 15:21
+> 新发现的唐代胡商/西域/波斯/阿拉伯/中亚商人相关模型（补充3）
 
 ---
 
-## 一、粟特骑手和骆驼
+## 一、免费古代波斯商人
 
-### Sketchfab - 粟特骑手和骆驼（唐代中国）
-- URL: https://sketchfab.com/3d-models/sogdian-rider-and-cameltang-dynasty-china-d0139fcb1402476187915c8206a1cdc5
-- 特点：粟特骑手和骆驼（唐代中国）
-
----
-
-## 二、免费古代波斯商人
-
-### Open3dModel - 古代波斯商人（免费）
-- URL: https://open3dmodel.com/es/3d-models/ancient-persian-merchant_29026.html
+### CadNav - 古代波斯商人（免费）
+- URL: https://www.cadnav.com/3d-models/model-39661.html
 - 特点：古代波斯商人3D模型
 
 ---
 
-## 三、下一步行动
-1. 下载Sketchfab粟特骑手和骆驼模型
-2. 参考唐代长安胡商设计：粟特人/波斯人/大食人/天竺人/日本人/新罗人/昆仑奴
+## 二、免费中东长袍男人
+
+### Sketchfab - 中东长袍男人（免费）
+- URL: https://sketchfab.com/3d-models/man-wearing-traditional-middle-eastern-robe-and-5dd496c1c138456189d90b4a04d7b005
+- 特点：穿着传统中东长袍的男人3D模型
 
 ---
 
-更新日期：2026-10-25 15:11
+## 三、下一步行动
+1. 下载CadNav免费古代波斯商人模型
+2. 参考唐代长安胡商设计：粟特商人/波斯商人/阿拉伯商人/天竺僧人/日本遣唐使/新罗留学生/昆仑奴/新罗婢
+
+---
+
+更新日期：2026-10-25 15:21
