@@ -149,6 +149,7 @@
       'src/130-dayanta.js',
       'src/131-xiaoyanta.js',
       'src/132-xingqing.js',
+      'src/133-taiji.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
