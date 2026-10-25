@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,"><title>龙游长安 · 西市坊内街段 · 模型试片</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#222b2d;font-family:system-ui,Arial,sans-serif;color:#f7f0dc}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+aside{position:fixed;top:14px;left:14px;background:#202724d8;border:1px solid #d9bd8666;border-radius:9px;padding:14px;max-width:370px;box-shadow:0 8px 24px #0004}
+h1{font-size:17px;margin:0 0 8px;font-weight:600;letter-spacing:.06em}p{font-size:12px;line-height:1.65;margin:7px 0;color:#dcd6c4}
+#progress{font-size:12px;line-height:1.6;color:#dfd49e}#metrics{font-size:12px;white-space:pre-wrap;line-height:1.5;color:#c8d1c7}
+.controls{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}button{min-height:36px;border-radius:5px;border:1px solid #b6a17f;background:#f2e8ce;color:#352e26;padding:6px 9px;cursor:pointer;font-size:12px}
+button[aria-pressed=true]{background:#a47243;color:white}#fatal{font-size:12px;white-space:pre-wrap;color:#ffadad}
+footer{position:fixed;bottom:12px;left:14px;font-size:12px;background:#202724bc;padding:8px 10px;border-radius:5px}
+@media(max-width:650px){aside{top:6px;left:6px;max-width:calc(100vw - 12px);padding:9px}h1{font-size:14px}footer{font-size:10px}}
+</style></head><body>
+<canvas id="view" aria-label="可交互3D街区场景"></canvas>
+<aside><h1>西市坊内街段 · 独立实景试片</h1>
+<p>基于仓库已有木构GLB、CC0真实树木/道具及PBR纹理。建筑为研究样板，未经唐代形制及最终电影美术验收；不是豆包丢失的原版。</p>
+<div id="progress">正在加载真实3D模型和纹理…</div><div id="fatal" hidden></div>
+<div class="controls"><button data-view="street" aria-pressed="true">街道视角</button><button data-view="quarter">斜俯</button><button data-view="roof">屋顶与院落</button><button data-view="detail">檐下近景</button></div>
+<div class="controls"><button id="lighting" aria-pressed="false">傍晚光线</button><button id="orbit" aria-pressed="false">自动环视</button></div>
+<p id="metrics"></p></aside>
+<footer>WASD漫游 · Shift快移 · 鼠标点击锁定视角 · Esc释放；独立研究试片，不修改正式游戏</footer>
+<script src="../../vendor/three.compat.min.js"></script>
+<script src="../../vendor/rendering-addons.js"></script>
+<script src="./study.js"></script>
+</body></html>
