@@ -92,6 +92,7 @@
       'src/72-pagoda-details.js',
       'src/73-ward-details.js',
       'src/74-xingqing-details.js',
+      'src/75-taiji-details.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
