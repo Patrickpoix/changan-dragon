@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "authoritativeSource": "tools/build_ward_architecture_studies.py",
+  "generatedWith": {
+    "trimesh": "5.2.0",
+    "numpy": "2.4.6"
+  },
+  "provenance": "Geometries exclusively authored for this project; historical literature informed typology only, no third-party meshes or illustrations reproduced.",
+  "workflow": "study only / browser validation required / cinematic approval denied until user visual signoff",
+  "models": [
+    {
+      "id": "market_pavilion",
+      "filename": "market-pavilion.glb",
+      "kind": "independent_3d_study",
+      "technicalReady": false,
+      "historicalVerified": false,
+      "cinematicApproved": false,
+      "dimensions_m": [
+        10.711,
+        5.845,
+        6.807
+      ],
+      "triangles": 34436,
+      "materialGroups": 13,
+      "authoredGeometryParts": 2147,
+      "sizeBytes": 851052,
+      "sha256": "102f8d94e002762c8bef91f58e01c68c4bab00ec12d330d4c6bee6bedd9b1437",
+      "license": "Original geometry authored for this repository; no third-party mesh copied",
+      "historicalNote": "Artist-authored market-space study; no claim of a precise Kaiyuan-Tianbao reconstruction."
+    },
+    {
+      "id": "courtyard_gate",
+      "filename": "courtyard-gate.glb",
+      "kind": "independent_3d_study",
+      "technicalReady": false,
+      "historicalVerified": false,
+      "cinematicApproved": false,
+      "dimensions_m": [
+        18.29,
+        6.725,
+        5.945
+      ],
+      "triangles": 45704,
+      "materialGroups": 13,
+      "authoredGeometryParts": 3078,
+      "sizeBytes": 1140600,
+      "sha256": "5c6085aac7602d5ce26119daff787f3ce881dc0c20c1be0718e68882cb6a282d",
+      "license": "Original geometry authored for this repository; no third-party mesh copied",
+      "historicalNote": "Ward-gate and compound-lane concept, derived from general ward boundary typology, not a specific excavated residence."
+    }
+  ]
+}
