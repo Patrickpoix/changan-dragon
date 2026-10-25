@@ -123,6 +123,7 @@
       'src/104-pedestal-steps.js',
       'src/105-plaque.js',
       'src/106-plaque-frame.js',
+      'src/107-plaque-hanger.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
