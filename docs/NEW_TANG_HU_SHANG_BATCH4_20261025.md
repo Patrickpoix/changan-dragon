@@ -1,32 +1,32 @@
 # 新发现唐代胡商西域人物素材源清单（第四批）
 
-> 文档版本：v4.3
-> 日期：2026-10-25 15:29
-> 新发现的唐代胡商/西域人物/粟特人/波斯人/阿拉伯人相关模型（补充4）
+> 文档版本：v4.4
+> 日期：2026-10-25 15:53
+> 新发现的唐代胡商/西域商人/波斯人/阿拉伯人/外国人相关模型（补充4）
 
 ---
 
-## 一、免费低多边形中东商人NPC
+## 一、中东商人男性角色
 
-### Sketchfab - 低多边形中东商人NPC（免费）
-- URL: https://sketchfab.com/3d-models/low-poly-middle-eastern-merchants-npc-f7627b98a48b493fbce8f68693b86a5e
-- 特点：低多边形中东商人NPC 3D模型
+### CGTrader - 中东商人男性角色
+- URL: https://www.cgtrader.com/3d-models/character/man/middle-eastern-merchant-male-character
+- 特点：中东商人男性角色3D模型
 
 ---
 
-## 二、波斯合集
+## 二、古代中东旅行者角色装备
 
-### Sketchfab - 波斯合集
-- URL: https://sketchfab.com/simiyaworld/collections/persian-3c3573029847404d81c0bddc12bd351f
-- 特点：波斯3D模型合集，96个模型
+### CGTrader - 古代中东旅行者角色装备
+- URL: https://www.cgtrader.com/3d-models/character/clothing/ancient-middle-eastern-traveler-character-gear
+- 特点：古代中东旅行者角色装备3D模型
 
 ---
 
 ## 三、下一步行动
-1. 下载Sketchfab免费低多边形中东商人NPC模型
-2. 下载Sketchfab波斯合集模型
-3. 参考唐代长安胡商设计：粟特人/波斯人/阿拉伯人/日本人/新罗人/昆仑奴/吐蕃人/突厥人
+1. 下载CGTrader中东商人男性角色模型
+2. 下载CGTrader古代中东旅行者角色装备模型
+3. 参考唐代长安胡商设计：粟特商人/波斯商人/阿拉伯商人/天竺商人/日本遣唐使/新罗留学生/昆仑奴/新罗婢
 
 ---
 
-更新日期：2026-10-25 15:29
+更新日期：2026-10-25 15:53
