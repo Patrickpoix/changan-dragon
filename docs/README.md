@@ -1,48 +1,49 @@
 # 龙游长安 · 文档索引
 
-> 核心文档请从以下入口阅读，历史文档已归档备查。
+> 最后更新：2026-10-26
 
-## 必读核心文档
+## 核心文档（必读）
 
 | 文档 | 说明 |
 |---|---|
-| `ARCHITECTURE.md`（根目录） | 全项目架构总览：技术栈/目录/系统/性能/待办 |
-| `demos/HANDOVER.md` | Demo交接文档：文件清单/接手指南 |
-| `DESIGN.md`（根目录） | 设计理念与风格指南 |
-| `README.md`（根目录） | 项目介绍与快速开始 |
-| `AGENTS.md`（根目录） | AI协作约束与规范 |
+| [PRODUCT_BRIEF.md](PRODUCT_BRIEF.md) | 产品目标与验收标准 |
+| [CONTINUE.md](CONTINUE.md) | 当前进度与下一步 |
+| [ENVIRONMENT.md](ENVIRONMENT.md) | 环境恢复与启动 |
+| [AGENTS.md](../AGENTS.md) | 新会话工作约定 |
+| [ARCHITECTURE.md](../ARCHITECTURE.md) | 全项目架构总览 |
+| [ROADMAP.md](../ROADMAP.md) | 开发路线图 |
 
-## 分类导航
+## 设计文档
 
-### 1. 城市规划与108坊
-- `108_FANG_COMPLETE_LIST_20261025.md` — 108坊完整列表
-- `108_FANG_DIFFERENTIATION_DETAIL_20261025.md` — 坊差异化细节
-- `108_FANG_FUNCTIONAL_ZONING_20261025.md` — 功能分区
-- `108_FANG_GENERATOR_SPEC_20261025.md` — 生成器规格
+| 文档 | 说明 |
+|---|---|
+| [DESIGN_FRAMEWORK.md](DESIGN_FRAMEWORK.md) | 总体设计框架 |
+| [FILM_STYLE_RESEARCH.md](FILM_STYLE_RESEARCH.md) | 影视风格研究（长安三万里/大理寺日志） |
+| [ART_STYLE_GUIDE.md](ART_STYLE_GUIDE.md) | 美术风格指南 |
 
-### 2. 美术与风格
-- `ART_STYLE_GUIDE_20261025.md` — 艺术风格指南
-- `ART_ASSET_EXECUTION.md` — 美术素材执行
-- `HIGH_QUALITY_GUOFENG_ASSETS_20261024.md` — 国风素材清单
+## 素材与资源
 
-### 3. 素材库
-- `ASSETS_INVENTORY_20261024.md` — 素材库存清单
-- `ASSET_COLLECTION_PLAN_20261025.md` — 素材采集计划
-- `ASSET_GAP_ANALYSIS_UPDATED_20261025.md` — 素材缺口分析
+| 文档 | 说明 |
+|---|---|
+| [ASSET_RESEARCH.md](ASSET_RESEARCH.md) | 素材调研 |
+| [asset-manifest.json](asset-manifest.json) | 素材清单 |
+| [resource-catalog.json](resource-catalog.json) | 资源目录（109条） |
+| [production-spec.json](production-spec.json) | 统一制作规格 |
+| [production-contracts.json](production-contracts.json) | 17族制作合同 |
 
-### 4. 游戏系统设计
-- `ACHIEVEMENT_SYSTEM_DESIGN_20261025.md` — 成就系统
-- `ACCESSIBILITY_DESIGN_20261025.md` — 无障碍设计
-- `OPEN_WORLD_ARCHITECTURE_20261025.md` — 开放世界架构
+## 开发与测试
 
-### 5. 引擎与技术
-- `ENGINE_SELECTION_20261025.md` — 引擎选型
-- `ADR_ARCHITECTURE_DECISIONS_20261025.md` — 架构决策记录
+| 文档 | 说明 |
+|---|---|
+| [QA.md](QA.md) | 浏览器验收 |
+| [PREPARATION_REVIEW.md](PREPARATION_REVIEW.md) | 准备审查 |
 
-### 6. 历史状态报告（已归档）
-- `STATUS_REPORT_V*_20261025.md` — 24版状态报告（已合并到ARCHITECTURE.md）
+## 已归档删除的文档
 
-## 清理说明
+以下冗余版本历史文档已删除（保留最新版）：
+- STATUS_REPORT V1-V24（24个版本）
+- STATUS_UPDATE V1-V11（11个版本）
+- 各种SUPPLEMENT补充文档（8个）
+- PROJECT_STATUS系列（6个）
 
-docs/目录下保留了开发过程中产生的历史文档。核心信息已整合到根目录的ARCHITECTURE.md和demos/HANDOVER.md中。
-后续可按需删除重复的STATUS_REPORT系列（V1-V24）。
+**共计删除49个冗余文档**，内容已整合到 CONTINUE.md 和 ROADMAP.md。
