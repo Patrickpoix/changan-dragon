@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "city": "唐长安城（隋大兴城）",
+    "generated": "2026-10-25",
+    "coordinateSystem": "考古坐标，原点在外郭城西南角，X东向正，Z北向正",
+    "threejsTransform": "worldX = archX; worldZ = -archZ",
+    "cityBounds": [0, 0, 9721, 8652],
+    "zhuqueAve": { "centerX": 4860, "width": 150 },
+    "wardCount": 108
+  },
+  "specialZones": [
+    { "name": "宫城(太极宫)", "type": "PALACE", "bbox": [3450, 7160, 6270, 8652] },
+    { "name": "皇城", "type": "IMPERIAL", "bbox": [3450, 5316, 6270, 7160] },
+    { "name": "大明宫", "type": "DAMING", "bbox": [5200, 7800, 9800, 10600] },
+    { "name": "曲江池", "type": "QUJIANG", "bbox": [8000, 0, 9600, 1400] },
+    { "name": "朱雀大街", "type": "ROAD", "bbox": [4785, 0, 4935, 5316], "note": "150m宽中轴线天街" }
+  ],
+  "wards_sample": [
+    { "id": 0, "name": "务本坊", "type": "L", "bbox": [4985, 4876, 5710, 5281], "center": [5347, 5078], "side": "east", "seed": 10137, "note": "国子监/太学所在" },
+    { "id": 1, "name": "平康坊", "type": "I", "bbox": [5770, 4876, 6495, 5281], "center": [6132, 5078], "side": "east", "seed": 10274, "note": "北门附近妓馆聚集，新进士游宴之地" },
+    { "id": 6, "name": "东市", "type": "F", "bbox": [6555, 4876, 7280, 5281], "center": [6917, 5078], "side": "east", "isMarket": true, "seed": 10959, "note": "都会市，占2坊地" },
+    { "id": 12, "name": "晋昌坊", "type": "E", "bbox": [4985, 4441, 5710, 4846], "center": [5347, 4643], "side": "east", "isTemple": true, "hasPagoda": true, "seed": 11641, "note": "大慈恩寺/大雁塔占半坊" },
+    { "id": 48, "name": "西市", "type": "G", "bbox": [3040, 4441, 3765, 4846], "center": [3402, 4643], "side": "west", "isMarket": true, "isHui": true, "seed": 16577, "note": "利人市，丝路国际贸易中心" },
+    { "id": 54, "name": "开化坊", "type": "E", "bbox": [4030, 4876, 4755, 5281], "center": [4392, 5078], "side": "west", "isTemple": true, "hasPagoda": true, "seed": 17419, "note": "大荐福寺/小雁塔占半坊" },
+    { "id": 55, "name": "靖善坊", "type": "D", "bbox": [3310, 4876, 4030, 5281], "center": [3670, 5078], "side": "west", "isTemple": true, "seed": 17556, "note": "大兴善寺占整坊" }
+  ],
+  "note": "完整108坊数据请运行 node generate_layout.js 重新生成。此文件仅含meta+specialZones+示例坊。"
+}
