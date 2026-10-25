@@ -87,6 +87,7 @@
       'src/67-zhuque-details.js',
       'src/68-daming-details.js',
       'src/69-market-details.js',
+      'src/70-qujiang-details.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
