@@ -106,6 +106,7 @@
       'src/86-burner-handle.js',
       'src/87-burner-legs.js',
       'src/88-burner-knob.js',
+      'src/89-burner-base.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
