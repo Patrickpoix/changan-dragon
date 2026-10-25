@@ -1,0 +1,16 @@
+{
+  "area": "eastMarket",
+  "name": "东市（都会市）",
+  "bbox": [5800, 4500, 6724, 5340],
+  "size": {"w": 924, "d": 840, "note": "皇城东南，高档商业区"},
+  "objects": [
+    {"name": "市楼", "pos": [6262, 0, 4920], "type": "market_tower", "scale": 1.3},
+    {"name": "南市门", "pos": [6262, 0, 4500], "type": "gate"},
+    {"name": "北市门", "pos": [6262, 0, 5340], "type": "gate", "rotY": 180},
+    {"name": "珠宝行", "pos": [6050, 0, 4920], "type": "luxury_shop", "sign": "珠宝行"},
+    {"name": "绢帛铺", "pos": [6150, 0, 4920], "type": "luxury_shop", "sign": "蜀锦绢帛"},
+    {"name": "酒肆", "pos": [6262, 0, 4700], "type": "wine_shop", "sign": "新丰酒肆"},
+    {"name": "邸店", "pos": [5950, 0, 5150], "type": "warehouse"}
+  ],
+  "notes": "东市附近多权贵宅邸，奢侈品消费为主：珠宝绢帛上药乐器。邸店兼仓储旅舍。唐人谓东市富贵。"
+}

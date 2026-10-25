@@ -1,0 +1,15 @@
+{
+  "area": "westMarket",
+  "name": "西市（利人市）",
+  "bbox": [3000, 4500, 3924, 5340],
+  "size": {"w": 924, "d": 840, "note": "皇城西南，丝绸之路国际贸易中心"},
+  "objects": [
+    {"name": "市楼", "pos": [3462, 0, 4920], "type": "market_tower", "scale": 1.3},
+    {"name": "波斯邸", "pos": [3150, 0, 5150], "type": "sogdian_warehouse", "scale": 1.4, "note": "粟特商队存货居留"},
+    {"name": "胡姬酒肆", "pos": [3350, 0, 4920], "type": "wine_shop", "sign": "波斯胡姬酒肆"},
+    {"name": "胡饼店", "pos": [3462, 0, 4700], "type": "shop", "sign": "胡饼炉"},
+    {"name": "骆驼队", "pos": [3462, 0, 4550], "type": "animal_group", "count": 5},
+    {"name": "马行", "pos": [3750, 0, 5150], "type": "horse_market"}
+  ],
+  "notes": "西市近开远门（丝路起点），国际贸易中心：波斯邸粟特商队胡姬酒肆胡椒香药于阗玉突厥马。李白笑入胡姬酒肆中。"
+}

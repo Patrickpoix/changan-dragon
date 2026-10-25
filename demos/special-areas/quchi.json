@@ -1,0 +1,14 @@
+{
+  "area": "quchi",
+  "name": "曲江池+芙蓉园",
+  "bbox": [8000, 0, 9600, 1400],
+  "objects": [
+    {"name": "曲江池水面", "pos": [8800, 0, 700], "type": "lake", "rx": 400, "rz": 700},
+    {"name": "紫云楼", "pos": [8800, 0, 150], "type": "main_pavilion", "scale": 1.5, "note": "天子赐宴进士处"},
+    {"name": "彩霞亭", "pos": [8400, 0, 1100], "type": "pavilion"},
+    {"name": "画舫", "pos": [8600, 0.3, 700], "type": "boat"},
+    {"name": "荷花", "type": "instanced", "count": 120},
+    {"name": "柳树", "type": "instanced", "count": 60}
+  ],
+  "notes": "曲江池东南隅公共园林，东西800m南北1400m。新进士杏园探花宴、雁塔题名。三月三日曲江滨车水马龙。"
+}
