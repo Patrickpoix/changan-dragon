@@ -1,0 +1,42 @@
+{
+  "task": "Tang West Market inner-lane independent 3D assembly study",
+  "verifiedGitHubMain": "07760d727f90a1fda51a682948cd3381a540d278",
+  "verification": {
+    "softwareBrowser": "Chromium SwiftShader, 1600x900",
+    "actualGLBSourceCount": 4,
+    "pbrSourceFamilies": 2,
+    "loadedModelInstances": 11,
+    "triangleCount": 534011,
+    "drawCalls": 82,
+    "walkMovedMetres": 1.25,
+    "interactiveViews": [
+      "street",
+      "quarter",
+      "roof",
+      "detail"
+    ],
+    "dayNightToggle": true,
+    "consoleErrors": 0,
+    "httpErrors": 0,
+    "technicalStatus": "pass"
+  },
+  "artisticReview": {
+    "status": "NOT_ACCEPTED",
+    "findings": [
+      "Three repeated copies of the same timber-shop art prototype, no distinct mature Tang residential/shop silhouettes",
+      "Very sparse surroundings, incomplete back courtyards, no populated street life or vegetation layering",
+      "Research PBR ground and scaled research trees are not approved historically or visually",
+      "Original tree source exists; derivative runtime GLB is not the film-grade production source",
+      "No licensed Tang-clothed human actors, physically grounded flowing water, or cinema-quality lighting/atmosphere"
+    ],
+    "noCityMerge": true
+  },
+  "provenance": "Repository-original research timber GLB (MIT bracket notice) plus verified CC0 Poly Haven tree, stool, basket, grey-stone and brown-mud sources. No unlicensed external downloaded assets.",
+  "caution": "No RTX4060 hardware benchmark, no Tang archaeological reconstruction proof, no final art approval. JPEG evidence converted from actual Playwright PNG screenshots without changing rendered scene.",
+  "screenshots": [
+    "street.jpg",
+    "quarter.jpg",
+    "roof.jpg",
+    "detail.jpg"
+  ]
+}
