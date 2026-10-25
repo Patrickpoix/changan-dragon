@@ -40,19 +40,20 @@ def run():
             if data['loaded']['triangles']<100000:raise AssertionError('Unexpected empty/highly simplified scene')
             if data['loaded']['errors']:raise AssertionError(data['loaded']['errors'])
             for view in ['street','quarter','roof','detail','pavilion','gate']:
-                page.get_by_role('button',name={'street':'街道视角','quarter':'斜俯','roof':'屋顶与院落','detail':'檐下近景','pavilion':'铺棚近景','gate':'院门近景'}[view]).click()
+                page.locator(f'button[data-view="{view}"]').click(timeout=20000)
+                assert page.locator(f'button[data-view="{view}"]').get_attribute('aria-pressed') == 'true', f'{view} view did not activate'
                 page.wait_for_timeout(600)
                 path=OUT/(view+'.png')
                 page.screenshot(path=str(path),animations='disabled')
                 data['views'][view]={'camera':page.evaluate('window.__tangStreet.camera.position.toArray()'),'screenshot':path.name}
-            page.get_by_role('button',name='街道视角').click()
+            page.locator('button[data-view="street"]').click(timeout=20000)
             start=page.evaluate('window.__tangStreet.camera.position.toArray()')
             page.keyboard.down('w');page.wait_for_timeout(1500);page.keyboard.up('w')
             after=page.evaluate('window.__tangStreet.camera.position.toArray()')
             data['movement']={'before':start,'after':after}
             assert math.dist(start,after)>.8,'WASD camera did not move even after low-frame compensation'
-            page.get_by_role('button',name='傍晚光线').click()
-            data['dusk']=page.get_by_role('button',name='正午光线').count()==1
+            page.locator('#lighting').click(timeout=20000)
+            data['dusk']=page.locator('#lighting').get_attribute('aria-pressed') == 'true'
             assert data['dusk']
             if data['exceptions'] or data['http_errors']:raise AssertionError('Browser errors')
             browser.close()
