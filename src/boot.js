@@ -67,6 +67,7 @@
       'src/47-cinematic-light.js',
       'src/48-advanced-water.js',
       'src/49-shadow-enhance.js',
+      'src/50-atmospheric.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
