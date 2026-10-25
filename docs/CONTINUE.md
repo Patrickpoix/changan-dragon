@@ -1,5 +1,12 @@
 # 当前续做记录（2026-10-24）
 
+## 2026-10-25：资源生命周期与流式发布内存安全（跨会话验证）
+
+- GitHub main 提交 `fabd3179b0ddd091450a1bd28c14dfa8a74afb51`：继续使用现有 `demos/shared/resource-registry.mjs`，**不建立第二套AssetRegistry**。为异步获取者设置独立lease：区块已退出时，其尚未完成的获取返回 `AbortError`；其他区块仍持有引用时继续共享同一个加载/解码结果，最后使用者才释放资源。更新对应回归测试。
+- 现有 `tools/build_shared_web_assets.py` 将整文件 `read_bytes` 改为**1MiB分块SHA-256及复制**；临时文件先关闭、验明哈希再发布为内容哈希URL，兼容Windows。既不减面、降分辨率，也不改变高精母版。测试使用14,155,776B的合成资产，两次引用仅输出一份对象，避免重复发布14,155,776B；**该数值不是正式游戏实际节省量**。
+- 从远端 `main` 全新稀疏检出后验证：Node资源生命周期6/6，Python去重构建4/4，工作区无待提交文件。此处是功能正确性和限额内存算法验证，**尚未测用户RTX4060的GPU内存/帧率，也未将资源池统一接入正式`src/`、`dist/`、全部GLB/KTX2流水线**。禁止把当前独立试验称为正式游戏已优化完成。
+
+
 ## 2026-10-25：跨区块共享资源与HTTP发布按字节去重（技术验证通过）
 
 - 独立技术Demo的公共资源池（demos/shared/resource-registry.mjs）已接入city-viewer及integrated：按资源ID复用几何/材质，并发加载去重、加载取消、失败重试、按区块引用计数与最后使用者释放；5项Node测试通过。Chromium软件浏览器在3→10/15个区块之间切换时仅持有8个公共GPU对象；退出全部区域引用归零且释放8个，回来后只重建一套8个。实际记录见 demos/qa-evidence/shared-registry-20261025/results.json。
