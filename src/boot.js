@@ -98,6 +98,7 @@
       'src/78-street-details.js',
       'src/79-furniture-details.js',
       'src/80-lion-details.js',
+      'src/81-stele-details.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
