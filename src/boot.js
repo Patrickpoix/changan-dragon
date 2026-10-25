@@ -112,6 +112,7 @@
       'src/92-burner-vent.js',
       'src/93-lug-support.js',
       'src/94-foot-pad.js',
+      'src/95-lid-rim.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
