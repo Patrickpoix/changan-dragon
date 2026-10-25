@@ -145,6 +145,7 @@
       'src/126-real-water.js',
       'src/127-tang-vegetation.js',
       'src/128-city-life.js',
+      'src/129-wall-refine.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
