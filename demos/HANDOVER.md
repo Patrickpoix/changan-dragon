@@ -1,32 +1,41 @@
-# 云电脑工作交接文档
+# 龙游长安 Demo 交接文档
 
-> 生成时间：2026-10-25  
-> 仓库：Patrickpoix/changan-dragon  
-> 云电脑工作目录：`/home/user/Doubao/chats/38447987101661954/new-assets/`
+> 仓库：Patrickpoix/changan-dragon (main)
+> 更新：2026-10-25
 
-## 已推送到 main 的文件
+## 已推送到 GitHub 的完整文件清单
 
 ### demos/zhuque-walkable/
-- `index.html` — 朱雀大街1km可走Demo（自包含，CDN加载Three r160）
-  - 150m宽 x 1000m长大街、坊墙、坊门、商铺、行道树(InstancedMesh)
-  - 50个NPC、马车、灯笼、雨粒子、昼夜循环
-  - WASD第三人称控制，直接浏览器打开即跑
+- `index.html` — 朱雀大街1km可走Demo（自包含CDN版，浏览器直接打开）
 
 ### demos/ward-generator/
 - `generate_ward.js` — 单坊程序化生成器（mulberry32种子化PRNG）
 - `generate_city.js` — 全城108坊批量生成器
+- `generate_layout.js` — 108坊布局生成器（考古坐标）
+- `data/wards.json` — 坊布局定义（meta+示例，完整数据运行生成器）
+- `data/city_index.json` — 城市索引（12门+关键坊）
 
 ### demos/npc-crowd/
-- `index.html` / `package.json` — NPC群集Demo骨架
+- `index.html` / `package.json` / `vite.config.js`
+- `src/main.js` — 500 NPC LOD系统（InstancedMesh+SkinnedMesh池）
+- `REPORT.md` — NPC群集技术报告
 
 ### demos/daming-palace/
-- `index.html` / `package.json` / `vite.config.js` — 大明宫Demo骨架
+- `index.html` / `package.json` / `vite.config.js`
+- `src/main.js` — 大明宫场景（含元殿/麟德殿/太液池，WASD飞行控制）
+- `data/damingPalace.json` — 大明宫布局数据
 
 ### demos/sky-weather/
-- `index.html` / `package.json` / `vite.config.js` — 天空天气Demo骨架
+- `index.html` / `package.json` / `vite.config.js`
+- `src/main.js` — 主入口（昼夜循环+天气切换）
+- `src/particles/Particles.js` — 雨/雪/落叶/花瓣粒子系统
+- `src/scenes/DayNightCycle.js` — 24h昼夜循环控制器
+- `src/scenes/DemoScene.js` — 演示场景（建筑+树+灯笼）
 
 ### demos/postprocessing/
-- `index.html` / `package.json` / `vite.config.js` — 后处理Demo骨架
+- `index.html` / `package.json` / `vite.config.js`
+- `src/post/Composer.js` — 电影级后处理管线（SSAO+Bloom+Vignette+FXAA）
+- `src/post/LUTs.js` — 程序化电影LUT（4套预设）
 
 ### demos/integrated/
 - `index.html` / `package.json` — 1km²片区整合Demo骨架
@@ -35,38 +44,30 @@
 - `index.html` / `package.json` / `vite.config.js` — 全城流加载Viewer骨架
 
 ### demos/special-areas/
-- `gates.json` — 外郭城12门坐标
+- `gates.json` / `damingPalace.json` / `eastMarket.json` / `westMarket.json` / `quchi.json`
 
-## 云电脑上仍存在但未推送的文件
+## 云电脑上仍存在但未推送的大文件
 
-### engine-poc/zhuque-demo/dist/（96MB）
-- 完整版朱雀大街Demo，含GLB模型和PBR纹理
-- Tang_*.glb — 唐代建筑模型
-- Xbot.glb (2.8MB) — 带走路动画的人物
-- road_*.jpg / wall_*.jpg — PBR纹理
-- sky.hdr (17MB) — HDRI环境光照
-- src/main.js (20KB) — Vite版完整源码
+### 二进制资产（需git LFS）
+- `engine-poc/zhuque-demo/dist/assets/*.glb` — 唐代建筑模型
+- `Xbot.glb` (2.8MB) — 带走路动画人物
+- `road_*.jpg` / `wall_*.jpg` — PBR纹理
+- `sky.hdr` (17MB) — HDRI环境光照
 
-### ward-generator/output/（22MB）
-- wards_all/ward_*.json — 105个坊生成结果
-- city_index.json (57KB) / wards.json (60KB)
+### 未推送的源码
+- `postprocessing-demo/src/main.js` (29KB)
+- `integrated-demo/src/main.js` (23KB)
+- `city-viewer/src/main.js` (27KB)
+- `engine-poc/zhuque-demo/src/main.js` (20KB)
 
-### 其他Demo
-- daming-palace-demo/ — 大明宫场景源码和数据
-- city-viewer/public/chunks/ — 全城分块JSON（300+文件）
-- sky-weather-demo/src/ — 天空Shader和粒子系统
-- postprocessing-demo/src/ — 后处理管线
-- npc-crowd-demo/src/main.js — 500 NPC LOD系统
-- integrated-demo/src/main.js — 整合Demo
+### 大数据
+- `ward-generator/output/wards_all/` — 105个坊JSON
+- `city-viewer/public/chunks/` — 全城分块JSON
 
-### 第三方素材库（不需推送到游戏仓库）
-- categorized/ (2.6GB) / forbidden-city-3d/ (436MB) / ez-tree/ / ocean/ / artifacts/
+## 接手步骤
 
-## 后续接手步骤
-
-1. 先读 `docs/FACT_CHECK_AND_RECTIFICATION_20261025.md`
-2. 云电脑 `new-assets/` 目录包含所有工作成果
-3. 继续推送各Demo的 src/main.js 到对应 demos/ 目录
-4. 大文件通过git LFS或批量上传
-5. 正式游戏引擎在 src/ 下（Three.js r160），Demo用r169
-6. 约束：免费$0素材、不覆盖src/正式代码、Demo放demos/目录
+1. 先读这个文档和 `docs/FACT_CHECK_AND_RECTIFICATION_20261025.md`
+2. 跑起来：`cd demos/zhuque-walkable && python3 -m http.server 8080`
+3. 正式游戏引擎在 `src/` 下（Three.js r160），Demo用r169
+4. 108坊数据运行 `node demos/ward-generator/generate_layout.js` 重新生成
+5. 约束：免费$0素材、不覆盖src/正式代码、Demo放demos/目录
