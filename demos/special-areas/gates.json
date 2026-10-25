@@ -1,0 +1,19 @@
+{
+  "area": "gates",
+  "name": "外郭城十二城门",
+  "gates": [
+    { "name": "明德门", "pos": [4860, 0], "side": "S", "type": "main_gate", "scale": 1.8 },
+    { "name": "安化门", "pos": [3100, 0], "side": "S", "type": "gate", "scale": 1.2 },
+    { "name": "启夏门", "pos": [6620, 0], "side": "S", "type": "gate", "scale": 1.2 },
+    { "name": "通化门", "pos": [9721, 6500], "side": "E", "type": "gate", "scale": 1.2 },
+    { "name": "春明门", "pos": [9721, 4300], "side": "E", "type": "gate", "scale": 1.2 },
+    { "name": "延兴门", "pos": [9721, 2000], "side": "E", "type": "gate", "scale": 1.2 },
+    { "name": "开远门", "pos": [0, 6500], "side": "W", "type": "gate", "scale": 1.2 },
+    { "name": "金光门", "pos": [0, 4300], "side": "W", "type": "gate", "scale": 1.2 },
+    { "name": "延平门", "pos": [0, 2000], "side": "W", "type": "gate", "scale": 1.2 },
+    { "name": "景耀门", "pos": [3900, 8652], "side": "N", "type": "north_gate", "scale": 1.1 },
+    { "name": "玄武门", "pos": [4860, 8652], "side": "N", "type": "north_gate", "scale": 1.3 },
+    { "name": "芳林门", "pos": [5800, 8652], "side": "N", "type": "north_gate", "scale": 1.1 }
+  ],
+  "note": "考古坐标X东Z北，原点西南。明德门五门道遗址已发掘。"
+}
