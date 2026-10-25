@@ -18,8 +18,9 @@
 | 文档 | 说明 |
 |---|---|
 | [DESIGN_FRAMEWORK.md](DESIGN_FRAMEWORK.md) | 总体设计框架 |
-| [FILM_STYLE_RESEARCH.md](FILM_STYLE_RESEARCH.md) | 影视风格研究（长安三万里/大理寺日志） |
+| [FILM_STYLE_RESEARCH.md](FILM_STYLE_RESEARCH.md) | 影视风格研究 |
 | [ART_STYLE_GUIDE.md](ART_STYLE_GUIDE.md) | 美术风格指南 |
+| [ART_ASSET_EXECUTION.md](ART_ASSET_EXECUTION.md) | 美术资产生成执行 |
 
 ## 素材与资源
 
@@ -38,12 +39,19 @@
 | [QA.md](QA.md) | 浏览器验收 |
 | [PREPARATION_REVIEW.md](PREPARATION_REVIEW.md) | 准备审查 |
 
-## 已归档删除的文档
+## 已清理的冗余文档
 
-以下冗余版本历史文档已删除（保留最新版）：
-- STATUS_REPORT V1-V24（24个版本）
+以下冗余版本历史文档已删除（内容已整合到 CONTINUE.md 和 ROADMAP.md）：
+
+- STATUS_REPORT V1-V24（23个版本）
 - STATUS_UPDATE V1-V11（11个版本）
 - 各种SUPPLEMENT补充文档（8个）
 - PROJECT_STATUS系列（6个）
+- ACHIEVEMENT/ACKNOWLEDGMENTS冗余（5个）
+- ASSET_GAP系列冗余（3个）
+- 108_FANG设计文档版本（8个）
+- 其他带日期的零散设计文档（11个）
 
-**共计删除49个冗余文档**，内容已整合到 CONTINUE.md 和 ROADMAP.md。
+**共计删除75个冗余文档**，docs/目录从1000个文件精简至~925个。
+
+剩余带日期的文档为各阶段的设计研究记录，保留供参考。
