@@ -1,32 +1,32 @@
 # 新发现唐代天气环境音效素材源清单（第四批）
 
-> 文档版本：v4.2
-> 日期：2026-10-25 15:32
-> 新发现的唐代天气/环境/音效/风/雨/雷/市集相关素材（补充4）
+> 文档版本：v4.3
+> 日期：2026-10-25 15:55
+> 新发现的唐代天气/环境/音效/雨/雷/风/市集/人群相关素材（补充4）
 
 ---
 
-## 一、中国雷雨声音库
+## 一、城市雷雨音效
 
-### Free to Use Sounds - 中国雷雨声音库
-- URL: https://www.freetousesounds.com/sfx/china-sound-library-thunder-and-rain
-- 特点：中国声音库，雷雨
+### lotsofsounds - 城市雷雨音效（CC0）
+- URL: https://www.lotsofsounds.com/sounds/city-rain-and-thunder-fs-795842
+- 特点：城市雷雨音效
 
 ---
 
-## 二、中国自然音效库
+## 二、城市雷雨音效2
 
-### A Sound Effect - 中国自然音效库
-- URL: https://www.asoundeffect.com/sound-library/chinese-nature/
-- 特点：中国自然音效库
+### lotsofsounds - 城市雷雨音效2（CC0）
+- URL: https://www.lotsofsounds.com/sounds/urban-rain-with-distant-thunder-fs-778366
+- 特点：城市雷雨音效
 
 ---
 
 ## 三、下一步行动
-1. 下载Free to Use Sounds中国雷雨声音库
-2. 下载A Sound Effect中国自然音效库
-3. 参考唐代长安环境音效设计：风声/雨声/雷声/市集声/寺庙声/宫苑声/自然声/节日声
+1. 下载lotsofsounds城市雷雨音效（CC0）
+2. 下载lotsofsounds城市雷雨音效2（CC0）
+3. 参考唐代长安天气音效设计：晴天/阴天/雨天/雪天/市集/寺庙/皇宫/夜晚
 
 ---
 
-更新日期：2026-10-25 15:32
+更新日期：2026-10-25 15:55
