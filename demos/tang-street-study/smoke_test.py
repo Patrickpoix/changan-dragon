@@ -39,8 +39,8 @@ def run():
                 raise AssertionError('New original GLB building files did not load')
             if data['loaded']['triangles']<100000:raise AssertionError('Unexpected empty/highly simplified scene')
             if data['loaded']['errors']:raise AssertionError(data['loaded']['errors'])
-            for view in ['street','quarter','roof','detail']:
-                page.get_by_role('button',name={'street':'街道视角','quarter':'斜俯','roof':'屋顶与院落','detail':'檐下近景'}[view]).click()
+            for view in ['street','quarter','roof','detail','pavilion','gate']:
+                page.get_by_role('button',name={'street':'街道视角','quarter':'斜俯','roof':'屋顶与院落','detail':'檐下近景','pavilion':'铺棚近景','gate':'院门近景'}[view]).click()
                 page.wait_for_timeout(600)
                 path=OUT/(view+'.png')
                 page.screenshot(path=str(path),animations='disabled')

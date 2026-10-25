@@ -101,7 +101,9 @@ const views={
  street:{pos:[0,3.1,28],at:[0,3,-12]},
  quarter:{pos:[27,17,25],at:[0,4,-5]},
  roof:{pos:[3,37,17],at:[0,0,-5]},
- detail:{pos:[-3,4.3,12],at:[-11,5,8]}
+ detail:{pos:[-3,4.3,12],at:[-11,5,8]},
+ pavilion:{pos:[-2.2,4.2,-5],at:[11,2.7,-6]},
+ gate:{pos:[2.2,4.8,-24],at:[-11,3.2,-23]}
 };
 let yaw=0,pitch=0,auto=false,dusk=false,t=0;
 const keys=new Set();
