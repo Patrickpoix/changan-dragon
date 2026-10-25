@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "city": "唐长安城",
+    "generated": "2026-10-25",
+    "cityBounds": [0, 0, 9721, 8652],
+    "citySize": { "w": 9721, "d": 8652 },
+    "wardCount": 108,
+    "generatedWards": 105,
+    "skippedWards": 3
+  },
+  "zhuqueAvenue": { "name": "朱雀大街", "centerX": 4860, "width": 150, "length": 5316 },
+  "gates": [
+    { "name": "明德门", "pos": [4860, 0], "type": "south", "note": "正南门，五门道" },
+    { "name": "启夏门", "pos": [8000, 0], "type": "south" },
+    { "name": "安化门", "pos": [1721, 0], "type": "south" },
+    { "name": "春明门", "pos": [9721, 4326], "type": "east" },
+    { "name": "延兴门", "pos": [9721, 2163], "type": "east" },
+    { "name": "通化门", "pos": [9721, 6489], "type": "east" },
+    { "name": "金光门", "pos": [0, 4326], "type": "west" },
+    { "name": "延平门", "pos": [0, 2163], "type": "west" },
+    { "name": "开远门", "pos": [0, 6489], "type": "west", "note": "丝路起点" },
+    { "name": "芳林门", "pos": [3450, 8652], "type": "north" },
+    { "name": "景耀门", "pos": [4860, 8652], "type": "north" },
+    { "name": "宫城北门", "pos": [6270, 8652], "type": "north" }
+  ],
+  "keyWards": {
+    "东市": { "center": [6262, 4920], "type": "F", "note": "奢侈品商业" },
+    "西市": { "center": [3462, 4920], "type": "G", "note": "国际贸易胡商" },
+    "平康坊": { "center": [6132, 5078], "type": "I", "note": "娱乐红灯区" },
+    "晋昌坊": { "center": [5347, 4643], "type": "E", "note": "大慈恩寺大雁塔" },
+    "开化坊": { "center": [4392, 5078], "type": "E", "note": "大荐福寺小雁塔" },
+    "靖善坊": { "center": [3670, 5078], "type": "D", "note": "大兴善寺" },
+    "曲江池": { "center": [8800, 700], "type": "J", "note": "公共园林" }
+  },
+  "note": "完整索引请运行 node generate_city.js 重新生成"
+}
