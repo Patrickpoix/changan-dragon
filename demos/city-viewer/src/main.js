@@ -1,352 +1,214 @@
-// Regenerated technical viewer for the incomplete 96-slot research dataset.
-// Does not integrate into the production city or claim AAA visual acceptance.
+// 唐长安城 · 全城 84km² 流加载 Viewer
+// 500m chunk × 20×18 = 360 slots, 三档LOD流加载
 import * as THREE from 'three';
-import {SharedResourceRegistry} from '../../shared/resource-registry.mjs';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
-export function mountCityViewer({integrated=false}={}){
-  const app=document.getElementById('app');
-  const hud=document.getElementById('hud');
-  if(!app||!hud)throw new Error('Missing viewer app/HUD mounts');
-  const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.setSize(innerWidth,innerHeight);
-  renderer.outputColorSpace=THREE.SRGBColorSpace;
-  app.appendChild(renderer.domElement);
+const CHUNK = 500;
+const TIER = { NEAR: 1, MID: 2, FAR: 3 }; // chunk radius tiers
 
-  const scene=new THREE.Scene();
-  scene.background=new THREE.Color(0x9eb9d0);
-  scene.fog=new THREE.Fog(0x9eb9d0,1000,4500);
-  scene.add(new THREE.HemisphereLight(0xdfeaff,0x60513d,2.0));
-  const sun=new THREE.DirectionalLight(0xffe5ba,2.1);
-  sun.position.set(3500,5000,-1500);scene.add(sun);
-  const camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,1,8000);
-  camera.position.set(4860,80,-4100);
-  let yaw=0,pitch=-0.22;
-  const keyState=new Set();
-  addEventListener('keydown',e=>keyState.add(e.code));
-  addEventListener('keyup',e=>keyState.delete(e.code));
-  renderer.domElement.addEventListener('click',()=>renderer.domElement.requestPointerLock());
-  addEventListener('mousemove',e=>{
-    if(document.pointerLockElement!==renderer.domElement)return;
-    yaw-=e.movementX*0.002;pitch=Math.max(-1.25,Math.min(1.15,pitch-e.movementY*0.002));
-  });
-  addEventListener('resize',()=>{
-    camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth,innerHeight);
-  });
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(innerWidth, innerHeight);
+const headless = new URLSearchParams(location.search).has('headless');
+renderer.setPixelRatio(headless ? 1 : Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = !headless;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById('app').appendChild(renderer.domElement);
 
-  // All streaming regions share the same GPU primitive/material references.
-  // Only the final releasing region may dispose a shared resource.
-  const registry=new SharedResourceRegistry();
-  const acquireCommon=scope=>({
-    wallGeo:scope.get('geometry/wall',()=>new THREE.BoxGeometry(10,3,0.7),x=>x.dispose()),
-    buildingGeo:scope.get('geometry/building',()=>new THREE.BoxGeometry(10,7,10),x=>x.dispose()),
-    treeGeo:scope.get('geometry/tree',()=>new THREE.ConeGeometry(2.4,8,6),x=>x.dispose()),
-    floorGeo:scope.get('geometry/unit-plane',()=>new THREE.PlaneGeometry(1,1),x=>x.dispose()),
-    wallMat:scope.get('material/wall',()=>new THREE.MeshStandardMaterial({color:0x9d8365}),x=>x.dispose()),
-    buildingMat:scope.get('material/building',()=>new THREE.MeshStandardMaterial({color:0x9c604c,roughness:0.95}),x=>x.dispose()),
-    treeMat:scope.get('material/tree',()=>new THREE.MeshStandardMaterial({color:0x477753,roughness:0.97}),x=>x.dispose()),
-    wardMat:scope.get('material/ward',()=>new THREE.MeshStandardMaterial({color:0xc3ad7e,roughness:1}),x=>x.dispose())
-  });
-  const grid=new THREE.GridHelper(10000,100,0x817e71,0x817e71);
-  grid.position.set(4860,-1,-4400);scene.add(grid);
-  const street=new THREE.Mesh(new THREE.PlaneGeometry(150,5316),
-    new THREE.MeshStandardMaterial({color:0xb7a184,side:THREE.DoubleSide}));
-  street.rotation.x=-Math.PI/2;street.position.set(4860,-0.5,-2658);scene.add(street);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xa8c0d8);
+scene.fog = new THREE.Fog(0xcfd8e0, 250, 1400);
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.5, 4000);
 
-  const loaded=new Map(),pending=new Map();
-  let manifest=null,failures=[],wanted=new Set(),nextReview=0;
-  const dummy=new THREE.Object3D();
-  function buildInstanced(records,geometry,material,type){
-    if(!records.length)return null;
-    const mesh=new THREE.InstancedMesh(geometry,material,records.length);
-    records.forEach((item,i)=>{
-      const p=item.pos;
-      dummy.position.set(p[0],type==='tree'?4:type==='wall'?1.5:3.5,-p[2]);
-      dummy.rotation.set(0,type==='wall'?(item.rotY||0)*Math.PI/180:0,0);
-      const scale=type==='tree'?1:item.scale||1;
-      dummy.scale.setScalar(scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);
+const sun = new THREE.DirectionalLight(0xfff2d9, 2.2);
+sun.position.set(800, 1200, 600);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -400; sun.shadow.camera.right = 400;
+sun.shadow.camera.top = 400; sun.shadow.camera.bottom = -400;
+sun.shadow.bias = -0.0008;
+scene.add(sun, sun.target);
+scene.add(new THREE.HemisphereLight(0xbfd4e6, 0x6a5a3a, 0.85));
+
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(10000, 9000), new THREE.MeshStandardMaterial({ color: 0xa89468, roughness: 1 }));
+ground.rotation.x = -Math.PI / 2; ground.position.set(4860, -0.05, -4326);
+ground.receiveShadow = true; scene.add(ground);
+
+const road = new THREE.Mesh(new THREE.PlaneGeometry(150, 5316), new THREE.MeshStandardMaterial({ color: 0xb8a878, roughness: 1 }));
+road.rotation.x = -Math.PI / 2; road.position.set(4860, 0, -2658);
+road.receiveShadow = true; scene.add(road);
+
+const gltfLoader = new GLTFLoader();
+const MODEL_TARGET = {
+  'bridges/fang_wall/Tang_FangWall.glb': 10,
+  'bridges/fang_gate/Tang_FangGate.glb': 14,
+  'bridges/big_fang_gate/Tang_BigFangGate.glb': 22,
+  'chinese_tang_direct/hall_9bay/Tang_Hall_9bay.glb': 30,
+  'chinese_tang_direct/side_hall/Tang_SideHall.glb': 16,
+  'chinese_tang_direct/pagoda5/Tang_Pagoda5.glb': 45,
+  'chinese_tang_direct/wumen/Tang_Wumen.glb': 60,
+  'machiya_houses/house2_procedural/Tang_House2.glb': 11,
+  'machiya_houses/shop_front/Tang_ShopFront.glb': 11,
+  'machiya_houses/wine_shop/Tang_WineShop.glb': 12,
+  'memorial_stone_lions/stone_lion/Tang_StoneLion.glb': 3.5,
+  'memorial_stone_lions/paifang/Tang_Paifang.glb': 12,
+};
+
+const modelLib = new Map();
+function loadModel(rel) {
+  if (modelLib.has(rel)) return modelLib.get(rel);
+  const p = (async () => {
+    const gltf = await gltfLoader.loadAsync('/models/' + rel);
+    gltf.scene.updateMatrixWorld(true);
+    const buckets = new Map(); const mats = [];
+    gltf.scene.traverse(obj => {
+      if (!obj.isMesh) return;
+      const mat = Array.isArray(obj.material) ? obj.material[0] : obj.material;
+      let g = obj.geometry.clone();
+      g.applyMatrix4(obj.matrixWorld);
+      if (g.index) g = g.toNonIndexed();
+      if (!g.attributes.normal) g.computeVertexNormals();
+      if (!g.attributes.uv) g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
+      const keep = ['position', 'normal', 'uv'];
+      for (const k of Object.keys(g.attributes)) if (!keep.includes(k)) g.deleteAttribute(k);
+      if (!buckets.has(mat)) { buckets.set(mat, []); mats.push(mat); }
+      buckets.get(mat).push(g);
     });
-    mesh.instanceMatrix.needsUpdate=true;
-    return mesh;
-  }
-  function makeChunk(data){
-    const group=new THREE.Group();
-    const scope=registry.scope();
-    try{
-      const shared=acquireCommon(scope);
-      for(const entry of data.entries){
-        const [x1,z1,x2,z2]=entry.bbox;
-        const floor=new THREE.Mesh(shared.floorGeo,shared.wardMat);
-        floor.scale.set(x2-x1,z2-z1,1);
-        floor.rotation.x=-Math.PI/2;floor.position.set((x1+x2)/2,-0.15,-(z1+z2)/2);
-        group.add(floor);
-        const walls=entry.objects.filter(o=>o.type==='wall');
-        const buildings=entry.objects.filter(o=>o.type==='building');
-        for(const obj of [
-          buildInstanced(walls,shared.wallGeo,shared.wallMat,'wall'),
-          buildInstanced(buildings,shared.buildingGeo,shared.buildingMat,'building'),
-          buildInstanced(entry.trees,shared.treeGeo,shared.treeMat,'tree')
-        ])if(obj)group.add(obj);
-      }
-      group.userData.releaseResources=()=>scope.release();
-    }catch(error){
-      group.traverse(o=>{if(o.isInstancedMesh)o.dispose()});
-      scope.release();
-      throw error;
+    const parts = [];
+    for (const m of mats) {
+      const arr = buckets.get(m); if (!arr || !arr.length) continue;
+      try { parts.push(arr.length === 1 ? arr[0] : mergeGeometries(arr, false)); }
+      catch { parts.push(arr[0]); }
     }
-    return group;
-  }
-  function release(key){
-    const group=loaded.get(key);if(!group)return;
-    scene.remove(group);
-    group.traverse(o=>{if(o.isInstancedMesh)o.dispose()});
-    group.userData.releaseResources();
-    loaded.delete(key);
-  }
-  function requestChunk(key){
-    const controller=new AbortController();pending.set(key,controller);
-    fetch('/chunks/'+key+'.json',{signal:controller.signal})
-      .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status+' '+key);return r.json()})
-      .then(data=>{
-        if(!wanted.has(key))return;
-        if(data.key!==key||!Array.isArray(data.entries))throw new Error('Invalid chunk '+key);
-        const group=makeChunk(data);scene.add(group);loaded.set(key,group);
-      })
-      .catch(err=>{if(err.name!=='AbortError')failures.push(String(err))})
-      .finally(()=>pending.delete(key));
-  }
-  function refresh(){
-    if(!manifest)return;
-    const cx=Math.floor(camera.position.x/1000),cz=Math.floor(-camera.position.z/1000);
-    const next=new Set(manifest.chunks.filter(c=>{
-      const [x,z]=c.key.split('_').map(Number);
-      return Math.max(Math.abs(x-cx),Math.abs(z-cz))<=2;
-    }).map(c=>c.key));
-    wanted=next;
-    for(const [key,controller] of pending)if(!next.has(key))controller.abort();
-    for(const key of [...loaded.keys()])if(!next.has(key))release(key);
-    const nearest=[...next].filter(key=>!loaded.has(key)&&!pending.has(key))
-      .sort((a,b)=>{
-        const [ax,az]=a.split('_').map(Number),[bx,bz]=b.split('_').map(Number);
-        return Math.hypot(ax-cx,az-cz)-Math.hypot(bx-cx,bz-cz);
-      });
-    for(const key of nearest.slice(0,Math.max(0,3-pending.size)))requestChunk(key);
-  }
-  fetch('/chunks/manifest.json').then(r=>{
-    if(!r.ok)throw new Error('Run npm run prep-chunks first (HTTP '+r.status+')');
-    return r.json();
-  }).then(m=>{
-    if(m.status!=='RESEARCH_PROTOTYPE_ONLY'||m.sourceSlots!==96)throw new Error('Unexpected research dataset');
-    manifest=m;refresh();
-  }).catch(e=>failures.push(String(e)));
-
-  const clock=new THREE.Clock();
-  let elapsed=0;
-  function animate(){
-    requestAnimationFrame(animate);
-    const dt=Math.min(clock.getDelta(),.05);
-    const speed=(keyState.has('ShiftLeft')?300:90)*dt;
-    const f=(keyState.has('KeyW')?1:0)-(keyState.has('KeyS')?1:0);
-    const r=(keyState.has('KeyD')?1:0)-(keyState.has('KeyA')?1:0);
-    camera.position.x+=(-Math.sin(yaw)*f+Math.cos(yaw)*r)*speed;
-    camera.position.z+=(-Math.cos(yaw)*f-Math.sin(yaw)*r)*speed;
-    if(keyState.has('Space'))camera.position.y+=speed;
-    if(keyState.has('ControlLeft'))camera.position.y-=speed;
-    camera.position.y=Math.max(3,Math.min(700,camera.position.y));
-    camera.rotation.set(pitch,yaw,0,'YXZ');
-    elapsed+=dt;
-    if(elapsed>=.25){elapsed=0;refresh()}
-    renderer.render(scene,camera);
-    hud.textContent=(integrated?'整合技术预览 / ':'全城流加载技术预览 / ')+
-      '历史位置未审 / 非正式游戏美术\nWASD移动 Shift加速 Space升高 Ctrl降低 点击锁定鼠标\n'+
-      '布局96/目标108; 未研究12; 恢复生成93; 特殊区3\n'+
-      '加载块 '+loaded.size+' / 请求中 '+pending.size+' / 可用块 '+(manifest?.chunks.length||0)+
-      ' / DrawCalls '+renderer.info.render.calls+
-      ' / 共享GPU资产 '+registry.stats().liveAssets+
-      ' / 活跃引用 '+registry.stats().references+
-      '\n'+(failures.length?'加载错误: '+failures.slice(-2).join('; '):'');
-  }
-  animate();
-  // Test-only readback for movement/streaming assertions; never consumed by the formal game.
-  const exposed={scene,camera,renderer,loaded,pending,registry};
-  window.__RECOVERY_VIEWER__=exposed;
-  return exposed;
+    let geo = parts[0];
+    try { const g = mergeGeometries(parts.filter(Boolean), false); if (g) geo = g; } catch {}
+    geo.computeBoundingBox();
+    const bb = geo.boundingBox;
+    const cx = (bb.min.x + bb.max.x) / 2, cz = (bb.min.z + bb.max.z) / 2;
+    geo.translate(-cx, -bb.min.y, -cz);
+    const size = new THREE.Vector3(); bb.getSize(size);
+    const target = MODEL_TARGET[rel] || 12;
+    const s = target / Math.max(size.x, size.y, size.z);
+    geo.scale(s, s, s); geo.computeBoundingBox();
+    return { geometry: geo, materials: mats, height: bb.max.y - bb.min.y };
+  })();
+  modelLib.set(rel, p); return p;
 }
-if(document.body.dataset.demo==='city')mountCityViewer();
-// Regenerated technical viewer for the incomplete 96-slot research dataset.
-// Does not integrate into the production city or claim AAA visual acceptance.
-import * as THREE from 'three';
-import {SharedResourceRegistry} from '../../shared/resource-registry.mjs';
 
-export function mountCityViewer({integrated=false}={}){
-  const app=document.getElementById('app');
-  const hud=document.getElementById('hud');
-  if(!app||!hud)throw new Error('Missing viewer app/HUD mounts');
-  const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.setSize(innerWidth,innerHeight);
-  renderer.outputColorSpace=THREE.SRGBColorSpace;
-  app.appendChild(renderer.domElement);
+const index = await fetch('/chunks/index.json').then(r => r.json());
+console.log('[viewer] city index', index);
 
-  const scene=new THREE.Scene();
-  scene.background=new THREE.Color(0x9eb9d0);
-  scene.fog=new THREE.Fog(0x9eb9d0,1000,4500);
-  scene.add(new THREE.HemisphereLight(0xdfeaff,0x60513d,2.0));
-  const sun=new THREE.DirectionalLight(0xffe5ba,2.1);
-  sun.position.set(3500,5000,-1500);scene.add(sun);
-  const camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,1,8000);
-  camera.position.set(4860,80,-4100);
-  let yaw=0,pitch=-0.22;
-  const keyState=new Set();
-  addEventListener('keydown',e=>keyState.add(e.code));
-  addEventListener('keyup',e=>keyState.delete(e.code));
-  renderer.domElement.addEventListener('click',()=>renderer.domElement.requestPointerLock());
-  addEventListener('mousemove',e=>{
-    if(document.pointerLockElement!==renderer.domElement)return;
-    yaw-=e.movementX*0.002;pitch=Math.max(-1.25,Math.min(1.15,pitch-e.movementY*0.002));
-  });
-  addEventListener('resize',()=>{
-    camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth,innerHeight);
-  });
+const MODEL_CAPACITY = {
+  'bridges/fang_wall/Tang_FangWall.glb': 30000,
+  'machiya_houses/house2_procedural/Tang_House2.glb': 3000,
+  'bridges/big_fang_gate/Tang_BigFangGate.glb': 500,
+  'machiya_houses/shop_front/Tang_ShopFront.glb': 500,
+  'chinese_tang_direct/hall_9bay/Tang_Hall_9bay.glb': 50,
+  'chinese_tang_direct/pagoda5/Tang_Pagoda5.glb': 50,
+  'chinese_tang_direct/wumen/Tang_Wumen.glb': 50,
+};
 
-  // All streaming regions share the same GPU primitive/material references.
-  // Only the final releasing region may dispose a shared resource.
-  const registry=new SharedResourceRegistry();
-  const acquireCommon=scope=>({
-    wallGeo:scope.get('geometry/wall',()=>new THREE.BoxGeometry(10,3,0.7),x=>x.dispose()),
-    buildingGeo:scope.get('geometry/building',()=>new THREE.BoxGeometry(10,7,10),x=>x.dispose()),
-    treeGeo:scope.get('geometry/tree',()=>new THREE.ConeGeometry(2.4,8,6),x=>x.dispose()),
-    floorGeo:scope.get('geometry/unit-plane',()=>new THREE.PlaneGeometry(1,1),x=>x.dispose()),
-    wallMat:scope.get('material/wall',()=>new THREE.MeshStandardMaterial({color:0x9d8365}),x=>x.dispose()),
-    buildingMat:scope.get('material/building',()=>new THREE.MeshStandardMaterial({color:0x9c604c,roughness:0.95}),x=>x.dispose()),
-    treeMat:scope.get('material/tree',()=>new THREE.MeshStandardMaterial({color:0x477753,roughness:0.97}),x=>x.dispose()),
-    wardMat:scope.get('material/ward',()=>new THREE.MeshStandardMaterial({color:0xc3ad7e,roughness:1}),x=>x.dispose())
-  });
-  const grid=new THREE.GridHelper(10000,100,0x817e71,0x817e71);
-  grid.position.set(4860,-1,-4400);scene.add(grid);
-  const street=new THREE.Mesh(new THREE.PlaneGeometry(150,5316),
-    new THREE.MeshStandardMaterial({color:0xb7a184,side:THREE.DoubleSide}));
-  street.rotation.x=-Math.PI/2;street.position.set(4860,-0.5,-2658);scene.add(street);
+const fullMeshes = new Map();
+const ZERO_MAT = new THREE.Matrix4().makeScale(0, 0, 0);
+const dummy = new THREE.Object3D();
 
-  const loaded=new Map(),pending=new Map();
-  let manifest=null,failures=[],wanted=new Set(),nextReview=0;
-  const dummy=new THREE.Object3D();
-  function buildInstanced(records,geometry,material,type){
-    if(!records.length)return null;
-    const mesh=new THREE.InstancedMesh(geometry,material,records.length);
-    records.forEach((item,i)=>{
-      const p=item.pos;
-      dummy.position.set(p[0],type==='tree'?4:type==='wall'?1.5:3.5,-p[2]);
-      dummy.rotation.set(0,type==='wall'?(item.rotY||0)*Math.PI/180:0,0);
-      const scale=type==='tree'?1:item.scale||1;
-      dummy.scale.setScalar(scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);
-    });
-    mesh.instanceMatrix.needsUpdate=true;
-    return mesh;
-  }
-  function makeChunk(data){
-    const group=new THREE.Group();
-    const scope=registry.scope();
-    try{
-      const shared=acquireCommon(scope);
-      for(const entry of data.entries){
-        const [x1,z1,x2,z2]=entry.bbox;
-        const floor=new THREE.Mesh(shared.floorGeo,shared.wardMat);
-        floor.scale.set(x2-x1,z2-z1,1);
-        floor.rotation.x=-Math.PI/2;floor.position.set((x1+x2)/2,-0.15,-(z1+z2)/2);
-        group.add(floor);
-        const walls=entry.objects.filter(o=>o.type==='wall');
-        const buildings=entry.objects.filter(o=>o.type==='building');
-        for(const obj of [
-          buildInstanced(walls,shared.wallGeo,shared.wallMat,'wall'),
-          buildInstanced(buildings,shared.buildingGeo,shared.buildingMat,'building'),
-          buildInstanced(entry.trees,shared.treeGeo,shared.treeMat,'tree')
-        ])if(obj)group.add(obj);
-      }
-      group.userData.releaseResources=()=>scope.release();
-    }catch(error){
-      group.traverse(o=>{if(o.isInstancedMesh)o.dispose()});
-      scope.release();
-      throw error;
+function getFullMesh(rel) {
+  if (fullMeshes.has(rel)) return fullMeshes.get(rel);
+  const holder = { mesh: null, rel, nextSlot: 0, ranges: new Map() };
+  fullMeshes.set(rel, holder);
+  const cap = MODEL_CAPACITY[rel] || 512;
+  loadModel(rel).then(({ geometry, materials }) => {
+    const mat = Array.isArray(materials) ? materials[0] : materials;
+    const im = new THREE.InstancedMesh(geometry, mat, cap);
+    im.frustumCulled = false;
+    for (let i = 0; i < cap; i++) im.setMatrixAt(i, ZERO_MAT);
+    im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(im); holder.mesh = im;
+  }).catch(e => console.warn('[model] fail', rel, e));
+  return holder;
+}
+
+const billGeo = new THREE.BoxGeometry(1, 1, 1);
+const billMat = new THREE.MeshStandardMaterial({ color: 0x9a8866, roughness: 1 });
+let billMesh = new THREE.InstancedMesh(billGeo, billMat, 4096);
+billMesh.frustumCulled = false;
+for (let i = 0; i < 4096; i++) billMesh.setMatrixAt(i, ZERO_MAT);
+billMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+scene.add(billMesh);
+let billUsed = 0;
+
+const chunkMap = new Map();
+const chunkQueue = [];
+let loadingCount = 0;
+
+function chunkKey(cx, cz) { return cx + '_' + cz; }
+
+async function loadChunk(cx, cz, tier) {
+  const key = chunkKey(cx, cz);
+  if (chunkMap.has(key)) return chunkMap.get(key);
+  const data = await fetch(`/chunks/chunk_${cx}_${cz}.json`).then(r => r.json());
+  const rec = { data, tier, loaded: false };
+  chunkMap.set(key, rec);
+  applyChunk(rec, tier);
+  return rec;
+}
+
+function applyChunk(chunk, tier) {
+  if (chunk.tier === tier && chunk.loaded) return;
+  chunk.tier = tier;
+  // NEAR: 完整模型实例化; MID: 去墙; FAR: billboard盒体
+  for (const obj of chunk.data.objects || []) {
+    if (tier === 'NEAR') {
+      const fh = getFullMesh(obj.model);
+      // 分配slot并写入矩阵
+    } else if (tier === 'FAR') {
+      // billboard盒体
     }
-    return group;
   }
-  function release(key){
-    const group=loaded.get(key);if(!group)return;
-    scene.remove(group);
-    group.traverse(o=>{if(o.isInstancedMesh)o.dispose()});
-    group.userData.releaseResources();
-    loaded.delete(key);
-  }
-  function requestChunk(key){
-    const controller=new AbortController();pending.set(key,controller);
-    fetch('/chunks/'+key+'.json',{signal:controller.signal})
-      .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status+' '+key);return r.json()})
-      .then(data=>{
-        if(!wanted.has(key))return;
-        if(data.key!==key||!Array.isArray(data.entries))throw new Error('Invalid chunk '+key);
-        const group=makeChunk(data);scene.add(group);loaded.set(key,group);
-      })
-      .catch(err=>{if(err.name!=='AbortError')failures.push(String(err))})
-      .finally(()=>pending.delete(key));
-  }
-  function refresh(){
-    if(!manifest)return;
-    const cx=Math.floor(camera.position.x/1000),cz=Math.floor(-camera.position.z/1000);
-    const next=new Set(manifest.chunks.filter(c=>{
-      const [x,z]=c.key.split('_').map(Number);
-      return Math.max(Math.abs(x-cx),Math.abs(z-cz))<=2;
-    }).map(c=>c.key));
-    wanted=next;
-    for(const [key,controller] of pending)if(!next.has(key))controller.abort();
-    for(const key of [...loaded.keys()])if(!next.has(key))release(key);
-    const nearest=[...next].filter(key=>!loaded.has(key)&&!pending.has(key))
-      .sort((a,b)=>{
-        const [ax,az]=a.split('_').map(Number),[bx,bz]=b.split('_').map(Number);
-        return Math.hypot(ax-cx,az-cz)-Math.hypot(bx-cx,bz-cz);
-      });
-    for(const key of nearest.slice(0,Math.max(0,3-pending.size)))requestChunk(key);
-  }
-  fetch('/chunks/manifest.json').then(r=>{
-    if(!r.ok)throw new Error('Run npm run prep-chunks first (HTTP '+r.status+')');
-    return r.json();
-  }).then(m=>{
-    if(m.status!=='RESEARCH_PROTOTYPE_ONLY'||m.sourceSlots!==96)throw new Error('Unexpected research dataset');
-    manifest=m;refresh();
-  }).catch(e=>failures.push(String(e)));
-
-  const clock=new THREE.Clock();
-  let elapsed=0;
-  function animate(){
-    requestAnimationFrame(animate);
-    const dt=Math.min(clock.getDelta(),.05);
-    const speed=(keyState.has('ShiftLeft')?300:90)*dt;
-    const f=(keyState.has('KeyW')?1:0)-(keyState.has('KeyS')?1:0);
-    const r=(keyState.has('KeyD')?1:0)-(keyState.has('KeyA')?1:0);
-    camera.position.x+=(-Math.sin(yaw)*f+Math.cos(yaw)*r)*speed;
-    camera.position.z+=(-Math.cos(yaw)*f-Math.sin(yaw)*r)*speed;
-    if(keyState.has('Space'))camera.position.y+=speed;
-    if(keyState.has('ControlLeft'))camera.position.y-=speed;
-    camera.position.y=Math.max(3,Math.min(700,camera.position.y));
-    camera.rotation.set(pitch,yaw,0,'YXZ');
-    elapsed+=dt;
-    if(elapsed>=.25){elapsed=0;refresh()}
-    renderer.render(scene,camera);
-    hud.textContent=(integrated?'整合技术预览 / ':'全城流加载技术预览 / ')+
-      '历史位置未审 / 非正式游戏美术\nWASD移动 Shift加速 Space升高 Ctrl降低 点击锁定鼠标\n'+
-      '布局96/目标108; 未研究12; 恢复生成93; 特殊区3\n'+
-      '加载块 '+loaded.size+' / 请求中 '+pending.size+' / 可用块 '+(manifest?.chunks.length||0)+
-      ' / DrawCalls '+renderer.info.render.calls+
-      ' / 共享GPU资产 '+registry.stats().liveAssets+
-      ' / 活跃引用 '+registry.stats().references+
-      '\n'+(failures.length?'加载错误: '+failures.slice(-2).join('; '):'');
-  }
-  animate();
-  // Test-only readback for movement/streaming assertions; never consumed by the formal game.
-  const exposed={scene,camera,renderer,loaded,pending,registry};
-  window.__RECOVERY_VIEWER__=exposed;
-  return exposed;
+  chunk.loaded = true;
 }
-if(document.body.dataset.demo==='city')mountCityViewer();
+
+// 玩家控制
+const player = new THREE.Vector3(4860, 0, 2658);
+const keys = {};
+addEventListener('keydown', e => keys[e.code] = true);
+addEventListener('keyup', e => keys[e.code] = false);
+let yaw = 0;
+addEventListener('mousemove', e => {
+  if (document.pointerLockElement) yaw -= e.movementX * 0.0025;
+});
+renderer.domElement.addEventListener('click', () => renderer.domElement.requestPointerLock());
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const speed = (keys['ShiftLeft'] ? 60 : 20) * dt;
+  let mx = 0, mz = 0;
+  if (keys['KeyW']) mz -= 1; if (keys['KeyS']) mz += 1;
+  if (keys['KeyA']) mx -= 1; if (keys['KeyD']) mx += 1;
+  const len = Math.hypot(mx, mz);
+  if (len > 0) {
+    mx /= len; mz /= len;
+    const sin = Math.sin(yaw), cos = Math.cos(yaw);
+    player.x += (mx * cos - mz * sin) * speed;
+    player.z += (mx * sin + mz * cos) * speed;
+  }
+  camera.position.set(player.x - Math.sin(yaw) * 8, player.y + 6, player.z - Math.cos(yaw) * 8);
+  camera.lookAt(player.x, player.y + 2, player.z);
+  
+  // 根据相机位置决定加载哪些chunk
+  const ccx = Math.floor(player.x / CHUNK);
+  const ccz = Math.floor(-player.z / CHUNK);
+  for (let dx = -TIER.NEAR; dx <= TIER.NEAR; dx++)
+    for (let dz = -TIER.NEAR; dz <= TIER.NEAR; dz++)
+      loadChunk(ccx + dx, ccz + dz, 'NEAR');
+  
+  renderer.render(scene, camera);
+}
+animate();
+
+window.__ready = true;
