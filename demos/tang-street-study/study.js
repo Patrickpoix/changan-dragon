@@ -24,6 +24,8 @@ const env=pmrem.fromScene(envSource,.035);
 scene.environment=env.texture;pmrem.dispose();envSource.dispose();
 const paths={
  shop:'/assets/library/architecture/timber-shop/runtime.glb',
+ pavilion:'/assets/library/architecture/ward-archetypes/market-pavilion.glb',
+ gate:'/assets/library/architecture/ward-archetypes/courtyard-gate.glb',
  tree:'/assets/library/polyhaven/tree_small_02/runtime.glb',
  stool:'/assets/library/polyhaven/chinese_stool/runtime.glb',
  basket:'/assets/library/polyhaven/wicker_basket_01/runtime.glb',
@@ -67,12 +69,15 @@ for(const side of [-1,1]){
 }
 const loaderError=e=>{const s=String(e?.message||e);window.__tangStreet.errors.push(s);progress.textContent='资源加载失败，请检查仓库实际文件';fatal.hidden=false;fatal.textContent=s};
 try{
- const [shop,tree,stool,basket,base,normal,rough,earth,earthNormal,earthRough]=await Promise.all([
- loader.loadAsync(paths.shop),loader.loadAsync(paths.tree),loader.loadAsync(paths.stool),loader.loadAsync(paths.basket),
+ const [shop,pavilion,gate,tree,stool,basket,base,normal,rough,earth,earthNormal,earthRough]=await Promise.all([
+ loader.loadAsync(paths.shop),loader.loadAsync(paths.pavilion),loader.loadAsync(paths.gate),
+ loader.loadAsync(paths.tree),loader.loadAsync(paths.stool),loader.loadAsync(paths.basket),
  texLoader.loadAsync(paths.paving),texLoader.loadAsync(paths.pavingNormal),texLoader.loadAsync(paths.pavingRough),
  texLoader.loadAsync(paths.earth),texLoader.loadAsync(paths.earthNormal),texLoader.loadAsync(paths.earthRough)
  ]);
  mark(shop.scene,'timber-shop (research geometry, MIT bracket)');
+ mark(pavilion.scene,'independent market pavilion study (original 3D geometry)');
+ mark(gate.scene,'independent courtyard gate study (original 3D geometry)');
  mark(tree.scene,'tree_small_02 CC0 runtime derivative');
  mark(stool.scene,'chinese_stool CC0');
  mark(basket.scene,'wicker_basket_01 CC0');
@@ -81,16 +86,16 @@ try{
  stoneBase.map=base;stoneBase.normalMap=normal;stoneBase.roughnessMap=rough;stoneBase.normalScale=new T.Vector2(.45,.45);stoneBase.needsUpdate=true;
  for(const tex of [earth,earthNormal,earthRough]){tex.wrapS=tex.wrapT=T.RepeatWrapping;tex.repeat.set(4,14);tex.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8)}
  earth.colorSpace=T.SRGBColorSpace;earthBase.map=earth;earthBase.normalMap=earthNormal;earthBase.roughnessMap=earthRough;earthBase.normalScale=new T.Vector2(.55,.55);earthBase.needsUpdate=true;
- const shops=[
- ['南侧铺面A',-11,8,Math.PI/2],['北侧铺面B',11,-6,-Math.PI/2],
- ['街口铺面C',-11,-23,Math.PI/2]
- ];
- shops.forEach(([name,x,z,r])=>addCopy(shop.scene,name,x,z,r));
+ // Distinct geometry fingerprints: two-storey hip timber shop vs. single-storey
+ // open gabled market pavilion vs. courtyard gate with walled entrance.
+ addCopy(shop.scene,'双层木构铺面研究',-11,8,Math.PI/2);
+ addCopy(pavilion.scene,'单层开敞市场铺棚研究',11,-6,-Math.PI/2);
+ addCopy(gate.scene,'院门侧墙研究',-11,-23,Math.PI/2);
  [[-7.9,18,2.1], [7.9,-18,2.0], [17,22,1.7]].forEach(([x,z,s],i)=>addCopy(tree.scene,'乔木 '+(i+1),x,z,i*1.37,s));
  [[-4.9,9.7],[-4.0,6.9],[5.2,-7.2]].forEach(([x,z],i)=>addCopy(stool.scene,'木凳 '+(i+1),x,z,i*.7));
  [[-4.3,9.4],[4.2,-7.9]].forEach(([x,z],i)=>addCopy(basket.scene,'篮篓 '+(i+1),x,z,i*.5));
  window.__tangStreet.loaded=[...records,'grey_stone_path CC0 PBR','brown_mud_02 CC0 PBR'];window.__tangStreet.ready=true;
- progress.textContent='已载入 '+records.length+'种GLB母体及石材PBR纹理 · 11处实物模型';
+ progress.textContent='已载入 '+records.length+'种GLB母体、真实泥土/石材PBR · 11处实物模型';
 }catch(e){loaderError(e);return;}
 const views={
  street:{pos:[0,3.1,28],at:[0,3,-12]},

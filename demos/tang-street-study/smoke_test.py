@@ -31,6 +31,12 @@ def run():
             page.wait_for_timeout(1300)
             data['loaded']=page.evaluate('() => ({assets:window.__tangStreet.loaded,models:window.__tangStreet.modelBounds,errors:window.__tangStreet.errors,triangles:window.__tangStreet.renderer.info.render.triangles,drawCalls:window.__tangStreet.renderer.info.render.calls})')
             if len(data['loaded']['models'])<10:raise AssertionError('Less than 10 real model instances')
+            architectural = [m for m in data['loaded']['models'] if any(s in m['name'] for s in ('双层','单层','院门'))]
+            if len(architectural)!=3:raise AssertionError('Expected three distinct architectural mother assets')
+            if len({tuple(round(b-a,1) for a,b in zip(m['min'],m['max'])) for m in architectural})!=3:
+                raise AssertionError('Buildings have suspiciously identical world-space bounding boxes')
+            if not all(any(marker in x for x in data['loaded']['assets']) for marker in ['market pavilion','courtyard gate']):
+                raise AssertionError('New original GLB building files did not load')
             if data['loaded']['triangles']<100000:raise AssertionError('Unexpected empty/highly simplified scene')
             if data['loaded']['errors']:raise AssertionError(data['loaded']['errors'])
             for view in ['street','quarter','roof','detail']:

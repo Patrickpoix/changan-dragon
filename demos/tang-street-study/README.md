@@ -26,3 +26,9 @@
 ## 2026-10-25 实景初审与修正
 
 首次真实浏览器截图确认模型可用，但建筑母体重复、近景树木偏小、石砌街道与盛唐市巷假设不匹配，**美术状态未通过**。修正后道路主面采用已有Poly Haven CC0 `brown_mud_02` 原始1K basecolor/normal/roughness，`grey_stone_path` 仅用于两侧窄步道。树木统一等比调整（不修改源GLB）。强制软件渲染下帧率低，漫游时间步长的最大截断从50ms调整为250ms；这不是RTX性能验收，也不代表渲染预算已经解决。既有三栋同母体店铺仍然需要独立高完成度造型替换，禁止批量进入全城。
+
+## 2026-10-25 两种不同建筑母体实际替换研究
+
+- 已用全新原创GLB **market-pavilion（独立单层开敞市场铺棚）**、**courtyard-gate（开敞院门+侧墙）** 分别替代之前三处重复双层木构中的两处；仍保留原一座双层木构作对照，三者确实是不同的3D三角网格，不是简单缩放/换色。
+- 原创源见 `tools/build_ward_architecture_studies.py`，哈希、面数和尺寸见 `assets/library/architecture/ward-archetypes/manifest.json`。两者暂为**结构和材料色彩研究级**，缺最终PBR/传统工艺细化与美术验收，不得声称4K电影级成品。
+- 新增 3D 模型全部提交GitHub main，正式游戏 `src/` 和运行资产不变；独立试片重检结果以 `qa-evidence/` 为准。
