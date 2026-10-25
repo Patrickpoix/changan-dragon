@@ -1,6 +1,6 @@
-# 设计文档索引与目录（2026-10-25）
+# 设计文档索引与目录（2026-10-25 11:53）
 
-> 62份设计文档的完整索引。
+> 76+份设计文档的完整索引。
 
 ---
 
@@ -40,6 +40,8 @@
 | 108_FANG_FUNCTIONAL_ZONING | 108坊功能分区总表 |
 | 108_FANG_DIFFERENTIATION_SPEC | 108坊差异化设计规范 |
 | 108_FANG_GENERATOR_SPEC | 108坊程序化生成器设计 |
+| 108_FANG_GENERATOR_IMPLEMENTATION | 108坊生成器技术实现 |
+| 108_FANG_COMPLETE_LIST | 108坊完整列表与功能分区 |
 | ZHUQUE_AVENUE_MINGDE_GATE | 朱雀大街与明德门设计 |
 
 ---
@@ -64,11 +66,17 @@
 |---|---|
 | TANG_CLOTHING_HIERARCHY_SPEC | 唐代人物服饰阶层规范 |
 | NPC_SYSTEM_DETAIL_DESIGN | NPC系统详细设计 |
+| NPC_SYSTEM_IMPLEMENTATION | NPC系统技术实现 |
+| NPC_TYPES_DETAILED_DESIGN | NPC类型详细设计 |
 | LITTLE_BLUE_DRAGON_DESIGN_SPEC | 小青龙主角设计规范 |
+| LITTLE_BLUE_DRAGON_IMPLEMENTATION | 小青龙主角技术实现 |
 | VEGETATION_GARDEN_DESIGN | 植被园林设计规范 |
+| VEGETATION_SYSTEM_IMPLEMENTATION | 植被系统技术实现 |
 | BRIDGE_CORRIDOR_BOAT_DESIGN | 桥廊舟船设计规范 |
 | FESTIVALS_SPECIAL_EVENTS | 节日与特殊事件设计 |
 | TRANSPORTATION_SYSTEM_DESIGN | 交通系统设计 |
+| ANIMAL_TYPES_DETAILED_DESIGN | 动物类型详细设计 |
+| PROPS_TYPES_DETAILED_DESIGN | 道具类型详细设计 |
 
 ---
 
@@ -78,9 +86,17 @@
 |---|---|
 | ART_STYLE_GUIDE | 美术风格指南 |
 | RENDERING_PIPELINE_POSTPROCESSING_SPEC | 渲染管线与后处理设计 |
+| RENDERING_PIPELINE_IMPLEMENTATION | 渲染管线技术实现 |
 | DYNAMIC_WATER_WEATHER_SYSTEM | 动态水面与天气系统设计 |
+| DYNAMIC_WATER_IMPLEMENTATION | 动态水面技术实现 |
+| WEATHER_SYSTEM_IMPLEMENTATION | 天气系统技术实现 |
+| DAY_NIGHT_CYCLE_IMPLEMENTATION | 昼夜系统技术实现 |
 | AUDIO_MUSIC_DESIGN_SPEC | 音效与音乐设计规范 |
+| AUDIO_SYSTEM_IMPLEMENTATION | 音效系统技术实现 |
 | UX_INTERACTION_DESIGN | 用户体验与操作设计 |
+| INTERACTION_SYSTEM_IMPLEMENTATION | 交互系统技术实现 |
+| NAVIGATION_SYSTEM_IMPLEMENTATION | 导航系统技术实现 |
+| SAVE_SYSTEM_IMPLEMENTATION | 存档系统技术实现 |
 
 ---
 
@@ -90,25 +106,54 @@
 |---|---|
 | ASSET_INVENTORY_RESOURCE_INDEX | 素材清单与资源索引 |
 | ASSET_STATUS_GAP_ANALYSIS | 素材搜集现状与缺口分析 |
+| ASSET_GAP_PRIORITY_RANKING | 素材缺口优先级排序 |
 | BUILDING_COMPONENT_LIBRARY_DESIGN | 建筑构件库设计 |
+| BUILDING_SYSTEM_IMPLEMENTATION | 建筑系统技术实现 |
+| BUILDING_KITS_DETAILED_DESIGN | 建筑Kit详细设计 |
+| GLB_MODEL_INVENTORY | GLB模型清单详细设计 |
+| MATERIAL_LIBRARY_DETAILED_DESIGN | 材质库详细设计 |
+| AUDIO_ASSET_INVENTORY | 音频素材清单详细设计 |
+| HDRI_SKY_ASSET_INVENTORY | HDRI天空素材清单 |
+| ASSET_SOURCES_LICENSE_LIST | 素材来源与许可证清单 |
+| FREE_ASSET_SOURCES_SUMMARY | 免费3D素材源汇总 |
+| NEW_ASSET_REPOS_RESEARCH | 新发现开源素材仓库研究 |
 
 ---
 
-## 八、项目管理
+## 八、唐代参考资料
+
+| 文档 | 说明 |
+|---|---|
+| TANG_ARCHITECTURE_REFERENCE | 唐代建筑形制参考 |
+| TANG_CLOTHING_REFERENCE | 唐代服饰形制参考 |
+| TANG_CHANGAN_ARCHAEOLOGY_DATA | 唐长安城考古数据参考 |
+| TANG_VEGETATION_GARDEN_REFERENCE | 唐代植被与园林参考 |
+| TANG_MARKET_CULTURE_REFERENCE | 唐代市井文化参考 |
+| TANG_ARCHITECTURAL_COMPONENTS | 唐代建筑构件参考 |
+| TANG_TRANSPORTATION_REFERENCE | 唐代交通工具参考 |
+| TANG_FESTIVALS_CUSTOMS_REFERENCE | 唐代节日与习俗参考 |
+| TANG_ARCHITECTURAL_HIERARCHY | 唐代建筑等级制度参考 |
+| TANG_CITY_LAYOUT_REFERENCE | 唐代城市布局参考 |
+
+---
+
+## 九、项目管理
 
 | 文档 | 说明 |
 |---|---|
 | TECHNICAL_ROADMAP_MILESTONES | 技术路线图与里程碑 |
+| TECHNICAL_ROADMAP_UPDATE | 技术路线图更新 |
 | ROADMAP_TASK_BREAKDOWN | 路线图细化与任务拆解 |
 | PROJECT_TIMELINE_GANTT | 项目时间线与甘特图 |
 | MILESTONE_REVIEW | 项目里程碑回顾 |
 | PROJECT_PROGRESS_UPDATE | 项目进展更新 |
+| ZHUQUE_DEMO_STATUS_SUMMARY | 朱雀大街Demo现状总结 |
 | RISK_ASSESSMENT_MITIGATION | 风险评估与应对 |
 | COST_RESOURCE_DESIGN | 成本与资源设计 |
 
 ---
 
-## 九、社区与贡献
+## 十、社区与贡献
 
 | 文档 | 说明 |
 |---|---|
@@ -121,7 +166,7 @@
 
 ---
 
-## 十、其他
+## 十一、其他
 
 | 文档 | 说明 |
 |---|---|
@@ -136,10 +181,10 @@
 ---
 
 ## 统计
-- 总文档数：62份
-- 总字数：约8万字
+- 总文档数：76+份
+- 总字数：约10万字
 - 覆盖：所有核心系统
 - 状态：持续更新中
 
 ---
-文档日期：2026-10-25
+文档日期：2026-10-25 11:53
