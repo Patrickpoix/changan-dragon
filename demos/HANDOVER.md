@@ -1,5 +1,14 @@
 # 龙游长安 Demo 交接文档
 
+> **2026-10-25 恢复核查补记（以此段和实际Git树为准）：**
+> 豆包云电脑不可访问，四个原版main.js、105坊JSON与GLB等均无可验证的原件恢复通道。
+> 已在独立工作区重建研究数据：原脚本仅8排×6列×东西两侧=96槽位，不是108；
+> 因东市、西市、曲江池3处特殊区域，能重建93份坊JSON并给3个占位引用，
+> 无证据的另12坊未编造。相关生成器、测试和可重建的Chunk脚本在demos/目录。
+> city-viewer/integrated/postprocessing的新增main.js是**重新实现，不是豆包原文件**；
+> 较大GLB、Xbot、PBR、HDRI及完整版朱雀原版20KB main.js仍未找回。
+> 这些Demo不接正式游戏src，也不构成美术、历史或性能验收。
+
 > 仓库：Patrickpoix/changan-dragon (main)
 > 更新：2026-10-25
 

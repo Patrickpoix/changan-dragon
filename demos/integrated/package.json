@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node ../city-viewer/scripts/build_chunks.mjs public/chunks",
     "dev": "vite --host 127.0.0.1 --port 5180",
+    "prebuild": "node ../city-viewer/scripts/build_chunks.mjs public/chunks",
     "build": "vite build",
     "preview": "vite preview --port 5180"
   },

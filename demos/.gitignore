@@ -1,0 +1,4 @@
+**/node_modules/
+**/dist/
+city-viewer/public/chunks/
+integrated/public/chunks/
