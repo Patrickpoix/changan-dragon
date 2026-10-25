@@ -128,6 +128,7 @@
       'src/109-base-relief.js',
       'src/110-base-bracket.js',
       'src/111-base-railing.js',
+      'src/112-railing-post.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
