@@ -60,6 +60,7 @@
       'src/40-performance.js',
       'src/41-day-night.js',
       'src/42-city-life.js',
+      'src/43-quality-buildings.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
