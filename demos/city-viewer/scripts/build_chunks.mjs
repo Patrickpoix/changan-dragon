@@ -3,11 +3,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const demo=path.resolve(here,'../..');
 const source=path.resolve(demo,'ward-generator/output');
 const target=process.argv[2] ? path.resolve(process.cwd(),process.argv[2]) : path.resolve(here,'../public/chunks');
+// Regenerate from the single tracked source of truth on every build.
+execFileSync(process.execPath,[path.join(demo,'ward-generator/generate_city.js')],{stdio:'inherit'});
 const index=JSON.parse(fs.readFileSync(path.join(source,'city_index.json'),'utf8'));
 if(index.meta.wardCount!==96||index.meta.generatedWards!==93||index.meta.missingSlots!==12){
   throw new Error('Refusing to label incomplete or inconsistent research data as full city data');

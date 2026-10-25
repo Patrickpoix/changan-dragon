@@ -8,6 +8,7 @@
 > city-viewer/integrated/postprocessing的新增main.js是**重新实现，不是豆包原文件**；
 > 较大GLB、Xbot、PBR、HDRI及完整版朱雀原版20KB main.js仍未找回。
 > 这些Demo不接正式游戏src，也不构成美术、历史或性能验收。
+> **2026-10-25 GitHub统一权威补记：** main仅保存生成器和经核查的输入，93份研究JSON与50个Chunk在npm构建时自动确定性再生；不追踪不完整缓存，不把丢失的105份原件算作已经恢复。
 
 > 仓库：Patrickpoix/changan-dragon (main)
 > 更新：2026-10-25

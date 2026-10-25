@@ -25,6 +25,6 @@
     npm run dev
 
 其他Vite目录分别安装依赖运行。npm run dev/build自动由坊JSON生成临时chunks。
-数据权威仅在ward-generator/output/，public/chunks/属于Git忽略的派生缓存。
+唯一数据权威在 GitHub main：ward-generator/generate_layout.js、generate_ward.js 和 special-areas/*.json。ward-generator/output/ 与 public/chunks/ 均属可重复生成、Git忽略的派生缓存，构建时自动生成全部93份普通坊JSON和50个技术Chunk。已上传的20份不完整缓存从main追踪中撤回，避免误认为是完整数据。
 
 未做：没有补出108个历史坊，没有找回云端源文件、GLB或动画，没有把程序化盒子称为电影级唐建筑，没有更换正式r160引擎。
