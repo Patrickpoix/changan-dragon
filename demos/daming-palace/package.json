@@ -1,0 +1,19 @@
+{
+  "name": "longyou-changan-daming-palace",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "shot": "node scripts/screenshot.mjs"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.16.0",
+    "vite": "^5.4.0"
+  }
+}
