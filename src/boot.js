@@ -59,6 +59,7 @@
       'src/39-water-enhance.js',
       'src/40-performance.js',
       'src/41-day-night.js',
+      'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
     ]) {
