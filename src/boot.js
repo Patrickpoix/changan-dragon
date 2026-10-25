@@ -139,6 +139,7 @@
       'src/120-panel-relief-2.js',
       'src/121-core-overhaul.js',
       'src/122-geometry-refine.js',
+      'src/123-pbr-upgrade.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
