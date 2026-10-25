@@ -94,6 +94,7 @@
       'src/74-xingqing-details.js',
       'src/75-taiji-details.js',
       'src/76-mingde-details.js',
+      'src/77-qujiang-bridge.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
