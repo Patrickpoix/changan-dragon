@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-25",
+  "scope": "Independent Tang inner-lane study, not production city",
+  "renderer": "Chromium SwiftShader software rendering",
+  "testType": "real browser interaction and JavaScript object-identity assertions",
+  "observed": {
+    "modelFamilies": 6,
+    "sceneModelInstances": 11,
+    "sceneMeshInstances": 67,
+    "uniqueGeometries": 58,
+    "uniqueMaterials": 37,
+    "uniqueAssignedTextures": 29,
+    "sharedBuildingPbrMaterials": 12,
+    "copiedFamilies": {
+      "trees": {
+        "instances": 3,
+        "meshesPerInstance": 3,
+        "sharedGeometryAndMaterial": true
+      },
+      "stools": {
+        "instances": 3,
+        "meshesPerInstance": 1,
+        "sharedGeometryAndMaterial": true
+      },
+      "baskets": {
+        "instances": 2,
+        "meshesPerInstance": 1,
+        "sharedGeometryAndMaterial": true
+      }
+    },
+    "triangles": 467959,
+    "drawCalls": 70,
+    "cameraViews": [
+      "street",
+      "quarter",
+      "roof",
+      "detail",
+      "pavilion",
+      "gate"
+    ],
+    "movementMeters": 2.5,
+    "lightingToggle": true,
+    "consoleErrors": 0,
+    "httpErrors": 0
+  },
+  "status": "technical_pass",
+  "artStatus": "NOT_ACCEPTED",
+  "provenance": "Source and browser test were executed in isolated local worktree; after passing, exact source/test text submitted to GitHub main. The temporary local checkout HEAD is older than submitted tree. No fresh remote-only checkout was claimed.",
+  "limits": "Object counts measure identity sharing, not GPU bytes or FPS; no cross-chunk AssetRegistry or reference-counted disposal has been implemented."
+}

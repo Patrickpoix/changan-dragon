@@ -1,5 +1,10 @@
 # 当前续做记录（2026-10-24）
 
+## 2026-10-25：共享源/实例复用实测（通过，不代表最终画质）
+
+- 最新西市研究试片在原6类GLB源、11处场景模型实例上增加可验证复用检查：67个Mesh实例/58个独立几何对象，2栋不同建筑实际共享12个PBR材质对象，3树+3凳+2篮篓复用对应BufferGeometry/Material引用；同一份GLB不需要因不同坐标而重复维护或上传。Chromium SwiftShader完整六机位、漫游、昼夜测试通过，0页面/HTTP错误；验证数据在 `demos/tang-street-study/qa-evidence/shared-reuse-20261025.json`。这不是GPU内存绝对字节指标或用户实机帧率。
+- 共用原则加入 `docs/SYSTEM_ARCHITECTURE.md` 的现有唯一架构入口：权威源/许可与材质profile唯一，LOD/压缩属于可再生派生，视觉变化靠独立造型/布局和参数。当前尚无全项目统一AssetRegistry及跨区块生命周期管理，**本轮只实测研究场景，正式游戏未修改**。此前审美不通过结论维持。
+
 ## 2026-10-25：两类建筑共享CC0 PBR材质（实测技术通过，美术未通过）
 
 - GitHub main的 `demos/tang-street-study/study.js` 已复用两套已提交的原创GLB，补齐缺法线时的确定性处理和按原网格坐标计算UV；木材、石材、屋瓦、泥灰贴图由同一已验证CC0素材库共享加载，不再重复嵌入两个约13MB派生模型。正式 src/assets/vendor/dist 均未改。

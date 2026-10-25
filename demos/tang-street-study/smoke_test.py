@@ -29,9 +29,20 @@ def run():
             page.goto(url,wait_until='domcontentloaded',timeout=50000)
             page.wait_for_function('() => window.__tangStreet?.ready === true',timeout=95000)
             page.wait_for_timeout(1300)
-            data['loaded']=page.evaluate('() => ({assets:window.__tangStreet.loaded,models:window.__tangStreet.modelBounds,errors:window.__tangStreet.errors,pbrMeshes:window.__tangStreet.pbrMeshes,triangles:window.__tangStreet.renderer.info.render.triangles,drawCalls:window.__tangStreet.renderer.info.render.calls})')
+            data['loaded']=page.evaluate('() => ({assets:window.__tangStreet.loaded,models:window.__tangStreet.modelBounds,errors:window.__tangStreet.errors,pbrMeshes:window.__tangStreet.pbrMeshes,assetReuse:window.__tangStreet.assetReuse,triangles:window.__tangStreet.renderer.info.render.triangles,drawCalls:window.__tangStreet.renderer.info.render.calls})')
             if data['loaded']['pbrMeshes'] < 20:
                 raise AssertionError('CC0 shared PBR materials were not actually assigned to both GLBs')
+            reuse = data['loaded']['assetReuse']
+            if reuse['sourceGLBFamilies'] != 6 or reuse['sceneGLBInstances'] != 11:
+                raise AssertionError('Unexpected imported GLB source or instance count')
+            if reuse['sharedArchitecturalPbrMaterials'] < 5:
+                raise AssertionError('Architecture created duplicate equivalent PBR materials')
+            for key, count in (('trees', 3), ('stools', 3), ('baskets', 2)):
+                group = reuse['copiedFamilies'][key]
+                if group['instances'] != count or not group['sharedGeometryAndMaterial']:
+                    raise AssertionError('Duplicated GPU source resources in ' + key)
+            if reuse['sceneMeshInstances'] <= reuse['uniqueGeometries']:
+                raise AssertionError('Static instancing did not reuse any geometry')
             if len(data['loaded']['models'])<10:raise AssertionError('Less than 10 real model instances')
             architectural = [m for m in data['loaded']['models'] if any(s in m['name'] for s in ('双层','单层','院门'))]
             if len(architectural)!=3:raise AssertionError('Expected three distinct architectural mother assets')

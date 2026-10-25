@@ -172,6 +172,48 @@ try{
  [[-7.9,18,2.1], [7.9,-18,2.0], [17,22,1.7]].forEach(([x,z,s],i)=>addCopy(tree.scene,'乔木 '+(i+1),x,z,i*1.37,s));
  [[-4.9,9.7],[-4.0,6.9],[5.2,-7.2]].forEach(([x,z],i)=>addCopy(stool.scene,'木凳 '+(i+1),x,z,i*.7));
  [[-4.3,9.4],[4.2,-7.9]].forEach(([x,z],i)=>addCopy(basket.scene,'篮篓 '+(i+1),x,z,i*.5));
+ // Audit *reference identity*, not filenames or inferred file sizes.
+ // Static GLB copies must reuse the very same BufferGeometry and Material.
+ // Unique authored buildings share the same CC0 material profiles where applicable.
+ const meshList=group=>{
+  const meshes=[];group.traverse(o=>{if(o.isMesh)meshes.push(o)});
+  return meshes;
+ };
+ const copiedFamilies={};
+ for(const [key,label,count] of [['trees','乔木',3],['stools','木凳',3],['baskets','篮篓',2]]){
+  const objects=Array.from({length:count},(_,i)=>scene.getObjectByName(label+' '+(i+1)));
+  if(objects.some(o=>!o))throw Error('Missing reusable asset instances: '+key);
+  const groups=objects.map(meshList);
+  const shared=groups.every(g=>g.length===groups[0].length&&g.every((m,i)=>
+    m.geometry===groups[0][i].geometry&&m.material===groups[0][i].material));
+  if(!shared)throw Error('GPU resource sharing was lost: '+key);
+  copiedFamilies[key]={instances:count,meshesPerInstance:groups[0].length,sharedGeometryAndMaterial:shared};
+ }
+ const buildingMaterials=name=>new Set(meshList(scene.getObjectByName(name)).map(m=>m.material));
+ const pavilionMaterials=buildingMaterials('单层开敞市场铺棚研究');
+ const gateMaterials=buildingMaterials('院门侧墙研究');
+ const sharedBuildingMaterials=[...pavilionMaterials].filter(m=>gateMaterials.has(m)).length;
+ if(sharedBuildingMaterials<5)throw Error('Authoring GLBs lost their shared CC0 PBR profile');
+ const allMeshes=meshList(scene),geometries=new Set(),materials=new Set(),textures=new Set();
+ for(const m of allMeshes){
+  geometries.add(m.geometry);
+  const mats=Array.isArray(m.material)?m.material:[m.material];
+  for(const mat of mats){
+   materials.add(mat);
+   for(const field of ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap']){
+    if(mat?.[field])textures.add(mat[field]);
+   }
+  }
+ }
+ const assetReuse={
+  sourceGLBFamilies:6,sceneGLBInstances:window.__tangStreet.modelBounds.length,
+  sceneMeshInstances:allMeshes.length,uniqueGeometries:geometries.size,
+  uniqueMaterials:materials.size,uniqueAssignedTextures:textures.size,
+  sharedArchitecturalPbrMaterials:sharedBuildingMaterials,copiedFamilies
+ };
+ if(assetReuse.sceneGLBInstances!==11||allMeshes.length<=geometries.size)
+  throw Error('Incorrect scene instance/resource accounting');
+ window.__tangStreet.assetReuse=assetReuse;
  window.__tangStreet.loaded=[...records,'grey_stone_path CC0 PBR','brown_mud_02 CC0 PBR',
   'shared wood/stone/roof/plaster CC0 PBR, UV projected at runtime'];window.__tangStreet.ready=true;
  progress.textContent='已载入 '+records.length+'种GLB母体、真实泥土/石材PBR · 11处实物模型';
