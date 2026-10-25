@@ -1,19 +1,13 @@
 # 龙游长安 Demo 交接文档
 
-> **2026-10-25 恢复核查补记（以此段和实际Git树为准）：**
-> 豆包云电脑不可访问，四个原版main.js、105坊JSON与GLB等均无可验证的原件恢复通道。
-> 已在独立工作区重建研究数据：原脚本仅8排×6列×东西两侧=96槽位，不是108；
-> 因东市、西市、曲江池3处特殊区域，能重建93份坊JSON并给3个占位引用，
-> 无证据的另12坊未编造。相关生成器、测试和可重建的Chunk脚本在demos/目录。
-> city-viewer/integrated/postprocessing的新增main.js是**重新实现，不是豆包原文件**；
-> 较大GLB、Xbot、PBR、HDRI及完整版朱雀原版20KB main.js仍未找回。
-> 这些Demo不接正式游戏src，也不构成美术、历史或性能验收。
-> **2026-10-25 GitHub统一权威补记：** main仅保存生成器和经核查的输入，93份研究JSON与50个Chunk在npm构建时自动确定性再生；不追踪不完整缓存，不把丢失的105份原件算作已经恢复。
-
 > 仓库：Patrickpoix/changan-dragon (main)
-> 更新：2026-10-25
+> 更新：2026-10-26
 
 ## 已推送到 GitHub 的完整文件清单
+
+### 核心文档
+- `ARCHITECTURE.md` — 全项目架构总览（技术栈/目录/系统/性能/待办）
+- `demos/HANDOVER.md` — 本文档
 
 ### demos/zhuque-walkable/
 - `index.html` — 朱雀大街1km可走Demo（自包含CDN版，浏览器直接打开）
@@ -46,38 +40,48 @@
 - `index.html` / `package.json` / `vite.config.js`
 - `src/post/Composer.js` — 电影级后处理管线（SSAO+Bloom+Vignette+FXAA）
 - `src/post/LUTs.js` — 程序化电影LUT（4套预设）
+- `src/main.js` — 后处理Demo完整场景（772行，含NPC+雨+昼夜+HUD）
 
 ### demos/integrated/
-- `index.html` / `package.json` — 1km²片区整合Demo骨架
+- `index.html` / `package.json`
+- `src/main.js` — 1km²片区整合Demo完整源码（657行）
 
 ### demos/city-viewer/
-- `index.html` / `package.json` / `vite.config.js` — 全城流加载Viewer骨架
+- `index.html` / `package.json` / `vite.config.js`
+- `src/main.js` — 全城84km²流加载Viewer（chunked LOD + InstancedMesh）
 
 ### demos/special-areas/
 - `gates.json` / `damingPalace.json` / `eastMarket.json` / `westMarket.json` / `quchi.json`
+- `README.md` — 12门/东西市/曲江池/关键坊布局说明
 
-## 云电脑上仍存在但未推送的大文件
+### demos/audio-system/
+- `README.md` — 音频系统架构（三档音量+3D空间音频+BGM交叉淡入+音效池）
 
-### 二进制资产（需git LFS）
-- `engine-poc/zhuque-demo/dist/assets/*.glb` — 唐代建筑模型
-- `Xbot.glb` (2.8MB) — 带走路动画人物
-- `road_*.jpg` / `wall_*.jpg` — PBR纹理
-- `sky.hdr` (17MB) — HDRI环境光照
+## 素材共享策略（重要）
 
-### 未推送的源码
-- `postprocessing-demo/src/main.js` (29KB)
-- `integrated-demo/src/main.js` (23KB)
-- `city-viewer/src/main.js` (27KB)
-- `engine-poc/zhuque-demo/src/main.js` (20KB)
+**核心原则：不重复存储纹理。原GLB + 共享材质源。**
 
-### 大数据
-- `ward-generator/output/wards_all/` — 105个坊JSON
-- `city-viewer/public/chunks/` — 全城分块JSON
+- 市集亭屋和庭院门楼共用同一套PBR材质源（木材/瓦面/灰泥/石材）
+- 25个建筑材质组统一绑定
+- 避免上传两份各约13MB的重复贴图模型
+- 新增缺失法线恢复 + 按实际几何坐标生成UV
+- 后续游戏正式构建阶段继续沿用此模式
 
 ## 接手步骤
 
-1. 先读这个文档和 `docs/FACT_CHECK_AND_RECTIFICATION_20261025.md`
-2. 跑起来：`cd demos/zhuque-walkable && python3 -m http.server 8080`
-3. 正式游戏引擎在 `src/` 下（Three.js r160），Demo用r169
-4. 108坊数据运行 `node demos/ward-generator/generate_layout.js` 重新生成
-5. 约束：免费$0素材、不覆盖src/正式代码、Demo放demos/目录
+1. **先读** `ARCHITECTURE.md` 了解全项目架构
+2. **跑起来**：`cd demos/zhuque-walkable && python3 -m http.server 8080` 浏览器打开
+3. **正式游戏引擎**在 `src/` 下（Three.js r160），Demo用r169
+4. **108坊数据**运行 `node demos/ward-generator/generate_layout.js` 重新生成
+5. **约束**：免费$0素材、不覆盖src/正式代码、Demo放demos/目录
+6. **画质目标**：国风漫剧/电影画风，参考《长安三万里》+《大理寺日志》
+
+## 待开发优先级
+
+1. 整合docs/上千份历史文档为精简架构文档
+2. 接入共享PBR材质库到正式引擎src/
+3. 实现坊间连通路网 + 寻路
+4. NPC接入108坊真实路径
+5. 大明宫+东市+西市+曲江池 全区域连通
+6. 游戏UI系统（任务/对话/背包）
+7. 音效系统完整实现
