@@ -133,6 +133,7 @@
       'src/114-railing-handrail.js',
       'src/115-post-cap.js',
       'src/116-panel-relief.js',
+      'src/117-panel-post.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
