@@ -76,6 +76,7 @@
       'src/56-shadow-quality.js',
       'src/57-material-detail.js',
       'src/58-sky-enhance.js',
+      'src/59-vegetation-enhance.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
