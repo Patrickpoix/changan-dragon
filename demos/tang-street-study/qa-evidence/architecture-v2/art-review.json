@@ -1,0 +1,52 @@
+{
+  "status": "NOT_ACCEPTED",
+  "date": "2026-10-25",
+  "sourceHead": "87f4b2b164f4b48319a58271449b1d1d854f7067",
+  "technical": {
+    "status": "pass",
+    "views": [
+      "street",
+      "quarter",
+      "roof",
+      "detail",
+      "pavilion",
+      "gate"
+    ],
+    "glbMotherAssets": [
+      "timber-shop (research geometry, MIT bracket)",
+      "independent market pavilion study (original 3D geometry)",
+      "independent courtyard gate study (original 3D geometry)",
+      "tree_small_02 CC0 runtime derivative",
+      "chinese_stool CC0",
+      "wicker_basket_01 CC0"
+    ],
+    "instances": 11,
+    "triangles": 467959,
+    "drawCalls": 70,
+    "errors": {
+      "pages": 0,
+      "http": 0
+    },
+    "note": "Software Chromium SwiftShader; not RTX4060 GPU performance"
+  },
+  "artFindings": [
+    "The market pavilion and courtyard gate differ in topology and footprints, but pale untextured roofing looks washed out",
+    "Plaster, wooden shutters/counters and brackets need physically plausible PBR and construction evidence",
+    "Incomplete courtyards, few street props, no realistic human costuming or coherent urban enclosure",
+    "No archaeological proof that individual silhouettes equal Kaiyuan-Tianbao shop/gate buildings",
+    "No user artistic signoff; preserve these only as editable technical prototypes, no city-wide replication"
+  ],
+  "assetReadiness": {
+    "geometry_source_and_glb_saved": true,
+    "visual_approved": false,
+    "historical_verified": false,
+    "cinematic_pbr_ready": false,
+    "runtime_city_integrated": false
+  },
+  "screenshots": [
+    "quarter.jpg",
+    "pavilion.jpg",
+    "gate.jpg"
+  ],
+  "sourceUrl": "https://github.com/Patrickpoix/changan-dragon/tree/main/assets/library/architecture/ward-archetypes"
+}
