@@ -1,40 +1,31 @@
 # 新发现唐代佛教僧侣佛像素材源清单（第四批）
 
-> 文档版本：v4.1
-> 日期：2026-10-25 15:06
-> 新发现的唐代佛教/僧侣/佛像/罗汉/菩萨相关模型（补充3）
+> 文档版本：v4.2
+> 日期：2026-10-25 15:16
+> 新发现的唐代佛教/僧侣/佛像/寺庙/宝塔/道观相关模型（补充3）
 
 ---
 
-## 一、十八罗汉合集
+## 一、宝塔合集
 
-### MakerWorld - 十八罗汉合集（免费）
-- URL: https://makerworld.com/en/models/2873987-collection-of-eighteen-arhats
-- 特点：十八罗汉合集3D打印模型
-
----
-
-## 二、佛像合集
-
-### Open3dModel - 佛像合集（免费）
-- URL: https://open3dmodel.com/zh-CN/3d-models/buddha
-- 特点：183个免费佛像3D模型
+### Open3dModel - 宝塔合集（免费）
+- URL: https://open3dmodel.com/3d-models/pagoda
+- 特点：64个免费宝塔3D模型
 
 ---
 
-## 三、免费麦积山小和尚
+## 二、免费华严寺宝塔
 
-### MakerWorld - 麦积山小和尚（免费）
-- URL: https://makerworld.com/en/models/2895333-maijishan-little-monk
-- 特点：麦积山小和尚3D打印模型
-
----
-
-## 四、下一步行动
-1. 下载Open3dModel 183个免费佛像模型
-2. 下载MakerWorld免费麦积山小和尚模型
-3. 参考唐代长安佛教设计：大慈恩寺/大兴善寺/青龙寺/荐福寺/大雁塔/小雁塔
+### MakerWorld - 华严寺宝塔（免费）
+- URL: https://makerworld.com/en/models/3040794-huayan-temple-pagoda
+- 特点：华严寺宝塔3D打印模型
 
 ---
 
-更新日期：2026-10-25 15:06
+## 三、下一步行动
+1. 下载Open3dModel 64个免费宝塔模型
+2. 参考唐代长安佛教设计：大兴善寺/大慈恩寺/荐福寺/青龙寺/玉华寺/道观
+
+---
+
+更新日期：2026-10-25 15:16
