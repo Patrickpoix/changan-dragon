@@ -109,6 +109,7 @@
       'src/89-burner-base.js',
       'src/90-burner-finial.js',
       'src/91-burner-pattern.js',
+      'src/92-burner-vent.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
