@@ -50,7 +50,30 @@ test('orphan asynchronous assets are aborted and late results disposed', async (
   assert.equal(signal.aborted, true);
   assert.equal(pool.stats().liveAssets, 0);
   resolve({late: true}); // loader intentionally ignores the abort
-  await pending;
+  await assert.rejects(pending, {name: 'AbortError'});
+  assert.equal(disposed, 1);
+});
+
+test('released region cannot receive another region’s in-flight GPU asset', async () => {
+  const pool = new SharedResourceRegistry(), departed = pool.scope(), active = pool.scope();
+  let finish, loads = 0, disposed = 0;
+  const load = () => {
+    loads++;
+    return new Promise(resolve => { finish = resolve; });
+  };
+  const disposer = () => { disposed++; };
+  const obsolete = departed.load('shared/roof', load, disposer);
+  const current = active.load('shared/roof', load, disposer);
+  await Promise.resolve();
+  assert.equal(loads, 1, 'only one network/decoder task may run');
+  departed.release();
+  assert.equal(pool.stats().references, 1);
+  const resource = {gpuTexture: true};
+  finish(resource);
+  await assert.rejects(obsolete, {name: 'AbortError'});
+  assert.strictEqual(await current, resource);
+  assert.equal(disposed, 0, 'active region still owns resource');
+  active.release();
   assert.equal(disposed, 1);
 });
 

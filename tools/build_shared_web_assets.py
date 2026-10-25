@@ -17,10 +17,24 @@ import argparse
 import hashlib
 import json
 import re
+import shutil
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ID_PATTERN = re.compile(r"^[a-zA-Z][\w.-]{0,90}$")
+COPY_CHUNK_BYTES = 1024 * 1024
+
+
+def hash_file(path: Path) -> tuple[str, int]:
+    """Stream source/object content; never hold GB-scale source bytes in RAM."""
+    digest = hashlib.sha256()
+    total = 0
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(COPY_CHUNK_BYTES), b""):
+            digest.update(block)
+            total += len(block)
+    return digest.hexdigest(), total
 
 
 def build(root: Path, output: Path, pairs: list[str]) -> dict:
@@ -45,33 +59,48 @@ def build(root: Path, output: Path, pairs: list[str]) -> dict:
         if not source.is_relative_to(library) or not source.is_file():
             raise ValueError(f"Asset must already exist within reviewed assets/library: {relative}")
         # Never imply that checking a sidecar proves all usage rights.
-        raw = source.read_bytes()
+        digest, size = hash_file(source)
         suffix = source.suffix.lower()
         if not suffix or len(suffix) > 12:
             raise ValueError(f"Unsupported extension for {relative}")
-        digest = hashlib.sha256(raw).hexdigest()
         # Different file suffix/MIME = potentially different delivery semantics.
         key = (digest, suffix)
         if key not in grouped:
-            grouped[key] = (source, raw)
-        requested += len(raw)
+            grouped[key] = (source, size)
+        requested += size
         entries[asset_id] = {
             "url": "objects/" + digest + suffix,
-            "sha256": digest, "bytes": len(raw),
+            "sha256": digest, "bytes": size,
             "source": source.relative_to(root).as_posix(),
         }
 
     (output / "objects").mkdir(parents=True, exist_ok=True)
-    for (digest, suffix), (_source, raw) in grouped.items():
+    for (digest, suffix), (source, size) in grouped.items():
         dest = output / "objects" / (digest + suffix)
         if dest.exists():
-            if hashlib.sha256(dest.read_bytes()).hexdigest() != digest:
+            if hash_file(dest) != (digest, size):
                 raise ValueError(f"Existing output object differs: {dest}")
         else:
-            tmp = dest.with_suffix(dest.suffix + ".tmp")
-            tmp.write_bytes(raw)
-            tmp.replace(dest)
-    unique = sum(len(raw) for _source, raw in grouped.values())
+            # Per-build staging avoids two builds writing the same fixed .tmp;
+            # only complete, verified files receive the immutable output URL.
+            with tempfile.NamedTemporaryFile(dir=dest.parent, prefix=".staging-", delete=False) as stage:
+                tmp = Path(stage.name)
+                try:
+                    with source.open("rb") as input_file:
+                        shutil.copyfileobj(input_file, stage, length=COPY_CHUNK_BYTES)
+                except BaseException:
+                    stage.close()
+                    tmp.unlink(missing_ok=True)
+                    raise
+            # On Windows, open temporary handles cannot be renamed/deleted.
+            # Verify after closing the stream, before publishing the new URL.
+            try:
+                if hash_file(tmp) != (digest, size):
+                    raise ValueError(f"Source changed during export: {source}")
+                tmp.replace(dest)
+            finally:
+                tmp.unlink(missing_ok=True)
+    unique = sum(size for _source, size in grouped.values())
     report = {
         "format": "changan-shared-web-assets-v1",
         "note": "Release references, not an alternative source catalogue. Rights and art approval are external.",

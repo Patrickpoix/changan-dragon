@@ -15,9 +15,24 @@ export class SharedResourceRegistry {
 
   _lease(key, entry) {
     let released = false;
+    // Every consumer gets its own lifecycle-aware promise. The shared load may
+    // finish after this scope leaves (or after the last owner disposes it), but
+    // a departed consumer must never receive a reference to a freed GPU asset.
+    const ready = entry.ready.then(value => {
+      if (released) {
+        const error = new Error('Asset lease released before ready: ' + key);
+        error.name = 'AbortError';
+        throw error;
+      }
+      return value;
+    });
+    // A consumer may close its scope without ever awaiting the returned lease.
+    // The promise still rejects for callers that do await it, without producing
+    // process-wide unhandled rejection noise when nobody observes it.
+    ready.catch(() => {});
     return {
       get value() { return entry.value; },
-      ready: entry.ready,
+      ready,
       release: () => {
         if (released) return;
         released = true;
