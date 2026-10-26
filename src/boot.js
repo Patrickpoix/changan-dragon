@@ -81,6 +81,7 @@
       'src/240-west-market-details.js',
       'src/241-corner-towers.js',
       'src/242-qujiang-bridge.js',
+      'src/243-longchi-bridge.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
