@@ -1,15 +1,15 @@
 /* ============================================================
    Vegetation - 植被系统Owner（增强版）
-   注意：原系统已有完整树木系统（柳树/松树/桃花树，Batch批处理+LOD）
-   本模块仅做补充性植被：花卉+灌木+竹林，不重复创建树木
-   全部使用共享几何体UNIT_CYL/UNIT_SPHERE；同类花卉共享材质实例（减少DrawCall）
+   原系统已有完整树木系统，本模块仅补充花卉+灌木+竹林。
+   同类花卉共享材质实例（减少DrawCall）。
    通过 __enhance.register 注册（优先级50）
    ============================================================ */
 
 (function() {
   'use strict';
 
-  // 花卉配置（数量已调减，同类共享材质）
+  let registered = false;
+
   const FLOWER_CONFIG = [
     { key: 'mudan', count: 24, centerX: 342, centerZ: -152, radius: 48, color: 0xd44a6a },
     { key: 'hehua', count: 26, centerX: 354, centerZ: 318, radius: 42, color: 0xf8f8f8 },
@@ -22,7 +22,6 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 花卉：每种花只创建一个共享材质实例，几何体用UNIT_SPHERE
       FLOWER_CONFIG.forEach(cfg => {
         const mat = new THREE.MeshStandardMaterial({ color: cfg.color, roughness: 0.8 });
         for (let i = 0; i < cfg.count; i++) {
@@ -35,7 +34,6 @@
         }
       });
 
-      // 兴庆宫周边灌木（共享MAT.leaf）
       for (let i = 0; i < 20; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 62 + Math.random() * 18;
@@ -46,7 +44,6 @@
         scene.add(bush);
       }
 
-      // 曲江池周边灌木（共享MAT.leaf）
       for (let i = 0; i < 18; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 62 + Math.random() * 18;
@@ -57,7 +54,6 @@
         scene.add(bush);
       }
 
-      // 大雁塔周边竹林（共享MAT.trunk与MAT.leaf）
       for (let i = 0; i < 10; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 36 + Math.random() * 14;
@@ -80,6 +76,8 @@
   }
 
   function register() {
+    if (registered) return;
+    registered = true;
     if (window.__enhance) {
       window.__enhance.register('vegetation', init, 50);
     } else {
