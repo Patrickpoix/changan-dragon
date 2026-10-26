@@ -7,8 +7,8 @@
   'use strict';
 
   const WATER_CONFIG = {
-    qujiang: { x: 354, z: 318, radius: 40, boats: 4 },
-    longchi: { x: 342, z: -152, radius: 25, boats: 2 },
+    qujiang: { x: 354, z: 318, radius: 40, boats: 5 },
+    longchi: { x: 342, z: -152, radius: 25, boats: 3 },
   };
 
   let initialized = false;
@@ -99,8 +99,8 @@
       // 岸线石头
       Object.keys(WATER_CONFIG).forEach(key => {
         const cfg = WATER_CONFIG[key];
-        for (let i = 0; i < 25; i++) {
-          const angle = (i / 25) * Math.PI * 2;
+        for (let i = 0; i < 30; i++) {
+          const angle = (i / 30) * Math.PI * 2;
           const rock = new THREE.Mesh(UNIT_SPHERE, MAT.stone);
           rock.position.set(cfg.x + Math.cos(angle) * (cfg.radius + 2), 0.2, cfg.z + Math.sin(angle) * (cfg.radius + 2));
           const s = 0.3 + Math.random() * 0.4;
@@ -111,14 +111,14 @@
       });
 
       // 曲江池荷叶
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = Math.random() * 30;
         addLotusLeaf(WATER_CONFIG.qujiang.x + Math.cos(angle) * r, WATER_CONFIG.qujiang.z + Math.sin(angle) * r);
       }
 
       // 曲江池岸边芦苇
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 30; i++) {
         const angle = Math.random() * Math.PI * 2;
         addReed(
           WATER_CONFIG.qujiang.x + Math.cos(angle) * (WATER_CONFIG.qujiang.radius + 3),
