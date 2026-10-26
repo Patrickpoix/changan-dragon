@@ -3,6 +3,7 @@
    注意：原系统已有完整地标建筑（太极宫/大明宫/兴庆宫/大雁塔/曲江池等）
    本模块仅做补充性精修：台阶+广场+角楼+牌坊+石碑，不重复创建建筑
    全部使用共享几何体UNIT_BOX/ROOF_UNIT和共享材质MAT
+   权威坐标：CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }
    ============================================================ */
 
 (function() {
@@ -23,9 +24,10 @@
     ximing:   { name: '西明寺',   x: -300, z: 150 },
   };
 
+  // 城墙四角角楼坐标（与CITY边界一致：x=±450, z=±380）
   const WALL_CORNERS = [
-    { x: -450, z: -450 }, { x: 450, z: -450 },
-    { x: -450, z: 450 },  { x: 450, z: 450 },
+    { x: -450, z: -380 }, { x: 450, z: -380 },
+    { x: -450, z: 380 },  { x: 450, z: 380 },
   ];
 
   let initialized = false;
@@ -56,18 +58,18 @@
     if (typeof MAT === 'undefined') return;
     const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
     base.position.set(x, 3, z);
-    base.scale.set(14, 6, 14);
+    base.scale.set(12, 6, 12);
     base.castShadow = true;
     base.receiveShadow = true;
     scene.add(base);
     const mid = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
     mid.position.set(x, 6.5, z);
-    mid.scale.set(10, 1, 10);
+    mid.scale.set(9, 1, 9);
     mid.castShadow = true;
     scene.add(mid);
     const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
     roof.position.set(x, 8, z);
-    roof.scale.set(18, 4, 18);
+    roof.scale.set(16, 4, 16);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -182,15 +184,15 @@
       addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 30, 20, 0.4, 7);
       addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 35, 65);
 
-      // 城墙四角角楼（补充原系统）
+      // 城墙四角角楼（补充原系统，坐标与CITY边界一致：x=±450, z=±380）
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
 
-      // 城墙垛口（南北城墙，补充原系统）
-      addWallCrenellations(0, -450, 900, 'horizontal');
-      addWallCrenellations(0, 450, 900, 'horizontal');
-      // 城墙垛口（东西城墙，补充原系统）
-      addWallCrenellations(-450, 0, 900, 'vertical');
-      addWallCrenellations(450, 0, 900, 'vertical');
+      // 城墙垛口（南北城墙，z=±380，补充原系统）
+      addWallCrenellations(0, -380, 900, 'horizontal');
+      addWallCrenellations(0, 380, 900, 'horizontal');
+      // 城墙垛口（东西城墙，x=±450，补充原系统）
+      addWallCrenellations(-450, 0, 760, 'vertical');
+      addWallCrenellations(450, 0, 760, 'vertical');
 
       // 东市牌坊（补充原系统）
       addPaifang(LANDMARKS.east.x, LANDMARKS.east.z + 10, '东市');
@@ -216,7 +218,7 @@
       addRail(LANDMARKS.xingqing.x - 30, LANDMARKS.xingqing.z + 40, 60, 'horizontal');
       addRail(LANDMARKS.xingqing.x + 30, LANDMARKS.xingqing.z + 40, 60, 'horizontal');
 
-      console.log('[Landmarks] 地标精修完成 - 11大地标多级台阶+4大广场+4角楼+城墙垛口+2牌坊+2石碑+广场栏杆，不重复创建建筑');
+      console.log('[Landmarks] 地标精修完成 - 坐标已统一至CITY边界(x=±450, z=±380)，11大地标多级台阶+4大广场+4角楼+城墙垛口+2牌坊+2石碑+广场栏杆，不重复创建建筑');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
@@ -225,9 +227,9 @@
 
   function checkReady() {
     if (typeof GAME !== 'undefined' && GAME.ready) {
-      setTimeout(init, 8000);
+      setTimeout(init, 6000);
     } else {
-      setTimeout(checkReady, 300);
+      setTimeout(checkReady, 200);
     }
   }
 
