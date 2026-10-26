@@ -3,17 +3,13 @@
    注意：原系统已有完整质量档位（low/medium/high）和DPR管理
    本模块仅做补充优化：纹理各向异性+阴影范围微调
    注意：阴影范围不是越大越好，过大反而降低阴影精度
+   通过 __enhance.register 注册（优先级30）
    ============================================================ */
 
 (function() {
   'use strict';
 
-  let initialized = false;
-
   function init() {
-    if (initialized) return;
-    initialized = true;
-    console.log('[Performance] 初始化性能优化系统...');
     try {
       if (typeof renderer === 'undefined') return;
 
@@ -28,7 +24,7 @@
 
       // 阴影范围微调（与原系统兼容，不盲目扩大，保持合理精度）
       // 原系统默认：near=1, far=420, left/right/top/bottom=±95
-      // 调整为：覆盖整个城市核心区域，同时保持阴影精度
+      // 调整为：覆盖城市核心区域的同时保持阴影精度（±500m）
       if (typeof sun !== 'undefined' && sun.shadow) {
         sun.shadow.camera.near = 1;
         sun.shadow.camera.far = 500;
@@ -45,9 +41,21 @@
     } catch(e) { console.warn('[Performance] 初始化失败:', e); }
   }
 
-  function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 4000);
-    else setTimeout(checkReady, 100);
+  function register() {
+    if (window.__enhance) {
+      window.__enhance.register('performance', init, 30);
+    } else {
+      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'performance', fn: init, priority: 30 });
+    }
   }
-  checkReady();
+
+  if (typeof GAME !== 'undefined' && GAME.ready) register();
+  else {
+    let tries = 0;
+    (function check() {
+      if (typeof GAME !== 'undefined' && GAME.ready) register();
+      else if (tries++ < 400) setTimeout(check, 100);
+      else { if (window.__enhance) window.__enhance.register('performance', init, 30); }
+    })();
+  }
 })();
