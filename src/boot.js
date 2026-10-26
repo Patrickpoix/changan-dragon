@@ -138,6 +138,7 @@
       'src/297-final-perf-report.js',
       'src/298-final-completion.js',
       'src/299-outside-village.js',
+      'src/300-outside-post-station.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
