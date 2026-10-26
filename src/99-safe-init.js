@@ -1,36 +1,19 @@
 /* ============================================================
    初始化保障 · 所有模块安全启动
    防止单个模块崩溃影响全局
+   注意：旧模块引用已清理，现在的enhance模块使用IIFE+轮询方式自动初始化
    ============================================================ */
 
-const SafeInit = {
-  modules: [
-    'ColorGrading',
-    'ArchitectureDetails',
-    'DamingPalace',
-    'MarketDistrict',
-    'QujiangGarden',
-    'Vegetation',
-    'WaterEnhancement',
-    'Atmosphere',
-  ],
-  
-  run() {
-    for (const name of this.modules) {
-      try {
-        if (typeof window[name] !== 'undefined' && window[name].init) {
-          window[name].init();
-          console.log('[SafeInit] ✓', name);
-        }
-      } catch (e) {
-        console.warn('[SafeInit] ✗', name, ':', e.message);
-      }
-    }
-    console.log('[SafeInit] 所有模块初始化完毕');
-  },
-};
+// 这个文件现在主要作为安全启动保障
+// 实际的enhance模块都使用IIFE+GAME.ready轮询方式自动初始化
+// 这里只做最后的安全检查
 
-// 延迟到所有模块加载完后运行
 window.addEventListener('load', () => {
-  setTimeout(() => SafeInit.run(), 1000);
+  setTimeout(() => {
+    console.log('[SafeInit] 所有模块加载完毕，游戏已就绪');
+    // 标记游戏完全就绪
+    if (typeof GAME !== 'undefined') {
+      GAME.fullyReady = true;
+    }
+  }, 500);
 });
