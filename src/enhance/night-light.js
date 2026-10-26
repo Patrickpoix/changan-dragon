@@ -1,9 +1,11 @@
 /* ============================================================
-   NightLight - 夜景灯光Owner（v3）
+   NightLight - 夜景灯光Owner（v4）
    原系统已有朱雀大街灯柱/横街灯串/市场灯笼串/含元殿檐下灯笼。
    本模块只补充原系统缺少区域的灯笼与点光源（宫殿/塔寺/明德门周边），
    灯笼使用局部Batch（杆/球各1个InstancedMesh，64盏→2 drawcall），
-   点光源包装主循环window.updateDayNight钩子昼夜联动（不创建独立RAF）。
+   点光源仅登记到 window.__nightLights，由 30-main.js 的主循环
+   updateDayNight() 统一驱动昼夜强度（白天0、夜晚增强），
+   不创建独立RAF、不替换主循环函数（词法绑定优先，替换无效）。
    通过 __enhance.register 注册（优先级70）
    ============================================================ */
 
@@ -11,8 +13,7 @@
   'use strict';
 
   let registered = false;
-  let pointLights = [];
-  let wrapped = false;
+  const pointLights = [];
 
   function init() {
     try {
@@ -64,7 +65,7 @@
       poles.build();
       lanterns.build();
 
-      // 点光源（昼夜联动：白天0，夜晚增强）
+      // 点光源（昼夜联动：白天0，夜晚增强；由主循环统一驱动）
       const lanternPositions = [
         { x: 150, z: -432, intensity: 0.8, distance: 100 },
         { x: 0, z: -334, intensity: 0.7, distance: 90 },
@@ -82,21 +83,12 @@
         scene.add(light);
       });
 
-      // 包装主循环updateDayNight钩子（全局function声明挂window，主循环调用即生效）
-      if (!wrapped && typeof window !== 'undefined') {
-        wrapped = true;
-        window.__nightLights = pointLights;
-        const origUpdate = window.updateDayNight;
-        if (typeof origUpdate === 'function') {
-          window.updateDayNight = function(...args) {
-            origUpdate.apply(this, args);
-            const nightFactor = typeof GAME !== 'undefined' && GAME.nightT !== undefined ? GAME.nightT : 0;
-            pointLights.forEach(light => { light.intensity = light.userData.baseIntensity * nightFactor; });
-          };
-        }
-      }
+      // 登记到主循环驱动：updateDayNight() 每帧统一计算强度。
+      // 注意：window.updateDayNight 是 30-main.js 的词法绑定函数，
+      // 替换 window 属性不会改变主循环实际调用，因此这里不做包装。
+      if (typeof window !== 'undefined') window.__nightLights = pointLights;
 
-      console.log('[NightLight] 夜景灯光增强完成 - 64盏灯笼(局部Batch 2 drawcall)+7组点光源(昼夜联动)，已整合到原系统主更新流程');
+      console.log('[NightLight] 夜景灯光增强完成 - 64盏灯笼(局部Batch 2 drawcall)+7组点光源(主循环昼夜联动)');
     } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
   }
 
