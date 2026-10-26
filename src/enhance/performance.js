@@ -42,7 +42,23 @@
         });
       }
 
-      console.log('[Performance] 性能优化完成 - DPR:', renderer.getPixelRatio());
+      // 渲染优化：启用视锥剔除（默认已启用，这里显式设置确保）
+      if (typeof scene !== 'undefined') {
+        scene.traverse(obj => {
+          if (obj.isMesh) {
+            obj.frustumCulled = true;
+          }
+        });
+      }
+
+      // 加载统计信息
+      const stats = {
+        isMobile: isMobile,
+        maxDPR: maxDPR,
+        pixelRatio: renderer.getPixelRatio(),
+        maxAnisotropy: maxAnisotropy,
+      };
+      console.log('[Performance] 性能优化完成', stats);
     } catch(e) { console.warn('[Performance] 初始化失败:', e); }
   }
 
