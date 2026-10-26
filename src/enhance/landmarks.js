@@ -1,6 +1,12 @@
 /* ============================================================
-   Landmarks - 地标精修Owner（增强版）
-   仅做补充性精修：台阶+广场+角楼+牌坊+石碑，不重复创建建筑
+   Landmarks - 地标精修Owner（增强版 v2）
+   重要：原系统（12-landmarks.js / 10-world.js）已包含：
+   - 城墙四角角楼（addPavilion gold）+ 批量垛口（B.stone）
+   - addHall 自带三级台阶 / addPavilion 自带台阶
+   - 朱雀大街四座彩绘牌楼（天街/朱雀/长安/春风）
+   - 明德门/丹凤门/玄武门/春明门/金光门 门楼
+   因此本模块 v2 只补充原系统缺失的：东西市牌坊 + 两塔石碑，
+   不再重复创建角楼/垛口/台阶/广场/栏杆。
    新增实体注册原系统碰撞网格addCollider和飞行障碍recordFlightObstacle
    权威坐标：CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }
    通过 __enhance.register 注册（优先级40）
@@ -11,26 +17,13 @@
 
   let registered = false;
 
-  // 权威地标坐标（与原系统12-landmarks.js一致）
+  // 权威地标坐标（与原系统一致）
   const LANDMARKS = {
-    daming:   { name: '大明宫',   x: 150, z: -432 },
-    taiji:    { name: '太极宫',   x: 0,   z: -334 },
-    xingqing: { name: '兴庆宫',   x: 342, z: -152 },
-    qujiang:  { name: '曲江池',   x: 354, z: 318 },
     dayanta:  { name: '大雁塔',   x: 216, z: 283 },
     xiaoyanta:{ name: '小雁塔',   x: -216, z: 349 },
-    mingde:   { name: '明德门',   x: 0,   z: 380 },
     east:     { name: '东市',     x: 174, z: -14 },
     west:     { name: '西市',     x: -258, z: -14 },
-    qinglong: { name: '青龙寺',   x: 300, z: 100 },
-    ximing:   { name: '西明寺',   x: -300, z: 150 },
   };
-
-  // 城墙四角角楼坐标（与CITY边界一致）
-  const WALL_CORNERS = [
-    { x: -450, z: -380 }, { x: 450, z: -380 },
-    { x: -450, z: 380 },  { x: 450, z: 380 },
-  ];
 
   function registerCollider(x, z, w, d, tag) {
     if (typeof addCollider === 'function') {
@@ -43,50 +36,7 @@
     }
   }
 
-  function addSteps(x, z, width, depth, height, layers) {
-    if (typeof MAT === 'undefined') return;
-    const layers_count = layers || 4;
-    for (let i = 0; i < layers_count; i++) {
-      const step = new THREE.Mesh(UNIT_BOX, MAT.stone);
-      step.position.set(x, height * (i + 0.5), z + depth / (layers_count * 2) + i * depth / layers_count);
-      step.scale.set(width - i * 2, height, depth / layers_count);
-      step.receiveShadow = true;
-      step.castShadow = true;
-      scene.add(step);
-    }
-  }
-
-  function addSquare(x, z, size) {
-    if (typeof MAT === 'undefined') return;
-    const square = new THREE.Mesh(UNIT_BOX, MAT.stone);
-    square.position.set(x, 0.05, z);
-    square.scale.set(size, 0.1, size);
-    square.receiveShadow = true;
-    scene.add(square);
-  }
-
-  function addCornerTower(x, z) {
-    if (typeof MAT === 'undefined') return;
-    const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
-    base.position.set(x, 3, z);
-    base.scale.set(12, 6, 12);
-    base.castShadow = true;
-    base.receiveShadow = true;
-    scene.add(base);
-    const mid = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
-    mid.position.set(x, 6.5, z);
-    mid.scale.set(9, 1, 9);
-    mid.castShadow = true;
-    scene.add(mid);
-    const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
-    roof.position.set(x, 8, z);
-    roof.scale.set(16, 4, 16);
-    roof.castShadow = true;
-    scene.add(roof);
-    registerCollider(x, z, 12, 12, 'corner-tower');
-    registerFlight(x, z, 16, 16, 10);
-  }
-
+  // 东西市牌坊（市场内中轴线装饰，原系统无，两柱间可通行）
   function addPaifang(x, z, name) {
     if (typeof MAT === 'undefined') return;
     for (let i = -1; i <= 1; i += 2) {
@@ -115,23 +65,7 @@
     registerFlight(x, z, 14, 3, 9);
   }
 
-  function addWallCrenellations(x, z, length, orientation) {
-    if (typeof MAT === 'undefined') return;
-    const count = Math.floor(length / 5);
-    for (let i = 0; i < count; i++) {
-      const crenel = new THREE.Mesh(UNIT_BOX, MAT.stone);
-      if (orientation === 'horizontal') {
-        crenel.position.set(x - length/2 + i * 5 + 2.5, 7, z);
-        crenel.scale.set(2, 1, 1);
-      } else {
-        crenel.position.set(x, 7, z - length/2 + i * 5 + 2.5);
-        crenel.scale.set(1, 1, 2);
-      }
-      crenel.castShadow = true;
-      scene.add(crenel);
-    }
-  }
-
+  // 塔前石碑（原系统无，新物理物体）
   function addStoneTablet(x, z, text) {
     if (typeof MAT === 'undefined') return;
     const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
@@ -147,54 +81,20 @@
     registerCollider(x, z, 2.2, 1.4, 'stone-tablet');
   }
 
-  function addRail(x, z, length, orientation) {
-    if (typeof MAT === 'undefined') return;
-    const rail = new THREE.Mesh(UNIT_BOX, MAT.wood);
-    rail.position.set(x, 1, z);
-    if (orientation === 'horizontal') {
-      rail.scale.set(length, 0.1, 0.1);
-    } else {
-      rail.scale.set(0.1, 0.1, length);
-    }
-    rail.castShadow = true;
-    scene.add(rail);
-  }
-
   function init() {
     console.log('[Landmarks] 地标精修初始化...');
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 36, 22, 0.3, 5);
-      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 40, 70);
-      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 30, 20, 0.25, 5);
-      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 35, 60);
-      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 28, 20, 0.25, 5);
-      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 40, 55);
-      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 20, 16, 0.25, 5);
-      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 20, 16, 0.25, 5);
-      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 16, 14, 0.2, 4);
-      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 16, 14, 0.2, 4);
-      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 28, 18, 0.3, 5);
-      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 35, 60);
-
-      WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
-      addWallCrenellations(0, -380, 900, 'horizontal');
-      addWallCrenellations(0, 380, 900, 'horizontal');
-      addWallCrenellations(-450, 0, 760, 'vertical');
-      addWallCrenellations(450, 0, 760, 'vertical');
-
+      // 东市 / 西市牌坊（市场内中轴线）
       addPaifang(LANDMARKS.east.x, LANDMARKS.east.z + 10, '东市');
       addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
+
+      // 大雁塔 / 小雁塔 塔前石碑
       addStoneTablet(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 15, '大雁塔');
       addStoneTablet(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 15, '小雁塔');
 
-      addRail(LANDMARKS.daming.x - 35, LANDMARKS.daming.z + 40, 70, 'horizontal');
-      addRail(LANDMARKS.daming.x + 35, LANDMARKS.daming.z + 40, 70, 'horizontal');
-      addRail(LANDMARKS.taiji.x - 30, LANDMARKS.taiji.z + 35, 60, 'horizontal');
-      addRail(LANDMARKS.taiji.x + 30, LANDMARKS.taiji.z + 35, 60, 'horizontal');
-
-      console.log('[Landmarks] 地标精修完成 - 台阶+广场+4角楼(已注册碰撞)+垛口+2牌坊(已注册碰撞)+2石碑(已注册碰撞)+栏杆');
+      console.log('[Landmarks] 地标精修完成 - 2东西市牌坊+2塔前石碑（已注册碰撞与飞行障碍）；不重复创建角楼/垛口/台阶/广场（原系统已有）');
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
     }

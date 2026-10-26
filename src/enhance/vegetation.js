@@ -1,6 +1,11 @@
 /* ============================================================
-   Vegetation - 植被系统Owner（增强版）
-   原系统已有完整树木系统，本模块仅补充花卉+灌木+竹林。
+   Vegetation - 植被系统Owner（增强版 v2）
+   重要：原系统已包含：
+   - 完整树木系统（柳/松/桃，Batch+LOD）与曲江池自带荷叶荷花
+   - 兴庆宫龙池岸边柳桃、朱雀大街花圃（planterFlowers）
+   因此本模块 v2 仅补充原系统缺少的：
+   - 沉香亭花圃（牡丹/桃花，避开龙池水面）
+   - 大雁塔院蓝花、太极宫前菊花、曲江岸草丛（不落水中）
    同类花卉共享材质实例（减少DrawCall）。
    通过 __enhance.register 注册（优先级50）
    ============================================================ */
@@ -10,55 +15,43 @@
 
   let registered = false;
 
+  // 花卉配置（避免落在水中/建筑台上；同类共享材质）
   const FLOWER_CONFIG = [
-    { key: 'mudan', count: 24, centerX: 342, centerZ: -152, radius: 48, color: 0xd44a6a },
-    { key: 'hehua', count: 26, centerX: 354, centerZ: 318, radius: 42, color: 0xf8f8f8 },
-    { key: 'taohua', count: 20, centerX: 342, centerZ: -152, radius: 52, color: 0xff91a7 },
-    { key: 'lanyao', count: 16, centerX: 216, centerZ: 283, radius: 32, color: 0x6a5acd },
-    { key: 'juhua', count: 14, centerX: 0, centerZ: -334, radius: 36, color: 0xffa500 },
+    { key: 'mudan', count: 20, centerX: 342, centerZ: -190, radius: 16, color: 0xd44a6a },   // 沉香亭花圃
+    { key: 'taohua', count: 16, centerX: 342, centerZ: -190, radius: 18, color: 0xff91a7 },  // 沉香亭花圃
+    { key: 'lanyao', count: 14, centerX: 216, centerZ: 283, radius: 30, color: 0x6a5acd },   // 大雁塔院
+    { key: 'juhua', count: 12, centerX: 0, centerZ: -310, radius: 28, color: 0xffa500 },     // 太极宫前
+    { key: 'caocong', count: 16, centerX: 354, centerZ: 318, radius: 55, color: 0x8aa05a },  // 曲江岸（草色，避开水面的landZones）
   ];
 
   function init() {
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
+      // 花卉：每种花只创建一个共享材质实例
       FLOWER_CONFIG.forEach(cfg => {
         const mat = new THREE.MeshStandardMaterial({ color: cfg.color, roughness: 0.8 });
         for (let i = 0; i < cfg.count; i++) {
           const angle = Math.random() * Math.PI * 2;
           const r = cfg.radius * Math.random();
+          const x = cfg.centerX + Math.cos(angle) * r;
+          const z = cfg.centerZ + Math.sin(angle) * r;
+          // 跳过水面区域（曲江池/龙池等）
+          if (typeof isWaterPoint === 'function' && isWaterPoint(x, z)) continue;
           const flower = new THREE.Mesh(UNIT_SPHERE, mat);
-          flower.position.set(cfg.centerX + Math.cos(angle) * r, 0.3, cfg.centerZ + Math.sin(angle) * r);
+          flower.position.set(x, 0.3, z);
           flower.scale.set(0.4, 0.4, 0.4);
           scene.add(flower);
         }
       });
 
-      for (let i = 0; i < 20; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const r = 62 + Math.random() * 18;
-        const bush = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
-        bush.position.set(342 + Math.cos(angle) * r, 0.5, -152 + Math.sin(angle) * r);
-        bush.scale.set(1 + Math.random(), 0.8 + Math.random() * 0.5, 1 + Math.random());
-        bush.castShadow = true;
-        scene.add(bush);
-      }
-
-      for (let i = 0; i < 18; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const r = 62 + Math.random() * 18;
-        const bush = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
-        bush.position.set(354 + Math.cos(angle) * r, 0.5, 318 + Math.sin(angle) * r);
-        bush.scale.set(1 + Math.random(), 0.8 + Math.random() * 0.5, 1 + Math.random());
-        bush.castShadow = true;
-        scene.add(bush);
-      }
-
+      // 大雁塔院竹林（共享MAT.trunk与MAT.leaf）
       for (let i = 0; i < 10; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 36 + Math.random() * 14;
         const x = 216 + Math.cos(angle) * r;
         const z = 283 + Math.sin(angle) * r;
+        if (typeof isWaterPoint === 'function' && isWaterPoint(x, z)) continue;
         const bamboo = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
         bamboo.position.set(x, 2, z);
         bamboo.scale.set(0.15, 4, 0.15);
@@ -71,7 +64,7 @@
         scene.add(leaves);
       }
 
-      console.log('[Vegetation] 植被系统增强完成 - 5种花卉(共享材质,100朵)+灌木(38)+竹林(10)，不重复创建已有树木');
+      console.log('[Vegetation] 植被系统增强完成 - 沉香亭花圃(牡丹/桃花)+大雁塔蓝花+太极宫菊花+曲江岸草(共享材质,78株)，不重复创建已有树木/荷花');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
 

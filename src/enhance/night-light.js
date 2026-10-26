@@ -1,9 +1,12 @@
 /* ============================================================
-   NightLight - 夜景灯光Owner（增强版）
-   全部使用共享几何体UNIT_CYL/UNIT_SPHERE和共享材质MAT
-   与原系统昼夜系统联动：夜晚点亮，白天熄灭
-   不创建独立RAF循环，通过包装主循环updateDayNight钩子联动
-   通过 __enhance.register 注册（优先级70，夜景最后加载）
+   NightLight - 夜景灯光Owner（增强版 v2）
+   重要：原系统（10-world.js / 12-landmarks.js）已包含：
+   - 朱雀大街灯柱灯笼（x=±12.1）与横街灯串
+   - 东西市灯笼串、含元殿檐下灯笼、曲江商铺灯笼
+   因此本模块 v2 只补充原系统缺少区域的灯笼与点光源：
+   宫殿/塔寺/明德门周边补充（避免与已有灯柱重叠）。
+   不创建独立RAF循环，通过包装主循环updateDayNight钩子联动。
+   通过 __enhance.register 注册（优先级70）
    ============================================================ */
 
 (function() {
@@ -29,83 +32,59 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 朱雀大街灯笼（两侧各14组）
-      for (let i = 0; i < 14; i++) {
-        const z = -280 + i * 38;
-        addLantern(-10, z, 5);
-        addLantern(10, z, 5);
-      }
-
-      // 大明宫宫殿灯光（12盏）
+      // 大明宫宫殿周边灯光（12盏）
       for (let i = 0; i < 12; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 30 + Math.random() * 40;
+        const r = 34 + Math.random() * 40;
         addLantern(150 + Math.cos(angle) * r, -432 + Math.sin(angle) * r, 4);
       }
 
-      // 太极宫宫殿灯光（10盏）
+      // 太极宫宫殿周边灯光（10盏）
       for (let i = 0; i < 10; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 25 + Math.random() * 35;
+        const r = 30 + Math.random() * 35;
         addLantern(0 + Math.cos(angle) * r, -334 + Math.sin(angle) * r, 4);
       }
 
-      // 东市夜市灯光（10盏）
-      for (let i = 0; i < 10; i++) {
-        const x = 150 + Math.random() * 50;
-        const z = -30 + Math.random() * 30;
-        addLantern(x, z, 3);
+      // 兴庆宫灯火（8盏，龙池岸边）
+      for (let i = 0; i < 8; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = 34 + Math.random() * 30;
+        addLantern(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4);
       }
 
-      // 西市夜市灯光（10盏）
-      for (let i = 0; i < 10; i++) {
-        const x = -280 + Math.random() * 50;
-        const z = -30 + Math.random() * 30;
-        addLantern(x, z, 3);
-      }
-
-      // 大雁塔灯光（8盏环形）
+      // 大雁塔灯光（8盏环形，塔院外）
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
-        addLantern(216 + Math.cos(angle) * 12, 283 + Math.sin(angle) * 12, 4);
+        addLantern(216 + Math.cos(angle) * 16, 283 + Math.sin(angle) * 16, 4);
       }
 
       // 小雁塔灯光（8盏环形）
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
-        addLantern(-216 + Math.cos(angle) * 12, 349 + Math.sin(angle) * 12, 4);
+        addLantern(-216 + Math.cos(angle) * 14, 349 + Math.sin(angle) * 14, 4);
       }
 
-      // 兴庆宫灯火（8盏）
-      for (let i = 0; i < 8; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const r = 30 + Math.random() * 40;
-        addLantern(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4);
-      }
-
-      // 曲江池夜游灯光（10盏环形）
+      // 曲江池夜游灯光（10盏环形，湖岸）
       for (let i = 0; i < 10; i++) {
         const angle = (i / 10) * Math.PI * 2;
-        addLantern(354 + Math.cos(angle) * 40, 318 + Math.sin(angle) * 40, 3.5);
+        addLantern(354 + Math.cos(angle) * 46, 318 + Math.sin(angle) * 38, 3.5);
       }
 
-      // 明德门灯光（8盏）
+      // 明德门灯光（8盏，门洞外御道两侧）
       for (let i = 0; i < 8; i++) {
-        const x = -18 + i * 5.2;
-        addLantern(x, 380, 4);
+        const x = -16 + i * 4.6;
+        addLantern(x, 384, 4);
       }
 
       // 点光源（与昼夜系统联动，白天强度0，夜晚增强）
       const lanternPositions = [
-        { x: 0, z: 0, intensity: 0.6, distance: 80 },
         { x: 150, z: -432, intensity: 0.8, distance: 100 },
         { x: 0, z: -334, intensity: 0.7, distance: 90 },
         { x: 342, z: -152, intensity: 0.6, distance: 80 },
         { x: 354, z: 318, intensity: 0.5, distance: 70 },
         { x: 216, z: 283, intensity: 0.4, distance: 60 },
         { x: -216, z: 349, intensity: 0.4, distance: 60 },
-        { x: 174, z: -14, intensity: 0.5, distance: 50 },
-        { x: -258, z: -14, intensity: 0.5, distance: 50 },
         { x: 0, z: 380, intensity: 0.6, distance: 60 },
       ];
 
@@ -133,7 +112,7 @@
         }
       }
 
-      console.log('[NightLight] 夜景灯光增强完成 - 10组点光源(昼夜联动)+104盏灯笼(共享材质)，已整合到原系统主更新流程');
+      console.log('[NightLight] 夜景灯光增强完成 - 7组点光源(昼夜联动)+64盏补充灯笼(避开原系统灯柱/灯笼串)，已整合到原系统主更新流程');
     } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
   }
 
