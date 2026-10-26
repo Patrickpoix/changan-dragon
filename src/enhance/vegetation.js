@@ -10,12 +10,13 @@
 
   // 花卉配置
   const FLOWER_CONFIG = {
-    mudan: { count: 80, centerX: 342, centerZ: -152, radius: 60, color: 0xd44a6a },
-    hehua: { count: 90, centerX: 354, centerZ: 318, radius: 55, color: 0xf8f8f8 },
-    taohua: { count: 60, centerX: 342, centerZ: -152, radius: 65, color: 0xff91a7 },
-    lanyao: { count: 50, centerX: 216, centerZ: 283, radius: 45, color: 0x6a5acd },
-    juhua: { count: 40, centerX: 0, centerZ: -334, radius: 55, color: 0xffa500 },
-    gui: { count: 35, centerX: 150, centerZ: -432, radius: 50, color: 0xffd700 },
+    mudan: { count: 100, centerX: 342, centerZ: -152, radius: 70, color: 0xd44a6a },
+    hehua: { count: 110, centerX: 354, centerZ: 318, radius: 65, color: 0xf8f8f8 },
+    taohua: { count: 80, centerX: 342, centerZ: -152, radius: 75, color: 0xff91a7 },
+    lanyao: { count: 60, centerX: 216, centerZ: 283, radius: 55, color: 0x6a5acd },
+    juhua: { count: 50, centerX: 0, centerZ: -334, radius: 65, color: 0xffa500 },
+    gui: { count: 45, centerX: 150, centerZ: -432, radius: 60, color: 0xffd700 },
+    meihua: { count: 35, centerX: -216, centerZ: 349, radius: 45, color: 0xff69b4 },
   };
 
   let initialized = false;
@@ -70,34 +71,34 @@
       });
 
       // 兴庆宫周边灌木（补充原系统）
-      for (let i = 0; i < 70; i++) {
+      for (let i = 0; i < 80; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 65 + Math.random() * 25;
+        const r = 75 + Math.random() * 30;
         createBush(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r);
       }
 
       // 曲江池周边灌木（补充原系统）
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 70; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 65 + Math.random() * 25;
+        const r = 75 + Math.random() * 30;
         createBush(354 + Math.cos(angle) * r, 318 + Math.sin(angle) * r);
       }
 
       // 大雁塔周边竹林（补充原系统）
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 35; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 38 + Math.random() * 18;
+        const r = 45 + Math.random() * 20;
         createBamboo(216 + Math.cos(angle) * r, 283 + Math.sin(angle) * r);
       }
 
       // 小雁塔周边竹林（补充原系统）
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 30; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 35 + Math.random() * 15;
+        const r = 40 + Math.random() * 18;
         createBamboo(-216 + Math.cos(angle) * r, 349 + Math.sin(angle) * r);
       }
 
-      console.log('[Vegetation] 植被系统初始化完成 - 6种花卉+灌木+竹林，不重复创建已有树木');
+      console.log('[Vegetation] 植被系统初始化完成 - 7种花卉+灌木+竹林，不重复创建已有树木');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
 
