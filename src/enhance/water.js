@@ -3,6 +3,8 @@
    注意：原系统已有完整水景（曲江池/龙池水面Shader+画舫+曲桥+荷叶荷花）
    本模块仅做补充性水景：护城河+城外小河+岸线石头+芦苇+喷泉
    全部使用共享几何体UNIT_BOX/UNIT_CYL/UNIT_SPHERE和共享材质MAT
+   权威坐标：CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }
+   护城河应在城墙外，即 z>380 或 z<-380
    ============================================================ */
 
 (function() {
@@ -63,26 +65,26 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 护城河（南城墙外，补充原系统）
+      // 护城河（南城墙外，z=400，与城墙z=380平行，宽20米）
       const moat = new THREE.Mesh(UNIT_PLANE,
         new THREE.MeshStandardMaterial({ color: 0x4a7a9a, roughness: 0.3, metalness: 0.2 }));
-      moat.position.set(0, 0.1, 500);
-      moat.scale.set(1000, 1, 25);
+      moat.position.set(0, 0.1, 400);
+      moat.scale.set(900, 1, 20);
       moat.receiveShadow = true;
       scene.add(moat);
 
-      // 护城河岸线石头（非常多）
-      for (let i = 0; i < 120; i++) {
-        const x = -500 + i * 8.3;
-        addRock(x, 490 + Math.random() * 3);
-        addRock(x, 510 + Math.random() * 3);
+      // 护城河岸线石头
+      for (let i = 0; i < 80; i++) {
+        const x = -450 + i * 11.25;
+        addRock(x, 390 + Math.random() * 3);
+        addRock(x, 410 + Math.random() * 3);
       }
 
-      // 护城河芦苇（非常多）
-      for (let i = 0; i < 100; i++) {
-        const x = -500 + Math.random() * 1000;
-        addReed(x, 492 + Math.random() * 6);
-        addReed(x, 508 + Math.random() * 6);
+      // 护城河芦苇
+      for (let i = 0; i < 60; i++) {
+        const x = -450 + Math.random() * 900;
+        addReed(x, 392 + Math.random() * 6);
+        addReed(x, 408 + Math.random() * 6);
       }
 
       // 城外小河（西北方向，补充原系统）
@@ -99,19 +101,19 @@
       // 曲江池湖心喷泉（补充原系统）
       addFountain(354, 318);
 
-      // 护城河鸭子（更多）
-      for (let i = 0; i < 20; i++) {
-        const x = -400 + Math.random() * 800;
-        addDuck(x, 500 + Math.random() * 15);
+      // 护城河鸭子
+      for (let i = 0; i < 15; i++) {
+        const x = -350 + Math.random() * 700;
+        addDuck(x, 400 + Math.random() * 10);
       }
 
-      console.log('[Water] 水景系统初始化完成 - 补充原系统：护城河+城外小河+岸线石头+芦苇+2喷泉+20鸭子，不重复创建已有水面');
+      console.log('[Water] 水景系统初始化完成 - 补充原系统：护城河(南城墙外z=400)+城外小河+岸线石头+芦苇+2喷泉+15鸭子，不重复创建已有水面');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
   function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 12000);
-    else setTimeout(checkReady, 300);
+    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 5000);
+    else setTimeout(checkReady, 100);
   }
   checkReady();
 })();
