@@ -1,6 +1,7 @@
 /* ============================================================
    NightLight - 夜景灯光Owner
    负责：夜晚灯笼/点光源/夜景氛围
+   使用原系统共享MAT.lantern材质
    ============================================================ */
 
 (function() {
@@ -12,10 +13,18 @@
     daming: { count: 4, x: 150, z: -432, intensity: 0.8, distance: 30 },
     eastMarket: { count: 3, x: 174, z: -14, intensity: 0.6, distance: 25 },
     westMarket: { count: 3, x: -258, z: -14, intensity: 0.6, distance: 25 },
-    qujiang: { count: 2, x: 354, z: 318, intensity: 0.4, distance: 20 },
   };
 
   let initialized = false;
+
+  function addLantern(x, y, z) {
+    if (typeof MAT === 'undefined') return;
+    // 灯笼模型 - 使用共享UNIT_SPHERE + MAT.lantern材质
+    const lantern = new THREE.Mesh(UNIT_SPHERE, MAT.lantern);
+    lantern.position.set(x, y, z);
+    lantern.scale.set(0.6, 0.8, 0.6);
+    scene.add(lantern);
+  }
 
   function init() {
     if (initialized) return;
@@ -24,13 +33,16 @@
     try {
       if (typeof scene === 'undefined') return;
 
-      // 朱雀大街灯笼点光源
+      // 朱雀大街灯笼点光源 + 灯笼模型
       const mainCfg = LIGHT_CONFIG.mainStreet;
       const step = (mainCfg.zEnd - mainCfg.zStart) / (mainCfg.count - 1);
       for (let i = 0; i < mainCfg.count; i++) {
+        const z = mainCfg.zStart + i * step;
         const light = new THREE.PointLight(0xffaa44, mainCfg.intensity, mainCfg.distance);
-        light.position.set(0, 5, mainCfg.zStart + i * step);
+        light.position.set(0, 5, z);
         scene.add(light);
+        addLantern(-8, 4, z);
+        addLantern(8, 4, z);
       }
 
       // 大明宫灯光
