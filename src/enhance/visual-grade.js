@@ -1,6 +1,7 @@
 /* ============================================================
    VisualGrade - 视觉调色Owner
    负责：色调映射/国风雾效/光影/色彩优化
+   注意：不与原昼夜系统冲突，仅做微调
    ============================================================ */
 
 (function() {
@@ -21,22 +22,20 @@
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.1;
 
-      // 国风雾效优化
+      // 国风雾效优化（暖灰黄色调）
       if (scene.fog) {
-        scene.fog.color.setHex(0xd4c5a9); // 暖灰黄色，符合国风意境
+        scene.fog.color.setHex(0xd4c5a9);
         scene.fog.near = 100;
         scene.fog.far = 800;
       }
 
-      // 暖金色黄昏光影氛围
+      // 暖金色基调（与原昼夜系统兼容，不覆盖每帧更新）
       if (typeof sun !== 'undefined') {
-        sun.color.setHex(0xffe8c4); // 暖金色
-        sun.intensity = 1.2;
+        sun.color.setHex(0xffe8c4);
       }
 
       if (typeof ambient !== 'undefined') {
-        ambient.color.setHex(0xc8b89a); // 暖灰环境光
-        ambient.intensity = 0.5;
+        ambient.color.setHex(0xc8b89a);
       }
 
       console.log('[VisualGrade] 视觉调色完成');
