@@ -15,6 +15,9 @@
     dayanta:{ count: 10, type: 'pine', centerX: 216, centerZ: 283, radius: 40 },
     qujiang:{ count: 12, type: 'willow', centerX: 354, centerZ: 318, radius: 50 },
     longchi:{ count: 8, type: 'willow', centerX: 342, centerZ: -152, radius: 35 },
+    xiaoyanta:{ count: 8, type: 'pine', centerX: -216, centerZ: 349, radius: 30 },
+    qinglong:{ count: 6, type: 'pine', centerX: 300, centerZ: 100, radius: 25 },
+    ximing: { count: 6, type: 'pine', centerX: -300, centerZ: 150, radius: 25 },
   };
 
   const FLOWER_CONFIG = {
