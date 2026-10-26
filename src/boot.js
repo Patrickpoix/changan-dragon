@@ -55,6 +55,7 @@
       'src/214-final-confirm.js',
       'src/215-sky-water-opt.js',
       'src/216-performance-opt.js',
+      'src/217-vegetation-enhance.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
