@@ -6,12 +6,11 @@
    全部使用共享几何体UNIT_*和共享材质waterMat/MAT
    权威坐标：CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }
    护城河应在城墙外：z=400（城墙z=380外）
+   通过 __enhance.register 注册（优先级60）
    ============================================================ */
 
 (function() {
   'use strict';
-
-  let initialized = false;
 
   function addReed(x, z) {
     if (typeof MAT === 'undefined' || typeof UNIT_CYL === 'undefined') return;
@@ -80,8 +79,6 @@
   }
 
   function init() {
-    if (initialized) return;
-    initialized = true;
     console.log('[Water] 水景系统初始化...');
     try {
       if (typeof scene === 'undefined' || typeof waterMat === 'undefined') return;
@@ -128,13 +125,25 @@
       // 注意：不重复创建城外小河（原系统buildOutskirts已有waterMat小河）
       // 注意：不创建喷泉（避免与曲江池湖心亭/龙池亭冲突，且几何圆柱不像真实水景）
 
-      console.log('[Water] 水景系统初始化完成 - 护城河(waterMat共享Shader,分两段保留御道通道)+2木桥+岸线石头+芦苇+6鸭子，已注册waterRects可通行校验');
+      console.log('[Water] 水景系统增强完成 - 护城河(waterMat共享Shader,分两段保留御道通道)+2木桥+岸线石头+芦苇+6鸭子，已注册waterRects可通行校验');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
-  function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 3000);
-    else setTimeout(checkReady, 100);
+  function register() {
+    if (window.__enhance) {
+      window.__enhance.register('water', init, 60);
+    } else {
+      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'water', fn: init, priority: 60 });
+    }
   }
-  checkReady();
+
+  if (typeof GAME !== 'undefined' && GAME.ready) register();
+  else {
+    let tries = 0;
+    (function check() {
+      if (typeof GAME !== 'undefined' && GAME.ready) register();
+      else if (tries++ < 400) setTimeout(check, 100);
+      else { if (window.__enhance) window.__enhance.register('water', init, 60); }
+    })();
+  }
 })();
