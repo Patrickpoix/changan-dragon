@@ -1,5 +1,7 @@
 /* ============================================================
    Outside - 城外环境Owner（增强版）
+   注意：原系统已有完整城外田园（明德门外御道+小村庄+城外小河+柳树）
+   本模块仅做补充性城外建筑：驿站+水井+城外树林，不重复创建农舍
    全部使用共享几何体UNIT_BOX/UNIT_CYL/UNIT_SPHERE和共享材质MAT
    ============================================================ */
 
@@ -7,59 +9,6 @@
   'use strict';
 
   let initialized = false;
-
-  function addBridge(x, z, length) {
-    if (typeof MAT === 'undefined') return;
-    const bridge = new THREE.Mesh(UNIT_BOX, MAT.wood);
-    bridge.position.set(x, 1, z);
-    bridge.scale.set(5, 0.5, length);
-    bridge.receiveShadow = true;
-    bridge.castShadow = true;
-    scene.add(bridge);
-  }
-
-  function addVillageHouse(x, z) {
-    if (typeof MAT === 'undefined') return;
-    const base = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
-    base.position.set(x, 1.5, z);
-    base.scale.set(8, 3, 6);
-    base.castShadow = true;
-    base.receiveShadow = true;
-    scene.add(base);
-    const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
-    roof.position.set(x, 4, z);
-    roof.scale.set(10, 2, 8);
-    roof.castShadow = true;
-    scene.add(roof);
-  }
-
-  function addTree(x, z) {
-    if (typeof MAT === 'undefined') return;
-    const trunk = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
-    trunk.position.set(x, 2, z);
-    trunk.scale.set(0.3, 4, 0.3);
-    trunk.castShadow = true;
-    scene.add(trunk);
-    const leaves = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
-    leaves.position.set(x, 5.5, z);
-    leaves.scale.set(3.5, 3.5, 3.5);
-    leaves.castShadow = true;
-    scene.add(leaves);
-  }
-
-  function addWell(x, z) {
-    if (typeof MAT === 'undefined') return;
-    const base = new THREE.Mesh(UNIT_CYL, MAT.stone);
-    base.position.set(x, 0.5, z);
-    base.scale.set(1.5, 1, 1.5);
-    base.castShadow = true;
-    scene.add(base);
-    const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
-    roof.position.set(x, 2.5, z);
-    roof.scale.set(3, 1.5, 3);
-    roof.castShadow = true;
-    scene.add(roof);
-  }
 
   function addPostStation(x, z) {
     if (typeof MAT === 'undefined') return;
@@ -84,6 +33,20 @@
     scene.add(wall);
   }
 
+  function addWell(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const base = new THREE.Mesh(UNIT_CYL, MAT.stone);
+    base.position.set(x, 0.5, z);
+    base.scale.set(1.5, 1, 1.5);
+    base.castShadow = true;
+    scene.add(base);
+    const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
+    roof.position.set(x, 2.5, z);
+    roof.scale.set(3, 1.5, 3);
+    roof.castShadow = true;
+    scene.add(roof);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -91,64 +54,38 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 护城河（南城墙外，宽25米）
-      const moat = new THREE.Mesh(UNIT_PLANE,
-        new THREE.MeshStandardMaterial({ color: 0x4a7a9a, roughness: 0.3, metalness: 0.2 }));
-      moat.position.set(0, 0.1, 500);
-      moat.scale.set(1000, 1, 25);
-      moat.receiveShadow = true;
-      scene.add(moat);
+      // 四座驿站（补充原系统）
+      addPostStation(500, -500);   // 东南驿站
+      addPostStation(-550, 500);   // 西北驿站
+      addPostStation(550, 500);    // 东北驿站
+      addPostStation(-500, -500);  // 西南驿站
 
-      // 护城河桥（明德门外）
-      addBridge(0, 500, 30);
-
-      // 城外村落（东南方向，25间农舍）
-      for (let i = 0; i < 25; i++) {
-        const x = 500 + Math.random() * 200;
-        const z = 400 + Math.random() * 200;
-        addVillageHouse(x, z);
-      }
-
-      // 城外村落（西北方向，15间农舍）
-      for (let i = 0; i < 15; i++) {
-        const x = -600 + Math.random() * 150;
-        const z = -500 + Math.random() * 200;
-        addVillageHouse(x, z);
-      }
-
-      // 东南西北四座驿站
-      addPostStation(500, -500);   // 东南
-      addPostStation(-550, 500);   // 西北
-      addPostStation(550, 500);    // 东北
-      addPostStation(-500, -500);  // 西南
-
-      // 城外树林（东南，80棵）
-      for (let i = 0; i < 80; i++) {
-        addTree(600 + Math.random() * 300, 300 + Math.random() * 300);
-      }
-
-      // 城外树林（西南，70棵）
-      for (let i = 0; i < 70; i++) {
-        addTree(-700 + Math.random() * 300, 300 + Math.random() * 300);
-      }
-
-      // 城外树林（东北，70棵）
-      for (let i = 0; i < 70; i++) {
-        addTree(600 + Math.random() * 300, -400 + Math.random() * 300);
-      }
-
-      // 城外树林（西北，60棵）
-      for (let i = 0; i < 60; i++) {
-        addTree(-700 + Math.random() * 300, -400 + Math.random() * 300);
-      }
-
-      // 东南村落水井
+      // 东南村落水井（补充原系统）
       addWell(580, 480);
 
-      // 西北村落水井
+      // 西北村落水井（补充原系统）
       addWell(-520, 550);
 
-      console.log('[Outside] 城外环境初始化完成 - 护城河+桥+40农舍+4驿站+280树+2水井');
+      // 城外树林（东南，补充原系统，使用原系统addTree函数）
+      if (typeof addTree !== 'undefined') {
+        for (let i = 0; i < 40; i++) {
+          addTree(600 + Math.random() * 300, 300 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
+        }
+        // 城外树林（西南）
+        for (let i = 0; i < 35; i++) {
+          addTree(-700 + Math.random() * 300, 300 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
+        }
+        // 城外树林（东北）
+        for (let i = 0; i < 35; i++) {
+          addTree(600 + Math.random() * 300, -400 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
+        }
+        // 城外树林（西北）
+        for (let i = 0; i < 30; i++) {
+          addTree(-700 + Math.random() * 300, -400 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
+        }
+      }
+
+      console.log('[Outside] 城外环境初始化完成 - 补充原系统：4驿站+2水井+140城外树，不重复创建已有农舍');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
