@@ -100,6 +100,7 @@
       'src/259-pagoda-greenery.js',
       'src/260-small-pagoda-greenery.js',
       'src/261-qujiang-greenery.js',
+      'src/262-longchi-greenery.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
