@@ -1,10 +1,12 @@
 /* ============================================================
-   天气系统 · 晴/阴/雨（v3 主循环驱动）
+   天气系统 · 晴/阴/雨（v4 主循环驱动 + UI 兼容注入）
    - 雨滴粒子（800点，跟随玩家，遇雨天落下）
    - 雾/曝光：基于主循环 GRADE 基线的相对微调（晴天=GRADE 不变）
    - 包装 GameRendering.update：animate() 每帧通过属性访问调用
      GameRendering.update(dt)，包装必然生效（单一权威更新流程，
      不包装 window.updateDayNight、不创建第二套 RAF）
+   - v4：天气按钮优先绑定 index.html 声明的 #weatherBtn；
+     旧版 HTML 未声明时动态注入按钮 + 帮助条目 + 竖屏4列覆盖
    ============================================================ */
 
 (function() {
@@ -54,11 +56,43 @@
       window.Weather = Weather;
       window.__weather = this;
       // 天气切换按钮（bindHold 定义于 30-main，须在 GAME.ready 后绑定）
+      // 优先绑定 HTML 声明的 #weatherBtn；若旧版 index.html 未声明，则动态注入
+      //（保持单一权威：按钮 UI 归 HTML，注入仅作兼容层，不做第二套控制逻辑）
       if (typeof bindHold !== 'undefined') {
-        const weatherBtn = document.getElementById('weatherBtn');
+        let weatherBtn = document.getElementById('weatherBtn');
+        if (!weatherBtn) {
+          const top = document.querySelector('.top-actions');
+          if (top) {
+            weatherBtn = document.createElement('button');
+            weatherBtn.className = 'round-btn';
+            weatherBtn.id = 'weatherBtn';
+            weatherBtn.title = '天气';
+            weatherBtn.setAttribute('aria-label', '切换晴雨');
+            weatherBtn.textContent = '☁';
+            top.insertBefore(weatherBtn, top.querySelector('#helpBtn') || null);
+            // 7 个按钮在竖屏 grid(3列) 会溢出：inline 覆盖为 4 列（media 规则仍在，inline 优先）
+            const applyGrid = function() {
+              if (window.matchMedia && matchMedia('(orientation: portrait) and (max-width: 600px)').matches) {
+                top.style.gridTemplateColumns = 'repeat(4, 44px)';
+              } else {
+                top.style.removeProperty('grid-template-columns');
+              }
+            };
+            applyGrid();
+            window.addEventListener('resize', applyGrid, { passive: true });
+          }
+        }
         if (weatherBtn && !this._btnBound) {
           this._btnBound = true;
           weatherBtn.addEventListener('click', () => Weather.cycle());
+        }
+        // 帮助面板补天气条目（旧版 index.html 无该条目时的兼容注入）
+        const helpGrid = document.querySelector('.help-grid');
+        if (helpGrid && !Array.from(helpGrid.children).some(el => el.textContent.indexOf('天气按钮') !== -1)) {
+          const item = document.createElement('div');
+          item.className = 'help-item';
+          item.innerHTML = '<strong>☁ 天气按钮</strong><span>晴天、阴天与细雨，随行切换，雨滴飘落</span>';
+          helpGrid.appendChild(item);
         }
       }
       console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + GameRendering.update 主循环驱动(GRADE相对微调)');
@@ -112,8 +146,6 @@
       if (this.t >= 0.98) this.current = this.target;
     },
   };
-
-  // 天气切换按钮改在 init()（GAME.ready 后）绑定，避免 bindHold 未定义。
 
   function register() {
     if (registered) return;
