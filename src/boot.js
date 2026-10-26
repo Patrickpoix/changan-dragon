@@ -22,7 +22,6 @@
     if (document.fonts) {
       await Promise.race([document.fonts.load('18px "Ma Shan Zheng"'), new Promise(resolve => setTimeout(resolve, 1800))]);
     }
-    // 核心引擎模块（经过验证的基础系统）
     for (const file of [
       'vendor/rendering-addons.js',
       'assets/materials.js',
@@ -50,6 +49,7 @@
       'src/28-weather.js',
       'src/29-lanterns.js',
       'src/210-cinematic-grade.js',
+      'src/211-landmark-details.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
