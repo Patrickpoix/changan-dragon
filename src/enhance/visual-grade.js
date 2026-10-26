@@ -20,49 +20,49 @@
 
       // ACES色调映射（电影级）
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.toneMappingExposure = 1.2;
 
       // 国风雾效（暖灰黄色调，类似古画意境）
       if (scene.fog) {
-        scene.fog.color.setHex(0xd4c5a9);
-        scene.fog.near = 80;
-        scene.fog.far = 700;
+        scene.fog.color.setHex(0xd8c8a8);
+        scene.fog.near = 60;
+        scene.fog.far = 650;
       }
 
       // 暖金色太阳光（清晨/黄昏氛围）
       if (typeof sun !== 'undefined') {
-        sun.color.setHex(0xffe8c4);
-        sun.intensity = 1.3;
+        sun.color.setHex(0xffe0b8);
+        sun.intensity = 1.2;
       }
 
       // 暖灰环境光
       if (typeof ambient !== 'undefined') {
-        ambient.color.setHex(0xc8b89a);
-        ambient.intensity = 0.3;
+        ambient.color.setHex(0xd0c0a0);
+        ambient.intensity = 0.35;
       }
 
       // 天空半球光微调
       if (typeof hemi !== 'undefined') {
-        hemi.color.setHex(0xfff3d8);
-        hemi.groundColor.setHex(0x6a8a6a);
-        hemi.intensity = 0.8;
+        hemi.color.setHex(0xfff5e0);
+        hemi.groundColor.setHex(0x7a9a7a);
+        hemi.intensity = 0.9;
       }
 
       // 轮廓光（暖橙色，增强立体感）
       if (typeof rim !== 'undefined') {
-        rim.color.setHex(0xffb98f);
-        rim.intensity = 0.35;
+        rim.color.setHex(0xffc99f);
+        rim.intensity = 0.4;
       }
 
       // 天空Shader微调（与原昼夜系统兼容）
       if (typeof skyUniforms !== 'undefined') {
-        skyUniforms.topColor.value.setHex(0x85b6ce);
-        skyUniforms.horizonColor.value.setHex(0xf8e3c8);
-        skyUniforms.sunColor.value.setHex(0xffc95e);
+        skyUniforms.topColor.value.setHex(0x7aa8c8);
+        skyUniforms.horizonColor.value.setHex(0xfae8d0);
+        skyUniforms.sunColor.value.setHex(0xffd47a);
       }
 
       // 背景色微调（国风暖色调）
-      scene.background = new THREE.Color(0xc8d8e8);
+      scene.background = new THREE.Color(0xd0dce8);
 
       console.log('[VisualGrade] 视觉调色完成 - ACES电影级+国风暖灰雾效+暖金色光影+轮廓光');
 
