@@ -54,6 +54,9 @@
       'src/enhance/vegetation.js',      // 植被系统Owner
       'src/enhance/water.js',           // 水景系统Owner
       'src/enhance/sky.js',             // 天空系统Owner
+      'src/enhance/outside.js',         // 城外环境Owner
+      'src/enhance/night-light.js',     // 夜景灯光Owner
+      'src/enhance/performance.js',     // 性能优化Owner
       // ======================================
       'src/99-safe-init.js',
       'src/08-assets.js',
