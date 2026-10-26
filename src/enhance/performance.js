@@ -47,7 +47,7 @@
 
   function checkReady() {
     if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 4000);
-    else setTimeout(checkReady, 200);
+    else setTimeout(checkReady, 100);
   }
   checkReady();
 })();
