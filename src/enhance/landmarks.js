@@ -56,18 +56,18 @@
     if (typeof MAT === 'undefined') return;
     const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
     base.position.set(x, 3, z);
-    base.scale.set(12, 6, 12);
+    base.scale.set(14, 6, 14);
     base.castShadow = true;
     base.receiveShadow = true;
     scene.add(base);
     const mid = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
     mid.position.set(x, 6.5, z);
-    mid.scale.set(9, 1, 9);
+    mid.scale.set(10, 1, 10);
     mid.castShadow = true;
     scene.add(mid);
     const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
     roof.position.set(x, 8, z);
-    roof.scale.set(16, 4, 16);
+    roof.scale.set(18, 4, 18);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -154,33 +154,33 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 大明宫 - 殿前6层台阶+大广场（补充原系统）
-      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 36, 22, 0.4, 6);
-      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 40, 70);
+      // 大明宫 - 殿前7层台阶+大广场（补充原系统）
+      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 40, 24, 0.4, 7);
+      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 42, 75);
 
-      // 太极宫 - 殿前5层台阶+广场（补充原系统）
-      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 28, 18, 0.4, 5);
-      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 32, 60);
+      // 太极宫 - 殿前6层台阶+广场（补充原系统）
+      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 32, 20, 0.4, 6);
+      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 35, 65);
 
-      // 兴庆宫 - 殿前5层台阶+广场（补充原系统）
-      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 26, 18, 0.35, 5);
-      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 38, 55);
+      // 兴庆宫 - 殿前6层台阶+广场（补充原系统）
+      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 30, 20, 0.35, 6);
+      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 40, 60);
 
-      // 大雁塔 - 6层台阶（补充原系统）
-      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 20, 16, 0.3, 6);
+      // 大雁塔 - 7层台阶（补充原系统）
+      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 22, 18, 0.3, 7);
 
-      // 小雁塔 - 6层台阶（补充原系统）
-      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 20, 16, 0.3, 6);
+      // 小雁塔 - 7层台阶（补充原系统）
+      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 22, 18, 0.3, 7);
 
-      // 青龙寺 - 5层台阶
-      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 16, 14, 0.25, 5);
+      // 青龙寺 - 6层台阶
+      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 18, 16, 0.25, 6);
 
-      // 西明寺 - 5层台阶
-      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 16, 14, 0.25, 5);
+      // 西明寺 - 6层台阶
+      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 18, 16, 0.25, 6);
 
-      // 明德门 - 6层台阶+大广场（补充原系统）
-      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 26, 18, 0.4, 6);
-      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 32, 60);
+      // 明德门 - 7层台阶+大广场（补充原系统）
+      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 30, 20, 0.4, 7);
+      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 35, 65);
 
       // 城墙四角角楼（补充原系统）
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
@@ -205,14 +205,18 @@
       addStoneTablet(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 15, '小雁塔');
 
       // 大明宫广场栏杆（补充原系统）
-      addRail(LANDMARKS.daming.x - 35, LANDMARKS.daming.z + 40, 70, 'horizontal');
-      addRail(LANDMARKS.daming.x + 35, LANDMARKS.daming.z + 40, 70, 'horizontal');
+      addRail(LANDMARKS.daming.x - 37.5, LANDMARKS.daming.z + 42, 75, 'horizontal');
+      addRail(LANDMARKS.daming.x + 37.5, LANDMARKS.daming.z + 42, 75, 'horizontal');
 
       // 太极宫广场栏杆（补充原系统）
-      addRail(LANDMARKS.taiji.x - 30, LANDMARKS.taiji.z + 32, 60, 'horizontal');
-      addRail(LANDMARKS.taiji.x + 30, LANDMARKS.taiji.z + 32, 60, 'horizontal');
+      addRail(LANDMARKS.taiji.x - 32.5, LANDMARKS.taiji.z + 35, 65, 'horizontal');
+      addRail(LANDMARKS.taiji.x + 32.5, LANDMARKS.taiji.z + 35, 65, 'horizontal');
 
-      console.log('[Landmarks] 地标精修完成 - 11大地标多级台阶+3大广场+4角楼+城墙垛口+2牌坊+2石碑+广场栏杆，不重复创建建筑');
+      // 兴庆宫广场栏杆（补充原系统）
+      addRail(LANDMARKS.xingqing.x - 30, LANDMARKS.xingqing.z + 40, 60, 'horizontal');
+      addRail(LANDMARKS.xingqing.x + 30, LANDMARKS.xingqing.z + 40, 60, 'horizontal');
+
+      console.log('[Landmarks] 地标精修完成 - 11大地标多级台阶+4大广场+4角楼+城墙垛口+2牌坊+2石碑+广场栏杆，不重复创建建筑');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
