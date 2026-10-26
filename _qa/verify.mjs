@@ -71,9 +71,9 @@ for (let i = 0; i < 4; i++) {
 }
 out.cameras = cameras;
 
-// 诗笺：传送到曲江池诗笺旁并点击拾取（追加诗笺坐标以 27c-extra-poems-2 为准）
-await evaluate(`window.__changan.teleport(398, 346, Math.PI); true`);
-await sleep(1200);
+// 诗笺：直接落到曲江池追加诗笺坐标（27c-extra-poems-2 为准），等待靠近检测后拾取
+await evaluate(`(() => { const p = __changan.player.group.position; const gh = __changan.exploration.groundHeight(398, 346); p.set(398, Math.max(gh, 0.5), 346); return true; })()`);
+await sleep(1600);
 out.poemBefore = await evaluate(`(() => ({ near: __changan.state.nearPoem, interact: document.getElementById('interactBtn').classList.contains('visible'), count: __changan.state.poemsFound.size }))()`);
 await evaluate(`document.getElementById('interactBtn').click(); true`);
 await sleep(800);
@@ -95,18 +95,31 @@ await sleep(2800);
 out.night = await evaluate(`(() => ({ target: __changan.state.nightTarget, value: __changan.state.nightT, sun: __changan.scene.children.find(o => o.isDirectionalLight)?.intensity, stars: __changan.scene.children.find(o => o.isPoints && o.material?.size === 2.2)?.material.opacity, button: document.getElementById('nightBtn').textContent }))()`);
 await shot(PREFIX + '-night');
 
+// 天气：按钮循环 晴→阴→雨，验证主循环驱动的雾/曝光/粒子
+out.weather = {};
+await evaluate(`document.getElementById('weatherBtn').click(); true`);
+await sleep(2200);
+out.weather.cloudy = await evaluate(`(() => ({ current: window.__weather.current, target: window.__weather.target, t: Math.round(window.__weather.t * 100) / 100, fogNear: Math.round(__changan.scene.fog.near * 100) / 100, particles: !!window.__weather.particles && window.__weather.particles.children === undefined }))()`);
+await evaluate(`document.getElementById('weatherBtn').click(); true`);
+await sleep(2200);
+out.weather.rain = await evaluate(`(() => ({ current: window.__weather.current, target: window.__weather.target, t: Math.round(window.__weather.t * 100) / 100, fogNear: Math.round(__changan.scene.fog.near * 100) / 100, rainVisible: window.__weather.particles.visible }))()`);
+await shot(PREFIX + '-weather-rain');
+await evaluate(`document.getElementById('weatherBtn').click(); true`);
+await sleep(2200);
+out.weather.sunny = await evaluate(`(() => ({ current: window.__weather.current, target: window.__weather.target, rainVisible: window.__weather.particles.visible }))()`);
+
 // 水域 / 桥 / 陆地碰撞判定
 out.collision = await evaluate(`(() => ({ water: canStandAt(320, 300), island: canStandAt(354, 318), bridge: canStandAt(299, 339), river: canStandAt(-300, 470), plaza: canStandAt(0, 220) }))()`);
 
 // 实际键盘骑行（无头浏览器帧率低，只验证方向与速度变化）
 await evaluate(`document.getElementById('nightBtn').click(); true`);
-await evaluate(`window.__changan.teleport(0, 300, Math.PI); true`);
+await evaluate(`(() => { const p = __changan.player.group.position; const gh = __changan.exploration.groundHeight(0, 300); p.set(0, Math.max(gh, 0.5), 300); return true; })()`);
 await sleep(500);
 await send('Input.dispatchKeyEvent', { type: 'keyDown', code: 'KeyW', key: 'w', windowsVirtualKeyCode: 87, nativeVirtualKeyCode: 87 });
 await sleep(2600);
 await send('Input.dispatchKeyEvent', { type: 'keyUp', code: 'KeyW', key: 'w', windowsVirtualKeyCode: 87, nativeVirtualKeyCode: 87 });
 await sleep(300);
-out.ride = await evaluate(`(() => ({ pos: __changan.player.group.position.toArray(), speed: __changan.speed, speedText: document.getElementById('speedValue').textContent }))()`);
+out.ride = await evaluate(`(() => ({ pos: __changan.player.group.position.toArray(), speedText: document.getElementById('speedValue').textContent }))()`);
 
 out.layout = await evaluate(`(() => ({ overflowX: document.documentElement.scrollWidth > innerWidth, overflowY: document.documentElement.scrollHeight > innerHeight, startPanel: (() => { const r = document.querySelector('.start-panel').getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)]; })(), map: (() => { const c = document.getElementById('minimap'); return [c.width, c.height]; })() }))()`);
 out.webgl = await evaluate(`(() => { const gl=document.getElementById('scene').getContext('webgl2') || document.getElementById('scene').getContext('webgl'); return gl ? { version: gl.getParameter(gl.VERSION), renderer: gl.getParameter(gl.RENDERER) } : null; })()`);
