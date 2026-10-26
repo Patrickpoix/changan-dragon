@@ -21,13 +21,10 @@
 
       // 微调天空颜色（与原昼夜系统兼容）
       if (typeof skyUniforms !== 'undefined') {
-        skyUniforms.topColor.value.setHex(0x75a5c5);
+        skyUniforms.topColor.value.setHex(0x6a9fc0);
         skyUniforms.horizonColor.value.setHex(0xfae8d0);
         skyUniforms.sunColor.value.setHex(0xffd47a);
       }
-
-      // 增加远山层次感（如果原系统没有的话）
-      // 注意：原系统已有连续远山山脊线，这里不重复创建
 
       console.log('[Sky] 天空系统增强完成 - 微调原Shader颜色：天顶蓝+地平线暖金+太阳亮黄');
     } catch(e) { console.warn('[Sky] 初始化失败:', e); }
