@@ -30,75 +30,75 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 朱雀大街灯笼（两侧各25组）
-      for (let i = 0; i < 25; i++) {
-        const z = -350 + i * 28;
+      // 朱雀大街灯笼（两侧各20组）
+      for (let i = 0; i < 20; i++) {
+        const z = -300 + i * 30;
         addLantern(-10, z, 5);
         addLantern(10, z, 5);
       }
 
       // 大明宫宫殿灯光
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 15; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 30 + Math.random() * 45;
+        const r = 30 + Math.random() * 40;
         addLantern(150 + Math.cos(angle) * r, -432 + Math.sin(angle) * r, 4);
       }
 
       // 太极宫宫殿灯光
-      for (let i = 0; i < 16; i++) {
+      for (let i = 0; i < 12; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 25 + Math.random() * 40;
+        const r = 25 + Math.random() * 35;
         addLantern(0 + Math.cos(angle) * r, -334 + Math.sin(angle) * r, 4);
       }
 
       // 东市夜市灯光
-      for (let i = 0; i < 16; i++) {
-        const x = 150 + Math.random() * 55;
-        const z = -35 + Math.random() * 35;
+      for (let i = 0; i < 12; i++) {
+        const x = 150 + Math.random() * 50;
+        const z = -30 + Math.random() * 30;
         addLantern(x, z, 3);
       }
 
       // 西市夜市灯光
-      for (let i = 0; i < 16; i++) {
-        const x = -285 + Math.random() * 55;
-        const z = -35 + Math.random() * 35;
+      for (let i = 0; i < 12; i++) {
+        const x = -280 + Math.random() * 50;
+        const z = -30 + Math.random() * 30;
         addLantern(x, z, 3);
       }
 
       // 大雁塔灯光
-      for (let i = 0; i < 12; i++) {
-        const angle = (i / 12) * Math.PI * 2;
-        addLantern(216 + Math.cos(angle) * 14, 283 + Math.sin(angle) * 14, 4);
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        addLantern(216 + Math.cos(angle) * 12, 283 + Math.sin(angle) * 12, 4);
       }
 
       // 小雁塔灯光
-      for (let i = 0; i < 12; i++) {
-        const angle = (i / 12) * Math.PI * 2;
-        addLantern(-216 + Math.cos(angle) * 14, 349 + Math.sin(angle) * 14, 4);
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        addLantern(-216 + Math.cos(angle) * 12, 349 + Math.sin(angle) * 12, 4);
       }
 
       // 兴庆宫灯火
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 10; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 30 + Math.random() * 45;
+        const r = 30 + Math.random() * 40;
         addLantern(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4);
       }
 
       // 曲江池夜游灯光
-      for (let i = 0; i < 16; i++) {
-        const angle = (i / 16) * Math.PI * 2;
-        addLantern(354 + Math.cos(angle) * 44, 318 + Math.sin(angle) * 44, 3.5);
+      for (let i = 0; i < 12; i++) {
+        const angle = (i / 12) * Math.PI * 2;
+        addLantern(354 + Math.cos(angle) * 42, 318 + Math.sin(angle) * 42, 3.5);
       }
 
       // 明德门灯光
-      for (let i = 0; i < 14; i++) {
-        const x = -20 + i * 3.2;
+      for (let i = 0; i < 10; i++) {
+        const x = -20 + i * 4.5;
         addLantern(x, 380, 4);
       }
 
       // 添加点光源（与昼夜系统联动）
       const lanternPositions = [
-        { x: 0, z: 0, intensity: 0.7, distance: 90 },
+        { x: 0, z: 0, intensity: 0.6, distance: 80 },
         { x: 150, z: -432, intensity: 0.8, distance: 100 },
         { x: 0, z: -334, intensity: 0.7, distance: 90 },
         { x: 342, z: -152, intensity: 0.6, distance: 80 },
@@ -134,13 +134,13 @@
         }
       }
 
-      console.log('[NightLight] 夜景灯光初始化完成 - 10组点光源(昼夜联动)+150+灯笼，已整合到原系统主更新流程');
+      console.log('[NightLight] 夜景灯光初始化完成 - 10组点光源(昼夜联动)+100+灯笼，已整合到原系统主更新流程');
     } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
   }
 
   function checkReady() {
     if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 8000);
-    else setTimeout(checkReady, 200);
+    else setTimeout(checkReady, 100);
   }
   checkReady();
 })();
