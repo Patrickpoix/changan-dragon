@@ -1,12 +1,12 @@
 /* ============================================================
-   Vegetation - 植被系统Owner
-   负责：所有树木/花卉/绿化的统一种植和管理
+   Vegetation - 植被系统Owner（增强版）
+   全部使用共享几何体UNIT_CYL/UNIT_SPHERE和共享材质MAT
    ============================================================ */
 
 (function() {
   'use strict';
 
-  // 植被配置 - 集中管理，不硬编码散落各处
+  // 植被配置 - 集中管理
   const TREE_CONFIG = {
     street: { count: 40, type: 'oak', roadWidth: 20 },
     daming: { count: 20, type: 'pine', centerX: 150, centerZ: -432, radius: 80 },
@@ -18,46 +18,43 @@
   };
 
   const FLOWER_CONFIG = {
-    mudan: { count: 20, centerX: 342, centerZ: -152, radius: 40, color: 0xd44a6a }, // 兴庆宫牡丹
-    hehua: { count: 30, centerX: 354, centerZ: 318, radius: 35, color: 0xf8f8f8 }, // 曲江池荷花
+    mudan: { count: 20, centerX: 342, centerZ: -152, radius: 40, color: 0xd44a6a },
+    hehua: { count: 30, centerX: 354, centerZ: 318, radius: 35, color: 0xf8f8f8 },
   };
 
   let initialized = false;
 
   function createTree(x, z, type) {
     if (typeof MAT === 'undefined') return;
+    // 树干 - 共享UNIT_CYL
     const trunkH = 3 + Math.random() * 2;
-    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.25, trunkH, 6), MAT.wood);
+    const trunk = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
     trunk.position.set(x, trunkH / 2, z);
+    trunk.scale.set(0.3, trunkH, 0.3);
     trunk.castShadow = true;
     scene.add(trunk);
 
-    let leafColor = 0x4a7a3a;
-    if (type === 'pine') leafColor = 0x3a5a3a;
-    else if (type === 'willow') leafColor = 0x6a9a5a;
-    else if (type === 'peach') leafColor = 0xe8aab0;
-
-    const leaves = new THREE.Mesh(new THREE.SphereGeometry(1.5 + Math.random(), 6, 5),
-      new THREE.MeshStandardMaterial({ color: leafColor, roughness: 0.9 }));
+    // 树叶 - 共享UNIT_SPHERE
+    const leaves = new THREE.Mesh(UNIT_SPHERE, MAT.leaf || MAT.blossom);
     leaves.position.set(x, trunkH + 1, z);
+    leaves.scale.set(3 + Math.random(), 3 + Math.random(), 3 + Math.random());
     leaves.castShadow = true;
     scene.add(leaves);
   }
 
   function createFlower(x, z, color) {
     if (typeof MAT === 'undefined') return;
-    const flower = new THREE.Mesh(
-      new THREE.SphereGeometry(0.2 + Math.random() * 0.1, 4, 4),
-      new THREE.MeshStandardMaterial({ color: color, roughness: 0.8 })
-    );
+    const flower = new THREE.Mesh(UNIT_SPHERE,
+      new THREE.MeshStandardMaterial({ color: color, roughness: 0.8 }));
     flower.position.set(x, 0.3, z);
+    flower.scale.set(0.4, 0.4, 0.4);
     scene.add(flower);
   }
 
   function init() {
     if (initialized) return;
     initialized = true;
-    console.log('[Vegetation] 初始化植被系统...');
+    console.log('[Vegetation] 植被系统初始化...');
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
