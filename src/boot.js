@@ -140,6 +140,7 @@
       'src/200-visual-enhancements.js',
       'src/201-cinematic-polish.js',
       'src/202-city-atmosphere.js',
+      'src/203-palace-refinement.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
