@@ -1,12 +1,14 @@
 /* ============================================================
    Landmarks - 地标精修Owner（增强版）
+   注意：原系统已有完整地标建筑（太极宫/大明宫/兴庆宫/大雁塔/曲江池等）
+   本模块仅做补充性精修：台阶+广场+角楼+牌坊+石碑，不重复创建建筑
    全部使用共享几何体UNIT_BOX/ROOF_UNIT和共享材质MAT
    ============================================================ */
 
 (function() {
   'use strict';
 
-  // 权威地标坐标
+  // 权威地标坐标（与原系统12-landmarks.js一致）
   const LANDMARKS = {
     daming:   { name: '大明宫',   x: 150, z: -432, gateX: 150, gateZ: -380 },
     taiji:    { name: '太极宫',   x: 0,   z: -334 },
@@ -139,22 +141,22 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 大明宫 - 殿前5层台阶+大广场
+      // 大明宫 - 殿前5层台阶+大广场（补充原系统）
       addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 32, 20, 0.4, 5);
       addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 38, 65);
 
-      // 太极宫 - 殿前4层台阶+广场
+      // 太极宫 - 殿前4层台阶+广场（补充原系统）
       addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 26, 16, 0.4, 4);
       addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 30, 55);
 
-      // 兴庆宫 - 殿前4层台阶+广场
+      // 兴庆宫 - 殿前4层台阶+广场（补充原系统）
       addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 24, 16, 0.35, 4);
       addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 35, 50);
 
-      // 大雁塔 - 5层台阶
+      // 大雁塔 - 5层台阶（补充原系统）
       addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 18, 14, 0.3, 5);
 
-      // 小雁塔 - 5层台阶
+      // 小雁塔 - 5层台阶（补充原系统）
       addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 18, 14, 0.3, 5);
 
       // 青龙寺 - 4层台阶
@@ -163,33 +165,33 @@
       // 西明寺 - 4层台阶
       addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 14, 12, 0.25, 4);
 
-      // 明德门 - 5层台阶+大广场
+      // 明德门 - 5层台阶+大广场（补充原系统）
       addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 24, 16, 0.4, 5);
       addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 30, 55);
 
-      // 城墙四角角楼
+      // 城墙四角角楼（补充原系统）
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
 
-      // 城墙垛口（南北城墙）
+      // 城墙垛口（南北城墙，补充原系统）
       addWallCrenellations(0, -450, 900, 'horizontal');
       addWallCrenellations(0, 450, 900, 'horizontal');
-      // 城墙垛口（东西城墙）
+      // 城墙垛口（东西城墙，补充原系统）
       addWallCrenellations(-450, 0, 900, 'vertical');
       addWallCrenellations(450, 0, 900, 'vertical');
 
-      // 东市牌坊
+      // 东市牌坊（补充原系统）
       addPaifang(LANDMARKS.east.x, LANDMARKS.east.z + 10, '东市');
 
-      // 西市牌坊
+      // 西市牌坊（补充原系统）
       addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
 
-      // 大雁塔石碑
+      // 大雁塔石碑（补充原系统）
       addStoneTablet(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 15, '大雁塔');
 
-      // 小雁塔石碑
+      // 小雁塔石碑（补充原系统）
       addStoneTablet(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 15, '小雁塔');
 
-      console.log('[Landmarks] 地标精修完成 - 11大地标多级台阶+3大广场+4角楼+城墙垛口+2牌坊+2石碑');
+      console.log('[Landmarks] 地标精修完成 - 补充原系统：11大地标多级台阶+3大广场+4角楼+城墙垛口+2牌坊+2石碑，不重复创建建筑');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
