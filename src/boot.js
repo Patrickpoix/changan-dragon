@@ -90,6 +90,7 @@
       'src/249-mingde-square.js',
       'src/250-qinglong-pagoda.js',
       'src/251-ximing-pagoda.js',
+      'src/252-qujiang-boats.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
