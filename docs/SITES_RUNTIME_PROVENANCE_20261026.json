@@ -1,0 +1,303 @@
+{
+  "repository": "Patrickpoix/changan-dragon",
+  "commit": "494dec33c346786c0f146a1cee3a2cae766b2561",
+  "runtime_files": 49,
+  "bytes": 25117041,
+  "mismatches": [],
+  "files": [
+    {
+      "path": "assets/boat-hulls.js",
+      "bytes": 49927,
+      "git_blob_sha": "3b89fec48aa43fb94a5987d067bb9ddfd80c917a",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/character-faces.js",
+      "bytes": 99889,
+      "git_blob_sha": "97872592d15393062b00c9e531296e1e61c4b0a9",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/fonts/MaShanZheng-Game.woff",
+      "bytes": 433676,
+      "git_blob_sha": "a3db42b964479db7dac7f1329e7fa0134766cda5",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/fonts/MaShanZheng-METADATA.pb",
+      "bytes": 844,
+      "git_blob_sha": "995cfd6be84c668a3721b8fba139a7a4ae3ad92a",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/fonts/MaShanZheng-OFL.txt",
+      "bytes": 4397,
+      "git_blob_sha": "9e252e1997092670936a7f1d38560973d919f6b0",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/fonts/MaShanZheng-Regular.ttf",
+      "bytes": 5857936,
+      "git_blob_sha": "11bbfb9867d70612158229d037e7a5f622bd0e38",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/materials.js",
+      "bytes": 113097,
+      "git_blob_sha": "8daa7bcc2edd06ea4a67836ba307d65a5f276342",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/runtime-models.js",
+      "bytes": 9582151,
+      "git_blob_sha": "ab55db343778b946b32c8b503422968c5a8171b0",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "assets/scene-materials.js",
+      "bytes": 7081841,
+      "git_blob_sha": "93fafd81ebfe28d57ab05e74e309a43461640952",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "index.html",
+      "bytes": 52260,
+      "git_blob_sha": "e4b8c371063c78b56dcc91689cca4a379ff40ee2",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/00-core.js",
+      "bytes": 33741,
+      "git_blob_sha": "91035cb7629e4e9f1f9410bb89263947862d6b8e",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/04-compatibility.js",
+      "bytes": 2814,
+      "git_blob_sha": "6a75efd81d317f12c31617fa18a21050980d636d",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/05-rendering.js",
+      "bytes": 16910,
+      "git_blob_sha": "a42ad59df889e1414bcf1e22b52e99bcc463ac12",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/06-surfaces.js",
+      "bytes": 5799,
+      "git_blob_sha": "0c404820408095992393d9e8af0c2b42e706b85f",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/07-water.js",
+      "bytes": 2635,
+      "git_blob_sha": "d0e77438bb69e5e74d3a5d135dbf70ee020b95ef",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/08-assets.js",
+      "bytes": 21203,
+      "git_blob_sha": "bddf9be548c55895a30294500f05b99a656688d6",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/09-botany.js",
+      "bytes": 8617,
+      "git_blob_sha": "e36844767c74fc55aaa45752e9a795248408a535",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/10-world.js",
+      "bytes": 72223,
+      "git_blob_sha": "57fb767a2db2fa6d7dd88b246114af0317ca7035",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/11-shorelines.js",
+      "bytes": 4450,
+      "git_blob_sha": "ee79c48ded68a23fb8ff73269f5c89164f51e798",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/12-landmarks.js",
+      "bytes": 26470,
+      "git_blob_sha": "e2b8c8382c95a9fb0ed91f25c1c132c18530b387",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/20-character.js",
+      "bytes": 74170,
+      "git_blob_sha": "91104e7cb39cca05036d098559a299577fc4bf10",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/25-exploration.js",
+      "bytes": 16654,
+      "git_blob_sha": "de5a5cdc7be9e931a5b1ca42ccdfcda5a64466b2",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/25b-film-shots-extra.js",
+      "bytes": 1117,
+      "git_blob_sha": "63185642fc81852ca5045d1f72c337a3dbfa4f0a",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/26-extra-places.js",
+      "bytes": 1021,
+      "git_blob_sha": "c60adc194aca5ba1f09844789495f2a46f7603a7",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/26b-extra-places-2.js",
+      "bytes": 911,
+      "git_blob_sha": "7c01735b69624d743d0e738a7e7c14a862c5960c",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/27-session.js",
+      "bytes": 2724,
+      "git_blob_sha": "0fa24ee394dd92f3020dd7df015dd3fe0918c614",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/27b-extra-poems.js",
+      "bytes": 2410,
+      "git_blob_sha": "44caba84051ae6c30f03f03a15b45af5c5470533",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/27c-extra-poems-2.js",
+      "bytes": 1611,
+      "git_blob_sha": "01c92e8e0cb8dc1fc11542f56ebca8c5e9a1309e",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/28-weather.js",
+      "bytes": 3012,
+      "git_blob_sha": "a8b3b8530e091681e8515682c762efa1fa70a405",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/29-lanterns.js",
+      "bytes": 1615,
+      "git_blob_sha": "59ece293edea0abb208f2dc4625662fb61512e20",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/30-main.js",
+      "bytes": 48154,
+      "git_blob_sha": "349d0d0cb352516ef0389d3311404f6b3c036017",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/99-safe-init.js",
+      "bytes": 742,
+      "git_blob_sha": "fbfa93db1a88ac47f94cb1083be1e12d23ac3eb1",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/boot.js",
+      "bytes": 2721,
+      "git_blob_sha": "61f5ad6c47a5100c8335e3ea7ec0e27c7af4fd79",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/landmarks.js",
+      "bytes": 8751,
+      "git_blob_sha": "bdc490060198fff47f2ec6356e8524e347e91c47",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/night-light.js",
+      "bytes": 5184,
+      "git_blob_sha": "4911eafd3f12401528b7be5c08f9862d4cf3251e",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/outside.js",
+      "bytes": 4303,
+      "git_blob_sha": "9afc130dafbceb8784e312183799bdf9fc1ddd8f",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/performance.js",
+      "bytes": 2039,
+      "git_blob_sha": "23434db4d85ced0fb86f21713fdc13f29a525460",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/sky.js",
+      "bytes": 1205,
+      "git_blob_sha": "f12675e52f9cfc3f6e21cc0fc12b743c5c03a611",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/vegetation.js",
+      "bytes": 3813,
+      "git_blob_sha": "e1d8c719970efcdb0d03cfd3c685a9dbd7ff9747",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/visual-grade.js",
+      "bytes": 1726,
+      "git_blob_sha": "386cc3efc4a15d102f669d56e9c60f0bad25433e",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "src/enhance/water.js",
+      "bytes": 4196,
+      "git_blob_sha": "d1ab8d0f94fa95b411df345e19a05fc9da490720",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/THREE-LICENSE.txt",
+      "bytes": 1081,
+      "git_blob_sha": "d07e209686512b9ac93d7df5481a4a6f622093e7",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/miniLibs-LICENSE.txt",
+      "bytes": 1323,
+      "git_blob_sha": "605c1824b6f9eb120c06a1add5efe407b628c3dc",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/rendering-addons-LICENSE.txt",
+      "bytes": 1738,
+      "git_blob_sha": "774915519cd1708e9ed63b69e0a1f4afe6f22657",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/rendering-addons.js",
+      "bytes": 113030,
+      "git_blob_sha": "d508662e4ce992f7a402677ceb442de945332dd1",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/three-r150-skinning_pars_vertex.glsl.SOURCE.txt",
+      "bytes": 347,
+      "git_blob_sha": "c29103b20a90a5dda00b1c03536f7311c110230c",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/three-r150-skinning_pars_vertex.glsl.js",
+      "bytes": 795,
+      "git_blob_sha": "a17c93391afa8a1d68b3e775304fd804b10ac875",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/three.compat.min.js",
+      "bytes": 669884,
+      "git_blob_sha": "0c2f4ba351000d47f413873d8bb9c1a2f18cb37a",
+      "matches_main_snapshot": true
+    },
+    {
+      "path": "vendor/three.min.js",
+      "bytes": 669884,
+      "git_blob_sha": "0c2f4ba351000d47f413873d8bb9c1a2f18cb37a",
+      "matches_main_snapshot": true
+    }
+  ]
+}
