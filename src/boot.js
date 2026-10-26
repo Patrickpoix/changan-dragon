@@ -61,6 +61,7 @@
       'src/220-wall-gate-opt.js',
       'src/221-final-tone-confirm.js',
       'src/222-material-opt.js',
+      'src/223-geometry-opt.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
