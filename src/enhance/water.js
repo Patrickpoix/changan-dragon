@@ -135,6 +135,9 @@
       // 龙池小木桥
       addBridge(WATER_CONFIG.longchi.x, WATER_CONFIG.longchi.z - 15, 10, 2);
 
+      // 龙池亭子
+      addPavilion(WATER_CONFIG.longchi.x + 15, WATER_CONFIG.longchi.z - 10);
+
       console.log('[Water] 水景系统初始化完成');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
