@@ -10,11 +10,11 @@
 
   // 花卉配置
   const FLOWER_CONFIG = {
-    mudan: { count: 60, centerX: 342, centerZ: -152, radius: 55, color: 0xd44a6a },
-    hehua: { count: 70, centerX: 354, centerZ: 318, radius: 50, color: 0xf8f8f8 },
-    taohua: { count: 50, centerX: 342, centerZ: -152, radius: 60, color: 0xff91a7 },
-    lanyao: { count: 40, centerX: 216, centerZ: 283, radius: 40, color: 0x6a5acd },
-    juhua: { count: 30, centerX: 0, centerZ: -334, radius: 45, color: 0xffa500 },
+    mudan: { count: 40, centerX: 342, centerZ: -152, radius: 50, color: 0xd44a6a },
+    hehua: { count: 50, centerX: 354, centerZ: 318, radius: 45, color: 0xf8f8f8 },
+    taohua: { count: 35, centerX: 342, centerZ: -152, radius: 55, color: 0xff91a7 },
+    lanyao: { count: 25, centerX: 216, centerZ: 283, radius: 35, color: 0x6a5acd },
+    juhua: { count: 20, centerX: 0, centerZ: -334, radius: 40, color: 0xffa500 },
   };
 
   let initialized = false;
@@ -69,21 +69,21 @@
       });
 
       // 兴庆宫周边灌木（补充原系统）
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 30; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 60 + Math.random() * 20;
         createBush(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r);
       }
 
       // 曲江池周边灌木（补充原系统）
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 25; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 60 + Math.random() * 20;
         createBush(354 + Math.cos(angle) * r, 318 + Math.sin(angle) * r);
       }
 
       // 大雁塔周边竹林（补充原系统）
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 15; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 35 + Math.random() * 15;
         createBamboo(216 + Math.cos(angle) * r, 283 + Math.sin(angle) * r);
