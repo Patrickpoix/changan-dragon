@@ -154,6 +154,7 @@
       'src/135-final-polish.js',
       'src/136-tang-characters.js',
       'src/137-procedural-audio.js',
+      'src/138-core-details.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
