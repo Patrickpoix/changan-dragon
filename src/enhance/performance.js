@@ -15,26 +15,26 @@
     try {
       if (typeof renderer === 'undefined') return;
 
-      // 移动端DPR限制
+      // DPR限制（平衡画质与性能）
       const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-      const maxDPR = isMobile ? 1.25 : 1.65;
+      const maxDPR = isMobile ? 1.5 : 2.0;
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
 
       // 阴影优化：使用原引擎的sun对象
       if (typeof sun !== 'undefined' && sun.shadow) {
-        sun.shadow.mapSize.width = isMobile ? 1024 : 2048;
-        sun.shadow.mapSize.height = isMobile ? 1024 : 2048;
+        sun.shadow.mapSize.width = isMobile ? 2048 : 4096;
+        sun.shadow.mapSize.height = isMobile ? 2048 : 4096;
         sun.shadow.camera.near = 10;
-        sun.shadow.camera.far = 800;
-        sun.shadow.camera.left = -400;
-        sun.shadow.camera.right = 400;
-        sun.shadow.camera.top = 400;
-        sun.shadow.camera.bottom = -400;
-        sun.shadow.bias = -0.0006;
+        sun.shadow.camera.far = 1000;
+        sun.shadow.camera.left = -500;
+        sun.shadow.camera.right = 500;
+        sun.shadow.camera.top = 500;
+        sun.shadow.camera.bottom = -500;
+        sun.shadow.bias = -0.0005;
       }
 
       // 纹理各向异性过滤
-      const maxAnisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+      const maxAnisotropy = Math.min(16, renderer.capabilities.getMaxAnisotropy());
       if (typeof TEX !== 'undefined') {
         Object.values(TEX).forEach(tex => {
           tex.anisotropy = maxAnisotropy;
@@ -58,7 +58,7 @@
         pixelRatio: renderer.getPixelRatio(),
         maxAnisotropy: maxAnisotropy,
       };
-      console.log('[Performance] 性能优化完成 - DPR限制+阴影2048+各向异性8x+视锥剔除');
+      console.log('[Performance] 性能优化完成 - DPR(移动1.5/桌面2.0)+阴影(移动2048/桌面4096)+各向异性16x+视锥剔除');
     } catch(e) { console.warn('[Performance] 初始化失败:', e); }
   }
 
