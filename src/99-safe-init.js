@@ -29,6 +29,17 @@
       const step = () => {
         if (i >= this.queue.length) {
           console.log('[SafeInit] 增强模块生命周期完成: ' + done.join(' → '));
+          // 增强模块在批处理首次构建之后追加的物体（如城外行道树）不会自动
+          // 进入已构建的实例网格；统一重建批处理实例并刷新飞行包络网格，
+          // 保证“已登记即已渲染、已登记即已阻挡”，消除隐形碰撞与飞行穿模。
+          try {
+            if (typeof window !== 'undefined' && window.__changan && typeof window.__changan.rebuild === 'function') {
+              window.__changan.rebuild();
+              console.log('[SafeInit] ✓ 批处理增量重建完成（含增强模块新增物体）');
+            }
+          } catch (err) {
+            console.warn('[SafeInit] 批处理增量重建失败:', err);
+          }
           if (typeof GAME !== 'undefined') GAME.fullyReady = true;
           return;
         }

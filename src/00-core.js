@@ -341,6 +341,7 @@ class Batch {
     this.farGeometry = opts.farGeometry || BATCH_LOD_GEOMETRY.get(geometry) || null;
     this.nearDistance = opts.nearDistance || 95;
     this.cellSize = opts.cellSize || 176;
+    this._group = null;
   }
   add(x, y, z, sx, sy, sz, ry = 0, color = null, rx = 0, rz = 0) {
     this.items.push({ x, y, z, sx, sy, sz, ry, rx, rz, color });
@@ -348,6 +349,9 @@ class Batch {
   }
   build(parent = scene) {
     if (!this.items.length) return null;
+    // 幂等重建：首次构建后仍可继续 add（如增强模块在 GAME.ready 后追加物体）。
+    // 再次调用 build 会先移除旧实例组，再按完整条目重建，保证只存在一套实例。
+    if (this._group) { this._group.removeFromParent(); this._group = null; }
     // Small spatial batches keep off-screen districts out of the GPU submission
     // and the nearby shadow pass, while every architectural part stays 3D.
     const cells = new Map();
@@ -391,6 +395,7 @@ class Batch {
       group.add(mesh);
     }
     parent.add(group);
+    this._group = group;
     return group;
   }
 }

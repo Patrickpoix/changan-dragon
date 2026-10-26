@@ -1230,6 +1230,13 @@ window.__changan = {
     GAME.nightT = on ? 1 : 0;
     updateDayNight(0.016);
   },
+  // 增强模块在 GAME.ready 后追加的物体（如城外行道树）需要重建批处理实例，
+  // 并让飞行包络网格覆盖新增障碍物，保证“已登记即已渲染”。
+  rebuild() {
+    Object.values(B).forEach(b => b?.build?.());
+    Explore.buildRoofGrid();
+    return 'batches rebuilt';
+  },
 };
 
 boot();
