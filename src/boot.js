@@ -122,6 +122,7 @@
       'src/281-final-visual-check.js',
       'src/282-final-perf-check.js',
       'src/283-final-game-state-check.js',
+      'src/284-final-delivery.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
