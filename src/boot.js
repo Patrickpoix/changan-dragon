@@ -51,6 +51,7 @@
       'src/210-cinematic-grade.js',
       'src/211-landmark-details.js',
       'src/212-palace-details.js',
+      'src/213-market-details.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
