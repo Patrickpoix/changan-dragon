@@ -8,6 +8,22 @@
 
   let initialized = false;
 
+  function addPostStation(x, z) {
+    if (typeof MAT === 'undefined') return;
+    // 驿站主建筑
+    const main = new THREE.Mesh(new THREE.BoxGeometry(12, 5, 8), MAT.wall || MAT.wood);
+    main.position.set(x, 2.5, z);
+    main.castShadow = true;
+    main.receiveShadow = true;
+    scene.add(main);
+    // 驿站屋顶
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(9, 3, 4), MAT.roof || MAT.roofGlazed);
+    roof.position.set(x, 6.5, z);
+    roof.rotation.y = Math.PI / 4;
+    roof.castShadow = true;
+    scene.add(roof);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -61,6 +77,9 @@
         house.castShadow = true;
         scene.add(house);
       }
+
+      // 南门外驿站
+      addPostStation(100, 450);
 
       console.log('[Outside] 城外环境系统初始化完成');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
