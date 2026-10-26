@@ -45,10 +45,10 @@
         }
       });
 
-      // 大雁塔院竹林（共享MAT.trunk与MAT.leaf）
+      // 大雁塔院竹林（院内半径15-28，不越出塔院围墙；共享MAT.trunk与MAT.leaf）
       for (let i = 0; i < 10; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 36 + Math.random() * 14;
+        const r = 15 + Math.random() * 13;
         const x = 216 + Math.cos(angle) * r;
         const z = 283 + Math.sin(angle) * r;
         if (typeof isWaterPoint === 'function' && isWaterPoint(x, z)) continue;
