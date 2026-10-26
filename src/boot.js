@@ -86,6 +86,7 @@
       'src/245-pagoda-steps.js',
       'src/246-small-pagoda-steps.js',
       'src/247-hanyuan-square.js',
+      'src/248-taiji-square.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
