@@ -21,12 +21,12 @@
 
       // 微调天空颜色（与原昼夜系统兼容）
       if (typeof skyUniforms !== 'undefined') {
-        skyUniforms.topColor.value.setHex(0x85b6ce);
-        skyUniforms.horizonColor.value.setHex(0xf8e3c8);
-        skyUniforms.sunColor.value.setHex(0xffc95e);
+        skyUniforms.topColor.value.setHex(0x75a5c5);
+        skyUniforms.horizonColor.value.setHex(0xfae8d0);
+        skyUniforms.sunColor.value.setHex(0xffd47a);
       }
 
-      console.log('[Sky] 天空系统增强完成 - 微调原Shader颜色：天顶+地平线+太阳色');
+      console.log('[Sky] 天空系统增强完成 - 微调原Shader颜色：天顶蓝+地平线暖金+太阳亮黄');
     } catch(e) { console.warn('[Sky] 初始化失败:', e); }
   }
 
