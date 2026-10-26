@@ -28,12 +28,13 @@
 
   let initialized = false;
 
-  function addSteps(x, z, width, depth, height) {
+  function addSteps(x, z, width, depth, height, layers) {
     if (typeof MAT === 'undefined') return;
-    for (let i = 0; i < 4; i++) {
+    const layers_count = layers || 4;
+    for (let i = 0; i < layers_count; i++) {
       const step = new THREE.Mesh(UNIT_BOX, MAT.stone);
-      step.position.set(x, height * (i + 0.5), z + depth / 8 + i * depth / 4);
-      step.scale.set(width - i * 2, height, depth / 4);
+      step.position.set(x, height * (i + 0.5), z + depth / (layers_count * 2) + i * depth / layers_count);
+      step.scale.set(width - i * 2, height, depth / layers_count);
       step.receiveShadow = true;
       step.castShadow = true;
       scene.add(step);
@@ -99,6 +100,23 @@
     scene.add(roof);
   }
 
+  function addWallCrenellations(x, z, length, orientation) {
+    if (typeof MAT === 'undefined') return;
+    const count = Math.floor(length / 5);
+    for (let i = 0; i < count; i++) {
+      const crenel = new THREE.Mesh(UNIT_BOX, MAT.stone);
+      if (orientation === 'horizontal') {
+        crenel.position.set(x - length/2 + i * 5 + 2.5, 7, z);
+        crenel.scale.set(2, 1, 1);
+      } else {
+        crenel.position.set(x, 7, z - length/2 + i * 5 + 2.5);
+        crenel.scale.set(1, 1, 2);
+      }
+      crenel.castShadow = true;
+      scene.add(crenel);
+    }
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -107,36 +125,43 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 大明宫 - 殿前台阶+广场
-      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 28, 15, 0.4);
-      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 30, 55);
+      // 大明宫 - 殿前5层台阶+大广场
+      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 30, 18, 0.4, 5);
+      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 35, 60);
 
-      // 太极宫 - 殿前台阶+广场
-      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 22, 12, 0.4);
-      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 25, 48);
+      // 太极宫 - 殿前4层台阶+广场
+      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 24, 14, 0.4, 4);
+      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 28, 50);
 
-      // 兴庆宫 - 殿前台阶+广场
-      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 20, 12, 0.35);
-      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 30, 42);
+      // 兴庆宫 - 殿前4层台阶+广场
+      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 22, 14, 0.35, 4);
+      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 32, 45);
 
-      // 大雁塔 - 台阶
-      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 14, 10, 0.3);
+      // 大雁塔 - 5层台阶
+      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 16, 12, 0.3, 5);
 
-      // 小雁塔 - 台阶
-      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 14, 10, 0.3);
+      // 小雁塔 - 5层台阶
+      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 16, 12, 0.3, 5);
 
-      // 青龙寺 - 台阶
-      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 10, 8, 0.25);
+      // 青龙寺 - 4层台阶
+      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 12, 10, 0.25, 4);
 
-      // 西明寺 - 台阶
-      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 10, 8, 0.25);
+      // 西明寺 - 4层台阶
+      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 12, 10, 0.25, 4);
 
-      // 明德门 - 台阶+广场
-      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 20, 12, 0.4);
-      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 25, 45);
+      // 明德门 - 5层台阶+大广场
+      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 22, 14, 0.4, 5);
+      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 28, 50);
 
       // 城墙四角角楼
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
+
+      // 城墙垛口（南北城墙）
+      addWallCrenellations(0, -450, 900, 'horizontal');
+      addWallCrenellations(0, 450, 900, 'horizontal');
+      // 城墙垛口（东西城墙）
+      addWallCrenellations(-450, 0, 900, 'vertical');
+      addWallCrenellations(450, 0, 900, 'vertical');
 
       // 东市牌坊
       addPaifang(LANDMARKS.east.x, LANDMARKS.east.z + 10, '东市');
@@ -144,7 +169,7 @@
       // 西市牌坊
       addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
 
-      console.log('[Landmarks] 地标精修完成 - 11大地标4层台阶+3大广场+4角楼(带中层)+2牌坊(带匾额)');
+      console.log('[Landmarks] 地标精修完成 - 11大地标多级台阶+3大广场+4角楼+城墙垛口+2牌坊(带匾额)');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
