@@ -113,6 +113,7 @@
       'src/272-street-lanterns-extra.js',
       'src/273-zhuque-road-detail.js',
       'src/274-qujiang-rocks.js',
+      'src/275-longchi-rocks.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
