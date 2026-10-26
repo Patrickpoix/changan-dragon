@@ -7,8 +7,8 @@
   'use strict';
 
   const WATER_CONFIG = {
-    qujiang: { x: 354, z: 318, radius: 40, boats: 8 },
-    longchi: { x: 342, z: -152, radius: 25, boats: 5 },
+    qujiang: { x: 354, z: 318, radius: 40, boats: 10 },
+    longchi: { x: 342, z: -152, radius: 25, boats: 6 },
   };
 
   let initialized = false;
@@ -76,6 +76,19 @@
     scene.add(reed);
   }
 
+  function addFountain(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const base = new THREE.Mesh(UNIT_CYL, MAT.stone);
+    base.position.set(x, 0.2, z);
+    base.scale.set(1.5, 0.4, 1.5);
+    scene.add(base);
+    const water = new THREE.Mesh(UNIT_CYL,
+      new THREE.MeshStandardMaterial({ color: 0x88ccff, roughness: 0.2, metalness: 0.3 }));
+    water.position.set(x, 1, z);
+    water.scale.set(0.3, 1.5, 0.3);
+    scene.add(water);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -112,11 +125,11 @@
       // 岸线石头
       Object.keys(WATER_CONFIG).forEach(key => {
         const cfg = WATER_CONFIG[key];
-        for (let i = 0; i < 40; i++) {
-          const angle = (i / 40) * Math.PI * 2;
+        for (let i = 0; i < 50; i++) {
+          const angle = (i / 50) * Math.PI * 2;
           const rock = new THREE.Mesh(UNIT_SPHERE, MAT.stone);
           rock.position.set(cfg.x + Math.cos(angle) * (cfg.radius + 2), 0.2, cfg.z + Math.sin(angle) * (cfg.radius + 2));
-          const s = 0.4 + Math.random() * 0.5;
+          const s = 0.5 + Math.random() * 0.6;
           rock.scale.set(s, s * 0.7, s);
           rock.castShadow = true;
           scene.add(rock);
@@ -124,28 +137,28 @@
       });
 
       // 曲江池荷叶
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 50; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = Math.random() * 35;
         addLotusLeaf(WATER_CONFIG.qujiang.x + Math.cos(angle) * r, WATER_CONFIG.qujiang.z + Math.sin(angle) * r);
       }
 
       // 曲江池荷花
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 20; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = Math.random() * 30;
         addLotusFlower(WATER_CONFIG.qujiang.x + Math.cos(angle) * r, WATER_CONFIG.qujiang.z + Math.sin(angle) * r);
       }
 
       // 龙池荷叶
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = Math.random() * 20;
         addLotusLeaf(WATER_CONFIG.longchi.x + Math.cos(angle) * r, WATER_CONFIG.longchi.z + Math.sin(angle) * r);
       }
 
       // 曲江池岸边芦苇
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 50; i++) {
         const angle = Math.random() * Math.PI * 2;
         addReed(
           WATER_CONFIG.qujiang.x + Math.cos(angle) * (WATER_CONFIG.qujiang.radius + 3),
@@ -154,7 +167,7 @@
       }
 
       // 龙池岸边芦苇
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 30; i++) {
         const angle = Math.random() * Math.PI * 2;
         addReed(
           WATER_CONFIG.longchi.x + Math.cos(angle) * (WATER_CONFIG.longchi.radius + 3),
@@ -163,18 +176,24 @@
       }
 
       // 曲江池石桥
-      addBridge(WATER_CONFIG.qujiang.x, WATER_CONFIG.qujiang.z - 30, 18, 3.5);
+      addBridge(WATER_CONFIG.qujiang.x, WATER_CONFIG.qujiang.z - 30, 20, 4);
 
       // 曲江池亭子
       addPavilion(WATER_CONFIG.qujiang.x + 25, WATER_CONFIG.qujiang.z - 25);
 
+      // 曲江池第二个亭子
+      addPavilion(WATER_CONFIG.qujiang.x - 25, WATER_CONFIG.qujiang.z + 20);
+
       // 龙池小木桥
-      addBridge(WATER_CONFIG.longchi.x, WATER_CONFIG.longchi.z - 15, 12, 2.5);
+      addBridge(WATER_CONFIG.longchi.x, WATER_CONFIG.longchi.z - 15, 12, 3);
 
       // 龙池亭子
       addPavilion(WATER_CONFIG.longchi.x + 18, WATER_CONFIG.longchi.z - 12);
 
-      console.log('[Water] 水景系统初始化完成 - 13艘游船+2石桥+2亭子(带栏杆)+荷叶+荷花+芦苇+石头');
+      // 兴庆宫喷泉
+      addFountain(342, -160);
+
+      console.log('[Water] 水景系统初始化完成 - 16艘游船+2石桥+3亭子(带栏杆)+荷叶荷花芦苇+喷泉+石头');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
