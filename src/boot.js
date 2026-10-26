@@ -118,6 +118,7 @@
       'src/277-mingde-bridge.js',
       'src/278-farmlands.js',
       'src/279-outside-trees.js',
+      'src/280-night-light-enhance.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
