@@ -1,12 +1,14 @@
 /* ============================================================
    NightLight - 夜景灯光Owner（增强版）
    全部使用共享几何体UNIT_CYL和共享材质MAT
+   与原系统昼夜系统联动：夜晚点亮，白天熄灭
    ============================================================ */
 
 (function() {
   'use strict';
 
   let initialized = false;
+  let pointLights = [];
 
   function addLantern(x, z, height) {
     if (typeof MAT === 'undefined') return;
@@ -18,6 +20,15 @@
     lantern.position.set(x, (height || 4) + 0.5, z);
     lantern.scale.set(0.6, 0.8, 0.6);
     scene.add(lantern);
+  }
+
+  function updateLights() {
+    // 根据原系统夜晚状态调整灯光强度
+    const nightFactor = typeof GAME !== 'undefined' && GAME.nightT !== undefined ? GAME.nightT : 0;
+    pointLights.forEach(light => {
+      light.intensity = light.userData.baseIntensity * nightFactor;
+    });
+    requestAnimationFrame(updateLights);
   }
 
   function init() {
@@ -93,27 +104,32 @@
         addLantern(x, 380, 4);
       }
 
-      // 添加点光源（增强夜景效果）
+      // 添加点光源（增强夜景效果，与昼夜系统联动）
       const lanternPositions = [
-        { x: 0, z: 0, intensity: 0.6, distance: 80 },        // 朱雀大街中心
-        { x: 150, z: -432, intensity: 0.8, distance: 100 },  // 大明宫
-        { x: 0, z: -334, intensity: 0.7, distance: 90 },    // 太极宫
-        { x: 342, z: -152, intensity: 0.6, distance: 80 },  // 兴庆宫
-        { x: 354, z: 318, intensity: 0.5, distance: 70 },   // 曲江池
-        { x: 216, z: 283, intensity: 0.4, distance: 60 },   // 大雁塔
-        { x: -216, z: 349, intensity: 0.4, distance: 60 },  // 小雁塔
-        { x: 174, z: -14, intensity: 0.5, distance: 50 },   // 东市
-        { x: -258, z: -14, intensity: 0.5, distance: 50 },   // 西市
-        { x: 0, z: 380, intensity: 0.6, distance: 60 },      // 明德门
+        { x: 0, z: 0, intensity: 0.6, distance: 80 },
+        { x: 150, z: -432, intensity: 0.8, distance: 100 },
+        { x: 0, z: -334, intensity: 0.7, distance: 90 },
+        { x: 342, z: -152, intensity: 0.6, distance: 80 },
+        { x: 354, z: 318, intensity: 0.5, distance: 70 },
+        { x: 216, z: 283, intensity: 0.4, distance: 60 },
+        { x: -216, z: 349, intensity: 0.4, distance: 60 },
+        { x: 174, z: -14, intensity: 0.5, distance: 50 },
+        { x: -258, z: -14, intensity: 0.5, distance: 50 },
+        { x: 0, z: 380, intensity: 0.6, distance: 60 },
       ];
 
       lanternPositions.forEach(pos => {
-        const light = new THREE.PointLight(0xffc97a, pos.intensity, pos.distance, 2);
+        const light = new THREE.PointLight(0xffc97a, 0, pos.distance, 2);
         light.position.set(pos.x, 8, pos.z);
+        light.userData.baseIntensity = pos.intensity;
+        pointLights.push(light);
         scene.add(light);
       });
 
-      console.log('[NightLight] 夜景灯光初始化完成 - 10组点光源+100+灯笼+大明宫/太极宫/东西市/佛塔/曲江/明德门灯光');
+      // 启动灯光更新循环
+      updateLights();
+
+      console.log('[NightLight] 夜景灯光初始化完成 - 10组点光源(昼夜联动)+100+灯笼，夜晚点亮白天熄灭');
     } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
   }
 
