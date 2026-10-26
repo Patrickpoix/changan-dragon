@@ -1,98 +1,109 @@
 /* ============================================================
-   唐长安 · 国风电影质感统一优化
-   仅调整现有系统参数，不新建独立系统
-   正确接入现有引擎
+   唐长安 · 国风电影级视觉系统
+   基于核心引擎的系统性视觉提升
+   不重复造轮子，只优化现有系统
    ============================================================ */
 
 (function() {
   'use strict';
 
-  let applied = false;
+  let initialized = false;
 
-  function applyCinematicGrade() {
-    if (applied) return;
-    applied = true;
+  function initCinematicSystem() {
+    if (initialized) return;
+    initialized = true;
 
-    console.log('[CinematicGrade] 开始国风电影质感统一优化...');
+    console.log('[CinematicSystem] 开始国风电影级视觉系统初始化...');
 
+    // ==============================================
+    // 1. 渲染管线确认与优化
+    // ==============================================
     try {
-      // ==============================================
-      // 1. 渲染管线优化（使用现有正确变量）
-      // ==============================================
       if (typeof renderer !== 'undefined') {
-        // ACES电影级色调映射（符合国风电影质感）
+        // ACES电影级色调映射
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.05;
-        console.log('[CinematicGrade] 渲染色调映射已调整');
+        renderer.toneMappingExposure = 1.08;
+        // 保持现有DPR策略
+        console.log('[CinematicSystem] 渲染管线已优化');
       }
+    } catch(e) {
+      console.warn('[CinematicSystem] 渲染管线优化失败:', e);
+    }
 
-      // ==============================================
-      // 2. 雾效优化（国风薄雾感）
-      // ==============================================
+    // ==============================================
+    // 2. 国风雾效系统
+    // ==============================================
+    try {
       if (typeof scene !== 'undefined' && scene.fog) {
         // 暖色调薄雾，符合国风意境
-        scene.fog.color.setHex(0xdcd0b8);
-        scene.fog.near = 180;
-        scene.fog.far = 750;
-        console.log('[CinematicGrade] 雾效已优化');
+        scene.fog.color.setHex(0xd8c8b0);
+        scene.fog.near = 200;
+        scene.fog.far = 800;
+        console.log('[CinematicSystem] 雾效系统已优化');
       }
+    } catch(e) {
+      console.warn('[CinematicSystem] 雾效优化失败:', e);
+    }
 
-      // ==============================================
-      // 3. 光影微调（黄金时刻暖金色调）
-      //    注意：只做微调，不覆盖昼夜系统
-      // ==============================================
+    // ==============================================
+    // 3. 光影系统微调（不覆盖昼夜系统）
+    // ==============================================
+    try {
       if (typeof sun !== 'undefined') {
         // 暖金色调，符合国风电影质感
         sun.color.setHex(0xffd59a);
-        // 强度微调（不覆盖昼夜系统的动态变化）
-        // sun.intensity 保持由 updateDayNight() 控制
-        console.log('[CinematicGrade] 主光源色调已微调');
+        // 强度由昼夜系统动态控制，这里只微调色调
+        console.log('[CinematicSystem] 主光源色调已优化');
       }
 
       if (typeof ambient !== 'undefined') {
-        // 环境光更暖
         ambient.color.setHex(0xfff0dc);
-        console.log('[CinematicGrade] 环境光色调已微调');
+        console.log('[CinematicSystem] 环境光色调已优化');
       }
 
-      // ==============================================
-      // 4. 性能确认（不破坏现有性能策略）
-      // ==============================================
-      if (typeof renderer !== 'undefined') {
-        // 保持现有DPR策略，不擅自提高
-        // renderer.setPixelRatio 保持由现有性能模块控制
-        console.log('[CinematicGrade] 性能策略保持现有配置');
+      if (typeof hemi !== 'undefined') {
+        hemi.color.setHex(0xfff3d8);
+        hemi.groundColor.setHex(0x6a8a7a);
+        console.log('[CinematicSystem] 半球光已优化');
       }
-
-      console.log('[CinematicGrade] 国风电影质感统一优化完成！');
-      console.log('=== 优化原则 ===');
-      console.log('1. 仅调整现有系统参数，不新建独立系统');
-      console.log('2. 使用正确的全局变量名（sun/ambient/scene/renderer）');
-      console.log('3. 不覆盖昼夜系统的动态变化');
-      console.log('4. 保持现有性能策略');
-      console.log('5. 国风电影质感：暖金色调 + 薄雾 + ACES色调映射');
-      console.log('==================');
-
     } catch(e) {
-      console.warn('[CinematicGrade] 优化应用失败:', e);
+      console.warn('[CinematicSystem] 光影优化失败:', e);
     }
+
+    // ==============================================
+    // 4. 核心地标视觉确认
+    // ==============================================
+    try {
+      // 确认核心地标都已正确加载
+      if (typeof GAME !== 'undefined' && GAME.landmarks) {
+        console.log('[CinematicSystem] 核心地标数量:', Object.keys(GAME.landmarks).length);
+      }
+    } catch(e) {
+      console.warn('[CinematicSystem] 地标检查失败:', e);
+    }
+
+    console.log('[CinematicSystem] 国风电影级视觉系统初始化完成！');
+    console.log('=== 系统特性 ===');
+    console.log('• ACES电影级色调映射');
+    console.log('• 国风暖雾效果');
+    console.log('• 黄金时刻暖金色光影');
+    console.log('• 与昼夜系统无缝兼容');
+    console.log('• 不重复造轮子，基于核心引擎');
+    console.log('==================');
   }
 
   // 轮询等待游戏完全加载
-  function checkGameReady() {
-    // 检查所有必要的全局对象都已存在
+  function checkReady() {
     if (typeof GAME !== 'undefined' && GAME.ready && 
         typeof scene !== 'undefined' && 
         typeof renderer !== 'undefined' &&
         typeof sun !== 'undefined') {
-      // 延迟1秒执行，确保所有场景都已构建完成
-      setTimeout(applyCinematicGrade, 1000);
+      setTimeout(initCinematicSystem, 1500);
     } else {
-      setTimeout(checkGameReady, 300);
+      setTimeout(checkReady, 300);
     }
   }
 
-  // 启动检查
-  checkGameReady();
+  checkReady();
 
 })();
