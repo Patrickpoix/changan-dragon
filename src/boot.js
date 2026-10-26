@@ -71,6 +71,7 @@
       'src/230-water-detail.js',
       'src/231-street-detail.js',
       'src/232-palace-steps.js',
+      'src/233-pagoda-surroundings.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
