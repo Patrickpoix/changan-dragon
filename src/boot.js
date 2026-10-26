@@ -62,6 +62,7 @@
       'src/221-final-tone-confirm.js',
       'src/222-material-opt.js',
       'src/223-geometry-opt.js',
+      'src/224-game-state-check.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
