@@ -84,6 +84,7 @@
       'src/243-longchi-bridge.js',
       'src/244-ward-gates.js',
       'src/245-pagoda-steps.js',
+      'src/246-small-pagoda-steps.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
