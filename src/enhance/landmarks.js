@@ -133,7 +133,7 @@
       // 西市牌坊
       addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
 
-      console.log('[Landmarks] 地标精修完成 - 台阶+广场+角楼+牌坊');
+      console.log('[Landmarks] 地标精修完成 - 11大地标台阶+3广场+4角楼+2牌坊');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
