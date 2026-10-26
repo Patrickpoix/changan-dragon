@@ -62,6 +62,15 @@
     scene.add(leaves);
   }
 
+  function addWell(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const well = new THREE.Mesh(UNIT_CYL, MAT.stone);
+    well.position.set(x, 0.5, z);
+    well.scale.set(1.5, 1, 1.5);
+    well.castShadow = true;
+    scene.add(well);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -84,60 +93,64 @@
       scene.add(bridge);
 
       // 城外东南树林
-      for (let i = 0; i < 60; i++) {
-        const x = 450 + Math.random() * 180;
-        const z = 350 + Math.random() * 180;
+      for (let i = 0; i < 70; i++) {
+        const x = 450 + Math.random() * 200;
+        const z = 350 + Math.random() * 200;
         addTree(x, z);
       }
 
       // 城外西南树林
-      for (let i = 0; i < 45; i++) {
-        const x = -580 + Math.random() * 120;
-        const z = 350 + Math.random() * 120;
+      for (let i = 0; i < 50; i++) {
+        const x = -600 + Math.random() * 130;
+        const z = 350 + Math.random() * 130;
         addTree(x, z);
       }
 
       // 城外东北树林
-      for (let i = 0; i < 45; i++) {
-        const x = 450 + Math.random() * 120;
-        const z = -580 + Math.random() * 120;
+      for (let i = 0; i < 50; i++) {
+        const x = 450 + Math.random() * 130;
+        const z = -600 + Math.random() * 130;
         addTree(x, z);
       }
 
       // 城外西北树林
-      for (let i = 0; i < 35; i++) {
-        const x = -580 + Math.random() * 120;
-        const z = -580 + Math.random() * 120;
+      for (let i = 0; i < 40; i++) {
+        const x = -600 + Math.random() * 130;
+        const z = -600 + Math.random() * 130;
         addTree(x, z);
       }
 
-      // 城外村落（东南18间农舍）
-      for (let i = 0; i < 18; i++) {
-        const x = 520 + (Math.random() - 0.5) * 100;
-        const z = 480 + (Math.random() - 0.5) * 100;
+      // 城外村落（东南25间农舍）
+      for (let i = 0; i < 25; i++) {
+        const x = 530 + (Math.random() - 0.5) * 120;
+        const z = 500 + (Math.random() - 0.5) * 120;
         addVillageHouse(x, z);
       }
 
-      // 西北村落（12间农舍）
-      for (let i = 0; i < 12; i++) {
-        const x = -580 + (Math.random() - 0.5) * 80;
-        const z = -480 + (Math.random() - 0.5) * 80;
+      // 西北村落（15间农舍）
+      for (let i = 0; i < 15; i++) {
+        const x = -600 + (Math.random() - 0.5) * 90;
+        const z = -500 + (Math.random() - 0.5) * 90;
         addVillageHouse(x, z);
       }
+
+      // 村落水井
+      addWell(530, 500);
+      addWell(-600, -500);
 
       // 南门外驿站
-      addPostStation(100, 480);
+      addPostStation(100, 500);
 
       // 西门外驿站
-      addPostStation(-550, 0);
+      addPostStation(-580, 0);
 
       // 东门外驿站
-      addPostStation(550, 0);
+      addPostStation(580, 0);
 
       // 北门外驿站
-      addPostStation(0, -550);
+      addPostStation(0, -580);
 
-      console.log('[Outside] 城外环境增强完成 - 护城河加宽+桥加宽+30间农舍+4驿站(带围墙)+185棵树');
+      console.log('[Outside] 城外环境增强完成 - 护城河+桥+40间农舍+4驿站(带围墙)+2水井+210棵树');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
