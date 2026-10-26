@@ -135,6 +135,7 @@
       'src/294-final-audio-integration.js',
       'src/295-final-interaction-integration.js',
       'src/296-final-system-check.js',
+      'src/297-final-perf-report.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
