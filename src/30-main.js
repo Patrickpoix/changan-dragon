@@ -82,7 +82,8 @@ function loadCollectedPoems() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_POEMS) || '[]');
     if (Array.isArray(saved)) saved.forEach(i => {
-      if (Number.isInteger(i) && i >= 0 && i < POEM_SPOTS.length) GAME.poemsFound.add(i);
+      // 校验按运行时实际诗笺总数（含追加诗笺），保证刷新后收集状态可恢复
+      if (Number.isInteger(i) && i >= 0 && i < poems.length) GAME.poemsFound.add(i);
     });
   } catch (_) { /* 隐私模式或本地文件禁用存储时不影响游玩 */ }
 }
@@ -559,7 +560,7 @@ function tryPickup() {
   UI.interact.classList.remove('visible');
   openPoem(i);
   if (GAME.poemsFound.size === poems.length) {
-    setTimeout(() => toast('十二枚诗笺已集齐 · 长安春风入袖', 4200), 600);
+    setTimeout(() => toast('诗笺尽收 · 长安春风入袖', 4200), 600);
   }
 }
 
