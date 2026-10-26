@@ -49,17 +49,39 @@
 
   function addCornerTower(x, z) {
     if (typeof MAT === 'undefined') return;
-    // 角楼基座
     const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
     base.position.set(x, 2.5, z);
     base.scale.set(10, 5, 10);
     base.castShadow = true;
     base.receiveShadow = true;
     scene.add(base);
-    // 角楼屋顶
     const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
     roof.position.set(x, 5, z);
     roof.scale.set(14, 4, 14);
+    roof.castShadow = true;
+    scene.add(roof);
+  }
+
+  function addPaifang(x, z, name) {
+    if (typeof MAT === 'undefined') return;
+    // 牌坊柱子
+    for (let i = -1; i <= 1; i += 2) {
+      const pillar = new THREE.Mesh(UNIT_CYL, MAT.stone);
+      pillar.position.set(x + i * 4, 3, z);
+      pillar.scale.set(0.4, 6, 0.4);
+      pillar.castShadow = true;
+      scene.add(pillar);
+    }
+    // 牌坊横梁
+    const beam = new THREE.Mesh(UNIT_BOX, MAT.wood);
+    beam.position.set(x, 5.5, z);
+    beam.scale.set(10, 0.5, 0.5);
+    beam.castShadow = true;
+    scene.add(beam);
+    // 牌坊屋顶
+    const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
+    roof.position.set(x, 6.5, z);
+    roof.scale.set(12, 1.5, 2);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -92,6 +114,12 @@
 
       // 城墙四角角楼
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
+
+      // 东市牌坊
+      addPaifang(LANDMARKS.east.x, LANDMARKS.east.z + 10, '东市');
+
+      // 西市牌坊
+      addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
 
       console.log('[Landmarks] 地标精修完成');
 
