@@ -1,9 +1,10 @@
 /* ============================================================
-   天气系统 · 晴/阴/雨（v2 接入统一调度器 + GRADE基线）
+   天气系统 · 晴/阴/雨（v3 主循环驱动）
    - 雨滴粒子（800点，跟随玩家，遇雨天落下）
    - 雾/曝光：基于主循环 GRADE 基线的相对微调（晴天=GRADE 不变）
-   - 通过 __enhance.register 注册（优先级35），init 时包装
-     window.updateDayNight，每帧在 GRADE 基线之后应用天气因子
+   - 包装 GameRendering.update：animate() 每帧通过属性访问调用
+     GameRendering.update(dt)，包装必然生效（单一权威更新流程，
+     不包装 window.updateDayNight、不创建第二套 RAF）
    ============================================================ */
 
 (function() {
@@ -22,11 +23,12 @@
       rain:   { fog: 0.30, expDrop: 0.18 },
     },
     particles: null,
-    hooked: false,
+    initialized: false,
 
     init() {
-      // 幂等：粒子已存在则不再重复创建/重复包装
-      if (this.particles || typeof scene === 'undefined') return;
+      // 幂等：粒子只创建一次；主循环入口 = GameRendering.update 包装
+      if (this.initialized || typeof scene === 'undefined') return;
+      this.initialized = true;
       const geo = new THREE.BufferGeometry();
       const count = 800;
       const pos = new Float32Array(count * 3);
@@ -40,19 +42,26 @@
       this.particles = new THREE.Points(geo, mat);
       this.particles.visible = false;
       scene.add(this.particles);
-      this.hook();
-      console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + updateDayNight包装(GRADE相对微调)');
-    },
-
-    // 每帧在 GRADE 基线之后应用天气因子（不竞争、单一权威）
-    hook() {
-      if (this.hooked || typeof window.updateDayNight !== 'function') return;
-      this.hooked = true;
-      const orig = window.updateDayNight;
-      window.updateDayNight = (dt) => {
-        orig(dt);
-        this.update(dt);
-      };
+      // 主循环入口：animate() 每帧调用 GameRendering.update(dt)，在此挂载天气更新
+      if (typeof GameRendering !== 'undefined' && GameRendering && typeof GameRendering.update === 'function') {
+        const origRenderUpdate = GameRendering.update;
+        GameRendering.update = function(dt) {
+          origRenderUpdate.call(GameRendering, dt);
+          Weather.update(dt);
+        };
+      }
+      // 暴露全局（调试/其他系统引用）
+      window.Weather = Weather;
+      window.__weather = this;
+      // 天气切换按钮（bindHold 定义于 30-main，须在 GAME.ready 后绑定）
+      if (typeof bindHold !== 'undefined') {
+        const weatherBtn = document.getElementById('weatherBtn');
+        if (weatherBtn && !this._btnBound) {
+          this._btnBound = true;
+          weatherBtn.addEventListener('click', () => Weather.cycle());
+        }
+      }
+      console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + GameRendering.update 主循环驱动(GRADE相对微调)');
     },
 
     set(type) {
@@ -68,6 +77,7 @@
     },
 
     update(dt) {
+      if (!this.initialized) return;
       const targetType = this.types[this.target];
       this.t = damp(this.t, 1, 0.8, dt);
       const night = typeof GAME !== 'undefined' ? GAME.nightT : 0;
@@ -85,7 +95,7 @@
       if (this.particles) {
         this.particles.material.opacity = targetType.fog * this.t * 2;
         this.particles.visible = targetType.fog * this.t > 0.03;
-        if (this.particles.visible) {
+        if (this.particles.visible && typeof player !== 'undefined' && player) {
           const pos = this.particles.geometry.attributes.position.array;
           for (let i = 0; i < pos.length; i += 3) {
             pos[i+1] -= dt * 30;
@@ -103,14 +113,7 @@
     },
   };
 
-  // 天气切换按钮（若存在）
-  if (typeof bindHold !== 'undefined') {
-    const weatherBtn = document.getElementById('weatherBtn');
-    if (weatherBtn) weatherBtn.addEventListener('click', () => Weather.cycle());
-  }
-
-  // 暴露全局（调试/其他系统引用）
-  window.Weather = Weather;
+  // 天气切换按钮改在 init()（GAME.ready 后）绑定，避免 bindHold 未定义。
 
   function register() {
     if (registered) return;
