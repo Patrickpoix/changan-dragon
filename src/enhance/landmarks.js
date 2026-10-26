@@ -3,6 +3,7 @@
    注意：原系统已有完整地标建筑（太极宫/大明宫/兴庆宫/大雁塔/曲江池等）
    本模块仅做补充性精修：台阶+广场+角楼+牌坊+石碑，不重复创建建筑
    全部使用共享几何体UNIT_BOX/ROOF_UNIT和共享材质MAT
+   新增实体注册原系统碰撞网格addCollider和飞行障碍recordFlightObstacle
    权威坐标：CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }
    ============================================================ */
 
@@ -31,6 +32,17 @@
   ];
 
   let initialized = false;
+
+  function registerCollider(x, z, w, d, tag) {
+    if (typeof addCollider === 'function') {
+      try { addCollider(x - w / 2, x + w / 2, z - d / 2, z + d / 2, tag); } catch(_) {}
+    }
+  }
+  function registerFlight(x, z, w, d, top) {
+    if (typeof recordFlightObstacle === 'function') {
+      try { recordFlightObstacle(x, z, w, d, top); } catch(_) {}
+    }
+  }
 
   function addSteps(x, z, width, depth, height, layers) {
     if (typeof MAT === 'undefined') return;
@@ -72,6 +84,9 @@
     roof.scale.set(16, 4, 16);
     roof.castShadow = true;
     scene.add(roof);
+    // 碰撞+飞行障碍：塔楼是实心阻挡
+    registerCollider(x, z, 12, 12, 'corner-tower');
+    registerFlight(x, z, 16, 16, 10);
   }
 
   function addPaifang(x, z, name) {
@@ -83,6 +98,7 @@
       pillar.scale.set(0.5, 7, 0.5);
       pillar.castShadow = true;
       scene.add(pillar);
+      registerCollider(x + i * 5, z, 1.2, 1.2, 'paifang-pillar');
     }
     // 牌坊横梁
     const beam = new THREE.Mesh(UNIT_BOX, MAT.wood);
@@ -102,6 +118,7 @@
     roof.scale.set(14, 1.5, 2.5);
     roof.castShadow = true;
     scene.add(roof);
+    registerFlight(x, z, 14, 3, 9);
   }
 
   function addWallCrenellations(x, z, length, orientation) {
@@ -133,6 +150,7 @@
     tablet.scale.set(1.5, 3, 0.3);
     tablet.castShadow = true;
     scene.add(tablet);
+    registerCollider(x, z, 2.2, 1.4, 'stone-tablet');
   }
 
   function addRail(x, z, length, orientation) {
@@ -156,32 +174,32 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 大明宫 - 殿前6层台阶+大广场（补充原系统）
-      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 36, 22, 0.4, 6);
+      // 大明宫 - 殿前6层台阶+大广场（补充原系统，台阶为低矮装饰不阻挡通行）
+      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 36, 22, 0.3, 5);
       addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 40, 70);
 
       // 太极宫 - 殿前5层台阶+广场（补充原系统）
-      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 30, 20, 0.4, 5);
+      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 30, 20, 0.25, 5);
       addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 35, 60);
 
       // 兴庆宫 - 殿前5层台阶+广场（补充原系统）
-      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 28, 20, 0.35, 5);
+      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 28, 20, 0.25, 5);
       addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 40, 55);
 
       // 大雁塔 - 6层台阶（补充原系统）
-      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 20, 16, 0.3, 6);
+      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 20, 16, 0.25, 5);
 
       // 小雁塔 - 6层台阶（补充原系统）
-      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 20, 16, 0.3, 6);
+      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 20, 16, 0.25, 5);
 
       // 青龙寺 - 5层台阶
-      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 16, 14, 0.25, 5);
+      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 16, 14, 0.2, 4);
 
       // 西明寺 - 5层台阶
-      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 16, 14, 0.25, 5);
+      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 16, 14, 0.2, 4);
 
       // 明德门 - 6层台阶+大广场（补充原系统）
-      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 28, 18, 0.4, 6);
+      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 28, 18, 0.3, 5);
       addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 35, 60);
 
       // 城墙四角角楼（补充原系统，坐标与CITY边界一致：x=±450, z=±380）
@@ -214,7 +232,7 @@
       addRail(LANDMARKS.taiji.x - 30, LANDMARKS.taiji.z + 35, 60, 'horizontal');
       addRail(LANDMARKS.taiji.x + 30, LANDMARKS.taiji.z + 35, 60, 'horizontal');
 
-      console.log('[Landmarks] 地标精修完成 - 坐标已统一至CITY边界(x=±450, z=±380)，11大地标多级台阶+4大广场+4角楼+城墙垛口+2牌坊+2石碑+广场栏杆，不重复创建建筑');
+      console.log('[Landmarks] 地标精修完成 - 11大地标台阶+4广场+4角楼(已注册碰撞)+垛口+2牌坊(已注册碰撞)+2石碑(已注册碰撞)+广场栏杆');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
@@ -223,7 +241,7 @@
 
   function checkReady() {
     if (typeof GAME !== 'undefined' && GAME.ready) {
-      setTimeout(init, 6000);
+      setTimeout(init, 5000);
     } else {
       setTimeout(checkReady, 100);
     }
