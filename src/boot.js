@@ -116,6 +116,7 @@
       'src/275-longchi-rocks.js',
       'src/276-moat-detail.js',
       'src/277-mingde-bridge.js',
+      'src/278-farmlands.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
