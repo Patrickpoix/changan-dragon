@@ -25,13 +25,11 @@
 
   function addPavilion(x, z) {
     if (typeof MAT === 'undefined') return;
-    // 亭子基座
     const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
     base.position.set(x, 0.25, z);
     base.scale.set(6, 0.5, 6);
     base.receiveShadow = true;
     scene.add(base);
-    // 亭子柱子
     for (let i = 0; i < 4; i++) {
       const angle = (i / 4) * Math.PI * 2 + Math.PI / 4;
       const pillar = new THREE.Mesh(UNIT_CYL, MAT.wood);
@@ -40,12 +38,29 @@
       pillar.castShadow = true;
       scene.add(pillar);
     }
-    // 亭子屋顶
     const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof || MAT.roofGlazed);
     roof.position.set(x, 4.5, z);
     roof.scale.set(8, 2, 8);
     roof.castShadow = true;
     scene.add(roof);
+  }
+
+  function addLotusLeaf(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const leaf = new THREE.Mesh(UNIT_SPHERE,
+      new THREE.MeshStandardMaterial({ color: 0x4a8a4a, roughness: 0.8 }));
+    leaf.position.set(x, 0.15, z);
+    leaf.scale.set(0.8, 0.1, 0.8);
+    scene.add(leaf);
+  }
+
+  function addReed(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const reed = new THREE.Mesh(UNIT_CYL,
+      new THREE.MeshStandardMaterial({ color: 0x8a9a5a, roughness: 0.9 }));
+    reed.position.set(x, 0.8, z);
+    reed.scale.set(0.05, 1.6, 0.05);
+    scene.add(reed);
   }
 
   function init() {
@@ -81,7 +96,7 @@
         scene.add(boat);
       }
 
-      // 岸线石头 - 使用共享UNIT_SPHERE
+      // 岸线石头
       Object.keys(WATER_CONFIG).forEach(key => {
         const cfg = WATER_CONFIG[key];
         for (let i = 0; i < 20; i++) {
@@ -94,6 +109,22 @@
           scene.add(rock);
         }
       });
+
+      // 曲江池荷叶
+      for (let i = 0; i < 15; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.random() * 30;
+        addLotusLeaf(WATER_CONFIG.qujiang.x + Math.cos(angle) * r, WATER_CONFIG.qujiang.z + Math.sin(angle) * r);
+      }
+
+      // 曲江池岸边芦苇
+      for (let i = 0; i < 20; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        addReed(
+          WATER_CONFIG.qujiang.x + Math.cos(angle) * (WATER_CONFIG.qujiang.radius + 3),
+          WATER_CONFIG.qujiang.z + Math.sin(angle) * (WATER_CONFIG.qujiang.radius + 3)
+        );
+      }
 
       // 曲江池石桥
       addBridge(WATER_CONFIG.qujiang.x, WATER_CONFIG.qujiang.z - 30, 15, 3);
