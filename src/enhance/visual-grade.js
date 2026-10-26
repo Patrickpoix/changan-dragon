@@ -2,19 +2,14 @@
    VisualGrade - 视觉调色Owner（国风基调已整合进主循环）
    国风电影感基调参数（曝光/雾距/雾色）已直接写入 src/30-main.js
    的 updateDayNight() 与 Colors/GRADE 定义中，由主循环每帧统一驱动。
-   本模块不再延迟覆盖主循环参数（那会在下一帧被冲掉），
-   只负责：启动自检 + 记录视觉状态，供调试与验收。
+   本模块通过 __enhance.register 注册（优先级10），
+   只做自检+记录视觉状态，供调试与验收。
    ============================================================ */
 
 (function() {
   'use strict';
 
-  let initialized = false;
-
   function init() {
-    if (initialized) return;
-    initialized = true;
-
     try {
       if (typeof renderer === 'undefined' || typeof scene === 'undefined') return;
 
@@ -46,14 +41,22 @@
     }
   }
 
-  function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) {
-      setTimeout(init, 1000);
+  // 注册到统一调度器（若存在），否则兜底轮询
+  function register() {
+    if (window.__enhance) {
+      window.__enhance.register('visual-grade', init, 10);
     } else {
-      setTimeout(checkReady, 100);
+      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'visual-grade', fn: init, priority: 10 });
     }
   }
 
-  checkReady();
-
+  if (typeof GAME !== 'undefined' && GAME.ready) register();
+  else {
+    let tries = 0;
+    (function check() {
+      if (typeof GAME !== 'undefined' && GAME.ready) register();
+      else if (tries++ < 400) setTimeout(check, 100);
+      else { if (window.__enhance) window.__enhance.register('visual-grade', init, 10); }
+    })();
+  }
 })();
