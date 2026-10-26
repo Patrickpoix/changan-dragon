@@ -47,6 +47,15 @@
     scene.add(roof);
   }
 
+  function addMilestone(x, z, direction) {
+    if (typeof MAT === 'undefined') return;
+    const milestone = new THREE.Mesh(UNIT_BOX, MAT.stone);
+    milestone.position.set(x, 1.5, z);
+    milestone.scale.set(0.8, 3, 0.3);
+    milestone.castShadow = true;
+    scene.add(milestone);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -66,26 +75,32 @@
       // 西北村落水井（补充原系统）
       addWell(-520, 550);
 
+      // 城外里程碑（朱雀大街南段，补充原系统）
+      for (let i = 0; i < 10; i++) {
+        addMilestone(-8, 400 + i * 15, 'south');
+        addMilestone(8, 400 + i * 15, 'south');
+      }
+
       // 城外树林（东南，补充原系统，使用原系统addTree函数）
       if (typeof addTree !== 'undefined') {
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 50; i++) {
           addTree(600 + Math.random() * 300, 300 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
         // 城外树林（西南）
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 45; i++) {
           addTree(-700 + Math.random() * 300, 300 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
         // 城外树林（东北）
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 45; i++) {
           addTree(600 + Math.random() * 300, -400 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
         // 城外树林（西北）
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 40; i++) {
           addTree(-700 + Math.random() * 300, -400 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
       }
 
-      console.log('[Outside] 城外环境初始化完成 - 补充原系统：4驿站+2水井+140城外树，不重复创建已有农舍');
+      console.log('[Outside] 城外环境初始化完成 - 补充原系统：4驿站+2水井+20里程碑+180城外树，不重复创建已有农舍');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
