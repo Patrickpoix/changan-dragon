@@ -122,7 +122,7 @@
       // 西门外驿站
       addPostStation(-500, 0);
 
-      console.log('[Outside] 城外环境增强完成');
+      console.log('[Outside] 城外环境增强完成 - 护城河+桥+村落+驿站+四周树林');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
