@@ -64,7 +64,8 @@
       // 背景色微调（国风暖色调）
       scene.background = new THREE.Color(0xc8d8e8);
 
-      console.log('[VisualGrade] 视觉调色完成');
+      // 输出成功信息
+      console.log('[VisualGrade] 视觉调色完成 - ACES + 国风雾效 + 暖金色光影');
 
     } catch(e) {
       console.warn('[VisualGrade] 初始化失败:', e);
