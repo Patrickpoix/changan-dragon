@@ -20,13 +20,13 @@
   const FLOWER_CONFIG = {
     mudan: { count: 20, centerX: 342, centerZ: -152, radius: 40, color: 0xd44a6a },
     hehua: { count: 30, centerX: 354, centerZ: 318, radius: 35, color: 0xf8f8f8 },
+    taohua: { count: 15, centerX: 342, centerZ: -152, radius: 45, color: 0xff91a7 },
   };
 
   let initialized = false;
 
   function createTree(x, z, type) {
     if (typeof MAT === 'undefined') return;
-    // 树干 - 共享UNIT_CYL
     const trunkH = 3 + Math.random() * 2;
     const trunk = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
     trunk.position.set(x, trunkH / 2, z);
@@ -34,7 +34,6 @@
     trunk.castShadow = true;
     scene.add(trunk);
 
-    // 树叶 - 共享UNIT_SPHERE
     const leaves = new THREE.Mesh(UNIT_SPHERE, MAT.leaf || MAT.blossom);
     leaves.position.set(x, trunkH + 1, z);
     leaves.scale.set(3 + Math.random(), 3 + Math.random(), 3 + Math.random());
@@ -49,6 +48,15 @@
     flower.position.set(x, 0.3, z);
     flower.scale.set(0.4, 0.4, 0.4);
     scene.add(flower);
+  }
+
+  function createBush(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const bush = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
+    bush.position.set(x, 0.5, z);
+    bush.scale.set(1 + Math.random(), 0.8 + Math.random() * 0.5, 1 + Math.random());
+    bush.castShadow = true;
+    scene.add(bush);
   }
 
   function init() {
@@ -85,6 +93,13 @@
           createFlower(cfg.centerX + Math.cos(angle) * r, cfg.centerZ + Math.sin(angle) * r, cfg.color);
         }
       });
+
+      // 兴庆宫周边灌木
+      for (let i = 0; i < 20; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = 45 + Math.random() * 10;
+        createBush(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r);
+      }
 
       console.log('[Vegetation] 植被系统初始化完成');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
