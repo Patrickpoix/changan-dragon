@@ -61,6 +61,9 @@
         skyUniforms.sunColor.value.setHex(0xffc95e);
       }
 
+      // 背景色微调（国风暖色调）
+      scene.background = new THREE.Color(0xc8d8e8);
+
       console.log('[VisualGrade] 视觉调色完成');
 
     } catch(e) {
