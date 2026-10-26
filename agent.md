@@ -51,19 +51,34 @@
 - 原GLB + 共享材质源，不重复存储纹理
 - **先问：原系统已经有了吗？有了就不要重做**
 
-### 6. 注入方式
-- 必须使用 IIFE + 轮询等待 GAME.ready 的方式
-- 禁止在 buildWorld 定义前覆盖它
-- 所有模块加载时机必须晚于核心引擎
-- 模块初始化用setTimeout延迟，确保核心场景已构建完成
+### 6. 世界坐标权威
+- **CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }**（核心城市边界）
+- **WORLD = { x0: -780, x1: 780, z0: -660, z1: 660 }**（世界范围）
+- 所有新增建筑、装饰、灯光的位置必须在这个范围内
+- 城墙角楼在(±450, ±380)，不是(±450, ±450)
+- 护城河在城墙外，即 z>380 或 z<-380
 
-### 7. 素材共享原则
+### 7. 初始化原则
+- 禁止使用固定延迟超过10秒的初始化方式
+- 所有enhance模块的初始化延迟应控制在1-8秒
+- 不要创建独立的requestAnimationFrame循环
+- 需要逐帧更新的内容必须注册到原系统的updateDayNight()主循环
+
+### 8. 光影与渲染原则
+- 不要直接修改sun/ambient/hemi/rim的颜色和强度，这些会被updateDayNight()主循环覆盖
+- 不要直接修改skyUniforms的参数，这些会被主循环动态调整
+- 阴影范围不是越大越好，过大反而降低阴影精度
+- 阴影范围建议控制在±500m，覆盖城市核心区域即可
+- 纹理各向异性设置为16x即可，不需要更高
+
+### 9. 素材共享原则
 - 所有几何体使用共享：UNIT_BOX/UNIT_CYL/UNIT_SPHERE/ROOF_UNIT/ROOF_SMALL
 - 所有材质使用共享：MAT.plaster/MAT.wood/MAT.stone/MAT.roof等
 - 不重复创建天空/水面/农田等已有系统
 - 新增内容只做精修和增强，不做重复造轮子
+- 城外树木必须使用原系统的addTree()函数，确保正确参与批处理
 
-### 8. 测试与验证
+### 10. 测试与验证
 - 完成后必须运行GitHub CI测试
 - 报错必须修复，不能带病提交
 - 不能把"代码已提交"当成"功能已完成"
@@ -74,14 +89,14 @@
 
 | Owner | 职责 | 对应文件 | 初始化延迟 |
 |-------|------|----------|------------|
-| VisualGrade | 视觉调色/色调映射/雾效/光影/轮廓光 | enhance/visual-grade.js | 5s |
-| Landmarks | 所有地标建筑精修/台阶/广场/角楼/牌坊 | enhance/landmarks.js | 8s |
-| Vegetation | 所有树木/花卉/灌木/绿化系统 | enhance/vegetation.js | 10s |
-| Water | 所有水面/游船/石桥/亭子/荷叶/芦苇 | enhance/water.js | 12s |
-| Sky | 天空系统微调/原Shader优化 | enhance/sky.js | 14s |
-| Outside | 城外环境/护城河/村落/驿站/树林 | enhance/outside.js | 16s |
-| NightLight | 夜景灯光/灯笼/点光源/繁华唐夜 | enhance/night-light.js | 18s |
-| Performance | 性能优化/DPR/阴影/各向异性过滤 | enhance/performance.js | 20s |
+| VisualGrade | 视觉调色/色调映射/雾效/光影/轮廓光 | enhance/visual-grade.js | 1s |
+| Landmarks | 所有地标建筑精修/台阶/广场/角楼/牌坊 | enhance/landmarks.js | 6s |
+| Vegetation | 所有树木/花卉/灌木/绿化系统 | enhance/vegetation.js | 6s |
+| Water | 所有水面/游船/石桥/亭子/荷叶/芦苇 | enhance/water.js | 5s |
+| Sky | 天空系统微调/原Shader优化 | enhance/sky.js | 2s |
+| Outside | 城外环境/护城河/村落/驿站/树林 | enhance/outside.js | 7s |
+| NightLight | 夜景灯光/灯笼/点光源/繁华唐夜 | enhance/night-light.js | 8s |
+| Performance | 性能优化/DPR/阴影/各向异性过滤 | enhance/performance.js | 4s |
 
 ## 权威地标坐标
 
@@ -113,3 +128,7 @@
 - ❌ 禁止把程序化基础几何直接当成电影级视觉资产
 - ❌ 禁止上来就删文件，先整合再删除
 - ❌ 禁止写大量版本文档，文档要精简
+- ❌ 禁止使用固定延迟超过10秒的初始化方式
+- ❌ 禁止创建独立的requestAnimationFrame循环
+- ❌ 禁止直接修改灯光和天空参数，避免被主循环覆盖
+- ❌ 禁止盲目扩大阴影范围，要保持合理精度
