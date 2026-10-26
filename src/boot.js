@@ -94,6 +94,7 @@
       'src/253-longchi-boats.js',
       'src/254-street-trees-extra.js',
       'src/255-wall-greenery.js',
+      'src/256-daming-greenery.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
