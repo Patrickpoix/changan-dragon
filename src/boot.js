@@ -104,6 +104,7 @@
       'src/263-qinglong-greenery.js',
       'src/264-ximing-greenery.js',
       'src/265-gate-greenery.js',
+      'src/266-market-greenery.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
