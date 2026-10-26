@@ -2,13 +2,14 @@
    NightLight - 夜景灯光Owner（增强版）
    全部使用共享几何体UNIT_CYL/UNIT_SPHERE和共享材质MAT
    与原系统昼夜系统联动：夜晚点亮，白天熄灭
-   注意：不创建独立RAF循环，通过包装主循环updateDayNight钩子联动
+   不创建独立RAF循环，通过包装主循环updateDayNight钩子联动
    通过 __enhance.register 注册（优先级70，夜景最后加载）
    ============================================================ */
 
 (function() {
   'use strict';
 
+  let registered = false;
   let pointLights = [];
   let wrapped = false;
 
@@ -28,7 +29,7 @@
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 朱雀大街灯笼（两侧各14组，数量适中）
+      // 朱雀大街灯笼（两侧各14组）
       for (let i = 0; i < 14; i++) {
         const z = -280 + i * 38;
         addLantern(-10, z, 5);
@@ -94,7 +95,7 @@
         addLantern(x, 380, 4);
       }
 
-      // 添加点光源（与昼夜系统联动，白天强度0，夜晚增强）
+      // 点光源（与昼夜系统联动，白天强度0，夜晚增强）
       const lanternPositions = [
         { x: 0, z: 0, intensity: 0.6, distance: 80 },
         { x: 150, z: -432, intensity: 0.8, distance: 100 },
@@ -137,6 +138,8 @@
   }
 
   function register() {
+    if (registered) return;
+    registered = true;
     if (window.__enhance) {
       window.__enhance.register('night-light', init, 70);
     } else {
