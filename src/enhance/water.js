@@ -138,7 +138,7 @@
       // 龙池亭子
       addPavilion(WATER_CONFIG.longchi.x + 15, WATER_CONFIG.longchi.z - 10);
 
-      console.log('[Water] 水景系统初始化完成');
+      console.log('[Water] 水景系统初始化完成 - 游船+石桥+亭子+荷叶+芦苇+石头');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
