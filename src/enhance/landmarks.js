@@ -30,10 +30,10 @@
 
   function addSteps(x, z, width, depth, height) {
     if (typeof MAT === 'undefined') return;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       const step = new THREE.Mesh(UNIT_BOX, MAT.stone);
-      step.position.set(x, height * (i + 0.5), z + depth / 6 + i * depth / 3);
-      step.scale.set(width - i * 2, height, depth / 3);
+      step.position.set(x, height * (i + 0.5), z + depth / 8 + i * depth / 4);
+      step.scale.set(width - i * 2, height, depth / 4);
       step.receiveShadow = true;
       step.castShadow = true;
       scene.add(step);
@@ -52,14 +52,19 @@
   function addCornerTower(x, z) {
     if (typeof MAT === 'undefined') return;
     const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
-    base.position.set(x, 2.5, z);
-    base.scale.set(10, 5, 10);
+    base.position.set(x, 3, z);
+    base.scale.set(12, 6, 12);
     base.castShadow = true;
     base.receiveShadow = true;
     scene.add(base);
+    const mid = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
+    mid.position.set(x, 6.5, z);
+    mid.scale.set(9, 1, 9);
+    mid.castShadow = true;
+    scene.add(mid);
     const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
-    roof.position.set(x, 5, z);
-    roof.scale.set(14, 4, 14);
+    roof.position.set(x, 8, z);
+    roof.scale.set(16, 4, 16);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -69,21 +74,27 @@
     // 牌坊柱子
     for (let i = -1; i <= 1; i += 2) {
       const pillar = new THREE.Mesh(UNIT_CYL, MAT.stone);
-      pillar.position.set(x + i * 4, 3, z);
-      pillar.scale.set(0.4, 6, 0.4);
+      pillar.position.set(x + i * 5, 3.5, z);
+      pillar.scale.set(0.5, 7, 0.5);
       pillar.castShadow = true;
       scene.add(pillar);
     }
     // 牌坊横梁
     const beam = new THREE.Mesh(UNIT_BOX, MAT.wood);
-    beam.position.set(x, 5.5, z);
-    beam.scale.set(10, 0.5, 0.5);
+    beam.position.set(x, 6, z);
+    beam.scale.set(12, 0.6, 0.6);
     beam.castShadow = true;
     scene.add(beam);
+    // 牌坊匾额
+    const plaque = new THREE.Mesh(UNIT_BOX, MAT.red || MAT.wood);
+    plaque.position.set(x, 6.8, z);
+    plaque.scale.set(4, 1, 0.3);
+    plaque.castShadow = true;
+    scene.add(plaque);
     // 牌坊屋顶
     const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
-    roof.position.set(x, 6.5, z);
-    roof.scale.set(12, 1.5, 2);
+    roof.position.set(x, 8, z);
+    roof.scale.set(14, 1.5, 2.5);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -97,32 +108,32 @@
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
       // 大明宫 - 殿前台阶+广场
-      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 22, 12, 0.3);
-      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 28, 45);
+      addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 28, 15, 0.4);
+      addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 30, 55);
 
       // 太极宫 - 殿前台阶+广场
-      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 18, 10, 0.3);
-      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 22, 40);
+      addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 22, 12, 0.4);
+      addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 25, 48);
 
       // 兴庆宫 - 殿前台阶+广场
-      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 16, 10, 0.3);
-      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 28, 35);
+      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 20, 12, 0.35);
+      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 30, 42);
 
       // 大雁塔 - 台阶
-      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 10, 8, 0.2);
+      addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 14, 10, 0.3);
 
       // 小雁塔 - 台阶
-      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 10, 8, 0.2);
+      addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 14, 10, 0.3);
 
       // 青龙寺 - 台阶
-      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 8, 6, 0.2);
+      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 10, 8, 0.25);
 
       // 西明寺 - 台阶
-      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 8, 6, 0.2);
+      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 10, 8, 0.25);
 
       // 明德门 - 台阶+广场
-      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 14, 10, 0.3);
-      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 22, 35);
+      addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 20, 12, 0.4);
+      addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 25, 45);
 
       // 城墙四角角楼
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
@@ -133,7 +144,7 @@
       // 西市牌坊
       addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
 
-      console.log('[Landmarks] 地标精修完成 - 11大地标台阶+3广场+4角楼+2牌坊');
+      console.log('[Landmarks] 地标精修完成 - 11大地标4层台阶+3大广场+4角楼(带中层)+2牌坊(带匾额)');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
