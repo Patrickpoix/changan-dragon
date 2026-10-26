@@ -111,6 +111,7 @@
       'src/270-final-delivery.js',
       'src/271-street-drains.js',
       'src/272-street-lanterns-extra.js',
+      'src/273-zhuque-road-detail.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
