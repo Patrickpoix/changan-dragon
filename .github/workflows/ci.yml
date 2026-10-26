@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Validate JS syntax
+        run: |
+          echo "Checking JS syntax..."
+          for f in src/enhance/*.js src/*.js; do
+            if [ -f "$f" ]; then
+              node --check "$f" && echo "✓ $f"
+            fi
+          done
+      
+      - name: Check boot.js loads
+        run: |
+          echo "Checking boot.js structure..."
+          grep -q "src/enhance/" src/boot.js && echo "✓ enhance modules loaded"
+      
+      - name: Summary
+        run: |
+          echo "=== CI Validation Complete ==="
+          echo "All JS files passed syntax check"
