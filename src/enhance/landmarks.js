@@ -5,6 +5,7 @@
    全部使用共享几何体UNIT_BOX/ROOF_UNIT和共享材质MAT
    新增实体注册原系统碰撞网格addCollider和飞行障碍recordFlightObstacle
    权威坐标：CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }
+   通过 __enhance.register 注册（优先级40）
    ============================================================ */
 
 (function() {
@@ -30,8 +31,6 @@
     { x: -450, z: -380 }, { x: 450, z: -380 },
     { x: -450, z: 380 },  { x: 450, z: 380 },
   ];
-
-  let initialized = false;
 
   function registerCollider(x, z, w, d, tag) {
     if (typeof addCollider === 'function') {
@@ -167,86 +166,79 @@
   }
 
   function init() {
-    if (initialized) return;
-    initialized = true;
     console.log('[Landmarks] 地标精修初始化...');
-
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 大明宫 - 殿前6层台阶+大广场（补充原系统，台阶为低矮装饰不阻挡通行）
+      // 大明宫 - 殿前台阶+大广场（低矮装饰不阻挡通行）
       addSteps(LANDMARKS.daming.x, LANDMARKS.daming.z + 15, 36, 22, 0.3, 5);
       addSquare(LANDMARKS.daming.x, LANDMARKS.daming.z + 40, 70);
 
-      // 太极宫 - 殿前5层台阶+广场（补充原系统）
+      // 太极宫
       addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 30, 20, 0.25, 5);
       addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 35, 60);
 
-      // 兴庆宫 - 殿前5层台阶+广场（补充原系统）
+      // 兴庆宫
       addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 28, 20, 0.25, 5);
       addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 40, 55);
 
-      // 大雁塔 - 6层台阶（补充原系统）
+      // 大雁塔 / 小雁塔
       addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 20, 16, 0.25, 5);
-
-      // 小雁塔 - 6层台阶（补充原系统）
       addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 20, 16, 0.25, 5);
 
-      // 青龙寺 - 5层台阶
+      // 青龙寺 / 西明寺
       addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 16, 14, 0.2, 4);
-
-      // 西明寺 - 5层台阶
       addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 16, 14, 0.2, 4);
 
-      // 明德门 - 6层台阶+大广场（补充原系统）
+      // 明德门
       addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 28, 18, 0.3, 5);
       addSquare(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 35, 60);
 
-      // 城墙四角角楼（补充原系统，坐标与CITY边界一致：x=±450, z=±380）
+      // 城墙四角角楼（坐标与CITY边界一致）
       WALL_CORNERS.forEach(corner => addCornerTower(corner.x, corner.z));
 
-      // 城墙垛口（南北城墙，z=±380，补充原系统）
+      // 城墙垛口
       addWallCrenellations(0, -380, 900, 'horizontal');
       addWallCrenellations(0, 380, 900, 'horizontal');
-      // 城墙垛口（东西城墙，x=±450，补充原系统）
       addWallCrenellations(-450, 0, 760, 'vertical');
       addWallCrenellations(450, 0, 760, 'vertical');
 
-      // 东市牌坊（补充原系统）
+      // 东西市牌坊
       addPaifang(LANDMARKS.east.x, LANDMARKS.east.z + 10, '东市');
-
-      // 西市牌坊（补充原系统）
       addPaifang(LANDMARKS.west.x, LANDMARKS.west.z + 10, '西市');
 
-      // 大雁塔石碑（补充原系统）
+      // 塔前石碑
       addStoneTablet(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 15, '大雁塔');
-
-      // 小雁塔石碑（补充原系统）
       addStoneTablet(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 15, '小雁塔');
 
-      // 大明宫广场栏杆（补充原系统）
+      // 广场栏杆
       addRail(LANDMARKS.daming.x - 35, LANDMARKS.daming.z + 40, 70, 'horizontal');
       addRail(LANDMARKS.daming.x + 35, LANDMARKS.daming.z + 40, 70, 'horizontal');
-
-      // 太极宫广场栏杆（补充原系统）
       addRail(LANDMARKS.taiji.x - 30, LANDMARKS.taiji.z + 35, 60, 'horizontal');
       addRail(LANDMARKS.taiji.x + 30, LANDMARKS.taiji.z + 35, 60, 'horizontal');
 
-      console.log('[Landmarks] 地标精修完成 - 11大地标台阶+4广场+4角楼(已注册碰撞)+垛口+2牌坊(已注册碰撞)+2石碑(已注册碰撞)+广场栏杆');
+      console.log('[Landmarks] 地标精修完成 - 台阶+广场+4角楼(已注册碰撞)+垛口+2牌坊(已注册碰撞)+2石碑(已注册碰撞)+栏杆');
 
     } catch(e) {
       console.warn('[Landmarks] 初始化失败:', e);
     }
   }
 
-  function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) {
-      setTimeout(init, 5000);
+  function register() {
+    if (window.__enhance) {
+      window.__enhance.register('landmarks', init, 40);
     } else {
-      setTimeout(checkReady, 100);
+      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'landmarks', fn: init, priority: 40 });
     }
   }
 
-  checkReady();
-
+  if (typeof GAME !== 'undefined' && GAME.ready) register();
+  else {
+    let tries = 0;
+    (function check() {
+      if (typeof GAME !== 'undefined' && GAME.ready) register();
+      else if (tries++ < 400) setTimeout(check, 100);
+      else { if (window.__enhance) window.__enhance.register('landmarks', init, 40); }
+    })();
+  }
 })();
