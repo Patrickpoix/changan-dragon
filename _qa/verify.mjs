@@ -3,6 +3,8 @@ import fs from 'node:fs';
 const PORT = process.env.CDP_PORT || '9226';
 const MOBILE = process.env.MOBILE === '1';
 const PREFIX = process.env.PREFIX || 'verify';
+const OUT_DIR = '_qa/shots';
+fs.mkdirSync(OUT_DIR, { recursive: true });
 const pages = await (await fetch(`http://127.0.0.1:${PORT}/json/list`)).json();
 const page = pages.find(p => p.type === 'page' && p.url.includes('changan-dragon'));
 if (!page) throw new Error('page missing');
@@ -31,7 +33,7 @@ const evaluate = async expression => {
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const shot = async name => {
   const r = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
-  fs.writeFileSync(`E:/sa_research_os_sa_only_deep/changan-dragon/_${name}.png`, Buffer.from(r.data, 'base64'));
+  fs.writeFileSync(`${OUT_DIR}/${name}.png`, Buffer.from(r.data, 'base64'));
 };
 
 await send('Runtime.enable');
@@ -69,8 +71,8 @@ for (let i = 0; i < 4; i++) {
 }
 out.cameras = cameras;
 
-// 诗笺：传送到最近诗笺旁并点击拾取
-await evaluate(`window.__changan.teleport(0, 346, Math.PI); true`);
+// 诗笺：传送到曲江池诗笺旁并点击拾取（追加诗笺坐标以 27c-extra-poems-2 为准）
+await evaluate(`window.__changan.teleport(398, 346, Math.PI); true`);
 await sleep(1200);
 out.poemBefore = await evaluate(`(() => ({ near: __changan.state.nearPoem, interact: document.getElementById('interactBtn').classList.contains('visible'), count: __changan.state.poemsFound.size }))()`);
 await evaluate(`document.getElementById('interactBtn').click(); true`);
@@ -112,5 +114,5 @@ out.webgl = await evaluate(`(() => { const gl=document.getElementById('scene').g
 const issues = events.filter(e => e.method === 'Runtime.exceptionThrown' || (e.method === 'Log.entryAdded' && ['error', 'warning'].includes(e.params?.entry?.level)));
 out.issues = [...new Map(issues.map(e => [e.params?.entry?.text || e.params?.exceptionDetails?.text, e.params?.entry?.text || e.params?.exceptionDetails?.text])).values()];
 console.log(JSON.stringify(out, null, 2));
-fs.writeFileSync(`E:/sa_research_os_sa_only_deep/changan-dragon/_qa/${PREFIX}.json`, JSON.stringify(out, null, 2));
+fs.writeFileSync(`_qa/${PREFIX}.json`, JSON.stringify(out, null, 2));
 ws.close();
