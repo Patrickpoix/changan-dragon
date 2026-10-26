@@ -111,7 +111,7 @@
         createBush(354 + Math.cos(angle) * r, 318 + Math.sin(angle) * r);
       }
 
-      console.log('[Vegetation] 植被系统初始化完成');
+      console.log('[Vegetation] 植被系统初始化完成 - 行道树+宫殿树+牡丹荷花桃花+灌木');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
 
