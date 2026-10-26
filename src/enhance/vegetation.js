@@ -21,9 +21,9 @@
   };
 
   const FLOWER_CONFIG = {
-    mudan: { count: 20, centerX: 342, centerZ: -152, radius: 40, color: 0xd44a6a },
-    hehua: { count: 30, centerX: 354, centerZ: 318, radius: 35, color: 0xf8f8f8 },
-    taohua: { count: 15, centerX: 342, centerZ: -152, radius: 45, color: 0xff91a7 },
+    mudan: { count: 30, centerX: 342, centerZ: -152, radius: 40, color: 0xd44a6a },
+    hehua: { count: 40, centerX: 354, centerZ: 318, radius: 35, color: 0xf8f8f8 },
+    taohua: { count: 20, centerX: 342, centerZ: -152, radius: 45, color: 0xff91a7 },
   };
 
   let initialized = false;
@@ -98,10 +98,17 @@
       });
 
       // 兴庆宫周边灌木
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         const angle = Math.random() * Math.PI * 2;
         const r = 45 + Math.random() * 10;
         createBush(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r);
+      }
+
+      // 曲江池周边灌木
+      for (let i = 0; i < 15; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = 45 + Math.random() * 10;
+        createBush(354 + Math.cos(angle) * r, 318 + Math.sin(angle) * r);
       }
 
       console.log('[Vegetation] 植被系统初始化完成');
