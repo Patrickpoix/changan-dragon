@@ -26,7 +26,7 @@
         skyUniforms.sunColor.value.setHex(0xffc95e);
       }
 
-      console.log('[Sky] 天空系统增强完成 - 微调原Shader颜色');
+      console.log('[Sky] 天空系统增强完成 - 微调原Shader颜色：天顶+地平线+太阳色');
     } catch(e) { console.warn('[Sky] 初始化失败:', e); }
   }
 
