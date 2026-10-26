@@ -62,6 +62,15 @@
 - 城墙角楼在(±450, ±380)，由原系统addCityWalls创建；护城河在城墙外 z>380/z<-380
 - 地标权威坐标见本文件下方表格（以 src/12-landmarks.js 为准）
 
+### 6b. 世界尺度设计（统一单位系统，2026-10-27 定稿）
+- **1 world unit ≈ 2 米**：艺术化缩尺，相对真实长安水平缩约 1/3
+- 真实长安 东西9721m×南北8651m；游戏 WORLD ±780/±660（≈3.1km×2.6km 全境）、
+  CITY ±450/±380（≈1.8km×1.5km 游玩核心）
+- 坊 70×54 单位 ≈ 140×108m；朱雀大街宽 26 单位 ≈ 52m；护城河宽 20 单位 ≈ 40m
+- 速度（游戏化）：步行4.5 / 骑行14.2 / 飞行21 单位/秒（横穿CITY骑行约63秒）
+- 依据：雾距600-690单位内LOD生效、55°追尾镜头8.4单位距离、飞行/骑行体验节奏
+- 所有坐标/尺寸/速度统一使用该单位系统，禁止混用真实米数与游戏单位
+
 ### 7. 初始化原则
 - **统一生命周期调度器**：src/99-safe-init.js 提供 window.__enhance.register(owner, fn, priority)，
   按优先级串行执行（间隔500ms），GAME.ready后启动，完成后置 GAME.fullyReady
@@ -69,6 +78,14 @@
 - 禁止散装 setTimeout 固定延迟（旧机制已废弃）；禁止覆盖buildWorld
 - 不要创建独立的requestAnimationFrame循环
 - 需要逐帧更新的内容必须接入主循环：包装 window.updateDayNight 钩子（如night-light点光）
+
+### 7b. 批处理增量重建原则（已登记即已渲染，2026-10-27 落地）
+- Batch.build() 幂等重建：首次构建后仍可继续 add（如增强模块在 GAME.ready 后追加物体）；
+  再次调用 build 会先移除旧实例组，再按完整条目重建，保证场景中只存在一套实例网格
+- 全局重建入口：window.__changan.rebuild() 重建全部批处理 + 刷新飞行包络（Explore.buildRoofGrid）
+- 生命周期：99-safe-init 在全部 enhance 模块执行完后自动调用 __changan.rebuild()
+- 原则：任何登记了碰撞/飞行障碍的物体，必须真实渲染；不允许“隐形碰撞”或“隐形障碍”
+  （典型反例：enhance/outside.js 在 GAME.ready 后 addTree，若不重建则树不可见但碰撞已登记）
 
 ### 8. 光影与渲染原则
 - 不要直接修改sun/ambient/hemi/rim的颜色和强度，这些会被updateDayNight()主循环覆盖
@@ -90,7 +107,9 @@
 - 不能把“代码已提交”当成“功能已完成”
 - 不能把程序化基础几何当成电影级视觉资产
 - 所有增强模块必须有console.log成功信息
-- 可用 window.__changan 调试入口做自动化验收（teleport/state/drawCalls/rendering）
+- 可用 window.__changan 调试入口做自动化验收（teleport/state/drawCalls/rendering/rebuild）
+- **tools/build_standalone.py 的 SOURCES 必须与 src/boot.js 加载清单一致**（dist 单文件
+  必须包含全部 src 与 enhance 模块；2026-10-27 已补全 25b/26/26b/27b/27c/28/29/99-safe-init/8个enhance）
 
 ## 模块Owner划分（当前权威）
 
@@ -103,7 +122,7 @@
 | Vegetation | 50 | 沉香亭花圃/大雁塔蓝花/太极宫菊花/曲江岸草/竹林（共享材质） | enhance/vegetation.js |
 | Water | 60 | 护城河三面（南z400两段+东西x±465各两段，城门通道，共享waterMat）+木桥6座（南2沿z跨河、东西4沿x跨河，注册bridgeZones）+岸石芦苇鸭 | enhance/water.js |
 | NightLight | 70 | 宫殿塔寺明德门补充灯笼 + 7组点光源昼夜联动（包装updateDayNight） | enhance/night-light.js |
-| Outside | 80 | 城外驿站/水井/里程碑碰撞 + 城外树(原addTree) | enhance/outside.js |
+| Outside | 80 | 城外驿站/水井/里程碑碰撞 + 城外树(原addTree，重建后可见) | enhance/outside.js |
 
 ## 权威地标坐标
 
@@ -139,3 +158,5 @@
 - ❌ 禁止创建独立的requestAnimationFrame循环
 - ❌ 禁止直接修改灯光和天空参数，避免被主循环覆盖
 - ❌ 禁止盲目扩大阴影范围，要保持合理精度（±140m）
+- ❌ 禁止 build_standalone.py SOURCES 与 boot.js 加载清单不一致（dist 单文件必须包含全部模块）
+- ❌ 禁止出现“已登记碰撞但未渲染”的隐形物体（新增物体必须触发 __changan.rebuild）

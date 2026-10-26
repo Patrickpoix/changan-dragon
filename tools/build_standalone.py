@@ -6,9 +6,17 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'dist' / 'changan-dragon.html'
+# Keep this list in exact sync with src/boot.js load order so the offline
+# single-file build carries every module: poem extras, 16 places, weather,
+# lanterns, all enhance owners and the lifecycle scheduler.
 SOURCES = ['vendor/rendering-addons.js', 'assets/materials.js', 'assets/scene-materials.js', 'assets/runtime-models.js', 'assets/character-faces.js', 'assets/boat-hulls.js', 'src/00-core.js', 'src/04-compatibility.js', 'src/05-rendering.js', 'src/06-surfaces.js', 'src/07-water.js', 'src/09-botany.js', 'src/10-world.js',
            'src/11-shorelines.js', 'src/12-landmarks.js', 'src/20-character.js',
-           'src/25-exploration.js', 'src/27-session.js', 'src/08-assets.js', 'src/30-main.js']
+           'src/25-exploration.js', 'src/25b-film-shots-extra.js', 'src/26-extra-places.js', 'src/26b-extra-places-2.js',
+           'src/27-session.js', 'src/27b-extra-poems.js', 'src/27c-extra-poems-2.js',
+           'src/28-weather.js', 'src/29-lanterns.js',
+           'src/enhance/visual-grade.js', 'src/enhance/sky.js', 'src/enhance/performance.js', 'src/enhance/landmarks.js',
+           'src/enhance/vegetation.js', 'src/enhance/water.js', 'src/enhance/night-light.js', 'src/enhance/outside.js',
+           'src/99-safe-init.js', 'src/08-assets.js', 'src/30-main.js']
 
 
 def inline_script(path):
