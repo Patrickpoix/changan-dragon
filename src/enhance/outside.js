@@ -15,20 +15,20 @@
     // 驿站主体
     const main = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
     main.position.set(x, 3, z);
-    main.scale.set(15, 6, 10);
+    main.scale.set(18, 6, 12);
     main.castShadow = true;
     main.receiveShadow = true;
     scene.add(main);
     // 驿站屋顶
     const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof);
     roof.position.set(x, 7, z);
-    roof.scale.set(18, 3.5, 13);
+    roof.scale.set(21, 3.5, 15);
     roof.castShadow = true;
     scene.add(roof);
     // 驿站围墙
     const wall = new THREE.Mesh(UNIT_BOX, MAT.stone);
-    wall.position.set(x, 1.5, z + 8);
-    wall.scale.set(25, 3, 0.5);
+    wall.position.set(x, 1.5, z + 10);
+    wall.scale.set(30, 3, 0.5);
     wall.castShadow = true;
     scene.add(wall);
   }
@@ -76,31 +76,31 @@
       addWell(-520, 550);
 
       // 城外里程碑（朱雀大街南段，补充原系统）
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 15; i++) {
         addMilestone(-8, 400 + i * 15, 'south');
         addMilestone(8, 400 + i * 15, 'south');
       }
 
       // 城外树林（东南，补充原系统，使用原系统addTree函数）
       if (typeof addTree !== 'undefined') {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 60; i++) {
           addTree(600 + Math.random() * 300, 300 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
         // 城外树林（西南）
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 55; i++) {
           addTree(-700 + Math.random() * 300, 300 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
         // 城外树林（东北）
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 55; i++) {
           addTree(600 + Math.random() * 300, -400 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
         // 城外树林（西北）
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 50; i++) {
           addTree(-700 + Math.random() * 300, -400 + Math.random() * 300, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         }
       }
 
-      console.log('[Outside] 城外环境初始化完成 - 补充原系统：4驿站+2水井+20里程碑+180城外树，不重复创建已有农舍');
+      console.log('[Outside] 城外环境初始化完成 - 补充原系统：4驿站+2水井+30里程碑+220城外树，不重复创建已有农舍');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
