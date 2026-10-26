@@ -7,6 +7,7 @@
   'use strict';
 
   let initialized = false;
+  let clouds = [];
 
   function init() {
     if (initialized) return;
@@ -29,8 +30,16 @@
         const cloud = new THREE.Mesh(new THREE.SphereGeometry(10 + Math.random() * 15, 6, 5), cloudMat);
         cloud.position.set(-400 + Math.random() * 800, 80 + Math.random() * 40, -400 + Math.random() * 800);
         cloud.scale.y = 0.3;
+        cloud.userData.speed = 0.02 + Math.random() * 0.03;
+        clouds.push(cloud);
         scene.add(cloud);
       }
+
+      // 太阳
+      const sunMesh = new THREE.Mesh(new THREE.SphereGeometry(10, 16, 16),
+        new THREE.MeshBasicMaterial({ color: 0xffee88, fog: false }));
+      sunMesh.position.set(200, 120, -300);
+      scene.add(sunMesh);
 
       // 月亮
       const moon = new THREE.Mesh(new THREE.SphereGeometry(15, 16, 16),
@@ -54,9 +63,22 @@
     } catch(e) { console.warn('[Sky] 初始化失败:', e); }
   }
 
+  function animate() {
+    if (!initialized) return;
+    clouds.forEach(cloud => {
+      cloud.position.x += cloud.userData.speed;
+      if (cloud.position.x > 500) cloud.position.x = -500;
+    });
+    requestAnimationFrame(animate);
+  }
+
   function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 14000);
-    else setTimeout(checkReady, 300);
+    if (typeof GAME !== 'undefined' && GAME.ready) {
+      setTimeout(init, 14000);
+      setTimeout(animate, 15000);
+    } else {
+      setTimeout(checkReady, 300);
+    }
   }
   checkReady();
 })();
