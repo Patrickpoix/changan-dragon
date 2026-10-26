@@ -5,12 +5,11 @@
    全部使用共享几何体UNIT_BOX/UNIT_CYL/UNIT_SPHERE和共享材质MAT
    新增实体注册原系统碰撞网格addCollider和飞行障碍recordFlightObstacle
    权威坐标：WORLD = { x0: -780, x1: 780, z0: -660, z1: 660 }
+   通过 __enhance.register 注册（优先级80，城外最后加载）
    ============================================================ */
 
 (function() {
   'use strict';
-
-  let initialized = false;
 
   function registerCollider(x, z, w, d, tag) {
     if (typeof addCollider === 'function') {
@@ -76,8 +75,6 @@
   }
 
   function init() {
-    if (initialized) return;
-    initialized = true;
     console.log('[Outside] 城外环境初始化...');
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
@@ -88,19 +85,19 @@
       addPostStation(550, 500);    // 东北驿站
       addPostStation(-500, -500);  // 西南驿站
 
-      // 东南村落水井（补充原系统）
+      // 东南村落水井
       addWell(580, 480);
 
-      // 西北村落水井（补充原系统）
+      // 西北村落水井
       addWell(-520, 550);
 
-      // 城外里程碑（朱雀大街南段两侧，补充原系统）
+      // 城外里程碑（朱雀大街南段两侧）
       for (let i = 0; i < 8; i++) {
         addMilestone(-8, 400 + i * 15);
         addMilestone(8, 400 + i * 15);
       }
 
-      // 城外树林（东南/西南/东北/西北，补充原系统，使用原系统addTree函数确保批处理兼容）
+      // 城外树林（使用原系统addTree函数确保批处理兼容）
       if (typeof addTree !== 'undefined') {
         for (let i = 0; i < 30; i++) addTree(500 + Math.random() * 200, 300 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
         for (let i = 0; i < 25; i++) addTree(-600 + Math.random() * 200, 300 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
@@ -108,13 +105,25 @@
         for (let i = 0; i < 20; i++) addTree(-600 + Math.random() * 200, -400 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
       }
 
-      console.log('[Outside] 城外环境初始化完成 - 4驿站+2水井+16里程碑+100城外树(原系统addTree)，已注册碰撞与飞行障碍');
+      console.log('[Outside] 城外环境增强完成 - 4驿站+2水井+16里程碑+100城外树(原系统addTree)，已注册碰撞与飞行障碍');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
-  function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 6000);
-    else setTimeout(checkReady, 100);
+  function register() {
+    if (window.__enhance) {
+      window.__enhance.register('outside', init, 80);
+    } else {
+      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'outside', fn: init, priority: 80 });
+    }
   }
-  checkReady();
+
+  if (typeof GAME !== 'undefined' && GAME.ready) register();
+  else {
+    let tries = 0;
+    (function check() {
+      if (typeof GAME !== 'undefined' && GAME.ready) register();
+      else if (tries++ < 400) setTimeout(check, 100);
+      else { if (window.__enhance) window.__enhance.register('outside', init, 80); }
+    })();
+  }
 })();
