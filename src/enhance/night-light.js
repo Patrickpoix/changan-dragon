@@ -115,7 +115,7 @@
       qujiangLight.position.set(LIGHT_CONFIG.qujiang.x, 5, LIGHT_CONFIG.qujiang.z);
       scene.add(qujiangLight);
 
-      console.log('[NightLight] 夜景灯光系统初始化完成');
+      console.log('[NightLight] 夜景灯光系统初始化完成 - 朱雀大街+大明宫+太极宫+东西市+各大地标');
     } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
   }
 
