@@ -316,6 +316,7 @@ function buildPagodas() {
   addPagoda(sx, sz, 13, 8.5, 41, '小雁塔');
   addHall(sx + 22, sz - 8, 16, 10, { h: 5.4, roofH: 3, collider: true });
   for (let i = 0; i < 8; i++) addTree(sx + rr(-22, 22), sz + rr(-21, 26), i % 2 ? 'willow' : 'pine', rr(0.55, 0.8));
+  landmarks.push({ id: 'xiaoyanta', name: '小雁塔', x: sx, z: sz, radius: 22, poem: '晨钟暮鼓传巷陌，塔铃清越送斜阳', desc: '荐福寺内十三层密檐砖塔，晨钟暮鼓，是长安城南的清幽一景。' });
 }
 
 // ---------------------------------------------------------------- 曲江池
