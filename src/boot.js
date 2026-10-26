@@ -132,6 +132,7 @@
       'src/291-final-architecture-integration.js',
       'src/292-final-vegetation-integration.js',
       'src/293-final-npc-integration.js',
+      'src/294-final-audio-integration.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
