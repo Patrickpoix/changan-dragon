@@ -71,15 +71,15 @@
       moat.receiveShadow = true;
       scene.add(moat);
 
-      // 护城河岸线石头（更多）
-      for (let i = 0; i < 100; i++) {
-        const x = -500 + i * 10;
+      // 护城河岸线石头（非常多）
+      for (let i = 0; i < 120; i++) {
+        const x = -500 + i * 8.3;
         addRock(x, 490 + Math.random() * 3);
         addRock(x, 510 + Math.random() * 3);
       }
 
-      // 护城河芦苇（更多）
-      for (let i = 0; i < 80; i++) {
+      // 护城河芦苇（非常多）
+      for (let i = 0; i < 100; i++) {
         const x = -500 + Math.random() * 1000;
         addReed(x, 492 + Math.random() * 6);
         addReed(x, 508 + Math.random() * 6);
@@ -99,13 +99,13 @@
       // 曲江池湖心喷泉（补充原系统）
       addFountain(354, 318);
 
-      // 护城河鸭子（补充原系统）
-      for (let i = 0; i < 15; i++) {
+      // 护城河鸭子（更多）
+      for (let i = 0; i < 20; i++) {
         const x = -400 + Math.random() * 800;
         addDuck(x, 500 + Math.random() * 15);
       }
 
-      console.log('[Water] 水景系统初始化完成 - 补充原系统：护城河+城外小河+岸线石头+芦苇+2喷泉+15鸭子，不重复创建已有水面');
+      console.log('[Water] 水景系统初始化完成 - 补充原系统：护城河+城外小河+岸线石头+芦苇+2喷泉+20鸭子，不重复创建已有水面');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
