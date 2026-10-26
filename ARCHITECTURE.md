@@ -113,8 +113,8 @@ GAME.ready → 5s后 visual-grade → 8s后 landmarks → 10s后 vegetation
 | 目标FPS | 60 | 30 |
 | DPR上限 | 2.0 | 1.5 |
 | 阴影地图 | 4096 | 2048 |
+| 阴影距离 | 1200m | 1200m |
 | 各向异性过滤 | 16x | 16x |
-| 阴影距离 | 1000m | 1000m |
 
 ## CI工作流
 
