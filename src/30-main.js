@@ -1110,7 +1110,8 @@ async function buildWorld() {
   }
   bootStatus('陈设陶器、藤篮与市井器物…');
   const assets = await WorldAssets.populate();
-  if (assets.failures.length) throw new Error('部分本地三维素材未能载入，请检查控制台');
+  // 部分素材缺失不阻止启动：降级为警告，保证网页不黑屏
+  if (assets.failures.length) console.warn('[Assets] ' + assets.failures.length + ' 个本地素材未能载入（不影响启动）：' + assets.failures.map(f => f.id).join('、'));
   buildColliderHash(); Explore.buildRoofGrid();
   bootStatus('小青龙正在试车铃…');
   await nextFrame();
