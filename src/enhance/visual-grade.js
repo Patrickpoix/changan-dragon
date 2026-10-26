@@ -20,51 +20,51 @@
 
       // ACES色调映射（电影级）
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.25;
+      renderer.toneMappingExposure = 1.3;
 
       // 国风雾效（暖灰黄色调，类似古画意境）
       if (scene.fog) {
-        scene.fog.color.setHex(0xdcc8a5);
-        scene.fog.near = 50;
-        scene.fog.far = 600;
+        scene.fog.color.setHex(0xe0ccaa);
+        scene.fog.near = 40;
+        scene.fog.far = 550;
       }
 
       // 暖金色太阳光（清晨/黄昏氛围）
       if (typeof sun !== 'undefined') {
-        sun.color.setHex(0xffdba8);
-        sun.intensity = 1.25;
+        sun.color.setHex(0xffd8a8);
+        sun.intensity = 1.3;
       }
 
       // 暖灰环境光
       if (typeof ambient !== 'undefined') {
-        ambient.color.setHex(0xd4c29e);
-        ambient.intensity = 0.4;
+        ambient.color.setHex(0xd8c8a8);
+        ambient.intensity = 0.45;
       }
 
       // 天空半球光微调
       if (typeof hemi !== 'undefined') {
-        hemi.color.setHex(0xfff6e0);
-        hemi.groundColor.setHex(0x7a9a7a);
-        hemi.intensity = 1.0;
+        hemi.color.setHex(0xfff8e8);
+        hemi.groundColor.setHex(0x8aaa8a);
+        hemi.intensity = 1.1;
       }
 
       // 轮廓光（暖橙色，增强立体感）
       if (typeof rim !== 'undefined') {
         rim.color.setHex(0xffc99f);
-        rim.intensity = 0.45;
+        rim.intensity = 0.5;
       }
 
       // 天空Shader微调（与原昼夜系统兼容）
       if (typeof skyUniforms !== 'undefined') {
-        skyUniforms.topColor.value.setHex(0x75a5c5);
-        skyUniforms.horizonColor.value.setHex(0xfae8d0);
-        skyUniforms.sunColor.value.setHex(0xffd47a);
+        skyUniforms.topColor.value.setHex(0x70a0c0);
+        skyUniforms.horizonColor.value.setHex(0xfce8d0);
+        skyUniforms.sunColor.value.setHex(0xffd880);
       }
 
       // 背景色微调（国风暖色调）
-      scene.background = new THREE.Color(0xd4dce8);
+      scene.background = new THREE.Color(0xd8e0e8);
 
-      console.log('[VisualGrade] 视觉调色完成 - ACES电影级(曝光1.25)+国风暖灰雾效(50-600m)+暖金色光影+轮廓光');
+      console.log('[VisualGrade] 视觉调色完成 - ACES电影级(曝光1.3)+国风暖灰雾效(40-550m)+暖金色光影+轮廓光(0.5)');
 
     } catch(e) {
       console.warn('[VisualGrade] 初始化失败:', e);
