@@ -88,6 +88,20 @@
         addTree(x, z);
       }
 
+      // 城外东北树林
+      for (let i = 0; i < 20; i++) {
+        const x = 450 + Math.random() * 100;
+        const z = -550 + Math.random() * 100;
+        addTree(x, z);
+      }
+
+      // 城外西北树林
+      for (let i = 0; i < 15; i++) {
+        const x = -550 + Math.random() * 100;
+        const z = -550 + Math.random() * 100;
+        addTree(x, z);
+      }
+
       // 城外村落（8间农舍）
       for (let i = 0; i < 8; i++) {
         const x = 500 + (Math.random() - 0.5) * 80;
