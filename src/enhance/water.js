@@ -1,6 +1,6 @@
 /* ============================================================
    Water - 水景系统Owner
-   负责：所有水面/船/桥/岸线/荷花
+   负责：所有水面/船/桥/岸线/亭子
    ============================================================ */
 
 (function() {
@@ -13,6 +13,38 @@
   };
 
   let initialized = false;
+
+  function addBridge(x, z, length, width) {
+    if (typeof MAT === 'undefined') return;
+    const bridge = new THREE.Mesh(new THREE.BoxGeometry(width, 0.5, length), MAT.stone);
+    bridge.position.set(x, 0.3, z);
+    bridge.receiveShadow = true;
+    bridge.castShadow = true;
+    scene.add(bridge);
+  }
+
+  function addPavilion(x, z) {
+    if (typeof MAT === 'undefined') return;
+    // 亭子基座
+    const base = new THREE.Mesh(new THREE.BoxGeometry(6, 0.5, 6), MAT.stone);
+    base.position.set(x, 0.25, z);
+    base.receiveShadow = true;
+    scene.add(base);
+    // 亭子柱子
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * Math.PI * 2 + Math.PI / 4;
+      const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 3, 6), MAT.wood);
+      pillar.position.set(x + Math.cos(angle) * 2, 2, z + Math.sin(angle) * 2);
+      pillar.castShadow = true;
+      scene.add(pillar);
+    }
+    // 亭子屋顶（四角攒尖）
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(4, 2, 4), MAT.roof || MAT.roofGlazed);
+    roof.position.set(x, 4.5, z);
+    roof.rotation.y = Math.PI / 4;
+    roof.castShadow = true;
+    scene.add(roof);
+  }
 
   function init() {
     if (initialized) return;
@@ -57,6 +89,15 @@
           scene.add(rock);
         }
       });
+
+      // 曲江池石桥
+      addBridge(WATER_CONFIG.qujiang.x, WATER_CONFIG.qujiang.z - 30, 15, 3);
+
+      // 曲江池亭子
+      addPavilion(WATER_CONFIG.qujiang.x + 20, WATER_CONFIG.qujiang.z - 20);
+
+      // 龙池小木桥
+      addBridge(WATER_CONFIG.longchi.x, WATER_CONFIG.longchi.z - 15, 10, 2);
 
       console.log('[Water] 水景系统初始化完成');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
