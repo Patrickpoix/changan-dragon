@@ -137,6 +137,7 @@
       'src/118-panel-handrail.js',
       'src/119-panel-post-cap.js',
       'src/120-panel-relief-2.js',
+      'src/210-cinematic-grade.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
