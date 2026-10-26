@@ -680,6 +680,10 @@ function updateDayNight(dt) {
   waterUniforms.sunDir.value.copy(sun.position).sub(sun.target.position).normalize();
   if (fireflies) fireflies.pts.material.opacity = n * 0.95;
   if (stars) stars.visible = n > 0.015;
+  // 增强模块登记的夜景点光源由主循环统一驱动（单一权威更新流程）。
+  if (window.__nightLights) for (const light of window.__nightLights) {
+    light.intensity = (light.userData.baseIntensity || 0.5) * n;
+  }
 }
 
 // ---------------------------------------------------------------- 地点
@@ -1235,7 +1239,12 @@ window.__changan = {
   rebuild() {
     Object.values(B).forEach(b => b?.build?.());
     Explore.buildRoofGrid();
-    return 'batches rebuilt';
+    // 增强模块在 GAME.ready 后登记的新碰撞必须重建哈希网格，
+    // 否则牌坊柱/石碑/里程碑等不会参与玩家碰撞与安全落地判定。
+    if (typeof buildColliderHash === 'function') buildColliderHash();
+    // 新登记的批次需进入渲染管线的 LOD/剔除与环境反射登记。
+    if (typeof GameRendering !== 'undefined' && typeof GameRendering.refreshScene === 'function') GameRendering.refreshScene();
+    return 'batches + colliderGrid + roofGrid + rendering rebuilt';
   },
 };
 
