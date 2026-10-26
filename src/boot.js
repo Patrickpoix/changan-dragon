@@ -109,6 +109,7 @@
       'src/268-final-performance-confirm.js',
       'src/269-final-game-state-confirm.js',
       'src/270-final-delivery.js',
+      'src/271-street-drains.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
