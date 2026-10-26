@@ -1,6 +1,8 @@
 /* ============================================================
-   Outside - 城外环境Owner
-   负责：城外农田/树林/村落/驿站/护城河
+   Outside - 城外环境Owner（增强版）
+   注意：原系统buildGround()已有70块城外农田
+   本模块仅添加：护城河/桥/村落/驿站/树林
+   全部使用共享几何体和共享材质
    ============================================================ */
 
 (function() {
@@ -10,16 +12,31 @@
 
   function addPostStation(x, z) {
     if (typeof MAT === 'undefined') return;
-    // 驿站主建筑
-    const main = new THREE.Mesh(new THREE.BoxGeometry(12, 5, 8), MAT.wall || MAT.wood);
+    // 驿站主建筑 - 使用共享UNIT_BOX
+    const main = new THREE.Mesh(UNIT_BOX, MAT.wood);
     main.position.set(x, 2.5, z);
+    main.scale.set(12, 5, 8);
     main.castShadow = true;
     main.receiveShadow = true;
     scene.add(main);
-    // 驿站屋顶
-    const roof = new THREE.Mesh(new THREE.ConeGeometry(9, 3, 4), MAT.roof || MAT.roofGlazed);
-    roof.position.set(x, 6.5, z);
-    roof.rotation.y = Math.PI / 4;
+    // 驿站屋顶 - 使用共享ROOF_UNIT
+    const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
+    roof.position.set(x, 5, z);
+    roof.scale.set(14, 2, 10);
+    roof.castShadow = true;
+    scene.add(roof);
+  }
+
+  function addVillageHouse(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const house = new THREE.Mesh(UNIT_BOX, MAT.plaster || MAT.wood);
+    house.position.set(x, 1.5, z);
+    house.scale.set(6, 3, 5);
+    house.castShadow = true;
+    scene.add(house);
+    const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
+    roof.position.set(x, 3, z);
+    roof.scale.set(7, 1.5, 6);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -27,7 +44,7 @@
   function init() {
     if (initialized) return;
     initialized = true;
-    console.log('[Outside] 初始化城外环境系统...');
+    console.log('[Outside] 城外环境增强初始化...');
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
@@ -38,50 +55,40 @@
       moat.position.set(0, 0.1, 400);
       scene.add(moat);
 
-      // 明德门桥
-      const bridge = new THREE.Mesh(new THREE.BoxGeometry(8, 0.5, 20), MAT.stone);
+      // 明德门桥 - 使用共享UNIT_BOX
+      const bridge = new THREE.Mesh(UNIT_BOX, MAT.stone);
       bridge.position.set(0, 0.3, 400);
+      bridge.scale.set(8, 0.5, 20);
       bridge.receiveShadow = true;
       scene.add(bridge);
 
-      // 城外农田
-      for (let i = 0; i < 10; i++) {
-        const field = new THREE.Mesh(new THREE.PlaneGeometry(30, 20),
-          new THREE.MeshStandardMaterial({ color: 0x6a8a4a, roughness: 0.9 }));
-        field.rotation.x = -Math.PI / 2;
-        field.position.set(-200 + i * 40, 0.05, 450 + Math.random() * 30);
-        scene.add(field);
-      }
-
-      // 城外东南树林
-      for (let i = 0; i < 30; i++) {
+      // 城外东南树林 - 使用共享UNIT_CYL和UNIT_SPHERE
+      for (let i = 0; i < 20; i++) {
         const x = 450 + Math.random() * 100;
         const z = 350 + Math.random() * 100;
-        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 3, 5), MAT.wood);
+        const trunk = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
         trunk.position.set(x, 1.5, z);
+        trunk.scale.set(0.4, 3, 0.4);
         trunk.castShadow = true;
         scene.add(trunk);
-        const leaves = new THREE.Mesh(new THREE.SphereGeometry(2, 6, 5),
-          new THREE.MeshStandardMaterial({ color: 0x4a7a3a, roughness: 0.9 }));
+        const leaves = new THREE.Mesh(UNIT_SPHERE, MAT.leaf || MAT.blossom);
         leaves.position.set(x, 4, z);
+        leaves.scale.set(3, 3, 3);
         leaves.castShadow = true;
         scene.add(leaves);
       }
 
-      // 城外村落（5间农舍）
+      // 城外村落（5间农舍）- 使用共享几何体
       for (let i = 0; i < 5; i++) {
         const x = 500 + (Math.random() - 0.5) * 60;
         const z = 450 + (Math.random() - 0.5) * 60;
-        const house = new THREE.Mesh(new THREE.BoxGeometry(6, 3, 5), MAT.wall || MAT.wood);
-        house.position.set(x, 1.5, z);
-        house.castShadow = true;
-        scene.add(house);
+        addVillageHouse(x, z);
       }
 
       // 南门外驿站
       addPostStation(100, 450);
 
-      console.log('[Outside] 城外环境系统初始化完成');
+      console.log('[Outside] 城外环境增强完成');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
