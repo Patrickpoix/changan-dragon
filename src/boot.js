@@ -68,6 +68,7 @@
       'src/227-weather-check.js',
       'src/228-npc-check.js',
       'src/229-final-full-check.js',
+      'src/230-water-detail.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
