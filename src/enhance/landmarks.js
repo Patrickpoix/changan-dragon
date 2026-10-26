@@ -1,13 +1,12 @@
 /* ============================================================
-   Landmarks - 地标精修Owner
-   负责：所有核心地标建筑的细节精修
-   数据来源：src/12-landmarks.js 权威坐标
+   Landmarks - 地标精修Owner（增强版）
+   全部使用共享几何体UNIT_BOX/ROOF_UNIT和共享材质MAT
    ============================================================ */
 
 (function() {
   'use strict';
 
-  // 权威地标坐标（从src/12-landmarks.js同步，集中管理不硬编码散落）
+  // 权威地标坐标
   const LANDMARKS = {
     daming:   { name: '大明宫',   x: 150, z: -432, gateX: 150, gateZ: -380 },
     taiji:    { name: '太极宫',   x: 0,   z: -334 },
@@ -18,11 +17,8 @@
     mingde:   { name: '明德门',   x: 0,   z: 380 },
     east:     { name: '东市',     x: 174, z: -14 },
     west:     { name: '西市',     x: -258, z: -14 },
-    qinglong: { name: '青龙寺',   x: 300, z: 100 },
-    ximing:   { name: '西明寺',   x: -300, z: 150 },
   };
 
-  // 城墙四角坐标
   const WALL_CORNERS = [
     { x: -450, z: -450 }, { x: 450, z: -450 },
     { x: -450, z: 450 },  { x: 450, z: 450 },
@@ -33,11 +29,9 @@
   function addSteps(x, z, width, depth, height) {
     if (typeof MAT === 'undefined') return;
     for (let i = 0; i < 3; i++) {
-      const step = new THREE.Mesh(
-        new THREE.BoxGeometry(width - i * 2, height, depth / 3),
-        MAT.stone
-      );
+      const step = new THREE.Mesh(UNIT_BOX, MAT.stone);
       step.position.set(x, height * (i + 0.5), z + depth / 6 + i * depth / 3);
+      step.scale.set(width - i * 2, height, depth / 3);
       step.receiveShadow = true;
       step.castShadow = true;
       scene.add(step);
@@ -46,11 +40,9 @@
 
   function addSquare(x, z, size) {
     if (typeof MAT === 'undefined') return;
-    const square = new THREE.Mesh(
-      new THREE.BoxGeometry(size, 0.1, size),
-      MAT.stone
-    );
+    const square = new THREE.Mesh(UNIT_BOX, MAT.stone);
     square.position.set(x, 0.05, z);
+    square.scale.set(size, 0.1, size);
     square.receiveShadow = true;
     scene.add(square);
   }
@@ -58,15 +50,16 @@
   function addCornerTower(x, z) {
     if (typeof MAT === 'undefined') return;
     // 角楼基座
-    const base = new THREE.Mesh(new THREE.BoxGeometry(10, 5, 10), MAT.stone);
+    const base = new THREE.Mesh(UNIT_BOX, MAT.stone);
     base.position.set(x, 2.5, z);
+    base.scale.set(10, 5, 10);
     base.castShadow = true;
     base.receiveShadow = true;
     scene.add(base);
     // 角楼屋顶
-    const roof = new THREE.Mesh(new THREE.ConeGeometry(7, 4, 4), MAT.roof || MAT.roofGlazed);
-    roof.position.set(x, 7, z);
-    roof.rotation.y = Math.PI / 4;
+    const roof = new THREE.Mesh(ROOF_UNIT, MAT.roof || MAT.roofGlazed);
+    roof.position.set(x, 5, z);
+    roof.scale.set(14, 4, 14);
     roof.castShadow = true;
     scene.add(roof);
   }
@@ -74,7 +67,7 @@
   function init() {
     if (initialized) return;
     initialized = true;
-    console.log('[Landmarks] 初始化地标精修系统...');
+    console.log('[Landmarks] 地标精修初始化...');
 
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
