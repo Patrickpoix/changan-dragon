@@ -42,6 +42,20 @@
     scene.add(water);
   }
 
+  function addDuck(x, z) {
+    if (typeof MAT === 'undefined') return;
+    const body = new THREE.Mesh(UNIT_SPHERE,
+      new THREE.MeshStandardMaterial({ color: 0x8b4513, roughness: 0.8 }));
+    body.position.set(x, 0.3, z);
+    body.scale.set(0.6, 0.4, 0.8);
+    scene.add(body);
+    const head = new THREE.Mesh(UNIT_SPHERE,
+      new THREE.MeshStandardMaterial({ color: 0x8b4513, roughness: 0.8 }));
+    head.position.set(x, 0.6, z + 0.5);
+    head.scale.set(0.25, 0.25, 0.25);
+    scene.add(head);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
@@ -57,15 +71,15 @@
       moat.receiveShadow = true;
       scene.add(moat);
 
-      // 护城河岸线石头
-      for (let i = 0; i < 80; i++) {
-        const x = -500 + i * 12.5;
+      // 护城河岸线石头（更多）
+      for (let i = 0; i < 100; i++) {
+        const x = -500 + i * 10;
         addRock(x, 490 + Math.random() * 3);
         addRock(x, 510 + Math.random() * 3);
       }
 
-      // 护城河芦苇
-      for (let i = 0; i < 60; i++) {
+      // 护城河芦苇（更多）
+      for (let i = 0; i < 80; i++) {
         const x = -500 + Math.random() * 1000;
         addReed(x, 492 + Math.random() * 6);
         addReed(x, 508 + Math.random() * 6);
@@ -85,7 +99,13 @@
       // 曲江池湖心喷泉（补充原系统）
       addFountain(354, 318);
 
-      console.log('[Water] 水景系统初始化完成 - 补充原系统：护城河+城外小河+岸线石头+芦苇+2喷泉，不重复创建已有水面');
+      // 护城河鸭子（补充原系统）
+      for (let i = 0; i < 15; i++) {
+        const x = -400 + Math.random() * 800;
+        addDuck(x, 500 + Math.random() * 15);
+      }
+
+      console.log('[Water] 水景系统初始化完成 - 补充原系统：护城河+城外小河+岸线石头+芦苇+2喷泉+15鸭子，不重复创建已有水面');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
