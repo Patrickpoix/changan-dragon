@@ -9,11 +9,11 @@
 
   // 灯光配置 - 集中管理
   const LIGHT_CONFIG = {
-    mainStreet: { count: 13, zStart: -300, zEnd: 300, intensity: 0.5, distance: 20 },
-    daming: { count: 6, x: 150, z: -432, intensity: 0.8, distance: 30 },
-    taiji: { count: 4, x: 0, z: -334, intensity: 0.7, distance: 25 },
-    eastMarket: { count: 4, x: 174, z: -14, intensity: 0.6, distance: 25 },
-    westMarket: { count: 4, x: -258, z: -14, intensity: 0.6, distance: 25 },
+    mainStreet: { count: 15, zStart: -300, zEnd: 300, intensity: 0.5, distance: 20 },
+    daming: { count: 8, x: 150, z: -432, intensity: 0.8, distance: 30 },
+    taiji: { count: 6, x: 0, z: -334, intensity: 0.7, distance: 25 },
+    eastMarket: { count: 5, x: 174, z: -14, intensity: 0.6, distance: 25 },
+    westMarket: { count: 5, x: -258, z: -14, intensity: 0.6, distance: 25 },
     dayanta: { x: 216, z: 283, intensity: 0.7, distance: 25 },
     xiaoyanta: { x: -216, z: 349, intensity: 0.5, distance: 20 },
     xingqing: { x: 342, z: -152, intensity: 0.5, distance: 20 },
@@ -77,7 +77,7 @@
       for (let i = 0; i < LIGHT_CONFIG.eastMarket.count; i++) {
         const light = new THREE.PointLight(0xffaa44, LIGHT_CONFIG.eastMarket.intensity, LIGHT_CONFIG.eastMarket.distance);
         light.position.set(
-          LIGHT_CONFIG.eastMarket.x + (i - 1.5) * 12,
+          LIGHT_CONFIG.eastMarket.x + (i - 2) * 10,
           4,
           LIGHT_CONFIG.eastMarket.z
         );
@@ -88,7 +88,7 @@
       for (let i = 0; i < LIGHT_CONFIG.westMarket.count; i++) {
         const light = new THREE.PointLight(0xffaa44, LIGHT_CONFIG.westMarket.intensity, LIGHT_CONFIG.westMarket.distance);
         light.position.set(
-          LIGHT_CONFIG.westMarket.x + (i - 1.5) * 12,
+          LIGHT_CONFIG.westMarket.x + (i - 2) * 10,
           4,
           LIGHT_CONFIG.westMarket.z
         );
