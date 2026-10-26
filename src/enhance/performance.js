@@ -25,12 +25,13 @@
         sun.shadow.mapSize.width = isMobile ? 2048 : 4096;
         sun.shadow.mapSize.height = isMobile ? 2048 : 4096;
         sun.shadow.camera.near = 10;
-        sun.shadow.camera.far = 1000;
-        sun.shadow.camera.left = -500;
-        sun.shadow.camera.right = 500;
-        sun.shadow.camera.top = 500;
-        sun.shadow.camera.bottom = -500;
-        sun.shadow.bias = -0.0005;
+        sun.shadow.camera.far = 1200;
+        sun.shadow.camera.left = -600;
+        sun.shadow.camera.right = 600;
+        sun.shadow.camera.top = 600;
+        sun.shadow.camera.bottom = -600;
+        sun.shadow.bias = -0.0004;
+        sun.shadow.normalBias = 0.02;
       }
 
       // 纹理各向异性过滤
@@ -58,7 +59,7 @@
         pixelRatio: renderer.getPixelRatio(),
         maxAnisotropy: maxAnisotropy,
       };
-      console.log('[Performance] 性能优化完成 - DPR(移动1.5/桌面2.0)+阴影(移动2048/桌面4096)+各向异性16x+视锥剔除');
+      console.log('[Performance] 性能优化完成 - DPR(移动1.5/桌面2.0)+阴影(移动2048/桌面4096,距离1200)+各向异性16x+视锥剔除');
     } catch(e) { console.warn('[Performance] 初始化失败:', e); }
   }
 
