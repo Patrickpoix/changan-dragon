@@ -76,6 +76,7 @@
       'src/235-xingqing-details.js',
       'src/236-taiji-details.js',
       'src/237-mingde-details.js',
+      'src/238-small-pagoda-surroundings.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
