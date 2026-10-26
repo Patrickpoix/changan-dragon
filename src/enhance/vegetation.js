@@ -2,100 +2,98 @@
    Vegetation - 植被系统Owner（增强版）
    注意：原系统已有完整树木系统（柳树/松树/桃花树，Batch批处理+LOD）
    本模块仅做补充性植被：花卉+灌木+竹林，不重复创建树木
-   全部使用共享几何体UNIT_CYL/UNIT_SPHERE和共享材质MAT
+   全部使用共享几何体UNIT_CYL/UNIT_SPHERE；同类花卉共享材质实例（减少DrawCall）
+   通过 __enhance.register 注册（优先级50）
    ============================================================ */
 
 (function() {
   'use strict';
 
-  // 花卉配置
-  const FLOWER_CONFIG = {
-    mudan: { count: 40, centerX: 342, centerZ: -152, radius: 50, color: 0xd44a6a },
-    hehua: { count: 50, centerX: 354, centerZ: 318, radius: 45, color: 0xf8f8f8 },
-    taohua: { count: 35, centerX: 342, centerZ: -152, radius: 55, color: 0xff91a7 },
-    lanyao: { count: 25, centerX: 216, centerZ: 283, radius: 35, color: 0x6a5acd },
-    juhua: { count: 20, centerX: 0, centerZ: -334, radius: 40, color: 0xffa500 },
-  };
-
-  let initialized = false;
-
-  function createFlower(x, z, color) {
-    if (typeof MAT === 'undefined') return;
-    const flower = new THREE.Mesh(UNIT_SPHERE,
-      new THREE.MeshStandardMaterial({ color: color, roughness: 0.8 }));
-    flower.position.set(x, 0.3, z);
-    flower.scale.set(0.4, 0.4, 0.4);
-    scene.add(flower);
-  }
-
-  function createBush(x, z) {
-    if (typeof MAT === 'undefined') return;
-    const bush = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
-    bush.position.set(x, 0.5, z);
-    bush.scale.set(1 + Math.random(), 0.8 + Math.random() * 0.5, 1 + Math.random());
-    bush.castShadow = true;
-    scene.add(bush);
-  }
-
-  function createBamboo(x, z) {
-    if (typeof MAT === 'undefined') return;
-    const bamboo = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
-    bamboo.position.set(x, 2, z);
-    bamboo.scale.set(0.15, 4, 0.15);
-    bamboo.castShadow = true;
-    scene.add(bamboo);
-    const leaves = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
-    leaves.position.set(x, 4.5, z);
-    leaves.scale.set(1.5, 1, 1.5);
-    leaves.castShadow = true;
-    scene.add(leaves);
-  }
+  // 花卉配置（数量已调减，同类共享材质）
+  const FLOWER_CONFIG = [
+    { key: 'mudan', count: 24, centerX: 342, centerZ: -152, radius: 48, color: 0xd44a6a },
+    { key: 'hehua', count: 26, centerX: 354, centerZ: 318, radius: 42, color: 0xf8f8f8 },
+    { key: 'taohua', count: 20, centerX: 342, centerZ: -152, radius: 52, color: 0xff91a7 },
+    { key: 'lanyao', count: 16, centerX: 216, centerZ: 283, radius: 32, color: 0x6a5acd },
+    { key: 'juhua', count: 14, centerX: 0, centerZ: -334, radius: 36, color: 0xffa500 },
+  ];
 
   function init() {
-    if (initialized) return;
-    initialized = true;
-    console.log('[Vegetation] 植被系统初始化...');
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
 
-      // 花卉（补充原系统）
-      Object.keys(FLOWER_CONFIG).forEach(key => {
-        const cfg = FLOWER_CONFIG[key];
+      // 花卉：每种花只创建一个共享材质实例，几何体用UNIT_SPHERE
+      FLOWER_CONFIG.forEach(cfg => {
+        const mat = new THREE.MeshStandardMaterial({ color: cfg.color, roughness: 0.8 });
         for (let i = 0; i < cfg.count; i++) {
           const angle = Math.random() * Math.PI * 2;
           const r = cfg.radius * Math.random();
-          createFlower(cfg.centerX + Math.cos(angle) * r, cfg.centerZ + Math.sin(angle) * r, cfg.color);
+          const flower = new THREE.Mesh(UNIT_SPHERE, mat);
+          flower.position.set(cfg.centerX + Math.cos(angle) * r, 0.3, cfg.centerZ + Math.sin(angle) * r);
+          flower.scale.set(0.4, 0.4, 0.4);
+          scene.add(flower);
         }
       });
 
-      // 兴庆宫周边灌木（补充原系统）
-      for (let i = 0; i < 30; i++) {
+      // 兴庆宫周边灌木（共享MAT.leaf）
+      for (let i = 0; i < 20; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 60 + Math.random() * 20;
-        createBush(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r);
+        const r = 62 + Math.random() * 18;
+        const bush = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
+        bush.position.set(342 + Math.cos(angle) * r, 0.5, -152 + Math.sin(angle) * r);
+        bush.scale.set(1 + Math.random(), 0.8 + Math.random() * 0.5, 1 + Math.random());
+        bush.castShadow = true;
+        scene.add(bush);
       }
 
-      // 曲江池周边灌木（补充原系统）
-      for (let i = 0; i < 25; i++) {
+      // 曲江池周边灌木（共享MAT.leaf）
+      for (let i = 0; i < 18; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 60 + Math.random() * 20;
-        createBush(354 + Math.cos(angle) * r, 318 + Math.sin(angle) * r);
+        const r = 62 + Math.random() * 18;
+        const bush = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
+        bush.position.set(354 + Math.cos(angle) * r, 0.5, 318 + Math.sin(angle) * r);
+        bush.scale.set(1 + Math.random(), 0.8 + Math.random() * 0.5, 1 + Math.random());
+        bush.castShadow = true;
+        scene.add(bush);
       }
 
-      // 大雁塔周边竹林（补充原系统）
-      for (let i = 0; i < 15; i++) {
+      // 大雁塔周边竹林（共享MAT.trunk与MAT.leaf）
+      for (let i = 0; i < 10; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 35 + Math.random() * 15;
-        createBamboo(216 + Math.cos(angle) * r, 283 + Math.sin(angle) * r);
+        const r = 36 + Math.random() * 14;
+        const x = 216 + Math.cos(angle) * r;
+        const z = 283 + Math.sin(angle) * r;
+        const bamboo = new THREE.Mesh(UNIT_CYL, MAT.trunk || MAT.wood);
+        bamboo.position.set(x, 2, z);
+        bamboo.scale.set(0.15, 4, 0.15);
+        bamboo.castShadow = true;
+        scene.add(bamboo);
+        const leaves = new THREE.Mesh(UNIT_SPHERE, MAT.leaf);
+        leaves.position.set(x, 4.5, z);
+        leaves.scale.set(1.5, 1, 1.5);
+        leaves.castShadow = true;
+        scene.add(leaves);
       }
 
-      console.log('[Vegetation] 植被系统初始化完成 - 补充原系统：5种花卉+灌木+竹林，不重复创建已有树木');
+      console.log('[Vegetation] 植被系统增强完成 - 5种花卉(共享材质,100朵)+灌木(38)+竹林(10)，不重复创建已有树木');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
 
-  function checkReady() {
-    if (typeof GAME !== 'undefined' && GAME.ready) setTimeout(init, 6000);
-    else setTimeout(checkReady, 100);
+  function register() {
+    if (window.__enhance) {
+      window.__enhance.register('vegetation', init, 50);
+    } else {
+      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'vegetation', fn: init, priority: 50 });
+    }
   }
-  checkReady();
+
+  if (typeof GAME !== 'undefined' && GAME.ready) register();
+  else {
+    let tries = 0;
+    (function check() {
+      if (typeof GAME !== 'undefined' && GAME.ready) register();
+      else if (tries++ < 400) setTimeout(check, 100);
+      else { if (window.__enhance) window.__enhance.register('vegetation', init, 50); }
+    })();
+  }
 })();
