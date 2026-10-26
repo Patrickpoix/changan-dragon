@@ -75,42 +75,42 @@
       scene.add(bridge);
 
       // 城外东南树林
-      for (let i = 0; i < 35; i++) {
+      for (let i = 0; i < 40; i++) {
         const x = 450 + Math.random() * 150;
         const z = 350 + Math.random() * 150;
         addTree(x, z);
       }
 
       // 城外西南树林
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 30; i++) {
         const x = -550 + Math.random() * 100;
         const z = 350 + Math.random() * 100;
         addTree(x, z);
       }
 
       // 城外东北树林
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 30; i++) {
         const x = 450 + Math.random() * 100;
         const z = -550 + Math.random() * 100;
         addTree(x, z);
       }
 
       // 城外西北树林
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         const x = -550 + Math.random() * 100;
         const z = -550 + Math.random() * 100;
         addTree(x, z);
       }
 
-      // 城外村落（10间农舍）
-      for (let i = 0; i < 10; i++) {
+      // 城外村落（12间农舍）
+      for (let i = 0; i < 12; i++) {
         const x = 500 + (Math.random() - 0.5) * 80;
         const z = 450 + (Math.random() - 0.5) * 80;
         addVillageHouse(x, z);
       }
 
-      // 西北村落（6间农舍）
-      for (let i = 0; i < 6; i++) {
+      // 西北村落（8间农舍）
+      for (let i = 0; i < 8; i++) {
         const x = -550 + (Math.random() - 0.5) * 60;
         const z = -450 + (Math.random() - 0.5) * 60;
         addVillageHouse(x, z);
