@@ -1,104 +1,87 @@
 # 龙游长安 · 项目架构总览
 
-> 唐长安城 84km² 开放世界游戏 · Three.js 现代Web端
+> 唐长安城 开放世界游戏 · Three.js r160
 > 更新：2026-10-26
 
 ## 技术栈
 
-- **引擎**：Three.js r160（正式）/ r169（Demo Vite版）
+- **引擎**：Three.js r160 正式版
 - **渲染**：WebGL2 + ACESFilmicToneMapping + PCFSoftShadowMap
-- **后处理**：SSAO + SSR + Bloom + LUT + Vignette + FilmGrain + FXAA
-- **资源**：GLB模型（InstancedMesh实例化）+ PBR材质共享 + HDRI环境光
-- **数据**：108坊程序化生成（mulberry32种子化PRNG）+ JSON布局
-
-## 坐标系统
-
-考古坐标原点在外郭城西南角，X东向正，Z北向正。
-Three.js中 worldX=archX, worldZ=-archZ。
-城市尺寸：9721m × 8652m，朱雀大街中心X=4860，宽150m。
+- **后处理**：SAO环境光遮蔽 + Bloom辉光 + FXAA抗锯齿
+- **优化**：建筑批处理 + InstancedMesh实例化 + 空间分区 + LOD
 
 ## 目录结构
 
 ```
-├── src/                    # 正式游戏引擎（Three.js r160）
-│   ├── 00-core.js ~ 30-main.js
-│   └── vendor/three.min.js
-├── demos/                  # 可运行Demo（Vite + Three r169）
-│   ├── zhuque-walkable/     # 朱雀大街1km可走Demo（自包含HTML）
-│   ├── ward-generator/      # 108坊程序化生成器
-│   ├── npc-crowd/           # 500 NPC LOD群集系统
-│   ├── daming-palace/       # 大明宫精模场景
-│   ├── sky-weather/         # 昼夜循环+天气粒子系统
-│   ├── postprocessing/      # 电影级后处理管线
-│   ├── integrated/          # 1km²片区整合Demo
-│   ├── city-viewer/         # 全城84km²流加载Viewer
-│   ├── special-areas/       # 特殊区域布局数据（12门/东西市/曲江/大明宫）
-│   └── HANDOVER.md          # 交接文档
-├── docs/                    # 历史文档（待整合精简）
-├── assets/                  # 共享素材库（GLB模型/PBR纹理/HDRI）
-└── tools/                   # 开发工具脚本
+├── src/                    # 正式游戏引擎
+│   ├── 00-core.js          # 核心工具/材质库/共享几何体
+│   ├── 05-rendering.js      # 渲染管线
+│   ├── 12-landmarks.js     # 地标建筑（权威坐标）
+│   ├── 30-main.js          # 主循环/游戏逻辑
+│   ├── enhance/            # 按Owner分类的增强模块
+│   │   ├── visual-grade.js   # 视觉调色Owner
+│   │   ├── landmarks.js      # 地标精修Owner
+│   │   ├── vegetation.js     # 植被系统Owner
+│   │   ├── water.js           # 水景系统Owner
+│   │   ├── sky.js             # 天空系统Owner
+│   │   ├── outside.js         # 城外环境Owner
+│   │   ├── night-light.js     # 夜景灯光Owner
+│   │   └── performance.js     # 性能优化Owner
+│   └── boot.js             # 启动加载器
+├── assets/                  # 共享素材库
+├── docs/                    # 历史文档
+└── agent.md                 # 开发规范
 ```
 
 ## 核心系统
 
-### 1. 108坊程序化生成（ward-generator）
-- mulberry32种子化PRNG，同一seed生成相同布局
-- 7种坊型：A-G（住宅/市/寺/宫/园林/城门）
-- 每坊生成：坊墙+坊门+内部建筑+道路+绿化
-- 运行 `node generate_layout.js` 重新生成完整数据
+### 1. 共享材质库（00-core.js）
+- MAT: plaster/wood/red/stone/roof/roofGlazed/lantern等
+- TEX: stone/roof/wood/grass/dirt/lattice/bark等Canvas生成纹理
+- 共享几何体: UNIT_BOX/UNIT_CYL/UNIT_SPHERE/ROOF_UNIT
+- Batch类: InstancedMesh + 空间分区 + LOD
 
-### 2. NPC群集（npc-crowd）
-- 三档LOD：近(<50m) SkinnedMesh / 中(50-150m) InstancedMesh / 远(>150m) fog淡出
-- 200 NPC：80% walk / 15% idle / 5% talk
-- 简化RVO避碰（O(n·20)而非O(n²)）
-- 时间密度：白天500 / 夜晚50 / 上元灯节1000
+### 2. 地标建筑（12-landmarks.js）
+- 大明宫含元殿 (150, -432)
+- 太极宫太极殿 (0, -334)
+- 兴庆宫龙池 (342, -152)
+- 曲江池中心 (354, 318)
+- 大雁塔 (216, 283)
+- 小雁塔 (-216, 349)
+- 明德门 (0, 380)
+- 朱雀大街 x=0，贯穿南北
 
-### 3. 大明宫场景（daming-palace）
-- 中轴对称：丹凤门→含元殿→宣政殿→紫宸殿→麟德殿→太液池
-- InstancedMesh回廊（250+实例）+ 树木（160+实例）
-- WASD飞行控制，6个预设机位，T键切换黄昏
+### 3. 天空系统（00-core.js）
+- sky Shader: 大气散射 + 云层 + 太阳
+- stars: 700颗星星点云
+- 远山: 连续山脊线两层
 
-### 4. 天空天气（sky-weather）
-- 24h昼夜循环：太阳角度/颜色/阴影实时变化
-- 粒子系统：雨/雪/落叶/樱花花瓣
-- 天空Shader：大气散射 + 云层覆盖
+### 4. 昼夜系统（30-main.js）
+- updateDayNight()每帧动态调整sun/ambient/fog/exposure
+- 黄金时刻/蓝调时刻/夜景自动切换
 
-### 5. 后处理管线（postprocessing）
-- Render → SSAO → SSR → Bloom → LUT → Vignette → FilmGrain → FXAA
-- 4套LUT预设：day/dusk/night/rain
-- SSAO近景自动裁切（<50m才开）
-- 移动端降级模式：关SSAO/SSR/Vignette/Film
-
-### 6. 全城Viewer（city-viewer）
-- 500m chunk × 20×18 = 360 slots
-- 三档LOD：近(≤250m)完整textured / 中(250-750m)去墙 / 远(750-1200m)盒体billboard
-- 全局InstancedMesh预分配 + 动态填矩阵
-- 模型共享：同一GLB所有坊复用，不重复存储纹理
+### 5. NPC与交互（20-character.js / 25-exploration.js）
+- 步行/骑行/飞行三种移动模式
+- 诗笺收集系统
+- 碰撞检测
 
 ## 素材共享策略
 
-**核心原则**：不重复存储纹理。原GLB + 共享材质源。
+**核心原则**：不重复存储纹理，全部复用共享几何体和材质。
 
-- 市集亭屋和庭院门楼共用同一套PBR材质源（木材/瓦面/灰泥/石材）
-- 25个建筑材质组统一绑定
-- 避免上传两份各约13MB的重复贴图模型
-- 新增缺失法线恢复 + 按实际几何坐标生成UV
+- 所有enhance模块使用共享UNIT_BOX/UNIT_CYL/UNIT_SPHERE
+- 所有材质使用共享MAT
+- 不重复创建天空/水面/农田等已有系统
+- 新增内容只做精修和增强
+
+## 开发规范
+
+详见 [agent.md](./agent.md)
 
 ## 性能指标（目标）
 
 | 指标 | 桌面 | 移动端 |
 |---|---|---|
-| DrawCalls | <200 | <100 |
-| Triangles | <2M | <500k |
 | FPS | 60 | 30 |
-| 内存 | <500MB | <200MB |
-
-## 待办（下一步开发）
-
-1. 整合docs/上千份历史文档为精简架构文档
-2. 接入共享PBR材质库到正式引擎src/
-3. 实现坊间连通路网 + 寻路
-4. NPC接入108坊真实路径
-5. 大明宫+东市+西市+曲江池 全区域连通
-6. 游戏UI系统（任务/对话/背包）
-7. 音效系统（背景音乐+环境音+人声）
+| DPR上限 | 1.65 | 1.25 |
+| 阴影地图 | 2048 | 1024 |
