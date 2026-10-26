@@ -1,11 +1,9 @@
 /* ============================================================
-   NightLight - 夜景灯光Owner（增强版 v2）
-   重要：原系统（10-world.js / 12-landmarks.js）已包含：
-   - 朱雀大街灯柱灯笼（x=±12.1）与横街灯串
-   - 东西市灯笼串、含元殿檐下灯笼、曲江商铺灯笼
-   因此本模块 v2 只补充原系统缺少区域的灯笼与点光源：
-   宫殿/塔寺/明德门周边补充（避免与已有灯柱重叠）。
-   不创建独立RAF循环，通过包装主循环updateDayNight钩子联动。
+   NightLight - 夜景灯光Owner（v3）
+   原系统已有朱雀大街灯柱/横街灯串/市场灯笼串/含元殿檐下灯笼。
+   本模块只补充原系统缺少区域的灯笼与点光源（宫殿/塔寺/明德门周边），
+   灯笼使用局部Batch（杆/球各1个InstancedMesh，64盏→2 drawcall），
+   点光源包装主循环window.updateDayNight钩子昼夜联动（不创建独立RAF）。
    通过 __enhance.register 注册（优先级70）
    ============================================================ */
 
@@ -16,68 +14,57 @@
   let pointLights = [];
   let wrapped = false;
 
-  function addLantern(x, z, height) {
-    if (typeof MAT === 'undefined') return;
-    const pole = new THREE.Mesh(UNIT_CYL, MAT.wood);
-    pole.position.set(x, (height || 4) / 2, z);
-    pole.scale.set(0.2, height || 4, 0.2);
-    scene.add(pole);
-    const lantern = new THREE.Mesh(UNIT_SPHERE, MAT.lanternGlow || MAT.lantern);
-    lantern.position.set(x, (height || 4) + 0.5, z);
-    lantern.scale.set(0.6, 0.8, 0.6);
-    scene.add(lantern);
-  }
-
   function init() {
     try {
-      if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
+      if (typeof scene === 'undefined' || typeof MAT === 'undefined' || typeof Batch === 'undefined') return;
 
-      // 大明宫宫殿周边灯光（12盏）
+      const positions = [];
+
+      // 大明宫周边（12）
       for (let i = 0; i < 12; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const r = 34 + Math.random() * 40;
-        addLantern(150 + Math.cos(angle) * r, -432 + Math.sin(angle) * r, 4);
+        const angle = Math.random() * Math.PI * 2, r = 34 + Math.random() * 40;
+        positions.push([150 + Math.cos(angle) * r, -432 + Math.sin(angle) * r, 4]);
       }
-
-      // 太极宫宫殿周边灯光（10盏）
+      // 太极宫周边（10）
       for (let i = 0; i < 10; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const r = 30 + Math.random() * 35;
-        addLantern(0 + Math.cos(angle) * r, -334 + Math.sin(angle) * r, 4);
+        const angle = Math.random() * Math.PI * 2, r = 30 + Math.random() * 35;
+        positions.push([0 + Math.cos(angle) * r, -334 + Math.sin(angle) * r, 4]);
       }
-
-      // 兴庆宫灯火（8盏，龙池岸边）
+      // 兴庆宫（8）
       for (let i = 0; i < 8; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const r = 34 + Math.random() * 30;
-        addLantern(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4);
+        const angle = Math.random() * Math.PI * 2, r = 34 + Math.random() * 30;
+        positions.push([342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4]);
       }
-
-      // 大雁塔灯光（8盏环形，塔院外）
+      // 大雁塔（8环形）
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
-        addLantern(216 + Math.cos(angle) * 16, 283 + Math.sin(angle) * 16, 4);
+        positions.push([216 + Math.cos(angle) * 16, 283 + Math.sin(angle) * 16, 4]);
       }
-
-      // 小雁塔灯光（8盏环形）
+      // 小雁塔（8环形）
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
-        addLantern(-216 + Math.cos(angle) * 14, 349 + Math.sin(angle) * 14, 4);
+        positions.push([-216 + Math.cos(angle) * 14, 349 + Math.sin(angle) * 14, 4]);
       }
-
-      // 曲江池夜游灯光（10盏环形，湖岸）
+      // 曲江池（10环形湖岸）
       for (let i = 0; i < 10; i++) {
         const angle = (i / 10) * Math.PI * 2;
-        addLantern(354 + Math.cos(angle) * 46, 318 + Math.sin(angle) * 38, 3.5);
+        positions.push([354 + Math.cos(angle) * 46, 318 + Math.sin(angle) * 38, 3.5]);
       }
+      // 明德门（8，御道两侧）
+      for (let i = 0; i < 8; i++) positions.push([-16 + i * 4.6, 384, 4]);
 
-      // 明德门灯光（8盏，门洞外御道两侧）
-      for (let i = 0; i < 8; i++) {
-        const x = -16 + i * 4.6;
-        addLantern(x, 384, 4);
-      }
+      // 灯笼局部Batch：杆 + 灯球（64盏 → 2个InstancedMesh）
+      const poles = new Batch(UNIT_CYL, MAT.wood, { cast: true });
+      const lanterns = new Batch(UNIT_SPHERE, MAT.lanternGlow || MAT.lantern, { cast: false });
+      positions.forEach(p => {
+        const h = p[2];
+        poles.add(p[0], h / 2, p[1], 0.2, h, 0.2);
+        lanterns.add(p[0], h + 0.5, p[1], 0.6, 0.8, 0.6);
+      });
+      poles.build();
+      lanterns.build();
 
-      // 点光源（与昼夜系统联动，白天强度0，夜晚增强）
+      // 点光源（昼夜联动：白天0，夜晚增强）
       const lanternPositions = [
         { x: 150, z: -432, intensity: 0.8, distance: 100 },
         { x: 0, z: -334, intensity: 0.7, distance: 90 },
@@ -87,7 +74,6 @@
         { x: -216, z: 349, intensity: 0.4, distance: 60 },
         { x: 0, z: 380, intensity: 0.6, distance: 60 },
       ];
-
       lanternPositions.forEach(pos => {
         const light = new THREE.PointLight(0xffc97a, 0, pos.distance, 2);
         light.position.set(pos.x, 8, pos.z);
@@ -96,7 +82,7 @@
         scene.add(light);
       });
 
-      // 注册到原系统更新循环：包装主循环updateDayNight钩子（不创建独立RAF）
+      // 包装主循环updateDayNight钩子（全局function声明挂window，主循环调用即生效）
       if (!wrapped && typeof window !== 'undefined') {
         wrapped = true;
         window.__nightLights = pointLights;
@@ -105,14 +91,12 @@
           window.updateDayNight = function(...args) {
             origUpdate.apply(this, args);
             const nightFactor = typeof GAME !== 'undefined' && GAME.nightT !== undefined ? GAME.nightT : 0;
-            pointLights.forEach(light => {
-              light.intensity = light.userData.baseIntensity * nightFactor;
-            });
+            pointLights.forEach(light => { light.intensity = light.userData.baseIntensity * nightFactor; });
           };
         }
       }
 
-      console.log('[NightLight] 夜景灯光增强完成 - 7组点光源(昼夜联动)+64盏补充灯笼(避开原系统灯柱/灯笼串)，已整合到原系统主更新流程');
+      console.log('[NightLight] 夜景灯光增强完成 - 64盏灯笼(局部Batch 2 drawcall)+7组点光源(昼夜联动)，已整合到原系统主更新流程');
     } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
   }
 
