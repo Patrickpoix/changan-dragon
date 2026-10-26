@@ -9,14 +9,15 @@
 
   // 灯光配置 - 集中管理
   const LIGHT_CONFIG = {
-    mainStreet: { count: 11, zStart: -300, zEnd: 300, intensity: 0.5, distance: 20 },
-    daming: { count: 4, x: 150, z: -432, intensity: 0.8, distance: 30 },
-    eastMarket: { count: 3, x: 174, z: -14, intensity: 0.6, distance: 25 },
-    westMarket: { count: 3, x: -258, z: -14, intensity: 0.6, distance: 25 },
+    mainStreet: { count: 13, zStart: -300, zEnd: 300, intensity: 0.5, distance: 20 },
+    daming: { count: 6, x: 150, z: -432, intensity: 0.8, distance: 30 },
+    taiji: { count: 4, x: 0, z: -334, intensity: 0.7, distance: 25 },
+    eastMarket: { count: 4, x: 174, z: -14, intensity: 0.6, distance: 25 },
+    westMarket: { count: 4, x: -258, z: -14, intensity: 0.6, distance: 25 },
     dayanta: { x: 216, z: 283, intensity: 0.7, distance: 25 },
-    qujiang: { x: 354, z: 318, intensity: 0.4, distance: 20 },
     xiaoyanta: { x: -216, z: 349, intensity: 0.5, distance: 20 },
     xingqing: { x: 342, z: -152, intensity: 0.5, distance: 20 },
+    qujiang: { x: 354, z: 318, intensity: 0.4, distance: 20 },
   };
 
   let initialized = false;
@@ -60,11 +61,23 @@
         scene.add(light);
       }
 
+      // 太极宫灯光
+      for (let i = 0; i < LIGHT_CONFIG.taiji.count; i++) {
+        const angle = (i / LIGHT_CONFIG.taiji.count) * Math.PI * 2;
+        const light = new THREE.PointLight(0xffcc66, LIGHT_CONFIG.taiji.intensity, LIGHT_CONFIG.taiji.distance);
+        light.position.set(
+          LIGHT_CONFIG.taiji.x + Math.cos(angle) * 15,
+          7,
+          LIGHT_CONFIG.taiji.z + Math.sin(angle) * 15
+        );
+        scene.add(light);
+      }
+
       // 东市灯光
       for (let i = 0; i < LIGHT_CONFIG.eastMarket.count; i++) {
         const light = new THREE.PointLight(0xffaa44, LIGHT_CONFIG.eastMarket.intensity, LIGHT_CONFIG.eastMarket.distance);
         light.position.set(
-          LIGHT_CONFIG.eastMarket.x + (i - 1) * 15,
+          LIGHT_CONFIG.eastMarket.x + (i - 1.5) * 12,
           4,
           LIGHT_CONFIG.eastMarket.z
         );
@@ -75,7 +88,7 @@
       for (let i = 0; i < LIGHT_CONFIG.westMarket.count; i++) {
         const light = new THREE.PointLight(0xffaa44, LIGHT_CONFIG.westMarket.intensity, LIGHT_CONFIG.westMarket.distance);
         light.position.set(
-          LIGHT_CONFIG.westMarket.x + (i - 1) * 15,
+          LIGHT_CONFIG.westMarket.x + (i - 1.5) * 12,
           4,
           LIGHT_CONFIG.westMarket.z
         );
