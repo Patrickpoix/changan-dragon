@@ -156,6 +156,7 @@
       'src/137-procedural-audio.js',
       'src/138-core-details.js',
       'src/139-game-interaction.js',
+      'src/140-final-integration.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
