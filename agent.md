@@ -36,7 +36,7 @@
 - 不要上来就删，可以先把有价值的内容整合进现有模块，再删原文件
 - 删除前先看文件内容，有价值的逻辑要迁移，不是直接扔掉
 - docs目录的版本文档（BATCH*/SUPPLEMENT*/状态汇总等）可以分批删，但核心设计文档要保留；
-  无法全部删除时，用 docs/DOCS_INDEX.md 建立索引并标注“历史快照不再新增”
+  无法全部删除时，用 docs/DOCS_INDEX.md 建立索引并标注“历史快照不再新增”（已建立，见该文件）
 - 删完后要检查boot.js和CI是否还正常
 
 ### 4. 禁止硬编码
@@ -53,7 +53,7 @@
 - 原GLB + 共享材质源，不重复存储纹理
 - **先问：原系统已经有了吗？有了就不要重做**
 - 已确认重复并删除的：landmarks自绘角楼/垛口/台阶/广场（原系统addCityWalls已有角楼+批量垛口、addHall自带台阶）、
-  vegetation荷花（原系统曲江池自带）、night-light朱雀大街灯笼（原系统已有灯柱）、阴影范围±500m（精度灾难）
+  vegetation荷花（原系统曲江池自带）、night-light朱雀大街灯笼（原系统已有灯柱）、阴影范围v1 ±500m（精度灾难，v2回退±140m）
 
 ### 6. 世界坐标权威
 - **CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }**（核心城市边界）
@@ -74,7 +74,7 @@
 - 不要直接修改sun/ambient/hemi/rim的颜色和强度，这些会被updateDayNight()主循环覆盖
 - 不要直接修改skyUniforms的参数，这些会被主循环动态调整
 - 阴影范围不是越大越好：过大反而降低阴影精度
-- **阴影范围：±140m（原±95m跟随玩家；v1曾改±500m导致 2048/1000≈0.49m/texel 阴影模糊，已回退）**
+- **阴影范围：±140m（v1曾改±500m导致 2048/1000≈0.49m/texel 阴影模糊，已回退；±140m ≈ 7.3cm/texel 近景清晰）**
 - 纹理各向异性设置为16x即可
 
 ### 9. 素材共享原则
@@ -99,9 +99,9 @@
 | VisualGrade | 10 | 视觉诊断自检（基调整合进主循环GRADE常量） | enhance/visual-grade.js |
 | Sky | 20 | 天空系统自检（不重复创建天空） | enhance/sky.js |
 | Performance | 30 | 纹理各向异性16x / 阴影±140m | enhance/performance.js |
-| Landmarks | 40 | 东西市牌坊 + 两塔石碑（原系统已有角楼/垛口/台阶，不重复） | enhance/landmarks.js |
+| Landmarks | 40 | 东西市牌坊（题额“四方珍奇”/“西域风物”） + 两塔石碑（刻名；原系统已有角楼/垛口/台阶，不重复） | enhance/landmarks.js |
 | Vegetation | 50 | 沉香亭花圃/大雁塔蓝花/太极宫菊花/曲江岸草/竹林（共享材质） | enhance/vegetation.js |
-| Water | 60 | 护城河(共享waterMat两段+木桥±90+waterRects)/岸石芦苇鸭 | enhance/water.js |
+| Water | 60 | 护城河三面（南z400两段+东西x±465各两段，城门通道，共享waterMat）+木桥6座（南2沿z跨河、东西4沿x跨河，注册bridgeZones）+岸石芦苇鸭 | enhance/water.js |
 | NightLight | 70 | 宫殿塔寺明德门补充灯笼 + 7组点光源昼夜联动（包装updateDayNight） | enhance/night-light.js |
 | Outside | 80 | 城外驿站/水井/里程碑碰撞 + 城外树(原addTree) | enhance/outside.js |
 
