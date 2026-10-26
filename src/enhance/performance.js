@@ -28,16 +28,16 @@
       // 阴影范围微调（与原系统兼容，仅扩大阴影覆盖范围）
       if (typeof sun !== 'undefined' && sun.shadow) {
         sun.shadow.camera.near = 10;
-        sun.shadow.camera.far = 1600;
-        sun.shadow.camera.left = -750;
-        sun.shadow.camera.right = 750;
-        sun.shadow.camera.top = 750;
-        sun.shadow.camera.bottom = -750;
+        sun.shadow.camera.far = 1800;
+        sun.shadow.camera.left = -800;
+        sun.shadow.camera.right = 800;
+        sun.shadow.camera.top = 800;
+        sun.shadow.camera.bottom = -800;
         sun.shadow.bias = -0.0004;
         sun.shadow.normalBias = 0.02;
       }
 
-      console.log('[Performance] 性能优化完成 - 纹理各向异性16x+阴影范围扩大至1500m，兼容原质量档位系统');
+      console.log('[Performance] 性能优化完成 - 纹理各向异性16x+阴影范围扩大至1600m，兼容原质量档位系统');
     } catch(e) { console.warn('[Performance] 初始化失败:', e); }
   }
 
