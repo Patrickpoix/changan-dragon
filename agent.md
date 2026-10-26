@@ -3,7 +3,7 @@
 ## 核心原则
 
 ### 1. 时间纪律
-- 每次开始工作前必须校准北京时间
+- 每次开始工作前必须校准北京时间（Asia/Shanghai, UTC+8）
 - 用户要求的停止时间前绝不允许中途停下汇报
 - 想停下来时先校准时间，时间没到就继续做
 
@@ -12,42 +12,70 @@
 - 禁止写大量细小的单功能模块（如210-300号共90个）
 - 每个模块应该是一个完整的系统，由一个owner负责
 - 模块命名应该是系统级别的，不是细节级别的
+- 新增功能优先在现有enhance模块内扩展，不轻易新建模块
 
 ### 3. 禁止硬编码
 - 所有坐标、尺寸、数量等参数必须从配置读取
 - 地标坐标必须引用 src/12-landmarks.js 的权威数据
-- 全局变量必须使用原引擎的正确名称（sun/ambient/MAT/scene等）
+- 全局变量必须使用原引擎的正确名称（sun/ambient/hemi/rim/MAT/scene/renderer等）
+- 禁止使用错误变量名：sunLight（应为sun）、ambientLight（应为ambient）
 
 ### 4. 架构原则
 - 不创建与原系统平行的重复系统
-- 复用已有能力（材质库/NPC/水面/昼夜/音频/交互）
+- 复用已有能力（材质库MAT/几何体UNIT_*/NPC/水面Shader/昼夜/音频/交互）
 - 新增功能必须建立在原有引擎之上
 - 不要通过增加更多模块来掩盖架构问题
+- 原GLB + 共享材质源，不重复存储纹理
 
 ### 5. 注入方式
 - 必须使用 IIFE + 轮询等待 GAME.ready 的方式
 - 禁止在 buildWorld 定义前覆盖它
 - 所有模块加载时机必须晚于核心引擎
+- 模块初始化用setTimeout延迟，确保核心场景已构建完成
 
-### 6. 测试与验证
+### 6. 素材共享原则
+- 所有几何体使用共享：UNIT_BOX/UNIT_CYL/UNIT_SPHERE/ROOF_UNIT/ROOF_SMALL
+- 所有材质使用共享：MAT.plaster/MAT.wood/MAT.stone/MAT.roof等
+- 不重复创建天空/水面/农田等已有系统
+- 新增内容只做精修和增强，不做重复造轮子
+
+### 7. 测试与验证
 - 完成后必须运行GitHub CI测试
 - 报错必须修复，不能带病提交
 - 不能把"代码已提交"当成"功能已完成"
 - 不能把程序化基础几何当成电影级视觉资产
+- 所有增强模块必须有console.log成功信息
 
 ## 模块Owner划分
 
-| Owner | 职责 | 对应文件 |
-|-------|------|----------|
-| VisualGrade | 视觉调色/色调映射/雾效/光影 | enhance/visual-grade.js |
-| Landmarks | 所有地标建筑精修/台阶/广场/围墙 | enhance/landmarks.js |
-| Vegetation | 所有树木/花卉/绿化系统 | enhance/vegetation.js |
-| Water | 所有水面/船/桥/岸线/荷花 | enhance/water.js |
-| Sky | 天空/太阳/月亮/星星/云/远山 | enhance/sky.js |
-| CityLife | NPC/行人/商贩/摊位/城市活动 | enhance/city-life.js |
-| Outside | 城外农田/树林/村落/驿站/远山 | enhance/outside.js |
-| Night | 夜景灯光/灯笼/点光源 | enhance/night-light.js |
-| Performance | 性能优化/DPR/LOD/阴影 | enhance/performance.js |
+| Owner | 职责 | 对应文件 | 初始化延迟 |
+|-------|------|----------|------------|
+| VisualGrade | 视觉调色/色调映射/雾效/光影/轮廓光 | enhance/visual-grade.js | 5s |
+| Landmarks | 所有地标建筑精修/台阶/广场/角楼/牌坊 | enhance/landmarks.js | 8s |
+| Vegetation | 所有树木/花卉/灌木/绿化系统 | enhance/vegetation.js | 10s |
+| Water | 所有水面/游船/石桥/亭子/荷叶/芦苇 | enhance/water.js | 12s |
+| Sky | 天空系统微调/原Shader优化 | enhance/sky.js | 14s |
+| Outside | 城外环境/护城河/村落/驿站/树林 | enhance/outside.js | 16s |
+| NightLight | 夜景灯光/灯笼/点光源/繁华唐夜 | enhance/night-light.js | 18s |
+| Performance | 性能优化/DPR/阴影/各向异性过滤 | enhance/performance.js | 20s |
+
+## 权威地标坐标
+
+| 地标 | 坐标 (x, z) |
+|------|-------------|
+| 大明宫含元殿 | (150, -432) |
+| 大明宫丹凤门 | (150, -380) |
+| 太极宫太极殿 | (0, -334) |
+| 兴庆宫龙池 | (342, -152) |
+| 曲江池中心 | (354, 318) |
+| 大雁塔 | (216, 283) |
+| 小雁塔 | (-216, 349) |
+| 青龙寺塔 | (300, 100) |
+| 西明寺塔 | (-300, 150) |
+| 朱雀大街 | x=0 |
+| 西市中心 | (-258, -14) |
+| 东市中心 | (174, -14) |
+| 明德门 | (0, 380) |
 
 ## 禁止事项
 - ❌ 禁止写210、211...这种按编号堆模块的方式
@@ -57,3 +85,5 @@
 - ❌ 禁止覆盖buildWorld而不等待它定义完成
 - ❌ 禁止重复造轮子（已有系统就不要新建第二套）
 - ❌ 禁止未经测试就推送main
+- ❌ 禁止中途停下来汇报（直到用户要求的时间）
+- ❌ 禁止把程序化基础几何直接当成电影级视觉资产
