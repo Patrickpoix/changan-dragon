@@ -17,6 +17,8 @@
     mingde:   { name: '明德门',   x: 0,   z: 380 },
     east:     { name: '东市',     x: 174, z: -14 },
     west:     { name: '西市',     x: -258, z: -14 },
+    qinglong: { name: '青龙寺',   x: 300, z: 100 },
+    ximing:   { name: '西明寺',   x: -300, z: 150 },
   };
 
   const WALL_CORNERS = [
@@ -102,11 +104,21 @@
       addSteps(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 12, 16, 8, 0.3);
       addSquare(LANDMARKS.taiji.x, LANDMARKS.taiji.z + 20, 35);
 
+      // 兴庆宫 - 殿前台阶+广场
+      addSteps(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 15, 15, 8, 0.3);
+      addSquare(LANDMARKS.xingqing.x, LANDMARKS.xingqing.z + 25, 30);
+
       // 大雁塔 - 台阶
       addSteps(LANDMARKS.dayanta.x, LANDMARKS.dayanta.z + 10, 8, 6, 0.2);
 
       // 小雁塔 - 台阶
       addSteps(LANDMARKS.xiaoyanta.x, LANDMARKS.xiaoyanta.z + 10, 8, 6, 0.2);
+
+      // 青龙寺 - 台阶
+      addSteps(LANDMARKS.qinglong.x, LANDMARKS.qinglong.z + 8, 6, 5, 0.2);
+
+      // 西明寺 - 台阶
+      addSteps(LANDMARKS.ximing.x, LANDMARKS.ximing.z + 8, 6, 5, 0.2);
 
       // 明德门 - 台阶+广场
       addSteps(LANDMARKS.mingde.x, LANDMARKS.mingde.z - 10, 12, 8, 0.3);
