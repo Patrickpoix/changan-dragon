@@ -608,6 +608,16 @@ function ringBell() {
 }
 
 // ---------------------------------------------------------------- 昼夜
+// 国风电影感基调：直接以主循环为唯一驱动，不再依赖enhance模块延迟覆盖
+const GRADE = {
+  dayExposure: 1.15,    // 白天曝光（原1.06 → 国风暖调略提亮）
+  nightExposure: 0.92,  // 夜晚曝光
+  dayFogNear: 60,       // 白天雾近距（原175 → 国风薄雾更近）
+  dayFogFar: 600,       // 白天雾远距（原760 → 电影感纵深更集中）
+  nightFogNear: 95,     // 夜晚雾近距
+  nightFogFar: 590,     // 夜晚雾远距
+};
+
 const Colors = {
   dayTop: new THREE.Color(0x85b6ce),
   dayHorizon: new THREE.Color(0xf8e3c8),
@@ -615,7 +625,7 @@ const Colors = {
   nightTop: new THREE.Color(0x071b3b),
   nightHorizon: new THREE.Color(0x3e4c84),
   nightSun: new THREE.Color(0xdbe9ff),
-  dayFog: new THREE.Color(0xc9d7d5),
+  dayFog: new THREE.Color(0xe8d8b8),  // 国风暖灰雾色（古画暖调，原0xc9d7d5灰绿）
   nightFog: new THREE.Color(0x1b2746),
   dayDeep: new THREE.Color(0x2e6c70),
   nightDeep: new THREE.Color(0x0e4c70),
@@ -649,8 +659,8 @@ function updateDayNight(dt) {
   skyUniforms.horizonColor.value.copy(Colors.dayHorizon).lerp(Colors.nightHorizon, n);
   skyUniforms.sunColor.value.copy(Colors.daySun).lerp(Colors.nightSun, n);
   scene.fog.color.copy(Colors.dayFog).lerp(Colors.nightFog, n);
-  scene.fog.near = lerp(175, 95, n);
-  scene.fog.far = lerp(760, 590, n);
+  scene.fog.near = lerp(GRADE.dayFogNear, GRADE.nightFogNear, n);
+  scene.fog.far = lerp(GRADE.dayFogFar, GRADE.nightFogFar, n);
   starMat.opacity = n * 0.92;
   hemi.intensity = lerp(0.42, 0.28, n);
   hemi.color.copy(Colors.dayHemi).lerp(Colors.nightHemi, n);
@@ -659,7 +669,7 @@ function updateDayNight(dt) {
   sun.color.copy(Colors.daySunLight).lerp(Colors.nightSunLight, n);
   rim.color.copy(Colors.dayRim).lerp(Colors.nightRim, n);
   rim.intensity = lerp(0.27, 0.19, n);
-  GameRendering.setExposure(lerp(1.06, 0.92, n));
+  GameRendering.setExposure(lerp(GRADE.dayExposure, GRADE.nightExposure, n));
   MAT.lantern.emissiveIntensity = lerp(0.35, 3.8, n);
   MAT.window.emissiveIntensity = lerp(0, 2.1, n);
   MAT.lanternGlow.opacity = lerp(0.2, 0.75, n);
