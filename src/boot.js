@@ -115,6 +115,7 @@
       'src/274-qujiang-rocks.js',
       'src/275-longchi-rocks.js',
       'src/276-moat-detail.js',
+      'src/277-mingde-bridge.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
