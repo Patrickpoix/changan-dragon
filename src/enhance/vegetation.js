@@ -17,6 +17,11 @@
     longchi:{ count: 8, type: 'willow', centerX: 342, centerZ: -152, radius: 35 },
   };
 
+  const FLOWER_CONFIG = {
+    mudan: { count: 20, centerX: 342, centerZ: -152, radius: 40, color: 0xd44a6a }, // 兴庆宫牡丹
+    hehua: { count: 30, centerX: 354, centerZ: 318, radius: 35, color: 0xf8f8f8 }, // 曲江池荷花
+  };
+
   let initialized = false;
 
   function createTree(x, z, type) {
@@ -39,18 +44,30 @@
     scene.add(leaves);
   }
 
+  function createFlower(x, z, color) {
+    if (typeof MAT === 'undefined') return;
+    const flower = new THREE.Mesh(
+      new THREE.SphereGeometry(0.2 + Math.random() * 0.1, 4, 4),
+      new THREE.MeshStandardMaterial({ color: color, roughness: 0.8 })
+    );
+    flower.position.set(x, 0.3, z);
+    scene.add(flower);
+  }
+
   function init() {
     if (initialized) return;
     initialized = true;
     console.log('[Vegetation] 初始化植被系统...');
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined') return;
+
       // 朱雀大街行道树
       for (let i = 0; i < TREE_CONFIG.street.count; i++) {
         const z = -350 + i * (700 / TREE_CONFIG.street.count);
         createTree(-12, z, 'oak');
         createTree(12, z, 'oak');
       }
+
       // 各大建筑周边树木
       Object.keys(TREE_CONFIG).forEach(key => {
         if (key === 'street') return;
@@ -61,6 +78,17 @@
           createTree(cfg.centerX + Math.cos(angle) * r, cfg.centerZ + Math.sin(angle) * r, cfg.type);
         }
       });
+
+      // 花卉
+      Object.keys(FLOWER_CONFIG).forEach(key => {
+        const cfg = FLOWER_CONFIG[key];
+        for (let i = 0; i < cfg.count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const r = cfg.radius * Math.random();
+          createFlower(cfg.centerX + Math.cos(angle) * r, cfg.centerZ + Math.sin(angle) * r, cfg.color);
+        }
+      });
+
       console.log('[Vegetation] 植被系统初始化完成');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
