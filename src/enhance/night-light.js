@@ -15,6 +15,8 @@
     westMarket: { count: 3, x: -258, z: -14, intensity: 0.6, distance: 25 },
     dayanta: { x: 216, z: 283, intensity: 0.7, distance: 25 },
     qujiang: { x: 354, z: 318, intensity: 0.4, distance: 20 },
+    xiaoyanta: { x: -216, z: 349, intensity: 0.5, distance: 20 },
+    xingqing: { x: 342, z: -152, intensity: 0.5, distance: 20 },
   };
 
   let initialized = false;
@@ -84,6 +86,16 @@
       const dayantaLight = new THREE.PointLight(0xffcc66, LIGHT_CONFIG.dayanta.intensity, LIGHT_CONFIG.dayanta.distance);
       dayantaLight.position.set(LIGHT_CONFIG.dayanta.x, 30, LIGHT_CONFIG.dayanta.z);
       scene.add(dayantaLight);
+
+      // 小雁塔灯光
+      const xiaoyantaLight = new THREE.PointLight(0xffcc66, LIGHT_CONFIG.xiaoyanta.intensity, LIGHT_CONFIG.xiaoyanta.distance);
+      xiaoyantaLight.position.set(LIGHT_CONFIG.xiaoyanta.x, 25, LIGHT_CONFIG.xiaoyanta.z);
+      scene.add(xiaoyantaLight);
+
+      // 兴庆宫灯光
+      const xingqingLight = new THREE.PointLight(0xffaa44, LIGHT_CONFIG.xingqing.intensity, LIGHT_CONFIG.xingqing.distance);
+      xingqingLight.position.set(LIGHT_CONFIG.xingqing.x, 5, LIGHT_CONFIG.xingqing.z);
+      scene.add(xingqingLight);
 
       // 曲江池灯光
       const qujiangLight = new THREE.PointLight(0xffaa44, LIGHT_CONFIG.qujiang.intensity, LIGHT_CONFIG.qujiang.distance);
