@@ -8,23 +8,24 @@
 
   // 植被配置 - 集中管理
   const TREE_CONFIG = {
-    street: { count: 60, type: 'oak', roadWidth: 20 },
-    daming: { count: 40, type: 'pine', centerX: 150, centerZ: -432, radius: 110 },
-    taiji:  { count: 30, type: 'pine', centerX: 0, centerZ: -334, radius: 90 },
-    xingqing:{ count: 25, type: 'peach', centerX: 342, centerZ: -152, radius: 70 },
-    dayanta:{ count: 18, type: 'pine', centerX: 216, centerZ: 283, radius: 55 },
-    qujiang:{ count: 30, type: 'willow', centerX: 354, centerZ: 318, radius: 70 },
-    longchi:{ count: 18, type: 'willow', centerX: 342, centerZ: -152, radius: 45 },
-    xiaoyanta:{ count: 15, type: 'pine', centerX: -216, centerZ: 349, radius: 45 },
-    qinglong:{ count: 12, type: 'pine', centerX: 300, centerZ: 100, radius: 40 },
-    ximing: { count: 12, type: 'pine', centerX: -300, centerZ: 150, radius: 40 },
+    street: { count: 70, type: 'oak', roadWidth: 20 },
+    daming: { count: 50, type: 'pine', centerX: 150, centerZ: -432, radius: 120 },
+    taiji:  { count: 35, type: 'pine', centerX: 0, centerZ: -334, radius: 100 },
+    xingqing:{ count: 30, type: 'peach', centerX: 342, centerZ: -152, radius: 80 },
+    dayanta:{ count: 22, type: 'pine', centerX: 216, centerZ: 283, radius: 60 },
+    qujiang:{ count: 35, type: 'willow', centerX: 354, centerZ: 318, radius: 80 },
+    longchi:{ count: 20, type: 'willow', centerX: 342, centerZ: -152, radius: 50 },
+    xiaoyanta:{ count: 18, type: 'pine', centerX: -216, centerZ: 349, radius: 50 },
+    qinglong:{ count: 15, type: 'pine', centerX: 300, centerZ: 100, radius: 45 },
+    ximing: { count: 15, type: 'pine', centerX: -300, centerZ: 150, radius: 45 },
   };
 
   const FLOWER_CONFIG = {
-    mudan: { count: 60, centerX: 342, centerZ: -152, radius: 50, color: 0xd44a6a },
-    hehua: { count: 70, centerX: 354, centerZ: 318, radius: 45, color: 0xf8f8f8 },
-    taohua: { count: 45, centerX: 342, centerZ: -152, radius: 55, color: 0xff91a7 },
-    lanyao: { count: 30, centerX: 216, centerZ: 283, radius: 35, color: 0x6a5acd },
+    mudan: { count: 70, centerX: 342, centerZ: -152, radius: 55, color: 0xd44a6a },
+    hehua: { count: 80, centerX: 354, centerZ: 318, radius: 50, color: 0xf8f8f8 },
+    taohua: { count: 50, centerX: 342, centerZ: -152, radius: 60, color: 0xff91a7 },
+    lanyao: { count: 40, centerX: 216, centerZ: 283, radius: 40, color: 0x6a5acd },
+    juhua: { count: 30, centerX: 0, centerZ: -334, radius: 50, color: 0xffa500 },
   };
 
   let initialized = false;
@@ -113,27 +114,27 @@
       });
 
       // 兴庆宫周边灌木
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 60; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 55 + Math.random() * 15;
+        const r = 60 + Math.random() * 20;
         createBush(342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r);
       }
 
       // 曲江池周边灌木
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 50; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 55 + Math.random() * 15;
+        const r = 60 + Math.random() * 20;
         createBush(354 + Math.cos(angle) * r, 318 + Math.sin(angle) * r);
       }
 
       // 大雁塔周边竹林
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const r = 30 + Math.random() * 15;
+        const r = 35 + Math.random() * 15;
         createBamboo(216 + Math.cos(angle) * r, 283 + Math.sin(angle) * r);
       }
 
-      console.log('[Vegetation] 植被系统初始化完成 - 10种树配置(密度提升)+4种花卉+灌木+竹林+共享材质');
+      console.log('[Vegetation] 植被系统初始化完成 - 10种树配置(高密度)+5种花卉+灌木+竹林+共享材质');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
 
