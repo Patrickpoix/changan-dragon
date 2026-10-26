@@ -58,7 +58,7 @@
         pixelRatio: renderer.getPixelRatio(),
         maxAnisotropy: maxAnisotropy,
       };
-      console.log('[Performance] 性能优化完成 - DPR限制+阴影优化+各向异性过滤');
+      console.log('[Performance] 性能优化完成 - DPR限制+阴影2048+各向异性8x+视锥剔除');
     } catch(e) { console.warn('[Performance] 初始化失败:', e); }
   }
 
