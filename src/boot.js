@@ -106,6 +106,7 @@
       'src/265-gate-greenery.js',
       'src/266-market-greenery.js',
       'src/267-final-visual-confirm.js',
+      'src/268-final-performance-confirm.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
