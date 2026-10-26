@@ -128,6 +128,7 @@
       'src/287-moon-enhance.js',
       'src/288-stars-enhance.js',
       'src/289-final-sky-integration.js',
+      'src/290-final-water-integration.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
