@@ -79,6 +79,7 @@
       'src/238-small-pagoda-surroundings.js',
       'src/239-east-market-details.js',
       'src/240-west-market-details.js',
+      'src/241-corner-towers.js',
       'src/99-safe-init.js',
       'src/08-assets.js',
       'src/30-main.js',
