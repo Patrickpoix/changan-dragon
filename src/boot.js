@@ -1,6 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v72: 光影渲染增强加载
- * v71: 节日庆典增强加载
+ * v73: 性能优化加载
+ * v72: 光影渲染增强最先加载
  */
 
 const smallScripts = [
@@ -91,11 +91,19 @@ function populateDeferredModels() {
     s.async = false;
     s.onload = () => {
       setTimeout(() => {
-        // 光影渲染增强 — 最先加载
-        const renderScript = document.createElement('script');
-        renderScript.src = 'src/enhance/render-enhance.js';
-        renderScript.onerror = () => console.warn('[Boot] 光影渲染增强模块加载失败');
-        document.head.appendChild(renderScript);
+        // 性能优化
+        const perfScript = document.createElement('script');
+        perfScript.src = 'src/enhance/perf-optimize.js';
+        perfScript.onerror = () => console.warn('[Boot] 性能优化模块加载失败');
+        document.head.appendChild(perfScript);
+        
+        // 光影渲染增强
+        setTimeout(() => {
+          const renderScript = document.createElement('script');
+          renderScript.src = 'src/enhance/render-enhance.js';
+          renderScript.onerror = () => console.warn('[Boot] 光影渲染增强模块加载失败');
+          document.head.appendChild(renderScript);
+        }, 100);
         
         // PBR材质增强
         setTimeout(() => {
@@ -103,7 +111,7 @@ function populateDeferredModels() {
           pbrScript.src = 'src/enhance/pbr-enhance.js';
           pbrScript.onerror = () => console.warn('[Boot] PBR材质增强模块加载失败');
           document.head.appendChild(pbrScript);
-        }, 200);
+        }, 300);
         
         // 视觉氛围
         setTimeout(() => {
@@ -111,7 +119,7 @@ function populateDeferredModels() {
           atmosphereScript.src = 'src/enhance/atmosphere.js';
           atmosphereScript.onerror = () => console.warn('[Boot] 视觉氛围模块加载失败');
           document.head.appendChild(atmosphereScript);
-        }, 400);
+        }, 500);
         
         // 城墙城门
         setTimeout(() => {
@@ -119,7 +127,7 @@ function populateDeferredModels() {
           cityWallScript.src = 'src/enhance/city-wall.js';
           cityWallScript.onerror = () => console.warn('[Boot] 城墙城门模块加载失败');
           document.head.appendChild(cityWallScript);
-        }, 600);
+        }, 700);
         
         // 桥梁道路
         setTimeout(() => {
@@ -127,7 +135,7 @@ function populateDeferredModels() {
           roadsScript.src = 'src/enhance/roads-bridges.js';
           roadsScript.onerror = () => console.warn('[Boot] 桥梁道路模块加载失败');
           document.head.appendChild(roadsScript);
-        }, 800);
+        }, 900);
         
         // 植被增强
         setTimeout(() => {
@@ -135,7 +143,7 @@ function populateDeferredModels() {
           greeneryScript.src = 'src/enhance/greenery.js';
           greeneryScript.onerror = () => console.warn('[Boot] 植被增强模块加载失败');
           document.head.appendChild(greeneryScript);
-        }, 1000);
+        }, 1100);
         
         // 水景增强
         setTimeout(() => {
@@ -143,7 +151,7 @@ function populateDeferredModels() {
           waterFxScript.src = 'src/enhance/water-fx.js';
           waterFxScript.onerror = () => console.warn('[Boot] 水景增强模块加载失败');
           document.head.appendChild(waterFxScript);
-        }, 1200);
+        }, 1300);
         
         // 人物NPC
         setTimeout(() => {
@@ -151,7 +159,7 @@ function populateDeferredModels() {
           npcScript.src = 'src/enhance/npc-people.js';
           npcScript.onerror = () => console.warn('[Boot] 人物NPC模块加载失败');
           document.head.appendChild(npcScript);
-        }, 1400);
+        }, 1500);
         
         // 动物宠物
         setTimeout(() => {
@@ -159,7 +167,7 @@ function populateDeferredModels() {
           animalsScript.src = 'src/enhance/animals.js';
           animalsScript.onerror = () => console.warn('[Boot] 动物宠物模块加载失败');
           document.head.appendChild(animalsScript);
-        }, 1600);
+        }, 1700);
         
         // 天气氛围
         setTimeout(() => {
@@ -167,7 +175,7 @@ function populateDeferredModels() {
           weatherScript.src = 'src/enhance/weather-fx.js';
           weatherScript.onerror = () => console.warn('[Boot] 天气氛围模块加载失败');
           document.head.appendChild(weatherScript);
-        }, 1800);
+        }, 1900);
         
         // 节日庆典
         setTimeout(() => {
@@ -175,7 +183,7 @@ function populateDeferredModels() {
           festivalScript.src = 'src/enhance/festival.js';
           festivalScript.onerror = () => console.warn('[Boot] 节日庆典模块加载失败');
           document.head.appendChild(festivalScript);
-        }, 2000);
+        }, 2100);
         
         // 夜景增强
         setTimeout(() => {
@@ -183,7 +191,7 @@ function populateDeferredModels() {
           nightSceneScript.src = 'src/enhance/night-scene.js';
           nightSceneScript.onerror = () => console.warn('[Boot] 夜景增强模块加载失败');
           document.head.appendChild(nightSceneScript);
-        }, 2200);
+        }, 2300);
         
         // 核心建筑精修
         setTimeout(() => {
@@ -191,7 +199,7 @@ function populateDeferredModels() {
           coreDetailScript.src = 'src/enhance/core-detail.js';
           coreDetailScript.onerror = () => console.warn('[Boot] 核心建筑精修模块加载失败');
           document.head.appendChild(coreDetailScript);
-        }, 2400);
+        }, 2500);
         
         // 城市生活
         setTimeout(() => {
@@ -199,95 +207,7 @@ function populateDeferredModels() {
           cityLifeScript.src = 'src/enhance/city-life.js';
           cityLifeScript.onerror = () => console.warn('[Boot] 城市生活模块加载失败');
           document.head.appendChild(cityLifeScript);
-        }, 2600);
-        
-        // 奇观建筑v2
-        setTimeout(() => {
-          const wondersV2Script = document.createElement('script');
-          wondersV2Script.src = 'src/enhance/wonders-v2.js';
-          wondersV2Script.onerror = () => console.warn('[Boot] 奇观建筑v2模块加载失败');
-          document.head.appendChild(wondersV2Script);
-        }, 2800);
-        
-        // 奇观建筑v1
-        setTimeout(() => {
-          const wonderScript = document.createElement('script');
-          wonderScript.src = 'src/enhance/wonders.js';
-          wonderScript.onerror = () => console.warn('[Boot] 奇观建筑模块加载失败');
-          document.head.appendChild(wonderScript);
-        }, 3000);
-        
-        // 夜景灯光
-        setTimeout(() => {
-          const nightScript = document.createElement('script');
-          nightScript.src = 'src/enhance/night-light.js';
-          nightScript.onerror = () => console.warn('[Boot] 夜景灯光模块加载失败');
-          document.head.appendChild(nightScript);
-        }, 3300);
-        
-        // 城市细节
-        setTimeout(() => {
-          const cityDetailsScript = document.createElement('script');
-          cityDetailsScript.src = 'src/enhance/city-details.js';
-          cityDetailsScript.onerror = () => console.warn('[Boot] 城市细节模块加载失败');
-          document.head.appendChild(cityDetailsScript);
-        }, 3600);
-        
-        // 建筑细节
-        setTimeout(() => {
-          const archScript = document.createElement('script');
-          archScript.src = 'src/enhance/arch-details.js';
-          archScript.onerror = () => console.warn('[Boot] 建筑细节模块加载失败');
-          document.head.appendChild(archScript);
-        }, 3900);
-        
-        // 人物与自然
-        setTimeout(() => {
-          const lifeScript = document.createElement('script');
-          lifeScript.src = 'src/enhance/life-enhancement.js';
-          lifeScript.onerror = () => console.warn('[Boot] 人物与自然模块加载失败');
-          document.head.appendChild(lifeScript);
-        }, 4200);
-        
-        // 天空水面
-        setTimeout(() => {
-          const skyScript = document.createElement('script');
-          skyScript.src = 'src/enhance/sky-water.js';
-          skyScript.onerror = () => console.warn('[Boot] 天空水面模块加载失败');
-          document.head.appendChild(skyScript);
-        }, 4500);
-        
-        // 植被交通
-        setTimeout(() => {
-          const vegScript = document.createElement('script');
-          vegScript.src = 'src/enhance/vegetation-traffic.js';
-          vegScript.onerror = () => console.warn('[Boot] 植被交通模块加载失败');
-          document.head.appendChild(vegScript);
-        }, 4800);
-        
-        // UI增强
-        setTimeout(() => {
-          const uiScript = document.createElement('script');
-          uiScript.src = 'src/enhance/ui-enhancement.js';
-          uiScript.onerror = () => console.warn('[Boot] UI增强模块加载失败');
-          document.head.appendChild(uiScript);
-        }, 5100);
-        
-        // 存档成就
-        setTimeout(() => {
-          const saveScript = document.createElement('script');
-          saveScript.src = 'src/enhance/save-achievement.js';
-          saveScript.onerror = () => console.warn('[Boot] 存档成就模块加载失败');
-          document.head.appendChild(saveScript);
-        }, 5400);
-        
-        // 性能音效
-        setTimeout(() => {
-          const perfScript = document.createElement('script');
-          perfScript.src = 'src/enhance/perf-audio.js';
-          perfScript.onerror = () => console.warn('[Boot] 性能音效模块加载失败');
-          document.head.appendChild(perfScript);
-        }, 5700);
+        }, 2700);
         
         // 后续游戏系统模块
         setTimeout(() => {
@@ -314,7 +234,7 @@ function populateDeferredModels() {
               document.head.appendChild(script);
             }, i * 150);
           });
-        }, 6500);
+        }, 5000);
       }, 500);
     };
     document.head.appendChild(s);
