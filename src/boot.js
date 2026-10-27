@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v8.3: scene-materials.js加载后调用SurfaceLibrary.architecture()补绑PBR法线/粗糙度
  * v8.2: scene-materials.js加载后调用GameRendering.refreshEnvironment()用HDRI替换fallback
  * v8.1: 注册Service Worker
  * v8: scene-materials.js移出关键路径
@@ -41,6 +42,8 @@ if ('serviceWorker' in navigator) {
       // v8.2: scene-materials.js加载后，用HDRI替换临时RoomEnvironment
       if (src.indexOf('scene-materials') !== -1) {
         try { if (typeof GameRendering !== 'undefined' && GameRendering.refreshEnvironment) GameRendering.refreshEnvironment(); } catch(e) {}
+        // v8.3: 补绑PBR法线/粗糙度到已有MAT材质（buildWorld时SCENE_MATERIALS未加载）
+        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) { SurfaceLibrary.architecture(); console.log('[Boot] PBR架构材质已补绑'); } } catch(e) {}
       }
       try {
         if (typeof WorldAssets !== 'undefined' && typeof WorldAssets.reset === 'function') {
