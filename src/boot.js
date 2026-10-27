@@ -1,6 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v14: 添加建筑细节增强模块
  * v13: 添加夜景灯光增强模块
- * v12: 添加人物与自然增强模块
  */
 
 const smallScripts = [
@@ -92,11 +92,19 @@ function populateDeferredModels() {
     s.onload = () => {
       // 主游戏加载完成后，依次加载增强模块
       setTimeout(() => {
+        // 建筑细节增强
+        const archScript = document.createElement('script');
+        archScript.src = 'src/enhance/arch-details.js';
+        archScript.onerror = () => console.warn('[Boot] 建筑细节模块加载失败');
+        document.head.appendChild(archScript);
+        
         // 城市细节增强
-        const cityDetailsScript = document.createElement('script');
-        cityDetailsScript.src = 'src/enhance/city-details.js';
-        cityDetailsScript.onerror = () => console.warn('[Boot] 城市细节模块加载失败');
-        document.head.appendChild(cityDetailsScript);
+        setTimeout(() => {
+          const cityDetailsScript = document.createElement('script');
+          cityDetailsScript.src = 'src/enhance/city-details.js';
+          cityDetailsScript.onerror = () => console.warn('[Boot] 城市细节模块加载失败');
+          document.head.appendChild(cityDetailsScript);
+        }, 200);
         
         // 人物与自然增强
         setTimeout(() => {
@@ -104,7 +112,7 @@ function populateDeferredModels() {
           lifeScript.src = 'src/enhance/life-enhancement.js';
           lifeScript.onerror = () => console.warn('[Boot] 人物与自然模块加载失败');
           document.head.appendChild(lifeScript);
-        }, 300);
+        }, 500);
         
         // 夜景灯光
         setTimeout(() => {
@@ -112,7 +120,7 @@ function populateDeferredModels() {
           nightScript.src = 'src/enhance/night-light.js';
           nightScript.onerror = () => console.warn('[Boot] 夜景灯光模块加载失败');
           document.head.appendChild(nightScript);
-        }, 600);
+        }, 800);
         
         // 奇观建筑
         setTimeout(() => {
@@ -120,7 +128,7 @@ function populateDeferredModels() {
           wonderScript.src = 'src/enhance/wonders.js';
           wonderScript.onerror = () => console.warn('[Boot] 奇观建筑模块加载失败');
           document.head.appendChild(wonderScript);
-        }, 1000);
+        }, 1200);
       }, 1000);
     };
     document.head.appendChild(s);
