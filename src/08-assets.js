@@ -184,7 +184,7 @@ const WorldAssets = (() => {
           if(id==='ceramic_pot'||id==='chinese_stool') {
             const dims=templates.get(id).dimensions,scale=height/dims.y;
             const hw=(dims.x*Math.abs(Math.cos(yaw))+dims.z*Math.abs(Math.sin(yaw)))*scale*.48;
-            const hd=(dims.z*Math.abs(Math.cos(yaw))+dims.x*Math.abs(Math.sin(yaw)))*scale*.48;
+            const hd=(dims.z*Math.abs(Math.sin(yaw))+dims.x*Math.abs(Math.cos(yaw)))*scale*.48;
             addCollider(x-hw,x+hw,z-hd,z+hd,'inner-shop-prop');
           }
         }
@@ -265,7 +265,7 @@ const WorldAssets = (() => {
       const action=mixer.clipAction(clip);action.play();action.time=phase*clip.duration;
       // Each clone owns its complete bone tree; meshes and coat buffers stay shared.
       imported.add(root);
-      animals.push({root,mixer,action,curve,phase,length:curve?curve.getLength():0,speed:1.05,id,clip:clipName});
+      animals.push({root,mixer,action,curve,phase,length:curve?curve.getLength()/2:0,speed:1.05,id,clip:clipName});
       return true;
     }
     let count=0;
@@ -381,6 +381,11 @@ const WorldAssets = (() => {
       // Build stages may ask twice; never duplicate imported instances or parses.
       if (!pending) pending = populateOnce();
       return pending;
+    },
+    reset() {
+      // Called by boot.js when deferred runtime-models.js finishes loading.
+      // Resets the rejected pending promise so populate() can retry.
+      pending = null;
     },
     getResult() { return result; },
     getAnimalState() {
