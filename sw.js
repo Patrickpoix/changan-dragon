@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v19
+/* Chang'an Dragon Service Worker v20
+ * v20: 任务与剧情系统 — 长安故事
  * v19: 植被与交通增强 — 生机盎然
- * v18: 天空与水面增强 — 天地之美
  */
-const CACHE_NAME = 'changan-v19';
+const CACHE_NAME = 'changan-v20';
 const CORE_ASSETS = [
   './',
   './index.html',
