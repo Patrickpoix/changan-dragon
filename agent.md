@@ -72,25 +72,27 @@
 
 ---
 
-## 9. 启动性能优化原则（2026-10-27 v8.6 定稿）
+## 9. 启动性能优化原则（2026-10-27 v8.8 定稿）
 
 ### 9a. 首屏加载策略（关键路径）
 **关键路径 = 25个小文件(~1MB) → 30-main.js → buildWorld() → 开始界面**
 
-- **boot.js v8.6**：
+- **boot.js v8.8**：
   - 25个小文件script标签一次性创建，浏览器并行下载
-  - **s.async = false**：动态创建的script默认async=true会乱序执行，必须设false确保按插入顺序执行（three.min.js必须先于00-core.js）
+  - **小文件 s.async = false**：动态创建的script默认async=true会乱序执行，必须设false确保按插入顺序（three.min.js必须先于00-core.js）
   - **scene-materials.js(7MB) 和 runtime-models.js(9.58MB) 全部移出关键路径**
-  - 两个大文件后台并行延迟加载，不阻塞开始界面
+  - **大文件不设async=false**（v8.7）：默认async=true，下载完即执行，不阻塞30-main.js
   - 关键路径下载从16.6MB降到~1MB
-- **大文件加载后自动补绑PBR**：
+- **大文件加载后自动补绑PBR**（applyDeferredPBR统一入口）：
   - scene-materials.js onload → GameRendering.refreshEnvironment() (HDRI替换fallback)
   - → SurfaceLibrary.architecture() (建筑屋顶/墙面/灰泥法线+粗糙度贴图)
-  - → SurfaceLibrary.refreshClothMaterials() (衣物/布料法线贴图)
+  - → SurfaceLibrary.refreshClothMaterials() (衣物/布料法线贴图，含personMat)
   - → requestAnimationFrame(renderer.compile()) 重新编译着色器
   - runtime-models.js onload → WorldAssets.reset() + populate() 自动重试
-- **竞态处理**：大文件先于30-main.js到达时设 `window.__DEFERRED_ASSETS_READY` 计数器，Promise.all后补发populate()
-- **Service Worker**：sw.js缓存changan-v1，HTML网络优先+其他资源缓存优先后台更新
+- **竞态处理（v8.8）**：大文件可能先于小文件加载完成，此时SurfaceLibrary/WorldAssets未定义：
+  - onload检测到依赖未就绪时设 `window.__PBR_PENDING` / `window.__MODELS_PENDING`
+  - Promise.all(小文件)后检查这些标记，补触发applyDeferredPBR()/populate()
+- **Service Worker**：sw.js v3缓存changan-v3，HTML网络优先+其他资源缓存优先后台更新
 - enhance 模块不在 boot 阶段加载，GAME.ready 后动态 script 标签加载
 
 ### 9b. 进入游戏优化（startGame）
@@ -107,6 +109,7 @@
 - 建筑材质（MAT.roof/MAT.plaster等）在buildWorld时创建，normalMap为null
 - scene-materials.js加载后补绑：设置normalMap/roughnessMap + needsUpdate
 - 衣物材质通过clothMaterials数组追踪，refreshClothMaterials()统一补绑
+- **personMat（20-character.js的NPC材质）不在clothMaterials数组中**，refreshClothMaterials()必须直接更新personMat.normalMap（v3修复）
 - 补绑后必须requestAnimationFrame重新compile，避免进入游戏时卡顿
 
 ### 9d. 性能优化纪律
@@ -138,7 +141,7 @@
 | 00-core.js | 核心状态 | GAME/CITY/WORLD常量、MAT材质库、UNIT_*几何体 |
 | 04-compatibility.js | 兼容性 | 旧浏览器API兜底 |
 | 05-rendering.js | 渲染器 | WebGL渲染、fastStart/prewarm/upgradeToFullQuality、后处理管线 |
-| 06-surfaces.js | 地面材质 | 路面、广场、PBR材质库、衣物材质追踪 |
+| 06-surfaces.js | 地面材质 | 路面、广场、PBR材质库、衣物材质追踪(含personMat补绑) |
 | 07-water.js | 水面 | 曲江池/龙池水面Shader |
 | 08-assets.js | 资源加载 | GLB模型加载、WorldAssets.populate()非阻塞、reset()重试 |
 | 09-botany.js | 植被 | 行道树、荷花、灌木生成与实例化 |
@@ -156,7 +159,7 @@
 | 28-weather.js | 天气 | 晴/阴/雨、包装GameRendering.render |
 | 30-main.js | 主入口 | buildWorld()、主循环、startGame()、GAME.ready |
 | 99-safe-init.js | 生命周期 | __enhance.register()分帧调度 |
-| boot.js | 启动加载 | 并行加载清单、大文件延迟加载、PBR补绑、async=false |
+| boot.js | 启动加载 | 并行加载清单、大文件延迟加载(async=true)、PBR补绑、竞态处理 |
 
 ### 增强模块层（src/enhance/*.js，GAME.ready后动态加载）
 | 文件 | Owner | 职责 |
@@ -167,6 +170,7 @@
 | performance.js | 性能诊断 | 各向异性16x+阴影±140m |
 | vegetation.js | 植被增强 | 花圃/竹林(种子随机) |
 | water.js | 水面增强 | 护城河三面(rotation.x=-π/2)+6木桥 |
+| weather已合并到28-weather.js | — | — |
 
 ### 新增功能归属规则
 - 建筑细节 → enhance/landmarks.js
