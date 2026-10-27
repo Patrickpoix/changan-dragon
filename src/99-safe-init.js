@@ -1,14 +1,11 @@
 /* ============================================================
-   初始化保障 · 统一生命周期调度器（v2 分帧调度）
+   初始化保障 · 统一生命周期调度器（v3 动态注册支持）
    enhance模块通过 __enhance.register() 注册初始化任务，
-   由本调度器在 GAME.ready 后按优先级分帧执行（RAF，非固定延迟），
-   取代各模块独立的固定延迟setTimeout（避免场景逐段弹出、
-   加载顺序混乱和系统状态不一致）。
-   加载顺序注意：本文件在 enhance 模块之后加载，因此增强模块
-   若在注册时发现 __enhance 尚不存在，会先写入 __enhancePending，
-   本文件随后接管。
-   v2：500ms×8=4s 固定串行延迟 → requestAnimationFrame 分帧，
-       GAME.ready 后下一帧即开始，每帧一个模块，8 帧≈133ms 完成。
+   由本调度器在 GAME.ready 后按优先级分帧执行（RAF，非固定延迟）。
+   v3：支持动态注册 —— start() 后新注册的任务也会被分帧执行。
+       原因：boot.js v3 把 enhance 模块移出首屏加载清单，
+       改为 buildWorld() 完成后动态加载，因此调度器必须支持运行时注册。
+   v2：500ms×8=4s 固定串行延迟 → requestAnimationFrame 分帧。
    ============================================================ */
 
 (function() {
@@ -18,8 +15,12 @@
   const registry = {
     queue: [],
     started: false,
+    _pendingDynamic: false,
     register(owner, fn, priority) {
       this.queue.push({ owner: owner || 'anonymous', fn, priority: priority || 100 });
+      // v3：如果已经开始执行，标记有待处理的动态任务
+      // step() 会在完成当前批次后检查此标志并继续执行
+      if (this.started) this._pendingDynamic = true;
     },
     start() {
       if (this.started) return;
@@ -29,10 +30,17 @@
       const done = [];
       const step = () => {
         if (i >= this.queue.length) {
+          // v3：检查是否有动态注册的新任务
+          if (this._pendingDynamic) {
+            this._pendingDynamic = false;
+            // 重新排序新任务（按优先级）
+            this.queue.sort((a, b) => a.priority - b.priority);
+            requestAnimationFrame(step);
+            return;
+          }
           console.log('[SafeInit] 增强模块生命周期完成: ' + done.join(' → '));
           // 增强模块在批处理首次构建之后追加的物体（如城外行道树）不会自动
-          // 进入已构建的实例网格；统一重建批处理实例并刷新碰撞哈希，
-          // 保证“已登记即已渲染、已登记即已阻挡”，消除隐形碰撞与飞行穿模。
+          // 进入已构建的实例网格；统一重建批处理实例并刷新碰撞哈希。
           try {
             if (typeof window !== 'undefined' && window.__changan && typeof window.__changan.rebuild === 'function') {
               window.__changan.rebuild();
@@ -53,11 +61,9 @@
           console.warn('[SafeInit] ✗ ' + task.owner + ' 初始化失败:', err);
           done.push(task.owner + '(失败)');
         }
-        // 分帧执行：每帧一个模块，避免同帧卡顿，同时消除固定延迟。
-        // 原 500ms×8=4s 固定等待 → 现在 8 帧≈133ms 完成，场景平滑加载。
+        // 分帧执行：每帧一个模块，避免同帧卡顿
         requestAnimationFrame(step);
       };
-      // GAME.ready 已在 buildWorld 末尾同步置位，下一帧即开始第一个模块。
       requestAnimationFrame(step);
     }
   };
