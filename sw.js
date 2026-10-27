@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v52
+/* Chang'an Dragon Service Worker v53
+ * v53: 战斗与技能系统 — 征战沙场
  * v52: 家园与装饰系统 — 安居乐业
- * v51: 宠物与坐骑系统 — 神兽相伴
  */
-const CACHE_NAME = 'changan-v52';
+const CACHE_NAME = 'changan-v53';
 const CORE_ASSETS = [
   './',
   './index.html',
