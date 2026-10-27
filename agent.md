@@ -72,46 +72,51 @@
 
 ---
 
-## 9. 启动性能优化原则（2026-10-27 v8 定稿）
+## 9. 启动性能优化原则（2026-10-27 v8.5 定稿）
 
 ### 9a. 首屏加载策略（关键路径）
-**关键路径 = 小文件(~1MB) + scene-materials.js(7MB) → 30-main.js → buildWorld() → 开始界面**
+**关键路径 = 25个小文件(~1MB) → 30-main.js → buildWorld() → 开始界面**
 
-- **boot.js v7**：
+- **boot.js v8.5**：
   - 25个小文件script标签一次性创建，浏览器并行下载、按文档顺序执行
-  - **scene-materials.js(7MB) 是唯一关键大文件**（buildWorld依赖MAT材质库）
-  - **runtime-models.js(9.58MB) 移出关键路径**，后台延迟加载
-  - runtime-models.js加载完成后自动 WorldAssets.reset() + populate() 重试
-  - 效果：关键路径下载从16.6MB降到8MB
-- **index.html preload标签**：预热 scene-materials.js（关键）和 runtime-models.js（后台）
-- enhance 模块不在 boot 阶段加载，GAME.ready 后动态 script 标签加载（无setTimeout延迟）
+  - **scene-materials.js(7MB) 和 runtime-models.js(9.58MB) 全部移出关键路径**
+  - 两个大文件后台并行延迟加载，不阻塞开始界面
+  - 关键路径下载从16.6MB降到~1MB
+- **大文件加载后自动补绑PBR**：
+  - scene-materials.js onload → GameRendering.refreshEnvironment() (HDRI替换fallback)
+  - → SurfaceLibrary.architecture() (建筑屋顶/墙面/灰泥法线+粗糙度贴图)
+  - → SurfaceLibrary.refreshClothMaterials() (衣物/布料法线贴图)
+  - → requestAnimationFrame(renderer.compile()) 重新编译着色器
+  - runtime-models.js onload → WorldAssets.reset() + populate() 自动重试
+- **竞态处理**：大文件先于30-main.js到达时设 `window.__DEFERRED_ASSETS_READY` 计数器，Promise.all后补发populate()
+- **Service Worker**：sw.js缓存changan-v1，HTML网络优先+其他资源缓存优先后台更新
+- enhance 模块不在 boot 阶段加载，GAME.ready 后动态 script 标签加载
 
 ### 9b. 进入游戏优化（startGame）
 - **GameRendering fastStart模式**：开始界面跳过PMREM和后处理管线
-- **05-rendering v3 prewarm()**：GAME.ready后requestIdleCallback后台预生成PMREM环境贴图
-- **30-main v8**：GAME.ready后requestIdleCallback同时做：
-  1. GameRendering.prewarm() — PMREM环境贴图预生成
-  2. renderer.compile(scene, camera) — 材质预编译
-- 利用用户看开始界面的几秒，进入游戏时几乎瞬时
+- **05-rendering v5 prewarm()**：GAME.ready后requestIdleCallback同时做三件事：
+  1. PMREM环境贴图生成（RoomEnvironment fallback，后续HDRI替换）
+  2. EffectComposer后处理管线创建（SAO+Bloom+FXAA）
+  3. renderer.compile(scene, camera) 材质预编译
+- 利用用户看开始界面的几秒，进入游戏时upgradeToFullQuality()几乎零等待
 - startGame()为async：先显示"正在进入长安城…"，await nextFrame()让浏览器绘制
-- upgradeToFullQuality()只创建后处理管线（PMREM已在prewarm中完成）
 
-### 9c. 性能优化纪律
+### 9c. PBR材质延迟绑定模式
+- buildWorld()时SCENE_MATERIALS未加载，SurfaceLibrary.architecture()直接return
+- 建筑材质（MAT.roof/MAT.plaster等）在buildWorld时创建，normalMap为null
+- scene-materials.js加载后补绑：设置normalMap/roughnessMap + needsUpdate
+- 衣物材质通过clothMaterials数组追踪，refreshClothMaterials()统一补绑
+- 补绑后必须requestAnimationFrame重新compile，避免进入游戏时卡顿
+
+### 9d. 性能优化纪律
 - 先测量，再优化；不要把默认功能重新设置一遍就宣称完成优化
 - 新增建筑优先纳入批处理、实例化、LOD和距离裁剪体系
 - 不得未经对比修改已有性能策略（DPR上限、阴影范围）
 
-### 9d. 资源共享原则
+### 9e. 资源共享原则
 - 绝大部分内容使用共享素材包，不重复存储
 - 原GLB + 共享材质源方式，不上传重复贴图
 - 新增纹理必须检查是否已有同款，优先复用 MAT 材质库
-
-### 9e. WorldAssets延迟加载模式
-- WorldAssets.populate() 非阻塞：RUNTIME_MODELS未加载时reject，.catch()静默处理
-- WorldAssets.reset() 方法：重置pending，允许延迟加载完成后重试populate()
-- boot.js检测 `typeof WorldAssets !== 'undefined'`（const全局不在window上）
-- 竞态处理：如果延迟文件比小文件先到，设 window.__RUNTIME_MODELS_READY 标记，
-  Promise.all就绪后检查标记并补发populate()
 
 ---
 
@@ -132,7 +137,7 @@
 | 00-core.js | 核心状态 | GAME/CITY/WORLD常量、MAT材质库、UNIT_*几何体 |
 | 04-compatibility.js | 兼容性 | 旧浏览器API兜底 |
 | 05-rendering.js | 渲染器 | WebGL渲染、fastStart/prewarm/upgradeToFullQuality、后处理管线 |
-| 06-surfaces.js | 地面 | 路面、广场、台阶地面生成 |
+| 06-surfaces.js | 地面材质 | 路面、广场、PBR材质库、衣物材质追踪 |
 | 07-water.js | 水面 | 曲江池/龙池水面Shader |
 | 08-assets.js | 资源加载 | GLB模型加载、WorldAssets.populate()非阻塞、reset()重试 |
 | 09-botany.js | 植被 | 行道树、荷花、灌木生成与实例化 |
@@ -150,7 +155,7 @@
 | 28-weather.js | 天气 | 晴/阴/雨、包装GameRendering.render |
 | 30-main.js | 主入口 | buildWorld()、主循环、startGame()、GAME.ready |
 | 99-safe-init.js | 生命周期 | __enhance.register()分帧调度 |
-| boot.js | 启动加载 | 并行加载清单、延迟模型模板自动重试 |
+| boot.js | 启动加载 | 并行加载清单、大文件延迟加载、PBR补绑 |
 
 ### 增强模块层（src/enhance/*.js，GAME.ready后动态加载）
 | 文件 | Owner | 职责 |
