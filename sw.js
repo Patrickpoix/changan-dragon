@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v24
+/* Chang'an Dragon Service Worker v25
+ * v25: 科举与官职系统 — 仕途之路
  * v24: 收藏与商业系统 — 宝物与商机
- * v23: 文化艺术系统 — 盛唐风韵
  */
-const CACHE_NAME = 'changan-v24';
+const CACHE_NAME = 'changan-v25';
 const CORE_ASSETS = [
   './',
   './index.html',
