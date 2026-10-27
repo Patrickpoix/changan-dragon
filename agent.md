@@ -89,16 +89,21 @@
 
 ---
 
-## 9. 启动性能优化原则（2026-10-27 定稿）
+## 9. 启动性能优化原则（2026-10-27 v5 定稿）
 
 ### 9a. 首屏加载策略
-- **boot.js 只加载核心引擎**（28项），enhance 模块不在 boot 阶段加载
-- enhance 模块在 GAME.ready 后由 30-main.js 通过动态 script 标签加载
+- **boot.js v5**：所有25个小文件script标签一次性创建，浏览器并行下载、按文档顺序执行
+  （不再串行创建一个onload再加载下一个）
+- 大素材（scene-materials.js 7MB + runtime-models.js 9.58MB）与小引擎文件同时开始下载
+- **index.html preload标签**：预热 vendor/three.min.js、rendering-addons.js、boot.js、
+  **scene-materials.js、runtime-models.js**（16.6MB大素材在HTML解析阶段就开始下载）
+- enhance 模块不在 boot 阶段加载，GAME.ready 后由 30-main.js 动态 script 标签加载
 - WorldAssets.populate() 非阻塞：不等待外部素材完成就先渲染开始界面
 - renderer.compile() 移到 startGame()：开始界面只做低质量快速渲染
 - GameRendering fastStart 模式：跳过 makeEnvironment() 和 makePipeline()，
   startGame() 时调用 upgradeToFullQuality() 升级完整质量
-- index.html 添加 preload 标签预热 vendor/three.min.js、boot.js 和主字体
+- startGame() 为 async：先禁用按钮显示"正在进入长安城…"，await nextFrame()
+  让浏览器绘制加载状态，再执行 upgradeToFullQuality()+renderer.compile()
 
 ### 9b. 性能优化纪律
 - 先测量，再优化；不要把默认功能重新设置一遍就宣称完成优化
@@ -133,7 +138,7 @@
 
 ## 11. 模块 Owner 映射表（权威）
 
-### 核心引擎层（src/*.js，boot.js 串行加载）
+### 核心引擎层（src/*.js，boot.js 并行加载）
 | 文件 | Owner | 职责 |
 |------|-------|------|
 | 00-core.js | 核心状态 | GAME/CITY/WORLD常量、MAT材质库、UNIT_*几何体、全局状态 |
@@ -157,7 +162,7 @@
 | 28-weather.js | 天气 | 晴/阴/雨切换、雨滴粒子、包装GameRendering.render做天气微调 |
 | 30-main.js | 主入口 | buildWorld()、主循环animate()、startGame()、GAME.ready/fullyReady |
 | 99-safe-init.js | 生命周期 | __enhance.register()分帧调度、__changan.rebuild() |
-| boot.js | 启动加载 | 串行加载清单（28项核心），enhance模块动态加载入口 |
+| boot.js | 启动加载 | 并行加载清单（25小文件+2大素材），enhance模块动态加载入口 |
 
 ### 增强模块层（src/enhance/*.js，GAME.ready后动态加载）
 | 文件 | Owner | 职责 |
@@ -192,8 +197,9 @@ CI 每次 push 自动执行以下检查：
 1. **JS语法检查**：所有 src/*.js 和 src/enhance/*.js 通过 node --check
 2. **boot.js清单验证**：boot.js 引用的文件必须存在（防止404断载）
 3. **orphan检测**：enhance目录中的文件必须被动态加载清单引用
-4. **index.html完整性**：必须以 `</html>` 结尾（防止截断事故）
-5. **禁止新增编号模块**：src/ 下不得新增 NNN-*.js 文件（NNN > 30）
+4. **index.html完整性**：必须以 `</html>` 结尾且 >40KB（防止截断事故）
+5. **禁止新增编号模块**：src/ 下数字开头文件必须在已知白名单内（21个核心文件）
 6. **硬编码坐标检测**：enhance模块中不得出现明显硬编码的地标坐标（应引用12-landmarks.js）
+7. **禁用变量名检测**：不得出现 sunLight、ambientLight 等错误变量名
 
 违反以上规则 CI 失败，不得合并到 main。
