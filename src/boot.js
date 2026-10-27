@@ -1,5 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v8.5: scene-materials.js加载后补绑衣物PBR法线（refreshClothMaterials）
+ * v8.6: script.async=false确保按插入顺序执行（动态创建默认async=true会乱序）
+ * v8.5: scene-materials.js加载后补绑衣物PBR法线(refreshClothMaterials)
  * v8.4: PBR补绑后requestAnimationFrame重新编译着色器
  * v8.3: scene-materials.js加载后调用SurfaceLibrary.architecture()补绑PBR法线/粗糙度
  * v8.2: scene-materials.js加载后调用GameRendering.refreshEnvironment()用HDRI替换fallback
@@ -32,6 +33,7 @@ if ('serviceWorker' in navigator) {
 
   const smallPromises = smallScripts.map(src => new Promise((resolve, reject) => {
     const s = document.createElement('script'); s.src = src;
+    s.async = false; // v8.6: 动态创建默认async=true会乱序执行；false确保按插入顺序
     s.onload = () => resolve();
     s.onerror = () => reject(new Error('small script failed: ' + src));
     document.head.appendChild(s);
@@ -39,6 +41,7 @@ if ('serviceWorker' in navigator) {
 
   for (const src of deferredBig) {
     const s = document.createElement('script'); s.src = src;
+    s.async = false; // 延迟文件也按序执行，确保不依赖执行顺序的代码正确
     s.onload = () => {
       console.log('[Boot] 延迟素材加载完成: ' + src);
       if (src.indexOf('scene-materials') !== -1) {
@@ -72,6 +75,7 @@ if ('serviceWorker' in navigator) {
       try { WorldAssets.reset(); WorldAssets.populate().catch(()=>{}); } catch(e) {}
     }
     const s = document.createElement('script'); s.src = 'src/30-main.js';
+    s.async = false;
     document.head.appendChild(s);
   }).catch(err => {
     if (statusEl) statusEl.textContent = '资源加载失败：' + err.message;
