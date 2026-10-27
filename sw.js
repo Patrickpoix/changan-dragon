@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v20
+/* Chang'an Dragon Service Worker v21
+ * v21: 宠物与时装系统 — 个性化体验
  * v20: 任务与剧情系统 — 长安故事
- * v19: 植被与交通增强 — 生机盎然
  */
-const CACHE_NAME = 'changan-v20';
+const CACHE_NAME = 'changan-v21';
 const CORE_ASSETS = [
   './',
   './index.html',
