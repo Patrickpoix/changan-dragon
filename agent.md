@@ -72,13 +72,14 @@
 
 ---
 
-## 9. 启动性能优化原则（2026-10-27 v8.5 定稿）
+## 9. 启动性能优化原则（2026-10-27 v8.6 定稿）
 
 ### 9a. 首屏加载策略（关键路径）
 **关键路径 = 25个小文件(~1MB) → 30-main.js → buildWorld() → 开始界面**
 
-- **boot.js v8.5**：
-  - 25个小文件script标签一次性创建，浏览器并行下载、按文档顺序执行
+- **boot.js v8.6**：
+  - 25个小文件script标签一次性创建，浏览器并行下载
+  - **s.async = false**：动态创建的script默认async=true会乱序执行，必须设false确保按插入顺序执行（three.min.js必须先于00-core.js）
   - **scene-materials.js(7MB) 和 runtime-models.js(9.58MB) 全部移出关键路径**
   - 两个大文件后台并行延迟加载，不阻塞开始界面
   - 关键路径下载从16.6MB降到~1MB
@@ -143,7 +144,7 @@
 | 09-botany.js | 植被 | 行道树、荷花、灌木生成与实例化 |
 | 10-world.js | 世界构建 | 108坊、城墙、角楼、垛口、街道、Batch批处理系统 |
 | 11-shorelines.js | 岸线 | 河岸、湖岸 |
-| 12-landmarks.js | 地标 | 大明宫/太极殿/兴庆宫/大雁塔/小雁塔/曲江池权威坐标 |
+| 12-landmarks.js | 地标 | 大明宫/太极宫/兴庆宫/大雁塔/小雁塔/曲江池权威坐标 |
 | 20-character.js | 角色 | NPC、玩家角色、小青龙、动画更新 |
 | 25-exploration.js | 探索 | 移动模式、碰撞、寻路、飞行障碍 |
 | 25b-film-shots-extra.js | 电影镜头 | 额外机位定义 |
@@ -155,17 +156,17 @@
 | 28-weather.js | 天气 | 晴/阴/雨、包装GameRendering.render |
 | 30-main.js | 主入口 | buildWorld()、主循环、startGame()、GAME.ready |
 | 99-safe-init.js | 生命周期 | __enhance.register()分帧调度 |
-| boot.js | 启动加载 | 并行加载清单、大文件延迟加载、PBR补绑 |
+| boot.js | 启动加载 | 并行加载清单、大文件延迟加载、PBR补绑、async=false |
 
 ### 增强模块层（src/enhance/*.js，GAME.ready后动态加载）
 | 文件 | Owner | 职责 |
 |------|-------|------|
-| landmarks.js | 地标精修 | 原有地标建筑细节增强 |
-| night-light.js | 夜景灯光 | 灯笼照明与昼夜联动 |
-| outside.js | 城外环境 | 城外树木、远山 |
-| performance.js | 性能诊断 | FPS统计、DrawCall监控 |
-| vegetation.js | 植被增强 | 行道树补植 |
-| water.js | 水面增强 | 护城河、小河 |
+| landmarks.js | 地标精修 | 东西市牌坊+石碑（不重复角楼/垛口） |
+| night-light.js | 夜景灯光 | 64灯笼Batch+7点光源 |
+| outside.js | 城外环境 | 驿站/水井/里程碑(z>415)/100棵种子树 |
+| performance.js | 性能诊断 | 各向异性16x+阴影±140m |
+| vegetation.js | 植被增强 | 花圃/竹林(种子随机) |
+| water.js | 水面增强 | 护城河三面(rotation.x=-π/2)+6木桥 |
 
 ### 新增功能归属规则
 - 建筑细节 → enhance/landmarks.js
