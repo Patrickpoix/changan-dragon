@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v44
+/* Chang'an Dragon Service Worker v45
+ * v45: 活动与赛事系统 — 精彩不断
  * v44: 隐私与安全设置系统 — 安心游戏
- * v43: 用户反馈与客服支持系统 — 贴心服务
  */
-const CACHE_NAME = 'changan-v44';
+const CACHE_NAME = 'changan-v45';
 const CORE_ASSETS = [
   './',
   './index.html',
