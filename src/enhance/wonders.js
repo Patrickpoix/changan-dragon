@@ -1,6 +1,6 @@
 /* ============================================================
-   奇观建筑 · 仙侠魔幻盛唐气象
-   悬浮宫殿 / 云中飞阁 / 仙侠高塔 / 彩虹天桥
+   奇观建筑 · 仙侠魔幻盛唐气象 v2
+   悬浮宫殿 / 云中飞阁 / 仙侠高塔 / 金龙盘旋 / 凤凰展翅
    ============================================================ */
 
 (function() {
@@ -12,6 +12,7 @@
     buildWonderLandmarks();
   }
 
+  // 悬浮仙塔 — 高耸入云的七层宝塔
   function buildFairyPagoda(x, z, baseY = 0, scale = 1) {
     B.stone.add(x, 2 * scale, z, 24 * scale, 4 * scale, 24 * scale, 0, 0xe8dcc0);
     B.stone.add(x, 4.5 * scale, z, 20 * scale, 1 * scale, 20 * scale, 0, 0xd8ccb0);
@@ -36,6 +37,7 @@
     landmarks.push({ id: 'fairy-pagoda-' + x + '-' + z, name: '华严宝塔', x: x, z: z, radius: 40 * scale, poem: '塔势如涌出，孤高耸天宫', desc: '七宝庄严的仙塔，高耸入云，檐角金铃随风作响。' });
   }
 
+  // 悬浮天宫 — 漂浮在云端的宫殿群
   function buildSkyPalace(x, z, height = 80) {
     B.roofGold.add(x, height + 6, z, 80, 12, 50, 0, 0xd4a840);
     B.plaster.add(x, height, z, 60, 10, 36, 0, 0xf8e8c8);
@@ -54,19 +56,21 @@
       const stepZ = z + 30 + i * 2;
       B.stone.add(x, stepY, stepZ, 12, 0.5, 2, 0, 0xe0d4b8);
     }
-    for (let i = 0; i < 8; i++) {
-      const angle = (i / 8) * Math.PI * 2;
-      const cx = x + Math.cos(angle) * 35;
-      const cz = z + Math.sin(angle) * 25;
-      const cy = height - 5 + Math.sin(angle * 2) * 5;
-      const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3, depthWrite: false });
-      const cloud = new THREE.Mesh(new THREE.SphereGeometry(8 + Math.random() * 4, 8, 6), cloudMat);
+    // 云雾环绕
+    for (let i = 0; i < 12; i++) {
+      const angle = (i / 12) * Math.PI * 2;
+      const cx = x + Math.cos(angle) * 40;
+      const cz = z + Math.sin(angle) * 30;
+      const cy = height - 8 + Math.sin(angle * 2) * 8;
+      const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35, depthWrite: false });
+      const cloud = new THREE.Mesh(new THREE.SphereGeometry(10 + Math.random() * 6, 8, 6), cloudMat);
       cloud.position.set(cx, cy, cz);
       scene.add(cloud);
     }
     landmarks.push({ id: 'sky-palace', name: '凌霄宝殿', x: x, z: z, radius: 100, poem: '天上宫阙，今夕是何年', desc: '悬浮于云端的天宫，金瓦朱墙，云雾缭绕，宛若仙境。' });
   }
 
+  // 彩虹天桥 — 连接两座高塔的悬浮虹桥
   function buildRainbowBridge(x1, z1, x2, z2, height = 40) {
     const dx = x2 - x1, dz = z2 - z1;
     const ang = Math.atan2(dx, dz);
@@ -84,6 +88,7 @@
     bridgeZones.push({ points: [[x1, z1], [x2, z2]], halfWidth: 3, y: height, squareEnds: true });
   }
 
+  // 巨型守护神雕像
   function buildGuardianStatue(x, z, rotation = 0) {
     B.stone.add(x, 4, z, 30, 8, 30, 0, 0xd8ccb0);
     B.stone.add(x, 9, z, 24, 2, 24, 0, 0xe8dcc0);
@@ -96,6 +101,7 @@
     landmarks.push({ id: 'guardian-' + x + '-' + z, name: '青龙守护神', x: x, z: z, radius: 60, poem: '龙盘虎踞，镇守长安', desc: '巨型石质神兽雕像，守护着长安城的四方平安。' });
   }
 
+  // 悬浮仙山 — 漂浮在空中的仙山岛屿
   function buildFloatingMountain(x, z, height = 60) {
     const mountainMat = new THREE.MeshStandardMaterial({ color: 0x8a9a8a, roughness: 0.9, metalness: 0.1 });
     const mountainGeo = new THREE.ConeGeometry(25, 40, 8);
@@ -104,14 +110,15 @@
     mountain.castShadow = true;
     scene.add(mountain);
     B.roof.add(x, height + 22, z, 10, 4, 10, 0, 0x506060);
-    for (let i = 0; i < 5; i++) {
-      const angle = (i / 5) * Math.PI * 2;
-      const tx = x + Math.cos(angle) * 15;
-      const tz = z + Math.sin(angle) * 15;
-      const ty = height + 5 + Math.random() * 5;
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2;
+      const tx = x + Math.cos(angle) * 16;
+      const tz = z + Math.sin(angle) * 16;
+      const ty = height + 5 + Math.random() * 6;
       B.leaf.add(tx, ty, tz, 3, 4, 3, angle, 0x5a8a4a);
       B.trunk.add(tx, ty - 3, tz, 0.3, 2, 0.3, angle, 0x6a4a3a);
     }
+    // 瀑布
     const waterfallMat = new THREE.MeshBasicMaterial({ color: 0x80c0e0, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
     const waterfallGeo = new THREE.PlaneGeometry(4, 30);
     const waterfall = new THREE.Mesh(waterfallGeo, waterfallMat);
@@ -120,19 +127,138 @@
     landmarks.push({ id: 'floating-mountain-' + x + '-' + z, name: '蓬莱仙山', x: x, z: z, radius: 50, poem: '忽闻海上有仙山，在水一方', desc: '悬浮于云端的仙山，山顶有亭，瀑布飞流直下。' });
   }
 
+  // 金龙盘旋 — 巨大的金色神龙盘旋在城市上空
+  function buildGoldenDragon() {
+    const dragonMat = new THREE.MeshStandardMaterial({
+      color: 0xf0c040,
+      emissive: 0xd0a030,
+      emissiveIntensity: 0.3,
+      roughness: 0.3,
+      metalness: 0.8
+    });
+    
+    // 龙身 — 由一系列球体组成的螺旋
+    const segments = 20;
+    const radius = 150;
+    const heightBase = 120;
+    for (let i = 0; i < segments; i++) {
+      const t = i / segments;
+      const angle = t * Math.PI * 2.5;
+      const r = radius * (1 - t * 0.3);
+      const x = Math.cos(angle) * r;
+      const z = Math.sin(angle) * r;
+      const y = heightBase + Math.sin(t * Math.PI) * 30;
+      
+      const bodySize = 3 - t * 1.5;
+      const body = new THREE.Mesh(new THREE.SphereGeometry(bodySize, 12, 8), dragonMat);
+      body.position.set(x, y, z);
+      body.castShadow = true;
+      scene.add(body);
+    }
+    
+    // 龙头
+    const headX = Math.cos(Math.PI * 2.5) * radius * 0.7;
+    const headZ = Math.sin(Math.PI * 2.5) * radius * 0.7;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(5, 16, 12), dragonMat);
+    head.position.set(headX, heightBase + 30, headZ);
+    head.castShadow = true;
+    scene.add(head);
+    
+    // 龙角
+    B.gold.add(headX - 2, heightBase + 36, headZ, 0.5, 4, 0.5, 0, 0xf8d060);
+    B.gold.add(headX + 2, heightBase + 36, headZ, 0.5, 4, 0.5, 0, 0xf8d060);
+    
+    landmarks.push({
+      id: 'golden-dragon',
+      name: '金龙护城',
+      x: 0, z: 0, radius: 200,
+      poem: '飞龙在天，护我长安',
+      desc: '巨大的金色神龙盘旋在长安城上空，守护着这片土地。'
+    });
+  }
+
+  // 凤凰展翅 — 金色的凤凰雕像
+  function buildPhoenixStatue(x, z, height = 0) {
+    const phoenixMat = new THREE.MeshStandardMaterial({
+      color: 0xe8a040,
+      emissive: 0xc07020,
+      emissiveIntensity: 0.4,
+      roughness: 0.35,
+      metalness: 0.7
+    });
+    
+    // 底座
+    B.stone.add(x, height + 4, z, 20, 8, 20, 0, 0xd8ccb0);
+    
+    // 身体
+    const body = new THREE.Mesh(new THREE.SphereGeometry(4, 12, 8), phoenixMat);
+    body.position.set(x, height + 14, z);
+    body.castShadow = true;
+    scene.add(body);
+    
+    // 翅膀 — 展开的双翼
+    const wingGeo = new THREE.PlaneGeometry(30, 15);
+    const wingL = new THREE.Mesh(wingGeo, phoenixMat);
+    wingL.position.set(x - 15, height + 16, z);
+    wingL.rotation.y = Math.PI / 4;
+    wingL.rotation.z = 0.3;
+    scene.add(wingL);
+    
+    const wingR = new THREE.Mesh(wingGeo, phoenixMat);
+    wingR.position.set(x + 15, height + 16, z);
+    wingR.rotation.y = -Math.PI / 4;
+    wingR.rotation.z = -0.3;
+    scene.add(wingR);
+    
+    // 尾巴
+    for (let i = -2; i <= 2; i++) {
+      B.gold.add(x + i * 2, height + 10, z + 5, 0.5, 8, 0.5, 0, 0xf0c050);
+    }
+    
+    landmarks.push({
+      id: 'phoenix-' + x + '-' + z,
+      name: '丹凤朝阳',
+      x: x, z: z, radius: 50,
+      poem: '凤凰鸣矣，于彼高冈',
+      desc: '金色的凤凰展翅高飞，象征着盛唐的繁荣与吉祥。'
+    });
+  }
+
+  // 主入口 — 所有奇观建筑
   function buildWonderLandmarks() {
     console.log('[Wonders] 开始构建仙侠奇观建筑...');
+    
+    // 1. 华严宝塔 — 大雁塔东侧
     buildFairyPagoda(280, 280, 0, 1.2);
+    
+    // 2. 凌霄宝殿 — 大明宫上空的悬浮天宫
     buildSkyPalace(0, -320, 80);
+    
+    // 3. 彩虹天桥 — 连接两座仙塔
     buildRainbowBridge(280, 280, -280, 280, 45);
+    
+    // 4. 另一座仙塔 — 西侧对称
     buildFairyPagoda(-280, 280, 0, 1.2);
+    
+    // 5. 四方守护神雕像
     buildGuardianStatue(-480, 0, 0);
     buildGuardianStatue(480, 0, Math.PI);
     buildGuardianStatue(0, -480, Math.PI / 2);
     buildGuardianStatue(0, 480, -Math.PI / 2);
+    
+    // 6. 悬浮仙山 — 曲江池上空
     buildFloatingMountain(350, 350, 70);
     buildFloatingMountain(-350, 350, 65);
-    console.log('[Wonders] 仙侠奇观建筑构建完成！');
+    buildFloatingMountain(0, 500, 90);
+    
+    // 7. 金龙盘旋 — 城市上空
+    buildGoldenDragon();
+    
+    // 8. 凤凰雕像 — 东西市上空
+    buildPhoenixStatue(174, -14, 0);
+    buildPhoenixStatue(-258, -14, 0);
+    
+    console.log('[Wonders] 仙侠奇观建筑构建完成！共8组奇观');
   }
 
   if (document.readyState === 'loading') {
