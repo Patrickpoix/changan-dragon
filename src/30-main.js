@@ -1,10 +1,13 @@
 /* ============================================================
    龙游长安 · 游戏主循环 / 操控 / 镜头 / 昼夜 / 诗笺
+   v5 性能优化：
+   - startGame() 改为异步：先显示加载提示，让浏览器绘制后再执行PMREM/编译
+   - 避免点击"入城漫游"后UI冻结
    v4 性能优化：
    - WorldAssets.populate() 非阻塞
    - renderer.compile() 移到 startGame()
    - enhance 模块后台动态加载
-   - GameRendering fastStart 快速启动模式（跳过PMREM和后处理管线）
+   - GameRendering fastStart 快速启动模式
    ============================================================ */
 
 'use strict';
@@ -73,7 +76,6 @@ function showBanner(name, desc, ms = 3600) {
   UI.bannerName.textContent = name;
   UI.bannerDesc.textContent = desc || '';
   UI.banner.classList.remove('show');
-  // 强制下一帧重新播放入场动画
   requestAnimationFrame(() => UI.banner.classList.add('show'));
   GAME.bannerHideAt = performance.now() + ms;
 }
@@ -87,10 +89,9 @@ function loadCollectedPoems() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_POEMS) || '[]');
     if (Array.isArray(saved)) saved.forEach(i => {
-      // 校验按运行时实际诗笺总数（含追加诗笺），保证刷新后收集状态可恢复
       if (Number.isInteger(i) && i >= 0 && i < poems.length) GAME.poemsFound.add(i);
     });
-  } catch (_) { /* 隐私模式或本地文件禁用存储时不影响游玩 */ }
+  } catch (_) {}
 }
 
 function saveCollectedPoems() {
@@ -223,8 +224,6 @@ const Cam = {
   resolvePosition(look, desired) {
     let best=this.clearPosition(look,desired),distance=best.distanceTo(look);
     if(distance>=2.6) return best;
-    // Near stalls and columns, sliding directly into the dragon's head is not
-    // a usable third-person view. Seek a free neighbouring angle first.
     const offset=desired.clone().sub(look),radius=Math.max(4,Math.hypot(offset.x,offset.z));
     const angle=Math.atan2(offset.x,offset.z);
     for(const lift of [0,1.6]) for(const turn of [.65,-.65,1.2,-1.2,Math.PI]) {
@@ -241,7 +240,7 @@ const Cam = {
     this.userYaw = 0;
     if (UI.cameraLabel) UI.cameraLabel.textContent = this.modes[this.mode].label;
     toast('镜头 · ' + this.modes[this.mode].label, 1500);
-    if (UI.cameraBtn) UI.cameraBtn.classList.toggle('active', this.mode !== 0);
+    if (UI.cameraBtn) UI.cameraLabel.textContent = Cam.modes[this.mode].label;
   },
 
   update(dt, player, immediate = false) {
@@ -493,7 +492,7 @@ function buildCollectionList() {
 }
 
 function escapeHTML(s) {
-  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 let modalReturnFocus = null;
@@ -614,14 +613,13 @@ function ringBell() {
 }
 
 // ---------------------------------------------------------------- 昼夜
-// 国风电影感基调：直接以主循环为唯一驱动，不再依赖enhance模块延迟覆盖
 const GRADE = {
-  dayExposure: 1.15,    // 白天曝光（原1.06 → 国风暖调略提亮）
-  nightExposure: 0.92,  // 夜晚曝光
-  dayFogNear: 60,       // 白天雾近距（原175 → 国风薄雾更近）
-  dayFogFar: 600,       // 白天雾远距（原760 → 电影感纵深更集中）
-  nightFogNear: 95,     // 夜晚雾近距
-  nightFogFar: 590,     // 夜晚雾远距
+  dayExposure: 1.15,
+  nightExposure: 0.92,
+  dayFogNear: 60,
+  dayFogFar: 600,
+  nightFogNear: 95,
+  nightFogFar: 590,
 };
 
 const Colors = {
@@ -631,7 +629,7 @@ const Colors = {
   nightTop: new THREE.Color(0x071b3b),
   nightHorizon: new THREE.Color(0x3e4c84),
   nightSun: new THREE.Color(0xdbe9ff),
-  dayFog: new THREE.Color(0xe8d8b8),  // 国风暖灰雾色（古画暖调，原0xc9d7d5灰绿）
+  dayFog: new THREE.Color(0xe8d8b8),
   nightFog: new THREE.Color(0x1b2746),
   dayDeep: new THREE.Color(0x2e6c70),
   nightDeep: new THREE.Color(0x0e4c70),
@@ -685,7 +683,6 @@ function updateDayNight(dt) {
   waterUniforms.sunDir.value.copy(sun.position).sub(sun.target.position).normalize();
   if (fireflies) fireflies.pts.material.opacity = n * 0.95;
   if (stars) stars.visible = n > 0.015;
-  // 增强模块登记的夜景点光源由主循环统一驱动（单一权威更新流程）。
   if (window.__nightLights) for (const light of window.__nightLights) {
     light.intensity = (light.userData.baseIntensity || 0.5) * n;
   }
@@ -845,7 +842,6 @@ function updateMovement(dt) {
     else Move.speed = Math.min(0, Move.speed + decel);
   }
 
-  // 转向：低速转向更灵活，反向骑行时车头方向反过来
   const speedFac = clamp(Math.abs(Move.speed) / 4.2, 0, 1);
   const steerRate = 1.85 * (0.42 + speedFac * 0.58) * (Move.speed < -0.15 ? -1 : 1);
   Move.steer = damp(Move.steer, a.steer, 8, dt);
@@ -913,13 +909,12 @@ const MapView = {
     ctx.clearRect(0, 0, W, H);
     const bg = ctx.createLinearGradient(0, 0, 0, H);
     bg.addColorStop(0, '#bfe8cf'); bg.addColorStop(1, '#e8e0b7');
-    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
 
-    // 城内外底色
     ctx.fillStyle = 'rgba(255,244,208,.55)';
     ctx.fillRect(this.x(CITY.x0), this.y(CITY.z0), (CITY.x1 - CITY.x0) * this.scale, (CITY.z1 - CITY.z0) * this.scale);
 
-    // 曲江与龙池
     ctx.fillStyle = '#3fbfc0';
     for (const w of waterZones) {
       ctx.beginPath();
@@ -930,7 +925,6 @@ const MapView = {
       ctx.fillRect(this.x(r.minX), this.y(r.minZ), (r.maxX - r.minX) * this.scale, (r.maxZ - r.minZ) * this.scale);
     }
 
-    // 坊与市
     for (const w of wards) {
       ctx.fillStyle = w.type === 'market' ? '#e8a84d' : '#e8d9b8';
       ctx.fillRect(this.x(w.x - w.w / 2), this.y(w.z - w.d / 2), Math.max(1, w.w * this.scale), Math.max(1, w.d * this.scale));
@@ -940,7 +934,6 @@ const MapView = {
       ctx.fillRect(this.x(m.x - m.w / 2), this.y(m.z - m.d / 2), m.w * this.scale, m.d * this.scale);
     }
 
-    // 道路
     ctx.strokeStyle = 'rgba(255,250,230,.94)';
     for (const r of roads) {
       ctx.lineWidth = Math.max(0.7, (r.axis === 'z' ? r.w : r.d) * this.scale * 0.72);
@@ -953,11 +946,9 @@ const MapView = {
       ctx.stroke();
     }
 
-    // 城墙
     ctx.strokeStyle = '#a97c52'; ctx.lineWidth = 1.6;
     ctx.strokeRect(this.x(CITY.x0), this.y(CITY.z0), (CITY.x1 - CITY.x0) * this.scale, (CITY.z1 - CITY.z0) * this.scale);
 
-    // 地标
     for (const l of landmarks) {
       const x = this.x(l.x), y = this.y(l.z);
       ctx.fillStyle = '#c94a3d';
@@ -970,7 +961,6 @@ const MapView = {
       }
     }
 
-    // 诗笺
     poems.forEach(p => {
       if (p.taken) return;
       const x = this.x(p.x), y = this.y(p.z);
@@ -980,7 +970,6 @@ const MapView = {
       ctx.beginPath(); ctx.arc(x, y, 2.3, 0, TAU); ctx.fill();
     });
 
-    // 玩家
     const px = this.x(playerPos.x), py = this.y(playerPos.z);
     ctx.save();
     ctx.translate(px, py);
@@ -990,7 +979,6 @@ const MapView = {
     ctx.fill(); ctx.stroke();
     ctx.restore();
 
-    // 指南针
     ctx.fillStyle = 'rgba(94,55,38,.68)';
     ctx.font = '700 10px "KaiTi",serif'; ctx.textAlign = 'center';
     ctx.fillText('北', W - 13, 14);
@@ -1008,8 +996,6 @@ function animate(now) {
 
   if (GAME.ready) {
     if (!GAME.started) {
-      // Meet the real dragon at street height, with the gate behind it. The
-      // off-centre framing leaves the entry copy clear and follows saved places.
       const p=player.group.position,a=player.yaw+.35+Math.sin(t*.08)*.15,r=8.8+Math.sin(t*.12)*.3;
       const anchor=new THREE.Vector3(p.x,p.y+1.8,p.z);
       const frameOffset=innerWidth>innerHeight?4.3:0;
@@ -1035,7 +1021,6 @@ function animate(now) {
       updatePlace(dt);
       updateDayNight(dt);
 
-      // 镜头跟随玩家时，把太阳阴影框也移到附近
       if (!Explore.film) {
         sun.target.position.set(player.group.position.x, 0, player.group.position.z);
         sun.position.set(player.group.position.x + 125, 105, player.group.position.z + 75);
@@ -1082,7 +1067,6 @@ function poemAnimate(t) {
 }
 
 function updateLanternFlicker(t) {
-  // 夜间灯笼的轻微呼吸感，比集中点光更省性能
   if (MAT.lantern) MAT.lantern.emissiveIntensity += Math.sin(t * 1.7) * 0.00035;
 }
 
@@ -1109,7 +1093,6 @@ async function buildWorld() {
       Object.values(B).forEach(b => b?.build?.());
       wardSigns.build();
       shopSigns.build();
-      // Imported solid objects join these indexes after asynchronous decoding.
     }],
   ];
 
@@ -1119,8 +1102,6 @@ async function buildWorld() {
     stages[i][1]();
   }
   bootStatus('陈设陶器、藤篮与市井器物…');
-  // v3 性能优化：素材加载改为非阻塞，不等待完成就设置 GAME.ready
-  // 素材加载完成后会自动加入场景，不影响首屏速度
   WorldAssets.populate().then(assets => {
     if (assets.failures.length) console.warn('[Assets] ' + assets.failures.length + ' 个本地素材未能载入（不影响启动）：' + assets.failures.map(f => f.id).join('、'));
   }).catch(err => console.warn('[Assets] 素材加载失败:', err));
@@ -1129,7 +1110,6 @@ async function buildWorld() {
   await nextFrame();
 
   player = createDragonBike();
-  // 从明德门内起步，一抬头就是朱雀大街的开阔长卷
   player.group.position.set(0, groundHeightAt(0,352), 352);
   player.group.rotation.y = Math.PI;
   player.yaw = Math.PI;
@@ -1143,7 +1123,6 @@ async function buildWorld() {
   MapView.setup();
   MapView.draw(player.group.position, Move.yaw);
   updateDayNight(0.016);
-  // v3 性能优化：材质编译移到 startGame()，用户点击后才编译，减少首屏时间
 
   GameRendering.refreshScene();
   GAME.ready = true;
@@ -1155,9 +1134,6 @@ async function buildWorld() {
       ? '<span><span class="keycap">左</span>摇杆漫游</span><span><span class="keycap">下</span>步行 / 骑行 / 飞行</span><span><span class="keycap">拖</span>环视与缩放</span>'
       : '<span><span class="keycap">WASD</span>漫游</span><span><span class="keycap">1/2/3</span>移动方式</span><span><span class="keycap">C</span>换镜头</span><span><span class="keycap">P</span>赏景</span>';
   }
-  // v3 性能优化：后台动态加载 enhance 模块（不阻塞开始界面）
-  // 用户看到开始界面后，enhance 模块在后台加载和执行
-  // 首屏时间减少约 18%（6 个文件的请求时间）
   setTimeout(() => {
     const enhanceScripts = [
       'src/enhance/performance.js',
@@ -1176,17 +1152,29 @@ async function buildWorld() {
   }, 100);
 }
 
-function startGame() {
+// v5 性能优化：startGame 改为异步，先显示加载提示让浏览器绘制，再执行昂贵操作
+async function startGame() {
   if (!GAME.ready || GAME.started) return;
   GAME.started = true;
-  // v4 性能优化：快速启动升级 — 用户点击后创建 PMREM 环境贴图和后处理管线
-  // 开始界面用 low 质量快速渲染，进入游戏后再升级到完整质量
+
+  // 立即更新UI：禁用按钮、显示加载提示（让浏览器先绘制这个状态）
+  if (UI.startBtn) {
+    UI.startBtn.disabled = true;
+    UI.startBtn.textContent = '正在进入长安城…';
+  }
+
+  // 等待两帧让浏览器绘制加载状态，避免PMREM/编译阻塞UI
+  await nextFrame();
+  await nextFrame();
+
+  // 现在执行昂贵的渲染升级（PMREM环境贴图 + 后处理管线 + 材质编译）
   try {
     GameRendering.upgradeToFullQuality();
     GameRendering.setQuality(params.get('quality') || Session.preferences.quality || 'auto');
   } catch (e) { console.warn('[Rendering] 升级质量失败:', e); }
-  // v3 性能优化：材质编译移到用户点击后，减少首屏时间
   try { renderer.compile(scene, camera); } catch (_) {}
+
+  // 隐藏开始界面，显示HUD
   const openingPlace = getPlace(player.group.position.x, player.group.position.z);
   GAME.currentPlace = openingPlace.id;
   GAME.placeSince = -1.8;
@@ -1220,14 +1208,10 @@ async function boot() {
     bindViewGestures();
     Explore.init();
     renderer.setSize(innerWidth, innerHeight);
-    // v4 性能优化：fastStart 快速启动模式
-    // 开始界面用 low 质量 + 跳过 PMREM 环境贴图和后处理管线创建
-    // 用户点击"入城漫游"后，startGame() 中再调用 upgradeToFullQuality() 升级
-    // 这样首屏时间可以减少约 500-800ms（PMREM 生成 + SAO/Bloom 管线创建）
     GameRendering.init({
       renderer, scene, camera,
-      quality: 'low',        // 开始界面用 low 质量
-      fastStart: true,        // 快速启动模式：跳过 PMREM 和后处理管线
+      quality: 'low',
+      fastStart: true,
       exposure: 1.06,
       environmentIntensity: 0.48
     });
@@ -1255,7 +1239,6 @@ async function boot() {
   }
 }
 
-// 给调试与自动验收一个稳定的只读入口
 window.__changan = {
   scene, renderer, camera, poems, landmarks, wards,
   get player() { return player; },
@@ -1277,15 +1260,10 @@ window.__changan = {
     GAME.nightT = on ? 1 : 0;
     updateDayNight(0.016);
   },
-  // 增强模块在 GAME.ready 后追加的物体（如城外行道树）需要重建批处理实例，
-  // 并让飞行包络网格覆盖新增障碍物，保证“已登记即已渲染”。
   rebuild() {
     Object.values(B).forEach(b => b?.build?.());
     Explore.buildRoofGrid();
-    // 增强模块在 GAME.ready 后登记的新碰撞必须重建哈希网格，
-    // 否则牌坊柱/石碑/里程碑等不会参与玩家碰撞与安全落地判定。
     if (typeof buildColliderHash === 'function') buildColliderHash();
-    // 新登记的批次需进入渲染管线的 LOD/剔除与环境反射登记。
     if (typeof GameRendering !== 'undefined' && typeof GameRendering.refreshScene === 'function') GameRendering.refreshScene();
     return 'batches + colliderGrid + roofGrid + rendering rebuilt';
   },
