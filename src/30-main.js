@@ -1,10 +1,7 @@
 /* ============================================================
    龙游长安 · 游戏主循环 / 操控 / 镜头 / 昼夜 / 诗笺
-   v8 性能优化：
-   - GAME.ready后requestIdleCallback同时做：PMREM预生成 + 材质预编译
-   - 利用用户看开始界面的几秒，进入游戏时几乎瞬时
-   v7: 后台预编译材质
-   v6: 移除enhance模块100ms setTimeout
+   v8.1 修复：Cam.zoomBy缺少clamp闭合括号
+   v8: idle期间同时预生成PMREM和预编译材质
    ============================================================ */
 
 'use strict';
@@ -71,7 +68,7 @@ const Cam={
     this.look.copy(this.clearPosition(anchor,this.look));camera.position.copy(this.resolvePosition(this.look,camera.position));camera.lookAt(this.look);
     const tf=56+(GAME.boosted?4.2:0);this.fov=damp(this.fov,tf,3.4,dt);if(Math.abs(camera.fov-this.fov)>.01){camera.fov=this.fov;camera.updateProjectionMatrix();}},
   drag(dx,dy){if(this.modes[this.mode].key==='orbit')this.orbitYaw-=dx*.005;else this.userYaw-=dx*.0045;this.pitch=clamp(this.pitch+dy*.0035,-.06,.78);},
-  zoomBy(f){this.zoom=clamp(this.zoom*f,.62,2.15;},
+  zoomBy(f){this.zoom=clamp(this.zoom*f,.62,2.15);},
 };
 
 const Input={keys:Object.create(null),joyX:0,joyY:0,touchBoost:false,joyPointer:null,pointers:new Map(),pinching:false,pinchDist:0};
@@ -164,7 +161,6 @@ async function buildWorld(){
   if(UI.startControls)UI.startControls.innerHTML=isTouch?'<span><span class="keycap">左</span>摇杆漫游</span><span><span class="keycap">下</span>步行/骑行/飞行</span><span><span class="keycap">拖</span>环视缩放</span>':'<span><span class="keycap">WASD</span>漫游</span><span><span class="keycap">1/2/3</span>移动方式</span><span><span class="keycap">C</span>换镜头</span><span><span class="keycap">P</span>赏景</span>';
   const es=['src/enhance/performance.js','src/enhance/landmarks.js','src/enhance/vegetation.js','src/enhance/water.js','src/enhance/night-light.js','src/enhance/outside.js'];
   for(const src of es){const s=document.createElement('script');s.src=src;s.onerror=()=>console.warn('[Boot] enhance加载失败:'+src);document.head.appendChild(s);}
-  // v8: 开始界面期间后台预生成PMREM + 预编译材质
   requestIdleCallback?.(()=>{try{GameRendering.prewarm();GAME.prewarmed=true;}catch(_){}try{renderer.compile(scene,camera);GAME.preCompiled=true;}catch(_){}},{timeout:5000});
 }
 
