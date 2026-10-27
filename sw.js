@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v21
+/* Chang'an Dragon Service Worker v22
+ * v22: 拍照与休闲系统 — 悠闲时光
  * v21: 宠物与时装系统 — 个性化体验
- * v20: 任务与剧情系统 — 长安故事
  */
-const CACHE_NAME = 'changan-v21';
+const CACHE_NAME = 'changan-v22';
 const CORE_ASSETS = [
   './',
   './index.html',
