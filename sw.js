@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v40
+/* Chang'an Dragon Service Worker v41
+ * v41: 帮助与新手教程系统 — 良师益友
  * v40: 设置与选项系统 — 随心所欲
- * v39: 背包与物品管理系统 — 包罗万象
  */
-const CACHE_NAME = 'changan-v40';
+const CACHE_NAME = 'changan-v41';
 const CORE_ASSETS = [
   './',
   './index.html',
