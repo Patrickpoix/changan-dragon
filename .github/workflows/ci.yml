@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Validate JS syntax
         run: |
           echo "Checking JS syntax..."
@@ -25,13 +25,36 @@ jobs:
               node --check "$f" && echo "✓ $f"
             fi
           done
-      
-      - name: Check boot.js loads
+
+      - name: Verify boot.js manifest files exist
         run: |
-          echo "Checking boot.js structure..."
-          grep -q "src/enhance/" src/boot.js && echo "✓ enhance modules loaded"
-      
+          echo "Verifying boot.js load manifest (catches 404-stop-load regressions)..."
+          missing=0
+          while IFS= read -r path; do
+            if [ ! -f "$path" ]; then
+              echo "::error::MISSING (referenced in boot.js but not on disk): $path"
+              missing=1
+            else
+              echo "✓ $path"
+            fi
+          done < <(grep -oE "'[^']+\.js'" src/boot.js | sed "s/'//g")
+          if [ "$missing" = "1" ]; then
+            echo "::error::boot.js references files that do not exist"
+            exit 1
+          fi
+
+      - name: Check for orphaned enhance files
+        run: |
+          echo "Checking enhance directory vs boot.js..."
+          for f in src/enhance/*.js; do
+            base=$(basename "$f")
+            if ! grep -q "enhance/$base" src/boot.js; then
+              echo "⚠ ORPHAN (on disk but not loaded): src/enhance/$base"
+            fi
+          done
+
       - name: Summary
         run: |
           echo "=== CI Validation Complete ==="
           echo "All JS files passed syntax check"
+          echo "boot.js manifest files all exist"
