@@ -661,7 +661,8 @@ function makeRoadMesh(road) {
   for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / 3, uv.getY(i) * d / 3);
   const mat = new THREE.MeshStandardMaterial({
     map: isAvenue ? TEX.stone : TEX.dirt,
-    bumpMap: isAvenue ? TEX.stoneBump : null, bumpScale: 0.045,
+    // v2: use TEX.stone as bump (TEX.stoneBump never existed); gives avenue relief
+    bumpMap: isAvenue ? TEX.stone : null, bumpScale: 0.045,
     color: isAvenue ? 0xf2e1c5 : 0xe1cdae,
     roughness: 0.94, metalness: 0,
   });
