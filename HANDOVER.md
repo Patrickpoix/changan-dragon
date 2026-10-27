@@ -1,98 +1,46 @@
 # 《龙游长安》交接文档
 
-**更新日期：2026年10月26日 17:15 北京时间**
+**更新日期：2026年10月27日 09:00 北京时间**
 
 ---
 
-## 项目当前状态
+## 当前架构（权威）
 
-### ✅ 已完成
+### 引擎加载顺序（src/boot.js，共34项）
+```
+vendor/three.min.js → rendering-addons.js → assets/materials.js → scene-materials.js
+→ runtime-models.js → character-faces.js → boat-hulls.js
+→ src/00-core.js → 04-compatibility.js → 05-rendering.js → 06-surfaces.js → 07-water.js
+→ 08-assets.js → 09-botany.js → 10-world.js → 11-shorelines.js → 12-landmarks.js
+→ 20-character.js → 25-exploration.js → 25b-film-shots-extra.js
+→ 26-extra-places.js → 26b-extra-places-2.js → 27-session.js → 27b-extra-poems.js → 27c-extra-poems-2.js
+→ 28-weather.js
+→ src/enhance/{performance,landmarks,vegetation,water,night-light,outside}.js
+→ 99-safe-init.js → 30-main.js
+```
 
-1. **核心引擎完整可用**
-   - Three.js r160 正式版
-   - 完整的渲染管线（ACES色调映射/SAO/Bloom/FXAA）
-   - 108坊程序化生成
-   - 完整的核心地标建筑
+### 初始化生命周期（v2，2026-10-27）
+- **统一调度器**：src/99-safe-init.js 提供 `window.__enhance.register(owner, fn, priority)`
+- GAME.ready 后下一帧开始，**requestAnimationFrame 分帧执行**（每帧一个模块，8帧≈133ms）
+- 全部 enhance 完成后自动调用 `window.__changan.rebuild()`（重建全部 Batch 实例 + 碰撞哈希 + 屋顶飞行网格 + 渲染刷新），再置 `GAME.fullyReady = true`
+- **禁止**散装 setTimeout 固定延迟（旧机制已废弃）；**禁止**覆盖 buildWorld / window.updateDayNight
 
-2. **视觉优化系统（210-270号模块，共61个）**
-   全部采用IIFE+轮询等待GAME.ready的正确注入方式：
+### Enhance 模块 Owner（6个，按优先级）
+| Owner | 优先级 | 职责 | 文件 |
+|-------|--------|------|------|
+| Performance | 30 | 纹理各向异性16x + 阴影±140m（2048贴图≈7.3cm/texel） | enhance/performance.js |
+| Weather | 35 | 晴/阴/雨：雨滴800点跟随玩家、雾/曝光基于GRADE基线相对微调、包装GameRendering.update | src/28-weather.js |
+| Landmarks | 40 | 东西市牌坊 + 两塔石碑（不重复角楼/垛口/台阶） | enhance/landmarks.js |
+| Vegetation | 50 | 沉香亭花圃/大雁塔蓝花/太极宫菊花/曲江岸草/竹林 | enhance/vegetation.js |
+| Water | 60 | 护城河三面（共享waterMat，PlaneGeometry已rotation.x=-π/2躺平）+6木桥+岸石芦苇鸭 | enhance/water.js |
+| NightLight | 70 | 64盏灯笼(局部Batch 2 drawcall) + 7组点光源(登记__nightLights由updateDayNight尾部驱动) | enhance/night-light.js |
+| Outside | 80 | 城外驿站/水井/里程碑碰撞 + 城外树(原addTree经rebuild可见) | enhance/outside.js |
 
-   **核心视觉**
-   - 210: 电影级调色 + 国风雾效 + 暖金色光影
-   - 214: 系统最终整合确认
-   - 215: 天空颜色优化 + 水面系统确认
-   - 216: 性能优化确认
-   - 218: 昼夜系统微调
-   - 221: 最终色调确认
-
-   **地标精修**
-   - 211: 朱雀大街行道树 + 大雁塔松树 + 曲江池荷花
-   - 212: 大明宫殿前立柱 + 兴庆宫荷花 + 太极殿立柱
-   - 213: 东西市摊位 + 小雁塔周边树木
-   - 230-233: 水面细节、街道细节、宫殿台阶、大雁塔周边
-   - 234: 曲江池亭子
-   - 235: 兴庆宫牡丹花丛
-   - 236: 太极殿前台阶
-   - 237: 明德门前台阶
-   - 238: 小雁塔寺院围墙
-   - 239-240: 东西市额外摊位
-   - 241: 城墙四角角楼
-   - 242: 曲江池石板桥
-   - 243: 龙池小木桥
-   - 245-246: 大雁塔、小雁塔台阶
-   - 247-249: 含元殿、太极殿、明德门前石板广场
-
-   **新增地标**
-   - 250: 青龙寺塔（5层）
-   - 251: 西明寺塔（4层）
-
-   **水系与交通**
-   - 252: 曲江池游船（3艘）
-   - 253: 龙池游船（2艘）
-
-   **绿化系统**
-   - 217: 曲江池柳树 + 城墙灌木 + 兴庆宫花卉
-   - 254: 朱雀大街行道树补充
-   - 255: 城墙周边绿化
-   - 256: 大明宫周边树木（20棵）
-   - 257: 太极宫周边树木（15棵）
-   - 258: 兴庆宫周边树木（12棵）
-   - 259: 大雁塔周边松树（10棵）
-   - 260: 小雁塔周边树木（8棵）
-   - 261: 曲江池周边柳树（12棵）
-   - 262: 龙池周边柳树（8棵）
-   - 263: 青龙寺周边松树（8棵）
-   - 264: 西明寺周边树木（6棵）
-   - 265: 明德门前树木
-   - 266: 东西市周边树木（16棵）
-
-   **系统确认**
-   - 267: 最终视觉整合确认
-   - 268: 性能优化最终确认
-   - 269: 最终游戏状态确认
-   - 270: 最终交付完成
-
-3. **游戏系统完整**
-   - NPC动态城市生活
-   - 五声音阶环境音景
-   - 步行/骑行/飞行探索
-   - 唐诗诗笺收集
-   - 昼夜循环系统
-   - 天气系统
+> 已删除空模块：visual-grade.js（视觉基调由主循环GRADE驱动）、sky.js（天空Shader在00-core.js）
 
 ---
 
-## ⚠️ 已清理的问题模块
-
-以下模块已从boot.js中移除（有语法错误或架构问题）：
-- 121-140号：所有实验性核心提升模块
-- 31-120号：所有碎片化细节模块
-
-这些文件仍在仓库中，但不会被加载，不影响游戏运行。
-
----
-
-## 核心地标坐标（权威）
+## 权威地标坐标（src/12-landmarks.js）
 
 | 地标 | 坐标 (x, z) |
 |------|-------------|
@@ -111,47 +59,50 @@
 | 东市中心 | (174, -14) |
 | 明德门 | (0, 380) |
 
----
+## 世界尺度
+- **1 world unit ≈ 2 米**（艺术化缩尺）
+- CITY = {x0:-450, x1:450, z0:-380, z1:380}（核心游玩区≈1.8km×1.5km）
+- WORLD = {x0:-780, x1:780, z0:-660, z1:660}（全境≈3.1km×2.6km）
+- 城墙角楼在(±450, ±380)；护城河在 z=±400 / x=±465
 
 ## 全局变量名（权威）
+scene / camera / renderer / sun（平行光）/ ambient（环境光）/ hemi / rim / MAT（共享材质）/ TEX（纹理）/ GAME.ready / GAME.nightT / waterMat（水面Shader）/ B（Batch实例组）/ Batch类
 
-| 变量名 | 说明 |
-|--------|------|
-| scene | 场景 |
-| camera | 相机 |
-| renderer | 渲染器 |
-| sun | 平行光（太阳） |
-| ambient | 环境光 |
-| hemi | 半球光 |
-| rim | 轮廓光 |
-| MAT | 共享材质库 |
-| TEX | 纹理库 |
-| GAME | 游戏状态 |
-| GAME.ready | 游戏是否就绪 |
-| GAME.nightT | 昼夜时间（0-1） |
+---
+
+## 已完成修复（2026-10-27）
+
+1. **P0-1 水面朝向**：water.js 护城河 PlaneGeometry 已 `rotation.x=-π/2` 躺平 ✓
+2. **P0-2 重复建筑**：landmarks.js 只做牌坊石碑，不重复角楼/垛口/台阶 ✓
+3. **P0-3 批处理碰撞**：rebuild() 遍历 Object.values(B).forEach(b=>b?.build?.()) 幂等重建 ✓
+4. **P0-4 初始化生命周期**：99-safe-init v2 改 RAF 分帧（消除500ms×8=4s固定延迟）✓
+5. **P0-5 昼夜统一**：enhance 不覆盖 window.updateDayNight；天气包装 GameRendering.update；点光登记 __nightLights ✓
+6. 空模块清理：删除 visual-grade.js / sky.js（boot.js 引用同步移除）✓
 
 ---
 
 ## 开发规范（必须遵守）
 
-1. **新模块必须**采用IIFE+轮询等待GAME.ready的注入方式
-2. **禁止**在buildWorld定义前覆盖它（会导致typeof检查永远false）
-3. **禁止**使用错误的全局变量名（用sun不是sunLight，用ambient不是ambientLight）
+1. **新功能优先在现有 enhance 模块内扩展**，不轻易新建碎片模块
+2. **禁止**覆盖 buildWorld / window.updateDayNight（词法绑定，替换无效）
+3. **禁止**错误变量名（sun不是sunLight，ambient不是ambientLight）
 4. **禁止**硬编码坐标新建同名地标（必须在原有建筑上精修）
-5. **禁止**重复造轮子（已有Sound/NPC/水面/昼夜系统）
-6. **必须**复用共享材质库MAT
-7. **必须**在原场景坐标基础上添加细节
+5. **禁止**重复造轮子（已有Sound/NPC/水面Shader/昼夜/材质库MAT）
+6. **禁止**散装 setTimeout 固定延迟初始化（用 __enhance.register）
+7. **禁止**独立 RAF 循环（逐帧更新接入 GameRendering.update 或 __nightLights）
+8. 新增物体必须触发 `__changan.rebuild()` 确保批处理/碰撞同步
+9. 提交前必须 `node --check` 全部通过（CI 自动验证）
 
 ---
 
-## 下一步开发建议
+## 下一步建议
 
-1. **删除旧的问题模块文件**：121-140号、31-120号文件可以删除
-2. **真实PBR贴图**：替换Canvas生成纹理为真实PBR贴图
-3. **更高精度模型**：替换简单几何体为更高精度的建筑模型
-4. **真实人物角色**：替换简单几何体NPC为更精致的人物
-5. **InstancedMesh优化**：树木、NPC等大量对象使用实例化渲染
-6. **移动端适配**：优化移动端性能和触控体验
+1. **浏览器实测验收**：本地起服务 + chromium headless，产出朱雀大街/大明宫/东西市/曲江池/大雁塔固定机位截图 + FPS/DrawCalls/内存数据（verify.mjs 已就绪，依赖 CDP PORT 9226）
+2. **PBR 贴图升级**：替换 Canvas 生成纹理为真实 PBR（法线/粗糙度贴图）
+3. **高精度模型替换**：简单几何体 → GLB 精模（共享素材包，不重复存储纹理）
+4. **人物骨骼动画**：胶囊体 NPC → 骨骼动画角色
+5. **分区流式加载**：按城市分区异步加载/卸载，LOD 分级
+6. **移动端性能**：DPR/阴影/后处理按设备档位自适应
 
 ---
 
