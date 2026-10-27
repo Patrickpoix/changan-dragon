@@ -1,13 +1,14 @@
 /* Local, ordered boot of shared engine and scene modules.
  * Keep this list as the single source of load order for the main game.
- * v4 性能优化（2026-10-27）：
- *   - scene-materials.js (7MB) 和 runtime-models.js (9.58MB) 改为并行下载
- *   - 小引擎文件串行加载，同时大文件并行下载，互不阻塞
- *   - 30-main.js 仅在所有文件就绪后加载（此时才执行 boot()）
- *   - 效果：首屏下载时间从串行 17.9MB 变为并行 ~10MB（取最大文件）
+ * v5 性能优化（2026-10-27）：
+ *   - 所有小文件script标签一次性创建，浏览器并行下载、按序执行
+ *   - 大素材(7MB+9.58MB)与小引擎文件同时开始下载
+ *   - 全部就绪后才加载30-main.js
+ *   - 效果：首屏下载时间从串行17.8MB变为并行~16.6MB
+ * v4: scene-materials.js和runtime-models.js改为并行下载
  * v3: 移除6个enhance模块，改为GAME.ready后动态加载 */
 
-// 小文件：串行加载（有依赖顺序）
+// 小文件：按依赖顺序排列（script标签默认按文档顺序执行）
 const smallScripts = [
   'vendor/three.min.js',
   'vendor/rendering-addons.js',
@@ -36,7 +37,7 @@ const smallScripts = [
   'src/99-safe-init.js',
 ];
 
-// 大文件：并行下载（7MB + 9.58MB，不互相阻塞）
+// 大文件：并行下载（7MB + 9.58MB）
 const bigAssets = [
   'assets/scene-materials.js',
   'assets/runtime-models.js',
@@ -45,7 +46,16 @@ const bigAssets = [
 (function boot() {
   const statusEl = document.getElementById('bootStatus');
 
-  // 立即并行启动大文件下载
+  // 一次性创建所有小文件script标签——浏览器并行下载，按文档顺序执行
+  const smallPromises = smallScripts.map(src => new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('small script failed: ' + src));
+    document.head.appendChild(s);
+  }));
+
+  // 大文件也立即并行开始下载
   const bigPromises = bigAssets.map(src => new Promise((resolve, reject) => {
     const s = document.createElement('script');
     s.src = src;
@@ -54,29 +64,14 @@ const bigAssets = [
     document.head.appendChild(s);
   }));
 
-  // 串行加载小引擎文件
-  let index = 0;
-  function loadSmall() {
-    if (index >= smallScripts.length) {
-      // 小文件全部加载完毕，等待大文件就绪后加载主入口
-      Promise.all(bigPromises).then(() => {
-        if (statusEl) statusEl.textContent = '开始构建长安城…';
-        const s = document.createElement('script');
-        s.src = 'src/30-main.js';
-        document.head.appendChild(s);
-      }).catch(err => {
-        if (statusEl) statusEl.textContent = '大素材加载失败：' + err.message;
-        console.error('[Boot]', err);
-      });
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = smallScripts[index++];
-    script.onload = loadSmall;
-    script.onerror = () => {
-      if (statusEl) statusEl.textContent = '模块加载失败：' + script.src;
-    };
-    document.head.appendChild(script);
-  }
-  loadSmall();
+  // 小文件+大文件全部就绪后，加载主入口
+  Promise.all([...smallPromises, ...bigPromises]).then(() => {
+    if (statusEl) statusEl.textContent = '开始构建长安城…';
+    const s = document.createElement('script');
+    s.src = 'src/30-main.js';
+    document.head.appendChild(s);
+  }).catch(err => {
+    if (statusEl) statusEl.textContent = '资源加载失败：' + err.message;
+    console.error('[Boot]', err);
+  });
 })();
