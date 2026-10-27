@@ -1,8 +1,9 @@
 /* ============================================================
-   NightLight - 夜景灯光Owner（v5）
+   NightLight - 夜景灯光Owner（v5.1）
    修复：宫殿灯笼改 mulberry32 种子随机（布局可复现）；
         明德门灯笼移到城门内（z=375，不在城墙外 z=384）；
         灯笼用 UNIT_CYL（柱）+ UNIT_SPHERE（灯罩）分层。
+   v5.1：补全 mulberry32 函数定义（此前直接调用但未定义，会 ReferenceError）
    ============================================================ */
 
 (function() {
@@ -11,6 +12,14 @@
   let registered = false;
   const pointLights = [];
 
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
   const R = mulberry32(20261029);
 
   function init() {
@@ -74,7 +83,7 @@
 
       if (typeof window !== 'undefined') window.__nightLights = pointLights;
 
-      console.log('[NightLight] v5: 64 lanterns (seeded, pole+shade) + 7 point lights');
+      console.log('[NightLight] v5.1: 64 lanterns (seeded, pole+shade) + 7 point lights (mulberry32 defined)');
     } catch(e) { console.warn('[NightLight] init failed:', e); }
   }
 

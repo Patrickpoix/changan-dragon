@@ -1,8 +1,9 @@
 /* ============================================================
-   Vegetation - 植被系统Owner（v4）
+   Vegetation - 植被系统Owner（v4.1）
    修复：花卉/竹林改 mulberry32 种子随机（布局可复现）；
         花卉改用小圆柱+不同色（不是 UNIT_SPHERE 球体冒充）；
         竹林移到塔院东侧空地（不长塔基上）。
+   v4.1：补全 mulberry32 函数定义（此前直接调用但未定义，会 ReferenceError）
    ============================================================ */
 
 (function() {
@@ -10,6 +11,14 @@
 
   let registered = false;
 
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
   const R = mulberry32(20261028);
 
   const FLOWER_CONFIG = [
@@ -60,7 +69,7 @@
         leaves.build();
       }
 
-      console.log('[Vegetation] v4: flowers (stem+bloom separated) + bamboo (east of pagoda), seeded');
+      console.log('[Vegetation] v4.1: flowers (stem+bloom separated) + bamboo (east of pagoda), seeded (mulberry32 defined)');
     } catch(e) { console.warn('[Vegetation] 初始化失败:', e); }
   }
 

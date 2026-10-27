@@ -1,7 +1,8 @@
 /* ============================================================
-   Outside - 城外环境Owner（v4）
+   Outside - 城外环境Owner（v4.1）
    修复：里程碑移到护城河外（z>415）；城外树改 mulberry32 种子随机
         （布局可复现，不每次刷新变）；驿站坐标核对避开田畴。
+   v4.1：补全 mulberry32 函数定义（此前直接调用但未定义，会 ReferenceError）
    ============================================================ */
 
 (function() {
@@ -10,6 +11,14 @@
   let registered = false;
 
   // 固定种子：布局可复现（每次刷新位置一致），但仍自然分布
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
   const R = mulberry32(20261027);
 
   function registerCollider(x, z, w, d, tag) {
@@ -32,7 +41,7 @@
     roof.position.set(x, 7, z); roof.scale.set(21, 3.5, 15); roof.castShadow = true;
     scene.add(roof);
     const wall = new THREE.Mesh(UNIT_BOX, MAT.stone);
-    wall.position.set(x, 1.5, z + 10); wall.scale.set(30, 3, 0.5); wall.castShadow = true;
+    wall.position.set(x, 1.5, z + 10); wall.scale.set(30, 3, 0.5); wall.castShadow = true; wall.receiveShadow = true;
     scene.add(wall);
     registerCollider(x, z, 18, 12, 'station');
     registerCollider(x, z + 10, 30, 0.5, 'station-wall');
@@ -42,10 +51,10 @@
   function addWell(x, z) {
     if (typeof MAT === 'undefined') return;
     const base = new THREE.Mesh(UNIT_CYL, MAT.stone);
-    base.position.set(x, 0.5, z); base.scale.set(1.5, 1, 1.5); base.castShadow = true;
+    base.position.set(x, 0.5, z); base.scale.set(1.5, 1, 1.5); base.castShadow = true; base.receiveShadow = true;
     scene.add(base);
     const roof = new THREE.Mesh(ROOF_SMALL, MAT.roof);
-    roof.position.set(x, 2.5, z); roof.scale.set(3, 1.5, 3); roof.castShadow = true;
+    roof.position.set(x, 2.5, z); roof.scale.set(3, 1.5, 3); roof.castShadow = true; roof.receiveShadow = true;
     scene.add(roof);
     registerCollider(x, z, 3, 3, 'well');
   }
@@ -84,7 +93,7 @@
         for (let i = 0; i < 20; i++) addTree(-600 + R() * 200, -400 + R() * 200, i % 2 ? 'willow' : 'pine', 0.8 + R() * 0.3);
       }
 
-      console.log('[Outside] v4: 4 stations + 2 wells + 16 milestones (z>415) + 100 seeded trees');
+      console.log('[Outside] v4.1: 4 stations + 2 wells + 16 milestones (z>415) + 100 seeded trees (mulberry32 defined)');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 
