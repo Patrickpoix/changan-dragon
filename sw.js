@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v25
+/* Chang'an Dragon Service Worker v26
+ * v26: 门派与修炼系统 — 修仙问道
  * v25: 科举与官职系统 — 仕途之路
- * v24: 收藏与商业系统 — 宝物与商机
  */
-const CACHE_NAME = 'changan-v25';
+const CACHE_NAME = 'changan-v26';
 const CORE_ASSETS = [
   './',
   './index.html',
