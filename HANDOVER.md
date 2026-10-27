@@ -1,6 +1,6 @@
 # 《龙游长安》交接文档
 
-**更新日期：2026年10月27日 09:00 北京时间**
+**更新日期：2026年10月27日 09:45 北京时间**
 
 ---
 
@@ -78,6 +78,25 @@ scene / camera / renderer / sun（平行光）/ ambient（环境光）/ hemi / r
 4. **P0-4 初始化生命周期**：99-safe-init v2 改 RAF 分帧（消除500ms×8=4s固定延迟）✓
 5. **P0-5 昼夜统一**：enhance 不覆盖 window.updateDayNight；天气包装 GameRendering.update；点光登记 __nightLights ✓
 6. 空模块清理：删除 visual-grade.js / sky.js（boot.js 引用同步移除）✓
+
+### 全量源码审查确认健康（2026-10-27 09:40）
+
+| 文件 | SHA | 审查结论 |
+|------|-----|----------|
+| src/00-core.js | 20834ea1 | Batch 幂等重建✓ CITY/WORLD坐标✓ 天空Shader(双层云+星+山脊)✓ MAX_DPR 触控1.25/桌面1.65✓ |
+| src/05-rendering.js | a42ad59d | GameRendering: SAO+Bloom+FXAA+ACESFilmic+PMREM, 质量档位auto/low/med/high, LOD距离裁剪✓ |
+| src/09-botany.js | e3684476 | 3植物Batch(柳/桃/松) LOD近/远两档+相机穿叶避让shader(canopyAnchor discard)✓ |
+| src/10-world.js | 57fb767a | 城墙角楼(±450,±380)与CITY边界一致✓ 坊市网格✓ 唐式歇山顶几何✓ |
+| src/12-landmarks.js | c0d0db57 | 地标坐标与权威表一致✓ 水面真实Shader(time/deep/shallow/fresnel)✓ |
+| src/20-character.js | 91104e7c | 小青龙IK骨骼动画✓ 人物mergeColored+顶点步态shader✓ 城市人群InstancedMesh共享6模板✓ |
+| src/25-exploration.js | 5f79b8b4 | 三模式移动(walk/bike/fly)✓ 8景点电影镜头✓ buildRoofGrid飞行包络✓ |
+| src/28-weather.js | 04652076 | v4包装GameRendering.update✓ 雨滴800跟随玩家✓ 雾/曝光GRADE基线相对微调✓ |
+| src/30-main.js | 9a019d3e | updateDayNight词法绑定唯一驱动✓ rebuild()完整链路✓ |
+| src/enhance/performance.js | 6ed38e35 | 阴影±140m✓ 各向异性16x✓ 正确变量名sun✓ |
+| src/enhance/night-light.js | 65a6bd72 | 64灯笼局部Batch(2drawcall)✓ 7点光登记__nightLights✓ |
+| src/enhance/water.js | 8cd9dacc | 护城河三面共享waterMat✓ 6木桥bridgeZones✓ |
+
+**结论**：P0 五项全部修复并推 main；全部核心文件源码审查健康；无重复系统、无坐标冲突、无初始化失效。
 
 ---
 
