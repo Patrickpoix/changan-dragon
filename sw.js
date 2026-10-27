@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v38
+/* Chang'an Dragon Service Worker v39
+ * v39: 背包与物品管理系统 — 包罗万象
  * v38: 好友与聊天社交系统 — 广交天下
- * v37: 商城与充值系统 — 琳琅满目
  */
-const CACHE_NAME = 'changan-v38';
+const CACHE_NAME = 'changan-v39';
 const CORE_ASSETS = [
   './',
   './index.html',
