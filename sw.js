@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v37
+/* Chang'an Dragon Service Worker v38
+ * v38: 好友与聊天社交系统 — 广交天下
  * v37: 商城与充值系统 — 琳琅满目
- * v36: 成就与称号收集系统 — 荣耀满身
  */
-const CACHE_NAME = 'changan-v37';
+const CACHE_NAME = 'changan-v38';
 const CORE_ASSETS = [
   './',
   './index.html',
