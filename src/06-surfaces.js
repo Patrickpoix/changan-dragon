@@ -58,7 +58,17 @@ const SurfaceLibrary = (() => {
         if (orm && !mat.roughnessMap) mat.roughnessMap = orm;
         mat.needsUpdate = true;
       }
-      console.log('[SurfaceLibrary] ✓ 衣物PBR法线贴图补绑 (' + clothMaterials.length + '个材质)');
+      // v3: personMat (20-character.js) is created with normalMap=null because
+      // SurfaceLibrary.cloth() is called before SCENE_MATERIALS loads. It is not
+      // in clothMaterials, so update it directly here.
+      if (typeof personMat !== 'undefined') {
+        if (normal && !personMat.normalMap) {
+          personMat.normalMap = normal;
+          personMat.normalScale = new THREE.Vector2(0.12, 0.12);
+        }
+        personMat.needsUpdate = true;
+      }
+      console.log('[SurfaceLibrary] ✓ 衣物PBR法线贴图补绑 (' + clothMaterials.length + '个材质 + personMat)');
     },
     rammedEarth() {
       if(cache.has('rammed-earth'))return cache.get('rammed-earth');
@@ -107,11 +117,11 @@ const SurfaceLibrary = (() => {
         for(let i=0;i<8;i++) {
           const a=i*TAU/8;ctx.save();ctx.translate(x,y);ctx.rotate(a);
           ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(-r*.46,-r*.6,-r*.16,-r*.9,0,-r*.94);
-          ctx.bezierCurveTo(r*.16,-r*.9,r*.46,-r*.6,0,0);ctx.stroke();ctx.restore();
+          ctx.bezierCurveTo(r*.16,-r*.9,r*.46,-r*.6,0,0);ctx.stroke();
         }
         ctx.beginPath();ctx.arc(x,y,r*.2,0,TAU);ctx.stroke();
       }
-      for(let i=0;i<4;i++) medallion(32+i*64,111,20);
+      for(let i=0;i<8;i++) medallion(32+i*64,111,20);
       for(let i=0;i<8;i++) medallion(16+i*32,230,8);
       const map=new THREE.CanvasTexture(canvas);map.colorSpace=THREE.SRGBColorSpace;
       map.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
