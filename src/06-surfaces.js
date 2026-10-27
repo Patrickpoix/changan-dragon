@@ -45,6 +45,13 @@ const SurfaceLibrary = (() => {
           material.needsUpdate = true;
         }
       }
+      // v4: 补绑pavingMaterial（25-exploration.js构建时MAT.plaster.normalMap为null）
+      if (typeof window !== 'undefined' && window.__pavingMaterial) {
+        window.__pavingMaterial.normalMap = maps['plaster-normal'];
+        window.__pavingMaterial.normalScale = new THREE.Vector2(0.12, 0.12);
+        window.__pavingMaterial.needsUpdate = true;
+        console.log('[SurfaceLibrary] ✓ 铺路砖PBR法线补绑完成');
+      }
     },
     // v2: Called after scene-materials.js loads to update cloth normal maps
     // on materials created earlier when SCENE_MATERIALS was undefined.
