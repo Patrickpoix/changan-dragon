@@ -1,109 +1,86 @@
 /* ============================================================
-   NightLight - 夜景灯光Owner（v5.1）
-   修复：宫殿灯笼改 mulberry32 种子随机（布局可复现）；
-        明德门灯笼移到城门内（z=375，不在城墙外 z=384）；
-        灯笼用 UNIT_CYL（柱）+ UNIT_SPHERE（灯罩）分层。
-   v5.1：补全 mulberry32 函数定义（此前直接调用但未定义，会 ReferenceError）
+   夜景灯光增强 · 盛唐不夜城
+   更多灯笼 / 灯光效果 / 夜景氛围
    ============================================================ */
 
 (function() {
-  'use strict';
-
-  let registered = false;
-  const pointLights = [];
-
-  function mulberry32(seed) {
-    return function() {
-      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    };
-  }
-  const R = mulberry32(20261029);
-
   function init() {
-    try {
-      if (typeof scene === 'undefined' || typeof MAT === 'undefined' || typeof Batch === 'undefined') return;
-
-      const positions = [];
-
-      for (let i = 0; i < 12; i++) {
-        const angle = R() * Math.PI * 2, r = 34 + R() * 40;
-        positions.push([150 + Math.cos(angle) * r, -432 + Math.sin(angle) * r, 4]);
-      }
-      for (let i = 0; i < 10; i++) {
-        const angle = R() * Math.PI * 2, r = 30 + R() * 35;
-        positions.push([0 + Math.cos(angle) * r, -334 + Math.sin(angle) * r, 4]);
-      }
-      for (let i = 0; i < 8; i++) {
-        const angle = R() * Math.PI * 2, r = 34 + R() * 30;
-        positions.push([342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4]);
-      }
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2;
-        positions.push([216 + Math.cos(angle) * 16, 283 + Math.sin(angle) * 16, 4]);
-      }
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2;
-        positions.push([-216 + Math.cos(angle) * 14, 349 + Math.sin(angle) * 14, 4]);
-      }
-      for (let i = 0; i < 10; i++) {
-        const angle = (i / 10) * Math.PI * 2;
-        positions.push([354 + Math.cos(angle) * 46, 318 + Math.sin(angle) * 38, 3.5]);
-      }
-      for (let i = 0; i < 8; i++) positions.push([-16 + i * 4.6, 375, 4]);
-
-      const poles = new Batch(UNIT_CYL, MAT.wood, { cast: true });
-      const shades = new Batch(UNIT_SPHERE, MAT.lanternGlow || MAT.lantern, { cast: false });
-      positions.forEach(p => {
-        const h = p[2];
-        poles.add(p[0], h / 2, p[1], 0.15, h, 0.15);
-        shades.add(p[0], h + 0.3, p[1], 0.35, 0.45, 0.35);
-      });
-      poles.build();
-      shades.build();
-
-      const lanternPositions = [
-        { x: 150, z: -432, intensity: 0.8, distance: 100 },
-        { x: 0, z: -334, intensity: 0.7, distance: 90 },
-        { x: 342, z: -152, intensity: 0.6, distance: 80 },
-        { x: 354, z: 318, intensity: 0.5, distance: 70 },
-        { x: 216, z: 283, intensity: 0.4, distance: 60 },
-        { x: -216, z: 349, intensity: 0.4, distance: 60 },
-        { x: 0, z: 380, intensity: 0.6, distance: 60 },
-      ];
-      lanternPositions.forEach(pos => {
-        const light = new THREE.PointLight(0xffc97a, 0, pos.distance, 2);
-        light.position.set(pos.x, 8, pos.z);
-        light.userData.baseIntensity = pos.intensity;
-        pointLights.push(light);
-        scene.add(light);
-      });
-
-      if (typeof window !== 'undefined') window.__nightLights = pointLights;
-
-      console.log('[NightLight] v5.1: 64 lanterns (seeded, pole+shade) + 7 point lights (mulberry32 defined)');
-    } catch(e) { console.warn('[NightLight] init failed:', e); }
-  }
-
-  function register() {
-    if (registered) return;
-    registered = true;
-    if (window.__enhance) {
-      window.__enhance.register('night-light', init, 70);
-    } else {
-      (window.__enhancePending = window.__enhancePending || []).push({ owner: 'night-light', fn: init, priority: 70 });
+    if (typeof GAME === 'undefined' || !GAME.ready) {
+      setTimeout(init, 500);
+      return;
     }
+    buildNightLighting();
   }
 
-  if (typeof GAME !== 'undefined' && GAME.ready) register();
-  else {
-    let tries = 0;
-    (function check() {
-      if (typeof GAME !== 'undefined' && GAME.ready) register();
-      else if (tries++ < 400) setTimeout(check, 100);
-      else { if (window.__enhance) window.__enhance.register('night-light', init, 70); }
-    })();
+  function buildStreetLanterns() {
+    const lanternCount = 60;
+    for (let i = 0; i < lanternCount; i++) {
+      const t = i / lanternCount;
+      const z = lerp(-370, 370, t);
+      for (const side of [-1, 1]) {
+        const x = side * 13;
+        B.lantern.add(x, 6, z, 0.8, 1, 0.8, 0, 0xff5030);
+        B.lanternGlow.add(x, 6, z, 2, 2, 2, 0, 0xff8050);
+        B.dark.add(x, 7, z, 0.1, 2, 0.1, 0, 0x6a4a3a);
+      }
+    }
+    console.log('[NightLight] 沿街灯笼: ' + lanternCount * 2 + ' 盏');
+  }
+
+  function buildShopLanterns() {
+    const shopLanternCount = 80;
+    for (let i = 0; i < shopLanternCount; i++) {
+      if (i < 40) {
+        const x = rand(150, 200);
+        const z = rand(-50, 20);
+        B.lantern.add(x, 4, z, 0.6, 0.8, 0.6, 0, 0xff6040);
+        B.lanternGlow.add(x, 4, z, 1.5, 1.5, 1.5, 0, 0xff9060);
+      } else {
+        const x = rand(-280, -230);
+        const z = rand(-50, 20);
+        B.lantern.add(x, 4, z, 0.6, 0.8, 0.6, 0, 0xff6040);
+        B.lanternGlow.add(x, 4, z, 1.5, 1.5, 1.5, 0, 0xff9060);
+      }
+    }
+    console.log('[NightLight] 店铺灯笼: ' + shopLanternCount + ' 盏');
+  }
+
+  function buildPalaceLanterns() {
+    const palaceLanternPositions = [
+      [0, -300], [30, -300], [-30, -300],
+      [0, -250], [30, -250], [-30, -250],
+    ];
+    for (const [x, z] of palaceLanternPositions) {
+      B.lantern.add(x, 8, z, 1, 1.2, 1, 0, 0xff7050);
+      B.lanternGlow.add(x, 8, z, 2.5, 2.5, 2.5, 0, 0xffa070);
+      B.gold.add(x, 9, z, 0.2, 2, 0.2, 0, 0xf0c050);
+    }
+    console.log('[NightLight] 宫灯: ' + palaceLanternPositions.length + ' 盏');
+  }
+
+  function buildRiverLanterns() {
+    const riverLanternCount = 30;
+    for (let i = 0; i < riverLanternCount; i++) {
+      const x = rand(320, 390);
+      const z = rand(290, 340);
+      B.lantern.add(x, 0.5, z, 0.4, 0.3, 0.4, 0, 0xff8060);
+      B.lanternGlow.add(x, 0.5, z, 1, 1, 1, 0, 0xffa080);
+    }
+    console.log('[NightLight] 河灯: ' + riverLanternCount + ' 盏');
+  }
+
+  function buildNightLighting() {
+    console.log('[NightLight] 开始构建夜景灯光...');
+    buildStreetLanterns();
+    buildShopLanterns();
+    buildPalaceLanterns();
+    buildRiverLanterns();
+    console.log('[NightLight] 夜景灯光构建完成！盛唐不夜城');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
