@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v28
+/* Chang'an Dragon Service Worker v29
+ * v29: 社交与婚姻系统 — 相识相知
  * v28: 坐骑与宠物养成系统 — 神兽相伴
- * v27: 战斗与PK系统 — 热血江湖
  */
-const CACHE_NAME = 'changan-v28';
+const CACHE_NAME = 'changan-v29';
 const CORE_ASSETS = [
   './',
   './index.html',
