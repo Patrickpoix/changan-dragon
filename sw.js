@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v31
+/* Chang'an Dragon Service Worker v32
+ * v32: 活动与副本系统 — 精彩无限
  * v31: 排行榜与成就系统 — 荣耀加身
- * v30: 家园与种植系统 — 安居乐业
  */
-const CACHE_NAME = 'changan-v31';
+const CACHE_NAME = 'changan-v32';
 const CORE_ASSETS = [
   './',
   './index.html',
