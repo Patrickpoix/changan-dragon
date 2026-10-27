@@ -1,5 +1,5 @@
 /* ============================================================
-   Water - 水景系统Owner（v3.1）
+   Water - 水景系统Owner（v3.2）
    原系统已有曲江池/龙池/太液池（waterMat Shader+画舫+荷叶）+城外小河
    本模块补充护城河三面（南/东/西，共享waterMat）+木桥+岸石芦苇鸭
    - 南：z=400 宽20m 两段(x:-450..-25 / 25..450，明德门御道通道)
@@ -7,6 +7,7 @@
    - 西：x=-465 宽12m 两段(z同东，金光门通道)，桥 z=±150
    木桥按跨河方向（南桥沿z、东西桥沿x），deck/bridgeZones一一对应
    装饰物全部使用局部Batch（绝不调用共享B.build避免重复instance）
+   v3.2：岸石/芦苇/鸭子改用mulberry32种子随机（布局可复现，每次刷新不漂移）
    通过 __enhance.register 注册（优先级60）
    ============================================================ */
 
@@ -14,6 +15,17 @@
   'use strict';
 
   let registered = false;
+
+  // 种子随机：布局可复现（符合"人工固定布局"原则），但仍自然
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  const sr = mulberry32(4201);
 
   const _mat = {};
   function sharedMat(key, opts) {
@@ -90,37 +102,37 @@
       addMoatBridge(-463, -150, false);
       addMoatBridge(-463, 150, false);
 
-      // ============ 岸线装饰（局部Batch，避免重复instance） ============
+      // ============ 岸线装饰（局部Batch，种子随机布局可复现） ============
       if (typeof Batch !== 'undefined') {
         const rocks = new Batch(UNIT_SPHERE, MAT.stone, { cast: true });
         for (let i = 0; i < 52; i++) {
           const x = -440 + i * 17;
-          const s = 0.5 + Math.random() * 0.6;
-          rocks.add(x, 0.18, 387 + Math.random() * 2, s, s * 0.65, s, 0, 0xd8cdb5);
-          rocks.add(x, 0.18, 413 + Math.random() * 2, s, s * 0.65, s, 0, 0xd2c6ae);
+          const s = 0.5 + sr() * 0.6;
+          rocks.add(x, 0.18, 387 + sr() * 2, s, s * 0.65, s, 0, 0xd8cdb5);
+          rocks.add(x, 0.18, 413 + sr() * 2, s, s * 0.65, s, 0, 0xd2c6ae);
         }
         rocks.build();
 
         const reeds = new Batch(UNIT_CYL, sharedMat('reed', { color: 0x8a9a5a, roughness: 0.9 }), { cast: false });
         for (let i = 0; i < 34; i++) {
-          const x = -440 + Math.random() * 880;
-          reeds.add(x, 1.0, 388 + Math.random() * 4, 0.07, 2.0, 0.07);
-          reeds.add(x, 1.0, 412 + Math.random() * 4, 0.07, 2.0, 0.07);
+          const x = -440 + sr() * 880;
+          reeds.add(x, 1.0, 388 + sr() * 4, 0.07, 2.0, 0.07);
+          reeds.add(x, 1.0, 412 + sr() * 4, 0.07, 2.0, 0.07);
         }
         reeds.build();
 
         const duckMat = sharedMat('duck', { color: 0x8b4513, roughness: 0.8 });
         const ducks = new Batch(UNIT_SPHERE, duckMat, { cast: false });
         for (let i = 0; i < 6; i++) {
-          const x = -300 + Math.random() * 600;
-          const z = 400 + (Math.random() * 12 - 6);
+          const x = -300 + sr() * 600;
+          const z = 400 + (sr() * 12 - 6);
           ducks.add(x, 0.28, z, 0.55, 0.36, 0.72);
           ducks.add(x + 0.1, 0.55, z + 0.42, 0.22, 0.22, 0.22);
         }
         ducks.build();
       }
 
-      console.log('[Water] 水景系统增强完成 - 护城河三面(南z400/东x465/西x-465，共享waterMat，各留城门通道)+6木桥(按跨河方向)+岸石芦苇鸭(局部Batch)，waterRects/bridgeZones已注册');
+      console.log('[Water] 水景系统增强完成 - 护城河三面(南z400/东x465/西x-465，共享waterMat，各留城门通道)+6木桥(按跨河方向)+岸石芦苇鸭(局部Batch,种子随机可复现)，waterRects/bridgeZones已注册');
     } catch(e) { console.warn('[Water] 初始化失败:', e); }
   }
 
