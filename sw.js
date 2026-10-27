@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v13
+/* Chang'an Dragon Service Worker v14
+ * v14: 天气与环境增强 — 四时之景
  * v13: 建筑细节增强 — 唐风韵味
- * v12: 夜景灯光增强 — 盛唐不夜城
  */
-const CACHE_NAME = 'changan-v13';
+const CACHE_NAME = 'changan-v14';
 const CORE_ASSETS = [
   './',
   './index.html',
