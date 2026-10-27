@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v14
+/* Chang'an Dragon Service Worker v15
+ * v15: UI交互增强 — 沉浸体验
  * v14: 天气与环境增强 — 四时之景
- * v13: 建筑细节增强 — 唐风韵味
  */
-const CACHE_NAME = 'changan-v14';
+const CACHE_NAME = 'changan-v15';
 const CORE_ASSETS = [
   './',
   './index.html',
