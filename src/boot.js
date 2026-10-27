@@ -1,6 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v13: 添加夜景灯光增强模块
  * v12: 添加人物与自然增强模块
- * v11: 添加城市细节增强模块加载
  */
 
 const smallScripts = [
@@ -106,13 +106,21 @@ function populateDeferredModels() {
           document.head.appendChild(lifeScript);
         }, 300);
         
+        // 夜景灯光
+        setTimeout(() => {
+          const nightScript = document.createElement('script');
+          nightScript.src = 'src/enhance/night-light.js';
+          nightScript.onerror = () => console.warn('[Boot] 夜景灯光模块加载失败');
+          document.head.appendChild(nightScript);
+        }, 600);
+        
         // 奇观建筑
         setTimeout(() => {
           const wonderScript = document.createElement('script');
           wonderScript.src = 'src/enhance/wonders.js';
           wonderScript.onerror = () => console.warn('[Boot] 奇观建筑模块加载失败');
           document.head.appendChild(wonderScript);
-        }, 800);
+        }, 1000);
       }, 1000);
     };
     document.head.appendChild(s);
