@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v8
- * v8: 仙侠奇观建筑上线 + 视觉品质升级
- * v7: major visual upgrade — white-base PBR textures + mobile high quality + stronger bloom/SAO/color grading
+/* Chang'an Dragon Service Worker v9
+ * v9: 电影级视觉升级 — ACES色调映射、更强光照、更精致PBR材质
+ * v8: 仙侠奇观建筑上线
  */
-const CACHE_NAME = 'changan-v8';
+const CACHE_NAME = 'changan-v9';
 const CORE_ASSETS = [
   './',
   './index.html',
