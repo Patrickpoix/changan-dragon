@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v11
- * v11: 人物与自然增强 + 城市细节 + 仙侠奇观 + 电影级视觉
- * v10: 城市细节增强 + 仙侠奇观
+/* Chang'an Dragon Service Worker v12
+ * v12: 夜景灯光增强 — 盛唐不夜城
+ * v11: 人物与自然增强 + 城市细节 + 仙侠奇观
  */
-const CACHE_NAME = 'changan-v11';
+const CACHE_NAME = 'changan-v12';
 const CORE_ASSETS = [
   './',
   './index.html',
