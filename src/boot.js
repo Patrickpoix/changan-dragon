@@ -2,7 +2,9 @@
  * Keep this list as the single source of load order for the main game.
  * 2026-10-27 修正：加载清单与实际 src 目录对齐（26-extra-places/
  * 26b-extra-places-2/27b-extra-poems/27c-extra-poems-2），
- * 29-lanterns.js 已整合进 25-exploration.js 的 buildArchitecturalDetails()。 */
+ * 29-lanterns.js 已整合进 25-exploration.js 的 buildArchitecturalDetails()。
+ * 2026-10-27 v2：移除无实际功能的空模块 visual-grade.js / sky.js
+ * （视觉基调已由主循环 updateDayNight 统一驱动，天空 Shader 已在 00-core.js）。 */
 
 const scripts = [
   'vendor/three.min.js',
@@ -31,8 +33,6 @@ const scripts = [
   'src/27b-extra-poems.js',
   'src/27c-extra-poems-2.js',
   'src/28-weather.js',
-  'src/enhance/visual-grade.js',
-  'src/enhance/sky.js',
   'src/enhance/performance.js',
   'src/enhance/landmarks.js',
   'src/enhance/vegetation.js',
