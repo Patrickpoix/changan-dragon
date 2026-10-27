@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v8.4: PBR补绑后重新编译材质着色器，避免进入游戏首次渲染卡顿
  * v8.3: scene-materials.js加载后调用SurfaceLibrary.architecture()补绑PBR法线/粗糙度
  * v8.2: scene-materials.js加载后调用GameRendering.refreshEnvironment()用HDRI替换fallback
  * v8.1: 注册Service Worker
@@ -39,11 +40,17 @@ if ('serviceWorker' in navigator) {
     const s = document.createElement('script'); s.src = src;
     s.onload = () => {
       console.log('[Boot] 延迟素材加载完成: ' + src);
-      // v8.2: scene-materials.js加载后，用HDRI替换临时RoomEnvironment
       if (src.indexOf('scene-materials') !== -1) {
+        // v8.2: HDRI替换
         try { if (typeof GameRendering !== 'undefined' && GameRendering.refreshEnvironment) GameRendering.refreshEnvironment(); } catch(e) {}
-        // v8.3: 补绑PBR法线/粗糙度到已有MAT材质（buildWorld时SCENE_MATERIALS未加载）
-        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) { SurfaceLibrary.architecture(); console.log('[Boot] PBR架构材质已补绑'); } } catch(e) {}
+        // v8.3: 补绑PBR法线/粗糙度
+        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) { SurfaceLibrary.architecture(); } } catch(e) {}
+        // v8.4: PBR贴图绑定后重新编译着色器，避免进入游戏首次渲染卡顿
+        try {
+          if (typeof renderer !== 'undefined' && typeof scene !== 'undefined' && typeof camera !== 'undefined') {
+            requestAnimationFrame(() => { try { renderer.compile(scene, camera); console.log('[Boot] ✓ PBR材质着色器重新编译完成'); } catch(e){} });
+          }
+        } catch(e) {}
       }
       try {
         if (typeof WorldAssets !== 'undefined' && typeof WorldAssets.reset === 'function') {
