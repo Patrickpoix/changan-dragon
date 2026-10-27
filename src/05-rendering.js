@@ -1,7 +1,7 @@
-/* Filmic rendering for the actual 3D scene. Official r160 addons are bundled
- * locally; see vendor/rendering-addons-LICENSE.txt and tools/build_rendering_addons.mjs.
- * v3: prewarm() 后台预生成PMREM环境贴图（开始界面期间），缩短进入游戏后的等待
- * v2: fastStart 快速启动模式 */
+/* Filmic rendering for the actual 3D scene.
+ * v4: refreshEnvironment() — scene-materials.js延迟加载后重新用HDRI生成PMREM
+ * v3: prewarm() 后台预生成PMREM
+ */
 (function (global) {
   'use strict';
   const T = global.THREE;
@@ -9,7 +9,7 @@
   let renderer, scene, camera, composer, ao, bloom, fxaa, outputPass, environmentTarget;
   let width = 1, height = 1, pixelRatio = 1, requestedQuality = 'auto';
   let quality = 'low', suspended = false, initialized = false, failed = false;
-  let failureReason = '', environmentReady = false, excluded = [], refreshNeeded = true;
+  let failureReason = '', environmentReady = false, environmentIsFallback = false, excluded = [], refreshNeeded = true;
   let environmentIntensity = 0.48, frameCount = 0, lastFrameMs = 0;
   let fastStartMode = false;
   const materialBaseIntensity = new WeakMap();
@@ -55,6 +55,7 @@
         texture.dispose();
         scene.environment = environmentTarget.texture;
         environmentReady = true;
+        environmentIsFallback = false;
         return;
       }
       room = new A.RoomEnvironment(renderer);
@@ -62,12 +63,28 @@
       environmentTarget = pmrem.fromScene(room, 0.04, 0.1, 100);
       scene.environment = environmentTarget.texture;
       environmentReady = true;
+      environmentIsFallback = true; // v4: 标记为临时回退，HDRI加载后可重新生成
     } catch (error) {
       failureReason = 'Environment fallback: ' + String(error.message || error).slice(0, 180);
       environmentTarget?.dispose(); environmentTarget = null;
     } finally {
       room?.dispose(); pmrem?.dispose(); renderer.setRenderTarget(oldTarget);
     }
+  }
+
+  // v4: scene-materials.js延迟加载后调用——用HDRI替换RoomEnvironment
+  function refreshEnvironment() {
+    if (typeof SCENE_MATERIALS === 'undefined' || !SCENE_MATERIALS.environment) return;
+    if (!environmentIsFallback) return; // 已经是HDRI，不需要替换
+    try {
+      environmentTarget?.dispose(); environmentTarget = null;
+      environmentReady = false;
+      makeEnvironment();
+      if (!environmentIsFallback) {
+        refreshNeeded = true;
+        console.log('[Rendering] ✓ HDRI环境贴图替换完成');
+      }
+    } catch(e) { console.warn('[Rendering] HDRI环境替换失败:', e); }
   }
 
   function refreshScene() {
@@ -155,7 +172,7 @@
   function onContextLost(event) {
     event.preventDefault(); suspended = true; destroyPipeline();
     if (scene.environment === environmentTarget?.texture) scene.environment = null;
-    environmentTarget?.dispose(); environmentTarget = null; environmentReady = false;
+    environmentTarget?.dispose(); environmentTarget = null; environmentReady = false; environmentIsFallback = false;
   }
   function onContextRestored() {
     suspended = false; failed = false; failureReason = '';
@@ -180,21 +197,20 @@
     renderer.domElement.addEventListener('webglcontextrestored', onContextRestored, false);
     fastStartMode = !!options.fastStart;
     if (!fastStartMode) { makeEnvironment(); makePipeline(); }
-    else { console.log('[Rendering] 快速启动模式：开始界面用 low 质量，进入游戏后升级'); }
+    else { console.log('[Rendering] 快速启动模式'); }
     refreshNeeded = true;
     return getDiagnostics();
   }
 
-  // v3: 开始界面期间后台预生成PMREM环境贴图，用户点击进入时只需创建后处理管线
   function prewarm() {
     if (!fastStartMode || environmentReady) return;
-    try { makeEnvironment(); console.log('[Rendering] PMREM环境贴图后台预生成完成'); } catch(e) { console.warn('[Rendering] PMREM预生成失败:', e); }
+    try { makeEnvironment(); console.log('[Rendering] PMREM预生成完成(fallback=' + environmentIsFallback + ')'); } catch(e) { console.warn('[Rendering] PMREM预生成失败:', e); }
   }
 
   function upgradeToFullQuality() {
     if (!fastStartMode) return;
     fastStartMode = false;
-    console.log('[Rendering] 升级到完整质量：创建后处理管线');
+    console.log('[Rendering] 升级到完整质量');
     if (!environmentReady) makeEnvironment();
     makePipeline();
     refreshNeeded = true;
@@ -252,8 +268,8 @@
     return { initialized, quality, requestedQuality, suspended, fastStartMode,
       antiAliasing: composer && fxaa ? 'FXAA' : renderer?.getContext().getContextAttributes()?.antialias ? 'MSAA' : 'none',
       toneMapping: 'ACESFilmic', exposure: renderer?.toneMappingExposure,
-      environment: environmentReady ? (typeof SCENE_MATERIALS !== 'undefined' ? 'Poly Haven Venice Sunset PMREM' : 'RoomEnvironment PMREM') : 'scene lighting', environmentIntensity,
-      ...state, width, height, pixelRatio, frameCount,
+      environment: environmentReady ? (environmentIsFallback ? 'RoomEnvironment (waiting HDRI)' : 'Poly Haven HDRI PMREM') : 'scene lighting',
+      environmentIntensity, ...state, width, height, pixelRatio, frameCount,
       drawCalls: renderer?.info.render.calls || 0, triangles: renderer?.info.render.triangles || 0,
       lastFrameMs: Math.round(lastFrameMs * 100) / 100, fallback: failureReason || null };
   }
@@ -264,12 +280,12 @@
     renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored);
     destroyPipeline();
     if (scene.environment === environmentTarget?.texture) scene.environment = null;
-    environmentTarget?.dispose(); environmentTarget = null; environmentReady = false;
+    environmentTarget?.dispose(); environmentTarget = null; environmentReady = false; environmentIsFallback = false;
     excluded = []; initialized = false;
   }
 
   global.GameRendering = { init, render, resize, setQuality, getDiagnostics, dispose, refreshScene,
-    upgradeToFullQuality, prewarm,
+    upgradeToFullQuality, prewarm, refreshEnvironment,
     setExposure(value) { if (renderer && Number.isFinite(value)) renderer.toneMappingExposure = Math.max(0.1, Math.min(3, value)); },
     setEnvironmentIntensity(value) { if (Number.isFinite(value)) { environmentIntensity = Math.max(0, Math.min(2, value)); refreshScene(); } },
   };
