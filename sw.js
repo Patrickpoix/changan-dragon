@@ -1,8 +1,9 @@
-/* 龙游长安 Service Worker v1
+/* 龙游长安 Service Worker v2
  * 缓存优先策略：首次访问后所有静态资源缓存，后续访问秒开
+ * v2: bump缓存版本确保boot v8.6+PBR补绑等最新变更立即生效
  * 版本更新时自动清理旧缓存
  */
-const CACHE_NAME = 'changan-v1';
+const CACHE_NAME = 'changan-v2';
 const CORE_ASSETS = [
   './',
   './index.html',
