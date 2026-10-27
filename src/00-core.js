@@ -1,6 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
-   一个完全自包含的 Three.js 卡通长安城
+   v3: 电影级材质升级 — 更精细的纹理、更好的PBR属性、更丰富的色彩
    ============================================================ */
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -39,7 +39,6 @@ const renderer = new THREE.WebGLRenderer({
   stencil: false,
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-// Direct bootstrap defaults; GameRendering installs the shared filmic pipeline.
 renderer.toneMapping = THREE.LinearToneMapping;
 renderer.toneMappingExposure = 1.04;
 renderer.shadowMap.enabled = true;
@@ -130,19 +129,19 @@ function gradientMap() {
 }
 
 const MAT = {
-  // Each surface owns its maps: cached white materials must not share mutation.
-  plaster: toon(0xffffff).clone(),
-  plasterWarm: toon(0xffffff).clone(),
-  wood: toon(0xffffff).clone(),
-  red: toon(0xffffff).clone(),
-  stone: toon(0xffffff).clone(),
-  roof: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0.02, vertexColors: false }),
-  roofGlazed: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.15 }),
+  // v3: 每个材质都有独立的纹理和PBR属性
+  plaster: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.82, metalness: 0.02 }),
+  plasterWarm: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8, metalness: 0.02 }),
+  wood: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65, metalness: 0.05 }),
+  red: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
+  stone: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.88, metalness: 0.02 }),
+  roof: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.85, metalness: 0.03 }),
+  roofGlazed: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4, metalness: 0.25 }),
   gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.32, metalness: 0.62 }),
-  dark: toon(0xffffff).clone(),
-  leaf: toon(0xffffff).clone(),
-  trunk: toon(0xffffff).clone(),
-  blossom: toon(0xffffff).clone(),
+  dark: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0.01 }),
+  leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0 }),
+  trunk: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92, metalness: 0 }),
+  blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.75, metalness: 0 }),
   water: null,
   lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.25, roughness: 0.55 }),
   lanternGlow: new THREE.MeshBasicMaterial({ color: 0xffb46b, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }),
@@ -173,69 +172,134 @@ function noiseFill(ctx, w, h, base, amount = 10, count = 2600) {
 }
 
 const TEX = {};
+
+// v3: 更精细的石材纹理 — 更真实的 paving 效果
 TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
-  noiseFill(ctx, w, h, '#c8d1c0', 9, 900);
-  const sw = 86, sh = 52;
+  noiseFill(ctx, w, h, '#c8d1c0', 12, 1200);
+  const sw = 64, sh = 48;
   for (let y = 0; y < h + sh; y += sh) {
     const off = (Math.floor(y / sh) % 2) * sw / 2;
     for (let x = -sw; x < w + sw; x += sw) {
-      ctx.strokeStyle = 'rgba(82,102,92,0.25)'; ctx.lineWidth = 2;
+      // 石板底色变化
+      const shade = 200 + Math.random() * 30;
+      ctx.fillStyle = `rgba(${shade},${shade + 8},${shade - 10},0.25)`;
+      ctx.fillRect(x + off + 1, y + 1, sw - 2, sh - 2);
+      // 石板缝隙
+      ctx.strokeStyle = 'rgba(60,80,70,0.35)'; ctx.lineWidth = 1.5;
       ctx.strokeRect(x + off, y, sw, sh);
-      ctx.fillStyle = `rgba(${208 + Math.random() * 20},${218 + Math.random() * 22},${198 + Math.random() * 20},0.18)`;
-      ctx.fillRect(x + off + 2, y + 2, sw - 4, sh - 4);
+      // 石板表面裂纹
+      if (Math.random() < 0.3) {
+        ctx.strokeStyle = 'rgba(70,90,80,0.15)';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(x + off + Math.random() * sw, y + Math.random() * sh);
+        ctx.lineTo(x + off + Math.random() * sw, y + Math.random() * sh);
+        ctx.stroke();
+      }
     }
   }
-  for (let i = 0; i < 30; i++) {
-    ctx.strokeStyle = 'rgba(74,104,96,0.12)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(Math.random() * w, Math.random() * h);
-    ctx.lineTo(Math.random() * w, Math.random() * h); ctx.stroke();
+  // 磨损痕迹
+  for (let i = 0; i < 20; i++) {
+    ctx.fillStyle = `rgba(180,170,150,${0.05 + Math.random() * 0.08})`;
+    ctx.beginPath();
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(10, 40), rand(5, 20), rand(0, TAU), 0, TAU);
+    ctx.fill();
   }
 }, { repeat: [1, 1] });
 
+// v3: 更精细的屋顶瓦面纹理
 TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
-  ctx.fillStyle = '#b8d1c9'; ctx.fillRect(0, 0, w, h);
-  for (let x = 0; x < w; x += 16) {
-    const g = ctx.createLinearGradient(x, 0, x + 16, 0);
-      g.addColorStop(0, 'rgba(34,91,85,.34)');
-    g.addColorStop(0.35, 'rgba(255,255,255,.22)');
-    g.addColorStop(0.7, 'rgba(255,255,255,.04)');
-      g.addColorStop(1, 'rgba(22,75,73,.42)');
-    ctx.fillStyle = g; ctx.fillRect(x, 0, 16, h);
+  ctx.fillStyle = '#a8c0b8'; ctx.fillRect(0, 0, w, h);
+  // 瓦垄 — 更精细的渐变
+  for (let x = 0; x < w; x += 12) {
+    const g = ctx.createLinearGradient(x, 0, x + 12, 0);
+    g.addColorStop(0, 'rgba(20,70,65,.5)');
+    g.addColorStop(0.25, 'rgba(255,255,255,.25)');
+    g.addColorStop(0.6, 'rgba(255,255,255,.08)');
+    g.addColorStop(1, 'rgba(15,55,52,.55)');
+    ctx.fillStyle = g; ctx.fillRect(x, 0, 12, h);
   }
-  for (let y = 0; y < h; y += 22) {
-    ctx.fillStyle = 'rgba(25,66,63,.3)'; ctx.fillRect(0, y, w, 3);
-    ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.fillRect(0, y + 3, w, 2);
+  // 瓦当 — 横向接缝
+  for (let y = 0; y < h; y += 20) {
+    ctx.fillStyle = 'rgba(20,60,58,.4)'; ctx.fillRect(0, y, w, 2.5);
+    ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(0, y + 2.5, w, 1.5);
+  }
+  // 岁月痕迹
+  for (let i = 0; i < 15; i++) {
+    ctx.fillStyle = `rgba(80,100,70,${0.03 + Math.random() * 0.05})`;
+    ctx.beginPath();
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(5, 20), rand(3, 10), 0, 0, TAU);
+    ctx.fill();
   }
 }, { repeat: [4, 3] });
 
+// v3: 更精细的木材纹理
 TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
-  noiseFill(ctx, w, h, '#c06b39', 14, 1200);
-  for (let i = 0; i < 28; i++) {
-    ctx.strokeStyle = `rgba(92,38,20,${0.05 + Math.random() * 0.09})`;
-    ctx.lineWidth = 1 + Math.random() * 2;
+  noiseFill(ctx, w, h, '#c06b39', 18, 1500);
+  // 木纹 — 更自然的曲线
+  for (let i = 0; i < 35; i++) {
+    ctx.strokeStyle = `rgba(80,35,18,${0.06 + Math.random() * 0.12})`;
+    ctx.lineWidth = 0.8 + Math.random() * 1.5;
     ctx.beginPath();
     const y = Math.random() * h;
     ctx.moveTo(0, y);
-    ctx.bezierCurveTo(w * 0.3, y + Math.random() * 10, w * 0.6, y - Math.random() * 10, w, y + Math.random() * 4);
+    ctx.bezierCurveTo(
+      w * 0.25, y + rand(-8, 8),
+      w * 0.5, y + rand(-12, 12),
+      w * 0.75, y + rand(-8, 8),
+      w, y + rand(-4, 4)
+    );
     ctx.stroke();
+  }
+  // 木节
+  for (let i = 0; i < 5; i++) {
+    ctx.fillStyle = `rgba(70,30,15,${0.15 + Math.random() * 0.1})`;
+    ctx.beginPath();
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(3, 8), rand(2, 5), rand(0, TAU), 0, TAU);
+    ctx.fill();
   }
 }, { repeat: [1, 2] });
 
+// v3: 更精细的墙面灰泥纹理 — 新增！
+TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
+  noiseFill(ctx, w, h, '#f5e8d0', 8, 800);
+  // 墙面斑驳痕迹
+  for (let i = 0; i < 25; i++) {
+    ctx.fillStyle = `rgba(180,160,130,${0.04 + Math.random() * 0.06})`;
+    ctx.beginPath();
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(5, 25), rand(3, 15), rand(0, TAU), 0, TAU);
+    ctx.fill();
+  }
+  // 细微裂纹
+  for (let i = 0; i < 8; i++) {
+    ctx.strokeStyle = `rgba(150,130,100,${0.05 + Math.random() * 0.05})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    let x = Math.random() * w, y = Math.random() * h;
+    ctx.moveTo(x, y);
+    for (let j = 0; j < 5; j++) {
+      x += rand(-15, 15); y += rand(-10, 10);
+      ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+}, { repeat: [2, 2] });
+
 TEX.grass = makeTexture(512, 512, (ctx, w, h) => {
-  noiseFill(ctx, w, h, '#7b9863', 18, 3800);
-  for (let i = 0; i < 160; i++) {
-    ctx.strokeStyle = `rgba(${48 + Math.random() * 30},${118 + Math.random() * 42},${48 + Math.random() * 28},.3)`;
+  noiseFill(ctx, w, h, '#7b9863', 22, 4200);
+  for (let i = 0; i < 200; i++) {
+    ctx.strokeStyle = `rgba(${40 + Math.random() * 35},${100 + Math.random() * 50},${40 + Math.random() * 30},.35)`;
     ctx.lineWidth = 1; ctx.beginPath();
     const x = Math.random() * w, y = Math.random() * h;
-    ctx.moveTo(x, y); ctx.lineTo(x + rand(-3, 3), y - rand(3, 8)); ctx.stroke();
+    ctx.moveTo(x, y); ctx.lineTo(x + rand(-4, 4), y - rand(4, 10)); ctx.stroke();
   }
 }, { repeat: [18, 18] });
 
 TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
-  noiseFill(ctx, w, h, '#dcc794', 14, 3200);
-  for (let i = 0; i < 80; i++) {
-    ctx.fillStyle = `rgba(120,96,60,${0.025 + Math.random() * 0.05})`;
-    ctx.beginPath(); ctx.ellipse(Math.random() * w, Math.random() * h, rand(2, 12), rand(1, 5), rand(0, TAU), 0, TAU); ctx.fill();
+  noiseFill(ctx, w, h, '#dcc794', 18, 3800);
+  for (let i = 0; i < 100; i++) {
+    ctx.fillStyle = `rgba(120,96,60,${0.03 + Math.random() * 0.06})`;
+    ctx.beginPath(); ctx.ellipse(Math.random() * w, Math.random() * h, rand(2, 15), rand(1, 6), rand(0, TAU), 0, TAU); ctx.fill();
   }
 }, { repeat: [12, 12] });
 
@@ -250,10 +314,10 @@ TEX.lattice = makeTexture(256, 256, (ctx, w, h) => {
 }, { repeat: [1, 1] });
 
 TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
-  noiseFill(ctx, w, h, '#7e5a3c', 10, 400);
-  for (let x = 0; x < w; x += 16) {
-    ctx.strokeStyle = 'rgba(55,35,22,.28)'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + rand(-6, 6), h); ctx.stroke();
+  noiseFill(ctx, w, h, '#7e5a3c', 14, 500);
+  for (let x = 0; x < w; x += 12) {
+    ctx.strokeStyle = 'rgba(50,30,18,.35)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + rand(-8, 8), h); ctx.stroke();
   }
 }, { repeat: [1, 2] });
 
@@ -275,8 +339,6 @@ function roundedBoxGeo(w, h, d, r = 0.08) {
     steps: 1, bevelSize: r, bevelThickness: r, curveSegments: 2,
   });
   geo.center();
-  // ExtrudeGeometry expands the 2D outline by its bevel. Normalize to the
-  // requested dimensions so surface details and collision boxes line up.
   geo.computeBoundingBox();
   const size = geo.boundingBox.getSize(new THREE.Vector3());
   geo.scale(w / size.x, h / size.y, d / size.z);
@@ -321,8 +383,6 @@ function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.62, lift = 0.055) {
 const ROOF_UNIT = roofGeometry(12, 8, 0.62, 0.055);
 const ROOF_SMALL = roofGeometry(8, 6, 0.5, 0.065);
 
-// Repeated architecture keeps rounded silhouettes near the camera; distant
-// pieces share simpler geometry without changing their placement or materials.
 const BATCH_LOD_GEOMETRY = new WeakMap([
   [UNIT_BOX, new THREE.BoxGeometry(1, 1, 1)],
   [UNIT_CYL, new THREE.CylinderGeometry(0.5, 0.5, 1, 6)],
@@ -349,11 +409,7 @@ class Batch {
   }
   build(parent = scene) {
     if (!this.items.length) return null;
-    // 幂等重建：首次构建后仍可继续 add（如增强模块在 GAME.ready 后追加物体）。
-    // 再次调用 build 会先移除旧实例组，再按完整条目重建，保证只存在一套实例。
     if (this._group) { this._group.removeFromParent(); this._group = null; }
-    // Small spatial batches keep off-screen districts out of the GPU submission
-    // and the nearby shadow pass, while every architectural part stays 3D.
     const cells = new Map();
     const cellSize = this.cellSize;
     for (const item of this.items) {
@@ -440,13 +496,11 @@ const WORLD = { x0: -780, x1: 780, z0: -660, z1: 660 };
 const AVENUE = 26;
 const AVENUE_SHOP_Z=Object.freeze([266,288,338,360]);
 const TREE_CLEAR_AREAS=Object.freeze([
-  {x0:137,x1:163,z0:-520,z1:-378}, // Daming ceremonial axis, terrace and stair approach
-  {x0:-14,x1:14,z0:-380,z1:-220}, // Imperial palace central approach
-  {x0:198,x1:234,z0:265,z1:301}, // Dayan pagoda platform and its clear perimeter
-  {x0:-230,x1:-202,z0:308,z1:336}, // Xiaoyan pagoda platform
+  {x0:137,x1:163,z0:-520,z1:-378},
+  {x0:-14,x1:14,z0:-380,z1:-220},
+  {x0:198,x1:234,z0:265,z1:301},
+  {x0:-230,x1:-202,z0:308,z1:336},
 ]);
-// Shared by city planting and the dolly camera, so a newly detailed canopy
-// cannot grow through one of the deliberately composed sightseeing shots.
 const FILM_SHOTS = [
   { eye: [7, 3.8, 327], target: [0, 4, 277], drift: 2.5 },
   { eye: [-258, 3.4, 16], target: [-284, 4.3, -40], drift: 3 },
@@ -514,8 +568,6 @@ for (const x of [-342, -258, -174, -90, 90, 174, 258, 342]) roads.push({ x, z: 0
 for (const z of [-206, -140, -74, -8, 58, 124, 190, 256, 322]) roads.push({ x: 0, z, w: 900, d: 12, axis: 'x', type: 'street' });
 
 // ---------------------------------------------------------------- sky
-// A repeatable scalar noise field drives the cloud layers. No sky photograph or
-// opaque cloud meshes: silhouettes, softness and drift remain editable in code.
 const cloudNoiseBytes = new Uint8Array(256 * 256 * 4);
 for (let i = 0; i < 256 * 256; i++) {
   let hash = Math.imul(i ^ 16023, 1597334677);
@@ -563,8 +615,6 @@ const skyMat = new THREE.ShaderMaterial({
       float sd = max(dot(ray, normalize(sunDir)), 0.0);
       col += sunColor * pow(sd, 900.0) * 1.6;
       col += sunColor * pow(sd, 14.0) * 0.22;
-      // Two projected layers give cloud banks broad forms with frayed edges.
-      // Their coverage fades into atmospheric haze instead of ending at a dome seam.
       vec2 cloudUV = ray.xz / max(h + 0.14, 0.14) * 3.8 + vec2(time * 0.0015, 14.7);
       float field = cloudField(cloudUV);
       float thin = cloudField(cloudUV * 1.7 + vec2(31.4, time * 0.0006));
@@ -601,7 +651,7 @@ const stars = new THREE.Points(starGeo, starMat);
 stars.frustumCulled = false;
 scene.add(stars);
 
-// Continuous hazy ridgelines; no cone-shaped placeholders behind the city.
+// 远山
 for (let layer = 0; layer < 2; layer++) {
   const vertices = [], indices = [], segments = 192, radius = 1180 + layer * 280;
   for (let i = 0; i <= segments; i++) {
@@ -622,7 +672,6 @@ function buildGround() {
   g.rotation.x = -Math.PI / 2; g.position.y = -0.25; g.receiveShadow = true;
   scene.add(g);
 
-  // 城外田畴
   const fieldBatch = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1 }), { cast: false });
   const fieldColors = [0x9cab63, 0xc6b775, 0x7d9358, 0xc5bd7d, 0xa1ae6b];
   for (let i = 0; i < 70; i++) {
@@ -632,7 +681,6 @@ function buildGround() {
   }
   fieldBatch.build();
 
-  // 城内地面
   const cityGround = new THREE.Mesh(new THREE.PlaneGeometry(920, 790), new THREE.MeshStandardMaterial({ map: TEX.dirt, roughness: 1, color: 0xd9ccb2 }));
   cityGround.rotation.x = -Math.PI / 2; cityGround.position.set(0, -0.05, 0); cityGround.receiveShadow = true;
   scene.add(cityGround);
@@ -661,7 +709,6 @@ function makeRoadMesh(road) {
   for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / 3, uv.getY(i) * d / 3);
   const mat = new THREE.MeshStandardMaterial({
     map: isAvenue ? TEX.stone : TEX.dirt,
-    // v2: use TEX.stone as bump (TEX.stoneBump never existed); gives avenue relief
     bumpMap: isAvenue ? TEX.stone : null, bumpScale: 0.045,
     color: isAvenue ? 0xf2e1c5 : 0xe1cdae,
     roughness: 0.94, metalness: 0,
@@ -691,24 +738,20 @@ function clipRoadsForWater() {
 
 function buildRoads() {
   roads.forEach(makeRoadMesh);
-  // 朱雀大街中央御道
   const centralGeo = new THREE.PlaneGeometry(7.6, 780);
   const centralUV = centralGeo.attributes.uv;
   for (let i = 0; i < centralUV.count; i++) centralUV.setXY(i, centralUV.getX(i) * 2.53, centralUV.getY(i) * 260);
   const central = new THREE.Mesh(centralGeo, SurfaceLibrary.paving(0xe6dfcc));
   central.rotation.x = -Math.PI / 2; central.position.set(0, 0.075, 0); central.receiveShadow = true;
   scene.add(central);
-  // 御道金线，让中轴在远处也有清楚的视觉引导
   const lane = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0.05 }), { cast: false });
   lane.add(-3.55, 0.09, 0, 0.12, 0.03, 780, 0, 0xbbab87);
   lane.add(3.55, 0.09, 0, 0.12, 0.03, 780, 0, 0xbbab87);
   lane.build();
-  // 御道上的金色团花，让近景路面不再单调
   const motif = new Batch(new THREE.CircleGeometry(1.0, 16), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.34, depthWrite: false }), { cast: false, receive: false });
   for (let z = -360; z <= 360; z += 38) motif.add(0, 0.092, z, 0.75, 0.75, 0.75, 0, 0xa99473, -Math.PI / 2);
   motif.build();
 
-  // 路缘石
   const curb = new Batch(UNIT_BOX, MAT.stone, { cast: false });
   for (const item of [
     [-14.2, 0, 0, 0.45, 0.22, 780], [14.2, 0, 0, 0.45, 0.22, 780],
@@ -728,7 +771,7 @@ function buildColliderHash() {
   colliderGrid.clear();
   groundPatchGrid.clear();
   for(const patch of groundPatches) {
-    for(let x=Math.floor(patch.x0/CELL);x<=Math.floor(patch.x1/CELL);x++)
+    for(let x=Math.floor(patch.x/CELL);x<=Math.floor(patch.x1/CELL);x++)
       for(let z=Math.floor(patch.z0/CELL);z<=Math.floor(patch.z1/CELL);z++) {
         const key=x+','+z;
         if(!groundPatchGrid.has(key)) groundPatchGrid.set(key,[]);
@@ -775,7 +818,6 @@ function resolveCollisions(pos, radius = 1.15) {
   return hit;
 }
 
-// 世界边界
 addCollider(WORLD.x0 - 2, WORLD.x0, WORLD.z0, WORLD.z1, 'world');
 addCollider(WORLD.x1, WORLD.x1 + 2, WORLD.z0, WORLD.z1, 'world');
 addCollider(WORLD.x0, WORLD.x1, WORLD.z0 - 2, WORLD.z0, 'world');
