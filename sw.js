@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v33
+/* Chang'an Dragon Service Worker v34
+ * v34: 宠物与坐骑养成系统 — 神宠相伴
  * v33: 装备与宝石系统 — 神装在手
- * v32: 活动与副本系统 — 精彩无限
  */
-const CACHE_NAME = 'changan-v33';
+const CACHE_NAME = 'changan-v34';
 const CORE_ASSETS = [
   './',
   './index.html',
