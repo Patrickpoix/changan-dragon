@@ -23,8 +23,9 @@ const SurfaceLibrary = (() => {
       material.customProgramCacheKey = () => 'changan-soft-stone-v1';
       return material;
     },
+    // v5: TEX.stoneBump never existed; use TEX.stone as bump for paving relief
     paving(color = 0xe4dfd0) {
-      return this.softenStone(new THREE.MeshStandardMaterial({map:TEX.stone,bumpMap:TEX.stoneBump,bumpScale:0.015,color,roughness:0.94}));
+      return this.softenStone(new THREE.MeshStandardMaterial({map:TEX.stone,bumpMap:TEX.stone,bumpScale:0.015,color,roughness:0.94}));
     },
     architecture() {
       if (typeof SCENE_MATERIALS === 'undefined' || !SCENE_MATERIALS.architecture) return;
