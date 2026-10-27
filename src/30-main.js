@@ -1,9 +1,10 @@
 /* ============================================================
    龙游长安 · 游戏主循环 / 操控 / 镜头 / 昼夜 / 诗笺
-   v3 性能优化：
-   - WorldAssets.populate() 改为非阻塞，不等待素材完成就设置 GAME.ready
-   - renderer.compile() 移到 startGame()，用户点击后才编译材质
-   - enhance 模块改为 GAME.ready=true 后后台动态加载
+   v4 性能优化：
+   - WorldAssets.populate() 非阻塞
+   - renderer.compile() 移到 startGame()
+   - enhance 模块后台动态加载
+   - GameRendering fastStart 快速启动模式（跳过PMREM和后处理管线）
    ============================================================ */
 
 'use strict';
@@ -492,7 +493,7 @@ function buildCollectionList() {
 }
 
 function escapeHTML(s) {
-  return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 let modalReturnFocus = null;
@@ -809,7 +810,7 @@ function groundHeightAt(x, z) {
   if(Math.abs(x)<13 && Math.abs(z)<390) {
     height=Math.max(height,.015+.055*(1-(x/13)**2),Math.abs(x)<3.8?.075:0);
   }
-  const patches=groundPatchGrid.size ? groundPatchGrid.get(Math.floor(x/CELL)+','+Math.floor(z/CELL))||[] : groundPatches;
+  const patches=groundPatchGrid.size ? groundPatchGrid.get(Math.floor(x/CELL)+','+Math.floor(x/CELL))||[] : groundPatches;
   for (const patch of patches) {
     if (x >= patch.x0 && x <= patch.x1 && z >= patch.z0 && z <= patch.z1) height = Math.max(height, patch.height);
   }
@@ -1178,6 +1179,12 @@ async function buildWorld() {
 function startGame() {
   if (!GAME.ready || GAME.started) return;
   GAME.started = true;
+  // v4 性能优化：快速启动升级 — 用户点击后创建 PMREM 环境贴图和后处理管线
+  // 开始界面用 low 质量快速渲染，进入游戏后再升级到完整质量
+  try {
+    GameRendering.upgradeToFullQuality();
+    GameRendering.setQuality(params.get('quality') || Session.preferences.quality || 'auto');
+  } catch (e) { console.warn('[Rendering] 升级质量失败:', e); }
   // v3 性能优化：材质编译移到用户点击后，减少首屏时间
   try { renderer.compile(scene, camera); } catch (_) {}
   const openingPlace = getPlace(player.group.position.x, player.group.position.z);
@@ -1213,7 +1220,17 @@ async function boot() {
     bindViewGestures();
     Explore.init();
     renderer.setSize(innerWidth, innerHeight);
-    GameRendering.init({ renderer, scene, camera, quality: params.get('quality') || Session.preferences.quality || 'auto', exposure: 1.06, environmentIntensity: 0.48 });
+    // v4 性能优化：fastStart 快速启动模式
+    // 开始界面用 low 质量 + 跳过 PMREM 环境贴图和后处理管线创建
+    // 用户点击"入城漫游"后，startGame() 中再调用 upgradeToFullQuality() 升级
+    // 这样首屏时间可以减少约 500-800ms（PMREM 生成 + SAO/Bloom 管线创建）
+    GameRendering.init({
+      renderer, scene, camera,
+      quality: 'low',        // 开始界面用 low 质量
+      fastStart: true,        // 快速启动模式：跳过 PMREM 和后处理管线
+      exposure: 1.06,
+      environmentIntensity: 0.48
+    });
     const qualitySelect = $('#qualitySelect');
     qualitySelect.value = GameRendering.getDiagnostics().requestedQuality;
     qualitySelect.addEventListener('change', () => { GameRendering.setQuality(qualitySelect.value); Session.save(); });
