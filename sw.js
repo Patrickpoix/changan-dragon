@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v34
+/* Chang'an Dragon Service Worker v35
+ * v35: 帮派与帮战系统 — 兄弟同心
  * v34: 宠物与坐骑养成系统 — 神宠相伴
- * v33: 装备与宝石系统 — 神装在手
  */
-const CACHE_NAME = 'changan-v34';
+const CACHE_NAME = 'changan-v35';
 const CORE_ASSETS = [
   './',
   './index.html',
