@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v48
+/* Chang'an Dragon Service Worker v49
+ * v49: 经济与交易系统 — 财源广进
  * v48: 成长与进阶系统 — 步步登高
- * v47: 社交与互动系统 — 广结善缘
  */
-const CACHE_NAME = 'changan-v48';
+const CACHE_NAME = 'changan-v49';
 const CORE_ASSETS = [
   './',
   './index.html',
