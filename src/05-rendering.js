@@ -1,4 +1,5 @@
 /* Filmic rendering for the actual 3D scene.
+ * v6: cinematic post-processing — stronger bloom, better SAO, richer color grading
  * v5: prewarm()同时预创建后处理管线，进入游戏时零等待
  * v4: refreshEnvironment() HDRI替换
  */
@@ -10,7 +11,7 @@
   let width = 1, height = 1, pixelRatio = 1, requestedQuality = 'auto';
   let quality = 'low', suspended = false, initialized = false, failed = false;
   let failureReason = '', environmentReady = false, environmentIsFallback = false, excluded = [], refreshNeeded = true;
-  let environmentIntensity = 0.48, frameCount = 0, lastFrameMs = 0;
+  let environmentIntensity = 0.55, frameCount = 0, lastFrameMs = 0;
   let fastStartMode = false, pipelinePrewarmed = false;
   const materialBaseIntensity = new WeakMap();
   let detailBatches = [], lodBatches = [];
@@ -110,12 +111,13 @@
       composer = new A.EffectComposer(renderer);
       composer.addPass(new A.RenderPass(scene, camera));
       ao = new A.SAOPass(scene, camera, new T.Vector2(1, 1));
-      Object.assign(ao.params, { saoBias: 0.55, saoIntensity: 0.035, saoScale: camera.far / 25, saoKernelRadius: 28, saoMinResolution: 0.00015, saoBlur: true, saoBlurRadius: 3, saoBlurStdDev: 2, saoBlurDepthCutoff: 0.0015 });
-      ao.saoMaterial.defines.NUM_SAMPLES = quality === 'high' ? 9 : 7;
+      // v6: 更强的环境遮蔽 — 更柔和、更有层次感
+      Object.assign(ao.params, { saoBias: 0.45, saoIntensity: 0.055, saoScale: camera.far / 22, saoKernelRadius: 32, saoMinResolution: 0.00012, saoBlur: true, saoBlurRadius: 4, saoBlurStdDev: 2.5, saoBlurDepthCutoff: 0.0012 });
+      ao.saoMaterial.defines.NUM_SAMPLES = quality === 'high' ? 12 : 8;
       ao.saoMaterial.defines.NUM_RINGS = 4;
       ao.saoMaterial.fragmentShader = ao.saoMaterial.fragmentShader.replace('gl_FragColor.xyz *=  1.0 - ambientOcclusion;', 'gl_FragColor.xyz *= clamp(1.0 - ambientOcclusion, 0.0, 1.0);');
       const setAOSize = ao.setSize.bind(ao);
-      ao.setSize = (w, h) => { const scale = quality === 'high' ? 0.66 : 0.5; state.aoWidth = Math.max(1, Math.round(w * scale)); state.aoHeight = Math.max(1, Math.round(h * scale)); setAOSize(state.aoWidth, state.aoHeight); };
+      ao.setSize = (w, h) => { const scale = quality === 'high' ? 0.7 : 0.55; state.aoWidth = Math.max(1, Math.round(w * scale)); state.aoHeight = Math.max(1, Math.round(h * scale)); setAOSize(state.aoWidth, state.aoHeight); };
       const renderOverride = ao.renderOverride.bind(ao);
       ao.renderOverride = (...args) => {
         const hidden = [];
@@ -126,18 +128,29 @@
       };
       composer.addPass(ao);
       if (quality === 'high') {
-        bloom = new A.UnrealBloomPass(new T.Vector2(width, height), 0.12, 0.35, 1.25);
+        // v6: 更强的bloom — 更电影感的辉光
+        bloom = new A.UnrealBloomPass(new T.Vector2(width, height), 0.22, 0.45, 1.15);
         const sample='vec4 texel = texture2D( tDiffuse, vUv );';
         bloom.materialHighPassFilter.fragmentShader=bloom.materialHighPassFilter.fragmentShader.replace(sample, sample+'\nif(any(isnan(texel)) || any(isinf(texel))) texel=vec4(0.0);');
         composer.addPass(bloom); state.bloom = true;
       }
       outputPass=new A.OutputPass();
       outputPass.uniforms.changanTexelSize={value:new T.Vector2(1,1)};
+      // v6: 更丰富的色彩 grading — 暖色调偏移、暗部偏青、高光偏金
       outputPass.material.fragmentShader=outputPass.material.fragmentShader
         .replace('uniform sampler2D tDiffuse;', 'uniform sampler2D tDiffuse;\nuniform vec2 changanTexelSize;')
-        .replace('void main() {', `bool changanFinite(vec4 value) { return all(lessThanEqual(abs(value),vec4(65504.0))); }
-        void main() {`)
-        .replace('gl_FragColor = texture2D( tDiffuse, vUv );', `gl_FragColor=texture2D(tDiffuse,vUv);
+        .replace('void main()', `bool changanFinite(vec4 value) { return all(lessThanEqual(abs(value),vec4(65504.0))); }
+        void main() {
+        // v6: 电影级色彩偏移 — 暗部偏青蓝、高光偏暖金
+        vec4 changanCol = texture2D(tDiffuse, vUv);
+        float changanLum = dot(changanCol.rgb, vec3(0.2126, 0.7152, 0.0722));
+        vec3 shadowTint = vec3(0.92, 0.97, 1.08);
+        vec3 highlightTint = vec3(1.08, 1.02, 0.92);
+        changanCol.rgb *= mix(shadowTint, highlightTint, smoothstep(0.2, 0.8, changanLum));
+        // 轻微饱和度提升
+        changanCol.rgb = mix(vec3(dot(changanCol.rgb, vec3(0.2126, 0.7152, 0.0722))), changanCol.rgb, 1.08);
+        gl_FragColor = changanCol;`)
+        .replace('gl_FragColor = texture2D( tDiffuse, vUv );', `gl_FragColor=changanCol;
           if(!changanFinite(gl_FragColor)) { vec2 stepUV=changanTexelSize*4.;vec4 sum=vec4(0.);float weight=0.;
           vec4 sampleColor=texture2D(tDiffuse,vUv+vec2(stepUV.x,0.));if(changanFinite(sampleColor)){sum+=sampleColor;weight+=1.;}
           sampleColor=texture2D(tDiffuse,vUv-vec2(stepUV.x,0.));if(changanFinite(sampleColor)){sum+=sampleColor;weight+=1.;}
@@ -183,7 +196,7 @@
     if (!renderer || !scene || !camera) throw new Error('GameRendering.init requires renderer, scene and camera');
     requestedQuality = validQuality(options.quality || 'auto');
     quality = resolveQuality(requestedQuality);
-    environmentIntensity = options.environmentIntensity ?? 0.48;
+    environmentIntensity = options.environmentIntensity ?? 0.55;
     renderer.outputColorSpace = T.SRGBColorSpace;
     renderer.toneMapping = T.ACESFilmicToneMapping;
     renderer.toneMappingExposure = options.exposure ?? 1.06;
