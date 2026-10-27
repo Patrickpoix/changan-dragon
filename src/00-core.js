@@ -1,5 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v7: 电影级视觉升级 — 更强光照对比、更精致材质、更丰富细节
    v6: 提升移动端画质上限 — iPhone 17 Pro Max可以跑更高DPR和阴影分辨率
    ============================================================ */
 
@@ -39,13 +40,13 @@ const renderer = new THREE.WebGLRenderer({
   stencil: false,
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.LinearToneMapping;
-renderer.toneMappingExposure = 1.04;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xa9cbd7, 1);
-// v6: iPhone 17 Pro Max M5 GPU — 移动端DPR从1.25提升到1.5，阴影从1024提升到1536
-const MAX_DPR = isTouch ? 1.5 : 1.65;
+// v7: iPhone 17 Pro Max M5 GPU — 移动端DPR提升到1.75，阴影1536
+const MAX_DPR = isTouch ? 1.75 : 2.0;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
 
 const scene = new THREE.Scene();
@@ -54,15 +55,16 @@ const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 18
 camera.position.set(16, 7, -110);
 
 // ---------------------------------------------------------------- lights
-const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4f8f78, 0.74);
+// v7: 电影级光照 — 更强阳光对比，更柔和环境光
+const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4f8f78, 0.85);
 scene.add(hemi);
-const ambient = new THREE.AmbientLight(0xfff4e2, 0.22);
+const ambient = new THREE.AmbientLight(0xfff4e2, 0.28);
 scene.add(ambient);
-const sun = new THREE.DirectionalLight(0xffe6bd, 1.72);
+const sun = new THREE.DirectionalLight(0xffe6bd, 2.2);
 sun.position.set(125, 105, 75);
 sun.castShadow = true;
-// v6: 移动端阴影分辨率从1024提升到1536
-const SHADOW_SIZE = isTouch ? 1536 : 2048;
+// v7: 移动端阴影分辨率提升到2048
+const SHADOW_SIZE = isTouch ? 2048 : 2048;
 sun.shadow.mapSize.set(SHADOW_SIZE, SHADOW_SIZE);
 sun.shadow.camera.near = 1;
 sun.shadow.camera.far = 420;
@@ -70,11 +72,12 @@ sun.shadow.camera.left = -95;
 sun.shadow.camera.right = 95;
 sun.shadow.camera.top = 95;
 sun.shadow.camera.bottom = -95;
-sun.shadow.bias = -0.0006;
-sun.shadow.normalBias = 0.035;
+sun.shadow.bias = -0.0005;
+sun.shadow.normalBias = 0.04;
 scene.add(sun);
 scene.add(sun.target);
-const rim = new THREE.DirectionalLight(0xffb98f, 0.27);
+// v7: 更强的轮廓光，让建筑更有立体感
+const rim = new THREE.DirectionalLight(0xffb98f, 0.45);
 rim.position.set(-100, 60, -130);
 scene.add(rim);
 
@@ -117,20 +120,20 @@ const TEX = {};
 
 TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 600; i++) {
-    const a = Math.random() * 0.06;
+  for (let i = 0; i < 800; i++) {
+    const a = Math.random() * 0.08;
     ctx.fillStyle = `rgba(180,170,150,${a})`;
     const s = 1 + Math.random() * 2;
     ctx.fillRect(Math.random() * w, Math.random() * h, s, s);
   }
-  for (let i = 0; i < 12; i++) {
-    ctx.fillStyle = `rgba(160,150,130,${0.03 + Math.random() * 0.04})`;
+  for (let i = 0; i < 18; i++) {
+    ctx.fillStyle = `rgba(160,150,130,${0.04 + Math.random() * 0.05})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(5, 20), rand(3, 12), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-  for (let i = 0; i < 5; i++) {
-    ctx.strokeStyle = `rgba(140,130,110,${0.04 + Math.random() * 0.03})`;
+  for (let i = 0; i < 8; i++) {
+    ctx.strokeStyle = `rgba(140,130,110,${0.05 + Math.random() * 0.04})`;
     ctx.lineWidth = 0.5;
     ctx.beginPath();
     let x = Math.random() * w, y = Math.random() * h;
@@ -142,17 +145,17 @@ TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
 
 TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 30; i++) {
-    ctx.strokeStyle = `rgba(100,80,60,${0.04 + Math.random() * 0.06})`;
-    ctx.lineWidth = 0.8 + Math.random() * 1.2;
+  for (let i = 0; i < 40; i++) {
+    ctx.strokeStyle = `rgba(100,80,60,${0.05 + Math.random() * 0.08})`;
+    ctx.lineWidth = 0.8 + Math.random() * 1.5;
     ctx.beginPath();
     const y = Math.random() * h;
     ctx.moveTo(0, y);
     ctx.bezierCurveTo(w*0.25, y+rand(-6,6), w*0.5, y+rand(-10,10), w, y+rand(-3,3));
     ctx.stroke();
   }
-  for (let i = 0; i < 300; i++) {
-    ctx.fillStyle = `rgba(120,100,80,${Math.random() * 0.04})`;
+  for (let i = 0; i < 400; i++) {
+    ctx.fillStyle = `rgba(120,100,80,${Math.random() * 0.05})`;
     ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
   }
 }, { repeat: [1, 2] });
@@ -163,15 +166,15 @@ TEX.stone = makeTexture(256, 256, (ctx, w, h) => {
   for (let y = 0; y < h + sh; y += sh) {
     const off = (Math.floor(y / sh) % 2) * sw / 2;
     for (let x = -sw; x < w + sw; x += sw) {
-      ctx.strokeStyle = 'rgba(100,100,100,0.25)';
+      ctx.strokeStyle = 'rgba(100,100,100,0.3)';
       ctx.lineWidth = 1.5;
       ctx.strokeRect(x + off, y, sw, sh);
-      ctx.fillStyle = `rgba(200,200,200,${0.03 + Math.random() * 0.04})`;
+      ctx.fillStyle = `rgba(200,200,200,${0.04 + Math.random() * 0.05})`;
       ctx.fillRect(x + off + 2, y + 2, sw - 4, sh - 4);
     }
   }
-  for (let i = 0; i < 10; i++) {
-    ctx.fillStyle = `rgba(180,180,180,${0.03 + Math.random() * 0.05})`;
+  for (let i = 0; i < 15; i++) {
+    ctx.fillStyle = `rgba(180,180,180,${0.04 + Math.random() * 0.06})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(8, 30), rand(4, 15), rand(0, TAU), 0, TAU);
     ctx.fill();
@@ -182,22 +185,22 @@ TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   for (let x = 0; x < w; x += 12) {
     const g = ctx.createLinearGradient(x, 0, x + 12, 0);
-    g.addColorStop(0, 'rgba(100,100,100,0.2)');
-    g.addColorStop(0.3, 'rgba(255,255,255,0.15)');
-    g.addColorStop(0.7, 'rgba(255,255,255,0.05)');
-    g.addColorStop(1, 'rgba(80,80,80,0.25)');
+    g.addColorStop(0, 'rgba(100,100,100,0.25)');
+    g.addColorStop(0.3, 'rgba(255,255,255,0.2)');
+    g.addColorStop(0.7, 'rgba(255,255,255,0.08)');
+    g.addColorStop(1, 'rgba(80,80,80,0.3)');
     ctx.fillStyle = g; ctx.fillRect(x, 0, 12, h);
   }
   for (let y = 0; y < h; y += 20) {
-    ctx.fillStyle = 'rgba(80,80,80,0.2)'; ctx.fillRect(0, y, w, 2);
-    ctx.fillStyle = 'rgba(255,255,255,0.1)'; ctx.fillRect(0, y + 2, w, 1);
+    ctx.fillStyle = 'rgba(80,80,80,0.25)'; ctx.fillRect(0, y, w, 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(0, y + 2, w, 1);
   }
 }, { repeat: [4, 3] });
 
 TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   for (let x = 0; x < w; x += 10) {
-    ctx.strokeStyle = `rgba(100,80,60,${0.15 + Math.random() * 0.1})`;
+    ctx.strokeStyle = `rgba(100,80,60,${0.18 + Math.random() * 0.12})`;
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x, 0);
@@ -212,19 +215,19 @@ TEX.lattice = makeTexture(256, 256, (ctx, w, h) => {
   for (let x = 0; x < w; x += 32) ctx.fillRect(x, 0, 6, h);
   for (let y = 0; y < h; y += 32) ctx.fillRect(0, y, w, 6);
   for (let x = 16; x < w; x += 32) for (let y = 16; y < h; y += 32) {
-    ctx.fillStyle = 'rgba(255,240,205,.45)';
+    ctx.fillStyle = 'rgba(255,240,205,.5)';
     ctx.fillRect(x - 2, y - 2, 10, 10);
   }
 }, { repeat: [1, 1] });
 
 TEX.grass = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 2000; i++) {
-    ctx.fillStyle = `rgba(100,140,80,${Math.random() * 0.08})`;
+  for (let i = 0; i < 2500; i++) {
+    ctx.fillStyle = `rgba(100,140,80,${Math.random() * 0.1})`;
     ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
   }
-  for (let i = 0; i < 150; i++) {
-    ctx.strokeStyle = `rgba(80,120,60,.12)`;
+  for (let i = 0; i < 200; i++) {
+    ctx.strokeStyle = `rgba(80,120,60,.15)`;
     ctx.lineWidth = 1; ctx.beginPath();
     const x = Math.random() * w, y = Math.random() * h;
     ctx.moveTo(x, y); ctx.lineTo(x + rand(-3, 3), y - rand(3, 6)); ctx.stroke();
@@ -233,12 +236,12 @@ TEX.grass = makeTexture(512, 512, (ctx, w, h) => {
 
 TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 2000; i++) {
-    ctx.fillStyle = `rgba(160,140,100,${Math.random() * 0.06})`;
+  for (let i = 0; i < 2500; i++) {
+    ctx.fillStyle = `rgba(160,140,100,${Math.random() * 0.08})`;
     ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
   }
-  for (let i = 0; i < 60; i++) {
-    ctx.fillStyle = `rgba(140,120,80,${0.02 + Math.random() * 0.03})`;
+  for (let i = 0; i < 80; i++) {
+    ctx.fillStyle = `rgba(140,120,80,${0.03 + Math.random() * 0.04})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(3, 10), rand(1, 4), rand(0, TAU), 0, TAU);
     ctx.fill();
@@ -246,23 +249,24 @@ TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
 }, { repeat: [12, 12] });
 
 // ---------------------------------------------------------------- MAT materials
+// v7: 更精致的材质参数 — 更好的PBR效果
 const MAT = {
-  plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xffffff, roughness: 0.82, metalness: 0.02 }),
-  plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xfff5e0, roughness: 0.8, metalness: 0.02 }),
-  wood: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.65, metalness: 0.05 }),
-  red: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
-  stone: new THREE.MeshStandardMaterial({ map: TEX.stone, color: 0xffffff, roughness: 0.88, metalness: 0.02 }),
-  roof: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xffffff, roughness: 0.85, metalness: 0.03 }),
-  roofGlazed: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xe8f0ff, roughness: 0.4, metalness: 0.25 }),
-  gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.32, metalness: 0.62 }),
-  dark: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0x999999, roughness: 0.9, metalness: 0.01 }),
-  leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0 }),
-  trunk: new THREE.MeshStandardMaterial({ map: TEX.bark, color: 0xffffff, roughness: 0.92, metalness: 0 }),
-  blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.75, metalness: 0 }),
+  plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xffffff, roughness: 0.75, metalness: 0.05 }),
+  plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xfff5e0, roughness: 0.72, metalness: 0.05 }),
+  wood: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
+  red: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.45, metalness: 0.15 }),
+  stone: new THREE.MeshStandardMaterial({ map: TEX.stone, color: 0xffffff, roughness: 0.82, metalness: 0.05 }),
+  roof: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xffffff, roughness: 0.75, metalness: 0.08 }),
+  roofGlazed: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xe8f0ff, roughness: 0.3, metalness: 0.35 }),
+  gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.25, metalness: 0.75 }),
+  dark: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0x999999, roughness: 0.85, metalness: 0.02 }),
+  leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.85, metalness: 0 }),
+  trunk: new THREE.MeshStandardMaterial({ map: TEX.bark, color: 0xffffff, roughness: 0.88, metalness: 0 }),
+  blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0 }),
   water: null,
-  lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.25, roughness: 0.55 }),
-  lanternGlow: new THREE.MeshBasicMaterial({ color: 0xffb46b, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }),
-  window: new THREE.MeshStandardMaterial({ map: TEX.lattice, color: 0xffffff, roughness: 0.8, emissive: 0xffb35f, emissiveIntensity: 0 }),
+  lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.4, roughness: 0.5 }),
+  lanternGlow: new THREE.MeshBasicMaterial({ color: 0xffb46b, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false }),
+  window: new THREE.MeshStandardMaterial({ map: TEX.lattice, color: 0xffffff, roughness: 0.75, emissive: 0xffb35f, emissiveIntensity: 0 }),
 };
 
 // ---------------------------------------------------------------- geometry helpers
@@ -646,7 +650,7 @@ const CELL = 24;
 function buildColliderHash() {
   colliderGrid.clear(); groundPatchGrid.clear();
   for (const patch of groundPatches) {
-    for (let x = Math.floor(patch.x0/CELL); x <= Math.floor(patch.x1/CELL); x++)
+    for (let x = Math.floor(patch.x/CELL); x <= Math.floor(patch.x1/CELL); x++)
       for (let z = Math.floor(patch.z0/CELL); z <= Math.floor(patch.z1/CELL); z++) {
         const key = x+','+z;
         if (!groundPatchGrid.has(key)) groundPatchGrid.set(key, []);
