@@ -20,7 +20,7 @@ jobs:
       - name: Validate JS syntax
         run: |
           echo "Checking JS syntax..."
-          for f in src/enhance/*.js src/*.js; do
+          for f in src/enhance/*.js src/*.js sw.js; do
             if [ -f "$f" ]; then
               node --check "$f" && echo "✓ $f"
             fi
@@ -72,10 +72,7 @@ jobs:
       - name: Block new numbered modules (anti-bloat)
         run: |
           echo "Checking for new numbered modules beyond known core..."
-          # Known allowed numbered files in src/ (whitelist)
-          # Format: list all files that start with a digit
           KNOWN_ALLOWED="00-core.js 04-compatibility.js 05-rendering.js 06-surfaces.js 07-water.js 08-assets.js 09-botany.js 10-world.js 11-shorelines.js 12-landmarks.js 20-character.js 25-exploration.js 25b-film-shots-extra.js 26-extra-places.js 26b-extra-places-2.js 27-session.js 27b-extra-poems.js 27c-extra-poems-2.js 28-weather.js 30-main.js 99-safe-init.js"
-          # Find all digit-starting .js files in src/
           for f in src/[0-9]*.js; do
             base=$(basename "$f")
             if ! echo "$KNOWN_ALLOWED" | grep -qw "$base"; then
