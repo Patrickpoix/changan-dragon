@@ -1,6 +1,7 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v8: scene-materials.js移出关键路径，关键路径~1MB
- * v8.1: 注册Service Worker缓存
+ * v8.2: scene-materials.js加载后调用GameRendering.refreshEnvironment()用HDRI替换fallback
+ * v8.1: 注册Service Worker
+ * v8: scene-materials.js移出关键路径
  */
 
 const smallScripts = [
@@ -17,7 +18,6 @@ const smallScripts = [
 const criticalBig = [];
 const deferredBig = ['assets/scene-materials.js', 'assets/runtime-models.js'];
 
-// Service Worker注册（重复访问缓存加速）
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
@@ -38,6 +38,10 @@ if ('serviceWorker' in navigator) {
     const s = document.createElement('script'); s.src = src;
     s.onload = () => {
       console.log('[Boot] 延迟素材加载完成: ' + src);
+      // v8.2: scene-materials.js加载后，用HDRI替换临时RoomEnvironment
+      if (src.indexOf('scene-materials') !== -1) {
+        try { if (typeof GameRendering !== 'undefined' && GameRendering.refreshEnvironment) GameRendering.refreshEnvironment(); } catch(e) {}
+      }
       try {
         if (typeof WorldAssets !== 'undefined' && typeof WorldAssets.reset === 'function') {
           WorldAssets.reset();
