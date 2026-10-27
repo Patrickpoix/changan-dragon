@@ -1,6 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v74: 音效音乐增强加载
  * v73: 性能优化加载
- * v72: 光影渲染增强最先加载
  */
 
 const smallScripts = [
@@ -185,13 +185,21 @@ function populateDeferredModels() {
           document.head.appendChild(festivalScript);
         }, 2100);
         
+        // 音效音乐
+        setTimeout(() => {
+          const audioScript = document.createElement('script');
+          audioScript.src = 'src/enhance/audio-fx.js';
+          audioScript.onerror = () => console.warn('[Boot] 音效音乐模块加载失败');
+          document.head.appendChild(audioScript);
+        }, 2300);
+        
         // 夜景增强
         setTimeout(() => {
           const nightSceneScript = document.createElement('script');
           nightSceneScript.src = 'src/enhance/night-scene.js';
           nightSceneScript.onerror = () => console.warn('[Boot] 夜景增强模块加载失败');
           document.head.appendChild(nightSceneScript);
-        }, 2300);
+        }, 2500);
         
         // 核心建筑精修
         setTimeout(() => {
@@ -199,7 +207,7 @@ function populateDeferredModels() {
           coreDetailScript.src = 'src/enhance/core-detail.js';
           coreDetailScript.onerror = () => console.warn('[Boot] 核心建筑精修模块加载失败');
           document.head.appendChild(coreDetailScript);
-        }, 2500);
+        }, 2700);
         
         // 城市生活
         setTimeout(() => {
@@ -207,7 +215,7 @@ function populateDeferredModels() {
           cityLifeScript.src = 'src/enhance/city-life.js';
           cityLifeScript.onerror = () => console.warn('[Boot] 城市生活模块加载失败');
           document.head.appendChild(cityLifeScript);
-        }, 2700);
+        }, 2900);
         
         // 后续游戏系统模块
         setTimeout(() => {
