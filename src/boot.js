@@ -1,7 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v11: 添加城市细节增强模块加载
  * v10: 添加奇观建筑模块加载
- * v9: 显示真实加载进度（每完成一个小文件更新状态）
- * v8.9: three.min.js设置fetchPriority=high，慢连接下优先下载引擎
  */
 
 const smallScripts = [
@@ -91,12 +90,21 @@ function populateDeferredModels() {
     const s = document.createElement('script'); s.src = 'src/30-main.js';
     s.async = false;
     s.onload = () => {
-      // 主游戏加载完成后，再加载奇观建筑模块
+      // 主游戏加载完成后，依次加载增强模块
       setTimeout(() => {
-        const wonderScript = document.createElement('script');
-        wonderScript.src = 'src/enhance/wonders.js';
-        wonderScript.onerror = () => console.warn('[Boot] 奇观建筑模块加载失败');
-        document.head.appendChild(wonderScript);
+        // 城市细节增强
+        const cityDetailsScript = document.createElement('script');
+        cityDetailsScript.src = 'src/enhance/city-details.js';
+        cityDetailsScript.onerror = () => console.warn('[Boot] 城市细节模块加载失败');
+        document.head.appendChild(cityDetailsScript);
+        
+        // 奇观建筑
+        setTimeout(() => {
+          const wonderScript = document.createElement('script');
+          wonderScript.src = 'src/enhance/wonders.js';
+          wonderScript.onerror = () => console.warn('[Boot] 奇观建筑模块加载失败');
+          document.head.appendChild(wonderScript);
+        }, 500);
       }, 1000);
     };
     document.head.appendChild(s);
