@@ -6,6 +6,7 @@
      包装必然生效（单一权威更新流程，不包装 window.updateDayNight、不创建第二套 RAF）
    - v5：修复 v3/v4 包装了不存在的 GameRendering.update 方法的 bug
      （GameRendering 只有 render(dt)，update 从未被调用，天气系统静默失效）
+   - v5.1：雨滴下落速度 30→18 单位/秒（≈9m/s 真实雨滴，原≈60m/s 过快）
    ============================================================ */
 
 (function() {
@@ -96,7 +97,7 @@
           helpGrid.appendChild(item);
         }
       }
-      console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + GameRendering.render 主循环驱动(GRADE相对微调, v5修复包装目标)');
+      console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + GameRendering.render 主循环驱动(GRADE相对微调, v5.1雨滴18u/s)');
     },
 
     set(type) {
@@ -133,7 +134,7 @@
         if (this.particles.visible && typeof player !== 'undefined' && player) {
           const pos = this.particles.geometry.attributes.position.array;
           for (let i = 0; i < pos.length; i += 3) {
-            pos[i+1] -= dt * 30;
+            pos[i+1] -= dt * 18;
             if (pos[i+1] < 0) {
               pos[i+1] = 60;
               pos[i] = player.group.position.x + (Math.random() - 0.5) * 200;
