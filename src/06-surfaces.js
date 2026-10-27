@@ -2,6 +2,7 @@
 const SurfaceLibrary = (() => {
   const maps = {};
   const cache = new Map();
+  const clothMaterials = []; // v2: track cloth materials for deferred normal map update
   function texture(name) {
     if (maps[name]) return maps[name];
     const source = typeof SCENE_MATERIALS !== 'undefined' && SCENE_MATERIALS.cloth[name];
@@ -15,8 +16,6 @@ const SurfaceLibrary = (() => {
   }
   return {
     softenStone(material) {
-      // Keep the source's real mineral detail while reducing photographic
-      // contrast that otherwise turns the entire stylized city into brown blocks.
       material.onBeforeCompile = shader => {
         shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>',
           '#include <map_fragment>\n#ifdef USE_MAP\ndiffuseColor.rgb = mix(diffuse, diffuseColor.rgb, 0.34);\n#endif');
@@ -47,12 +46,25 @@ const SurfaceLibrary = (() => {
         }
       }
     },
+    // v2: Called after scene-materials.js loads to update cloth normal maps
+    // on materials created earlier when SCENE_MATERIALS was undefined.
+    refreshClothMaterials() {
+      if (typeof SCENE_MATERIALS === 'undefined' || !SCENE_MATERIALS.cloth) return;
+      const normal = texture('normal');
+      const orm = texture('orm');
+      if (!normal && !orm) return;
+      for (const mat of clothMaterials) {
+        if (normal && !mat.normalMap) { mat.normalMap = normal; mat.normalScale = new THREE.Vector2(0.17, 0.17); }
+        if (orm && !mat.roughnessMap) mat.roughnessMap = orm;
+        mat.needsUpdate = true;
+      }
+      console.log('[SurfaceLibrary] ✓ 衣物PBR法线贴图补绑 (' + clothMaterials.length + '个材质)');
+    },
     rammedEarth() {
       if(cache.has('rammed-earth'))return cache.get('rammed-earth');
       const random=mulberry32(73310);
       const map=makeTexture(512,512,(ctx,w,h)=>{
         ctx.fillStyle='#c0b199';ctx.fillRect(0,0,w,h);
-        // Eight compressed earth lifts per 2m tile, with shallow weathering.
         for(let i=0;i<8;i++) {
           const y=i*h/8,gradient=ctx.createLinearGradient(0,y,0,y+h/8);
           gradient.addColorStop(0,'rgba(91,75,54,.08)');gradient.addColorStop(.16,'rgba(238,220,185,.035)');gradient.addColorStop(1,'rgba(126,104,73,.045)');
@@ -78,14 +90,13 @@ const SurfaceLibrary = (() => {
         sheen: 0.42, sheenColor: new THREE.Color(0xf2e6cf), sheenRoughness: 0.78,
         side: THREE.DoubleSide,
       });
+      clothMaterials.push(material); // v2: track for deferred update
       cache.set(color, material);
       return material;
     },
     awning(color) {
       const key='awning-'+color;
       if(cache.has(key)) return cache.get(key);
-      // Original vector ornament, printed onto real cloth geometry. The source
-      // CC0 textile normal/roughness maps still supply its fine weave.
       const canvas=document.createElement('canvas');canvas.width=canvas.height=256;
       const ctx=canvas.getContext('2d');
       ctx.fillStyle='#'+color.toString(16).padStart(6,'0');ctx.fillRect(0,0,256,256);
