@@ -28,7 +28,7 @@ jobs:
 
       - name: Verify boot.js manifest files exist
         run: |
-          echo "Verifying boot.js load manifest (catches 404-stop-load regressions)..."
+          echo "Verifying boot.js load manifest..."
           missing=0
           while IFS= read -r path; do
             if [ ! -f "$path" ]; then
@@ -45,16 +45,63 @@ jobs:
 
       - name: Check for orphaned enhance files
         run: |
-          echo "Checking enhance directory vs boot.js..."
+          echo "Checking enhance directory vs dynamic loader..."
           for f in src/enhance/*.js; do
             base=$(basename "$f")
-            if ! grep -q "enhance/$base" src/boot.js; then
-              echo "⚠ ORPHAN (on disk but not loaded): src/enhance/$base"
+            # enhance modules are dynamically loaded by 30-main.js, not boot.js
+            # Check that 30-main.js references each enhance module
+            if ! grep -q "enhance/$base" src/30-main.js; then
+              echo "::warning::ORPHAN enhance file (not referenced in 30-main.js): src/enhance/$base"
             fi
           done
+
+      - name: Verify index.html completeness
+        run: |
+          echo "Checking index.html ends with </html>..."
+          if ! tail -c 20 index.html | grep -q '</html>'; then
+            echo "::error::index.html does NOT end with </html> - possible truncation!"
+            echo "Last 20 bytes:"
+            tail -c 20 index.html | cat -v
+            exit 1
+          fi
+          echo "✓ index.html ends with </html>"
+          # Also check minimum size (should be > 40KB for the full UI)
+          SIZE=$(wc -c < index.html)
+          if [ "$SIZE" -lt 40000 ]; then
+            echo "::error::index.html too small ($SIZE bytes) - expected > 40000"
+            exit 1
+          fi
+          echo "✓ index.html size: $SIZE bytes"
+
+      - name: Block new numbered modules (anti-bloat)
+        run: |
+          echo "Checking for new numbered modules beyond core system..."
+          # Existing core modules go up to 30-main.js. Block any new NNN-*.js in src/
+          # where NNN > 30 (e.g. 31-*.js, 141-*.js, 200-*.js)
+          NEW_MODULES=$(ls src/[0-9]*.js 2>/dev/null | grep -vE 'src/(0[0-9]|1[0-9]|2[0-9]|30)-' || true)
+          if [ -n "$NEW_MODULES" ]; then
+            echo "::error::New numbered modules detected (should use enhance/ instead):"
+            echo "$NEW_MODULES"
+            echo "::error::Per agent.md section 2, add features to existing enhance/*.js owners, not new numbered files"
+            exit 1
+          fi
+          echo "✓ No new numbered modules"
+
+      - name: Check for banned variable names
+        run: |
+          echo "Checking for incorrect global variable names..."
+          # These old names were used in deleted 121-140 modules and must not reappear
+          if grep -rn 'sunLight' src/ --include='*.js' | grep -v '//'; then
+            echo "::error::Found sunLight (should be sun)"
+            exit 1
+          fi
+          if grep -rn 'ambientLight' src/ --include='*.js' | grep -v '//'; then
+            echo "::error::Found ambientLight (should be ambient)"
+            exit 1
+          fi
+          echo "✓ No banned variable names"
 
       - name: Summary
         run: |
           echo "=== CI Validation Complete ==="
-          echo "All JS files passed syntax check"
-          echo "boot.js manifest files all exist"
+          echo "All checks passed"
