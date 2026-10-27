@@ -19,7 +19,7 @@
 
 ### 1. 时间纪律（用户强制要求）
 - 每次开始工作前必须校准北京时间（Asia/Shanghai, UTC+8），用 get_current_time
-- 用户要求的停止时间（如：北京时间 2026-10-27 12:00）前绝不允许中途停下汇报
+- 用户要求的停止时间前绝不允许中途停下汇报
 - 想停下来时先校准时间，时间没到就继续做；校准结果写入回复首句
 - 用户说"继续/禁止停下来/全部完成"时必须持续工作直到截止时间或用户叫停
 - 每轮回复首句必须给出校准后的北京时间
@@ -31,23 +31,18 @@
 - 模块命名应该是系统级别的，不是细节级别的
 - 新增功能优先在现有enhance模块内扩展，不轻易新建模块
 - **能整合就不拆分，能复用就不新建**
-- 121-140号模块已按审查意见整体批删（初始化失效/递归/坐标冲突/伪优化），不得再生成此类编号模块
+- 121-140号模块已按审查意见整体批删，不得再生成此类编号模块
+- **新增 src/*.js 编号文件前必须三思**：现有编号体系（00-30）是核心引擎层，
+  新功能应放入 src/enhance/ 下已有owner文件，而非新增 31/32/33 号文件
 
-### 3. 冗余模块与文档处理原则（重要）
+### 3. 冗余模块与文档处理原则
 - 删除冗余文件前，先确认它确实没被boot.js加载
 - 不要上来就删，可以先把有价值的内容整合进现有模块，再删原文件
 - 删除前先看文件内容，有价值的逻辑要迁移，不是直接扔掉
-- docs目录的版本文档（BATCH*/SUPPLEMENT*/状态汇总/日期快照等）分批删，核心设计文档保留
-- **docs 目录已精简完成（2026-10-26）**：632+ 份日期快照全部删除，仅保留 16 份核心
-  （QA.md/README.md/RENDERING_DIAGNOSIS.md/SYSTEM_ARCHITECTURE.md/art-direction.png/
-  asset-manifest.json/audio-rights-review.md/concept-*.png×5/production-contracts.json/
-  production-spec.json/resource-catalog.json/upload-import.json）+ 2 个证据目录
-  （qa-evidence=真实测试截图与JSON证据、user-references=用户素材参考，二者不可删）
-- **GitHub 删除纪律**：delete_file 高并发会因基于同一父 commit 产生"假成功"（返回 commit 但删除丢失）
-  或 BadObjectState"假失败"（报错但已删）。经验法则：
+- docs目录的版本文档分批删，核心设计文档保留
+- **GitHub 删除纪律**：delete_file 高并发会因基于同一父 commit 产生假成功或假失败
   ① 批量删除每批 ≤20 个并行；② 删除后必须 get_file_contents 拉目录复核；
-  ③ 发现残留就串行补删（此时 HEAD 已稳定，逐个删除可靠）；④ 失败先探存在性再决定重试
-- 删完后要检查boot.js和CI是否还正常
+  ③ 发现残留就串行补删；④ 失败先探存在性再决定重试
 
 ### 4. 禁止硬编码
 - 所有坐标、尺寸、数量等参数必须从配置读取
@@ -62,70 +57,143 @@
 - 不要通过增加更多模块来掩盖架构问题
 - 原GLB + 共享材质源，不重复存储纹理
 - **先问：原系统已经有了吗？有了就不要重做**
-- 已确认重复并删除的：landmarks自绘角楼/垛口/台阶/广场（原系统addCityWalls已有角楼+批量垛口、
-  addHall自带台阶）、vegetation荷花（原系统曲江池自带）、night-light朱雀大街灯笼（原系统已有灯柱）、
-  阴影范围v1 ±500m（精度灾难，v2回退±140m）、visual-grade.js（视觉基调已由主循环GRADE驱动，空壳）、
-  sky.js（天空Shader已在00-core.js，空壳）
 
 ### 6. 世界坐标权威
 - **CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }**（核心城市边界）
 - **WORLD = { x0: -780, x1: 780, z0: -660, z1: 660 }**（世界范围）
-- 所有新增建筑、装饰、灯光的位置必须在这个范围内
-- 城墙角楼在(±450, ±380)，由原系统addCityWalls创建；护城河在城墙外 z>380/z<-380
-- **角楼/城墙边界必须与CITY一致（±380），不得出现 z=±450 之类的越界值**（审查曾指出此不一致）
-- 地标权威坐标见本文件下方表格（以 src/12-landmarks.js 为准）
+- 城墙角楼在(±450, ±380)，由原系统addCityWalls创建
+- **角楼/城墙边界必须与CITY一致（±380），不得出现 z=±450 之类的越界值**
 
-### 6b. 世界尺度设计（统一单位系统，2026-10-27 定稿）
+### 6b. 世界尺度设计
 - **1 world unit ≈ 2 米**：艺术化缩尺，相对真实长安水平缩约 1/3
-- 真实长安 东西9721m×南北8651m；游戏 WORLD ±780/±660（≈3.1km×2.6km 全境）、
-  CITY ±450/±380（≈1.8km×1.5km 游玩核心）
 - 坊 70×54 单位 ≈ 140×108m；朱雀大街宽 26 单位 ≈ 52m；护城河宽 20 单位 ≈ 40m
-- 速度（游戏化）：步行4.5 / 骑行14.2 / 飞行21 单位/秒（横穿CITY骑行约63秒）
-- 依据：雾距600-690单位内LOD生效、55°追尾镜头8.4单位距离、飞行/骑行体验节奏
-- 所有坐标/尺寸/速度统一使用该单位系统，禁止混用真实米数与游戏单位
-
-### 6c. 城市设计原则（2026-10-26 任务书）
-- 只开发长安城，不扩展其他城市；真实84km²尺度足够长期开发
-- 历史还原与国风漫剧幻想并行：历史结构（城墙/坊市/道路/宫殿/寺庙/地标）尽量复原，
-  其上叠加架空宫阙/飞阁/悬空栈道/奇观；两者明确区分但视觉风格统一
-- **城市必须人工设计固定布局**，可版本管理、可复现、可协作维护；随机只作开发期辅助
-- 暂不设资源容量硬上限：优先架构完整+电影级美术+流畅跨平台，素材分类/去重/统计机制先行，
-  发布容量待真实素材与测试后决定；区分总资源库/发布容量/首屏体积/显存/存档容量
+- 速度：步行4.5 / 骑行14.2 / 飞行21 单位/秒
 
 ### 7. 初始化原则
-- **统一生命周期调度器（v2，2026-10-27）**：src/99-safe-init.js 提供 window.__enhance.register(owner, fn, priority)，
-  GAME.ready 后下一帧开始，**requestAnimationFrame 分帧执行**（每帧一个模块，8帧≈133ms），
-  取代旧 500ms×8=4s 固定串行延迟；全部完成后自动调用 __changan.rebuild() 并置 GAME.fullyReady
-- 所有enhance模块必须 IIFE + registered 幂等标志，注册路径二选一（__enhance 或 __enhancePending）
-- 禁止散装 setTimeout 固定延迟（旧机制已废弃）；禁止覆盖buildWorld
-- 不要创建独立的requestAnimationFrame循环（分帧调度由 99-safe-init 统一管理）
-- 需要逐帧更新的内容必须接入主循环：包装 GameRendering.render（如28-weather天气，
-  **GameRendering 只有 render(dt) 方法，没有 update(dt)——曾因包装 update 导致天气系统静默失效**）
-  或 updateDayNight 尾部 __nightLights 钩子；禁止包装 window.updateDayNight（30-main 词法绑定，替换无效）
-- **已完成（2026-10-27）**：固定延迟已改 RAF 分帧；99-safe-init 旧模块引用已清理；
-  GAME.fullyReady 反映真实加载结果（失败模块在 console.warn 标注，不静默吞掉）
+- **统一生命周期调度器**：src/99-safe-init.js 提供 window.__enhance.register(owner, fn, priority)
+- GAME.ready 后 requestAnimationFrame 分帧执行（每帧一个模块）
+- 全部完成后自动调用 __changan.rebuild() 并置 GAME.fullyReady
+- 禁止散装 setTimeout 固定延迟；禁止覆盖buildWorld
+- 需要逐帧更新的内容必须接入主循环：包装 GameRendering.render(dt)
+  或 updateDayNight 尾部 __nightLights 钩子；禁止包装 window.updateDayNight
 
-### 7b. 批处理增量重建原则（已登记即已渲染，2026-10-27 落地）
-- Batch.build() 幂等重建：首次构建后仍可继续 add（如增强模块在 GAME.ready 后追加物体）；
-  再次调用 build 会先移除旧实例组，再按完整条目重建，保证场景中只存在一套实例网格
-- 全局重建入口：window.__changan.rebuild() 遍历 Object.values(B).forEach(b => b?.build?.())
-  + 刷新飞行包络（Explore.buildRoofGrid）+ 重建碰撞哈希 buildColliderHash() + 渲染刷新 GameRendering.refreshScene()
-- 生命周期：99-safe-init 在全部 enhance 模块执行完后自动调用 __changan.rebuild()
-- 原则：任何登记了碰撞/飞行障碍的物体，必须真实渲染；不允许"隐形碰撞"或"隐形障碍"
-  （典型反例：enhance/outside.js 在 GAME.ready 后 addTree，若不重建则树不可见但碰撞已登记）
-
-### 7c. 渲染/碰撞/寻路注册原则（2026-10-26 任务书）
-- 统一场景对象注册机制：新增物体必须同时参与 渲染批处理/碰撞网格/镜头遮挡/NPC寻路/飞行障碍
-- 地标精修必须针对原有建筑对象（用稳定ID引用），禁止硬编码坐标新建同名地标
-- 建筑层级：外墙/屋顶/台基/附属园林建立层级结构；同步检查地图、碰撞、寻路、诗笺、镜头、LOD
-- 108坊与地标之间的空间关系是权威，新增模块不得破坏
+### 7b. 批处理增量重建原则
+- Batch.build() 幂等重建：首次构建后仍可继续 add
+- 全局重建入口：window.__changan.rebuild()
+- 任何登记了碰撞/飞行障碍的物体，必须真实渲染
 
 ### 8. 光影与渲染原则
-- 不要直接修改sun/ambient/hemi/rim的颜色和强度，这些会被updateDayNight()主循环覆盖
-- 不要直接修改skyUniforms的参数，这些会被主循环动态调整
-- 阴影范围不是越大越好：过大反而降低阴影精度
-- **阴影范围：±140m（当前已验证；v1曾改±500m导致 2048/1000≈0.49m/texel 阴影模糊，已回退；
-  ±140m ≈ 7.3cm/texel 近景清晰）**；阴影策略最终按 质量档位/镜头位置/渲染距离/实测 决定，
-  不要以提高分辨率、扩大阴影范围或增加光源数量作为画质提升的唯一手段
-- 纹理各向异性设置为16x即可
+- 不要直接修改sun/ambient/hemi/rim的颜色和强度，会被updateDayNight()主循环覆盖
+- 阴影范围：±140m（已验证；过大降低阴影精度）
 - 天空/天气/昼夜：统一在 updateDayNight() 主循环管理，不建第二套天空/灯光控制器
+
+---
+
+## 9. 启动性能优化原则（2026-10-27 定稿）
+
+### 9a. 首屏加载策略
+- **boot.js 只加载核心引擎**（28项），enhance 模块不在 boot 阶段加载
+- enhance 模块在 GAME.ready 后由 30-main.js 通过动态 script 标签加载
+- WorldAssets.populate() 非阻塞：不等待外部素材完成就先渲染开始界面
+- renderer.compile() 移到 startGame()：开始界面只做低质量快速渲染
+- GameRendering fastStart 模式：跳过 makeEnvironment() 和 makePipeline()，
+  startGame() 时调用 upgradeToFullQuality() 升级完整质量
+- index.html 添加 preload 标签预热 vendor/three.min.js、boot.js 和主字体
+
+### 9b. 性能优化纪律
+- 先测量，再优化；不要把默认功能重新设置一遍就宣称完成优化
+- 不得未经对比修改已有性能策略（如DPR上限、阴影范围）
+- 新增建筑优先纳入批处理、实例化、LOD和距离裁剪体系
+- 不要以提高分辨率、扩大阴影范围或增加光源数量作为画质提升的唯一手段
+- 高DPR设备单独测量，不得一刀切提高DPR上限
+
+### 9c. 资源共享原则
+- 绝大部分内容（实际建模、PBR材质、纹理）使用共享素材包，不重复存储
+- 原GLB + 共享材质源方式，不上传两份各约13MB的重复贴图模型
+- 新增纹理必须检查是否已有同款，优先复用 MAT 材质库
+
+---
+
+## 10. 推送事故教训（2026-10-27 index.html 截断事故）
+
+### 事故经过
+- create_or_update_file 推送 index.html（52KB）时，content 被静默截断为 1444 字节
+- GitHub 不报错直接接受截断后的文件，导致线上白屏崩溃
+- 修复：从本地备份找到完整 52791 字节版本，重新推送成功
+
+### 教训与规则
+- **推送大文件（>10KB）后必须立即回读验证字节数**：
+  推送后用 get_file_contents 拉取线上版本，对比返回的 size 字段与预期一致
+- **推送前在本地验证 content 长度**：确保 content 变量完整，不是字符串截断
+- **关键文件（index.html、boot.js）推送后必须检查文件结尾**：
+  index.html 必须以 `</html>` 结尾；boot.js 必须完整闭合
+- **事故发生后不要慌**：从本地工作目录备份恢复，不要重新生成完整文件
+
+---
+
+## 11. 模块 Owner 映射表（权威）
+
+### 核心引擎层（src/*.js，boot.js 串行加载）
+| 文件 | Owner | 职责 |
+|------|-------|------|
+| 00-core.js | 核心状态 | GAME/CITY/WORLD常量、MAT材质库、UNIT_*几何体、全局状态 |
+| 04-compatibility.js | 兼容性 | 旧浏览器API兜底 |
+| 05-rendering.js | 渲染器 | WebGL渲染、fastStart/upgradeToFullQuality、后处理管线 |
+| 06-surfaces.js | 地面 | 路面、广场、台阶地面生成 |
+| 07-water.js | 水面 | 曲江池/龙池水面Shader、波纹/高光/时间Uniform |
+| 08-assets.js | 资源加载 | GLB模型加载、WorldAssets.populate()非阻塞素材填充 |
+| 09-botany.js | 植被 | 行道树、荷花、灌木生成与实例化 |
+| 10-world.js | 世界构建 | 108坊、城墙、角楼、垛口、街道、批处理Batch系统 |
+| 11-shorelines.js | 岸线 | 河岸、湖岸、护城河边缘 |
+| 12-landmarks.js | 地标 | 大明宫/太极殿/兴庆宫/大雁塔/小雁塔/曲江池/东西市权威坐标与建筑 |
+| 20-character.js | 角色 | NPC生成、玩家角色、小青龙、动画更新 |
+| 25-exploration.js | 探索 | 移动模式(步行/骑行/飞行)、碰撞、寻路、飞行障碍 |
+| 25b-film-shots-extra.js | 电影镜头 | 额外机位定义 |
+| 26-extra-places.js | 景点 | 额外景点数据 |
+| 26b-extra-places-2.js | 景点 | 额外景点数据（续） |
+| 27-session.js | 会话 | 存档、诗笺收集、进度持久化 |
+| 27b-extra-poems.js | 诗笺 | 额外诗笺数据 |
+| 27c-extra-poems-2.js | 诗笺 | 额外诗笺数据（续） |
+| 28-weather.js | 天气 | 晴/阴/雨切换、雨滴粒子、包装GameRendering.render做天气微调 |
+| 30-main.js | 主入口 | buildWorld()、主循环animate()、startGame()、GAME.ready/fullyReady |
+| 99-safe-init.js | 生命周期 | __enhance.register()分帧调度、__changan.rebuild() |
+| boot.js | 启动加载 | 串行加载清单（28项核心），enhance模块动态加载入口 |
+
+### 增强模块层（src/enhance/*.js，GAME.ready后动态加载）
+| 文件 | Owner | 职责 |
+|------|-------|------|
+| landmarks.js | 地标精修 | 原有地标建筑细节增强（斗拱/鸱吻/彩绘） |
+| night-light.js | 夜景灯光 | 灯笼照明与昼夜联动、__nightLights钩子 |
+| outside.js | 城外环境 | 城外树木、远山、护城河外侧 |
+| performance.js | 性能诊断 | FPS统计、DrawCall监控、质量档位适配 |
+| vegetation.js | 植被增强 | 行道树补植、季节变化 |
+| water.js | 水面增强 | 护城河、小河、喷泉（注意：必须水平放置，UNIT_PLANE需旋转-90°X） |
+
+### 新增功能归属规则
+- 建筑细节 → enhance/landmarks.js
+- 灯光/夜景 → enhance/night-light.js
+- 植被 → enhance/vegetation.js
+- 水面 → enhance/water.js（或修改07-water.js）
+- 城外 → enhance/outside.js
+- 性能 → enhance/performance.js
+- 核心渲染 → 05-rendering.js
+- 世界/城墙/坊 → 10-world.js
+- 地标坐标 → 12-landmarks.js
+- 角色/NPC → 20-character.js
+- 移动/碰撞 → 25-exploration.js
+- 天气 → 28-weather.js
+- **不要新建 src/141-*.js 或 src/enhance/新文件，除非以上所有owner都不覆盖**
+
+---
+
+## 12. CI 门禁规则（防臃肿）
+
+CI 每次 push 自动执行以下检查：
+1. **JS语法检查**：所有 src/*.js 和 src/enhance/*.js 通过 node --check
+2. **boot.js清单验证**：boot.js 引用的文件必须存在（防止404断载）
+3. **orphan检测**：enhance目录中的文件必须被动态加载清单引用
+4. **index.html完整性**：必须以 `</html>` 结尾（防止截断事故）
+5. **禁止新增编号模块**：src/ 下不得新增 NNN-*.js 文件（NNN > 30）
+6. **硬编码坐标检测**：enhance模块中不得出现明显硬编码的地标坐标（应引用12-landmarks.js）
+
+违反以上规则 CI 失败，不得合并到 main。
