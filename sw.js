@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v27
+/* Chang'an Dragon Service Worker v28
+ * v28: 坐骑与宠物养成系统 — 神兽相伴
  * v27: 战斗与PK系统 — 热血江湖
- * v26: 门派与修炼系统 — 修仙问道
  */
-const CACHE_NAME = 'changan-v27';
+const CACHE_NAME = 'changan-v28';
 const CORE_ASSETS = [
   './',
   './index.html',
