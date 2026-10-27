@@ -1,12 +1,9 @@
-/* Chang'an Dragon Service Worker v6
+/* Chang'an Dragon Service Worker v7
+ * v7: major visual upgrade — white-base PBR textures + mobile high quality + stronger bloom/SAO/color grading
  * v6: cinematic materials + color grading + post-processing upgrade
  * v5: bump for core/surfaces/exploration texture fixes + road PBR update
- * v4: bump cache for boot v8.8 + surfaces v3 + performance audit
- * v3: bump cache for boot v8.8 (async deferred loading + race fix)
- * v2: bump for boot v8.6+PBR changes
- * v1: initial
  */
-const CACHE_NAME = 'changan-v6';
+const CACHE_NAME = 'changan-v7';
 const CORE_ASSETS = [
   './',
   './index.html',
