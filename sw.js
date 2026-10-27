@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v29
+/* Chang'an Dragon Service Worker v30
+ * v30: 家园与种植系统 — 安居乐业
  * v29: 社交与婚姻系统 — 相识相知
- * v28: 坐骑与宠物养成系统 — 神兽相伴
  */
-const CACHE_NAME = 'changan-v29';
+const CACHE_NAME = 'changan-v30';
 const CORE_ASSETS = [
   './',
   './index.html',
