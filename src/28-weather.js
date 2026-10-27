@@ -1,12 +1,11 @@
 /* ============================================================
-   天气系统 · 晴/阴/雨（v4 主循环驱动 + UI 兼容注入）
+   天气系统 · 晴/阴/雨（v5 主循环驱动）
    - 雨滴粒子（800点，跟随玩家，遇雨天落下）
    - 雾/曝光：基于主循环 GRADE 基线的相对微调（晴天=GRADE 不变）
-   - 包装 GameRendering.update：animate() 每帧通过属性访问调用
-     GameRendering.update(dt)，包装必然生效（单一权威更新流程，
-     不包装 window.updateDayNight、不创建第二套 RAF）
-   - v4：天气按钮优先绑定 index.html 声明的 #weatherBtn；
-     旧版 HTML 未声明时动态注入按钮 + 帮助条目 + 竖屏4列覆盖
+   - 包装 GameRendering.render：animate() 每帧调用 GameRendering.render(dt)，
+     包装必然生效（单一权威更新流程，不包装 window.updateDayNight、不创建第二套 RAF）
+   - v5：修复 v3/v4 包装了不存在的 GameRendering.update 方法的 bug
+     （GameRendering 只有 render(dt)，update 从未被调用，天气系统静默失效）
    ============================================================ */
 
 (function() {
@@ -28,7 +27,7 @@
     initialized: false,
 
     init() {
-      // 幂等：粒子只创建一次；主循环入口 = GameRendering.update 包装
+      // 幂等：粒子只创建一次；主循环入口 = GameRendering.render 包装
       if (this.initialized || typeof scene === 'undefined') return;
       this.initialized = true;
       const geo = new THREE.BufferGeometry();
@@ -44,11 +43,13 @@
       this.particles = new THREE.Points(geo, mat);
       this.particles.visible = false;
       scene.add(this.particles);
-      // 主循环入口：animate() 每帧调用 GameRendering.update(dt)，在此挂载天气更新
-      if (typeof GameRendering !== 'undefined' && GameRendering && typeof GameRendering.update === 'function') {
-        const origRenderUpdate = GameRendering.update;
-        GameRendering.update = function(dt) {
-          origRenderUpdate.call(GameRendering, dt);
+      // 主循环入口：animate() 每帧调用 GameRendering.render(dt)，在此挂载天气更新
+      // v5 修复：GameRendering 只有 render(dt) 方法，没有 update(dt)；
+      // 此前包装 update 导致天气系统静默失效。现在包装 render。
+      if (typeof GameRendering !== 'undefined' && GameRendering && typeof GameRendering.render === 'function') {
+        const origRender = GameRendering.render;
+        GameRendering.render = function(dt) {
+          origRender.call(GameRendering, dt);
           Weather.update(dt);
         };
       }
@@ -95,7 +96,7 @@
           helpGrid.appendChild(item);
         }
       }
-      console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + GameRendering.update 主循环驱动(GRADE相对微调)');
+      console.log('[Weather] 天气系统就绪 - 雨滴粒子800 + GameRendering.render 主循环驱动(GRADE相对微调, v5修复包装目标)');
     },
 
     set(type) {
@@ -146,6 +147,8 @@
       if (this.t >= 0.98) this.current = this.target;
     },
   };
+
+  // 天气切换按钮改在 init()（GAME.ready 后）绑定，避免 bindHold 未定义。
 
   function register() {
     if (registered) return;
