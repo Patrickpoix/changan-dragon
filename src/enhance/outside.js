@@ -1,16 +1,16 @@
 /* ============================================================
-   Outside - 城外环境Owner（v3）
-   原系统已有明德门外御道/小村庄/城外小河/柳树/长安牌坊/田畴。
-   本模块补充：4驿站+2水井+16里程碑(路缘x=±12.5)+城外树林(addTree)。
-   里程碑用局部Batch（1个InstancedMesh），驿站/水井为独立Mesh(大件)。
-   新增实体注册碰撞与飞行障碍；坐标在WORLD内。
-   通过 __enhance.register 注册（优先级80）
+   Outside - 城外环境Owner（v4）
+   修复：里程碑移到护城河外（z>415）；城外树改 mulberry32 种子随机
+        （布局可复现，不每次刷新变）；驿站坐标核对避开田畴。
    ============================================================ */
 
 (function() {
   'use strict';
 
   let registered = false;
+
+  // 固定种子：布局可复现（每次刷新位置一致），但仍自然分布
+  const R = mulberry32(20261027);
 
   function registerCollider(x, z, w, d, tag) {
     if (typeof addCollider === 'function') {
@@ -62,29 +62,29 @@
       addWell(580, 480);
       addWell(-520, 550);
 
-      // 里程碑（路缘x=±12.5，御道两侧；局部Batch 16个→1 drawcall）
+      // 里程碑：御道两侧路缘 x=±12.5，z 从 415 开始（避开护城河 z=390-410）
       if (typeof Batch !== 'undefined') {
         const milestones = new Batch(UNIT_BOX, MAT.stone, { cast: true });
         for (let i = 0; i < 8; i++) {
-          milestones.add(-12.5, 1.5, 400 + i * 15, 0.8, 3, 0.3);
-          milestones.add(12.5, 1.5, 400 + i * 15, 0.8, 3, 0.3);
+          milestones.add(-12.5, 1.5, 415 + i * 15, 0.8, 3, 0.3);
+          milestones.add(12.5, 1.5, 415 + i * 15, 0.8, 3, 0.3);
         }
         milestones.build();
         for (let i = 0; i < 8; i++) {
-          registerCollider(-12.5, 400 + i * 15, 1.2, 0.8, 'milestone');
-          registerCollider(12.5, 400 + i * 15, 1.2, 0.8, 'milestone');
+          registerCollider(-12.5, 415 + i * 15, 1.2, 0.8, 'milestone');
+          registerCollider(12.5, 415 + i * 15, 1.2, 0.8, 'milestone');
         }
       }
 
-      // 城外树林（原系统addTree，批处理兼容）
+      // 城外树林——种子随机，布局可复现
       if (typeof addTree !== 'undefined') {
-        for (let i = 0; i < 30; i++) addTree(500 + Math.random() * 200, 300 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
-        for (let i = 0; i < 25; i++) addTree(-600 + Math.random() * 200, 300 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
-        for (let i = 0; i < 25; i++) addTree(500 + Math.random() * 200, -400 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
-        for (let i = 0; i < 20; i++) addTree(-600 + Math.random() * 200, -400 + Math.random() * 200, i % 2 ? 'willow' : 'pine', 0.8 + Math.random() * 0.3);
+        for (let i = 0; i < 30; i++) addTree(500 + R() * 200, 300 + R() * 200, i % 2 ? 'willow' : 'pine', 0.8 + R() * 0.3);
+        for (let i = 0; i < 25; i++) addTree(-600 + R() * 200, 300 + R() * 200, i % 2 ? 'willow' : 'pine', 0.8 + R() * 0.3);
+        for (let i = 0; i < 25; i++) addTree(500 + R() * 200, -400 + R() * 200, i % 2 ? 'willow' : 'pine', 0.8 + R() * 0.3);
+        for (let i = 0; i < 20; i++) addTree(-600 + R() * 200, -400 + R() * 200, i % 2 ? 'willow' : 'pine', 0.8 + R() * 0.3);
       }
 
-      console.log('[Outside] 城外环境增强完成 - 4驿站+2水井+16里程碑(路缘,局部Batch)+100城外树(原addTree)，碰撞/飞行障碍已注册');
+      console.log('[Outside] v4: 4 stations + 2 wells + 16 milestones (z>415) + 100 seeded trees');
     } catch(e) { console.warn('[Outside] 初始化失败:', e); }
   }
 

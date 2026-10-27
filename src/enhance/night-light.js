@@ -1,12 +1,8 @@
 /* ============================================================
-   NightLight - 夜景灯光Owner（v4）
-   原系统已有朱雀大街灯柱/横街灯串/市场灯笼串/含元殿檐下灯笼。
-   本模块只补充原系统缺少区域的灯笼与点光源（宫殿/塔寺/明德门周边），
-   灯笼使用局部Batch（杆/球各1个InstancedMesh，64盏→2 drawcall），
-   点光源仅登记到 window.__nightLights，由 30-main.js 的主循环
-   updateDayNight() 统一驱动昼夜强度（白天0、夜晚增强），
-   不创建独立RAF、不替换主循环函数（词法绑定优先，替换无效）。
-   通过 __enhance.register 注册（优先级70）
+   NightLight - 夜景灯光Owner（v5）
+   修复：宫殿灯笼改 mulberry32 种子随机（布局可复现）；
+        明德门灯笼移到城门内（z=375，不在城墙外 z=384）；
+        灯笼用 UNIT_CYL（柱）+ UNIT_SPHERE（灯罩）分层。
    ============================================================ */
 
 (function() {
@@ -15,57 +11,50 @@
   let registered = false;
   const pointLights = [];
 
+  const R = mulberry32(20261029);
+
   function init() {
     try {
       if (typeof scene === 'undefined' || typeof MAT === 'undefined' || typeof Batch === 'undefined') return;
 
       const positions = [];
 
-      // 大明宫周边（12）
       for (let i = 0; i < 12; i++) {
-        const angle = Math.random() * Math.PI * 2, r = 34 + Math.random() * 40;
+        const angle = R() * Math.PI * 2, r = 34 + R() * 40;
         positions.push([150 + Math.cos(angle) * r, -432 + Math.sin(angle) * r, 4]);
       }
-      // 太极宫周边（10）
       for (let i = 0; i < 10; i++) {
-        const angle = Math.random() * Math.PI * 2, r = 30 + Math.random() * 35;
+        const angle = R() * Math.PI * 2, r = 30 + R() * 35;
         positions.push([0 + Math.cos(angle) * r, -334 + Math.sin(angle) * r, 4]);
       }
-      // 兴庆宫（8）
       for (let i = 0; i < 8; i++) {
-        const angle = Math.random() * Math.PI * 2, r = 34 + Math.random() * 30;
+        const angle = R() * Math.PI * 2, r = 34 + R() * 30;
         positions.push([342 + Math.cos(angle) * r, -152 + Math.sin(angle) * r, 4]);
       }
-      // 大雁塔（8环形）
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
         positions.push([216 + Math.cos(angle) * 16, 283 + Math.sin(angle) * 16, 4]);
       }
-      // 小雁塔（8环形）
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
         positions.push([-216 + Math.cos(angle) * 14, 349 + Math.sin(angle) * 14, 4]);
       }
-      // 曲江池（10环形湖岸）
       for (let i = 0; i < 10; i++) {
         const angle = (i / 10) * Math.PI * 2;
         positions.push([354 + Math.cos(angle) * 46, 318 + Math.sin(angle) * 38, 3.5]);
       }
-      // 明德门（8，御道两侧）
-      for (let i = 0; i < 8; i++) positions.push([-16 + i * 4.6, 384, 4]);
+      for (let i = 0; i < 8; i++) positions.push([-16 + i * 4.6, 375, 4]);
 
-      // 灯笼局部Batch：杆 + 灯球（64盏 → 2个InstancedMesh）
       const poles = new Batch(UNIT_CYL, MAT.wood, { cast: true });
-      const lanterns = new Batch(UNIT_SPHERE, MAT.lanternGlow || MAT.lantern, { cast: false });
+      const shades = new Batch(UNIT_SPHERE, MAT.lanternGlow || MAT.lantern, { cast: false });
       positions.forEach(p => {
         const h = p[2];
-        poles.add(p[0], h / 2, p[1], 0.2, h, 0.2);
-        lanterns.add(p[0], h + 0.5, p[1], 0.6, 0.8, 0.6);
+        poles.add(p[0], h / 2, p[1], 0.15, h, 0.15);
+        shades.add(p[0], h + 0.3, p[1], 0.35, 0.45, 0.35);
       });
       poles.build();
-      lanterns.build();
+      shades.build();
 
-      // 点光源（昼夜联动：白天0，夜晚增强；由主循环统一驱动）
       const lanternPositions = [
         { x: 150, z: -432, intensity: 0.8, distance: 100 },
         { x: 0, z: -334, intensity: 0.7, distance: 90 },
@@ -83,13 +72,10 @@
         scene.add(light);
       });
 
-      // 登记到主循环驱动：updateDayNight() 每帧统一计算强度。
-      // 注意：window.updateDayNight 是 30-main.js 的词法绑定函数，
-      // 替换 window 属性不会改变主循环实际调用，因此这里不做包装。
       if (typeof window !== 'undefined') window.__nightLights = pointLights;
 
-      console.log('[NightLight] 夜景灯光增强完成 - 64盏灯笼(局部Batch 2 drawcall)+7组点光源(主循环昼夜联动)');
-    } catch(e) { console.warn('[NightLight] 初始化失败:', e); }
+      console.log('[NightLight] v5: 64 lanterns (seeded, pole+shade) + 7 point lights');
+    } catch(e) { console.warn('[NightLight] init failed:', e); }
   }
 
   function register() {
