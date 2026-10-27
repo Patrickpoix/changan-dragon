@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v49
+/* Chang'an Dragon Service Worker v50
+ * v50: 装备与物品系统 — 神兵利器
  * v49: 经济与交易系统 — 财源广进
- * v48: 成长与进阶系统 — 步步登高
  */
-const CACHE_NAME = 'changan-v49';
+const CACHE_NAME = 'changan-v50';
 const CORE_ASSETS = [
   './',
   './index.html',
