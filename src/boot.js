@@ -1,12 +1,10 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v7 性能优化（2026-10-27）：
- *   - 修复WorldAssets引用方式：const声明的全局变量不在window上，用typeof检查
- * v6 性能优化：
- *   - runtime-models.js(9.58MB)从关键路径移出，改为后台延迟加载
- *   - 首屏只需等小文件(1MB)+scene-materials.js(7MB)，不等9.58MB模型模板
- *   - runtime-models.js加载完成后自动调用WorldAssets.reset()+populate()重试
- *   - 效果：关键路径下载从16.6MB降到8MB
- * v5: 所有小文件script标签一次性创建，浏览器并行下载、按序执行 */
+ * v8 性能优化（2026-10-27）：
+ *   - scene-materials.js(7MB)也移出关键路径
+ *   - 关键路径只剩小文件(~1MB)，素材模板全部后台延迟加载
+ *   - 效果：首屏关键路径下载从8MB降到~1MB
+ * v7: runtime-models.js移出关键路径
+ */
 
 const smallScripts = [
   'vendor/three.min.js','vendor/rendering-addons.js',
@@ -19,10 +17,11 @@ const smallScripts = [
   'src/27c-extra-poems-2.js','src/28-weather.js','src/99-safe-init.js',
 ];
 
-// 关键大文件：buildWorld()依赖MAT材质库，必须等待
-const criticalBig = ['assets/scene-materials.js'];
-// 延迟大文件：GLB模型模板，WorldAssets.populate()非阻塞，后台加载完自动重试
-const deferredBig = ['assets/runtime-models.js'];
+// v8: 无关键大文件——所有素材模板都后台延迟加载
+// buildWorld()用程序化MAT材质先渲染开始界面，素材加载完后WorldAssets.populate()增强
+const criticalBig = [];
+// 延迟大文件：材质纹理 + GLB模型模板，后台加载完自动重试populate
+const deferredBig = ['assets/scene-materials.js', 'assets/runtime-models.js'];
 
 (function boot() {
   const statusEl = document.getElementById('bootStatus');
@@ -34,39 +33,29 @@ const deferredBig = ['assets/runtime-models.js'];
     document.head.appendChild(s);
   }));
 
-  const criticalPromises = criticalBig.map(src => new Promise((resolve, reject) => {
-    const s = document.createElement('script'); s.src = src;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error('critical asset failed: ' + src));
-    document.head.appendChild(s);
-  }));
-
   // 延迟大文件：立即开始下载，但不阻塞30-main.js
   for (const src of deferredBig) {
     const s = document.createElement('script'); s.src = src;
     s.onload = () => {
-      console.log('[Boot] 延迟模型模板加载完成: ' + src);
-      // WorldAssets是const全局变量（不在window上），用typeof安全检查
+      console.log('[Boot] 延迟素材加载完成: ' + src);
       try {
         if (typeof WorldAssets !== 'undefined' && typeof WorldAssets.reset === 'function') {
           WorldAssets.reset();
           WorldAssets.populate().then(assets => {
             console.log('[Boot] 延迟素材载入完成: ' + assets.count + '个物件, ' + assets.meshes + '个mesh');
-          }).catch(err => console.warn('[Boot] 延迟素材载入失败:', err));
+          }).catch(err => console.warn('[Boot] 延迟素材载入失败(等另一个素材):', err.message));
         } else {
-          // WorldAssets尚未定义（延迟文件比小文件先到），设标记等30-main.js就绪后处理
-          window.__RUNTIME_MODELS_READY = true;
+          window.__DEFERRED_ASSETS_READY = (window.__DEFERRED_ASSETS_READY || 0) + 1;
         }
       } catch(e) { console.warn('[Boot] 延迟素材重试异常:', e); }
     };
-    s.onerror = () => console.warn('[Boot] 延迟模型模板加载失败: ' + src);
+    s.onerror = () => console.warn('[Boot] 延迟素材加载失败: ' + src);
     document.head.appendChild(s);
   }
 
-  Promise.all([...smallPromises, ...criticalPromises]).then(() => {
+  Promise.all(smallPromises).then(() => {
     if (statusEl) statusEl.textContent = '开始构建长安城…';
-    // 如果延迟模型已加载但WorldAssets尚未就绪，现在补上
-    if (window.__RUNTIME_MODELS_READY) {
+    if (window.__DEFERRED_ASSETS_READY > 0) {
       try { WorldAssets.reset(); WorldAssets.populate().catch(()=>{}); } catch(e) {}
     }
     const s = document.createElement('script'); s.src = 'src/30-main.js';
