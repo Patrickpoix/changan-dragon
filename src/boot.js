@@ -1,6 +1,8 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v8.7: deferred大文件改async=true并行加载，不再阻塞30-main.js执行
- * v8.6: script.async=false确保按插入顺序执行（动态创建默认async=true会乱序）
+ * v8.8: 修复竞态——大文件可能先于小文件加载完成，onload回调时SurfaceLibrary未定义。
+ *       小文件全部加载后检查SCENE_MATERIALS/RUNTIME_MODELS是否已就绪，触发补绑。
+ * v8.7: deferred大文件改async=true并行加载，不阻塞30-main.js执行
+ * v8.6: script.async=false确保按插入顺序执行
  * v8.5: scene-materials.js加载后补绑衣物PBR法线(refreshClothMaterials)
  * v8.4: PBR补绑后requestAnimationFrame重新编译着色器
  * v8.3: scene-materials.js加载后调用SurfaceLibrary.architecture()补绑PBR法线/粗糙度
@@ -29,46 +31,51 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// v8.8: 统一的PBR补绑入口，可被大文件onload或小文件就绪后调用
+function applyDeferredPBR() {
+  if (typeof SCENE_MATERIALS === 'undefined') return false;
+  try { if (typeof GameRendering !== 'undefined' && GameRendering.refreshEnvironment) GameRendering.refreshEnvironment(); } catch(e) {}
+  try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) SurfaceLibrary.architecture(); } catch(e) {}
+  try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.refreshClothMaterials) SurfaceLibrary.refreshClothMaterials(); } catch(e) {}
+  try {
+    if (typeof renderer !== 'undefined' && typeof scene !== 'undefined' && typeof camera !== 'undefined') {
+      requestAnimationFrame(() => { try { renderer.compile(scene, camera); console.log('[Boot] ✓ PBR材质着色器重新编译完成'); } catch(e){} });
+    }
+  } catch(e) {}
+  return true;
+}
+
+function populateDeferredModels() {
+  if (typeof WorldAssets === 'undefined' || typeof WorldAssets.reset !== 'function') return false;
+  WorldAssets.reset();
+  WorldAssets.populate().then(assets => {
+    console.log('[Boot] 延迟素材载入完成: ' + assets.count + '个物件, ' + assets.meshes + '个mesh');
+  }).catch(err => console.warn('[Boot] 延迟素材载入失败:', err.message));
+  return true;
+}
+
 (function boot() {
   const statusEl = document.getElementById('bootStatus');
 
-  // 小文件按序加载（async=false），确保依赖正确
   const smallPromises = smallScripts.map(src => new Promise((resolve, reject) => {
     const s = document.createElement('script'); s.src = src;
-    s.async = false; // 小文件必须按序执行
+    s.async = false;
     s.onload = () => resolve();
     s.onerror = () => reject(new Error('small script failed: ' + src));
     document.head.appendChild(s);
   }));
 
-  // v8.7: 大文件立即开始下载但async=true（默认），不阻塞30-main.js执行。
-  // 它们只定义全局变量（SCENE_MATERIALS/RUNTIME_MODELS），执行顺序不影响正确性。
-  // 加载完成后onload回调自动应用PBR材质和GLB模型。
+  // v8.7: 大文件立即开始下载但async=true（默认），不阻塞30-main.js执行
   for (const src of deferredBig) {
     const s = document.createElement('script'); s.src = src;
-    // 不设async=false → 默认async=true → 下载完即执行，不阻塞其他脚本
     s.onload = () => {
       console.log('[Boot] 延迟素材加载完成: ' + src);
       if (src.indexOf('scene-materials') !== -1) {
-        try { if (typeof GameRendering !== 'undefined' && GameRendering.refreshEnvironment) GameRendering.refreshEnvironment(); } catch(e) {}
-        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) SurfaceLibrary.architecture(); } catch(e) {}
-        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.refreshClothMaterials) SurfaceLibrary.refreshClothMaterials(); } catch(e) {}
-        try {
-          if (typeof renderer !== 'undefined' && typeof scene !== 'undefined' && typeof camera !== 'undefined') {
-            requestAnimationFrame(() => { try { renderer.compile(scene, camera); console.log('[Boot] ✓ PBR材质着色器重新编译完成'); } catch(e){} });
-          }
-        } catch(e) {}
+        // v8.8: 可能此时SurfaceLibrary尚未定义，applyDeferredPBR内部有typeof检查
+        if (!applyDeferredPBR()) window.__PBR_PENDING = true;
       }
-      try {
-        if (typeof WorldAssets !== 'undefined' && typeof WorldAssets.reset === 'function') {
-          WorldAssets.reset();
-          WorldAssets.populate().then(assets => {
-            console.log('[Boot] 延迟素材载入完成: ' + assets.count + '个物件, ' + assets.meshes + '个mesh');
-          }).catch(err => console.warn('[Boot] 延迟素材载入失败(等另一个素材):', err.message));
-        } else {
-          window.__DEFERRED_ASSETS_READY = (window.__DEFERRED_ASSETS_READY || 0) + 1;
-        }
-      } catch(e) { console.warn('[Boot] 延迟素材重试异常:', e); }
+      // v8.8: 可能此时WorldAssets尚未定义
+      if (!populateDeferredModels()) window.__MODELS_PENDING = true;
     };
     s.onerror = () => console.warn('[Boot] 延迟素材加载失败: ' + src);
     document.head.appendChild(s);
@@ -76,6 +83,10 @@ if ('serviceWorker' in navigator) {
 
   Promise.all(smallPromises).then(() => {
     if (statusEl) statusEl.textContent = '开始构建长安城…';
+    // v8.8: 小文件已就绪，检查大文件是否已先加载完成
+    if (window.__PBR_PENDING) { applyDeferredPBR(); window.__PBR_PENDING = false; }
+    if (window.__MODELS_PENDING) { populateDeferredModels(); window.__MODELS_PENDING = false; }
+    // 兼容旧的计数器逻辑
     if (window.__DEFERRED_ASSETS_READY > 0) {
       try { WorldAssets.reset(); WorldAssets.populate().catch(()=>{}); } catch(e) {}
     }
