@@ -1,8 +1,7 @@
 /* ============================================================
    龙游长安 · 游戏主循环 / 操控 / 镜头 / 昼夜 / 诗笺
+   v10: 敦煌壁画色调 — 金赭天空、暖雾、长阴影、大气透视
    v9: 电影级色彩 grading — 暖金调天空/更强环境光/更柔阴影/更饱和
-   v8.1 修复：Cam.zoomBy缺少clamp闭合括号
-   v8: idle期间同时预生成PMREM和预编译材质
    ============================================================ */
 
 'use strict';
@@ -67,7 +66,7 @@ const Cam={
     const anchor=new THREE.Vector3(p.x,p.y+2.45,p.z);look=this.clearPosition(anchor,look);desired=this.resolvePosition(look,desired);desired.y=Math.max(desired.y,.8);
     if(immediate){camera.position.copy(desired);this.look.copy(look);}else{camera.position.lerp(desired,1-Math.exp(-lambda*dt));this.look.lerp(look,1-Math.exp(-6.5*dt));}
     this.look.copy(this.clearPosition(anchor,this.look));camera.position.copy(this.resolvePosition(this.look,camera.position));camera.lookAt(this.look);
-    const tf=56+(GAME.boosted?4.2:0);this.fov=damp(this.fov,tf,3.4,dt);if(Math.abs(camera.fov-this.fov)>.01){camera.fov=this.fov;camera.updateProjectionMatrix();}},
+    const tf=56+(GAME.boosted?4.2:0);this.fov=damp(this.fov,tf,3.4,dt);if(Math.abs(camera.fov-this.fov)>.01){camera.fov=this.fov;camera.updateProjectionMatrix();}},',
   drag(dx,dy){if(this.modes[this.mode].key==='orbit')this.orbitYaw-=dx*.005;else this.userYaw-=dx*.0045;this.pitch=clamp(this.pitch+dy*.0035,-.06,.78);},
   zoomBy(f){this.zoom=clamp(this.zoom*f,.62,2.15);},
 };
@@ -82,7 +81,7 @@ function bindHold(el,onD,onU){if(!el)return;let hp=null;el.addEventListener('poi
 
 function updatePoemCounter(){const n=GAME.poemsFound.size;if(UI.poemCount)UI.poemCount.textContent=String(n);if(UI.poemBadge)UI.poemBadge.classList.toggle('complete',n>=poems.length);}
 function buildCollectionList(){if(!UI.collectionList)return;UI.collectionList.innerHTML='';poems.forEach((p,i)=>{const g=GAME.poemsFound.has(i);const row=document.createElement('div');row.className='collection-item'+(g?'':' locked');row.innerHTML=`<span class="num">${String(i+1).padStart(2,'0')}</span><span class="place">${g?escapeHTML(p.place):'未寻得'}</span><span class="line">${g?escapeHTML(p.line):'••••••••'}</span>`;UI.collectionList.appendChild(row);});if(UI.collectionComplete)UI.collectionComplete.classList.toggle('hidden',GAME.poemsFound.size<poems.length);}
-function escapeHTML(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 let mrf=null;
 function openModal(p){if(!p||!UI.modal||Explore.film)return;mrf=document.activeElement;Explore.resetInput();GAME.modalOpen=true;[UI.poemPanel,UI.helpPanel,UI.collectionPanel,UI.travelPanel].forEach(x=>x?.classList.add('hidden'));p.classList.remove('hidden');UI.modal.classList.remove('hidden');p.querySelector('button')?.focus?.();}
 function closeModal(){if(!UI.modal||!GAME.modalOpen)return;GAME.modalOpen=false;UI.modal.classList.add('hidden');Explore.resetInput();mrf?.focus?.();mrf=null;}
@@ -97,43 +96,43 @@ function toggleFullscreen(){if(!document.fullscreenElement){const r=document.doc
 function ensureAudio(){if(!Sound.enabled)return;if(Sound.init()&&Sound.ctx?.state==='suspended')Sound.ctx.resume().catch(()=>{});}
 function ringBell(){if(!GAME.started)return;player.ring();Sound.bell();}
 
-// v9: 电影级色彩 grading — 暖金调、更强环境光、更柔阴影、更饱和
-const GRADE={dayExposure:1.18,nightExposure:.95,dayFogNear:55,dayFogFar:680,nightFogNear:90,nightFogFar:620};
+// v10: 敦煌壁画色调 — 更金赭、更暖、大气透视更强
+const GRADE={dayExposure:1.2,nightExposure:.92,dayFogNear:40,dayFogFar:580,nightFogNear:70,nightFogFar:520};
 const Colors={
-  // v9: 更暖、更饱和的天空色 — 像盛唐壁画的颜料
-  dayTop:new THREE.Color(0x6ba8c8),       // 更深的天蓝
-  dayHorizon:new THREE.Color(0xf5d8a8),    // 暖金色地平线
-  daySun:new THREE.Color(0xffd080),         // 更暖的阳光色
-  nightTop:new THREE.Color(0x0a1838),       // 深夜蓝
-  nightHorizon:new THREE.Color(0x4a5a94),  // 暮光紫
-  nightSun:new THREE.Color(0xc8d8ff),      // 月光冷白
-  dayFog:new THREE.Color(0xe8d5b0),        // 暖米色雾
-  nightFog:new THREE.Color(0x243058),      // 深蓝夜雾
-  dayDeep:new THREE.Color(0x2a6a72),       // 深水色
+  // v10: 敦煌壁画风格 — 天更蓝金、地平线更赭、雾更暖
+  dayTop:new THREE.Color(0x5a9fc8),       // 更深的敦煌蓝
+  dayHorizon:new THREE.Color(0xf0c878),   // 赭金色地平线
+  daySun:new THREE.Color(0xffc860),        // 更暖的阳光
+  nightTop:new THREE.Color(0x081438),      // 深夜蓝
+  nightHorizon:new THREE.Color(0x3a4a88), // 暮光紫
+  nightSun:new THREE.Color(0xb8d0f0),     // 月光冷白
+  dayFog:new THREE.Color(0xe0c898),        // 赭米色雾
+  nightFog:new THREE.Color(0x1e2a54),      // 深蓝夜雾
+  dayDeep:new THREE.Color(0x2a6a72),      // 深水色
   nightDeep:new THREE.Color(0x0e3a60),     // 夜水色
-  dayShallow:new THREE.Color(0x6ab8a8),     // 浅水绿
+  dayShallow:new THREE.Color(0x6ab8a8),    // 浅水绿
   nightShallow:new THREE.Color(0x2a6a8a),  // 夜浅水
-  dayHemi:new THREE.Color(0xffe8c8),        // 暖天光
-  nightHemi:new THREE.Color(0x8aa8e8),     // 冷夜天光
-  daySunLight:new THREE.Color(0xffe0b0),    // 暖阳光
-  nightSunLight:new THREE.Color(0x9ab8e8), // 冷月光
-  dayRim:new THREE.Color(0xffa878),        // 暖色轮廓光
-  nightRim:new THREE.Color(0x4a68b8),      // 冷色轮廓光
+  dayHemi:new THREE.Color(0xffe0b0),       // 暖天光
+  nightHemi:new THREE.Color(0x7a98d8),     // 冷夜天光
+  daySunLight:new THREE.Color(0xffd8a0),   // 暖阳光
+  nightSunLight:new THREE.Color(0x8aa8d8), // 冷月光
+  dayRim:new THREE.Color(0xff9860),        // 暖色轮廓光
+  nightRim:new THREE.Color(0x3a58a8),      // 冷色轮廓光
 };
 function toggleNight(){if(!GAME.started)return;GAME.nightTarget=GAME.nightTarget>.5?0:1;const on=GAME.nightTarget>.5;if(UI.nightBtn){UI.nightBtn.textContent=on?'☀':'☾';UI.nightBtn.title=on?'切换白昼':'切换夜晚';UI.nightBtn.classList.toggle('active',on);}toast(on?'月升长安 · 满城灯火':'晨光再临 · 长安如画',1700);}
 function updateDayNight(dt){GAME.nightT=damp(GAME.nightT,GAME.nightTarget,2.1,dt);const n=GAME.nightT;skyUniforms.night.value=n;skyUniforms.topColor.value.copy(Colors.dayTop).lerp(Colors.nightTop,n);skyUniforms.horizonColor.value.copy(Colors.dayHorizon).lerp(Colors.nightHorizon,n);skyUniforms.sunColor.value.copy(Colors.daySun).lerp(Colors.nightSun,n);scene.fog.color.copy(Colors.dayFog).lerp(Colors.nightFog,n);scene.fog.near=lerp(GRADE.dayFogNear,GRADE.nightFogNear,n);scene.fog.far=lerp(GRADE.dayFogFar,GRADE.nightFogFar,n);starMat.opacity=n*.92;
-  // v9: 更强的环境光和半球光，让阴影更柔、画面更通透
-  hemi.intensity=lerp(.58,.34,n);
+  // v10: 更柔的环境光、更强的阳光对比
+  hemi.intensity=lerp(.62,.32,n);
   hemi.color.copy(Colors.dayHemi).lerp(Colors.nightHemi,n);
-  ambient.intensity=lerp(.14,.18,n);
-  sun.intensity=lerp(2.4,.38,n);
+  ambient.intensity=lerp(.12,.16,n);
+  sun.intensity=lerp(2.6,.35,n);
   sun.color.copy(Colors.daySunLight).lerp(Colors.nightSunLight,n);
   rim.color.copy(Colors.dayRim).lerp(Colors.nightRim,n);
-  rim.intensity=lerp(.35,.22,n);
+  rim.intensity=lerp(.4,.2,n);
   GameRendering.setExposure(lerp(GRADE.dayExposure,GRADE.nightExposure,n));
-  MAT.lantern.emissiveIntensity=lerp(.4,4.2,n);
-  MAT.window.emissiveIntensity=lerp(0,2.4,n);
-  MAT.lanternGlow.opacity=lerp(.25,.8,n);
+  MAT.lantern.emissiveIntensity=lerp(.4,4.5,n);
+  MAT.window.emissiveIntensity=lerp(0,2.6,n);
+  MAT.lanternGlow.opacity=lerp(.25,.85,n);
   waterUniforms.deep.value.copy(Colors.dayDeep).lerp(Colors.nightDeep,n);
   waterUniforms.shallow.value.copy(Colors.dayShallow).lerp(Colors.nightShallow,n);
   waterUniforms.sunColor.value.copy(sun.color);
