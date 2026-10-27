@@ -1,5 +1,6 @@
 /* ============================================================
    龙游长安 · 游戏主循环 / 操控 / 镜头 / 昼夜 / 诗笺
+   v9: 电影级色彩 grading — 暖金调天空/更强环境光/更柔阴影/更饱和
    v8.1 修复：Cam.zoomBy缺少clamp闭合括号
    v8: idle期间同时预生成PMREM和预编译材质
    ============================================================ */
@@ -96,10 +97,49 @@ function toggleFullscreen(){if(!document.fullscreenElement){const r=document.doc
 function ensureAudio(){if(!Sound.enabled)return;if(Sound.init()&&Sound.ctx?.state==='suspended')Sound.ctx.resume().catch(()=>{});}
 function ringBell(){if(!GAME.started)return;player.ring();Sound.bell();}
 
-const GRADE={dayExposure:1.15,nightExposure:.92,dayFogNear:60,dayFogFar:600,nightFogNear:95,nightFogFar:590};
-const Colors={dayTop:new THREE.Color(0x85b6ce),dayHorizon:new THREE.Color(0xf8e3c8),daySun:new THREE.Color(0xffc95e),nightTop:new THREE.Color(0x071b3b),nightHorizon:new THREE.Color(0x3e4c84),nightSun:new THREE.Color(0xdbe9ff),dayFog:new THREE.Color(0xe8d8b8),nightFog:new THREE.Color(0x1b2746),dayDeep:new THREE.Color(0x2e6c70),nightDeep:new THREE.Color(0x0e4c70),dayShallow:new THREE.Color(0x78b4aa),nightShallow:new THREE.Color(0x2c7891),dayHemi:new THREE.Color(0xfff3d8),nightHemi:new THREE.Color(0x9bb7ef),daySunLight:new THREE.Color(0xffe6bd),nightSunLight:new THREE.Color(0xaecaff),dayRim:new THREE.Color(0xffb98f),nightRim:new THREE.Color(0x5b78c9)};
+// v9: 电影级色彩 grading — 暖金调、更强环境光、更柔阴影、更饱和
+const GRADE={dayExposure:1.18,nightExposure:.95,dayFogNear:55,dayFogFar:680,nightFogNear:90,nightFogFar:620};
+const Colors={
+  // v9: 更暖、更饱和的天空色 — 像盛唐壁画的颜料
+  dayTop:new THREE.Color(0x6ba8c8),       // 更深的天蓝
+  dayHorizon:new THREE.Color(0xf5d8a8),    // 暖金色地平线
+  daySun:new THREE.Color(0xffd080),         // 更暖的阳光色
+  nightTop:new THREE.Color(0x0a1838),       // 深夜蓝
+  nightHorizon:new THREE.Color(0x4a5a94),  // 暮光紫
+  nightSun:new THREE.Color(0xc8d8ff),      // 月光冷白
+  dayFog:new THREE.Color(0xe8d5b0),        // 暖米色雾
+  nightFog:new THREE.Color(0x243058),      // 深蓝夜雾
+  dayDeep:new THREE.Color(0x2a6a72),       // 深水色
+  nightDeep:new THREE.Color(0x0e3a60),     // 夜水色
+  dayShallow:new THREE.Color(0x6ab8a8),     // 浅水绿
+  nightShallow:new THREE.Color(0x2a6a8a),  // 夜浅水
+  dayHemi:new THREE.Color(0xffe8c8),        // 暖天光
+  nightHemi:new THREE.Color(0x8aa8e8),     // 冷夜天光
+  daySunLight:new THREE.Color(0xffe0b0),    // 暖阳光
+  nightSunLight:new THREE.Color(0x9ab8e8), // 冷月光
+  dayRim:new THREE.Color(0xffa878),        // 暖色轮廓光
+  nightRim:new THREE.Color(0x4a68b8),      // 冷色轮廓光
+};
 function toggleNight(){if(!GAME.started)return;GAME.nightTarget=GAME.nightTarget>.5?0:1;const on=GAME.nightTarget>.5;if(UI.nightBtn){UI.nightBtn.textContent=on?'☀':'☾';UI.nightBtn.title=on?'切换白昼':'切换夜晚';UI.nightBtn.classList.toggle('active',on);}toast(on?'月升长安 · 满城灯火':'晨光再临 · 长安如画',1700);}
-function updateDayNight(dt){GAME.nightT=damp(GAME.nightT,GAME.nightTarget,2.1,dt);const n=GAME.nightT;skyUniforms.night.value=n;skyUniforms.topColor.value.copy(Colors.dayTop).lerp(Colors.nightTop,n);skyUniforms.horizonColor.value.copy(Colors.dayHorizon).lerp(Colors.nightHorizon,n);skyUniforms.sunColor.value.copy(Colors.daySun).lerp(Colors.nightSun,n);scene.fog.color.copy(Colors.dayFog).lerp(Colors.nightFog,n);scene.fog.near=lerp(GRADE.dayFogNear,GRADE.nightFogNear,n);scene.fog.far=lerp(GRADE.dayFogFar,GRADE.nightFogFar,n);starMat.opacity=n*.92;hemi.intensity=lerp(.42,.28,n);hemi.color.copy(Colors.dayHemi).lerp(Colors.nightHemi,n);ambient.intensity=lerp(.06,.12,n);sun.intensity=lerp(2.2,.32,n);sun.color.copy(Colors.daySunLight).lerp(Colors.nightSunLight,n);rim.color.copy(Colors.dayRim).lerp(Colors.nightRim,n);rim.intensity=lerp(.27,.19,n);GameRendering.setExposure(lerp(GRADE.dayExposure,GRADE.nightExposure,n));MAT.lantern.emissiveIntensity=lerp(.35,3.8,n);MAT.window.emissiveIntensity=lerp(0,2.1,n);MAT.lanternGlow.opacity=lerp(.2,.75,n);waterUniforms.deep.value.copy(Colors.dayDeep).lerp(Colors.nightDeep,n);waterUniforms.shallow.value.copy(Colors.dayShallow).lerp(Colors.nightShallow,n);waterUniforms.sunColor.value.copy(sun.color);waterUniforms.sunDir.value.copy(sun.position).sub(sun.target.position).normalize();if(fireflies)fireflies.pts.material.opacity=n*.95;if(stars)stars.visible=n>.015;if(window.__nightLights)for(const l of window.__nightLights)l.intensity=(l.userData.baseIntensity||.5)*n;}
+function updateDayNight(dt){GAME.nightT=damp(GAME.nightT,GAME.nightTarget,2.1,dt);const n=GAME.nightT;skyUniforms.night.value=n;skyUniforms.topColor.value.copy(Colors.dayTop).lerp(Colors.nightTop,n);skyUniforms.horizonColor.value.copy(Colors.dayHorizon).lerp(Colors.nightHorizon,n);skyUniforms.sunColor.value.copy(Colors.daySun).lerp(Colors.nightSun,n);scene.fog.color.copy(Colors.dayFog).lerp(Colors.nightFog,n);scene.fog.near=lerp(GRADE.dayFogNear,GRADE.nightFogNear,n);scene.fog.far=lerp(GRADE.dayFogFar,GRADE.nightFogFar,n);starMat.opacity=n*.92;
+  // v9: 更强的环境光和半球光，让阴影更柔、画面更通透
+  hemi.intensity=lerp(.58,.34,n);
+  hemi.color.copy(Colors.dayHemi).lerp(Colors.nightHemi,n);
+  ambient.intensity=lerp(.14,.18,n);
+  sun.intensity=lerp(2.4,.38,n);
+  sun.color.copy(Colors.daySunLight).lerp(Colors.nightSunLight,n);
+  rim.color.copy(Colors.dayRim).lerp(Colors.nightRim,n);
+  rim.intensity=lerp(.35,.22,n);
+  GameRendering.setExposure(lerp(GRADE.dayExposure,GRADE.nightExposure,n));
+  MAT.lantern.emissiveIntensity=lerp(.4,4.2,n);
+  MAT.window.emissiveIntensity=lerp(0,2.4,n);
+  MAT.lanternGlow.opacity=lerp(.25,.8,n);
+  waterUniforms.deep.value.copy(Colors.dayDeep).lerp(Colors.nightDeep,n);
+  waterUniforms.shallow.value.copy(Colors.dayShallow).lerp(Colors.nightShallow,n);
+  waterUniforms.sunColor.value.copy(sun.color);
+  waterUniforms.sunDir.value.copy(sun.position).sub(sun.target.position).normalize();
+  if(fireflies)fireflies.pts.material.opacity=n*.95;if(stars)stars.visible=n>.015;if(window.__nightLights)for(const l of window.__nightLights)l.intensity=(l.userData.baseIntensity||.5)*n;
+}
 
 const OUTSIDE_SPOTS=[{id:'mingde-outside',name:'明德门外',x:0,z:430,radius:85,desc:'春风从南边来，催着车轮向长安城去。'},{id:'fields',name:'城南田畴',x:-220,z:520,radius:190,desc:'麦浪起伏，远山如黛，城外也是好风光。'},{id:'qujiang-east',name:'芙蓉园东岸',x:452,z:330,radius:55,desc:'柳丝拂水，杏花如雪，曲江春色正浓。'}];
 const PLACE_DESCS={'西市':'胡姬酒肆、波斯邸与骆驼商队，西域风物汇于一处。','东市':'四方珍奇皆所积集，绫锦珠玉，香气盈街。','朱雀大街':'长安城的中央天街，车马如流，直通明德门。','大明宫':'千宫之宫，丹凤门五门洞开，含元殿高踞龙首原。','兴庆宫':'龙池碧波，沉香亭畔牡丹盛放，花萼相辉。','曲江池':'曲江潋滟，画舫徐行，长安春色尽在此间。','大雁塔':'大慈恩寺内七层砖塔，塔影入云，铃铎随风。','小雁塔':'荐福寺古塔，晨钟声闻十里。','太极宫':'大唐正宫，朱墙金脊，气象肃穆。','明德门':'长安外郭城正南门，五门洞并列。'};
@@ -133,7 +173,7 @@ function updateMovement(dt){
 const MapView={bounds:{x0:WORLD.x0,x1:WORLD.x1,z0:WORLD.z0,z1:WORLD.z1},scale:1,ox:0,oy:0,
   setup(){const c=UI.minimap;const s=Math.min(c.width/(this.bounds.x1-this.bounds.x0),c.height/(this.bounds.z1-this.bounds.z0));this.scale=s*.94;this.ox=c.width/2-(this.bounds.x0+this.bounds.x1)/2*this.scale;this.oy=c.height/2-(this.bounds.z0+this.bounds.z1)/2*this.scale;},
   x(x){return this.ox+x*this.scale;},y(z){return this.oy+z*this.scale;},
-  draw(pp,yaw){const c=UI.minimap,ctx=c.getContext('2d');if(!ctx)return;if(!this.scale)this.setup();const W=c.width,H=c.height;ctx.clearRect(0,0,W,H);const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#bfe8cf');bg.addColorStop(1,'#e8e0b7');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(255,244,208,.55)';ctx.fillRect(this.x(CITY.x0),this.y(CITY.z0),(CITY.x1-CITY.x0)*this.scale,(CITY.z1-CITY.z0)*this.scale);ctx.fillStyle='#3fbfc0';for(const w of waterZones){ctx.beginPath();w.points.forEach(([x,z],i)=>{if(i)ctx.lineTo(this.x(x),this.y(z));else ctx.moveTo(this.x(x),this.y(z));});ctx.closePath();ctx.fill();}for(const r of waterRects){ctx.fillRect(this.x(r.minX),this.y(r.minZ),(r.maxX-r.minX)*this.scale,(r.maxZ-r.minZ)*this.scale);}for(const w of wards){ctx.fillStyle=w.type==='market'?'#e8a84d':'#e8d9b8';ctx.fillRect(this.x(w.x-w.w/2),this.y(w.z-w.d/2),Math.max(1,w.w*this.scale),Math.max(1,w.d*this.scale));}for(const m of marketDefs){ctx.fillStyle='rgba(220,125,52,.9)';ctx.fillRect(this.x(m.x-m.w/2),this.y(m.z-m.d/2),m.w*this.scale,m.d*this.scale);}ctx.strokeStyle='rgba(255,250,230,.94)';for(const r of roads){ctx.lineWidth=Math.max(.7,(r.axis==='z'?r.w:r.d)*this.scale*.72);ctx.beginPath();if(r.axis==='z'){ctx.moveTo(this.x(r.x),this.y(-380));ctx.lineTo(this.x(r.x),this.y(380));}else{ctx.moveTo(this.x(-450),this.y(r.z));ctx.lineTo(this.x(450),this.y(r.z));}ctx.stroke();}ctx.strokeStyle='#a97c52';ctx.lineWidth=1.6;ctx.strokeRect(this.x(CITY.x0),this.y(CITY.z0),(CITY.x1-CITY.x0)*this.scale,(CITY.z1-CITY.z0)*this.scale);for(const l of landmarks){const x=this.x(l.x),y=this.y(l.z);ctx.fillStyle='#c94a3d';ctx.beginPath();ctx.arc(x,y,l.id==='qujiang'?3:2.2,0,TAU);ctx.fill();if(['大明宫','太极宫','兴庆宫','大雁塔','曲江池','西市','东市','明德门'].includes(l.name)){ctx.fillStyle='rgba(72,54,35,.82)';ctx.font='600 8px "KaiTi",serif';ctx.textAlign='center';ctx.fillText(l.name,x,y-5);}}poems.forEach(p=>{if(p.taken)return;const x=this.x(p.x),y=this.y(p.z);ctx.fillStyle='rgba(255,211,90,.22)';ctx.beginPath();ctx.arc(x,y,5.5,0,TAU);ctx.fill();ctx.fillStyle='#f1b932';ctx.beginPath();ctx.arc(x,y,2.3,0,TAU);ctx.fill();});const px=this.x(pp.x),py=this.y(pp.z);ctx.save();ctx.translate(px,py);ctx.rotate(-yaw+Math.PI);ctx.fillStyle='#fff8db';ctx.strokeStyle='#b23e31';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(0,-7.2);ctx.lineTo(5,5.3);ctx.lineTo(0,3.2);ctx.lineTo(-5,5.3);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();ctx.fillStyle='rgba(94,55,38,.68)';ctx.font='700 10px "KaiTi",serif';ctx.textAlign='center';ctx.fillText('北',W-13,14);},
+  draw(pp,yaw){const c=UI.minimap,ctx=c.getContext('2d');if(!ctx)return;if(!this.scale)this.setup();const W=c.width,H=c.height;ctx.clearRect(0,0,W,H);const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#bfe8cf');bg.addColorStop(1,'#e8e0b7');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(255,244,208,.55)';ctx.fillRect(this.x(CITY.x0),this.y(CITY.z0),(CITY.x1-CITY.x0)*this.scale,(CITY.z1-CITY.z0)*this.scale);ctx.fillStyle='#3fbfc0';for(const w of waterZones){ctx.beginPath();w.points.forEach(([x,z],i)=>{if(i)ctx.lineTo(this.x(x),this.y(z));else ctx.moveTo(this.x(x),this.y(z));});ctx.closePath();ctx.fill();}for(const r of waterRects){ctx.fillRect(this.x(r.minX),this.y(r.minZ),(r.maxX-r.minX)*this.scale,(r.maxZ-r.minZ)*this.scale);}for(const w of wards){ctx.fillStyle=w.type==='market'?'#e8a84d':'#e8d9b8';ctx.fillRect(this.x(w.x-w.w/2),this.y(w.z-w.d/2),Math.max(1,w.w*this.scale),Math.max(1,w.d*this.scale));}for(const m of marketDefs){ctx.fillStyle='rgba(220,125,52,.9)';ctx.fillRect(this.x(m.x-m.w/2),this.y(m.z-m.d/2),m.w*this.scale,m.d*this.scale);}ctx.strokeStyle='rgba(255,250,230,.94)';for(const r of roads){ctx.lineWidth=Math.max(.7,(r.axis==='z'?r.w:r.d)*this.scale*.72);ctx.beginPath();if(r.axis==='z'){ctx.moveTo(this.x(r.x),this.y(-380));ctx.lineTo(this.x(r.x),this.y(380));}else{ctx.moveTo(this.x(-450),this.y(r.z));ctx.lineTo(this.x(450),this.y(r.z));}ctx.stroke();}ctx.strokeStyle='#a97c52';ctx.lineWidth=1.6;ctx.strokeRect(this.x(CITY.x0),this.y(CITY.z0),(CITY.x1-CITY.x0)*this.scale,(CITY.z1-CITY.z0)*this.scale);for(const l of landmarks){const x=this.x(l.x),y=this.y(l.z);ctx.fillStyle='#c94a3d';ctx.beginPath();ctx.arc(x,y,l.id==='qujiang'?3:2.2,0,TAU);ctx.fill();if(['大明宫','太极宫','兴庆宫','大雁塔','小雁塔','曲江池','西市','东市','明德门'].includes(l.name)){ctx.fillStyle='rgba(72,54,35,.82)';ctx.font='600 8px "KaiTi",serif';ctx.textAlign='center';ctx.fillText(l.name,x,y-5);}}poems.forEach(p=>{if(p.taken)return;const x=this.x(p.x),y=this.y(p.z);ctx.fillStyle='rgba(255,211,90,.22)';ctx.beginPath();ctx.arc(x,y,5.5,0,TAU);ctx.fill();ctx.fillStyle='#f1b932';ctx.beginPath();ctx.arc(x,y,2.3,0,TAU);ctx.fill();});const px=this.x(pp.x),py=this.y(pp.z);ctx.save();ctx.translate(px,py);ctx.rotate(-yaw+Math.PI);ctx.fillStyle='#fff8db';ctx.strokeStyle='#b23e31';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(0,-7.2);ctx.lineTo(5,5.3);ctx.lineTo(0,3.2);ctx.lineTo(-5,5.3);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();ctx.fillStyle='rgba(94,55,38,.68)';ctx.font='700 10px "KaiTi",serif';ctx.textAlign='center';ctx.fillText('北',W-13,14);},
 };
 
 function animate(now){requestAnimationFrame(animate);const dt=Math.min(.05,Math.max(.001,(now-GAME.lastFrame)/1000));GAME.lastFrame=now;GAME.time+=dt;const t=GAME.time;
@@ -178,7 +218,7 @@ async function startGame(){
 }
 
 async function boot(){
-  try{bootStatus('正在准备笔墨纸砚…');bindUI();bindKeyboard();bindJoystick();bindViewGestures();Explore.init();renderer.setSize(innerWidth,innerHeight);GameRendering.init({renderer,scene,camera,quality:'low',fastStart:true,exposure:1.06,environmentIntensity:.48});const qs=$('#qualitySelect');qs.value=GameRendering.getDiagnostics().requestedQuality;qs.addEventListener('change',()=>{GameRendering.setQuality(qs.value);Session.save();});window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,MAX_DPR));GameRendering.resize(innerWidth,innerHeight,renderer.getPixelRatio());});document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(Sound.ambientTimer);else Sound.scheduleAmbient();});await new Promise(requestAnimationFrame);await buildWorld();requestAnimationFrame(animate);}
+  try{bootStatus('正在准备笔墨纸砚…');bindUI();bindKeyboard();bindJoystick();bindViewGestures();Explore.init();renderer.setSize(innerWidth,innerHeight);GameRendering.init({renderer,scene,camera,quality:'low',fastStart:true,exposure:1.06,environmentIntensity:.55});const qs=$('#qualitySelect');qs.value=GameRendering.getDiagnostics().requestedQuality;qs.addEventListener('change',()=>{GameRendering.setQuality(qs.value);Session.save();});window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,MAX_DPR));GameRendering.resize(innerWidth,innerHeight,renderer.getPixelRatio());});document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(Sound.ambientTimer);else Sound.scheduleAmbient();});await new Promise(requestAnimationFrame);await buildWorld();requestAnimationFrame(animate);}
   catch(err){console.error(err);window.__showFatal?.(err?.stack||String(err));bootStatus('城门没有打开：'+(err?.message||err));}
 }
 
