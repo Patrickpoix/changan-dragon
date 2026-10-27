@@ -1,6 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
-   v5: 纹理改为白色底+细节模式 — instance color提供颜色，纹理提供表面细节
+   v6: 提升移动端画质上限 — iPhone 17 Pro Max可以跑更高DPR和阴影分辨率
    ============================================================ */
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -44,7 +44,8 @@ renderer.toneMappingExposure = 1.04;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xa9cbd7, 1);
-const MAX_DPR = isTouch ? 1.25 : 1.65;
+// v6: iPhone 17 Pro Max M5 GPU — 移动端DPR从1.25提升到1.5，阴影从1024提升到1536
+const MAX_DPR = isTouch ? 1.5 : 1.65;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
 
 const scene = new THREE.Scene();
@@ -60,7 +61,9 @@ scene.add(ambient);
 const sun = new THREE.DirectionalLight(0xffe6bd, 1.72);
 sun.position.set(125, 105, 75);
 sun.castShadow = true;
-sun.shadow.mapSize.set(isTouch ? 1024 : 2048, isTouch ? 1024 : 2048);
+// v6: 移动端阴影分辨率从1024提升到1536
+const SHADOW_SIZE = isTouch ? 1536 : 2048;
+sun.shadow.mapSize.set(SHADOW_SIZE, SHADOW_SIZE);
 sun.shadow.camera.near = 1;
 sun.shadow.camera.far = 420;
 sun.shadow.camera.left = -95;
@@ -97,7 +100,6 @@ function toon(color, opts = {}) {
 }
 
 // ---------------------------------------------------------------- canvas textures
-// v5: 所有纹理都是白色底(0xffffff) + 中性细节，instance color提供真实颜色
 function makeTexture(w, h, draw, { repeat = [1, 1], colorSpace = THREE.SRGBColorSpace } = {}) {
   const cv = document.createElement('canvas');
   cv.width = w; cv.height = h;
@@ -113,24 +115,20 @@ function makeTexture(w, h, draw, { repeat = [1, 1], colorSpace = THREE.SRGBColor
 
 const TEX = {};
 
-// v5: 墙面灰泥 — 白色底+细微斑驳和裂纹
 TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  // 细微噪点
   for (let i = 0; i < 600; i++) {
     const a = Math.random() * 0.06;
     ctx.fillStyle = `rgba(180,170,150,${a})`;
     const s = 1 + Math.random() * 2;
     ctx.fillRect(Math.random() * w, Math.random() * h, s, s);
   }
-  // 斑驳痕迹
   for (let i = 0; i < 12; i++) {
     ctx.fillStyle = `rgba(160,150,130,${0.03 + Math.random() * 0.04})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(5, 20), rand(3, 12), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-  // 细微裂纹
   for (let i = 0; i < 5; i++) {
     ctx.strokeStyle = `rgba(140,130,110,${0.04 + Math.random() * 0.03})`;
     ctx.lineWidth = 0.5;
@@ -142,43 +140,36 @@ TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
   }
 }, { repeat: [2, 2] });
 
-// v5: 木材 — 白色底+木纹线条（instance color提供棕色）
 TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  // 木纹线条 — 用灰色，不影响最终颜色
   for (let i = 0; i < 30; i++) {
     ctx.strokeStyle = `rgba(100,80,60,${0.04 + Math.random() * 0.06})`;
     ctx.lineWidth = 0.8 + Math.random() * 1.2;
     ctx.beginPath();
     const y = Math.random() * h;
     ctx.moveTo(0, y);
-    ctx.bezierCurveTo(w * 0.25, y + rand(-6, 6), w * 0.5, y + rand(-10, 10), w, y + rand(-3, 3));
+    ctx.bezierCurveTo(w*0.25, y+rand(-6,6), w*0.5, y+rand(-10,10), w, y+rand(-3,3));
     ctx.stroke();
   }
-  // 细微噪点
   for (let i = 0; i < 300; i++) {
     ctx.fillStyle = `rgba(120,100,80,${Math.random() * 0.04})`;
     ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
   }
 }, { repeat: [1, 2] });
 
-// v5: 石材 — 白色底+石板缝隙（instance color提供灰色/米色）
 TEX.stone = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   const sw = 64, sh = 48;
   for (let y = 0; y < h + sh; y += sh) {
     const off = (Math.floor(y / sh) % 2) * sw / 2;
     for (let x = -sw; x < w + sw; x += sw) {
-      // 石板缝隙
       ctx.strokeStyle = 'rgba(100,100,100,0.25)';
       ctx.lineWidth = 1.5;
       ctx.strokeRect(x + off, y, sw, sh);
-      // 石板内细微变化
       ctx.fillStyle = `rgba(200,200,200,${0.03 + Math.random() * 0.04})`;
       ctx.fillRect(x + off + 2, y + 2, sw - 4, sh - 4);
     }
   }
-  // 磨损痕迹
   for (let i = 0; i < 10; i++) {
     ctx.fillStyle = `rgba(180,180,180,${0.03 + Math.random() * 0.05})`;
     ctx.beginPath();
@@ -187,10 +178,8 @@ TEX.stone = makeTexture(256, 256, (ctx, w, h) => {
   }
 }, { repeat: [1, 1] });
 
-// v5: 屋顶瓦面 — 白色底+瓦垄线条（instance color提供青色/灰色）
 TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  // 瓦垄 — 竖向条纹
   for (let x = 0; x < w; x += 12) {
     const g = ctx.createLinearGradient(x, 0, x + 12, 0);
     g.addColorStop(0, 'rgba(100,100,100,0.2)');
@@ -199,14 +188,12 @@ TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
     g.addColorStop(1, 'rgba(80,80,80,0.25)');
     ctx.fillStyle = g; ctx.fillRect(x, 0, 12, h);
   }
-  // 瓦当 — 横向接缝
   for (let y = 0; y < h; y += 20) {
     ctx.fillStyle = 'rgba(80,80,80,0.2)'; ctx.fillRect(0, y, w, 2);
     ctx.fillStyle = 'rgba(255,255,255,0.1)'; ctx.fillRect(0, y + 2, w, 1);
   }
 }, { repeat: [4, 3] });
 
-// v5: 树皮 — 白色底+树皮纹理
 TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   for (let x = 0; x < w; x += 10) {
@@ -219,7 +206,6 @@ TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
   }
 }, { repeat: [1, 2] });
 
-// v5: 窗格 — 白色底+窗格线条
 TEX.lattice = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#4b3527'; ctx.fillRect(0, 0, w, h);
   ctx.fillStyle = '#e9d8b6';
@@ -259,7 +245,7 @@ TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
   }
 }, { repeat: [12, 12] });
 
-// ---------------------------------------------------------------- MAT materials (v5: 白色纹理底，instance color提供颜色)
+// ---------------------------------------------------------------- MAT materials
 const MAT = {
   plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xffffff, roughness: 0.82, metalness: 0.02 }),
   plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xfff5e0, roughness: 0.8, metalness: 0.02 }),
@@ -282,24 +268,24 @@ const MAT = {
 // ---------------------------------------------------------------- geometry helpers
 function roundedBoxGeo(w, h, d, r = 0.08) {
   const shape = new THREE.Shape();
-  const x = -w / 2 + r, y = -h / 2 + r, ww = w - 2 * r, hh = h - 2 * r;
-  shape.moveTo(x, -h / 2);
-  shape.lineTo(x + ww, -h / 2);
-  shape.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r);
-  shape.lineTo(w / 2, h / 2 - r);
-  shape.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2);
-  shape.lineTo(-w / 2 + r, h / 2);
-  shape.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r);
-  shape.lineTo(-w / 2, -h / 2 + r);
-  shape.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
+  const x = -w/2+r, y = -h/2+r, ww = w-2*r, hh = h-2*r;
+  shape.moveTo(x, -h/2);
+  shape.lineTo(x+ww, -h/2);
+  shape.quadraticCurveTo(w/2, -h/2, w/2, -h/2+r);
+  shape.lineTo(w/2, h/2-r);
+  shape.quadraticCurveTo(w/2, h/2, w/2-r, h/2);
+  shape.lineTo(-w/2+r, h/2);
+  shape.quadraticCurveTo(-w/2, h/2, -w/2, h/2-r);
+  shape.lineTo(-w/2, -h/2+r);
+  shape.quadraticCurveTo(-w/2, -h/2, -w/2+r, -h/2);
   const geo = new THREE.ExtrudeGeometry(shape, {
-    depth: Math.max(0.001, d - 2 * r), bevelEnabled: true, bevelSegments: 1,
+    depth: Math.max(0.001, d-2*r), bevelEnabled: true, bevelSegments: 1,
     steps: 1, bevelSize: r, bevelThickness: r, curveSegments: 2,
   });
   geo.center();
   geo.computeBoundingBox();
   const size = geo.boundingBox.getSize(new THREE.Vector3());
-  geo.scale(w / size.x, h / size.y, d / size.z);
+  geo.scale(w/size.x, h/size.y, d/size.z);
   return geo;
 }
 
@@ -313,21 +299,21 @@ function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.62, lift = 0.055) {
   const pos = [], uv = [], idx = [];
   const half = 0.5;
   for (let iz = 0; iz <= segZ; iz++) {
-    const z = -half + iz / segZ;
+    const z = -half + iz/segZ;
     for (let ix = 0; ix <= segX; ix++) {
-      const x = -half + ix / segX;
-      const tx = Math.max(0, (Math.abs(x) - ridgeRatio * half) / ((1 - ridgeRatio) * half));
-      const tz = Math.abs(z) / half;
+      const x = -half + ix/segX;
+      const tx = Math.max(0, (Math.abs(x)-ridgeRatio*half)/((1-ridgeRatio)*half));
+      const tz = Math.abs(z)/half;
       const t = Math.max(tx, tz);
-      let y = Math.pow(1 - Math.min(1, t), 1.12);
+      let y = Math.pow(1-Math.min(1,t), 1.12);
       y += lift * Math.pow(t, 4);
       y += lift * 1.7 * Math.pow(tx, 3) * Math.pow(tz, 4);
       pos.push(x, y, z);
-      uv.push(ix / segX, iz / segZ);
+      uv.push(ix/segX, iz/segZ);
     }
   }
   for (let iz = 0; iz < segZ; iz++) for (let ix = 0; ix < segX; ix++) {
-    const a = iz * (segX + 1) + ix, b = a + 1, c = a + segX + 1, d = c + 1;
+    const a = iz*(segX+1)+ix, b = a+1, c = a+segX+1, d = c+1;
     idx.push(a, c, b, b, c, d);
   }
   const g = new THREE.BufferGeometry();
@@ -364,7 +350,7 @@ class Batch {
     if (this._group) { this._group.removeFromParent(); this._group = null; }
     const cells = new Map();
     for (const item of this.items) {
-      const key = Math.floor(item.x / this.cellSize) + ',' + Math.floor(item.z / this.cellSize);
+      const key = Math.floor(item.x/this.cellSize) + ',' + Math.floor(item.z/this.cellSize);
       if (!cells.has(key)) cells.set(key, []);
       cells.get(key).push(item);
     }
@@ -576,7 +562,7 @@ for (let layer = 0; layer < 2; layer++) {
 // ---------------------------------------------------------------- ground & roads
 function buildGround() {
   const g = new THREE.Mesh(new THREE.PlaneGeometry(1700, 1500, 1, 1), new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1 }));
-  g.rotation.x = -Math.PI / 2; g.position.y = -0.25; g.receiveShadow = true; scene.add(g);
+  g.rotation.x = -Math.PI/2; g.position.y = -0.25; g.receiveShadow = true; scene.add(g);
   const fieldBatch = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1 }), { cast: false });
   const fieldColors = [0x9cab63, 0xc6b775, 0x7d9358, 0xc5bd7d, 0xa1ae6b];
   for (let i = 0; i < 70; i++) {
