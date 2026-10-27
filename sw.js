@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v46
+/* Chang'an Dragon Service Worker v47
+ * v47: 社交与互动系统 — 广结善缘
  * v46: 成就与收藏系统 — 收获满满
- * v45: 活动与赛事系统 — 精彩不断
  */
-const CACHE_NAME = 'changan-v46';
+const CACHE_NAME = 'changan-v47';
 const CORE_ASSETS = [
   './',
   './index.html',
