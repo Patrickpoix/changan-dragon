@@ -1,5 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v8.4: PBR补绑后重新编译材质着色器，避免进入游戏首次渲染卡顿
+ * v8.5: scene-materials.js加载后补绑衣物PBR法线（refreshClothMaterials）
+ * v8.4: PBR补绑后requestAnimationFrame重新编译着色器
  * v8.3: scene-materials.js加载后调用SurfaceLibrary.architecture()补绑PBR法线/粗糙度
  * v8.2: scene-materials.js加载后调用GameRendering.refreshEnvironment()用HDRI替换fallback
  * v8.1: 注册Service Worker
@@ -41,11 +42,9 @@ if ('serviceWorker' in navigator) {
     s.onload = () => {
       console.log('[Boot] 延迟素材加载完成: ' + src);
       if (src.indexOf('scene-materials') !== -1) {
-        // v8.2: HDRI替换
         try { if (typeof GameRendering !== 'undefined' && GameRendering.refreshEnvironment) GameRendering.refreshEnvironment(); } catch(e) {}
-        // v8.3: 补绑PBR法线/粗糙度
-        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) { SurfaceLibrary.architecture(); } } catch(e) {}
-        // v8.4: PBR贴图绑定后重新编译着色器，避免进入游戏首次渲染卡顿
+        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.architecture) SurfaceLibrary.architecture(); } catch(e) {}
+        try { if (typeof SurfaceLibrary !== 'undefined' && SurfaceLibrary.refreshClothMaterials) SurfaceLibrary.refreshClothMaterials(); } catch(e) {}
         try {
           if (typeof renderer !== 'undefined' && typeof scene !== 'undefined' && typeof camera !== 'undefined') {
             requestAnimationFrame(() => { try { renderer.compile(scene, camera); console.log('[Boot] ✓ PBR材质着色器重新编译完成'); } catch(e){} });
