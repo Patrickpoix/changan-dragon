@@ -1,7 +1,7 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v8: 真实长安城比例 — 地图扩大到约12×11公里，匹配唐长安84平方公里规模
    v7: 电影级视觉升级 — 更强光照对比、更精致材质、更丰富细节
-   v6: 提升移动端画质上限 — iPhone 17 Pro Max可以跑更高DPR和阴影分辨率
    ============================================================ */
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -45,40 +45,40 @@ renderer.toneMappingExposure = 1.15;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xa9cbd7, 1);
-// v7: iPhone 17 Pro Max M5 GPU — 移动端DPR提升到1.75，阴影1536
 const MAX_DPR = isTouch ? 1.75 : 2.0;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
 
+// v8: 扩大场景范围 — 匹配真实长安城比例
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xc9d7d5, 145, 690);
-const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 1800);
+// v8: 雾效从145-690扩大到200-1200，适配更大地图
+scene.fog = new THREE.Fog(0xc9d7d5, 200, 1200);
+// v8: 相机远裁剪面从1800扩大到3000
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 3000);
 camera.position.set(16, 7, -110);
 
 // ---------------------------------------------------------------- lights
-// v7: 电影级光照 — 更强阳光对比，更柔和环境光
 const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4f8f78, 0.85);
 scene.add(hemi);
 const ambient = new THREE.AmbientLight(0xfff4e2, 0.28);
 scene.add(ambient);
 const sun = new THREE.DirectionalLight(0xffe6bd, 2.2);
-sun.position.set(125, 105, 75);
+sun.position.set(180, 150, 110);
 sun.castShadow = true;
-// v7: 移动端阴影分辨率提升到2048
 const SHADOW_SIZE = isTouch ? 2048 : 2048;
 sun.shadow.mapSize.set(SHADOW_SIZE, SHADOW_SIZE);
 sun.shadow.camera.near = 1;
-sun.shadow.camera.far = 420;
-sun.shadow.camera.left = -95;
-sun.shadow.camera.right = 95;
-sun.shadow.camera.top = 95;
-sun.shadow.camera.bottom = -95;
+sun.shadow.camera.far = 600;
+// v8: 阴影相机范围从±95扩大到±200，适配更大地图
+sun.shadow.camera.left = -200;
+sun.shadow.camera.right = 200;
+sun.shadow.camera.top = 200;
+sun.shadow.camera.bottom = -200;
 sun.shadow.bias = -0.0005;
 sun.shadow.normalBias = 0.04;
 scene.add(sun);
 scene.add(sun.target);
-// v7: 更强的轮廓光，让建筑更有立体感
 const rim = new THREE.DirectionalLight(0xffb98f, 0.45);
-rim.position.set(-100, 60, -130);
+rim.position.set(-150, 90, -190);
 scene.add(rim);
 
 // ---------------------------------------------------------------- palette
@@ -232,7 +232,7 @@ TEX.grass = makeTexture(512, 512, (ctx, w, h) => {
     const x = Math.random() * w, y = Math.random() * h;
     ctx.moveTo(x, y); ctx.lineTo(x + rand(-3, 3), y - rand(3, 6)); ctx.stroke();
   }
-}, { repeat: [18, 18] });
+}, { repeat: [30, 30] });
 
 TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
@@ -246,10 +246,9 @@ TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(3, 10), rand(1, 4), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-}, { repeat: [12, 12] });
+}, { repeat: [20, 20] });
 
 // ---------------------------------------------------------------- MAT materials
-// v7: 更精致的材质参数 — 更好的PBR效果
 const MAT = {
   plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xffffff, roughness: 0.75, metalness: 0.05 }),
   plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xfff5e0, roughness: 0.72, metalness: 0.05 }),
@@ -414,8 +413,10 @@ function quadBatch(material) {
 }
 
 // ---------------------------------------------------------------- city data
-const CITY = { x0: -450, x1: 450, z0: -380, z1: 380 };
-const WORLD = { x0: -780, x1: 780, z0: -660, z1: 660 };
+// v8: 真实长安城比例 — 约12.4×11公里，匹配唐长安84平方公里规模
+// 1单位 ≈ 10米，东西1240单位，南北1100单位
+const CITY = { x0: -620, x1: 620, z0: -550, z1: 550 };
+const WORLD = { x0: -900, x1: 900, z0: -800, z1: 800 };
 const AVENUE = 26;
 const AVENUE_SHOP_Z=Object.freeze([266,288,338,360]);
 const TREE_CLEAR_AREAS=Object.freeze([
@@ -432,9 +433,11 @@ const FILM_SHOTS = [
   { eye: [306,3.5,350], target: [354,4,318], drift: 3 },
   { eye: [34,4.5,429], target: [0,12,380], drift: 4 },
 ];
-const WARD_W = 70, WARD_D = 54, STREET = 14, ROW_STREET = 12;
-const COLS = [-384,-300,-216,-132,-48,48,132,216,300,384];
-const ROWS = [-179,-113,-47,19,85,151,217,283,349];
+// v8: 扩大坊里尺寸，匹配更大地图
+const WARD_W = 100, WARD_D = 80, STREET = 18, ROW_STREET = 14;
+// v8: 扩大坊列行坐标，从10列9行扩展到14列12行
+const COLS = [-540,-460,-380,-300,-220,-140,-60,60,140,220,300,380,460,540];
+const ROWS = [-440,-360,-280,-200,-120,-40,40,120,200,280,360,440];
 
 const WARD_NAMES_LEFT = [
   '延平坊','延寿坊','光德坊','通义坊','兴化坊','崇德坊','怀远坊','宣化坊','丰邑坊','待贤坊',
@@ -458,28 +461,29 @@ function addWardRecord(col, row, name, type = 'ward') {
   wards.push({ col, row, x: COLS[col], z: ROWS[row], w: WARD_W, d: WARD_D, name, type });
 }
 
-function isWestMarket(col, row) { return col >= 1 && col <= 2 && row >= 2 && row <= 3; }
-function isEastMarket(col, row) { return col >= 6 && col <= 7 && row >= 2 && row <= 3; }
-function isXingqing(col, row) { return col >= 8 && col <= 9 && row >= 0 && row <= 1; }
-function isQujiang(col, row) { return col >= 8 && row >= 7; }
-function isPagoda(col, row) { return (col === 7 && row === 7) || (col === 2 && row === 8); }
+function isWestMarket(col, row) { return col >= 4 && col <= 5 && row >= 5 && row <= 6; }
+function isEastMarket(col, row) { return col >= 8 && col <= 9 && row >= 5 && row <= 6; }
+function isXingqing(col, row) { return col >= 10 && col <= 11 && row >= 1 && row <= 2; }
+function isQujiang(col, row) { return col >= 11 && row >= 9; }
+function isPagoda(col, row) { return (col === 9 && row === 9) || (col === 4 && row === 10); }
 function isSpecial(col, row) {
   return isWestMarket(col,row)||isEastMarket(col,row)||isXingqing(col,row)||isQujiang(col,row)||isPagoda(col,row);
 }
 
 let li = 0, ri = 0;
-for (let row = 0; row < 9; row++) for (let col = 0; col < 10; col++) {
+for (let row = 0; row < 12; row++) for (let col = 0; col < 14; col++) {
   if (isSpecial(col, row)) continue;
-  const name = col < 5 ? WARD_NAMES_LEFT[li++ % WARD_NAMES_LEFT.length] : WARD_NAMES_RIGHT[ri++ % WARD_NAMES_RIGHT.length];
+  const name = col < 7 ? WARD_NAMES_LEFT[li++ % WARD_NAMES_LEFT.length] : WARD_NAMES_RIGHT[ri++ % WARD_NAMES_RIGHT.length];
   addWardRecord(col, row, name);
 }
 
-roads.push({ x: 0, z: 0, w: AVENUE, d: 780, axis: 'z', type: 'avenue', name: '朱雀大街' });
-roads.push({ x: 0, z: -150, w: 900, d: 18, axis: 'x', type: 'avenue', name: '春明门大街' });
-roads.push({ x: 0, z: 55, w: 900, d: 16, axis: 'x', type: 'avenue', name: '金光门大街' });
-roads.push({ x: 0, z: 232, w: 900, d: 16, axis: 'x', type: 'avenue', name: '延兴门大街' });
-for (const x of [-342,-258,-174,-90,90,174,258,342]) roads.push({ x, z: 0, w: 14, d: 780, axis: 'z', type: 'street' });
-for (const z of [-206,-140,-74,-8,58,124,190,256,322]) roads.push({ x: 0, z, w: 900, d: 12, axis: 'x', type: 'street' });
+// v8: 扩大道路范围，匹配更大地图
+roads.push({ x: 0, z: 0, w: AVENUE, d: 1100, axis: 'z', type: 'avenue', name: '朱雀大街' });
+roads.push({ x: 0, z: -220, w: 1240, d: 24, axis: 'x', type: 'avenue', name: '春明门大街' });
+roads.push({ x: 0, z: 80, w: 1240, d: 20, axis: 'x', type: 'avenue', name: '金光门大街' });
+roads.push({ x: 0, z: 340, w: 1240, d: 20, axis: 'x', type: 'avenue', name: '延兴门大街' });
+for (const x of [-480,-400,-320,-240,-160,-80,80,160,240,320,400,480]) roads.push({ x, z: 0, w: 18, d: 1100, axis: 'z', type: 'street' });
+for (const z of [-400,-320,-240,-160,-80,0,80,160,240,320,400]) roads.push({ x: 0, z, w: 1240, d: 14, axis: 'x', type: 'street' });
 
 // ---------------------------------------------------------------- sky
 const cloudNoiseBytes = new Uint8Array(256 * 256 * 4);
@@ -498,7 +502,7 @@ const skyUniforms = {
   topColor: { value: new THREE.Color(0x85b6ce) },
   horizonColor: { value: new THREE.Color(0xf8e3c8) },
   sunColor: { value: new THREE.Color(0xffc95e) },
-  sunDir: { value: new THREE.Vector3(125, 105, 75).normalize() },
+  sunDir: { value: new THREE.Vector3(180, 150, 110).normalize() },
   night: { value: 0 }, time: { value: 0 },
   cloudNoise: { value: cloudNoise },
 };
@@ -534,14 +538,15 @@ const skyMat = new THREE.ShaderMaterial({
       #include <colorspace_fragment>
     }`,
 });
-const sky = new THREE.Mesh(new THREE.SphereGeometry(900, 32, 20), skyMat);
+// v8: 天空球从900扩大到1500，适配更大地图
+const sky = new THREE.Mesh(new THREE.SphereGeometry(1500, 32, 20), skyMat);
 sky.frustumCulled = false; scene.add(sky);
 
 const starGeo = new THREE.BufferGeometry();
 {
   const p = [];
   for (let i = 0; i < 700; i++) {
-    const a = Math.random() * TAU, e = Math.random() * Math.PI * 0.46 + 0.05, r = 820;
+    const a = Math.random() * TAU, e = Math.random() * Math.PI * 0.46 + 0.05, r = 1300;
     p.push(Math.cos(a)*Math.cos(e)*r, Math.sin(e)*r, Math.sin(a)*Math.cos(e)*r);
   }
   starGeo.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
@@ -549,11 +554,12 @@ const starGeo = new THREE.BufferGeometry();
 const starMat = new THREE.PointsMaterial({ color: 0xfff3cf, size: 2.2, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
 const stars = new THREE.Points(starGeo, starMat); stars.frustumCulled = false; scene.add(stars);
 
+// v8: 远景山从1180扩大到1600
 for (let layer = 0; layer < 2; layer++) {
-  const vertices = [], indices = [], segments = 192, radius = 1180 + layer * 280;
+  const vertices = [], indices = [], segments = 192, radius = 1600 + layer * 380;
   for (let i = 0; i <= segments; i++) {
     const a = i / segments * TAU;
-    const h = 78 + layer * 36 + Math.sin(a*5+0.8)*29 + Math.sin(a*11-0.4)*16 + Math.sin(a*3)*22;
+    const h = 120 + layer * 50 + Math.sin(a*5+0.8)*45 + Math.sin(a*11-0.4)*25 + Math.sin(a*3)*35;
     for (const y of [-10, h]) vertices.push(Math.cos(a)*radius, y, Math.sin(a)*radius);
     if (i < segments) { const n = i*2; indices.push(n, n+1, n+2, n+1, n+3, n+2); }
   }
@@ -565,19 +571,21 @@ for (let layer = 0; layer < 2; layer++) {
 
 // ---------------------------------------------------------------- ground & roads
 function buildGround() {
-  const g = new THREE.Mesh(new THREE.PlaneGeometry(1700, 1500, 1, 1), new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1 }));
+  // v8: 地面从1700×1500扩大到2600×2300
+  const g = new THREE.Mesh(new THREE.PlaneGeometry(2600, 2300, 1, 1), new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1 }));
   g.rotation.x = -Math.PI/2; g.position.y = -0.25; g.receiveShadow = true; scene.add(g);
   const fieldBatch = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1 }), { cast: false });
   const fieldColors = [0x9cab63, 0xc6b775, 0x7d9358, 0xc5bd7d, 0xa1ae6b];
-  for (let i = 0; i < 70; i++) {
-    let x, z; do { x = rr(-740,740); z = rr(-620,620); } while (x > -500 && x < 500 && z > -540 && z < 430);
-    fieldBatch.add(x, -0.18, z, rr(30,80), 0.16, rr(20,65), rr(-0.1,0.1), pick(fieldColors));
+  for (let i = 0; i < 120; i++) {
+    let x, z; do { x = rr(-850,850); z = rr(-750,750); } while (x > -650 && x < 650 && z > -600 && z < 600);
+    fieldBatch.add(x, -0.18, z, rr(40,100), 0.16, rr(30,80), rr(-0.1,0.1), pick(fieldColors));
   }
   fieldBatch.build();
-  const cityGround = new THREE.Mesh(new THREE.PlaneGeometry(920, 790), new THREE.MeshStandardMaterial({ map: TEX.dirt, roughness: 1, color: 0xd9ccb2 }));
+  // v8: 城市地面从920×790扩大到1240×1100
+  const cityGround = new THREE.Mesh(new THREE.PlaneGeometry(1240, 1100), new THREE.MeshStandardMaterial({ map: TEX.dirt, roughness: 1, color: 0xd9ccb2 }));
   cityGround.rotation.x = -Math.PI/2; cityGround.position.set(0, -0.05, 0); cityGround.receiveShadow = true; scene.add(cityGround);
   const gardenMaterial = new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1, color: 0xc6cfac });
-  for (const [x,z,rx,rz] of [[354,318,96,83],[342,-152,72,54],[232,-492,43,23]]) {
+  for (const [x,z,rx,rz] of [[480,440,130,110],[460,-200,100,75],[310,-660,60,35]]) {
     const lawn = new THREE.Mesh(new THREE.CircleGeometry(1,64), gardenMaterial);
     lawn.rotation.x = -Math.PI/2; lawn.position.set(x,-.035,z); lawn.scale.set(rx,rz,1); lawn.receiveShadow = true; scene.add(lawn);
   }
@@ -622,23 +630,24 @@ function clipRoadsForWater() {
 
 function buildRoads() {
   roads.forEach(makeRoadMesh);
-  const centralGeo = new THREE.PlaneGeometry(7.6, 780);
+  // v8: 朱雀大街从7.6×780扩大到10×1100
+  const centralGeo = new THREE.PlaneGeometry(10, 1100);
   const centralUV = centralGeo.attributes.uv;
-  for (let i = 0; i < centralUV.count; i++) centralUV.setXY(i, centralUV.getX(i)*2.53, centralUV.getY(i)*260);
+  for (let i = 0; i < centralUV.count; i++) centralUV.setXY(i, centralUV.getX(i)*3.3, centralUV.getY(i)*367);
   const central = new THREE.Mesh(centralGeo, SurfaceLibrary.paving(0xe6dfcc));
   central.rotation.x = -Math.PI/2; central.position.set(0, 0.075, 0); central.receiveShadow = true; scene.add(central);
   const lane = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0.05 }), { cast: false });
-  lane.add(-3.55, 0.09, 0, 0.12, 0.03, 780, 0, 0xbbab87);
-  lane.add(3.55, 0.09, 0, 0.12, 0.03, 780, 0, 0xbbab87);
+  lane.add(-4.55, 0.09, 0, 0.15, 0.03, 1100, 0, 0xbbab87);
+  lane.add(4.55, 0.09, 0, 0.15, 0.03, 1100, 0, 0xbbab87);
   lane.build();
   const motif = new Batch(new THREE.CircleGeometry(1.0,16), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.34, depthWrite: false }), { cast: false, receive: false });
-  for (let z = -360; z <= 360; z += 38) motif.add(0, 0.092, z, 0.75, 0.75, 0.75, 0, 0xa99473, -Math.PI/2);
+  for (let z = -520; z <= 520; z += 50) motif.add(0, 0.092, z, 1.0, 1.0, 1.0, 0, 0xa99473, -Math.PI/2);
   motif.build();
   const curb = new Batch(UNIT_BOX, MAT.stone, { cast: false });
-  for (const item of [[-14.2,0,0,0.45,0.22,780],[14.2,0,0,0.45,0.22,780]]) curb.add(item[0],0.06,item[2],item[3],item[4],item[5],0,0xd8cdb5);
-  for (const z of [-150,55,232]) {
-    curb.add(0, 0.06, z-8.6, 900, 0.22, 0.45, 0, 0xd8cdb5);
-    curb.add(0, 0.06, z+8.6, 900, 0.22, 0.45, 0, 0xd8cdb5);
+  for (const item of [[-17.2,0,0,0.55,0.28,1100],[17.2,0,0,0.55,0.28,1100]]) curb.add(item[0],0.06,item[2],item[3],item[4],item[5],0,0xd8cdb5);
+  for (const z of [-220,80,340]) {
+    curb.add(0, 0.06, z-11.6, 1240, 0.28, 0.55, 0, 0xd8cdb5);
+    curb.add(0, 0.06, z+11.6, 1240, 0.28, 0.55, 0, 0xd8cdb5);
   }
   curb.build();
 }
@@ -646,7 +655,7 @@ function buildRoads() {
 // ---------------------------------------------------------------- collision hash
 const colliderGrid = new Map();
 const groundPatchGrid = new Map();
-const CELL = 24;
+const CELL = 30;
 function buildColliderHash() {
   colliderGrid.clear(); groundPatchGrid.clear();
   for (const patch of groundPatches) {
