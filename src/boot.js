@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v8.9: three.min.js设置fetchPriority=high，慢连接下优先下载引擎
  * v8.8: 修复竞态——大文件可能先于小文件加载完成，onload回调时SurfaceLibrary未定义。
  *       小文件全部加载后检查SCENE_MATERIALS/RUNTIME_MODELS是否已就绪，触发补绑。
  * v8.7: deferred大文件改async=true并行加载，不阻塞30-main.js执行
@@ -60,6 +61,8 @@ function populateDeferredModels() {
   const smallPromises = smallScripts.map(src => new Promise((resolve, reject) => {
     const s = document.createElement('script'); s.src = src;
     s.async = false;
+    // v8.9: three.min.js是最大且最关键的文件，给浏览器高下载优先级
+    if (src === 'vendor/three.min.js') { try { s.fetchPriority = 'high'; } catch(e){} }
     s.onload = () => resolve();
     s.onerror = () => reject(new Error('small script failed: ' + src));
     document.head.appendChild(s);
