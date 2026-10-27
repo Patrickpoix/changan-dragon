@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v17
+/* Chang'an Dragon Service Worker v18
+ * v18: 天空与水面增强 — 天地之美
  * v17: 存档与成就系统 — 旅途记录
- * v16: 性能与音效增强 — 流畅沉浸
  */
-const CACHE_NAME = 'changan-v17';
+const CACHE_NAME = 'changan-v18';
 const CORE_ASSETS = [
   './',
   './index.html',
