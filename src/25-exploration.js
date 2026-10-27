@@ -241,6 +241,8 @@ function buildArchitecturalDetails() {
   // opening street. Small spatial batches simplify and cull the distant blocks.
   const pavingMaterial=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.94,
     normalMap:MAT.plaster.normalMap,normalScale:new THREE.Vector2(.12,.12)});
+  // v4: 存储pavingMaterial引用，PBR延迟加载后由SurfaceLibrary.architecture()补绑
+  window.__pavingMaterial = pavingMaterial;
   B.pavingBlocks=new Batch(roundedBoxGeo(1,1,1,.035),pavingMaterial,{cast:false,
     farGeometry:new THREE.BoxGeometry(1,1,1),nearDistance:22,maxDistance:72,cellSize:16});
   const pavingColours=[0xd9d1bd,0xccc7b8,0xe0d7c4,0xd3ccba,0xcac5b6];
