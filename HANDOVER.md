@@ -1,31 +1,33 @@
 # 《龙游长安》交接文档
 
-**更新日期：2026年10月27日 15:55 北京时间**
+**更新日期：2026年10月27日 15:10 北京时间**
 
 ---
 
 ## 当前架构（权威）
 
-### 引擎加载顺序（src/boot.js v8.6）
+### 引擎加载顺序（src/boot.js v8.8）
 
 **关键路径已从16.6MB降至~1MB**：
 
 ```
 // 关键路径（阻塞开始界面显示）：
-//   25个小文件并行下载（~1MB），script.async=false确保按序执行
+//   25个小文件，script.async=false按序执行（~1MB）
 //   完成后加载 src/30-main.js → buildWorld() → 开始界面
 
-// 后台延迟加载（不阻塞，加载完自动增强场景）：
+// 后台延迟加载（v8.7改async=true并行下载，不阻塞30-main.js）：
 //   assets/scene-materials.js (7MB PBR纹理+HDRI环境)
 //   assets/runtime-models.js (9.58MB GLB模型)
-//   每个加载完自动 WorldAssets.reset() + populate() 重试
-//   scene-materials.js加载后自动：
-//     1. GameRendering.refreshEnvironment() 用HDRI替换RoomEnvironment
-//     2. SurfaceLibrary.architecture() 补绑屋顶/墙面PBR法线+粗糙度
-//     3. SurfaceLibrary.refreshClothMaterials() 补绑衣物法线
-//     4. requestAnimationFrame(renderer.compile()) 重编译着色器
+//   v8.8: 修复竞态——大文件可能先于小文件加载完成，
+//         __PBR_PENDING/__MODELS_PENDING标记在小文件就绪后补触发
 
-// Service Worker：sw.js 缓存所有静态资源，重复访问秒开
+// scene-materials.js加载后自动（applyDeferredPBR统一入口）：
+//   1. GameRendering.refreshEnvironment() 用HDRI替换RoomEnvironment
+//   2. SurfaceLibrary.architecture() 补绑屋顶/墙面PBR法线+粗糙度
+//   3. SurfaceLibrary.refreshClothMaterials() 补绑衣物法线(含personMat)
+//   4. requestAnimationFrame(renderer.compile()) 重编译着色器
+
+// Service Worker：sw.js v3 缓存所有静态资源，重复访问秒开
 ```
 
 **enhance模块**（7个）由30-main.js在GAME.ready后动态注入script标签。
@@ -48,7 +50,7 @@ GAME.ready后requestIdleCallback自动执行：
 ### Enhance 模块 Owner（7个，按优先级）
 | Owner | 优先级 | 职责 |
 |-------|--------|------|
-| Performance | 30 | 纹理各向异性16x + 阴影±140m |
+| Performance | 30 | 纹理各向异性16x + 阴影±140m(2048贴图≈7.3cm/texel) |
 | Weather | 35 | 晴/阴/雨：雨滴粒子(v6修复双重位移) + 包装render() |
 | Landmarks | 40 | 东西市牌坊+石碑(不重复角楼/垛口) |
 | Vegetation | 50 | 花圃/竹林(种子随机可复现) |
@@ -90,17 +92,15 @@ scene/camera/renderer/sun/ambient/hemi/rim/MAT/TEX/GAME.ready/waterMat/B/Batch/s
 | Commit | 内容 |
 |--------|------|
 | `1ccd913` | 30-main v8.1: 修复Cam.zoomBy缺少clamp闭合括号语法错误 |
-| `af1c01c` | 99-safe-init v4: 错误追踪，失败不标记fullyReady，GAME.initErrors |
+| `af1c01c` | 99-safe-init v4: 错误追踪，失败不标记fullyReady |
 | `57f70e0` | 28-weather v6: 修复雨滴粒子双重位移 |
-| `377e720` | boot v8: scene-materials.js(7MB)移出关键路径，关键路径~1MB |
-| `d697dc0` | AGENTS.md v2: 修复所有失效文档引用 |
-| `b7ea9ec` | 新增sw.js: Service Worker静态资源缓存 |
 | `6f1976f` | 05-rendering v5: prewarm()同时创建管线+预编译材质 |
-| `0862c3d` | docs: WORLD_ARCHITECTURE.md 完整长安城设计 |
-| `dc6bff1` | CI: 添加sw.js语法检查 |
-| `b3b4965`→`2cc880e` | boot v8.2→v8.5: PBR补绑(architecture+refreshClothMaterials)+HDRI替换+shader重编译 |
-| `0226398c` | 06-surfaces v2: clothMaterials追踪数组+refreshClothMaterials()方法 |
-| `365cd9e` | boot v8.6: script.async=false确保动态脚本按插入顺序执行 |
+| `0226398c` | 06-surfaces v2: clothMaterials追踪+refreshClothMaterials() |
+| `365cd9e` | boot v8.6: script.async=false确保动态脚本按插入顺序 |
+| `9b02165` | 06-surfaces v3: refreshClothMaterials同时更新personMat衣物法线 |
+| `91239aa` | boot v8.7: deferred大文件改async=true并行加载不阻塞启动 |
+| `fa0f6dd` | boot v8.8: 修复大文件先于小文件加载时PBR补绑竞态(__PBR_PENDING) |
+| `54dfe54` | sw v3: bump缓存changan-v3 |
 
 ---
 
