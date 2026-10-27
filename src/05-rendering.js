@@ -1,6 +1,6 @@
 /* Filmic rendering for the actual 3D scene.
- * v4: refreshEnvironment() — scene-materials.js延迟加载后重新用HDRI生成PMREM
- * v3: prewarm() 后台预生成PMREM
+ * v5: prewarm()同时预创建后处理管线，进入游戏时零等待
+ * v4: refreshEnvironment() HDRI替换
  */
 (function (global) {
   'use strict';
@@ -11,7 +11,7 @@
   let quality = 'low', suspended = false, initialized = false, failed = false;
   let failureReason = '', environmentReady = false, environmentIsFallback = false, excluded = [], refreshNeeded = true;
   let environmentIntensity = 0.48, frameCount = 0, lastFrameMs = 0;
-  let fastStartMode = false;
+  let fastStartMode = false, pipelinePrewarmed = false;
   const materialBaseIntensity = new WeakMap();
   let detailBatches = [], lodBatches = [];
   const lodPoint = new T.Vector3();
@@ -63,7 +63,7 @@
       environmentTarget = pmrem.fromScene(room, 0.04, 0.1, 100);
       scene.environment = environmentTarget.texture;
       environmentReady = true;
-      environmentIsFallback = true; // v4: 标记为临时回退，HDRI加载后可重新生成
+      environmentIsFallback = true;
     } catch (error) {
       failureReason = 'Environment fallback: ' + String(error.message || error).slice(0, 180);
       environmentTarget?.dispose(); environmentTarget = null;
@@ -72,18 +72,14 @@
     }
   }
 
-  // v4: scene-materials.js延迟加载后调用——用HDRI替换RoomEnvironment
   function refreshEnvironment() {
     if (typeof SCENE_MATERIALS === 'undefined' || !SCENE_MATERIALS.environment) return;
-    if (!environmentIsFallback) return; // 已经是HDRI，不需要替换
+    if (!environmentIsFallback) return;
     try {
       environmentTarget?.dispose(); environmentTarget = null;
       environmentReady = false;
       makeEnvironment();
-      if (!environmentIsFallback) {
-        refreshNeeded = true;
-        console.log('[Rendering] ✓ HDRI环境贴图替换完成');
-      }
+      if (!environmentIsFallback) { refreshNeeded = true; console.log('[Rendering] ✓ HDRI环境贴图替换完成'); }
     } catch(e) { console.warn('[Rendering] HDRI环境替换失败:', e); }
   }
 
@@ -152,6 +148,7 @@
       if (A.ShaderPass && A.FXAAShader) { fxaa = new A.ShaderPass(A.FXAAShader); composer.addPass(fxaa); }
       state.postprocessing = true;
       resize(width, height, pixelRatio);
+      pipelinePrewarmed = true;
     } catch (error) {
       failed = true; failureReason = 'Postprocessing fallback: ' + String(error.message || error).slice(0, 180);
       destroyPipeline();
@@ -202,17 +199,20 @@
     return getDiagnostics();
   }
 
+  // v5: prewarm同时创建PMREM和后处理管线
   function prewarm() {
-    if (!fastStartMode || environmentReady) return;
-    try { makeEnvironment(); console.log('[Rendering] PMREM预生成完成(fallback=' + environmentIsFallback + ')'); } catch(e) { console.warn('[Rendering] PMREM预生成失败:', e); }
+    if (!fastStartMode) return;
+    try { makeEnvironment(); } catch(e) { console.warn('[Rendering] PMREM预生成失败:', e); }
+    try { makePipeline(); if (pipelinePrewarmed) console.log('[Rendering] ✓ 后处理管线后台预创建完成'); } catch(e) { console.warn('[Rendering] 管线预创建失败:', e); }
+    try { renderer.compile(scene, camera); console.log('[Rendering] ✓ 材质预编译完成'); } catch(e) {}
   }
 
   function upgradeToFullQuality() {
     if (!fastStartMode) return;
     fastStartMode = false;
-    console.log('[Rendering] 升级到完整质量');
+    console.log('[Rendering] 升级到完整质量 (pipeline prewarmed=' + pipelinePrewarmed + ')');
     if (!environmentReady) makeEnvironment();
-    makePipeline();
+    if (!pipelinePrewarmed) makePipeline();
     refreshNeeded = true;
     return getDiagnostics();
   }
