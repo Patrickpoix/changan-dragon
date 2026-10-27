@@ -1,10 +1,11 @@
-/* Chang'an Dragon Service Worker v4
+/* Chang'an Dragon Service Worker v5
+ * v5: bump for core/surfaces/exploration texture fixes + road PBR update
  * v4: bump cache for boot v8.8 + surfaces v3 + performance audit
  * v3: bump cache for boot v8.8 (async deferred loading + race fix)
  * v2: bump for boot v8.6+PBR changes
  * v1: initial
  */
-const CACHE_NAME = 'changan-v4';
+const CACHE_NAME = 'changan-v5';
 const CORE_ASSETS = [
   './',
   './index.html',
