@@ -1,30 +1,34 @@
 # 《龙游长安》交接文档
 
-**更新日期：2026年10月27日 14:35 北京时间**
+**更新日期：2026年10月27日 15:55 北京时间**
 
 ---
 
 ## 当前架构（权威）
 
-### 引擎加载顺序（src/boot.js v8.2）
+### 引擎加载顺序（src/boot.js v8.6）
 
 **关键路径已从16.6MB降至~1MB**：
 
 ```
 // 关键路径（阻塞开始界面显示）：
-//   25个小文件并行下载（~1MB）
+//   25个小文件并行下载（~1MB），script.async=false确保按序执行
 //   完成后加载 src/30-main.js → buildWorld() → 开始界面
 
 // 后台延迟加载（不阻塞，加载完自动增强场景）：
-//   assets/scene-materials.js (7MB PBR纹理)
+//   assets/scene-materials.js (7MB PBR纹理+HDRI环境)
 //   assets/runtime-models.js (9.58MB GLB模型)
 //   每个加载完自动 WorldAssets.reset() + populate() 重试
-//   scene-materials.js加载后还会 GameRendering.refreshEnvironment() 用HDRI替换临时RoomEnvironment
+//   scene-materials.js加载后自动：
+//     1. GameRendering.refreshEnvironment() 用HDRI替换RoomEnvironment
+//     2. SurfaceLibrary.architecture() 补绑屋顶/墙面PBR法线+粗糙度
+//     3. SurfaceLibrary.refreshClothMaterials() 补绑衣物法线
+//     4. requestAnimationFrame(renderer.compile()) 重编译着色器
 
 // Service Worker：sw.js 缓存所有静态资源，重复访问秒开
 ```
 
-**enhance模块**（6个）由30-main.js在GAME.ready后动态注入script标签。
+**enhance模块**（7个）由30-main.js在GAME.ready后动态注入script标签。
 
 ### 初始化生命周期（v4）
 - **统一调度器**：src/99-safe-init.js v4 提供 `window.__enhance.register(owner, fn, priority)`
@@ -41,16 +45,16 @@ GAME.ready后requestIdleCallback自动执行：
 
 用户点击"入城漫游"时以上全部完成，upgradeToFullQuality()零等待。
 
-### Enhance 模块 Owner（6个，按优先级）
+### Enhance 模块 Owner（7个，按优先级）
 | Owner | 优先级 | 职责 |
 |-------|--------|------|
 | Performance | 30 | 纹理各向异性16x + 阴影±140m |
 | Weather | 35 | 晴/阴/雨：雨滴粒子(v6修复双重位移) + 包装render() |
-| Landmarks | 40 | 东西市牌坊+石碑 |
+| Landmarks | 40 | 东西市牌坊+石碑(不重复角楼/垛口) |
 | Vegetation | 50 | 花圃/竹林(种子随机可复现) |
 | Water | 60 | 护城河三面(rotation.x=-π/2)+6木桥+岸石 |
 | NightLight | 70 | 64灯笼(Batch)+7点光源(__nightLights钩子) |
-| Outside | 80 | 城外驿站/水井/里程碑/树 |
+| Outside | 80 | 城外驿站/水井/里程碑(z>415)/100棵种子树 |
 
 ---
 
@@ -81,7 +85,7 @@ scene/camera/renderer/sun/ambient/hemi/rim/MAT/TEX/GAME.ready/waterMat/B/Batch/s
 
 ---
 
-## 本轮修复（2026-10-27 14:00后）
+## 本轮修复（2026-10-27）
 
 | Commit | 内容 |
 |--------|------|
@@ -91,12 +95,12 @@ scene/camera/renderer/sun/ambient/hemi/rim/MAT/TEX/GAME.ready/waterMat/B/Batch/s
 | `377e720` | boot v8: scene-materials.js(7MB)移出关键路径，关键路径~1MB |
 | `d697dc0` | AGENTS.md v2: 修复所有失效文档引用 |
 | `b7ea9ec` | 新增sw.js: Service Worker静态资源缓存 |
-| `9af30d3` | boot v8.1: 注册Service Worker |
-| `e2a16be` | 05-rendering v4: refreshEnvironment() HDRI替换fallback |
-| `b3b4965` | boot v8.2: scene-materials加载后调用refreshEnvironment() |
 | `6f1976f` | 05-rendering v5: prewarm()同时创建管线+预编译材质 |
 | `0862c3d` | docs: WORLD_ARCHITECTURE.md 完整长安城设计 |
 | `dc6bff1` | CI: 添加sw.js语法检查 |
+| `b3b4965`→`2cc880e` | boot v8.2→v8.5: PBR补绑(architecture+refreshClothMaterials)+HDRI替换+shader重编译 |
+| `0226398c` | 06-surfaces v2: clothMaterials追踪数组+refreshClothMaterials()方法 |
+| `365cd9e` | boot v8.6: script.async=false确保动态脚本按插入顺序执行 |
 
 ---
 
@@ -114,7 +118,7 @@ scene/camera/renderer/sun/ambient/hemi/rim/MAT/TEX/GAME.ready/waterMat/B/Batch/s
 ## 下一步
 
 1. **浏览器实测验收**：固定机位截图+FPS/DrawCalls数据
-2. **PBR贴图升级**：Canvas纹理 → 真实法线/粗糙度贴图
+2. **PBR贴图升级**：Canvas纹理 → 真实法线/粗糙度贴图（已绑定，待视觉验证）
 3. **高精度GLB模型**：共享素材包替换程序化几何体
 4. **完整长安城扩展**：按WORLD_ARCHITECTURE.md坐标映射扩展
 5. **分区流式加载**：3×3大区异步加载/卸载
