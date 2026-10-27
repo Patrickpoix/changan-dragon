@@ -1,5 +1,8 @@
 /* ============================================================
    龙游长安 · 游戏主循环 / 操控 / 镜头 / 昼夜 / 诗笺
+   v6 性能优化：
+   - 移除enhance模块加载的100ms setTimeout固定延迟（agent.md第7节规范）
+   - 浏览器异步fetch本身有延迟，无需额外setTimeout
    v5 性能优化：
    - startGame() 改为异步：先显示加载提示，让浏览器绘制后再执行PMREM/编译
    - 避免点击"入城漫游"后UI冻结
@@ -1134,25 +1137,24 @@ async function buildWorld() {
       ? '<span><span class="keycap">左</span>摇杆漫游</span><span><span class="keycap">下</span>步行 / 骑行 / 飞行</span><span><span class="keycap">拖</span>环视与缩放</span>'
       : '<span><span class="keycap">WASD</span>漫游</span><span><span class="keycap">1/2/3</span>移动方式</span><span><span class="keycap">C</span>换镜头</span><span><span class="keycap">P</span>赏景</span>';
   }
-  setTimeout(() => {
-    const enhanceScripts = [
-      'src/enhance/performance.js',
-      'src/enhance/landmarks.js',
-      'src/enhance/vegetation.js',
-      'src/enhance/water.js',
-      'src/enhance/night-light.js',
-      'src/enhance/outside.js',
-    ];
-    for (const src of enhanceScripts) {
-      const s = document.createElement('script');
-      s.src = src;
-      s.onerror = () => console.warn('[Boot] enhance 模块加载失败: ' + src);
-      document.head.appendChild(s);
-    }
-  }, 100);
+  // enhance 模块在 GAME.ready 后直接动态加载（浏览器异步fetch本身有延迟，无需setTimeout固定延迟）
+  const enhanceScripts = [
+    'src/enhance/performance.js',
+    'src/enhance/landmarks.js',
+    'src/enhance/vegetation.js',
+    'src/enhance/water.js',
+    'src/enhance/night-light.js',
+    'src/enhance/outside.js',
+  ];
+  for (const src of enhanceScripts) {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onerror = () => console.warn('[Boot] enhance 模块加载失败: ' + src);
+    document.head.appendChild(s);
+  }
 }
 
-// v5 性能优化：startGame 改为异步，先显示加载提示让浏览器绘制，再执行昂贵操作
+// v6 性能优化：startGame 改为异步，先显示加载提示让浏览器绘制，再执行昂贵操作
 async function startGame() {
   if (!GAME.ready || GAME.started) return;
   GAME.started = true;
