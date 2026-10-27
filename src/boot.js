@@ -1,6 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v12: 添加人物与自然增强模块
  * v11: 添加城市细节增强模块加载
- * v10: 添加奇观建筑模块加载
  */
 
 const smallScripts = [
@@ -98,13 +98,21 @@ function populateDeferredModels() {
         cityDetailsScript.onerror = () => console.warn('[Boot] 城市细节模块加载失败');
         document.head.appendChild(cityDetailsScript);
         
+        // 人物与自然增强
+        setTimeout(() => {
+          const lifeScript = document.createElement('script');
+          lifeScript.src = 'src/enhance/life-enhancement.js';
+          lifeScript.onerror = () => console.warn('[Boot] 人物与自然模块加载失败');
+          document.head.appendChild(lifeScript);
+        }, 300);
+        
         // 奇观建筑
         setTimeout(() => {
           const wonderScript = document.createElement('script');
           wonderScript.src = 'src/enhance/wonders.js';
           wonderScript.onerror = () => console.warn('[Boot] 奇观建筑模块加载失败');
           document.head.appendChild(wonderScript);
-        }, 500);
+        }, 800);
       }, 1000);
     };
     document.head.appendChild(s);
