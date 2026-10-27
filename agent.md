@@ -19,9 +19,9 @@
 
 ### 1. 时间纪律（用户强制要求）
 - 每次开始工作前必须校准北京时间（Asia/Shanghai, UTC+8），用 get_current_time
-- 用户要求的停止时间（如：北京时间 2026-10-27 12:00）前绝不允许中途停下汇报
+- 用户要求的停止时间（如：北京时间 2026-10-28 12:00）前绝不允许中途停下汇报
 - 想停下来时先校准时间，时间没到就继续做；校准结果写入回复首句
-- 用户说“继续/禁止停下来/全部完成”时必须持续工作直到截止时间或用户叫停
+- 用户说"继续/禁止停下来/全部完成"时必须持续工作直到截止时间或用户叫停
 - 每轮回复首句必须给出校准后的北京时间
 
 ### 2. 模块组织原则
@@ -43,8 +43,8 @@
   asset-manifest.json/audio-rights-review.md/concept-*.png×5/production-contracts.json/
   production-spec.json/resource-catalog.json/upload-import.json）+ 2 个证据目录
   （qa-evidence=真实测试截图与JSON证据、user-references=用户素材参考，二者不可删）
-- **GitHub 删除纪律**：delete_file 高并发会因基于同一父 commit 产生“假成功”（返回 commit 但删除丢失）
-  或 BadObjectState“假失败”（报错但已删）。经验法则：
+- **GitHub 删除纪律**：delete_file 高并发会因基于同一父 commit 产生"假成功"（返回 commit 但删除丢失）
+  或 BadObjectState"假失败"（报错但已删）。经验法则：
   ① 批量删除每批 ≤20 个并行；② 删除后必须 get_file_contents 拉目录复核；
   ③ 发现残留就串行补删（此时 HEAD 已稳定，逐个删除可靠）；④ 失败先探存在性再决定重试
 - 删完后要检查boot.js和CI是否还正常
@@ -64,7 +64,8 @@
 - **先问：原系统已经有了吗？有了就不要重做**
 - 已确认重复并删除的：landmarks自绘角楼/垛口/台阶/广场（原系统addCityWalls已有角楼+批量垛口、
   addHall自带台阶）、vegetation荷花（原系统曲江池自带）、night-light朱雀大街灯笼（原系统已有灯柱）、
-  阴影范围v1 ±500m（精度灾难，v2回退±140m）
+  阴影范围v1 ±500m（精度灾难，v2回退±140m）、visual-grade.js（视觉基调已由主循环GRADE驱动，空壳）、
+  sky.js（天空Shader已在00-core.js，空壳）
 
 ### 6. 世界坐标权威
 - **CITY = { x0: -450, x1: 450, z0: -380, z1: 380 }**（核心城市边界）
@@ -92,22 +93,24 @@
   发布容量待真实素材与测试后决定；区分总资源库/发布容量/首屏体积/显存/存档容量
 
 ### 7. 初始化原则
-- **统一生命周期调度器**：src/99-safe-init.js 提供 window.__enhance.register(owner, fn, priority)，
-  按优先级串行执行（间隔500ms），GAME.ready后启动，完成后置 GAME.fullyReady
+- **统一生命周期调度器（v2，2026-10-27）**：src/99-safe-init.js 提供 window.__enhance.register(owner, fn, priority)，
+  GAME.ready 后下一帧开始，**requestAnimationFrame 分帧执行**（每帧一个模块，8帧≈133ms），
+  取代旧 500ms×8=4s 固定串行延迟；全部完成后自动调用 __changan.rebuild() 并置 GAME.fullyReady
 - 所有enhance模块必须 IIFE + registered 幂等标志，注册路径二选一（__enhance 或 __enhancePending）
 - 禁止散装 setTimeout 固定延迟（旧机制已废弃）；禁止覆盖buildWorld
-- 不要创建独立的requestAnimationFrame循环
-- 需要逐帧更新的内容必须接入主循环：包装 window.updateDayNight 钩子（如night-light点光）
-- **整改方向（2026-10-26）**：取消依赖固定延迟的初始化；99-safe-init 内残留的旧模块名引用
-  （121-140 等已删模块）必须清理或整合；建立依赖管理与完成信号
+- 不要创建独立的requestAnimationFrame循环（分帧调度由 99-safe-init 统一管理）
+- 需要逐帧更新的内容必须接入主循环：包装 GameRendering.update（如28-weather天气）或
+  updateDayNight 尾部 __nightLights 钩子；禁止包装 window.updateDayNight（30-main 词法绑定，替换无效）
+- **已完成（2026-10-27）**：固定延迟已改 RAF 分帧；99-safe-init 旧模块引用已清理；
+  GAME.fullyReady 反映真实加载结果（失败模块在 console.warn 标注，不静默吞掉）
 
 ### 7b. 批处理增量重建原则（已登记即已渲染，2026-10-27 落地）
 - Batch.build() 幂等重建：首次构建后仍可继续 add（如增强模块在 GAME.ready 后追加物体）；
   再次调用 build 会先移除旧实例组，再按完整条目重建，保证场景中只存在一套实例网格
-- 全局重建入口：window.__changan.rebuild() 重建全部批处理 + 刷新飞行包络（Explore.buildRoofGrid）
-  + 重建碰撞哈希 buildColliderHash() + 渲染刷新 GameRendering.refreshScene()（2026-10-26 已补）
+- 全局重建入口：window.__changan.rebuild() 遍历 Object.values(B).forEach(b => b?.build?.())
+  + 刷新飞行包络（Explore.buildRoofGrid）+ 重建碰撞哈希 buildColliderHash() + 渲染刷新 GameRendering.refreshScene()
 - 生命周期：99-safe-init 在全部 enhance 模块执行完后自动调用 __changan.rebuild()
-- 原则：任何登记了碰撞/飞行障碍的物体，必须真实渲染；不允许“隐形碰撞”或“隐形障碍”
+- 原则：任何登记了碰撞/飞行障碍的物体，必须真实渲染；不允许"隐形碰撞"或"隐形障碍"
   （典型反例：enhance/outside.js 在 GAME.ready 后 addTree，若不重建则树不可见但碰撞已登记）
 
 ### 7c. 渲染/碰撞/寻路注册原则（2026-10-26 任务书）
@@ -139,27 +142,28 @@
 ### 10. 测试与验证
 - 完成后必须运行GitHub CI测试（node --check src/*.js src/enhance/*.js）
 - 报错必须修复，不能带病提交
-- 不能把“代码已提交”当成“功能已完成”
+- 不能把"代码已提交"当成"功能已完成"
 - 不能把程序化基础几何当成电影级视觉资产
 - 所有增强模块必须有console.log成功信息
 - 可用 window.__changan 调试入口做自动化验收（teleport/state/drawCalls/rendering/rebuild）
 - **tools/build_standalone.py 的 SOURCES 必须与 src/boot.js 加载清单一致**（dist 单文件
-  必须包含全部 src 与 enhance 模块；2026-10-27 已补全 25b/26/26b/27b/27c/28/29/99-safe-init/8个enhance）
+  必须包含全部 src 与 enhance 模块；2026-10-27 已补全 25b/26/26b/27b/27c/28/99-safe-init/6个enhance）
 - 验证系统必须真实检查（启动成功/模块初始化/NPC更新/水面渲染/诗笺收集/JS错误/性能），
   不得用固定日志冒充验收证据（140号教训）
 
-## 模块Owner划分（当前权威）
+## 模块Owner划分（当前权威，2026-10-27）
 
 | Owner | 优先级 | 职责 | 对应文件 |
 |-------|--------|------|----------|
-| VisualGrade | 10 | 视觉诊断自检（基调整合进主循环GRADE常量） | enhance/visual-grade.js |
-| Sky | 20 | 天空系统自检（不重复创建天空） | enhance/sky.js |
 | Performance | 30 | 纹理各向异性16x / 阴影±140m | enhance/performance.js |
-| Landmarks | 40 | 东西市牌坊（题额“四方珍奇”/“西域风物”） + 两塔石碑（刻名；原系统已有角楼/垛口/台阶，不重复） | enhance/landmarks.js |
-| Vegetation | 50 | 沉香亭花圃/大雁塔蓝花/太极宫菊花/曲江岸草/竹林（共享材质） | enhance/vegetation.js |
-| Water | 60 | 护城河三面（南z400两段+东西x±465各两段，城门通道，共享waterMat）+木桥6座（南2沿z跨河、东西4沿x跨河，注册bridgeZones）+岸石芦苇鸭 | enhance/water.js |
-| NightLight | 70 | 宫殿塔寺明德门补充灯笼 + 7组点光源昼夜联动（包装updateDayNight） | enhance/night-light.js |
-| Outside | 80 | 城外驿站/水井/里程碑碰撞 + 城外树(原addTree，重建后可见) | enhance/outside.js |
+| Landmarks | 40 | 东西市牌坊（题额"四方珍奇"/"西域风物"） + 两塔石碑（刻名；原系统已有角楼/垛口/台阶，不重复） | enhance/landmarks.js |
+| Vegetation | 50 | 沉香亭花圃/大雁塔蓝花/太极宫菊花/曲江岸草/竹林（共享材质，mulberry32种子随机可复现） | enhance/vegetation.js |
+| Water | 60 | 护城河三面（南z400两段+东西x±465各两段，城门通道，共享waterMat，PlaneGeometry已rotation.x=-π/2躺平）+木桥6座（注册bridgeZones）+岸石芦苇鸭（种子随机可复现） | enhance/water.js |
+| NightLight | 70 | 宫殿塔寺明德门补充灯笼 + 点光源昼夜联动（登记window.__nightLights，由updateDayNight尾部驱动） | enhance/night-light.js |
+| Weather | 35 | 晴/阴/细雨切换：雨滴粒子800跟随玩家、雾/曝光基于GRADE基线相对微调、包装GameRendering.update主循环驱动；UI按钮由HTML声明，缺失时动态注入兼容 | src/28-weather.js |
+| Outside | 80 | 城外驿站/水井/里程碑碰撞 + 城外树(原addTree，经__changan.rebuild()批处理重建后可见，种子随机可复现) | enhance/outside.js |
+
+> 注：VisualGrade(10) 与 Sky(20) 已删——视觉基调由主循环 GRADE 常量统一驱动，天空 Shader 已在 00-core.js，两者为空壳模块。
 
 ## 权威地标坐标
 
@@ -181,14 +185,15 @@
 
 ## 当前整改主线（2026-10-26 审查后，按序推进）
 
-1. **恢复正确集成**：初始化生命周期清理（99-safe-init 旧引用）、主循环唯一入口、
+1. **恢复正确集成**：✅ 初始化生命周期清理（99-safe-init v2 RAF分帧）、主循环唯一入口、
    真实系统状态检查、原正式游戏可启动可操作
-2. **统一场景与资源**：地标坐标统一（以 landmarks 为唯一权威）、复用正式建筑材质、
-   清理重复/错位/悬空/穿模、同步碰撞/寻路/LOD/交互区域、合并重叠系统（NPC/音频/天空/灯光/交互）
-3. **视觉与性能验收**：朱雀大街/大明宫/东西市/曲江池/大雁塔/小雁塔/兴庆宫/太极宫/明德门
-   固定机位前后截图；测量 启动时间/FPS/DrawCalls/Triangles/内存/GPU帧时间/长时漫游/画质档位；
-   目标：桌面60FPS、移动端30FPS（ARCHITECTURE.md 指标，以实测为准）
-4. **功能回归**：启动无黑屏、WASD/镜头/触控摇杆、步行骑行飞行切换、城门街道通行、
+2. **统一场景与资源**：✅ 地标坐标统一（以 landmarks 为唯一权威）、复用正式建筑材质、
+   清理重复/错位/悬空/穿模（角楼/垛口重复已删）、同步碰撞/寻路/LOD/交互区域、
+   合并重叠系统（NPC/音频/天空/灯光/交互）
+3. **视觉与性能验收**（待 CDP 实测产出证据）：朱雀大街/大明宫/东西市/曲江池/大雁塔/小雁塔/
+   兴庆宫/太极宫/明德门 固定机位前后截图；测量 启动时间/FPS/DrawCalls/Triangles/内存/GPU帧时间/
+   长时漫游/画质档位；目标：桌面60FPS、移动端30FPS（ARCHITECTURE.md 指标，以实测为准）
+4. **功能回归**（待实测）：启动无黑屏、WASD/镜头/触控摇杆、步行骑行飞行切换、城门街道通行、
    NPC无穿模、诗笺拾取计数存档刷新恢复、音乐静音昼夜、画质切换、无内存泄漏、刷新无重复初始化
 5. 不未经审查直接推大量整改代码：独立修复分支 + commit SHA + 文件清单 + 修复状态 +
    设计决策 + 实测记录 + 前后截图性能数据 + 遗留问题 + 交接文件
@@ -210,7 +215,7 @@
 - ❌ 禁止直接修改灯光和天空参数，避免被主循环覆盖
 - ❌ 禁止盲目扩大阴影范围，要保持合理精度（±140m）
 - ❌ 禁止 build_standalone.py SOURCES 与 boot.js 加载清单不一致（dist 单文件必须包含全部模块）
-- ❌ 禁止出现“已登记碰撞但未渲染”的隐形物体（新增物体必须触发 __changan.rebuild）
+- ❌ 禁止出现"已登记碰撞但未渲染"的隐形物体（新增物体必须触发 __changan.rebuild）
 - ❌ 禁止用固定控制台日志冒充验收证据（必须真实检查系统状态）
 - ❌ 禁止以增加补丁掩盖架构问题（用整合/重构代替141/142/143式追加）
 - ❌ 禁止删除原有高质量模型/贴图/功能（先对比验证并说明原因）
