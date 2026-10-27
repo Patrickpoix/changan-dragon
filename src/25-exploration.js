@@ -229,11 +229,29 @@ function installMaterials() {
     t.repeat.set(...repeat); t.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
     return t;
   }
+  const oldStone = TEX.stone; // v5: 保存旧引用，用于更新道路材质
   TEX.stone = embedded('stone', [1, 1]);
   MAT.stone.map = TEX.stone.clone(); MAT.stone.map.repeat.set(2, 1); MAT.stone.map.needsUpdate = true;
   TEX.stoneBump = TEX.stone.clone(); TEX.stoneBump.colorSpace = THREE.NoColorSpace; TEX.stoneBump.needsUpdate = true;
   MAT.stone.bumpMap = TEX.stoneBump; MAT.stone.bumpScale = 0.014; SurfaceLibrary.softenStone(MAT.stone); MAT.stone.needsUpdate = true;
   MAT.wood.map = embedded('wood', [1, 2]); MAT.wood.roughness = 0.8; MAT.wood.needsUpdate = true;
+  // v5: 更新道路材质，使用新高精石材纹理替代旧CanvasTexture
+  if (typeof roadMeshes !== 'undefined') {
+    let updated = 0;
+    for (const mesh of roadMeshes) {
+      const mat = mesh.material;
+      if (mat.map === oldStone) { mat.map = TEX.stone; mat.needsUpdate = true; updated++; }
+      if (mat.bumpMap === oldStone) { mat.bumpMap = TEX.stone; mat.needsUpdate = true; updated++; }
+    }
+    if (updated) console.log('[Materials] ✓ 道路石材纹理更新 (' + updated + '处)');
+  }
+  // v5: 同时更新pavingMaterial（朱雀大街御道）
+  if (typeof window !== 'undefined' && window.__pavingMaterial) {
+    window.__pavingMaterial.map = TEX.stone;
+    window.__pavingMaterial.bumpMap = TEX.stone;
+    window.__pavingMaterial.needsUpdate = true;
+    console.log('[Materials] ✓ 御道铺路砖纹理更新');
+  }
 }
 
 function buildArchitecturalDetails() {
