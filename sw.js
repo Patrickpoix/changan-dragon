@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v26
+/* Chang'an Dragon Service Worker v27
+ * v27: 战斗与PK系统 — 热血江湖
  * v26: 门派与修炼系统 — 修仙问道
- * v25: 科举与官职系统 — 仕途之路
  */
-const CACHE_NAME = 'changan-v26';
+const CACHE_NAME = 'changan-v27';
 const CORE_ASSETS = [
   './',
   './index.html',
