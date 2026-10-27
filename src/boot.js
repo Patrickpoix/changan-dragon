@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v9: 显示真实加载进度（每完成一个小文件更新状态）
  * v8.9: three.min.js设置fetchPriority=high，慢连接下优先下载引擎
  * v8.8: 修复竞态——大文件可能先于小文件加载完成，onload回调时SurfaceLibrary未定义。
  *       小文件全部加载后检查SCENE_MATERIALS/RUNTIME_MODELS是否已就绪，触发补绑。
@@ -57,13 +58,24 @@ function populateDeferredModels() {
 
 (function boot() {
   const statusEl = document.getElementById('bootStatus');
+  let loadedCount = 0;
+  const totalCount = smallScripts.length;
+
+  function updateStatus() {
+    if (!statusEl) return;
+    const pct = Math.round(loadedCount / totalCount * 100);
+    if (loadedCount === 0) statusEl.textContent = '正在准备笔墨纸砚…';
+    else if (loadedCount < 5) statusEl.textContent = '铺开长安城… ' + pct + '%';
+    else if (loadedCount < 15) statusEl.textContent = '搭建坊市宫阙… ' + pct + '%';
+    else if (loadedCount < totalCount) statusEl.textContent = '点亮万家灯火… ' + pct + '%';
+  }
 
   const smallPromises = smallScripts.map(src => new Promise((resolve, reject) => {
     const s = document.createElement('script'); s.src = src;
     s.async = false;
     // v8.9: three.min.js是最大且最关键的文件，给浏览器高下载优先级
     if (src === 'vendor/three.min.js') { try { s.fetchPriority = 'high'; } catch(e){} }
-    s.onload = () => resolve();
+    s.onload = () => { loadedCount++; updateStatus(); resolve(); };
     s.onerror = () => reject(new Error('small script failed: ' + src));
     document.head.appendChild(s);
   }));
