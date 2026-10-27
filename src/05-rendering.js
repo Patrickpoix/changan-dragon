@@ -1,5 +1,7 @@
 /* Filmic rendering for the actual 3D scene. Official r160 addons are bundled
- * locally; see vendor/rendering-addons-LICENSE.txt and tools/build_rendering_addons.mjs. */
+ * locally; see vendor/rendering-addons-LICENSE.txt and tools/build_rendering_addons.mjs.
+ * v2: 新增 fastStart 快速启动模式 — 开始界面用 low 质量，用户进入后再升级。
+ */
 (function (global) {
   'use strict';
   const T = global.THREE;
@@ -9,6 +11,7 @@
   let quality = 'low', suspended = false, initialized = false, failed = false;
   let failureReason = '', environmentReady = false, excluded = [], refreshNeeded = true;
   let environmentIntensity = 0.48, frameCount = 0, lastFrameMs = 0;
+  let fastStartMode = false; // 快速启动模式标记
   const materialBaseIntensity = new WeakMap();
   let detailBatches = [], lodBatches = [];
   const lodPoint = new T.Vector3();
@@ -227,8 +230,10 @@
     suspended = false;
     failed = false;
     failureReason = '';
-    makeEnvironment();
-    makePipeline();
+    if (!fastStartMode) {
+      makeEnvironment();
+      makePipeline();
+    }
     refreshNeeded = true;
   }
 
@@ -247,6 +252,29 @@
     initialized = true; suspended = false; failed = false; failureReason = ''; frameCount = 0;
     renderer.domElement.addEventListener('webglcontextlost', onContextLost, false);
     renderer.domElement.addEventListener('webglcontextrestored', onContextRestored, false);
+
+    // v2 快速启动模式：如果指定了 fastStart=true，跳过环境贴图和后处理管线创建
+    // 开始界面用 low 质量快速渲染，用户进入后再调用 upgradeToFullQuality() 升级
+    fastStartMode = !!options.fastStart;
+    if (!fastStartMode) {
+      makeEnvironment();
+      makePipeline();
+    } else {
+      // 快速启动时只设置基础渲染参数，不创建 PMREM 和后处理管线
+      // 这些重资源在 upgradeToFullQuality() 中再创建
+      console.log('[Rendering] 快速启动模式：开始界面用 low 质量，进入游戏后升级');
+    }
+
+    refreshNeeded = true;
+    return getDiagnostics();
+  }
+
+  // v2 新增：快速启动后升级到完整质量
+  // 用户点击"入城漫游"后调用，创建 PMREM 环境贴图和后处理管线
+  function upgradeToFullQuality() {
+    if (!fastStartMode) return; // 已经是完整模式
+    fastStartMode = false;
+    console.log('[Rendering] 升级到完整质量：创建环境贴图和后处理管线');
     makeEnvironment();
     makePipeline();
     refreshNeeded = true;
@@ -319,12 +347,12 @@
     quality = resolveQuality(requestedQuality);
     failed = false;
     failureReason = '';
-    if (initialized && !suspended) makePipeline();
+    if (initialized && !suspended && !fastStartMode) makePipeline();
     return getDiagnostics();
   }
 
   function getDiagnostics() {
-    return { initialized, quality, requestedQuality, suspended,
+    return { initialized, quality, requestedQuality, suspended, fastStartMode,
       antiAliasing: composer && fxaa ? 'FXAA' : renderer?.getContext().getContextAttributes()?.antialias ? 'MSAA' : 'none',
       toneMapping: 'ACESFilmic', exposure: renderer?.toneMappingExposure,
       environment: environmentReady ? (typeof SCENE_MATERIALS !== 'undefined' ? 'Poly Haven Venice Sunset PMREM' : 'RoomEnvironment PMREM') : 'scene lighting', environmentIntensity,
@@ -347,6 +375,7 @@
   }
 
   global.GameRendering = { init, render, resize, setQuality, getDiagnostics, dispose, refreshScene,
+    upgradeToFullQuality,
     setExposure(value) { if (renderer && Number.isFinite(value)) renderer.toneMappingExposure = Math.max(0.1, Math.min(3, value)); },
     setEnvironmentIntensity(value) { if (Number.isFinite(value)) { environmentIntensity = Math.max(0, Math.min(2, value)); refreshScene(); } },
   };
