@@ -1,9 +1,6 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v8 性能优化（2026-10-27）：
- *   - scene-materials.js(7MB)也移出关键路径
- *   - 关键路径只剩小文件(~1MB)，素材模板全部后台延迟加载
- *   - 效果：首屏关键路径下载从8MB降到~1MB
- * v7: runtime-models.js移出关键路径
+ * v8: scene-materials.js移出关键路径，关键路径~1MB
+ * v8.1: 注册Service Worker缓存
  */
 
 const smallScripts = [
@@ -17,11 +14,15 @@ const smallScripts = [
   'src/27c-extra-poems-2.js','src/28-weather.js','src/99-safe-init.js',
 ];
 
-// v8: 无关键大文件——所有素材模板都后台延迟加载
-// buildWorld()用程序化MAT材质先渲染开始界面，素材加载完后WorldAssets.populate()增强
 const criticalBig = [];
-// 延迟大文件：材质纹理 + GLB模型模板，后台加载完自动重试populate
 const deferredBig = ['assets/scene-materials.js', 'assets/runtime-models.js'];
+
+// Service Worker注册（重复访问缓存加速）
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 
 (function boot() {
   const statusEl = document.getElementById('bootStatus');
@@ -33,7 +34,6 @@ const deferredBig = ['assets/scene-materials.js', 'assets/runtime-models.js'];
     document.head.appendChild(s);
   }));
 
-  // 延迟大文件：立即开始下载，但不阻塞30-main.js
   for (const src of deferredBig) {
     const s = document.createElement('script'); s.src = src;
     s.onload = () => {
