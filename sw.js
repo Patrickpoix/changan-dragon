@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v41
+/* Chang'an Dragon Service Worker v42
+ * v42: 公告与活动通知系统 — 及时了解
  * v41: 帮助与新手教程系统 — 良师益友
- * v40: 设置与选项系统 — 随心所欲
  */
-const CACHE_NAME = 'changan-v41';
+const CACHE_NAME = 'changan-v42';
 const CORE_ASSETS = [
   './',
   './index.html',
