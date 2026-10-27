@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v23
+/* Chang'an Dragon Service Worker v24
+ * v24: 收藏与商业系统 — 宝物与商机
  * v23: 文化艺术系统 — 盛唐风韵
- * v22: 拍照与休闲系统 — 悠闲时光
  */
-const CACHE_NAME = 'changan-v23';
+const CACHE_NAME = 'changan-v24';
 const CORE_ASSETS = [
   './',
   './index.html',
