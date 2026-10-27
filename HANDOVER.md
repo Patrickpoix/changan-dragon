@@ -1,30 +1,28 @@
 # 《龙游长安》交接文档
 
-**更新日期：2026年10月27日 13:10 北京时间**
+**更新日期：2026年10月27日 13:35 北京时间**
 
 ---
 
 ## 当前架构（权威）
 
-### 引擎加载顺序（src/boot.js v4，2026-10-27）
+### 引擎加载顺序（src/boot.js v5，2026-10-27）
 
-**性能优化v4核心改动**：scene-materials.js (7MB) 和 runtime-models.js (9.58MB) 改为并行下载，与小引擎文件同时进行。首屏下载时间从串行 17.9MB 降为并行 ~10MB。
+**性能优化v5核心改动**：所有25个小文件script标签一次性创建，浏览器并行下载、按文档顺序执行（不再串行onload链）。大素材（7MB+9.58MB）与小引擎文件同时开始下载。index.html添加preload标签预热大素材。
 
 ```
-// 立即并行启动大文件下载（不互相阻塞）
-assets/scene-materials.js (7MB)  ──┐
-assets/runtime-models.js (9.58MB) ──┤
-                                     ├── 并行
-// 同时串行加载小引擎文件              │
-vendor/three.min.js (670KB)         │
-vendor/rendering-addons.js (113KB)  │
-assets/materials.js (113KB)         │
-assets/character-faces.js (100KB)  │
-assets/boat-hulls.js (50KB)         │
-src/00-core.js → ... → 99-safe-init.js ──┘
+// index.html <head> 中的 preload 标签：
+//   preload vendor/three.min.js
+//   preload vendor/rendering-addons.js
+//   preload src/boot.js
+//   preload assets/scene-materials.js (7MB)
+//   preload assets/runtime-models.js (9.58MB)
+//   preload MaShanZheng 字体
 
-// 小文件+大文件全部就绪后，才加载主入口
-→ src/30-main.js（执行 boot() → buildWorld()）
+// boot.js v5 执行后，一次性创建所有script标签：
+//   25个小文件（浏览器并行下载，按文档顺序执行）
+//   2个大文件（并行下载）
+//   全部就绪后才加载 src/30-main.js
 ```
 
 **enhance模块**（6个）不在boot阶段加载，由30-main.js在GAME.ready后100ms动态注入script标签。
@@ -39,7 +37,7 @@ src/00-core.js → ... → 99-safe-init.js ──┘
 | Owner | 优先级 | 职责 | 文件 |
 |-------|--------|------|------|
 | Performance | 30 | 纹理各向异性16x + 阴影±140m | enhance/performance.js |
-| Weather | 35 | 晴/阴/雨：雨滴800点跟随玩家、包装GameRendering.update | src/28-weather.js |
+| Weather | 35 | 晴/阴/雨：雨滴跟随玩家、包装GameRendering.render | src/28-weather.js |
 | Landmarks | 40 | 东西市牌坊 + 两塔石碑（不重复角楼/垛口/台阶） | enhance/landmarks.js |
 | Vegetation | 50 | 沉香亭花圃/大雁塔蓝花/太极宫菊花/曲江岸草/竹林 | enhance/vegetation.js |
 | Water | 60 | 护城河三面（共享waterMat，rotation.x=-π/2）+6木桥+岸石芦苇鸭 | enhance/water.js |
@@ -71,7 +69,7 @@ src/00-core.js → ... → 99-safe-init.js ──┘
 - 城墙角楼在(±450, ±380)；护城河在 z=±400 / x=±465
 
 ## 全局变量名（权威）
-scene / camera / renderer / sun / ambient / hemi / rim / MAT / TEX / GAME.ready / waterMat / B / Batch类
+scene / camera / renderer / sun / ambient / hemi / rim / MAT / TEX / GAME.ready / waterMat / B / Batch类 / skyUniforms / waterUniforms / colliderGrid / bridgeZones / waterRects / landZones / roads / marketDefs / wards / landmarks / poems / Explore / Session / WorldAssets / CityBotany / WaterSurface / LegacySkinning / GameRendering
 
 ---
 
@@ -79,24 +77,30 @@ scene / camera / renderer / sun / ambient / hemi / rim / MAT / TEX / GAME.ready 
 
 | Commit | 内容 |
 |--------|------|
+| `85b6cd8` | agent.md v4：boot.js v5并行加载+大素材preload |
+| `3ae8ca3` | index.html：scene-materials.js和runtime-models.js添加preload标签（16.6MB） |
+| `6f22510` | boot.js v5：所有25个小文件script标签一次性创建，浏览器并行下载 |
+| `7cf956e` | 30-main v5：startGame异步化，先显示加载提示再执行PMREM/材质编译 |
+| `86edcec` | HANDOVER v2：更新boot.js v4并行加载/性能优化commits/CI门禁 |
 | `843d918` | boot.js v4：大素材文件(7MB+9.58MB)并行下载 |
 | `105c72f` | 删除18.7MB旧独立构建 dist/changan-dragon.html |
-| `af59393` | 更新.gitignore（不再追踪dist/） |
 | `c443656` | CI v2.1：index.html完整性检查+防新模块白名单+禁用变量名检测 |
 | `b53b3e4` | agent.md v3：性能优化原则+推送事故教训+模块Owner映射+CI门禁规则 |
-| `b53af24` | 恢复index.html完整52KB版本+preload标签 |
-| `0ed1aa6` | 30-main v4：启用fastStart模式 |
+| `b53af24` | 恢复index.html完整52KB版本+preload标签（修复截断事故） |
+| `0ed1aa6` | 30-main v4：启用fastStart快速启动 |
 | `a5d0320` | 05-rendering v2：fastStart模式（跳过PMREM+后处理，startGame时升级） |
 | `9f8e26a` | 30-main v3：WorldAssets.populate()非阻塞+renderer.compile()移到startGame |
 | `a06d1a2` | 99-safe-init v3：支持动态注册 |
 | `8474c12` | boot.js v3：移除6个enhance模块（首屏请求34→28） |
 
 ### 性能优化策略总结
-1. **首屏并行**：17MB素材文件并行下载，不串行阻塞
-2. **fastStart模式**：开始界面低质量快速渲染（跳过PMREM+SAO+Bloom+FXAA），点击入城时升级
-3. **非阻塞素材**：WorldAssets.populate()不等待外部GLB加载
-4. **enhance延迟加载**：6个增强模块在GAME.ready后动态注入，不占首屏请求
-5. **preload预热**：index.html添加<link rel=preload>预热three.min.js和boot.js
+1. **首屏并行下载**：boot.js v5一次性创建所有script标签，浏览器并行下载25小文件+2大素材
+2. **preload预热**：index.html添加<link rel=preload>预热three.js+渲染插件+boot.js+16.6MB大素材
+3. **fastStart模式**：开始界面低质量快速渲染（跳过PMREM+SAO+Bloom+FXAA），点击入城时upgradeToFullQuality()
+4. **异步startGame**：点击入城后先禁用按钮显示加载提示，await nextFrame()让浏览器绘制，再执行重活
+5. **非阻塞素材**：WorldAssets.populate()不等待外部GLB加载
+6. **enhance延迟加载**：6个增强模块在GAME.ready后动态注入，不占首屏请求
+7. **删除旧构建**：移除18.7MB的dist/changan-dragon.html
 
 ---
 
@@ -107,7 +111,7 @@ scene / camera / renderer / sun / ambient / hemi / rim / MAT / TEX / GAME.ready 
 2. boot.js清单验证（引用文件必须存在）
 3. orphan检测（enhance文件必须被30-main.js引用）
 4. **index.html完整性**（必须以</html>结尾，大小>40KB）
-5. **防新模块白名单**（src/下数字开头文件必须在白名单内）
+5. **防新模块白名单**（src/下数字开头文件必须在21个已知文件白名单内）
 6. **禁用变量名检测**（不得出现sunLight/ambientLight）
 
 ---
@@ -120,7 +124,7 @@ scene / camera / renderer / sun / ambient / hemi / rim / MAT / TEX / GAME.ready 
 4. **禁止**硬编码坐标新建同名地标
 5. **禁止**重复造轮子（复用MAT/水面Shader/昼夜/音频/NPC）
 6. **禁止**散装 setTimeout 固定延迟初始化（用 __enhance.register）
-7. **禁止**独立 RAF 循环（接入 GameRendering.update 或 __nightLights）
+7. **禁止**独立 RAF 循环（接入 GameRendering.render 或 __nightLights）
 8. 新增物体必须触发 `__changan.rebuild()`
 9. 推送大文件（>10KB）后必须回读验证字节数
 10. 模块Owner映射见 agent.md 第11节
@@ -134,7 +138,7 @@ scene / camera / renderer / sun / ambient / hemi / rim / MAT / TEX / GAME.ready 
 3. **高精度模型替换**：简单几何体 → GLB精模（共享素材包）
 4. **人物骨骼动画**：胶囊体NPC → 骨骼动画角色
 5. **分区流式加载**：按城市分区异步加载/卸载
-6. **大文件优化**：scene-materials.js/runtime-models.js内嵌base64纹理可考虑外部化
+6. **大文件优化**：scene-materials.js/runtime-models.js内嵌base64纹理可考虑外部化为KTX2/MeshOPT
 
 ---
 
