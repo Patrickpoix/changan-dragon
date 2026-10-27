@@ -1,11 +1,12 @@
-/* Chang'an Dragon Service Worker v5
+/* Chang'an Dragon Service Worker v6
+ * v6: cinematic materials + color grading + post-processing upgrade
  * v5: bump for core/surfaces/exploration texture fixes + road PBR update
  * v4: bump cache for boot v8.8 + surfaces v3 + performance audit
  * v3: bump cache for boot v8.8 (async deferred loading + race fix)
  * v2: bump for boot v8.6+PBR changes
  * v1: initial
  */
-const CACHE_NAME = 'changan-v5';
+const CACHE_NAME = 'changan-v6';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -33,6 +34,17 @@ self.addEventListener('fetch', event => {
   const url = new URL(req.url);
   // HTML: network first (always fresh), fallback to cache
   if (url.pathname.endsWith('.html') || url.pathname === '/') {
+    event.respondWith(
+      fetch(req).then(res => {
+        const copy = res.clone();
+        caches.open(CACHE_NAME).then(c => c.put(req, copy));
+        return res;
+      }).catch(() => caches.match(req))
+    );
+    return;
+  }
+  // JS/CSS: network first for core files (ensure fresh), fallback to cache
+  if (url.pathname.startsWith('/src/')) {
     event.respondWith(
       fetch(req).then(res => {
         const copy = res.clone();
