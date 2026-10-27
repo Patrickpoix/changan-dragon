@@ -1,7 +1,7 @@
 /* Filmic rendering for the actual 3D scene.
+ * v7: mobile quality upgrade — iPhone 17 Pro Max gets high quality (bloom + SAO + higher DPR)
  * v6: cinematic post-processing — stronger bloom, better SAO, richer color grading
  * v5: prewarm()同时预创建后处理管线，进入游戏时零等待
- * v4: refreshEnvironment() HDRI替换
  */
 (function (global) {
   'use strict';
@@ -19,11 +19,17 @@
   const state = { aoWidth: 0, aoHeight: 0, bloom: false, postprocessing: false };
   const validQuality = value => ['auto', 'low', 'medium', 'high'].includes(value) ? value : 'auto';
 
+  // v7: iPhone 17 Pro Max M5 GPU — 移动端直接给high质量
   function resolveQuality(value) {
     if (value !== 'auto') return value;
     const mobile = global.matchMedia?.('(pointer: coarse)').matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
     const economical = navigator.deviceMemory && navigator.deviceMemory < 4;
-    return mobile || economical ? 'low' : 'medium';
+    // v7: 高内存移动端(6GB+)给high质量，普通移动端给medium
+    if (mobile) {
+      if (navigator.deviceMemory && navigator.deviceMemory >= 6) return 'high';
+      return economical ? 'low' : 'medium';
+    }
+    return 'medium';
   }
 
   function destroyPipeline() {
@@ -111,8 +117,8 @@
       composer = new A.EffectComposer(renderer);
       composer.addPass(new A.RenderPass(scene, camera));
       ao = new A.SAOPass(scene, camera, new T.Vector2(1, 1));
-      // v6: 更强的环境遮蔽 — 更柔和、更有层次感
-      Object.assign(ao.params, { saoBias: 0.45, saoIntensity: 0.055, saoScale: camera.far / 22, saoKernelRadius: 32, saoMinResolution: 0.00012, saoBlur: true, saoBlurRadius: 4, saoBlurStdDev: 2.5, saoBlurDepthCutoff: 0.0012 });
+      // v7: 更强的环境遮蔽
+      Object.assign(ao.params, { saoBias: 0.45, saoIntensity: 0.06, saoScale: camera.far / 22, saoKernelRadius: 32, saoMinResolution: 0.00012, saoBlur: true, saoBlurRadius: 4, saoBlurStdDev: 2.5, saoBlurDepthCutoff: 0.0012 });
       ao.saoMaterial.defines.NUM_SAMPLES = quality === 'high' ? 12 : 8;
       ao.saoMaterial.defines.NUM_RINGS = 4;
       ao.saoMaterial.fragmentShader = ao.saoMaterial.fragmentShader.replace('gl_FragColor.xyz *=  1.0 - ambientOcclusion;', 'gl_FragColor.xyz *= clamp(1.0 - ambientOcclusion, 0.0, 1.0);');
@@ -127,28 +133,24 @@
         try { renderOverride(...args); } finally { for (const object of hidden) object.visible = true; scene.overrideMaterial = oldOverride; renderer.shadowMap.autoUpdate = shadowUpdate; }
       };
       composer.addPass(ao);
-      if (quality === 'high') {
-        // v6: 更强的bloom — 更电影感的辉光
-        bloom = new A.UnrealBloomPass(new T.Vector2(width, height), 0.22, 0.45, 1.15);
-        const sample='vec4 texel = texture2D( tDiffuse, vUv );';
-        bloom.materialHighPassFilter.fragmentShader=bloom.materialHighPassFilter.fragmentShader.replace(sample, sample+'\nif(any(isnan(texel)) || any(isinf(texel))) texel=vec4(0.0);');
-        composer.addPass(bloom); state.bloom = true;
-      }
+      // v7: medium也加bloom — 更电影感
+      bloom = new A.UnrealBloomPass(new T.Vector2(width, height), quality === 'high' ? 0.22 : 0.15, 0.45, 1.15);
+      const sample='vec4 texel = texture2D( tDiffuse, vUv );';
+      bloom.materialHighPassFilter.fragmentShader=bloom.materialHighPassFilter.fragmentShader.replace(sample, sample+'\nif(any(isnan(texel)) || any(isinf(texel))) texel=vec4(0.0);');
+      composer.addPass(bloom); state.bloom = true;
       outputPass=new A.OutputPass();
       outputPass.uniforms.changanTexelSize={value:new T.Vector2(1,1)};
-      // v6: 更丰富的色彩 grading — 暖色调偏移、暗部偏青、高光偏金
+      // v7: 更丰富的色彩 grading
       outputPass.material.fragmentShader=outputPass.material.fragmentShader
         .replace('uniform sampler2D tDiffuse;', 'uniform sampler2D tDiffuse;\nuniform vec2 changanTexelSize;')
         .replace('void main()', `bool changanFinite(vec4 value) { return all(lessThanEqual(abs(value),vec4(65504.0))); }
         void main() {
-        // v6: 电影级色彩偏移 — 暗部偏青蓝、高光偏暖金
         vec4 changanCol = texture2D(tDiffuse, vUv);
         float changanLum = dot(changanCol.rgb, vec3(0.2126, 0.7152, 0.0722));
-        vec3 shadowTint = vec3(0.92, 0.97, 1.08);
-        vec3 highlightTint = vec3(1.08, 1.02, 0.92);
-        changanCol.rgb *= mix(shadowTint, highlightTint, smoothstep(0.2, 0.8, changanLum));
-        // 轻微饱和度提升
-        changanCol.rgb = mix(vec3(dot(changanCol.rgb, vec3(0.2126, 0.7152, 0.0722))), changanCol.rgb, 1.08);
+        vec3 shadowTint = vec3(0.9, 0.96, 1.1);
+        vec3 highlightTint = vec3(1.1, 1.03, 0.88);
+        changanCol.rgb *= mix(shadowTint, highlightTint, smoothstep(0.15, 0.85, changanLum));
+        changanCol.rgb = mix(vec3(dot(changanCol.rgb, vec3(0.2126, 0.7152, 0.0722))), changanCol.rgb, 1.12);
         gl_FragColor = changanCol;`)
         .replace('gl_FragColor = texture2D( tDiffuse, vUv );', `gl_FragColor=changanCol;
           if(!changanFinite(gl_FragColor)) { vec2 stepUV=changanTexelSize*4.;vec4 sum=vec4(0.);float weight=0.;
@@ -173,7 +175,8 @@
     height = Math.max(1, Math.round(h || renderer?.domElement.clientHeight || 1));
     pixelRatio = Math.max(0.5, Number(dpr) || renderer?.getPixelRatio() || 1);
     if (composer) {
-      const cap = quality === 'high' ? 1.5 : 1.25;
+      // v7: 提高medium和high的像素比上限
+      const cap = quality === 'high' ? 1.5 : quality === 'medium' ? 1.4 : 1.25;
       composer.setPixelRatio(Math.min(pixelRatio, cap)); composer.setSize(width, height);
       fxaa?.material.uniforms.resolution.value.set(1 / (width * Math.min(pixelRatio, cap)), 1 / (height * Math.min(pixelRatio, cap)));
     }
@@ -196,11 +199,12 @@
     if (!renderer || !scene || !camera) throw new Error('GameRendering.init requires renderer, scene and camera');
     requestedQuality = validQuality(options.quality || 'auto');
     quality = resolveQuality(requestedQuality);
+    console.log('[Rendering] quality resolved:', quality, '(requested:', requestedQuality + ')');
     environmentIntensity = options.environmentIntensity ?? 0.55;
     renderer.outputColorSpace = T.SRGBColorSpace;
     renderer.toneMapping = T.ACESFilmicToneMapping;
     renderer.toneMappingExposure = options.exposure ?? 1.06;
-    const size = renderer.getSize(new T.Vector2());
+    const size = renderer.getSize(new T.Vector3());
     width = size.x; height = size.y; pixelRatio = renderer.getPixelRatio();
     initialized = true; suspended = false; failed = false; failureReason = ''; frameCount = 0;
     renderer.domElement.addEventListener('webglcontextlost', onContextLost, false);
@@ -212,18 +216,17 @@
     return getDiagnostics();
   }
 
-  // v5: prewarm同时创建PMREM和后处理管线
   function prewarm() {
     if (!fastStartMode) return;
     try { makeEnvironment(); } catch(e) { console.warn('[Rendering] PMREM预生成失败:', e); }
-    try { makePipeline(); if (pipelinePrewarmed) console.log('[Rendering] ✓ 后处理管线后台预创建完成'); } catch(e) { console.warn('[Rendering] 管线预创建失败:', e); }
+    try { makePipeline(); if (pipelinePrewarmed) console.log('[Rendering] ✓ 后处理管线后台预创建完成, quality=' + quality); } catch(e) { console.warn('[Rendering] 管线预创建失败:', e); }
     try { renderer.compile(scene, camera); console.log('[Rendering] ✓ 材质预编译完成'); } catch(e) {}
   }
 
   function upgradeToFullQuality() {
     if (!fastStartMode) return;
     fastStartMode = false;
-    console.log('[Rendering] 升级到完整质量 (pipeline prewarmed=' + pipelinePrewarmed + ')');
+    console.log('[Rendering] 升级到完整质量 (quality=' + quality + ', pipeline prewarmed=' + pipelinePrewarmed + ')');
     if (!environmentReady) makeEnvironment();
     if (!pipelinePrewarmed) makePipeline();
     refreshNeeded = true;
