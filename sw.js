@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v54
+/* Chang'an Dragon Service Worker v55
+ * v55: 社交与好友系统 — 四海宾朋
  * v54: 任务与剧情系统 — 大唐风云
- * v53: 战斗与技能系统 — 征战沙场
  */
-const CACHE_NAME = 'changan-v54';
+const CACHE_NAME = 'changan-v55';
 const CORE_ASSETS = [
   './',
   './index.html',
