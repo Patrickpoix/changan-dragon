@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v35
+/* Chang'an Dragon Service Worker v36
+ * v36: 成就与称号收集系统 — 荣耀满身
  * v35: 帮派与帮战系统 — 兄弟同心
- * v34: 宠物与坐骑养成系统 — 神宠相伴
  */
-const CACHE_NAME = 'changan-v35';
+const CACHE_NAME = 'changan-v36';
 const CORE_ASSETS = [
   './',
   './index.html',
