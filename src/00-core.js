@@ -1,6 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
-   v3: 电影级材质升级 — 更精细的纹理、更好的PBR属性、更丰富的色彩
+   v4: 电影级材质 — 纹理绑定到建筑材质，墙面/木材/瓦面/石材都有真实纹理
    ============================================================ */
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -128,26 +128,6 @@ function gradientMap() {
   return _grad;
 }
 
-const MAT = {
-  // v3: 每个材质都有独立的纹理和PBR属性
-  plaster: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.82, metalness: 0.02 }),
-  plasterWarm: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8, metalness: 0.02 }),
-  wood: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65, metalness: 0.05 }),
-  red: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
-  stone: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.88, metalness: 0.02 }),
-  roof: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.85, metalness: 0.03 }),
-  roofGlazed: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4, metalness: 0.25 }),
-  gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.32, metalness: 0.62 }),
-  dark: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0.01 }),
-  leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0 }),
-  trunk: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.92, metalness: 0 }),
-  blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.75, metalness: 0 }),
-  water: null,
-  lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.25, roughness: 0.55 }),
-  lanternGlow: new THREE.MeshBasicMaterial({ color: 0xffb46b, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }),
-  window: new THREE.MeshStandardMaterial({ color: 0x5b4634, roughness: 0.8, emissive: 0xffb35f, emissiveIntensity: 0 }),
-};
-
 // ---------------------------------------------------------------- canvas textures
 function makeTexture(w, h, draw, { repeat = [1, 1], colorSpace = THREE.SRGBColorSpace } = {}) {
   const cv = document.createElement('canvas');
@@ -173,21 +153,18 @@ function noiseFill(ctx, w, h, base, amount = 10, count = 2600) {
 
 const TEX = {};
 
-// v3: 更精细的石材纹理 — 更真实的 paving 效果
+// v4: 石材纹理 — 更真实的 paving 效果
 TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
   noiseFill(ctx, w, h, '#c8d1c0', 12, 1200);
   const sw = 64, sh = 48;
   for (let y = 0; y < h + sh; y += sh) {
     const off = (Math.floor(y / sh) % 2) * sw / 2;
     for (let x = -sw; x < w + sw; x += sw) {
-      // 石板底色变化
       const shade = 200 + Math.random() * 30;
       ctx.fillStyle = `rgba(${shade},${shade + 8},${shade - 10},0.25)`;
       ctx.fillRect(x + off + 1, y + 1, sw - 2, sh - 2);
-      // 石板缝隙
       ctx.strokeStyle = 'rgba(60,80,70,0.35)'; ctx.lineWidth = 1.5;
       ctx.strokeRect(x + off, y, sw, sh);
-      // 石板表面裂纹
       if (Math.random() < 0.3) {
         ctx.strokeStyle = 'rgba(70,90,80,0.15)';
         ctx.lineWidth = 0.8;
@@ -198,7 +175,6 @@ TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
       }
     }
   }
-  // 磨损痕迹
   for (let i = 0; i < 20; i++) {
     ctx.fillStyle = `rgba(180,170,150,${0.05 + Math.random() * 0.08})`;
     ctx.beginPath();
@@ -207,10 +183,9 @@ TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
   }
 }, { repeat: [1, 1] });
 
-// v3: 更精细的屋顶瓦面纹理
+// v4: 屋顶瓦面纹理
 TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#a8c0b8'; ctx.fillRect(0, 0, w, h);
-  // 瓦垄 — 更精细的渐变
   for (let x = 0; x < w; x += 12) {
     const g = ctx.createLinearGradient(x, 0, x + 12, 0);
     g.addColorStop(0, 'rgba(20,70,65,.5)');
@@ -219,12 +194,10 @@ TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
     g.addColorStop(1, 'rgba(15,55,52,.55)');
     ctx.fillStyle = g; ctx.fillRect(x, 0, 12, h);
   }
-  // 瓦当 — 横向接缝
   for (let y = 0; y < h; y += 20) {
     ctx.fillStyle = 'rgba(20,60,58,.4)'; ctx.fillRect(0, y, w, 2.5);
     ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(0, y + 2.5, w, 1.5);
   }
-  // 岁月痕迹
   for (let i = 0; i < 15; i++) {
     ctx.fillStyle = `rgba(80,100,70,${0.03 + Math.random() * 0.05})`;
     ctx.beginPath();
@@ -233,10 +206,9 @@ TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
   }
 }, { repeat: [4, 3] });
 
-// v3: 更精细的木材纹理
+// v4: 木材纹理
 TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
   noiseFill(ctx, w, h, '#c06b39', 18, 1500);
-  // 木纹 — 更自然的曲线
   for (let i = 0; i < 35; i++) {
     ctx.strokeStyle = `rgba(80,35,18,${0.06 + Math.random() * 0.12})`;
     ctx.lineWidth = 0.8 + Math.random() * 1.5;
@@ -251,7 +223,6 @@ TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
     );
     ctx.stroke();
   }
-  // 木节
   for (let i = 0; i < 5; i++) {
     ctx.fillStyle = `rgba(70,30,15,${0.15 + Math.random() * 0.1})`;
     ctx.beginPath();
@@ -260,18 +231,16 @@ TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
   }
 }, { repeat: [1, 2] });
 
-// v3: 更精细的墙面灰泥纹理 — 新增！
+// v4: 墙面灰泥纹理
 TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
   noiseFill(ctx, w, h, '#f5e8d0', 8, 800);
-  // 墙面斑驳痕迹
-  for (let i = 0; i < 25; i++) {
+  for (let i = 25; i >= 0; i--) {
     ctx.fillStyle = `rgba(180,160,130,${0.04 + Math.random() * 0.06})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(5, 25), rand(3, 15), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-  // 细微裂纹
-  for (let i = 0; i < 8; i++) {
+  for (let i = 8; i >= 0; i--) {
     ctx.strokeStyle = `rgba(150,130,100,${0.05 + Math.random() * 0.05})`;
     ctx.lineWidth = 0.5;
     ctx.beginPath();
@@ -320,6 +289,27 @@ TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + rand(-8, 8), h); ctx.stroke();
   }
 }, { repeat: [1, 2] });
+
+// ---------------------------------------------------------------- MAT materials (v4: 纹理绑定)
+const MAT = {
+  // v4: 每个材质都绑定对应的纹理，建筑不再是平涂色块
+  plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xffffff, roughness: 0.82, metalness: 0.02 }),
+  plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xfff0d8, roughness: 0.8, metalness: 0.02 }),
+  wood: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.65, metalness: 0.05 }),
+  red: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffe8e0, roughness: 0.55, metalness: 0.1 }),
+  stone: new THREE.MeshStandardMaterial({ map: TEX.stone, color: 0xffffff, roughness: 0.88, metalness: 0.02 }),
+  roof: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xffffff, roughness: 0.85, metalness: 0.03 }),
+  roofGlazed: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xe0f0ff, roughness: 0.4, metalness: 0.25 }),
+  gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.32, metalness: 0.62 }),
+  dark: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0x808080, roughness: 0.9, metalness: 0.01 }),
+  leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0 }),
+  trunk: new THREE.MeshStandardMaterial({ map: TEX.bark, color: 0xffffff, roughness: 0.92, metalness: 0 }),
+  blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.75, metalness: 0 }),
+  water: null,
+  lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.25, roughness: 0.55 }),
+  lanternGlow: new THREE.MeshBasicMaterial({ color: 0xffb46b, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false }),
+  window: new THREE.MeshStandardMaterial({ map: TEX.lattice, color: 0xffffff, roughness: 0.8, emissive: 0xffb35f, emissiveIntensity: 0 }),
+};
 
 // ---------------------------------------------------------------- geometry helpers
 function roundedBoxGeo(w, h, d, r = 0.08) {
@@ -771,7 +761,7 @@ function buildColliderHash() {
   colliderGrid.clear();
   groundPatchGrid.clear();
   for(const patch of groundPatches) {
-    for(let x=Math.floor(patch.x/CELL);x<=Math.floor(patch.x1/CELL);x++)
+    for(let x=Math.floor(patch.x0/CELL);x<=Math.floor(patch.x1/CELL);x++)
       for(let z=Math.floor(patch.z0/CELL);z<=Math.floor(patch.z1/CELL);z++) {
         const key=x+','+z;
         if(!groundPatchGrid.has(key)) groundPatchGrid.set(key,[]);
