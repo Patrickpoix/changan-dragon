@@ -1,8 +1,8 @@
-/* Chang'an Dragon Service Worker v16
+/* Chang'an Dragon Service Worker v17
+ * v17: 存档与成就系统 — 旅途记录
  * v16: 性能与音效增强 — 流畅沉浸
- * v15: UI交互增强 — 沉浸体验
  */
-const CACHE_NAME = 'changan-v16';
+const CACHE_NAME = 'changan-v17';
 const CORE_ASSETS = [
   './',
   './index.html',
