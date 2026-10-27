@@ -1,9 +1,8 @@
-/* Chang'an Dragon Service Worker v7
+/* Chang'an Dragon Service Worker v8
+ * v8: 仙侠奇观建筑上线 + 视觉品质升级
  * v7: major visual upgrade — white-base PBR textures + mobile high quality + stronger bloom/SAO/color grading
- * v6: cinematic materials + color grading + post-processing upgrade
- * v5: bump for core/surfaces/exploration texture fixes + road PBR update
  */
-const CACHE_NAME = 'changan-v7';
+const CACHE_NAME = 'changan-v8';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -29,7 +28,6 @@ self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  // HTML: network first (always fresh), fallback to cache
   if (url.pathname.endsWith('.html') || url.pathname === '/') {
     event.respondWith(
       fetch(req).then(res => {
@@ -40,7 +38,6 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  // JS/CSS: network first for core files (ensure fresh), fallback to cache
   if (url.pathname.startsWith('/src/')) {
     event.respondWith(
       fetch(req).then(res => {
@@ -51,7 +48,6 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  // Other assets: cache first, then network (stale-while-revalidate)
   event.respondWith(
     caches.match(req).then(cached => {
       const network = fetch(req).then(res => {
