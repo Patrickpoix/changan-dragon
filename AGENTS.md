@@ -37,6 +37,34 @@
 - 关键路径：小文件 → buildWorld() → 开始界面
 - 后台延迟：scene-materials.js + runtime-models.js
 
+## 高精模型生成器（assets/models/）
+
+以下生成器提供程序化高质量模型，替代简单几何体拼接：
+
+| 文件 | 功能 | 导出对象 |
+|------|------|----------|
+| hq-architecture.js | 高质量唐式建筑（ExtrudeGeometry/LatheGeometry） | HQArch |
+| pro-roof-builder.js | 专业屋顶生成器（举折剖面、翼角起翘） | ProRoof |
+| tang-architecture-pro.js | 唐式建筑精修v2.0（斗拱、格扇、彩画） | TangArchPro |
+| fantasy-wonder-builder.js | 仙侠奇观建筑（浮空岛、摘星楼、云海） | FantasyWonderBuilder |
+| tang-character-builder.js | 唐代人物（官员、仕女、百姓） | TangCharacterBuilder |
+| tang-nature-builder.js | 唐代植被（松、柳、桃、竹、荷） | TangNatureBuilder |
+
+### 使用示例
+```javascript
+// 创建唐式宫殿
+const palace = TangArchPro.createPalace(20, 12, 8);
+
+// 创建仙侠浮空岛
+const island = FantasyWonderBuilder.createFloatingIsland(15, 20);
+
+// 创建唐代官员
+const official = TangCharacterBuilder.createOfficial(1);
+
+// 创建松树
+const pine = TangNatureBuilder.createPine(1.5);
+```
+
 ## 已修复的已知问题（不要重复修复）
 
 - 护城河平面朝向（UNIT_PLANE旋转-90°X）
@@ -142,11 +170,13 @@ if (window.__enhance) {
 | docs/QA.md | 验收流程 |
 | docs/resource-catalog.json | 素材目录 |
 | docs/asset-manifest.json | 素材清单 |
+| docs/model-resources.md | 3D模型资源目录 |
 | src/boot.js | 启动加载器 |
 | src/30-main.js | 主循环/buildWorld/startGame |
 | src/10-world.js | 世界生成核心 |
 | src/12-landmarks.js | 地标建筑权威坐标 |
 | src/20-character.js | NPC/玩家角色 |
+| src/30-models.js | GLB模型加载器 |
 
 ## 美术参考
 
