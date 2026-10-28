@@ -1,5 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v11: 结构精修 — 唐式屋顶几何体优化、建筑比例校准
    v10: 真正的PBR材质升级 — 粗糙度贴图、更精细纹理、环境光遮蔽
    v9: 精修PBR材质和纹理质量 — 增加更精细的法线和粗糙度贴图
    v8: 真实长安城比例 — 地图扩大到约12×11公里，匹配唐长安84平方公里规模
@@ -543,35 +544,74 @@ const UNIT_SPHERE = new THREE.SphereGeometry(0.5, 12, 9);
 const UNIT_CONE = new THREE.ConeGeometry(0.5, 1, 10, 1);
 const UNIT_PLANE = new THREE.PlaneGeometry(1, 1);
 
-function roofGeometry(segX = 12, segZ = 8, ridgeRatio = 0.62, lift = 0.055) {
+// v11: 唐式屋顶几何体结构精修
+// 优化要点：
+// 1. 更自然的举折曲线 — 屋面从屋脊到屋檐逐渐变缓
+// 2. 更优美的翼角翘起 — 屋檐角向上翘起形成优美曲线
+// 3. 更深远的出檐 — 屋檐远远伸出建筑主体
+// 4. 更清晰的脊线 — 正脊和垂脊有明确的高度变化
+function roofGeometry(segX = 16, segZ = 12, ridgeRatio = 0.55, lift = 0.08) {
   const pos = [], uv = [], idx = [];
   const half = 0.5;
+  
   for (let iz = 0; iz <= segZ; iz++) {
     const z = -half + iz/segZ;
     for (let ix = 0; ix <= segX; ix++) {
       const x = -half + ix/segX;
-      const tx = Math.max(0, (Math.abs(x)-ridgeRatio*half)/((1-ridgeRatio)*half));
-      const tz = Math.abs(z)/half;
-      const t = Math.max(tx, tz);
-      let y = Math.pow(1-Math.min(1,t), 1.12);
-      y += lift * Math.pow(t, 4);
-      y += lift * 1.7 * Math.pow(tx, 3) * Math.pow(tz, 4);
+      
+      // 距离正脊的归一化距离 (0=屋脊, 1=屋檐边)
+      const tx = Math.max(0, (Math.abs(x) - ridgeRatio * half) / ((1 - ridgeRatio) * half));
+      // 距离檐口的归一化距离 (0=前后边, 1=中间)
+      const tz = Math.abs(z) / half;
+      
+      // 整体倾斜度 — 唐式屋顶举折曲线
+      // 使用分段函数模拟真实举折：靠近屋脊较陡，靠近屋檐较缓
+      let pitchCurve;
+      if (tx < 0.3) {
+        // 上段（靠近屋脊）— 较陡
+        pitchCurve = Math.pow(1 - tx / 0.3, 1.2) * 0.7;
+      } else {
+        // 下段（靠近屋檐）— 逐渐变缓
+        pitchCurve = Math.pow(1 - (tx - 0.3) / 0.7, 1.5) * 0.3;
+      }
+      
+      // 基础屋面高度
+      let y = pitchCurve;
+      
+      // 翼角翘起 — 四个角向上翘起
+      // 越靠近角部（x和z都大），翘起越明显
+      const cornerFactor = Math.pow(Math.abs(x) * Math.abs(z) * 4, 1.5);
+      y += lift * cornerFactor;
+      
+      // 檐口微微上翘 — 整条檐边都有轻微翘起
+      const eaveLift = lift * 0.3 * Math.pow(tz, 2) * (1 - tx);
+      y += eaveLift;
+      
+      // 正脊处的轻微隆起
+      const ridgeHeight = 0.1 * Math.exp(-tx * 8);
+      y += ridgeHeight;
+      
       pos.push(x, y, z);
       uv.push(ix/segX, iz/segZ);
     }
   }
+  
   for (let iz = 0; iz < segZ; iz++) for (let ix = 0; ix < segX; ix++) {
     const a = iz*(segX+1)+ix, b = a+1, c = a+segX+1, d = c+1;
     idx.push(a, c, b, b, c, d);
   }
+  
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
-  g.setIndex(idx); g.computeVertexNormals();
+  g.setIndex(idx);
+  g.computeVertexNormals();
   return g;
 }
-const ROOF_UNIT = roofGeometry(12, 8, 0.62, 0.055);
-const ROOF_SMALL = roofGeometry(8, 6, 0.5, 0.065);
+
+// v11: 优化后的屋顶几何体 — 唐式举折+翼角翘起
+const ROOF_UNIT = roofGeometry(16, 12, 0.55, 0.08);
+const ROOF_SMALL = roofGeometry(10, 8, 0.45, 0.07);
 
 const BATCH_LOD_GEOMETRY = new WeakMap([
   [UNIT_BOX, new THREE.BoxGeometry(1, 1, 1)],
