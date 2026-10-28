@@ -1,5 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v12: 结构精修 — 光影系统优化（高对比度、柔和阴影、大气透视）
    v11: 结构精修 — 唐式屋顶几何体优化、建筑比例校准
    v10: 真正的PBR材质升级 — 粗糙度贴图、更精细纹理、环境光遮蔽
    v9: 精修PBR材质和纹理质量 — 增加更精细的法线和粗糙度贴图
@@ -43,7 +44,8 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+// v12: 更自然的曝光 — 电影级曝光
+renderer.toneMappingExposure = 1.15;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xa9cbd7, 1);
@@ -52,35 +54,44 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
 
 // v8: 扩大场景范围 — 匹配真实长安城比例
 const scene = new THREE.Scene();
-// v8: 雾效从145-690扩大到200-1200，适配更大地图
-scene.fog = new THREE.Fog(0xc9d7d5, 200, 1200);
+// v12: 雾效优化 — 更有层次的大气透视
+// 近处雾淡，远处雾浓，更有电影感
+scene.fog = new THREE.Fog(0xc9d7d5, 180, 1400);
 // v8: 相机远裁剪面从1800扩大到3000
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 3000);
 camera.position.set(16, 7, -110);
 
 // ---------------------------------------------------------------- lights
-// v10: 优化光照系统 — 更自然的光照层次
-const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4f8f78, 0.7);
+// v12: 光影系统结构精修 — 电影级光照层次
+// 优化要点：
+// 1. 高对比度 — 亮部很亮，暗部很暗
+// 2. 柔和阴影 — 阴影边缘柔和，不是硬边
+// 3. 暖色阳光 — 阳光是暖色调的
+// 4. 冷色补光 — 环境光是冷色调的
+// 5. 轮廓光 — 勾勒物体边缘
+const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4a7f68, 0.6);
 scene.add(hemi);
-const ambient = new THREE.AmbientLight(0xfff4e2, 0.18);
+const ambient = new THREE.AmbientLight(0xfff4e2, 0.12);
 scene.add(ambient);
-const sun = new THREE.DirectionalLight(0xffe6bd, 2.0);
+// v12: 更暖的太阳光，更高的强度
+const sun = new THREE.DirectionalLight(0xffe0b0, 2.4);
 sun.position.set(180, 150, 110);
 sun.castShadow = true;
 const SHADOW_SIZE = isTouch ? 2048 : 2048;
 sun.shadow.mapSize.set(SHADOW_SIZE, SHADOW_SIZE);
 sun.shadow.camera.near = 1;
 sun.shadow.camera.far = 600;
-// v8: 阴影相机范围从±95扩大到±200，适配更大地图
-sun.shadow.camera.left = -200;
-sun.shadow.camera.right = 200;
-sun.shadow.camera.top = 200;
-sun.shadow.camera.bottom = -200;
-sun.shadow.bias = -0.0008;
-sun.shadow.normalBias = 0.06;
+// v12: 更紧凑的阴影范围 — 提高阴影精度
+sun.shadow.camera.left = -150;
+sun.shadow.camera.right = 150;
+sun.shadow.camera.top = 150;
+sun.shadow.camera.bottom = -150;
+sun.shadow.bias = -0.0006;
+sun.shadow.normalBias = 0.08;
 scene.add(sun);
 scene.add(sun.target);
-const rim = new THREE.DirectionalLight(0xffb98f, 0.35);
+// v12: 更明显的轮廓光，冷色调
+const rim = new THREE.DirectionalLight(0xffb98f, 0.45);
 rim.position.set(-150, 90, -190);
 scene.add(rim);
 
@@ -783,10 +794,11 @@ cloudNoise.wrapS = cloudNoise.wrapT = THREE.RepeatWrapping;
 cloudNoise.minFilter = cloudNoise.magFilter = THREE.LinearFilter;
 cloudNoise.needsUpdate = true;
 
-const skyUniforms = {
-  topColor: { value: new THREE.Color(0x85b6ce) },
-  horizonColor: { value: new THREE.Color(0xf8e3c8) },
-  sunColor: { value: new THREE.Color(0xffc95e) },
+// v12: 更自然的天空颜色 — 电影级天空
+econst skyUniforms = {
+  topColor: { value: new THREE.Color(0x7ab0d4) },  // v12: 更蓝的天空
+  horizonColor: { value: new THREE.Color(0xfce8cc) },  // v12: 更暖的地平线
+  sunColor: { value: new THREE.Color(0xffd070) },  // v12: 更亮的太阳
   sunDir: { value: new THREE.Vector3(180, 150, 110).normalize() },
   night: { value: 0 }, time: { value: 0 },
   cloudNoise: { value: cloudNoise },
@@ -805,15 +817,16 @@ const skyMat = new THREE.ShaderMaterial({
       vec3 ray = normalize(vDir); float h = clamp(ray.y, 0.0, 1.0);
       vec3 col = mix(horizonColor, topColor, smoothstep(0.0, 0.24, h));
       float sd = max(dot(ray, normalize(sunDir)), 0.0);
-      col += sunColor * pow(sd, 900.0) * 1.6;
-      col += sunColor * pow(sd, 14.0) * 0.22;
+      // v12: 更明显的太阳和光晕
+      col += sunColor * pow(sd, 1200.0) * 2.0;
+      col += sunColor * pow(sd, 20.0) * 0.3;
       vec2 cloudUV = ray.xz / max(h + 0.14, 0.14) * 3.8 + vec2(time * 0.0015, 14.7);
       float field = cloudField(cloudUV);
       float thin = cloudField(cloudUV * 1.7 + vec2(31.4, time * 0.0006));
       float cover = smoothstep(0.51, 0.69, field + (thin - 0.5) * 0.12);
       cover *= smoothstep(0.015, 0.16, h) * 0.92;
       float edge = cloudField(cloudUV + normalize(sunDir.xz) * 0.18) - field;
-      vec3 cloudShade = mix(vec3(0.66,0.74,0.79), vec3(1.18,1.13,1.01), clamp(0.62 + edge*3.5 + h*0.2, 0.0, 1.0));
+      vec3 cloudShade = mix(vec3(0.66,0.74,0.79), vec3(1.2,1.15,1.05), clamp(0.62 + edge*3.5 + h*0.2, 0.0, 1.0));
       cloudShade = mix(cloudShade, vec3(0.045,0.068,0.12), night);
       col = mix(col, cloudShade, cover);
       float horizon = 1.0 - smoothstep(-0.02, 0.14, ray.y);
