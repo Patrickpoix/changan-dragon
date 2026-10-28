@@ -1,5 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v101: 精简整合 — 只保留高质量核心模块
+ * v102: 精简整合 — 7个核心高质量模块
  */
 
 const smallScripts = [
@@ -85,22 +85,23 @@ function populateDeferredModels() {
       setTimeout(() => {
         // ===== 核心高质量精修模块（按优先级）=====
         const coreScripts = [
-          'sample-district.js',     // 1. 明德门—朱雀大街样板区（最高优先级）
+          'cinematic-core.js',       // 0. 电影级视觉核心（最先加载）
+          'sample-district.js',     // 1. 明德门—朱雀大街样板区
           'daming-palace.js',        // 2. 大明宫精修
           'pagoda-qujiang.js',       // 3. 大雁塔与曲江池
           'palaces.js',              // 4. 兴庆宫与太极宫
           'atmosphere.js',           // 5. 全局氛围
-          'wonders-v3.js',           // 6. 仙侠奇观
+          'wonders-v3.js',            // 6. 仙侠奇观
         ];
         
-        coreScripts.forEach((script, i) => {
+        coreScripts.forEach((script) => {
           const el = document.createElement('script');
           el.src = 'src/enhance/' + script;
           el.onerror = () => console.warn('[Boot] 模块加载失败: ' + script);
           document.head.appendChild(el);
         });
         
-        console.log('[Boot] 核心精修模块加载完成');
+        console.log('[Boot] 7个核心精修模块加载完成');
       }, 500);
     };
     document.head.appendChild(s);
