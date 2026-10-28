@@ -227,6 +227,20 @@ function addStairs(x, y, z, width, height, steps) {
   }
 }
 
+// v5: 塔门窗 — 精细塔门塔窗
+function addPagodaWindow(x, y, z, w, h, rotY) {
+  rotY = rotY || 0;
+  // 门框
+  B.stone.add(x, y, z, w + 0.4, h + 0.4, 0.15, rotY, 0xc8b89a);
+  // 门洞
+  B.dark.add(x, y, z + 0.02, w, h, 0.1, rotY, 0x2a2520);
+  // 门楣装饰
+  B.trim.add(x, y + h / 2 + 0.2, z + 0.05, w + 0.2, 0.15, 0.08, rotY, 0xd4af37);
+  // 门框装饰线
+  B.trim.add(x - w / 2 - 0.1, y, z + 0.05, 0.08, h, 0.05, rotY, 0xd4af37);
+  B.trim.add(x + w / 2 + 0.1, y, z + 0.05, 0.08, h, 0.05, rotY, 0xd4af37);
+}
+
 // ============================================================
 // 皇城 / 太极宫
 // ============================================================
@@ -454,17 +468,32 @@ function addPagoda(x, z, levels, baseW, totalH, name) {
     for (const ry of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
       const c = Math.cos(ry), s = Math.sin(ry), nw = w * 0.28, nh = hh * 0.56;
       const put = (batch, lx, wy, lz, sx, sy, sz, color) => batch.add(x + lx * c + lz * s, wy, z - lx * s + lz * c, sx, sy, sz, ry, color);
+      
+      // v5: 精细塔门窗
       put(B.dark, 0, y + hh * 0.5, w / 2 + 0.03, nw, nh, 0.09, 0x514536);
+      
+      // v5: 门窗装饰
+      put(B.stone, 0, y + hh * 0.5 + nh / 2 + 0.1, w / 2 + 0.12, nw + 0.4, 0.15, 0.15, 0xdac9ac);
+      
       for (const side of [-1, 1]) put(B.stone, side * (nw / 2 + 0.15), y + hh * 0.5, w / 2 + 0.12, 0.25, nh + 0.3, 0.25, 0xd6c2a0);
       for (const side of [-1, 1]) put(B.stone, 0, y + hh * 0.5 + side * (nh / 2 + 0.1), w / 2 + 0.15, nw + 0.6, 0.22, 0.35, 0xdac9ac);
       for (const side of [-1, 1]) put(B.stone, side * w * 0.4, y + hh / 2, w / 2 + 0.05, 0.25, hh - 0.3, 0.18, 0xd5c19f);
+      
+      // v5: 砖纹装饰（每层上下都有）
+      put(B.trim, 0, y + hh * 0.2, w / 2 + 0.05, w * 0.8, 0.08, 0.1, 0xc8b89a);
+      put(B.trim, 0, y + hh * 0.8, w / 2 + 0.05, w * 0.8, 0.08, 0.1, 0xc8b89a);
     }
     y += hh + 0.6;
   }
   
+  // v5: 塔刹装饰
   for (let i = 0; i < 5; i++) B.lanternCap.add(x, y + 1.0 + i * 0.75, z, 0.6 - i * 0.1, 0.42, 0.6 - i * 0.1, 0, 0xb69b60);
   B.lanternCap.add(x, y + 4.2, z, 0.25, 2.0, 0.25, 0, 0xb69b60);
-  recordFlightObstacle(x, z, 1.5, 1.5, y + 5.2);
+  
+  // v5: 塔刹顶部宝珠
+  B.trim.add(x, y + 5.5, z, 0.3, 0.3, 0.3, 0, 0xd4af37);
+  
+  recordFlightObstacle(x, z, 1.5, 1.5, y + 5.8);
   addCollider(x - baseW / 2 - 2.5, x + baseW / 2 + 2.5, z - baseW / 2 - 2.5, z + baseW / 2 + 2.5, 'pagoda');
   addSignMesh(name, x, 4.2, z + baseW / 2 + 8, 0, 10, 2.8, { font: 74 });
 }
