@@ -39,8 +39,6 @@
 
 ## 高精模型生成器（assets/models/）
 
-以下生成器提供程序化高质量模型，替代简单几何体拼接：
-
 | 文件 | 功能 | 导出对象 |
 |------|------|----------|
 | hq-architecture.js | 高质量唐式建筑（ExtrudeGeometry/LatheGeometry） | HQArch |
@@ -49,6 +47,18 @@
 | fantasy-wonder-builder.js | 仙侠奇观建筑（浮空岛、摘星楼、云海） | FantasyWonderBuilder |
 | tang-character-builder.js | 唐代人物（官员、仕女、百姓） | TangCharacterBuilder |
 | tang-nature-builder.js | 唐代植被（松、柳、桃、竹、荷） | TangNatureBuilder |
+| tang-bridge-builder.js | 唐代桥梁（石拱、木桥、廊桥） | TangBridgeBuilder |
+| tang-animal-builder.js | 唐代动物（马、骆驼、鸟、鱼） | TangAnimalBuilder |
+| tang-vehicle-builder.js | 唐代交通工具（马车、牛车、船） | TangVehicleBuilder |
+| model-library.js | 统一模型库入口 | ChangAnModelLibrary |
+
+## 工具与增强模块（assets/）
+
+| 文件 | 功能 | 导出对象 |
+|------|------|----------|
+| postfx/cinematic-postfx.js | 电影级后处理参数配置 | CinematicPostFX |
+| optimization/performance-optimizer.js | LOD+实例化+阴影优化 | PerformanceOptimizer |
+| materials/pbr-enhancer.js | PBR材质增强（法线/粗糙度/AO） | PBRMaterialEnhancer |
 
 ### 使用示例
 ```javascript
@@ -63,6 +73,15 @@ const official = TangCharacterBuilder.createOfficial(1);
 
 // 创建松树
 const pine = TangNatureBuilder.createPine(1.5);
+
+// 创建石拱桥
+const bridge = TangBridgeBuilder.createStoneArchBridge(30, 5, 4);
+
+// 电影级后处理参数
+const dofParams = CinematicPostFX.getDOFParams();
+
+// PBR材质
+const woodMat = PBRMaterialEnhancer.createWoodMaterial(0x8b6f47);
 ```
 
 ## 已修复的已知问题（不要重复修复）
@@ -75,7 +94,7 @@ const pine = TangNatureBuilder.createPine(1.5);
 - 阴影范围
 - 雨滴粒子双重位移
 - 音频无限递归（已删除/合并）
-- atmosphere.js的THREE.SpriteGeometry错误（v2修复，用Canvas纹理+SpriteMaterial）
+- atmosphere.js的THREE.SpriteGeometry错误（v2修复）
 
 ## 模块Owner划分
 
@@ -96,7 +115,6 @@ const pine = TangNatureBuilder.createPine(1.5);
 
 ### 正确注册方式
 ```javascript
-// 必须使用统一注册系统，禁止setTimeout轮询
 if (window.__enhance) {
   window.__enhance.register('owner-name', initFunction, priority);
 }
@@ -149,7 +167,7 @@ if (window.__enhance) {
 2. ❌ 禁止用setTimeout固定延迟初始化
 3. ❌ 禁止创建独立RAF循环（必须接入主循环）
 4. ❌ 禁止覆盖 `buildWorld()` 函数
-5. ❌ 禁止使用 `sunLight`/`ambientLight` 变量名（正式核心用 `sun`/`ambient`）
+5. ❌ 禁止使用 `sunLight`/`ambientLight` 变量名
 6. ❌ 禁止重复创建已有建筑
 7. ❌ 禁止用基础几何体冒充高品质美术
 
@@ -168,13 +186,11 @@ if (window.__enhance) {
 | agent.md | 开发规范（必读） |
 | docs/SYSTEM_ARCHITECTURE.md | 架构设计 |
 | docs/QA.md | 验收流程 |
-| docs/resource-catalog.json | 素材目录 |
-| docs/asset-manifest.json | 素材清单 |
 | docs/model-resources.md | 3D模型资源目录 |
-| src/boot.js | 启动加载器 |
+| src/boot.js | 启动加载器（v104） |
 | src/30-main.js | 主循环/buildWorld/startGame |
 | src/10-world.js | 世界生成核心 |
-| src/12-landmarks.js | 地标建筑权威坐标 |
+| src/12-landmarks.js | 地标建筑权威坐标（v4） |
 | src/20-character.js | NPC/玩家角色 |
 | src/30-models.js | GLB模型加载器 |
 
