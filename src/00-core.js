@@ -1,5 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v12.1: 修复语法错误 — skyUniforms前多余的e字符
    v12: 结构精修 — 光影系统优化（高对比度、柔和阴影、大气透视）
    v11: 结构精修 — 唐式屋顶几何体优化、建筑比例校准
    v10: 真正的PBR材质升级 — 粗糙度贴图、更精细纹理、环境光遮蔽
@@ -44,7 +45,6 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-// v12: 更自然的曝光 — 电影级曝光
 renderer.toneMappingExposure = 1.15;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -52,28 +52,16 @@ renderer.setClearColor(0xa9cbd7, 1);
 const MAX_DPR = isTouch ? 1.75 : 2.0;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
 
-// v8: 扩大场景范围 — 匹配真实长安城比例
 const scene = new THREE.Scene();
-// v12: 雾效优化 — 更有层次的大气透视
-// 近处雾淡，远处雾浓，更有电影感
 scene.fog = new THREE.Fog(0xc9d7d5, 180, 1400);
-// v8: 相机远裁剪面从1800扩大到3000
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 3000);
 camera.position.set(16, 7, -110);
 
 // ---------------------------------------------------------------- lights
-// v12: 光影系统结构精修 — 电影级光照层次
-// 优化要点：
-// 1. 高对比度 — 亮部很亮，暗部很暗
-// 2. 柔和阴影 — 阴影边缘柔和，不是硬边
-// 3. 暖色阳光 — 阳光是暖色调的
-// 4. 冷色补光 — 环境光是冷色调的
-// 5. 轮廓光 — 勾勒物体边缘
 const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4a7f68, 0.6);
 scene.add(hemi);
 const ambient = new THREE.AmbientLight(0xfff4e2, 0.12);
 scene.add(ambient);
-// v12: 更暖的太阳光，更高的强度
 const sun = new THREE.DirectionalLight(0xffe0b0, 2.4);
 sun.position.set(180, 150, 110);
 sun.castShadow = true;
@@ -81,7 +69,6 @@ const SHADOW_SIZE = isTouch ? 2048 : 2048;
 sun.shadow.mapSize.set(SHADOW_SIZE, SHADOW_SIZE);
 sun.shadow.camera.near = 1;
 sun.shadow.camera.far = 600;
-// v12: 更紧凑的阴影范围 — 提高阴影精度
 sun.shadow.camera.left = -150;
 sun.shadow.camera.right = 150;
 sun.shadow.camera.top = 150;
@@ -90,7 +77,6 @@ sun.shadow.bias = -0.0006;
 sun.shadow.normalBias = 0.08;
 scene.add(sun);
 scene.add(sun.target);
-// v12: 更明显的轮廓光，冷色调
 const rim = new THREE.DirectionalLight(0xffb98f, 0.45);
 rim.position.set(-150, 90, -190);
 scene.add(rim);
@@ -130,7 +116,6 @@ function makeTexture(w, h, draw, { repeat = [1, 1], colorSpace = THREE.SRGBColor
   return tex;
 }
 
-// v9: 生成法线贴图的辅助函数
 function makeNormalMap(w, h, heightFn) {
   const cv = document.createElement('canvas');
   cv.width = w; cv.height = h;
@@ -162,7 +147,6 @@ function makeNormalMap(w, h, heightFn) {
   return tex;
 }
 
-// v10: 生成粗糙度贴图的辅助函数
 function makeRoughnessMap(w, h, roughnessFn) {
   const cv = document.createElement('canvas');
   cv.width = w; cv.height = h;
@@ -188,24 +172,20 @@ function makeRoughnessMap(w, h, roughnessFn) {
 
 const TEX = {};
 
-// v10: 提升灰泥纹理精细度
 TEX.plaster = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  // 更细腻的颗粒
   for (let i = 0; i < 2000; i++) {
     const a = Math.random() * 0.06;
     ctx.fillStyle = `rgba(180,170,150,${a})`;
     const s = 0.5 + Math.random() * 1.5;
     ctx.fillRect(Math.random() * w, Math.random() * h, s, s);
   }
-  // 更自然的水渍和斑驳
   for (let i = 0; i < 30; i++) {
     ctx.fillStyle = `rgba(160,150,130,${0.03 + Math.random() * 0.04})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(8, 30), rand(4, 15), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-  // 更真实的裂纹
   for (let i = 0; i < 12; i++) {
     ctx.strokeStyle = `rgba(140,130,110,${0.04 + Math.random() * 0.03})`;
     ctx.lineWidth = 0.5;
@@ -215,7 +195,6 @@ TEX.plaster = makeTexture(512, 512, (ctx, w, h) => {
     for (let j = 0; j < 6; j++) { x += rand(-15, 15); y += rand(-10, 10); ctx.lineTo(x, y); }
     ctx.stroke();
   }
-  // 水平方向的粉刷痕迹
   for (let i = 0; i < 20; i++) {
     ctx.strokeStyle = `rgba(200,195,180,${0.02 + Math.random() * 0.02})`;
     ctx.lineWidth = 2 + Math.random() * 3;
@@ -227,22 +206,18 @@ TEX.plaster = makeTexture(512, 512, (ctx, w, h) => {
   }
 }, { repeat: [2, 2] });
 
-// v9: 灰泥法线贴图
 TEX.plasterNormal = makeNormalMap(256, 256, (x, y) => {
   return Math.sin(x * 0.08) * 0.08 + Math.sin(y * 0.1) * 0.08 + Math.random() * 0.04;
 });
 
-// v10: 灰泥粗糙度贴图 — 边缘更粗糙，中间更光滑
 TEX.plasterRoughness = makeRoughnessMap(256, 256, (x, y) => {
   const edge = Math.min(x, 512-x, y, 512-y);
   const edgeFactor = edge < 20 ? (20-edge)/20 * 0.2 : 0;
   return 0.75 + Math.random() * 0.1 + edgeFactor;
 });
 
-// v10: 提升木头纹理精细度
 TEX.wood = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  // 更自然的木纹曲线
   for (let i = 0; i < 60; i++) {
     ctx.strokeStyle = `rgba(100,80,60,${0.04 + Math.random() * 0.06})`;
     ctx.lineWidth = 0.5 + Math.random() * 1.2;
@@ -252,7 +227,6 @@ TEX.wood = makeTexture(512, 512, (ctx, w, h) => {
     ctx.bezierCurveTo(w*0.25, y+rand(-8,8), w*0.5, y+rand(-12,12), w, y+rand(-5,5));
     ctx.stroke();
   }
-  // 木节
   for (let i = 0; i < 8; i++) {
     const cx = Math.random() * w, cy = Math.random() * h;
     const r = 5 + Math.random() * 10;
@@ -265,51 +239,41 @@ TEX.wood = makeTexture(512, 512, (ctx, w, h) => {
     ctx.arc(cx, cy, r, 0, TAU);
     ctx.fill();
   }
-  // 更细腻的颗粒
   for (let i = 0; i < 600; i++) {
     ctx.fillStyle = `rgba(120,100,80,${Math.random() * 0.04})`;
     ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1);
   }
 }, { repeat: [1, 2] });
 
-// v9: 木头法线贴图
 TEX.woodNormal = makeNormalMap(256, 256, (x, y) => {
   return Math.sin(y * 0.12) * 0.15 + Math.random() * 0.02;
 });
 
-// v10: 木头粗糙度贴图 — 不同位置粗糙度不同
 TEX.woodRoughness = makeRoughnessMap(256, 256, (x, y) => {
   return 0.5 + Math.sin(y * 0.1) * 0.1 + Math.random() * 0.1;
 });
 
-// v10: 提升石头纹理精细度
 TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   const sw = 64, sh = 48;
-  // 更自然的砖块排列
   for (let y = 0; y < h + sh; y += sh) {
     const off = (Math.floor(y / sh) % 2) * sw / 2;
     for (let x = -sw; x < w + sw; x += sw) {
-      // 砖块主体
       ctx.fillStyle = `rgba(220,215,200,${0.05 + Math.random() * 0.05})`;
       ctx.fillRect(x + off + 2, y + 2, sw - 4, sh - 4);
-      // 砖块接缝
       ctx.strokeStyle = 'rgba(100,100,100,0.35)';
       ctx.lineWidth = 1.5;
       ctx.strokeRect(x + off, y, sw, sh);
-      // 砖块表面的自然变化
       ctx.fillStyle = `rgba(180,175,160,${Math.random() * 0.04})`;
       ctx.fillRect(x + off + 4, y + 4, sw - 8, sh - 8);
     }
   }
-  // 更自然的风化痕迹
   for (let i = 0; i < 20; i++) {
     ctx.fillStyle = `rgba(160,155,140,${0.03 + Math.random() * 0.05})`;
     ctx.beginPath();
     ctx.ellipse(Math.random() * w, Math.random() * h, rand(10, 35), rand(5, 18), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-  // 细小的裂纹
   for (let i = 0; i < 10; i++) {
     ctx.strokeStyle = `rgba(120,115,100,${0.04 + Math.random() * 0.03})`;
     ctx.lineWidth = 0.5;
@@ -321,7 +285,6 @@ TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
   }
 }, { repeat: [1, 1] });
 
-// v9: 石头法线贴图
 TEX.stoneNormal = makeNormalMap(256, 256, (x, y) => {
   const sw = 64, sh = 48;
   const gx = Math.floor(x / sw), gy = Math.floor(y / sh);
@@ -332,7 +295,6 @@ TEX.stoneNormal = makeNormalMap(256, 256, (x, y) => {
   return edge < 2 ? -0.4 : 0.08 + Math.random() * 0.08;
 });
 
-// v10: 石头粗糙度贴图 — 接缝处更粗糙
 TEX.stoneRoughness = makeRoughnessMap(256, 256, (x, y) => {
   const sw = 64, sh = 48;
   const gx = Math.floor(x / sw), gy = Math.floor(y / sh);
@@ -344,10 +306,8 @@ TEX.stoneRoughness = makeRoughnessMap(256, 256, (x, y) => {
   return 0.8 + Math.random() * 0.08 + edgeFactor;
 });
 
-// v10: 提升屋顶纹理精细度
 TEX.roof = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  // 更精细的瓦垄
   for (let x = 0; x < w; x += 16) {
     const g = ctx.createLinearGradient(x, 0, x + 16, 0);
     g.addColorStop(0, 'rgba(100,100,100,0.3)');
@@ -357,14 +317,12 @@ TEX.roof = makeTexture(512, 512, (ctx, w, h) => {
     ctx.fillStyle = g;
     ctx.fillRect(x, 0, 16, h);
   }
-  // 更自然的瓦当接缝
   for (let y = 0; y < h; y += 32) {
     ctx.fillStyle = 'rgba(60,60,60,0.3)';
     ctx.fillRect(0, y, w, 2);
     ctx.fillStyle = 'rgba(255,255,255,0.15)';
     ctx.fillRect(0, y + 2, w, 1);
   }
-  // 屋顶表面的自然变化
   for (let i = 0; i < 30; i++) {
     ctx.fillStyle = `rgba(120,120,120,${Math.random() * 0.05})`;
     ctx.beginPath();
@@ -373,14 +331,12 @@ TEX.roof = makeTexture(512, 512, (ctx, w, h) => {
   }
 }, { repeat: [4, 3] });
 
-// v9: 屋顶法线贴图
 TEX.roofNormal = makeNormalMap(256, 256, (x, y) => {
   const tx = (x % 16) - 8;
   const ty = (y % 32) - 16;
   return Math.cos(tx * 0.4) * 0.25 + Math.cos(ty * 0.2) * 0.08;
 });
 
-// v10: 屋顶粗糙度贴图 — 光滑的瓦面，接缝处更粗糙
 TEX.roofRoughness = makeRoughnessMap(256, 256, (x, y) => {
   const tx = (x % 16) - 8;
   const ty = (y % 32) - 16;
@@ -441,7 +397,6 @@ TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
 }, { repeat: [20, 20] });
 
 // ---------------------------------------------------------------- MAT materials
-// v10: 真正的PBR材质升级 — 粗糙度贴图、更精细法线、环境光遮蔽
 const MAT = {
   plaster: new THREE.MeshStandardMaterial({ 
     map: TEX.plaster, 
@@ -555,12 +510,6 @@ const UNIT_SPHERE = new THREE.SphereGeometry(0.5, 12, 9);
 const UNIT_CONE = new THREE.ConeGeometry(0.5, 1, 10, 1);
 const UNIT_PLANE = new THREE.PlaneGeometry(1, 1);
 
-// v11: 唐式屋顶几何体结构精修
-// 优化要点：
-// 1. 更自然的举折曲线 — 屋面从屋脊到屋檐逐渐变缓
-// 2. 更优美的翼角翘起 — 屋檐角向上翘起形成优美曲线
-// 3. 更深远的出檐 — 屋檐远远伸出建筑主体
-// 4. 更清晰的脊线 — 正脊和垂脊有明确的高度变化
 function roofGeometry(segX = 16, segZ = 12, ridgeRatio = 0.55, lift = 0.08) {
   const pos = [], uv = [], idx = [];
   const half = 0.5;
@@ -569,36 +518,21 @@ function roofGeometry(segX = 16, segZ = 12, ridgeRatio = 0.55, lift = 0.08) {
     const z = -half + iz/segZ;
     for (let ix = 0; ix <= segX; ix++) {
       const x = -half + ix/segX;
-      
-      // 距离正脊的归一化距离 (0=屋脊, 1=屋檐边)
       const tx = Math.max(0, (Math.abs(x) - ridgeRatio * half) / ((1 - ridgeRatio) * half));
-      // 距离檐口的归一化距离 (0=前后边, 1=中间)
       const tz = Math.abs(z) / half;
       
-      // 整体倾斜度 — 唐式屋顶举折曲线
-      // 使用分段函数模拟真实举折：靠近屋脊较陡，靠近屋檐较缓
       let pitchCurve;
       if (tx < 0.3) {
-        // 上段（靠近屋脊）— 较陡
         pitchCurve = Math.pow(1 - tx / 0.3, 1.2) * 0.7;
       } else {
-        // 下段（靠近屋檐）— 逐渐变缓
         pitchCurve = Math.pow(1 - (tx - 0.3) / 0.7, 1.5) * 0.3;
       }
       
-      // 基础屋面高度
       let y = pitchCurve;
-      
-      // 翼角翘起 — 四个角向上翘起
-      // 越靠近角部（x和z都大），翘起越明显
       const cornerFactor = Math.pow(Math.abs(x) * Math.abs(z) * 4, 1.5);
       y += lift * cornerFactor;
-      
-      // 檐口微微上翘 — 整条檐边都有轻微翘起
       const eaveLift = lift * 0.3 * Math.pow(tz, 2) * (1 - tx);
       y += eaveLift;
-      
-      // 正脊处的轻微隆起
       const ridgeHeight = 0.1 * Math.exp(-tx * 8);
       y += ridgeHeight;
       
@@ -620,7 +554,6 @@ function roofGeometry(segX = 16, segZ = 12, ridgeRatio = 0.55, lift = 0.08) {
   return g;
 }
 
-// v11: 优化后的屋顶几何体 — 唐式举折+翼角翘起
 const ROOF_UNIT = roofGeometry(16, 12, 0.55, 0.08);
 const ROOF_SMALL = roofGeometry(10, 8, 0.45, 0.07);
 
@@ -709,8 +642,6 @@ function quadBatch(material) {
 }
 
 // ---------------------------------------------------------------- city data
-// v8: 真实长安城比例 — 约12.4×11公里，匹配唐长安84平方公里规模
-// 1单位 ≈ 10米，东西1240单位，南北1100单位
 const CITY = { x0: -620, x1: 620, z0: -550, z1: 550 };
 const WORLD = { x0: -900, x1: 900, z0: -800, z1: 800 };
 const AVENUE = 26;
@@ -729,9 +660,7 @@ const FILM_SHOTS = [
   { eye: [306,3.5,350], target: [354,4,318], drift: 3 },
   { eye: [34,4.5,429], target: [0,12,380], drift: 4 },
 ];
-// v8: 扩大坊里尺寸，匹配更大地图
 const WARD_W = 100, WARD_D = 80, STREET = 18, ROW_STREET = 14;
-// v8: 扩大坊列行坐标，从10列9行扩展到14列12行
 const COLS = [-540,-460,-380,-300,-220,-140,-60,60,140,220,300,380,460,540];
 const ROWS = [-440,-360,-280,-200,-120,-40,40,120,200,280,360,440];
 
@@ -773,7 +702,6 @@ for (let row = 0; row < 12; row++) for (let col = 0; col < 14; col++) {
   addWardRecord(col, row, name);
 }
 
-// v8: 扩大道路范围，匹配更大地图
 roads.push({ x: 0, z: 0, w: AVENUE, d: 1100, axis: 'z', type: 'avenue', name: '朱雀大街' });
 roads.push({ x: 0, z: -220, w: 1240, d: 24, axis: 'x', type: 'avenue', name: '春明门大街' });
 roads.push({ x: 0, z: 80, w: 1240, d: 20, axis: 'x', type: 'avenue', name: '金光门大街' });
@@ -794,11 +722,10 @@ cloudNoise.wrapS = cloudNoise.wrapT = THREE.RepeatWrapping;
 cloudNoise.minFilter = cloudNoise.magFilter = THREE.LinearFilter;
 cloudNoise.needsUpdate = true;
 
-// v12: 更自然的天空颜色 — 电影级天空
-econst skyUniforms = {
-  topColor: { value: new THREE.Color(0x7ab0d4) },  // v12: 更蓝的天空
-  horizonColor: { value: new THREE.Color(0xfce8cc) },  // v12: 更暖的地平线
-  sunColor: { value: new THREE.Color(0xffd070) },  // v12: 更亮的太阳
+const skyUniforms = {
+  topColor: { value: new THREE.Color(0x7ab0d4) },
+  horizonColor: { value: new THREE.Color(0xfce8cc) },
+  sunColor: { value: new THREE.Color(0xffd070) },
   sunDir: { value: new THREE.Vector3(180, 150, 110).normalize() },
   night: { value: 0 }, time: { value: 0 },
   cloudNoise: { value: cloudNoise },
@@ -817,7 +744,6 @@ const skyMat = new THREE.ShaderMaterial({
       vec3 ray = normalize(vDir); float h = clamp(ray.y, 0.0, 1.0);
       vec3 col = mix(horizonColor, topColor, smoothstep(0.0, 0.24, h));
       float sd = max(dot(ray, normalize(sunDir)), 0.0);
-      // v12: 更明显的太阳和光晕
       col += sunColor * pow(sd, 1200.0) * 2.0;
       col += sunColor * pow(sd, 20.0) * 0.3;
       vec2 cloudUV = ray.xz / max(h + 0.14, 0.14) * 3.8 + vec2(time * 0.0015, 14.7);
@@ -836,7 +762,6 @@ const skyMat = new THREE.ShaderMaterial({
       #include <colorspace_fragment>
     }`,
 });
-// v8: 天空球从900扩大到1500，适配更大地图
 const sky = new THREE.Mesh(new THREE.SphereGeometry(1500, 32, 20), skyMat);
 sky.frustumCulled = false; scene.add(sky);
 
@@ -852,7 +777,6 @@ const starGeo = new THREE.BufferGeometry();
 const starMat = new THREE.PointsMaterial({ color: 0xfff3cf, size: 2.2, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
 const stars = new THREE.Points(starGeo, starMat); stars.frustumCulled = false; scene.add(stars);
 
-// v8: 远景山从1180扩大到1600
 for (let layer = 0; layer < 2; layer++) {
   const vertices = [], indices = [], segments = 192, radius = 1600 + layer * 380;
   for (let i = 0; i <= segments; i++) {
@@ -869,7 +793,6 @@ for (let layer = 0; layer < 2; layer++) {
 
 // ---------------------------------------------------------------- ground & roads
 function buildGround() {
-  // v8: 地面从1700×1500扩大到2600×2300
   const g = new THREE.Mesh(new THREE.PlaneGeometry(2600, 2300, 1, 1), new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1 }));
   g.rotation.x = -Math.PI/2; g.position.y = -0.25; g.receiveShadow = true; scene.add(g);
   const fieldBatch = new Batch(UNIT_BOX, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1 }), { cast: false });
@@ -879,7 +802,6 @@ function buildGround() {
     fieldBatch.add(x, -0.18, z, rr(40,100), 0.16, rr(30,80), rr(-0.1,0.1), pick(fieldColors));
   }
   fieldBatch.build();
-  // v8: 城市地面从920×790扩大到1240×1100
   const cityGround = new THREE.Mesh(new THREE.PlaneGeometry(1240, 1100), new THREE.MeshStandardMaterial({ map: TEX.dirt, roughness: 1, color: 0xd9ccb2 }));
   cityGround.rotation.x = -Math.PI/2; cityGround.position.set(0, -0.05, 0); cityGround.receiveShadow = true; scene.add(cityGround);
   const gardenMaterial = new THREE.MeshStandardMaterial({ map: TEX.grass, roughness: 1, color: 0xc6cfac });
@@ -928,7 +850,6 @@ function clipRoadsForWater() {
 
 function buildRoads() {
   roads.forEach(makeRoadMesh);
-  // v8: 朱雀大街从7.6×780扩大到10×1100
   const centralGeo = new THREE.PlaneGeometry(10, 1100);
   const centralUV = centralGeo.attributes.uv;
   for (let i = 0; i < centralUV.count; i++) centralUV.setXY(i, centralUV.getX(i)*3.3, centralUV.getY(i)*367);
