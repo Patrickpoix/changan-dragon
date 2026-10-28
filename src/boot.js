@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v107: 集成电影级后处理效果模块
  * v106: 集成仙侠魔幻奇观建筑模块
  * v105: 集成GLB模型自动加载，检测可用模型并替换程序化建筑
  * v104: 加载所有高精模型生成器（建筑/人物/植被/桥梁/动物/交通工具/奇观）
@@ -126,6 +127,7 @@ function loadHighQualityModels() {
           'atmosphere.js',
           'wonders-v3.js',
           'wonder-builders.js',
+          'cinematic-postfx.js',
         ];
         
         coreScripts.forEach((script) => {
@@ -137,10 +139,11 @@ function loadHighQualityModels() {
         
         loadHighQualityModels();
         
-        console.log('[Boot] v106 核心模块加载完成');
+        console.log('[Boot] v107 核心模块加载完成');
         console.log('[Boot] 高精模型生成器已就绪:', typeof ChangAnModelLibrary !== 'undefined' ? '是' : '否');
         console.log('[Boot] GLB模型加载器已就绪:', typeof CHANGAN_MODELS !== 'undefined' ? '是' : '否');
         console.log('[Boot] 仙侠魔幻奇观建筑已就绪:', typeof WonderBuilders !== 'undefined' ? '是' : '否');
+        console.log('[Boot] 电影级后处理效果已就绪:', typeof CinematicPostFX !== 'undefined' ? '是' : '否');
       }, 500);
     };
     document.head.appendChild(s);
