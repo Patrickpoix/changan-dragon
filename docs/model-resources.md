@@ -10,6 +10,9 @@
 | Chinese Temple Square Pagoda | mattwells3d | 167.8k | GLB | CC Attribution | https://sketchfab.com/3d-models/chinese-temple-square-pagoda-288743caaa4e410eacec7f5d17c5bfc6 |
 | Chinese hut | Abhitabhji | - | GLB | CC Attribution | https://sketchfab.com/3d-models/chinese-hut-1b9c99b0fa9d49b88c4aa5b8c9c097da |
 | Guangfu Pagoda | - | - | GLB | - | https://sketchfab.com/3d-models/guangfu-pagoda-f1ef14904a5f462998da03a45c9dd1ac |
+| Chaozhou Mansion | HarshPuppet1640 | 250k | GLB | CC Attribution | https://sketchfab.com/3d-models/chaozhou-mansionglb-e5a07be188844d4e93f7b0f14490ea52 |
+| Chinese Building Kit | merlincodes | 9k | GLB | CC Attribution | https://sketchfab.com/3d-models/chinese-building-kit-ca166c1aef6045f9839ea82dfefcbf14 |
+| Gilded Temple | ji4ngli0ng | 365.6k | GLB | CC Attribution | https://sketchfab.com/3d-models/gilded-temple-3d-model-52e993a79800465d99b35919138a805b |
 
 ### 二、itch.io（免费游戏资产包）
 
@@ -22,13 +25,33 @@
 | 资源 | 数量 | 格式 | 链接 |
 |------|------|------|------|
 | Pagoda 3D Models | 64个 | Blend, Max, Obj, Fbx, GLB | https://open3dmodel.com/3d-models/pagoda |
+| Chinese Architecture | 239个 | Blend, Max, Obj, Fbx, GLB | https://open3dmodel.com/3d-models/chinese-architecture |
+| Buddhist Models | 37个 | Blend, Max, Obj, Fbx, GLB | https://open3dmodel.com/3d-models/buddhist |
 
 ### 四、RigModels（免费）
 
 | 模型 | 多边形数 | 格式 | 链接 |
 |------|----------|------|------|
 | Chinese-style ancient architectural palace tower | - | OBJ, GLB, FBX, DAE | https://rigmodels.com/model.php?searchkeyword=build&view=Chinese-style_ancient_architectural_palace_tower-3d-model__71ec551b96324992a7d8a7098226ecfa |
-| Pagoda Structure Scene | 1.2M | - | https://rigmodels.com/model.php?manualsearch=1&searchkeyword=cadnav&view=Pagoda_Structure_Scene-3d-model__abe6b579971742b6a35465e21951d616 |
+| Pagoda Structure Scene | 1.2M | GLB, FBX | https://rigmodels.com/model.php?manualsearch=1&searchkeyword=cadnav&view=Pagoda_Structure_Scene-3d-model__abe6b579971742b6a35465e21951d616 |
+| Wenchang Pagoda Tower | 20k+ | GLB, FBX, OBJ | https://rigmodels.com/model.php?view=Wenchang_Pagoda_Tower_3d_model__a975a804e0674d29848c87b93abb9b80 |
+
+### 五、BlenderKit（免费）
+
+| 模型 | 说明 | 链接 |
+|------|------|------|
+| Chinese Temple | 传统中国寺庙 | https://www.blenderkit.com/asset-gallery-detail/27de2944-5605-4075-a409-e0dfb85dc12a/ |
+| Scan The Dasheng Pagoda | 大圣宝塔扫描模型，42.38米高 | https://www.blenderkit.com/asset-gallery-detail/d831a8dc-788a-4b21-8187-26112bd3592c/ |
+| Chinese Ancient Pagoda | 唐代千佛塔 | https://www.blenderkit.com/asset-gallery-detail/c33f1aea-10d5-45e4-8fce-95f9065a8f35/ |
+
+### 六、glbxz.com（部分免费）
+
+| 模型 | 大小 | 价格 | 格式 |
+|------|------|------|------|
+| 大明宫-梨园 | 10MB | 免费 | GLB/GLTF/FBX/BLEND |
+| 天坛古建筑 | 27MB | ¥160 | GLB/GLTF/FBX/BLEND |
+| 大明宫-少阳院 | 22MB | ¥120 | GLB/GLTF/FBX/BLEND |
+| 唐代万象神宫-明堂 | 5.3MB | ¥120 | GLB/GLTF/FBX/BLEND |
 
 ## 推荐优先下载
 
@@ -46,6 +69,11 @@
 - **推荐**: CS Studio Low Poly Chinese Style Building Set
 - **理由**: 游戏专用低多边形，性能好
 - **用途**: 替换108坊民居、东西市商铺
+
+### 4. 宫殿建筑
+- **推荐**: Chaozhou Mansion (HarshPuppet1640)
+- **理由**: 250k三角形，高细节，适合宫殿建筑
+- **用途**: 大明宫、太极宫、兴庆宫
 
 ## 集成方式
 
