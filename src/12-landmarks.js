@@ -1,6 +1,6 @@
 /* ============================================================
    长安城 · 宫苑 / 塔寺 / 曲江
-   v2: 适配真实长安城比例 — 地标布局符合唐长安108坊格局
+   v3: 提升核心建筑建模细节 — 斗拱、瓦垄、格扇门窗、彩画
    ============================================================ */
 
 // Explicit envelopes for non-batched masonry; consumed by flight and camera clearance.
@@ -101,7 +101,89 @@ function addWater(cx, cz, rx, rz, seed, opts = {}) {
   return b;
 }
 
-// ---------------------------------------------------------------- 皇城 / 太极宫
+// ============================================================
+// v3 新增：精细唐式建筑组件
+// ============================================================
+
+// 斗拱组件 — 三层斗拱层
+function addDougongRow(x, y, z, width, count, scale) {
+  scale = scale || 1;
+  for (let i = 0; i < count; i++) {
+    const t = count === 1 ? 0.5 : i / (count - 1);
+    const dx = (t - 0.5) * width;
+    
+    // 第一层 — 坐斗
+    B.trim.add(x + dx, y, z, 1.2 * scale, 0.3 * scale, 0.8 * scale, 0, 0xd4a574);
+    
+    // 第二层 — 横拱
+    B.trim.add(x + dx, y + 0.35 * scale, z, 0.8 * scale, 0.25 * scale, 1.5 * scale, 0, 0x8b4513);
+    
+    // 第三层 — 翘
+    B.trim.add(x + dx, y + 0.6 * scale, z, 1.0 * scale, 0.2 * scale, 0.6 * scale, 0, 0xd4a574);
+  }
+}
+
+// 格扇门窗 — 精细格纹
+function addLatticeWindow(x, y, z, w, h, rotY) {
+  rotY = rotY || 0;
+  
+  // 窗框
+  B.trim.add(x, y, z, w + 0.2, h + 0.2, 0.15, rotY, 0x6b3410);
+  
+  // 窗纸
+  B.dark.add(x, y, z + 0.02, w, h, 0.08, rotY, 0xfff8dc);
+  
+  // 竖格
+  const vBars = Math.floor(w / 0.6);
+  for (let i = 1; i < vBars; i++) {
+    const t = i / vBars;
+    const dx = (t - 0.5) * w;
+    B.trim.add(x + dx, y, z + 0.05, 0.05, h, 0.05, rotY, 0x6b3410);
+  }
+  
+  // 横格
+  const hBars = Math.floor(h / 0.6);
+  for (let i = 1; i < hBars; i++) {
+    const t = i / hBars;
+    const dy = (t - 0.5) * h;
+    B.trim.add(x, y + dy, z + 0.05, w, 0.05, 0.05, rotY, 0x6b3410);
+  }
+}
+
+// 瓦垄纹理 — 屋顶瓦片
+function addTileRoofDetail(x, y, z, width, depth, rotY) {
+  rotY = rotY || 0;
+  
+  // 瓦垄 — 一排排筒瓦
+  const tileCount = Math.floor(width / 1.2);
+  for (let i = 0; i < tileCount; i++) {
+    const t = i / (tileCount - 1);
+    const dx = (t - 0.5) * width;
+    B.roofGable.add(x + dx, y, z, 0.3, 0.15, depth, rotY, 0x4a6670);
+  }
+}
+
+// 彩画装饰 — 梁枋彩绘
+function addCaifeng(x, y, z, width, rotY) {
+  rotY = rotY || 0;
+  
+  // 主彩画 — 青绿
+  B.trim.add(x, y, z, width, 0.4, 0.1, rotY, 0x2d5a3d);
+  
+  // 金色描边
+  B.trim.add(x, y + 0.22, z, width, 0.05, 0.12, rotY, 0xd4af37);
+  B.trim.add(x, y - 0.22, z, width, 0.05, 0.12, rotY, 0xd4af37);
+  
+  // 红色点缀
+  for (let i = 0; i < Math.floor(width / 2); i++) {
+    const dx = (i / Math.floor(width / 2) - 0.5) * width;
+    B.trim.add(x + dx, y, z + 0.01, 0.3, 0.15, 0.05, rotY, 0x8b0000);
+  }
+}
+
+// ============================================================
+// 皇城 / 太极宫
+// ============================================================
 function buildImperialCity() {
   const wallH = 6.4;
   const wm = new THREE.MeshStandardMaterial({ map: TEX.dirt, color: 0xf1d1a4, roughness: 1 });
@@ -111,7 +193,7 @@ function buildImperialCity() {
     addCollider(x - w / 2, x + w / 2, z - d / 2, z + d / 2, 'imperialwall');
     recordFlightObstacle(x, z, w, d, h);
   };
-  // v2: 太极宫位置适配新地图 — 北部正中
+  
   addWall(-150, -320, 240, 3); addWall(150, -320, 240, 3);
   addWall(-270, -360, 3, 80); addWall(270, -360, 3, 80);
   addWall(-150, -400, 240, 3); addWall(150, -400, 240, 3);
@@ -119,7 +201,6 @@ function buildImperialCity() {
   addGateHouse(0, -400, 50, 20, 10, 4, '承天门', true, false);
   addSignMesh('皇城', 0, 12.4, -397, 0, 12, 3.6, { font: 84 });
 
-  // 官署院落
   for (let i = 0; i < 6; i++) {
     const side = i < 3 ? -1 : 1;
     const x = side * (70 + (i % 3) * 75);
@@ -127,26 +208,35 @@ function buildImperialCity() {
     if (Math.abs(x) > 230) continue;
     addCompound(x, z, 48, 35, 0, false);
   }
-  // 鼓楼 / 钟楼意象
+  
   addPavilion(-220, -350, 5.2, { h: 5.6, roofH: 4, roofKind: 'gold', collider: true });
   addPavilion(220, -350, 5.2, { h: 5.6, roofH: 4, roofKind: 'gold', collider: true });
 
-  // 太极宫城墙
   addWall(-165, -445, 3, 110); addWall(150, -445, 3, 110);
 
-  // 太极殿
+  // 太极殿 — v3 精修
   addHall(0, -450, 56, 30, { h: 11, roofH: 7.5, roofKind: 'gold', columns: true, doors: true, windows: true, collider: true, platform: 2.0 });
+  
+  // v3: 太极殿精细装饰
+  addDougongRow(0, 13.5, -435, 50, 12, 1.0);           // 正面斗拱
+  addCaifeng(0, 12.8, -434.5, 52, 0);                    // 正面彩画
+  addLatticeWindow(-15, 8, -434.8, 4, 5, 0);              // 左侧格扇窗
+  addLatticeWindow(0, 8, -434.8, 5, 5, 0);                // 中央格扇窗
+  addLatticeWindow(15, 8, -434.8, 4, 5, 0);              // 右侧格扇窗
+  
   addCorridor(-28, -435, -65, -415, { w: 5 });
   addCorridor(28, -435, 65, -415, { w: 5 });
   addHall(0, -480, 38, 21, { h: 9, roofH: 5.6, roofKind: 'gold', collider: true, platform: 1.5 });
   addPavilion(-85, -430, 5, { h: 4.5, roofH: 3.4 });
   addPavilion(85, -430, 5, { h: 4.5, roofH: 3.4 });
-  // 宫内树
+  
   for (let i = 0; i < 25; i++) addTree(rr(-145, 145), rr(-495, -405), i % 3 ? 'pine' : 'peach', rr(0.8, 1.2));
   landmarks.push({ id: 'taiji', name: '太极宫', x: 0, z: -455, radius: 40, poem: '九天阊阖开宫殿，万国衣冠拜冕旒', desc: '大唐正宫，太极殿巍然中轴，朱墙青瓦，气象肃穆。' });
 }
 
-// ---------------------------------------------------------------- 大明宫
+// ============================================================
+// 大明宫
+// ============================================================
 function buildDamingPalace() {
   const wallH = 9.0;
   const wm = new THREE.MeshStandardMaterial({ map: TEX.dirt, color: 0xf2d3a8, roughness: 1 });
@@ -156,12 +246,13 @@ function buildDamingPalace() {
     addCollider(x - w / 2, x + w / 2, z - d / 2, z + d / 2, 'daming');
     recordFlightObstacle(x, z, w, d, wallH);
   };
-  // v2: 大明宫位置适配新地图 — 东北方向，龙首原上
-  const DX = 320, DZ = -460; // 大明宫中心
+  
+  const DX = 320, DZ = -460;
   addWall(DX, DZ - 90, 340, 5);
   addWall(DX - 167, DZ - 20, 5, 150); addWall(DX + 167, DZ - 20, 5, 150);
   addWall(DX - 80, DZ + 55, 155, 5); addWall(DX + 80, DZ + 55, 155, 5);
   addGateHouse(DX, DZ + 55, 68, 25, 14, 6, '丹凤门', true, false);
+  
   // 含元殿：高台 + 双檐
   B.stone.add(DX, 4.5, DZ - 20, 85, 9, 55, 0, 0xd8c9ad);
   B.stone.add(DX, 9.2, DZ - 20, 75, 0.8, 45, 0, 0xe2d4b9);
@@ -170,10 +261,19 @@ function buildDamingPalace() {
   groundPatches.push({ x0: DX - 45, x1: DX + 45, z0: DZ - 42, z1: DZ - 2, height: 9.5 });
   addCollider(DX - 38, DX + 38, DZ - 35.5, DZ - 8.5, 'hanyuan-hall');
   
+  // v3: 含元殿精细装饰
+  addDougongRow(DX, 24, DZ - 5, 60, 15, 1.2);              // 正面斗拱
+  addCaifeng(DX, 23.3, DZ - 4.8, 62, 0);                    // 正面彩画
+  
   const upperBase = 26.8, upperH = 5.0, upperEave = upperBase + upperH - 0.05;
   B.red.add(DX, upperBase + upperH / 2, DZ - 22, 42, upperH, 17, 0, 0x9c4938);
   B.roofGable.add(DX, upperEave, DZ - 22, 46.5, 6, 21.5, 0, 0x5c7475);
   addHallCraft(DX, DZ - 22, 42, 17, upperH, upperBase, 6, 0, { hipGable: true, columns: true, simple: false, porch: 0 });
+  
+  // v3: 上层格扇门窗
+  for (let i = -3; i <= 3; i++) {
+    addLatticeWindow(DX + i * 6, 29, DZ - 13.2, 4, 3.5, 0);
+  }
   
   for (const side of [-1, 1]) {
     for (let i = -5; i <= 5; i++) {
@@ -205,24 +305,22 @@ function buildDamingPalace() {
     addCorridor(DX + side * 28, DZ - 12, tx - side * 6, DZ - 16, { w: 5, floor: 8.1 });
   }
   
-  // 宣政殿 / 紫宸殿
   addHall(DX, DZ - 60, 50, 25, { h: 10.5, roofH: 6.0, roofKind: 'gold', platform: 1.5, collider: true, windows: true });
   addHall(DX, DZ - 95, 42, 21, { h: 9.2, roofH: 5.2, roofKind: 'gold', platform: 1.2, collider: true });
   
-  // 太液池
   addWater(DX + 95, DZ - 85, 40, 22, 3.1, { wobble: 0.2 });
   addPavilion(DX + 58, DZ - 88, 4.5, { h: 4.5, roofH: 3.5 });
   addCorridor(DX, DZ - 75, DX + 70, DZ - 88, { w: 4.2 });
   
-  // 宫内树
   for (let i = 0; i < 50; i++) addTree(rr(DX - 155, DX + 155), rr(DZ - 110, DZ + 40), i % 3 ? 'pine' : 'peach', rr(0.8, 1.3));
   addSignMesh('大明宫', DX, 22, DZ + 62, 0, 16, 4, { font: 100 });
   landmarks.push({ id: 'daming', name: '大明宫', x: DX, z: DZ - 25, radius: 60, poem: '金阙晓钟开万户，玉阶仙仗拥千官', desc: '千宫之宫。丹凤门五门洞开，含元殿高踞龙首原，双檐如翼。' });
 }
 
-// ---------------------------------------------------------------- 兴庆宫
+// ============================================================
+// 兴庆宫
+// ============================================================
 function buildXingqing() {
-  // v2: 兴庆宫位置适配新地图 — 东部偏北
   const X0 = 520, X1 = 720, Z0 = -270, Z1 = -120;
   const h = 6.5;
   const wm = new THREE.MeshStandardMaterial({ map: TEX.dirt, color: 0xe0cbaa, roughness: 1 });
@@ -232,6 +330,7 @@ function buildXingqing() {
     addCollider(x - w / 2, x + w / 2, z - d / 2, z + d / 2, 'xingqing');
     recordFlightObstacle(x, z, w, d, h);
   };
+  
   addWall((X0 + X1) / 2, Z0, X1 - X0, 4.2);
   addWall((X0 + 600) / 2, Z1, 600 - X0, 4.2);
   addWall((650 + X1) / 2, Z1, X1 - 650, 4.2);
@@ -239,19 +338,25 @@ function buildXingqing() {
   addWall(X1, (Z0 + Z1) / 2, 4.2, Z1 - Z0);
   addGateHouse(585, Z1, 36, 17, 10, 4, '兴庆门', false, false);
   addWater(610, -195, 55, 38, 7.3, { wobble: 0.2 });
-  // 沉香亭
+  
   addPavilion(610, -245, 7, { h: 5.5, roofH: 4.5, platform: 1.2, roofKind: 'gold', collider: true });
   addCorridor(565, -240, 582, -210, { w: 4.5 });
-  // 花萼相辉楼（三层）
+  
+  // 花萼相辉楼（三层）— v3 精修
   B.stone.add(675, 1.0, -140, 34, 2.0, 25, 0, 0xd2c1a3);
   addHall(675, -145, 30, 18, { h: 7.5, roofH: 4.2, platform: 1.8, collider: false, windows: true });
+  
+  // v3: 花萼相辉楼精细装饰
+  addDougongRow(675, 10, -135, 26, 8, 0.9);
+  addCaifeng(675, 9.3, -134.8, 28, 0);
+  
   addHall(675, -150, 23, 11, { h: 6.2, roofH: 3.2, platform: 10.0, upperStorey: true, collider: false, windows: true });
   addHall(675, -152, 15, 8, { h: 4.5, roofH: 2.6, platform: 17.5, upperStorey: true, collider: false });
-  // 勤政务本楼
   addHall(545, -130, 28, 17, { h: 8.5, roofH: 4.5, platform: 1.2, collider: true, windows: true });
+  
   addSignMesh('花萼相辉楼', 675, 21.5, -155, 0, 14, 3.5, { font: 72 });
   addSignMesh('沉香亭', 610, 11, -235, 0, 10, 3, { font: 72 });
-  // 岸边柳桃
+  
   for (let i = 0; i < 35; i++) {
     const a = rr(0, TAU), r = rr(1.15, 1.5);
     const tx = 610 + Math.cos(a) * 55 * r, tz = -195 + Math.sin(a) * 38 * r;
@@ -262,12 +367,15 @@ function buildXingqing() {
   landmarks.push({ id: 'xingqing', name: '兴庆宫', x: 610, z: -195, radius: 60, poem: '云想衣裳花想容，春风拂槛露华浓', desc: '龙池碧波，沉香亭畔牡丹盛放，花萼相辉楼飞檐三层。' });
 }
 
-// ---------------------------------------------------------------- 塔寺
+// ============================================================
+// 塔寺
+// ============================================================
 function addPagoda(x, z, levels, baseW, totalH, name) {
   const stoneMat = new THREE.MeshStandardMaterial({ map: TEX.stone, color: 0xe4cfad, roughness: 1 });
   B.stone.add(x, 1.5, z, baseW + 15, 3.0, baseW + 15, 0, 0xd2c3a6);
   let y = 3.0;
   const tierH = totalH / levels;
+  
   for (let i = 0; i < levels; i++) {
     const t = i / (levels - 1), w = lerp(baseW, baseW * 0.5, t), hh = tierH * (i === 0 ? 1.18 : 0.94);
     const m = new THREE.Mesh(new THREE.BoxGeometry(w, hh, w), stoneMat);
@@ -275,6 +383,7 @@ function addPagoda(x, z, levels, baseW, totalH, name) {
     recordFlightObstacle(x, z, w + 2.5, w + 2.5, y + hh + 0.45);
     B.stone.add(x, y + hh - 0.12, z, w + 1.5, 0.38, w + 1.5, 0, 0xc8b89a);
     B.dark.add(x, y + hh + 0.2, z, w + 2.8, 0.42, w + 2.8, 0, 0x606e64);
+    
     for (const ry of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
       const c = Math.cos(ry), s = Math.sin(ry), nw = w * 0.28, nh = hh * 0.56;
       const put = (batch, lx, wy, lz, sx, sy, sz, color) => batch.add(x + lx * c + lz * s, wy, z - lx * s + lz * c, sx, sy, sz, ry, color);
@@ -285,6 +394,7 @@ function addPagoda(x, z, levels, baseW, totalH, name) {
     }
     y += hh + 0.6;
   }
+  
   for (let i = 0; i < 5; i++) B.lanternCap.add(x, y + 1.0 + i * 0.75, z, 0.6 - i * 0.1, 0.42, 0.6 - i * 0.1, 0, 0xb69b60);
   B.lanternCap.add(x, y + 4.2, z, 0.25, 2.0, 0.25, 0, 0xb69b60);
   recordFlightObstacle(x, z, 1.5, 1.5, y + 5.2);
@@ -293,7 +403,7 @@ function addPagoda(x, z, levels, baseW, totalH, name) {
 }
 
 function buildPagodas() {
-  // v2: 大雁塔位置适配新地图 — 城南偏东
+  // 大雁塔
   const x = 300, z = 420;
   const wm = new THREE.MeshStandardMaterial({ map: TEX.dirt, color: 0xf6dfbc, roughness: 1 });
   const templeWall = (wx, wz, ww, wd) => {
@@ -303,6 +413,7 @@ function buildPagodas() {
     recordFlightObstacle(wx, wz, ww, wd, 4.0);
     B.dark.add(wx, 4.05, wz, ww + 0.3, 0.28, wd + 0.3, 0, 0x5b6860);
   };
+  
   templeWall(x, z - 40, 80, 3.0);
   templeWall(x - 40, z, 3.0, 80); templeWall(x + 40, z, 3.0, 80);
   templeWall(x - 27, 410, 26, 3.0); templeWall(x + 27, 410, 26, 3.0);
@@ -310,10 +421,11 @@ function buildPagodas() {
   addPagoda(x, z, 7, 15, 60, '大雁塔');
   addHall(x - 35, z - 23, 23, 14, { h: 7.2, roofH: 4.0, collider: true, windows: true });
   addHall(x + 35, z - 23, 23, 14, { h: 7.2, roofH: 4.0, collider: true });
+  
   for (let i = 0; i < 14; i++) addTree(x + rr(-35, 35), z + rr(-30, 35), i % 2 ? 'pine' : 'peach', rr(0.75, 1.05));
   landmarks.push({ id: 'dayanta', name: '大雁塔', x, z, radius: 35, poem: '塔势如涌出，孤高耸天宫', desc: '大慈恩寺内七层砖塔，玄奘法师译经之所。塔影入云，铃铎随风。' });
 
-  // v2: 小雁塔位置适配新地图 — 城南偏西
+  // 小雁塔
   const sx = -300, sz = 480;
   addPagoda(sx, sz, 13, 10.5, 50, '小雁塔');
   addHall(sx + 28, sz - 10, 20, 13, { h: 6.5, roofH: 3.6, collider: true });
@@ -321,15 +433,15 @@ function buildPagodas() {
   landmarks.push({ id: 'xiaoyanta', name: '小雁塔', x: sx, z: sz, radius: 28, poem: '晨钟暮鼓传巷陌，塔铃清越送斜阳', desc: '荐福寺内十三层密檐砖塔，晨钟暮鼓，是长安城南的清幽一景。' });
 }
 
-// ---------------------------------------------------------------- 曲江池
+// ============================================================
+// 曲江池
+// ============================================================
 function buildQujiang() {
-  // v2: 曲江池位置适配新地图 — 东南方向，芙蓉园内
   const QX = 520, QZ = 470;
   const qujiang=addWater(QX, QZ, 85, 70, 2.4, { wobble: 0.18 });
   landZones.push({cx:QX,cz:QZ,x0:QX-11,x1:QX+11,z0:QZ-8,z1:QZ+8});
   buildLakeGarden(qujiang);
   
-  // 湖心岛
   B.stone.add(QX, 0.23, QZ, 22, 0.45, 16, 0, 0xd9c7a5);
   addPavilion(QX, QZ, 4.5, { h: 4.5, roofH: 3.5, platform: 0.55, roofKind: 'gold' });
   addTree(QX - 9, QZ - 5, 'peach', 0.75);
@@ -338,9 +450,13 @@ function buildQujiang() {
   B.stone.add(QX - 70, 1.3, QZ - 65, 38, 2.5, 26, 0, 0xd4c3a4);
   addHall(QX - 70, QZ - 60, 32, 19, { h: 8.0, roofH: 4.5, platform: 2.0, collider: false, windows: true });
   addHall(QX - 70, QZ - 65, 24, 12, { h: 6.0, roofH: 3.5, platform: 10.5, upperStorey: true, collider: false });
+  
+  // v3: 紫云楼精细装饰
+  addDougongRow(QX - 70, 11, QZ - 50, 28, 8, 0.9);
+  addCaifeng(QX - 70, 10.3, QZ - 49.8, 30, 0);
+  
   addSignMesh('紫云楼', QX - 70, 19.5, QZ - 72, 0, 12.5, 3.4, { font: 72 });
   
-  // 曲江亭与连廊
   addPavilion(QX + 65, QZ - 40, 6, { h: 5.2, roofH: 4.0, platform: 0.9, roofKind: 'gold', collider: true });
   addCorridor(QX - 40, QZ - 35, QX + 45, QZ - 35, { w: 4.8 });
   addCorridor(QX - 40, QZ - 35, QX - 40, QZ - 55, { w: 4.8 });
@@ -360,7 +476,7 @@ function buildQujiang() {
   
   addPavilion(QX - 70, QZ + 50, 4.8, { h: 4.8, roofH: 3.5 });
   
-  // 曲桥：西岸通往湖心岛
+  // 曲桥
   const bridgePts = [
     new THREE.Vector3(QX - 85, 0.25, QZ + 35), new THREE.Vector3(QX - 60, 0.8, QZ + 28),
     new THREE.Vector3(QX - 35, 1.15, QZ + 20), new THREE.Vector3(QX - 10, 0.8, QZ + 10),
@@ -410,7 +526,6 @@ function buildQujiang() {
   }
   bridgeZones.push({ points: samples.map(p => [p.x, p.z]), heights: samples.map(p => p.y), halfWidth: 2.3, y: 0.45 });
   
-  // 岸边亭台、杨柳、桃花
   for (let i = 0; i < 9; i++) {
     const a = rr(0.5, 2.9), r = rr(1.2, 1.45);
     const tx = QX + Math.cos(a) * 85 * r, tz = QZ + Math.sin(a) * 70 * r;
@@ -424,11 +539,9 @@ function buildQujiang() {
     addTree(tx, tz, i % 3 === 0 ? 'peach' : 'willow', rr(0.9, 1.35));
   }
   
-  // 芙蓉园牌坊
   addSignMesh('曲江池', QX - 70, 11, QZ - 90, 0, 15, 3.8, { font: 92 });
   landmarks.push({ id: 'qujiang', name: '曲江池', x: QX, z: QZ, radius: 55, poem: '穿花蛱蝶深深见，点水蜻蜓款款飞', desc: '芙蓉园内曲江潋滟，画舫徐行，柳丝拂水，长安春色尽在此间。' });
 
-  // 画舫与游船路径
   boatSpecs.push({
     type: 'painted',
     path: [[QX + 15, QZ - 35], [QX + 45, QZ - 20], [QX + 65, QZ + 5], [QX + 50, QZ + 28], [QX + 20, QZ + 32], [QX + 28, QZ + 5]],
@@ -455,30 +568,30 @@ function buildQujiang() {
     path: [[QX+75,QZ-5],[QX+78,QZ+0],[QX+78,QZ+18],[QX+75,QZ+23],[QX+75,QZ+14],[QX+75,QZ+4]],
     cruiseSpeed: .5, scale: 0.75, name: '柳岸小舟',
   });
-  // 兴庆宫龙池游船
   boatSpecs.push({ type: 'boat', path: [[580, -205], [600, -220], [640, -205], [648, -180], [615, -168], [585, -180]], cruiseSpeed: .6, scale: 0.65, name: '龙池小舟' });
 }
 
-// ---------------------------------------------------------------- 城外田园 / 曲江入口
+// ============================================================
+// 城外田园 / 曲江入口
+// ============================================================
 function buildOutskirts() {
-  // v2: 明德门外御道适配新地图
   const approach=new THREE.PlaneGeometry(38,320),uv=approach.attributes.uv;
   for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*12.7,uv.getY(i)*107);
   const m = new THREE.Mesh(approach, SurfaceLibrary.paving(0xd7d0bd));
   m.rotation.x = -Math.PI / 2; m.position.set(0, 0.02, 680); m.receiveShadow = true; scene.add(m);
-  // 城外柳树
+  
   for (let i = 0; i < 40; i++) addTree(rr(-500, 500), rr(580, 780), i % 2 ? 'willow' : 'peach', rr(0.8, 1.3));
-  // 小村庄
+  
   for (let i = 0; i < 8; i++) {
     const x = -400 + i * 55, z = 680 + (i % 2) * 40;
     addHall(x, z, 15, 11, { h: 5, roofH: 3.2, platform: 0.4, collider: true });
     addTree(x + 13, z + 10, 'willow', 1.0);
   }
-  // 城外小河
+  
   const river = new THREE.Mesh(new THREE.PlaneGeometry(400, 17), waterMat);
   river.rotation.x = -Math.PI / 2; river.position.set(-400, 0.01, 640); scene.add(river);
   waterRects.push({ minX: -600, maxX: -200, minZ: 631.5, maxZ: 648.5 });
-  // 牌坊：长安
+  
   addSignMesh('长安', 0, 14, 540, 0, 11, 3.8, { font: 110 });
   B.wood.add(-14, 7, 540, 0.8, 14, 0.8, 0, 0x7a452f);
   B.wood.add(14, 7, 540, 0.8, 14, 0.8, 0, 0x7a452f);
