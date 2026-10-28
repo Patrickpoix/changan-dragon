@@ -63,6 +63,57 @@
 | environment/water-enhancer.js | 水景增强（波纹、反射、喷泉、石头、芦苇） | WaterEnhancer |
 | environment/night-lighting.js | 夜景灯光（灯笼、街灯、宫灯、光晕） | NightLightingEnhancer |
 
+## 游戏系统模块（assets/system/）
+
+| 文件 | 功能 | 导出对象 |
+|------|------|----------|
+| save-enhancer.js | 存档系统（自动存档、手动存档、读档） | SaveEnhancer |
+| interaction-enhancer.js | 交互系统（拾取、对话、互动提示） | InteractionEnhancer |
+| quest-enhancer.js | 任务系统（主线、支线、日常、任务追踪） | QuestEnhancer |
+| achievement-enhancer.js | 成就系统（成就列表、成就点、称号） | AchievementEnhancer |
+| settings-enhancer.js | 设置系统（画质、音效、操作、界面） | SettingsEnhancer |
+| help-enhancer.js | 帮助系统（操作说明、常见问题、新手指引） | HelpEnhancer |
+| notification-enhancer.js | 通知系统（系统通知、邮件、公告、奖励） | NotificationSystemEnhancer |
+| map-enhancer.js | 地图系统（大地图、标记、导航、快速传送） | MapEnhancer |
+| inventory-enhancer.js | 背包系统（物品分类、堆叠、整理、使用） | InventoryEnhancer |
+| perf-stats-enhancer.js | 性能统计面板（FPS、DrawCall、显存、加载时间） | PerfStatsEnhancer |
+| start-screen-enhancer.js | 启动界面（开始界面、设置、加载动画） | StartScreenEnhancer |
+| photo-mode-enhancer.js | 拍照模式（滤镜、角度、保存、分享） | PhotoModeEnhancer |
+| fast-travel-enhancer.js | 快速传送系统（已解锁地点、传送点） | FastTravelEnhancer |
+| npc-enhancer.js | NPC系统（商人、任务、对话、好感度） | NPCEnhancer |
+| animal-enhancer.js | 动物系统（宠物、野生动物、骑乘） | AnimalEnhancer |
+| vehicle-enhancer.js | 交通工具系统（马车、牛车、船、飞行） | VehicleEnhancer |
+| economy-enhancer.js | 经济系统（货币、商店、交易、物价） | EconomyEnhancer |
+| tutorial-enhancer.js | 新手引导系统（步骤、提示、完成度） | TutorialEnhancer |
+| announcement-enhancer.js | 游戏公告系统（版本更新、活动、维护） | AnnouncementEnhancer |
+| feedback-enhancer.js | 用户反馈系统（bug报告、建议、投诉） | FeedbackEnhancer |
+| privacy-enhancer.js | 隐私安全设置系统（隐私、2FA、登录通知） | PrivacyEnhancer |
+| event-enhancer.js | 活动赛事系统（节日、比赛、诗词、龙舟） | EventEnhancer |
+| achievement-collection-enhancer.js | 成就图鉴系统（地标、美食、文物、收集） | AchievementCollectionEnhancer |
+| social-enhancer.js | 社交互动系统（好友、聊天、组队、公会） | SocialEnhancer |
+| character-growth-enhancer.js | 角色成长系统（等级、经验、属性、技能） | CharacterGrowthEnhancer |
+| equipment-enhancer.js | 装备系统（穿戴、品质、强化、镶嵌） | EquipmentEnhancer |
+| home-enhancer.js | 家园系统（宅邸、家具、装饰、商店） | HomeEnhancer |
+| pet-enhancer.js | 宠物系统（猫、狗、鹤、兔、麒麟、跟随） | PetEnhancer |
+| mount-enhancer.js | 坐骑系统（马、骆驼、麒麟、骑乘） | MountEnhancer |
+| guild-enhancer.js | 帮派系统（创建、加入、成员、帮派战） | GuildEnhancer |
+| leaderboard-enhancer.js | 排行榜系统（等级、财富、探索、成就） | LeaderboardEnhancer |
+| mail-enhancer.js | 邮件系统（收件箱、发件、系统邮件、附件） | MailEnhancer |
+| combat-enhancer.js | 战斗系统（技能、HP/MP、伤害、战斗面板） | CombatEnhancer |
+| skill-tree-enhancer.js | 技能树系统（武学、文学、轻功分支、技能点） | SkillTreeEnhancer |
+| shop-auction-enhancer.js | 商店拍卖行系统（商店、拍卖行、购买、出价） | ShopAuctionEnhancer |
+| equipment-craft-enhancer.js | 装备打造强化系统（打造、强化、材料、品质） | EquipmentCraftEnhancer |
+| pet-mount-collection-enhancer.js | 宠物坐骑收集养成进化系统（收集、升级、稀有度） | PetMountCollectionEnhancer |
+| home-decor-enhancer.js | 家园建造家具装饰园林布置系统（家具、园林、购买、放置） | HomeDecorEnhancer |
+| combat-loot-enhancer.js | 战斗技能装备掉落经验升级系统（经验、升级、金币、掉落） | CombatLootEnhancer |
+| quest-story-enhancer.js | 主线支线任务剧情对话故事背景系统（主线、支线、剧情、对话） | QuestStoryEnhancer |
+| social-chat-enhancer.js | 好友聊天组队公会社交系统（好友、聊天、组队、在线状态） | SocialChatEnhancer |
+| economy-shop-enhancer.js | 货币商店交易拍卖行经济系统（铜币、银币、金币、商店、拍卖行） | EconomyShopEnhancer |
+| item-craft-enhancer.js | 装备物品品质打造合成系统（品质、配方、材料、打造、分解） | ItemCraftEnhancer |
+| dungeon-boss-enhancer.js | 副本BOSS挑战系统（副本、BOSS、挑战、奖励、通关） | DungeonBossEnhancer |
+| imperial-exam-enhancer.js | 科举考试官职升迁系统（乡试、会试、殿试、官职、俸禄） | ImperialExamEnhancer |
+| sect-enhancer.js | 门派加入修炼升级系统（道教、佛教、诗社、贡献、等级） | SectSystemEnhancer |
+
 ### 使用示例
 ```javascript
 // 创建唐式宫殿
