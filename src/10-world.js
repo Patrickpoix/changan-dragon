@@ -1,5 +1,6 @@
 /* ============================================================
    长安城 · 坊市 / 城墙 / 街景
+   v5: 精修朱雀大街和明德门街景细节
    ============================================================ */
 
 MAT.roof.map = TEX.roof;
@@ -305,6 +306,8 @@ function buildMarket(cx, cz, w, d, name, east = false) {
   for (let i = 0; i < 4; i++) {
     addHall(cx + offsets[i] * w, cz - halfD + 10, shopW, shopD, { h: 5, roofH: 3, ry: 0, collider: true });
     addHall(cx + offsets[i] * w, cz + halfD - 10, shopW, shopD, { h: 5, roofH: 3, ry: Math.PI, collider: true });
+    // v5: 店铺招牌
+    addSignMesh(names[i], cx + offsets[i] * w, 6.5, cz - halfD + 22, 0, 6, 1.8, { font: 56 });
   }
   addPavilion(cx, cz, 5.6, { h: 4.0, roofH: 3.4, roofKind: 'gold' });
   B.wood.add(cx, 1.5, cz, 7.5, 3, 7.5, 0, 0x7b4b31);
@@ -405,4 +408,31 @@ function buildStreetLife() {
   addHall(90, 196, 30, 22, { h: 7, roofH: 4, collider: true, columns: true, colorKind: 'plaster' });
   addSignMesh('长安县署', -90, 8.2, 208, 0, 9, 2.3, { font: 62 });
   addSignMesh('万年县署', 90, 8.2, 208, 0, 9, 2.3, { font: 62 });
+  
+  // v5: 朱雀大街街景精修 — 增加更多店铺和灯笼
+  const streetShops = [
+    { x: -35, z: 250, name: '茶馆', w: 18, d: 14 },
+    { x: 35, z: 250, name: '酒楼', w: 20, d: 15 },
+    { x: -38, z: 150, name: '绸缎庄', w: 22, d: 16 },
+    { x: 38, z: 150, name: '药铺', w: 18, d: 14 },
+    { x: -36, z: 50, name: '书肆', w: 16, d: 12 },
+    { x: 36, z: 50, name: '香烛店', w: 16, d: 12 },
+  ];
+  
+  for (const shop of streetShops) {
+    addHall(shop.x, shop.z, shop.w, shop.d, { h: 5.5, roofH: 3.5, collider: true, columns: true });
+    addSignMesh(shop.name, shop.x, 7, shop.z + shop.d / 2 + 2, 0, 7, 2, { font: 60 });
+    // 门口灯笼
+    addLantern(shop.x - shop.w / 4, 5, shop.z + shop.d / 2 + 1, 1.0);
+    addLantern(shop.x + shop.w / 4, 5, shop.z + shop.d / 2 + 1, 1.0);
+  }
+  
+  // v5: 明德门广场 — 增加石狮子和华表
+  for (const side of [-1, 1]) {
+    const x = side * 25;
+    // 华表
+    B.stone.add(x, 4, CITY.z1 - 15, 1.5, 8, 1.5, 0, 0xe6cfaa);
+    B.stone.add(x, 8.5, CITY.z1 - 15, 2, 0.5, 2, 0, 0xd6c5a0);
+    B.trim.add(x, 9.2, CITY.z1 - 15, 0.8, 1.2, 0.8, 0, 0xd4af37);
+  }
 }
