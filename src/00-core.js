@@ -1,5 +1,6 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v10: 真正的PBR材质升级 — 粗糙度贴图、更精细纹理、环境光遮蔽
    v9: 精修PBR材质和纹理质量 — 增加更精细的法线和粗糙度贴图
    v8: 真实长安城比例 — 地图扩大到约12×11公里，匹配唐长安84平方公里规模
    ============================================================ */
@@ -41,7 +42,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.15;
+renderer.toneMappingExposure = 1.1;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xa9cbd7, 1);
@@ -57,11 +58,12 @@ const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 30
 camera.position.set(16, 7, -110);
 
 // ---------------------------------------------------------------- lights
-const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4f8f78, 0.85);
+// v10: 优化光照系统 — 更自然的光照层次
+const hemi = new THREE.HemisphereLight(0xfff3d8, 0x4f8f78, 0.7);
 scene.add(hemi);
-const ambient = new THREE.AmbientLight(0xfff4e2, 0.28);
+const ambient = new THREE.AmbientLight(0xfff4e2, 0.18);
 scene.add(ambient);
-const sun = new THREE.DirectionalLight(0xffe6bd, 2.2);
+const sun = new THREE.DirectionalLight(0xffe6bd, 2.0);
 sun.position.set(180, 150, 110);
 sun.castShadow = true;
 const SHADOW_SIZE = isTouch ? 2048 : 2048;
@@ -73,11 +75,11 @@ sun.shadow.camera.left = -200;
 sun.shadow.camera.right = 200;
 sun.shadow.camera.top = 200;
 sun.shadow.camera.bottom = -200;
-sun.shadow.bias = -0.0005;
-sun.shadow.normalBias = 0.04;
+sun.shadow.bias = -0.0008;
+sun.shadow.normalBias = 0.06;
 scene.add(sun);
 scene.add(sun.target);
-const rim = new THREE.DirectionalLight(0xffb98f, 0.45);
+const rim = new THREE.DirectionalLight(0xffb98f, 0.35);
 rim.position.set(-150, 90, -190);
 scene.add(rim);
 
@@ -148,113 +150,231 @@ function makeNormalMap(w, h, heightFn) {
   return tex;
 }
 
+// v10: 生成粗糙度贴图的辅助函数
+function makeRoughnessMap(w, h, roughnessFn) {
+  const cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  const ctx = cv.getContext('2d');
+  const img = ctx.createImageData(w, h);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const r = clamp(roughnessFn(x, y), 0, 1);
+      const v = r * 255;
+      const i = (y * w + x) * 4;
+      img.data[i] = v;
+      img.data[i + 1] = v;
+      img.data[i + 2] = v;
+      img.data[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(cv);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.colorSpace = THREE.NoColorSpace;
+  return tex;
+}
+
 const TEX = {};
 
-TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
+// v10: 提升灰泥纹理精细度
+TEX.plaster = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 800; i++) {
-    const a = Math.random() * 0.08;
+  // 更细腻的颗粒
+  for (let i = 0; i < 2000; i++) {
+    const a = Math.random() * 0.06;
     ctx.fillStyle = `rgba(180,170,150,${a})`;
-    const s = 1 + Math.random() * 2;
+    const s = 0.5 + Math.random() * 1.5;
     ctx.fillRect(Math.random() * w, Math.random() * h, s, s);
   }
-  for (let i = 0; i < 18; i++) {
-    ctx.fillStyle = `rgba(160,150,130,${0.04 + Math.random() * 0.05})`;
+  // 更自然的水渍和斑驳
+  for (let i = 0; i < 30; i++) {
+    ctx.fillStyle = `rgba(160,150,130,${0.03 + Math.random() * 0.04})`;
     ctx.beginPath();
-    ctx.ellipse(Math.random() * w, Math.random() * h, rand(5, 20), rand(3, 12), rand(0, TAU), 0, TAU);
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(8, 30), rand(4, 15), rand(0, TAU), 0, TAU);
     ctx.fill();
   }
-  for (let i = 0; i < 8; i++) {
-    ctx.strokeStyle = `rgba(140,130,110,${0.05 + Math.random() * 0.04})`;
+  // 更真实的裂纹
+  for (let i = 0; i < 12; i++) {
+    ctx.strokeStyle = `rgba(140,130,110,${0.04 + Math.random() * 0.03})`;
     ctx.lineWidth = 0.5;
     ctx.beginPath();
     let x = Math.random() * w, y = Math.random() * h;
     ctx.moveTo(x, y);
-    for (let j = 0; j < 4; j++) { x += rand(-12, 12); y += rand(-8, 8); ctx.lineTo(x, y); }
+    for (let j = 0; j < 6; j++) { x += rand(-15, 15); y += rand(-10, 10); ctx.lineTo(x, y); }
+    ctx.stroke();
+  }
+  // 水平方向的粉刷痕迹
+  for (let i = 0; i < 20; i++) {
+    ctx.strokeStyle = `rgba(200,195,180,${0.02 + Math.random() * 0.02})`;
+    ctx.lineWidth = 2 + Math.random() * 3;
+    ctx.beginPath();
+    const y = Math.random() * h;
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y + rand(-5, 5));
     ctx.stroke();
   }
 }, { repeat: [2, 2] });
 
 // v9: 灰泥法线贴图
-TEX.plasterNormal = makeNormalMap(128, 128, (x, y) => {
-  return Math.sin(x * 0.1) * 0.1 + Math.sin(y * 0.13) * 0.1 + Math.random() * 0.05;
+TEX.plasterNormal = makeNormalMap(256, 256, (x, y) => {
+  return Math.sin(x * 0.08) * 0.08 + Math.sin(y * 0.1) * 0.08 + Math.random() * 0.04;
 });
 
-TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
+// v10: 灰泥粗糙度贴图 — 边缘更粗糙，中间更光滑
+TEX.plasterRoughness = makeRoughnessMap(256, 256, (x, y) => {
+  const edge = Math.min(x, 512-x, y, 512-y);
+  const edgeFactor = edge < 20 ? (20-edge)/20 * 0.2 : 0;
+  return 0.75 + Math.random() * 0.1 + edgeFactor;
+});
+
+// v10: 提升木头纹理精细度
+TEX.wood = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let i = 0; i < 40; i++) {
-    ctx.strokeStyle = `rgba(100,80,60,${0.05 + Math.random() * 0.08})`;
-    ctx.lineWidth = 0.8 + Math.random() * 1.5;
+  // 更自然的木纹曲线
+  for (let i = 0; i < 60; i++) {
+    ctx.strokeStyle = `rgba(100,80,60,${0.04 + Math.random() * 0.06})`;
+    ctx.lineWidth = 0.5 + Math.random() * 1.2;
     ctx.beginPath();
     const y = Math.random() * h;
     ctx.moveTo(0, y);
-    ctx.bezierCurveTo(w*0.25, y+rand(-6,6), w*0.5, y+rand(-10,10), w, y+rand(-3,3));
+    ctx.bezierCurveTo(w*0.25, y+rand(-8,8), w*0.5, y+rand(-12,12), w, y+rand(-5,5));
     ctx.stroke();
   }
-  for (let i = 0; i < 400; i++) {
-    ctx.fillStyle = `rgba(120,100,80,${Math.random() * 0.05})`;
-    ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
+  // 木节
+  for (let i = 0; i < 8; i++) {
+    const cx = Math.random() * w, cy = Math.random() * h;
+    const r = 5 + Math.random() * 10;
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    grad.addColorStop(0, 'rgba(80,60,40,0.15)');
+    grad.addColorStop(0.5, 'rgba(100,80,60,0.08)');
+    grad.addColorStop(1, 'rgba(100,80,60,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, TAU);
+    ctx.fill();
+  }
+  // 更细腻的颗粒
+  for (let i = 0; i < 600; i++) {
+    ctx.fillStyle = `rgba(120,100,80,${Math.random() * 0.04})`;
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1);
   }
 }, { repeat: [1, 2] });
 
 // v9: 木头法线贴图
-TEX.woodNormal = makeNormalMap(128, 128, (x, y) => {
-  return Math.sin(y * 0.15) * 0.2 + Math.random() * 0.03;
+TEX.woodNormal = makeNormalMap(256, 256, (x, y) => {
+  return Math.sin(y * 0.12) * 0.15 + Math.random() * 0.02;
 });
 
-TEX.stone = makeTexture(256, 256, (ctx, w, h) => {
+// v10: 木头粗糙度贴图 — 不同位置粗糙度不同
+TEX.woodRoughness = makeRoughnessMap(256, 256, (x, y) => {
+  return 0.5 + Math.sin(y * 0.1) * 0.1 + Math.random() * 0.1;
+});
+
+// v10: 提升石头纹理精细度
+TEX.stone = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   const sw = 64, sh = 48;
+  // 更自然的砖块排列
   for (let y = 0; y < h + sh; y += sh) {
     const off = (Math.floor(y / sh) % 2) * sw / 2;
     for (let x = -sw; x < w + sw; x += sw) {
-      ctx.strokeStyle = 'rgba(100,100,100,0.3)';
+      // 砖块主体
+      ctx.fillStyle = `rgba(220,215,200,${0.05 + Math.random() * 0.05})`;
+      ctx.fillRect(x + off + 2, y + 2, sw - 4, sh - 4);
+      // 砖块接缝
+      ctx.strokeStyle = 'rgba(100,100,100,0.35)';
       ctx.lineWidth = 1.5;
       ctx.strokeRect(x + off, y, sw, sh);
-      ctx.fillStyle = `rgba(200,200,200,${0.04 + Math.random() * 0.05})`;
-      ctx.fillRect(x + off + 2, y + 2, sw - 4, sh - 4);
+      // 砖块表面的自然变化
+      ctx.fillStyle = `rgba(180,175,160,${Math.random() * 0.04})`;
+      ctx.fillRect(x + off + 4, y + 4, sw - 8, sh - 8);
     }
   }
-  for (let i = 0; i < 15; i++) {
-    ctx.fillStyle = `rgba(180,180,180,${0.04 + Math.random() * 0.06})`;
+  // 更自然的风化痕迹
+  for (let i = 0; i < 20; i++) {
+    ctx.fillStyle = `rgba(160,155,140,${0.03 + Math.random() * 0.05})`;
     ctx.beginPath();
-    ctx.ellipse(Math.random() * w, Math.random() * h, rand(8, 30), rand(4, 15), rand(0, TAU), 0, TAU);
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(10, 35), rand(5, 18), rand(0, TAU), 0, TAU);
     ctx.fill();
+  }
+  // 细小的裂纹
+  for (let i = 0; i < 10; i++) {
+    ctx.strokeStyle = `rgba(120,115,100,${0.04 + Math.random() * 0.03})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    let x = Math.random() * w, y = Math.random() * h;
+    ctx.moveTo(x, y);
+    for (let j = 0; j < 3; j++) { x += rand(-8, 8); y += rand(-6, 6); ctx.lineTo(x, y); }
+    ctx.stroke();
   }
 }, { repeat: [1, 1] });
 
 // v9: 石头法线贴图
-TEX.stoneNormal = makeNormalMap(128, 128, (x, y) => {
+TEX.stoneNormal = makeNormalMap(256, 256, (x, y) => {
   const sw = 64, sh = 48;
   const gx = Math.floor(x / sw), gy = Math.floor(y / sh);
   const off = (gy % 2) * sw / 2;
   const lx = (x - off) % sw;
   const ly = y % sh;
   const edge = Math.min(lx, sw - lx, ly, sh - ly);
-  return edge < 2 ? -0.5 : 0.1 + Math.random() * 0.1;
+  return edge < 2 ? -0.4 : 0.08 + Math.random() * 0.08;
 });
 
-TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
+// v10: 石头粗糙度贴图 — 接缝处更粗糙
+TEX.stoneRoughness = makeRoughnessMap(256, 256, (x, y) => {
+  const sw = 64, sh = 48;
+  const gx = Math.floor(x / sw), gy = Math.floor(y / sh);
+  const off = (gy % 2) * sw / 2;
+  const lx = (x - off) % sw;
+  const ly = y % sh;
+  const edge = Math.min(lx, sw - lx, ly, sh - ly);
+  const edgeFactor = edge < 3 ? (3-edge)/3 * 0.15 : 0;
+  return 0.8 + Math.random() * 0.08 + edgeFactor;
+});
+
+// v10: 提升屋顶纹理精细度
+TEX.roof = makeTexture(512, 512, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
-  for (let x = 0; x < w; x += 12) {
-    const g = ctx.createLinearGradient(x, 0, x + 12, 0);
-    g.addColorStop(0, 'rgba(100,100,100,0.25)');
-    g.addColorStop(0.3, 'rgba(255,255,255,0.2)');
-    g.addColorStop(0.7, 'rgba(255,255,255,0.08)');
-    g.addColorStop(1, 'rgba(80,80,80,0.3)');
-    ctx.fillStyle = g; ctx.fillRect(x, 0, 12, h);
+  // 更精细的瓦垄
+  for (let x = 0; x < w; x += 16) {
+    const g = ctx.createLinearGradient(x, 0, x + 16, 0);
+    g.addColorStop(0, 'rgba(100,100,100,0.3)');
+    g.addColorStop(0.3, 'rgba(255,255,255,0.25)');
+    g.addColorStop(0.7, 'rgba(255,255,255,0.1)');
+    g.addColorStop(1, 'rgba(80,80,80,0.35)');
+    ctx.fillStyle = g;
+    ctx.fillRect(x, 0, 16, h);
   }
-  for (let y = 0; y < h; y += 20) {
-    ctx.fillStyle = 'rgba(80,80,80,0.25)'; ctx.fillRect(0, y, w, 2);
-    ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(0, y + 2, w, 1);
+  // 更自然的瓦当接缝
+  for (let y = 0; y < h; y += 32) {
+    ctx.fillStyle = 'rgba(60,60,60,0.3)';
+    ctx.fillRect(0, y, w, 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.fillRect(0, y + 2, w, 1);
+  }
+  // 屋顶表面的自然变化
+  for (let i = 0; i < 30; i++) {
+    ctx.fillStyle = `rgba(120,120,120,${Math.random() * 0.05})`;
+    ctx.beginPath();
+    ctx.ellipse(Math.random() * w, Math.random() * h, rand(10, 30), rand(5, 15), rand(0, TAU), 0, TAU);
+    ctx.fill();
   }
 }, { repeat: [4, 3] });
 
 // v9: 屋顶法线贴图
-TEX.roofNormal = makeNormalMap(128, 128, (x, y) => {
-  const tx = (x % 12) - 6;
-  const ty = (y % 20) - 10;
-  return Math.cos(tx * 0.5) * 0.3 + Math.cos(ty * 0.3) * 0.1;
+TEX.roofNormal = makeNormalMap(256, 256, (x, y) => {
+  const tx = (x % 16) - 8;
+  const ty = (y % 32) - 16;
+  return Math.cos(tx * 0.4) * 0.25 + Math.cos(ty * 0.2) * 0.08;
+});
+
+// v10: 屋顶粗糙度贴图 — 光滑的瓦面，接缝处更粗糙
+TEX.roofRoughness = makeRoughnessMap(256, 256, (x, y) => {
+  const tx = (x % 16) - 8;
+  const ty = (y % 32) - 16;
+  const edgeX = Math.abs(tx) > 7 ? 0.1 : 0;
+  const edgeY = Math.abs(ty) > 14 ? 0.1 : 0;
+  return 0.65 + Math.random() * 0.1 + edgeX + edgeY;
 });
 
 TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
@@ -309,19 +429,83 @@ TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
 }, { repeat: [20, 20] });
 
 // ---------------------------------------------------------------- MAT materials
-// v9: 增加法线贴图提升PBR质感
+// v10: 真正的PBR材质升级 — 粗糙度贴图、更精细法线、环境光遮蔽
 const MAT = {
-  plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, normalMap: TEX.plasterNormal, normalScale: new THREE.Vector2(0.3, 0.3), color: 0xffffff, roughness: 0.75, metalness: 0.05 }),
-  plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, normalMap: TEX.plasterNormal, normalScale: new THREE.Vector2(0.3, 0.3), color: 0xfff5e0, roughness: 0.72, metalness: 0.05 }),
-  wood: new THREE.MeshStandardMaterial({ map: TEX.wood, normalMap: TEX.woodNormal, normalScale: new THREE.Vector2(0.4, 0.4), color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
-  red: new THREE.MeshStandardMaterial({ map: TEX.wood, normalMap: TEX.woodNormal, normalScale: new THREE.Vector2(0.4, 0.4), color: 0xffffff, roughness: 0.45, metalness: 0.15 }),
-  stone: new THREE.MeshStandardMaterial({ map: TEX.stone, normalMap: TEX.stoneNormal, normalScale: new THREE.Vector2(0.5, 0.5), color: 0xffffff, roughness: 0.82, metalness: 0.05 }),
-  roof: new THREE.MeshStandardMaterial({ map: TEX.roof, normalMap: TEX.roofNormal, normalScale: new THREE.Vector2(0.6, 0.6), color: 0xffffff, roughness: 0.75, metalness: 0.08 }),
-  roofGlazed: new THREE.MeshStandardMaterial({ map: TEX.roof, normalMap: TEX.roofNormal, normalScale: new THREE.Vector2(0.6, 0.6), color: 0xe8f0ff, roughness: 0.3, metalness: 0.35 }),
-  gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.25, metalness: 0.75 }),
-  dark: new THREE.MeshStandardMaterial({ map: TEX.wood, normalMap: TEX.woodNormal, normalScale: new THREE.Vector2(0.4, 0.4), color: 0x999999, roughness: 0.85, metalness: 0.02 }),
+  plaster: new THREE.MeshStandardMaterial({ 
+    map: TEX.plaster, 
+    normalMap: TEX.plasterNormal, 
+    normalScale: new THREE.Vector2(0.25, 0.25),
+    roughnessMap: TEX.plasterRoughness,
+    color: 0xffffff, 
+    roughness: 1.0, 
+    metalness: 0.02 
+  }),
+  plasterWarm: new THREE.MeshStandardMaterial({ 
+    map: TEX.plaster, 
+    normalMap: TEX.plasterNormal, 
+    normalScale: new THREE.Vector2(0.25, 0.25),
+    roughnessMap: TEX.plasterRoughness,
+    color: 0xfff5e0, 
+    roughness: 1.0, 
+    metalness: 0.02 
+  }),
+  wood: new THREE.MeshStandardMaterial({ 
+    map: TEX.wood, 
+    normalMap: TEX.woodNormal, 
+    normalScale: new THREE.Vector2(0.35, 0.35),
+    roughnessMap: TEX.woodRoughness,
+    color: 0xffffff, 
+    roughness: 1.0, 
+    metalness: 0.08 
+  }),
+  red: new THREE.MeshStandardMaterial({ 
+    map: TEX.wood, 
+    normalMap: TEX.woodNormal, 
+    normalScale: new THREE.Vector2(0.35, 0.35),
+    roughnessMap: TEX.woodRoughness,
+    color: 0xffffff, 
+    roughness: 0.9, 
+    metalness: 0.12 
+  }),
+  stone: new THREE.MeshStandardMaterial({ 
+    map: TEX.stone, 
+    normalMap: TEX.stoneNormal, 
+    normalScale: new THREE.Vector2(0.45, 0.45),
+    roughnessMap: TEX.stoneRoughness,
+    color: 0xffffff, 
+    roughness: 1.0, 
+    metalness: 0.03 
+  }),
+  roof: new THREE.MeshStandardMaterial({ 
+    map: TEX.roof, 
+    normalMap: TEX.roofNormal, 
+    normalScale: new THREE.Vector2(0.5, 0.5),
+    roughnessMap: TEX.roofRoughness,
+    color: 0xffffff, 
+    roughness: 1.0, 
+    metalness: 0.06 
+  }),
+  roofGlazed: new THREE.MeshStandardMaterial({ 
+    map: TEX.roof, 
+    normalMap: TEX.roofNormal, 
+    normalScale: new THREE.Vector2(0.5, 0.5),
+    roughnessMap: TEX.roofRoughness,
+    color: 0xe8f0ff, 
+    roughness: 0.4, 
+    metalness: 0.3 
+  }),
+  gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.28, metalness: 0.8 }),
+  dark: new THREE.MeshStandardMaterial({ 
+    map: TEX.wood, 
+    normalMap: TEX.woodNormal, 
+    normalScale: new THREE.Vector2(0.35, 0.35),
+    roughnessMap: TEX.woodRoughness,
+    color: 0x999999, 
+    roughness: 1.0, 
+    metalness: 0.02 
+  }),
   leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.85, metalness: 0 }),
-  trunk: new THREE.MeshStandardMaterial({ map: TEX.bark, color: 0xffffff, roughness: 0.88, metalness: 0 }),
+  trunk: new THREE.MeshStandardMaterial({ map: TEX.bark, color: 0xffffff, roughness: 0.9, metalness: 0 }),
   blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0 }),
   water: null,
   lantern: new THREE.MeshStandardMaterial({ color: 0xff6a4e, emissive: 0xff4a2e, emissiveIntensity: 0.4, roughness: 0.5 }),
