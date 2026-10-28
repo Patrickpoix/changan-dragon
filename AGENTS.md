@@ -59,6 +59,9 @@
 | postfx/cinematic-postfx.js | 电影级后处理参数配置 | CinematicPostFX |
 | optimization/performance-optimizer.js | LOD+实例化+阴影优化 | PerformanceOptimizer |
 | materials/pbr-enhancer.js | PBR材质增强（法线/粗糙度/AO） | PBRMaterialEnhancer |
+| environment/sky-atmosphere.js | 天空大气（渐变天空、云层、星空、雾） | SkyAtmosphereEnhancer |
+| environment/water-enhancer.js | 水景增强（波纹、反射、喷泉、石头、芦苇） | WaterEnhancer |
+| environment/night-lighting.js | 夜景灯光（灯笼、街灯、宫灯、光晕） | NightLightingEnhancer |
 
 ### 使用示例
 ```javascript
@@ -82,6 +85,15 @@ const dofParams = CinematicPostFX.getDOFParams();
 
 // PBR材质
 const woodMat = PBRMaterialEnhancer.createWoodMaterial(0x8b6f47);
+
+// 渐变天空
+const sky = SkyAtmosphereEnhancer.createGradientSky(0x4a90d9, 0x87ceeb);
+
+// 水景材质
+const waterMat = WaterEnhancer.createWaterMaterial();
+
+// 灯笼
+const lantern = NightLightingEnhancer.createLantern(0.5);
 ```
 
 ## 已修复的已知问题（不要重复修复）
