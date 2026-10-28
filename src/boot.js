@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v108: 收束整合 — 移除冗余后处理滤镜和几何体奇观模块，回归核心体验
  * v107: 集成电影级后处理效果模块
  * v106: 集成仙侠魔幻奇观建筑模块
  * v105: 集成GLB模型自动加载，检测可用模型并替换程序化建筑
@@ -118,6 +119,9 @@ function loadHighQualityModels() {
     s.async = false;
     s.onload = () => {
       setTimeout(() => {
+        // v108: 收束整合 — 只保留核心有价值的enhance模块
+        // 移除了 wonder-builders.js（纯几何体堆叠，不是真正的奇观建模）
+        // 移除了 cinematic-postfx.js（堆滤镜不是电影级质感的正确做法）
         const coreScripts = [
           'cinematic-core.js',
           'sample-district.js',
@@ -126,8 +130,6 @@ function loadHighQualityModels() {
           'palaces.js',
           'atmosphere.js',
           'wonders-v3.js',
-          'wonder-builders.js',
-          'cinematic-postfx.js',
         ];
         
         coreScripts.forEach((script) => {
@@ -139,11 +141,8 @@ function loadHighQualityModels() {
         
         loadHighQualityModels();
         
-        console.log('[Boot] v107 核心模块加载完成');
-        console.log('[Boot] 高精模型生成器已就绪:', typeof ChangAnModelLibrary !== 'undefined' ? '是' : '否');
-        console.log('[Boot] GLB模型加载器已就绪:', typeof CHANGAN_MODELS !== 'undefined' ? '是' : '否');
-        console.log('[Boot] 仙侠魔幻奇观建筑已就绪:', typeof WonderBuilders !== 'undefined' ? '是' : '否');
-        console.log('[Boot] 电影级后处理效果已就绪:', typeof CinematicPostFX !== 'undefined' ? '是' : '否');
+        console.log('[Boot] v108 收束整合完成 — 移除冗余模块，回归核心体验');
+        console.log('[Boot] 核心模块加载完成，共' + coreScripts.length + '个enhance模块');
       }, 500);
     };
     document.head.appendChild(s);
