@@ -1,6 +1,6 @@
 /* ============================================================
    长安城 · 宫苑 / 塔寺 / 曲江
-   v4: 集成专业屋顶生成器 + 精修核心建筑
+   v5: 精修核心地标建模细节
    ============================================================ */
 
 // Explicit envelopes for non-batched masonry; consumed by flight and camera clearance.
@@ -102,28 +102,38 @@ function addWater(cx, cz, rx, rz, seed, opts = {}) {
 }
 
 // ============================================================
-// v4: 精细唐式建筑组件（增强版）
+// v5: 精细唐式建筑组件（精修版）
 // ============================================================
 
-// 斗拱组件 — 三层斗拱层
+// 斗拱组件 — 五层斗拱层（精修）
 function addDougongRow(x, y, z, width, count, scale) {
   scale = scale || 1;
   for (let i = 0; i < count; i++) {
     const t = count === 1 ? 0.5 : i / (count - 1);
     const dx = (t - 0.5) * width;
     
+    // 第一层：坐斗
     B.trim.add(x + dx, y, z, 1.2 * scale, 0.3 * scale, 0.8 * scale, 0, 0xd4a574);
+    // 第二层：瓜拱
     B.trim.add(x + dx, y + 0.35 * scale, z, 0.8 * scale, 0.25 * scale, 1.5 * scale, 0, 0x8b4513);
+    // 第三层：万拱
     B.trim.add(x + dx, y + 0.6 * scale, z, 1.0 * scale, 0.2 * scale, 0.6 * scale, 0, 0xd4a574);
+    // 第四层：翘
+    B.trim.add(x + dx, y + 0.85 * scale, z, 0.6 * scale, 0.15 * scale, 1.2 * scale, 0, 0x8b4513);
+    // 第五层：昂
+    B.trim.add(x + dx, y + 1.05 * scale, z, 0.4 * scale, 0.12 * scale, 1.8 * scale, 0, 0xd4a574);
   }
 }
 
-// 格扇门窗 — 精细格纹
+// 格扇门窗 — 精细格纹（精修）
 function addLatticeWindow(x, y, z, w, h, rotY) {
   rotY = rotY || 0;
+  // 外框
   B.trim.add(x, y, z, w + 0.2, h + 0.2, 0.15, rotY, 0x6b3410);
+  // 窗纸
   B.dark.add(x, y, z + 0.02, w, h, 0.08, rotY, 0xfff8dc);
   
+  // 竖向格条
   const vBars = Math.floor(w / 0.6);
   for (let i = 1; i < vBars; i++) {
     const t = i / vBars;
@@ -131,43 +141,90 @@ function addLatticeWindow(x, y, z, w, h, rotY) {
     B.trim.add(x + dx, y, z + 0.05, 0.05, h, 0.05, rotY, 0x6b3410);
   }
   
+  // 横向格条
   const hBars = Math.floor(h / 0.6);
   for (let i = 1; i < hBars; i++) {
     const t = i / hBars;
     const dy = (t - 0.5) * h;
     B.trim.add(x, y + dy, z + 0.05, w, 0.05, 0.05, rotY, 0x6b3410);
   }
-}
-
-// 彩画装饰 — 梁枋彩绘
-function addCaifeng(x, y, z, width, rotY) {
-  rotY = rotY || 0;
-  B.trim.add(x, y, z, width, 0.4, 0.1, rotY, 0x2d5a3d);
-  B.trim.add(x, y + 0.22, z, width, 0.05, 0.12, rotY, 0xd4af37);
-  B.trim.add(x, y - 0.22, z, width, 0.05, 0.12, rotY, 0xd4af37);
   
-  for (let i = 0; i < Math.floor(width / 2); i++) {
-    const dx = (i / Math.floor(width / 2) - 0.5) * width;
-    B.trim.add(x + dx, y, z + 0.01, 0.3, 0.15, 0.05, rotY, 0x8b0000);
+  // 上半部分菱形格纹
+  for (let i = 0; i < Math.floor(w / 1.2); i++) {
+    const dx = (i / Math.floor(w / 1.2) - 0.5) * w;
+    B.trim.add(x + dx, y + h * 0.25, z + 0.06, 0.08, 0.08, 0.03, rotY, 0x8b4513);
   }
 }
 
-// v4: 瓦垄纹理 — 屋顶瓦片细节
+// 彩画装饰 — 梁枋彩绘（精修和玺彩画）
+function addCaifeng(x, y, z, width, rotY) {
+  rotY = rotY || 0;
+  // 主底色：青绿
+  B.trim.add(x, y, z, width, 0.4, 0.1, rotY, 0x2d5a3d);
+  // 上金线
+  B.trim.add(x, y + 0.22, z, width, 0.05, 0.12, rotY, 0xd4af37);
+  // 下金线
+  B.trim.add(x, y - 0.22, z, width, 0.05, 0.12, rotY, 0xd4af37);
+  
+  // 彩画图案：龙凤
+  for (let i = 0; i < Math.floor(width / 2); i++) {
+    const dx = (i / Math.floor(width / 2) - 0.5) * width;
+    // 红色装饰
+    B.trim.add(x + dx, y, z + 0.01, 0.3, 0.15, 0.05, rotY, 0x8b0000);
+    // 金色点缀
+    B.trim.add(x + dx, y + 0.05, z + 0.02, 0.15, 0.08, 0.03, rotY, 0xd4af37);
+  }
+}
+
+// v5: 瓦垄纹理 — 屋顶瓦片细节（精修）
 function addTileRoofDetail(x, y, z, width, depth, rotY) {
   rotY = rotY || 0;
-  const tileCount = Math.floor(width / 1.0);
+  const tileCount = Math.floor(width / 0.8);
   for (let i = 0; i < tileCount; i++) {
     const t = i / (tileCount - 1);
     const dx = (t - 0.5) * width;
-    B.roofGable.add(x + dx, y, z, 0.25, 0.12, depth, rotY, 0x4a6670);
+    // 瓦垄
+    B.roofGable.add(x + dx, y, z, 0.22, 0.1, depth, rotY, 0x4a6670);
+    // 瓦当（瓦头）
+    B.trim.add(x + dx, y + 0.05, z + depth / 2, 0.2, 0.08, 0.05, rotY, 0xd4af37);
   }
 }
 
-// v4: 鸱吻 — 屋脊两端装饰
+// v5: 鸱吻 — 屋脊两端装饰（精修）
 function addChiwen(x, y, z, scale) {
   scale = scale || 1;
+  // 主体
   B.roofGable.add(x, y, z, 0.6 * scale, 1.2 * scale, 0.4 * scale, 0, 0x4a6670);
+  // 金色装饰
   B.trim.add(x, y + 0.6 * scale, z, 0.8 * scale, 0.3 * scale, 0.3 * scale, 0, 0xd4af37);
+  // 尾部翘起
+  B.trim.add(x + 0.3 * scale, y + 1.0 * scale, z, 0.2 * scale, 0.6 * scale, 0.2 * scale, 0, 0xd4af37);
+}
+
+// v5: 栏杆 — 汉白玉栏杆
+function addBalustrade(x, y, z, width, rotY) {
+  rotY = rotY || 0;
+  // 望柱
+  const postCount = Math.floor(width / 2.5);
+  for (let i = 0; i <= postCount; i++) {
+    const t = i / postCount;
+    const dx = (t - 0.5) * width;
+    B.stone.add(x + dx, y + 0.4, z, 0.25, 0.8, 0.25, rotY, 0xe8e0d0);
+    B.stone.add(x + dx, y + 0.9, z, 0.15, 0.2, 0.15, rotY, 0xd0c8b8);
+  }
+  // 栏板
+  B.stone.add(x, y + 0.6, z, width, 0.15, 0.1, rotY, 0xe8e0d0);
+}
+
+// v5: 台阶 — 汉白玉台阶
+function addStairs(x, y, z, width, height, steps) {
+  const stepH = height / steps;
+  const stepD = 0.8;
+  for (let i = 0; i < steps; i++) {
+    const stepY = y + stepH * i + stepH / 2;
+    const stepZ = z + stepD * i;
+    B.stone.add(x, stepY, stepZ, width, stepH, stepD, 0, 0xe0d8c8);
+  }
 }
 
 // ============================================================
@@ -203,7 +260,7 @@ function buildImperialCity() {
 
   addWall(-165, -445, 3, 110); addWall(150, -445, 3, 110);
 
-  // 太极殿 — v4 精修
+  // 太极殿 — v5 精修
   addHall(0, -450, 56, 30, { h: 11, roofH: 7.5, roofKind: 'gold', columns: true, doors: true, windows: true, collider: true, platform: 2.0 });
   
   addDougongRow(0, 13.5, -435, 50, 12, 1.0);
@@ -212,10 +269,14 @@ function buildImperialCity() {
   addLatticeWindow(0, 8, -434.8, 5, 5, 0);
   addLatticeWindow(15, 8, -434.8, 4, 5, 0);
   
-  // v4: 瓦垄和鸱吻
+  // v5: 瓦垄和鸱吻
   addTileRoofDetail(0, 18.5, -440, 55, 25, 0);
   addChiwen(-28, 20, -440, 1.2);
   addChiwen(28, 20, -440, 1.2);
+  
+  // v5: 栏杆和台阶
+  addBalustrade(0, 2.2, -434, 56, 0);
+  addStairs(0, 0, -430, 12, 2.0, 8);
   
   addCorridor(-28, -435, -65, -415, { w: 5 });
   addCorridor(28, -435, 65, -415, { w: 5 });
@@ -262,7 +323,7 @@ function buildDamingPalace() {
   B.roofGable.add(DX, upperEave, DZ - 22, 46.5, 6, 21.5, 0, 0x5c7475);
   addHallCraft(DX, DZ - 22, 42, 17, upperH, upperBase, 6, 0, { hipGable: true, columns: true, simple: false, porch: 0 });
   
-  // v4: 上层瓦垄和鸱吻
+  // v5: 上层瓦垄和鸱吻
   addTileRoofDetail(DX, upperEave + 1, DZ - 22, 42, 18, 0);
   addChiwen(DX - 20, upperEave + 4, DZ - 22, 1.5);
   addChiwen(DX + 20, upperEave + 4, DZ - 22, 1.5);
@@ -292,6 +353,10 @@ function buildDamingPalace() {
     B.trim.add(DX + i * 5.5, 21.3, DZ - 7.0, 3.5, 0.4, 0.1, 0, 0xb39a60);
     addLantern(DX + i * 5.5, 18.6, DZ - 7.1, 1.4);
   }
+  
+  // v5: 殿前栏杆和台阶
+  addBalustrade(DX, 9.7, DZ - 45, 80, 0);
+  addStairs(DX, 0, DZ - 40, 15, 9.5, 12);
   
   for (const side of [-1, 1]) {
     const tx = DX + side * 52, tz = DZ - 18;
@@ -337,17 +402,20 @@ function buildXingqing() {
   addPavilion(610, -245, 7, { h: 5.5, roofH: 4.5, platform: 1.2, roofKind: 'gold', collider: true });
   addCorridor(565, -240, 582, -210, { w: 4.5 });
   
-  // 花萼相辉楼（三层）— v4 精修
+  // 花萼相辉楼（三层）— v5 精修
   B.stone.add(675, 1.0, -140, 34, 2.0, 25, 0, 0xd2c1a3);
   addHall(675, -145, 30, 18, { h: 7.5, roofH: 4.2, platform: 1.8, collider: false, windows: true });
   
   addDougongRow(675, 10, -135, 26, 8, 0.9);
   addCaifeng(675, 9.3, -134.8, 28, 0);
   
-  // v4: 瓦垄和鸱吻
+  // v5: 瓦垄和鸱吻
   addTileRoofDetail(675, 12, -140, 28, 16, 0);
   addChiwen(662, 13.5, -140, 1.0);
   addChiwen(688, 13.5, -140, 1.0);
+  
+  // v5: 栏杆
+  addBalustrade(675, 2.0, -135, 30, 0);
   
   addHall(675, -150, 23, 11, { h: 6.2, roofH: 3.2, platform: 10.0, upperStorey: true, collider: false, windows: true });
   addHall(675, -152, 15, 8, { h: 4.5, roofH: 2.6, platform: 17.5, upperStorey: true, collider: false });
@@ -443,7 +511,7 @@ function buildQujiang() {
   addPavilion(QX, QZ, 4.5, { h: 4.5, roofH: 3.5, platform: 0.55, roofKind: 'gold' });
   addTree(QX - 9, QZ - 5, 'peach', 0.75);
   
-  // 紫云楼（三层，北岸）— v4 精修
+  // 紫云楼（三层，北岸）— v5 精修
   B.stone.add(QX - 70, 1.3, QZ - 65, 38, 2.5, 26, 0, 0xd4c3a4);
   addHall(QX - 70, QZ - 60, 32, 19, { h: 8.0, roofH: 4.5, platform: 2.0, collider: false, windows: true });
   addHall(QX - 70, QZ - 65, 24, 12, { h: 6.0, roofH: 3.5, platform: 10.5, upperStorey: true, collider: false });
@@ -451,10 +519,13 @@ function buildQujiang() {
   addDougongRow(QX - 70, 11, QZ - 50, 28, 8, 0.9);
   addCaifeng(QX - 70, 10.3, QZ - 49.8, 30, 0);
   
-  // v4: 瓦垄和鸱吻
+  // v5: 瓦垄和鸱吻
   addTileRoofDetail(QX - 70, 13.5, QZ - 55, 28, 15, 0);
   addChiwen(QX - 83, 15, QZ - 55, 1.0);
   addChiwen(QX - 57, 15, QZ - 55, 1.0);
+  
+  // v5: 栏杆
+  addBalustrade(QX - 70, 2.5, QZ - 55, 32, 0);
   
   addSignMesh('紫云楼', QX - 70, 19.5, QZ - 72, 0, 12.5, 3.4, { font: 72 });
   
