@@ -13,6 +13,7 @@
 | Chaozhou Mansion | HarshPuppet1640 | 250k | GLB | CC Attribution | https://sketchfab.com/3d-models/chaozhou-mansionglb-e5a07be188844d4e93f7b0f14490ea52 |
 | Chinese Building Kit | merlincodes | 9k | GLB | CC Attribution | https://sketchfab.com/3d-models/chinese-building-kit-ca166c1aef6045f9839ea82dfefcbf14 |
 | Gilded Temple | ji4ngli0ng | 365.6k | GLB | CC Attribution | https://sketchfab.com/3d-models/gilded-temple-3d-model-52e993a79800465d99b35919138a805b |
+| Temple of the Floating Isles | jonatangabriel709 | 3.8M | GLB | - | https://sketchfab.com/3d-models/temple-of-the-floating-isles-0ecf917b64bb4f8a8a527a87539629ab |
 
 ### 二、itch.io（免费游戏资产包）
 
@@ -49,9 +50,25 @@
 | 模型 | 大小 | 价格 | 格式 |
 |------|------|------|------|
 | 大明宫-梨园 | 10MB | 免费 | GLB/GLTF/FBX/BLEND |
+| 中式仙侠幻想 | 12MB | - | GLB/GLTF/FBX/BLEND |
+| 传统中国亭 | - | 免费 | GLB/GLTF |
 | 天坛古建筑 | 27MB | ¥160 | GLB/GLTF/FBX/BLEND |
 | 大明宫-少阳院 | 22MB | ¥120 | GLB/GLTF/FBX/BLEND |
 | 唐代万象神宫-明堂 | 5.3MB | ¥120 | GLB/GLTF/FBX/BLEND |
+
+### 七、CGTrader（付费）
+
+| 模型 | 说明 | 格式 | 链接 |
+|------|------|------|------|
+| Legends of the Orient Fantasy Chinese Architecture | 奇幻中国建筑包，包含浮空水晶寺 | GLTF | https://www.cgtrader.com/3d-model-packs/legends-of-the-orient-traditional-fantasy-chinese-architecture |
+| Stylized Fantasy Floating Crystal Temple | 浮空水晶寺，44.2MB | GLTF | https://www.cgtrader.com/3d-models/exterior/sci-fi-exterior/stylized-fantasy-floating-crystal-temple-3d-model |
+
+### 八、爱给网（部分免费）
+
+| 资源 | 说明 | 链接 |
+|------|------|------|
+| UE虚幻浮空岛仙侠浮岛自然场景 | 浮空岛仙侠场景 | https://www.aigei.com/ue/list/gu_feng_xi_1/ |
+| 国风仙侠武侠寺庙樱花黑夜场景 | 仙侠寺庙场景 | https://www.aigei.com/ue/list/gu_feng_xi_1/ |
 
 ## 推荐优先下载
 
@@ -74,6 +91,11 @@
 - **推荐**: Chaozhou Mansion (HarshPuppet1640)
 - **理由**: 250k三角形，高细节，适合宫殿建筑
 - **用途**: 大明宫、太极宫、兴庆宫
+
+### 5. 仙侠奇观建筑
+- **推荐**: Temple of the Floating Isles (Sketchfab)
+- **理由**: 浮空寺，仙侠风格，适合奇观建筑
+- **多边形数**: 3.8M，需要简化后使用
 
 ## 集成方式
 
@@ -100,6 +122,7 @@ assets/
     shop-01.glb          # 商铺1
     shop-02.glb          # 商铺2
     house-01.glb         # 民居1
+    floating-temple.glb  # 浮空寺
     ...
   textures/
     # 材质贴图
@@ -118,3 +141,4 @@ assets/
 - [ ] 下载并导入商铺民居模型包
 - [ ] 创建模型加载器
 - [ ] 替换现有程序化建筑
+- [ ] 下载并导入仙侠浮空寺模型
