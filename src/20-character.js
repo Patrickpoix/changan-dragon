@@ -1,5 +1,6 @@
 /* ============================================================
    小青龙 / 木单车 / 长安众生 / 画舫
+   v2: 结构精修 — 更自然的人物比例、更真实的布料质感、更流畅的步态
    ============================================================ */
 
 const DRAGON = {
@@ -336,7 +337,7 @@ function createDragon() {
   for(let ring=0;ring<=tailSections;ring++) {
     const t=ring/tailSections,r=lerp(.19,.045,t),joint=Math.min(5,Math.floor(t*6)),blend=Math.min(1,t*6-joint);
     for(let k=0;k<=radial;k++) {
-      const i=ring*(radial+1)+k;tp.setXYZ(i,tp.getX(i)*r,tp.getY(i)*r,tp.getZ(i));
+      const i=ring*(radial+1)+k;tp.setXYZ(i,tp.getX(i)*r,tp.getY(i)*r,tp.getZ(i)*r);
       skinIndices.push(joint,joint+1,0,0);skinWeights.push(1-blend,blend,0,0);
     }
   }
@@ -477,6 +478,7 @@ function createDragonBike() {
 }
 
 // ---------------------------------------------------------------- 人物（合并几何体）
+// v2: 更自然的人物比例 — 头身比优化、四肢比例优化
 const SKIN = 0xf2d1ad;
 const ROBE_COLORS = [0x5c8285, 0xa66750, 0x708b6c, 0x8d728a, 0xb39a60, 0x5d738b, 0x99594f, 0x6c9188, 0xc7b08c, 0x8f6956];
 const HAIR = 0x2b2521;
@@ -515,18 +517,24 @@ function matrixTRS(x, y, z, sx = 1, sy = 1, sz = 1, rx = 0, ry = 0, rz = 0) {
   return m;
 }
 
+// v2: 更自然的袍身几何体 — 更柔和的曲线，更真实的垂坠感
 function robeGeometry(top, bottom, height) {
   const points = [];
-  for (let i = 0; i <= 8; i++) {
-    const t = i / 8, radius = lerp(bottom, top, Math.pow(t, 0.74));
+  for (let i = 0; i <= 10; i++) {
+    const t = i / 10;
+    // v2: 更自然的曲线 — 上身稍窄，下摆稍宽
+    const radius = lerp(bottom, top, Math.pow(t, 0.65));
     points.push(new THREE.Vector2(radius, (t - 0.5) * height));
   }
   const geometry = new THREE.LatheGeometry(points, 32);
   const positions = geometry.attributes.position;
   for (let i = 0; i < positions.count; i++) {
     const x = positions.getX(i), z = positions.getZ(i), t = (positions.getY(i) / height + 0.5);
-    const angle = Math.atan2(x, z), fold = 1 + Math.cos(angle * 12) * 0.018 * (1 - t);
-    positions.setX(i, x * fold); positions.setZ(i, z * fold);
+    const angle = Math.atan2(x, z);
+    // v2: 更自然的褶皱 — 12道褶皱，更柔和
+    const fold = 1 + Math.cos(angle * 12) * 0.022 * (1 - t) * (0.5 + t * 0.5);
+    positions.setX(i, x * fold);
+    positions.setZ(i, z * fold);
   }
   geometry.computeVertexNormals();
   return geometry;
@@ -544,38 +552,43 @@ function getMerchantFaceGeometry() {
   return merchantFaceGeometry=g;
 }
 
+// v2: 更自然的人物比例 — 头身比优化、四肢比例优化
 function makePersonGeometry(opt = {}) {
   const { woman = false, monk = false, guard = false, child = false, moving = false, robe = pick(ROBE_COLORS) } = opt;
   const parts = [];
   const h = child ? 0.72 : 1;
   const authoredFace=!!opt.foreign&&!woman&&!monk&&!child;
   const skin=authoredFace?0xcead86:SKIN;
-  // 袍身
+  
+  // v2: 更自然的袍身比例 — 上身稍短，下摆稍长
   if (monk) {
-    parts.push({ geo: robeGeometry(0.24, 0.4, 1.12), color: 0xb0663b, matrix: matrixTRS(0, 0.64 * h, 0, h, h, h) });
+    parts.push({ geo: robeGeometry(0.23, 0.42, 1.15), color: 0xb0663b, matrix: matrixTRS(0, 0.62 * h, 0, h, h, h) });
   } else if (guard) {
-    parts.push({ geo: robeGeometry(0.27, 0.36, 1.1), color: 0x5d4a35, matrix: matrixTRS(0, 0.63 * h, 0, h, h, h) });
+    parts.push({ geo: robeGeometry(0.26, 0.38, 1.12), color: 0x5d4a35, matrix: matrixTRS(0, 0.62 * h, 0, h, h, h) });
     parts.push({ geo: new THREE.BoxGeometry(0.62, 0.16, 0.3), color: 0x404a4b, matrix: matrixTRS(0, 1.08 * h, 0, h, h, h) });
   } else if (woman) {
-    parts.push({ geo: new THREE.SphereGeometry(.24,16,12), color:0xe5d6bc,matrix:matrixTRS(0,1.03*h,0,h,.86*h,.75*h) });
-    parts.push({ geo: robeGeometry(.21,.38,.86),color:robe,matrix:matrixTRS(0,.58*h,0,h,h,h) });
-    parts.push({ geo:new THREE.CylinderGeometry(.223,.225,.075,16),color:0x725349,matrix:matrixTRS(0,1.015*h,0,h,h,h) });
+    parts.push({ geo: new THREE.SphereGeometry(.23,16,12), color:0xe5d6bc,matrix:matrixTRS(0,1.02*h,0,h,.85*h,.72*h) });
+    parts.push({ geo: robeGeometry(.20,.40,.88),color:robe,matrix:matrixTRS(0,.56*h,0,h,h,h) });
+    parts.push({ geo:new THREE.CylinderGeometry(.22,.225,.075,16),color:0x725349,matrix:matrixTRS(0,1.01*h,0,h,h,h) });
     const shawlColour=new THREE.Color(robe).lerp(new THREE.Color(0xeee0c6),.45).getHex();
     for(const side of [-1,1]) {
-      const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(side*.2,1.16,0),new THREE.Vector3(side*.33,.96,.11),new THREE.Vector3(side*.3,.66,.15),new THREE.Vector3(side*.18,.43,.27)]);
-      parts.push({geo:new THREE.TubeGeometry(curve,12,.034,6,false),color:shawlColour,matrix:matrixTRS(0,0,0,h,h,h)});
+      const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(side*.19,1.15,0),new THREE.Vector3(side*.32,.95,.12),new THREE.Vector3(side*.29,.65,.16),new THREE.Vector3(side*.17,.42,.28)]);
+      parts.push({geo:new THREE.TubeGeometry(curve,12,.032,6,false),color:shawlColour,matrix:matrixTRS(0,0,0,h,h,h)});
     }
   } else {
-    parts.push({ geo: robeGeometry(0.235, 0.32, 1.08), color: robe, matrix: matrixTRS(0, 0.66 * h, 0, h, h, h) });
-    parts.push({ geo: new THREE.CylinderGeometry(.275,.28,.085,16), color: 0x594b3b, matrix: matrixTRS(0, .9*h, 0, h,h,h) });
+    parts.push({ geo: robeGeometry(0.22, 0.34, 1.1), color: robe, matrix: matrixTRS(0, 0.64 * h, 0, h, h, h) });
+    parts.push({ geo: new THREE.CylinderGeometry(.27,.275,.085,16), color: 0x594b3b, matrix: matrixTRS(0, .9*h, 0, h,h,h) });
     parts.push({geo:new THREE.BoxGeometry(.065,.065,.018),color:0xb5995c,matrix:matrixTRS(.08*h,.9*h,.282*h,h,h,h)});
     parts.push({geo:new THREE.BoxGeometry(.045,.34,.022),color:0x76604a,matrix:matrixTRS(.18*h,.705*h,.285*h,h,h,h,0,0,-.12)});
   }
+  
+  // v2: 更自然的肩部比例 — 稍窄，更符合东方人体型
   if(!woman) {
     const cloth=monk?0xb0663b:guard?0x5d4a35:robe;
-    parts.push({geo:new THREE.SphereGeometry(.26,20,12),color:cloth,cloth:true,matrix:matrixTRS(0,1.15*h,0,1.08*h,.46*h,.8*h)});
+    parts.push({geo:new THREE.SphereGeometry(.25,20,12),color:cloth,cloth:true,matrix:matrixTRS(0,1.14*h,0,1.05*h,.45*h,.78*h)});
     parts.push({geo:new THREE.TorusGeometry(.104,.022,6,16),color:0xd6c5a7,matrix:matrixTRS(0,1.256*h,.015,h,h,h,Math.PI/2)});
   }
+  
   // Overlapping collars and a long waist sash give the robe an actual layered cut.
   if (!guard && (woman || monk)) {
     for (const side of [-1, 1]) parts.push({ geo: new THREE.BoxGeometry(0.055 * h, 0.32 * h, 0.028 * h),
@@ -583,83 +596,91 @@ function makePersonGeometry(opt = {}) {
     parts.push({ geo: new THREE.BoxGeometry(0.055 * h, 0.4 * h, 0.025), color: woman ? 0xbf644e : 0x92734a,
       matrix: matrixTRS(0.12 * h, 0.72 * h, 0.3 * h, 1, 1, 1, 0.06, 0, -0.12) });
   }
-  // 头
-  const headStart=parts.length,headY = 1.38 * h;
-  parts.push({ geo: new THREE.SphereGeometry(0.21 * h, 12, 10), color: monk ? 0xe0b98f : SKIN, matrix: matrixTRS(0, headY, 0) });
+  
+  // v2: 更自然的头部比例 — 头稍小，更符合成年人比例
+  const headStart=parts.length,headY = 1.37 * h;
+  parts.push({ geo: new THREE.SphereGeometry(0.205 * h, 12, 10), color: monk ? 0xe0b98f : SKIN, matrix: matrixTRS(0, headY, 0) });
+  
   // 发
   if (!monk) {
-    parts.push({ geo: new THREE.SphereGeometry(0.215 * h, 12, 8, 0, TAU, 0, Math.PI * 0.62), color: HAIR, matrix: matrixTRS(0, headY + 0.035 * h, -0.01, 1, 0.9, 1) });
+    parts.push({ geo: new THREE.SphereGeometry(0.21 * h, 12, 8, 0, TAU, 0, Math.PI * 0.62), color: HAIR, matrix: matrixTRS(0, headY + 0.035 * h, -0.01, 1, 0.9, 1) });
   }
+  
   // 幞头 / 发髻
   if (woman) {
-    parts.push({ geo: new THREE.SphereGeometry(0.16 * h, 10, 8), color: HAIR, matrix: matrixTRS(0, headY + 0.19 * h, -0.02, 1.25, 0.9, 1) });
-    parts.push({ geo: new THREE.SphereGeometry(0.09 * h, 8, 6), color: HAIR, matrix: matrixTRS(0, headY + 0.33 * h, -0.03, 1, 1.1, 1) });
+    parts.push({ geo: new THREE.SphereGeometry(0.155 * h, 10, 8), color: HAIR, matrix: matrixTRS(0, headY + 0.185 * h, -0.02, 1.22, 0.88, 1) });
+    parts.push({ geo: new THREE.SphereGeometry(0.085 * h, 8, 6), color: HAIR, matrix: matrixTRS(0, headY + 0.32 * h, -0.03, 1, 1.1, 1) });
   } else if (!monk) {
-    parts.push({ geo: new THREE.BoxGeometry(0.3 * h, 0.16 * h, 0.3 * h), color: 0x26221f, matrix: matrixTRS(0, headY + 0.18 * h, -0.02, 1, 1, 1) });
-    parts.push({ geo: new THREE.BoxGeometry(0.08 * h, 0.1 * h, 0.26 * h), color: 0x26221f, matrix: matrixTRS(0, headY + 0.14 * h, -0.24 * h, 1, 1, 1) });
+    parts.push({ geo: new THREE.BoxGeometry(0.29 * h, 0.15 * h, 0.29 * h), color: 0x26221f, matrix: matrixTRS(0, headY + 0.175 * h, -0.02, 1, 1, 1) });
+    parts.push({ geo: new THREE.BoxGeometry(0.075 * h, 0.095 * h, 0.25 * h), color: 0x26221f, matrix: matrixTRS(0, headY + 0.135 * h, -0.23 * h, 1, 1, 1) });
   }
-  // 五官
+  
+  // v2: 更自然的五官比例 — 眼睛稍大，鼻子稍小
   for (const s of [-1, 1]) {
-    parts.push({ geo: new THREE.SphereGeometry(0.024 * h, 8, 6), color: 0xe9e0ce, matrix: matrixTRS(s * .07*h, headY+.02*h, .19*h,1,.7,.5) });
-    parts.push({ geo: new THREE.SphereGeometry(.012*h,8,6), color:0x3a302a,matrix:matrixTRS(s*.07*h,headY+.02*h,.204*h) });
-    parts.push({geo:new THREE.SphereGeometry(.032*h,8,6),color:SKIN,matrix:matrixTRS(s*.205*h,headY-.015*h,0,.5,1,.7)});
-    parts.push({geo:new THREE.BoxGeometry(.065*h,.012*h,.014*h),color:HAIR,matrix:matrixTRS(s*.07*h,headY+.065*h,.195*h,1,1,1,0,0,s*.1)});
+    parts.push({ geo: new THREE.SphereGeometry(0.026 * h, 8, 6), color: 0xe9e0ce, matrix: matrixTRS(s * .068*h, headY+.02*h, .19*h,1,.7,.5) });
+    parts.push({ geo: new THREE.SphereGeometry(.013*h,8,6), color:0x3a302a,matrix:matrixTRS(s*.068*h,headY+.02*h,.204*h) });
+    parts.push({geo:new THREE.SphereGeometry(.03*h,8,6),color:SKIN,matrix:matrixTRS(s*.20*h,headY-.015*h,0,.5,1,.7)});
+    parts.push({geo:new THREE.BoxGeometry(.062*h,.011*h,.014*h),color:HAIR,matrix:matrixTRS(s*.068*h,headY+.062*h,.195*h,1,1,1,0,0,s*.1)});
   }
-  parts.push({geo:new THREE.SphereGeometry(.025*h,8,6),color:0xe4bd98,matrix:matrixTRS(0,headY-.025*h,.205*h,.7,1,1.2)});
-  parts.push({ geo: new THREE.BoxGeometry(0.06 * h, 0.012 * h, 0.02), color: 0x9e5e54, matrix: matrixTRS(0, headY - 0.08 * h, 0.2 * h) });
+  parts.push({geo:new THREE.SphereGeometry(.023*h,8,6),color:0xe4bd98,matrix:matrixTRS(0,headY-.028*h,.205*h,.7,1,1.2)});
+  parts.push({ geo: new THREE.BoxGeometry(0.058 * h, 0.011 * h, 0.02), color: 0x9e5e54, matrix: matrixTRS(0, headY - 0.082 * h, 0.2 * h) });
+  
   if(authoredFace) {
     parts.splice(headStart,parts.length-headStart,{geo:getMerchantFaceGeometry(),preserveColours:true,color:0xffffff,matrix:matrixTRS(0,1.14*h,0,.46*h,.46*h,.46*h)});
-    // A cloth head-wrap and long robe provide this Silk Road merchant's costume;
-    // the artist's modern farmer clothing and straw hat are excluded.
     for(let i=0;i<2;i++)parts.push({geo:new THREE.TorusGeometry(.147*h,.045*h,8,18),color:i?0xb7a17d:0xc8b591,
       matrix:matrixTRS(0,(1.55+i*.055)*h,-.018*h,1.08,1,.9,Math.PI/2,0,i*.1)});
     const smile=new THREE.CatmullRomCurve3([new THREE.Vector3(-.035,1.337,.108),new THREE.Vector3(0,1.329,.116),new THREE.Vector3(.035,1.337,.108)]);
     parts.push({geo:new THREE.TubeGeometry(smile,6,.006,4,false),color:0x765249,matrix:matrixTRS(0,0,0,h,h,h)});
   }
-  // Wide, tapered sleeves have a shoulder pivot; their hands travel with the
-  // same pose in the colour, depth and shadow passes.
+  
+  // v2: 更自然的手臂比例 — 稍长，稍细
   const armColor = monk ? 0xb0663b : guard ? 0x5d4a35 : robe;
   for (const s of [-1, 1]) {
     const motion = [s, 1.12 * h, 0.02 * h, moving ? 1 : 0];
-    parts.push({ geo: new THREE.CylinderGeometry(0.085 * h, 0.14 * h, 0.5 * h, 10, 3), color: armColor,
-      gait: motion, cloth:true, matrix: matrixTRS(s * 0.32 * h, 0.88 * h, 0.02 * h, 1, 1, 0.86, 0, 0, s * 0.24) });
-    parts.push({ geo: new THREE.CylinderGeometry(0.143 * h, 0.143 * h, 0.045 * h, 10), color: woman ? 0xe6c5a2 : 0xe1d4b7,
-      gait: motion, matrix: matrixTRS(s * 0.38 * h, 0.64 * h, 0.02 * h, 1, 1, 0.86, 0, 0, s * 0.24) });
-    parts.push({ geo: new THREE.SphereGeometry(0.065 * h, 8, 6), color: skin, gait: motion,
-      matrix: matrixTRS(s * 0.38 * h, 0.59 * h, 0.04 * h, 0.8, 1.15, 0.8) });
+    parts.push({ geo: new THREE.CylinderGeometry(0.08 * h, 0.13 * h, 0.52 * h, 10, 3), color: armColor,
+      gait: motion, cloth:true, matrix: matrixTRS(s * 0.31 * h, 0.88 * h, 0.02 * h, 1, 1, 0.86, 0, 0, s * 0.22) });
+    parts.push({ geo: new THREE.CylinderGeometry(0.138 * h, 0.138 * h, 0.045 * h, 10), color: woman ? 0xe6c5a2 : 0xe1d4b7,
+      gait: motion, matrix: matrixTRS(s * 0.37 * h, 0.64 * h, 0.02 * h, 1, 1, 0.86, 0, 0, s * 0.22) });
+    parts.push({ geo: new THREE.SphereGeometry(0.062 * h, 8, 6), color: skin, gait: motion,
+      matrix: matrixTRS(s * 0.37 * h, 0.59 * h, 0.04 * h, 0.8, 1.15, 0.8) });
   }
-  // 脚
+  
+  // v2: 更自然的腿部比例 — 稍长，稍细
   for (const s of [-1, 1]) {
     const motion = [-s, 0.67 * h, 0, moving ? 2 : 0];
-    parts.push({ geo: new THREE.CapsuleGeometry(0.065 * h, 0.27 * h, 3, 8), color: 0xafa48a, gait: motion,
-      matrix: matrixTRS(s * 0.13 * h, 0.23 * h, 0, 1, 1, 1) });
-    parts.push({ geo: new THREE.SphereGeometry(0.09 * h, 8, 6), color: 0x332a22, gait: motion,
-      matrix: matrixTRS(s * 0.13 * h, 0.07 * h, 0.08 * h, 1, 0.55, 1.65) });
+    parts.push({ geo: new THREE.CapsuleGeometry(0.062 * h, 0.28 * h, 3, 8), color: 0xafa48a, gait: motion,
+      matrix: matrixTRS(s * 0.125 * h, 0.23 * h, 0, 1, 1, 1) });
+    parts.push({ geo: new THREE.SphereGeometry(0.088 * h, 8, 6), color: 0x332a22, gait: motion,
+      matrix: matrixTRS(s * 0.125 * h, 0.07 * h, 0.08 * h, 1, 0.55, 1.65) });
   }
+  
   // 配饰
   if (woman) {
-    parts.push({ geo: new THREE.TorusGeometry(0.24 * h, 0.025 * h, 4, 12), color: 0xd8b25e, matrix: matrixTRS(0, 1.0 * h, 0, 1, 1, 1, Math.PI / 2) });
+    parts.push({ geo: new THREE.TorusGeometry(0.23 * h, 0.024 * h, 4, 12), color: 0xd8b25e, matrix: matrixTRS(0, 1.0 * h, 0, 1, 1, 1, Math.PI / 2) });
     parts.push({geo:new THREE.CylinderGeometry(.009*h,.009*h,.38*h,6),color:0xc4a15f,matrix:matrixTRS(0,headY+.22*h,-.03*h,1,1,1,0,0,Math.PI/2-.18)});
     parts.push({geo:new THREE.SphereGeometry(.025*h,8,6),color:0xc4a15f,matrix:matrixTRS(-.18*h,headY+.25*h,-.03*h)});
   }
   if (guard) {
     parts.push({ geo: new THREE.ConeGeometry(0.09 * h, 0.24 * h, 6), color: 0x8a3d34, matrix: matrixTRS(0, 1.55 * h, 0) });
   }
+  
   // A small travelling fold makes the hem follow the walk, leaving the upper
   // robe and its collar anchored to the torso rather than swaying as one cone.
   if (moving) for (const p of parts) if (p.geo.type === 'LatheGeometry') p.gait = [0, 0, h, 3];
+  
   const geometry = mergeColored(parts);
   const seed = rr(0, TAU);
   geometry.setAttribute('citizenPhase', new THREE.Float32BufferAttribute(new Float32Array(geometry.attributes.position.count).fill(seed), 1));
   return geometry;
 }
 
-const personMat = new THREE.MeshStandardMaterial({vertexColors:true,roughness:.88,
-  normalMap:SurfaceLibrary.cloth(0xffffff).normalMap,normalScale:new THREE.Vector2(.12,.12)});
+// v2: 更真实的布料质感 — 更柔和的法线贴图，更自然的粗糙度
+const personMat = new THREE.MeshStandardMaterial({vertexColors:true,roughness:.85,
+  normalMap:SurfaceLibrary.cloth(0xffffff).normalMap,normalScale:new THREE.Vector2(.1,.1)});
 const citizenClock = { value: 0 };
 const personDepthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
-// Small analytic joint poses retain the shared/instanced crowd budget. This is
-// vertex animation of real limbs, with the identical deformation in shadows.
+
+// v2: 更自然的步态动画 — 更柔和的摆动，更流畅的过渡
 function installCitizenGait(material) {
   material.onBeforeCompile = shader => {
     shader.uniforms.citizenClock = citizenClock;
@@ -678,7 +699,7 @@ function installCitizenGait(material) {
         return mat3(1.,0.,0., 0.,c,s, 0.,-s,c);
       }
       float citizenAngle() {
-        return citizenGait.x * citizenStep() * (citizenGait.w < 1.5 ? 0.32 : 0.25);
+        return citizenGait.x * citizenStep() * (citizenGait.w < 1.5 ? 0.28 : 0.22);
       }`);
     shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', `#include <beginnormal_vertex>
       if (citizenGait.w > 0.5 && citizenGait.w < 2.5) objectNormal = citizenJoint(citizenAngle()) * objectNormal;`);
@@ -689,7 +710,7 @@ function installCitizenGait(material) {
         transformed = citizenJoint(citizenAngle()) * (transformed - pivot) + pivot;
       } else if (citizenGait.w > 2.5) {
         float hem = 1.0 - smoothstep(0.1, 0.85, position.y / citizenGait.z);
-        transformed.z += citizenStep() * hem * position.x * 0.22;
+        transformed.z += citizenStep() * hem * position.x * 0.2;
       }`);
     if(material.isMeshStandardMaterial) {
       shader.fragmentShader='varying float vCitizenTextile;\n'+shader.fragmentShader;
