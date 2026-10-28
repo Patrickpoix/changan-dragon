@@ -1,5 +1,6 @@
 /* ============================================================
    长安城 · 宫苑 / 塔寺 / 曲江
+   v6: 结构精修 — 唐式建筑比例校准、台基层次、重檐结构优化
    v5: 精修核心地标建模细节
    ============================================================ */
 
@@ -274,32 +275,38 @@ function buildImperialCity() {
 
   addWall(-165, -445, 3, 110); addWall(150, -445, 3, 110);
 
-  // 太极殿 — v5 精修
-  addHall(0, -450, 56, 30, { h: 11, roofH: 7.5, roofKind: 'gold', columns: true, doors: true, windows: true, collider: true, platform: 2.0 });
+  // 太极殿 — v6 结构精修：更高大的台基，更雄伟的比例
+  // v6: 台基从2.0提升到3.5米，更符合唐式宫殿高台基特征
+  // v6: 主殿从56×30×11扩大到64×34×13，更雄伟
+  addHall(0, -450, 64, 34, { h: 13, roofH: 8.5, roofKind: 'gold', columns: true, doors: true, windows: true, collider: true, platform: 3.5 });
   
-  addDougongRow(0, 13.5, -435, 50, 12, 1.0);
-  addCaifeng(0, 12.8, -434.5, 52, 0);
-  addLatticeWindow(-15, 8, -434.8, 4, 5, 0);
-  addLatticeWindow(0, 8, -434.8, 5, 5, 0);
-  addLatticeWindow(15, 8, -434.8, 4, 5, 0);
+  // v6: 双层台基 — 更有层次
+  B.stone.add(0, 1.0, -450, 72, 2.0, 42, 0, 0xd8c9ad);
+  B.stone.add(0, 2.8, -450, 66, 1.6, 38, 0, 0xe2d4b9);
+  
+  addDougongRow(0, 16.5, -433, 58, 14, 1.1);
+  addCaifeng(0, 15.8, -432.5, 60, 0);
+  addLatticeWindow(-18, 9, -432.8, 5, 5.5, 0);
+  addLatticeWindow(0, 9, -432.8, 6, 5.5, 0);
+  addLatticeWindow(18, 9, -432.8, 5, 5.5, 0);
   
   // v5: 瓦垄和鸱吻
-  addTileRoofDetail(0, 18.5, -440, 55, 25, 0);
-  addChiwen(-28, 20, -440, 1.2);
-  addChiwen(28, 20, -440, 1.2);
+  addTileRoofDetail(0, 21.5, -440, 62, 28, 0);
+  addChiwen(-31, 23, -440, 1.3);
+  addChiwen(31, 23, -440, 1.3);
   
-  // v5: 栏杆和台阶
-  addBalustrade(0, 2.2, -434, 56, 0);
-  addStairs(0, 0, -430, 12, 2.0, 8);
+  // v6: 殿前更宽的栏杆和台阶
+  addBalustrade(0, 3.6, -431, 64, 0);
+  addStairs(0, 0, -428, 16, 3.5, 10);
   
-  addCorridor(-28, -435, -65, -415, { w: 5 });
-  addCorridor(28, -435, 65, -415, { w: 5 });
-  addHall(0, -480, 38, 21, { h: 9, roofH: 5.6, roofKind: 'gold', collider: true, platform: 1.5 });
-  addPavilion(-85, -430, 5, { h: 4.5, roofH: 3.4 });
-  addPavilion(85, -430, 5, { h: 4.5, roofH: 3.4 });
+  addCorridor(-32, -435, -70, -415, { w: 5 });
+  addCorridor(32, -435, 70, -415, { w: 5 });
+  addHall(0, -485, 42, 23, { h: 10, roofH: 6.0, roofKind: 'gold', collider: true, platform: 2.0 });
+  addPavilion(-90, -430, 5, { h: 5, roofH: 3.6 });
+  addPavilion(90, -430, 5, { h: 5, roofH: 3.6 });
   
-  for (let i = 0; i < 25; i++) addTree(rr(-145, 145), rr(-495, -405), i % 3 ? 'pine' : 'peach', rr(0.8, 1.2));
-  landmarks.push({ id: 'taiji', name: '太极宫', x: 0, z: -455, radius: 40, poem: '九天阊阖开宫殿，万国衣冠拜冕旒', desc: '大唐正宫，太极殿巍然中轴，朱墙青瓦，气象肃穆。' });
+  for (let i = 0; i < 25; i++) addTree(rr(-150, 150), rr(-500, -405), i % 3 ? 'pine' : 'peach', rr(0.8, 1.2));
+  landmarks.push({ id: 'taiji', name: '太极宫', x: 0, z: -455, radius: 45, poem: '九天阊阖开宫殿，万国衣冠拜冕旒', desc: '大唐正宫，太极殿巍然中轴，朱墙青瓦，气象肃穆。' });
 }
 
 // ============================================================
@@ -321,74 +328,76 @@ function buildDamingPalace() {
   addWall(DX - 80, DZ + 55, 155, 5); addWall(DX + 80, DZ + 55, 155, 5);
   addGateHouse(DX, DZ + 55, 68, 25, 14, 6, '丹凤门', true, false);
   
-  // 含元殿：高台 + 双檐
-  B.stone.add(DX, 4.5, DZ - 20, 85, 9, 55, 0, 0xd8c9ad);
-  B.stone.add(DX, 9.2, DZ - 20, 75, 0.8, 45, 0, 0xe2d4b9);
-  addHall(DX, DZ - 22, 68, 34, { h: 14, roofH: 4.8, roofKind: 'gold', roofShape: 'hip', platform: 9.5, collider: false, columns: true, windows: true, redWall: true });
-  groundPatches.push({ x0: DX - 48, x1: DX + 48, z0: DZ - 45, z1: DZ + 1, height: 9.0 });
-  groundPatches.push({ x0: DX - 45, x1: DX + 45, z0: DZ - 42, z1: DZ - 2, height: 9.5 });
-  addCollider(DX - 38, DX + 38, DZ - 35.5, DZ - 8.5, 'hanyuan-hall');
+  // 含元殿：高台 + 双檐 — v6 结构精修
+  // v6: 高台从9米提升到12米，更雄伟
+  // v6: 主殿从68×34扩大到76×38，更舒展
+  B.stone.add(DX, 6.0, DZ - 20, 95, 12, 65, 0, 0xd8c9ad);
+  B.stone.add(DX, 12.4, DZ - 20, 85, 0.8, 55, 0, 0xe2d4b9);
+  addHall(DX, DZ - 22, 76, 38, { h: 16, roofH: 5.2, roofKind: 'gold', roofShape: 'hip', platform: 12.5, collider: false, columns: true, windows: true, redWall: true });
+  groundPatches.push({ x0: DX - 55, x1: DX + 55, z0: DZ - 50, z1: DZ + 1, height: 12.0 });
+  groundPatches.push({ x0: DX - 52, x1: DX + 52, z0: DZ - 47, z1: DZ - 2, height: 12.5 });
+  addCollider(DX - 42, DX + 42, DZ - 38, DZ - 8, 'hanyuan-hall');
   
-  addDougongRow(DX, 24, DZ - 5, 60, 15, 1.2);
-  addCaifeng(DX, 23.3, DZ - 4.8, 62, 0);
+  addDougongRow(DX, 27, DZ - 3, 68, 17, 1.3);
+  addCaifeng(DX, 26.3, DZ - 2.8, 70, 0);
   
-  const upperBase = 26.8, upperH = 5.0, upperEave = upperBase + upperH - 0.05;
-  B.red.add(DX, upperBase + upperH / 2, DZ - 22, 42, upperH, 17, 0, 0x9c4938);
-  B.roofGable.add(DX, upperEave, DZ - 22, 46.5, 6, 21.5, 0, 0x5c7475);
-  addHallCraft(DX, DZ - 22, 42, 17, upperH, upperBase, 6, 0, { hipGable: true, columns: true, simple: false, porch: 0 });
+  const upperBase = 30.0, upperH = 5.5, upperEave = upperBase + upperH - 0.05;
+  B.red.add(DX, upperBase + upperH / 2, DZ - 22, 48, upperH, 19, 0, 0x9c4938);
+  B.roofGable.add(DX, upperEave, DZ - 22, 53, 6.5, 23.5, 0, 0x5c7475);
+  addHallCraft(DX, DZ - 22, 48, 19, upperH, upperBase, 6, 0, { hipGable: true, columns: true, simple: false, porch: 0 });
   
   // v5: 上层瓦垄和鸱吻
-  addTileRoofDetail(DX, upperEave + 1, DZ - 22, 42, 18, 0);
-  addChiwen(DX - 20, upperEave + 4, DZ - 22, 1.5);
-  addChiwen(DX + 20, upperEave + 4, DZ - 22, 1.5);
+  addTileRoofDetail(DX, upperEave + 1, DZ - 22, 46, 20, 0);
+  addChiwen(DX - 23, upperEave + 4.5, DZ - 22, 1.6);
+  addChiwen(DX + 23, upperEave + 4.5, DZ - 22, 1.6);
   
   for (let i = -3; i <= 3; i++) {
-    addLatticeWindow(DX + i * 6, 29, DZ - 13.2, 4, 3.5, 0);
+    addLatticeWindow(DX + i * 6.5, 32.5, DZ - 11.2, 4.5, 4.0, 0);
   }
   
   for (const side of [-1, 1]) {
     for (let i = -5; i <= 5; i++) {
-      const x = DX + i * 4.8, z = DZ - 22 + side * 8.6;
-      B.columns.add(x, 29.3, z, 0.5, 5.0, 0.5, 0, 0xb54d37);
+      const x = DX + i * 5.2, z = DZ - 22 + side * 9.6;
+      B.columns.add(x, 32.8, z, 0.55, 5.5, 0.55, 0, 0xb54d37);
       if (i === 5) continue;
-      B.dark.add(x + 2.4, 29.2, z, 4.0, 2.8, 0.15, 0, 0x363c30);
-      for (let j = -4; j <= 4; j++) B.trim.add(x + 2.4 + j * 0.5, 29.2, z + side * 0.12, 0.11, 2.85, 0.11, 0, 0xc18d56);
-      for (const y of [27.8, 30.0, 30.8]) B.trim.add(x + 2.4, y, z + side * 0.12, 4.2, 0.12, 0.12, 0, 0xb78d5d);
+      B.dark.add(x + 2.6, 32.7, z, 4.4, 3.2, 0.15, 0, 0x363c30);
+      for (let j = -4; j <= 4; j++) B.trim.add(x + 2.6 + j * 0.55, 32.7, z + side * 0.12, 0.12, 3.25, 0.12, 0, 0xc18d56);
+      for (const y of [31.2, 33.6, 34.5]) B.trim.add(x + 2.6, y, z + side * 0.12, 4.6, 0.12, 0.12, 0, 0xb78d5d);
     }
-    for (let j = -3; j <= 3; j++) B.trim.add(DX + side * 21.5, 29.3, DZ - 22 + j * 3.4, 0.18, 5.0, 0.25, 0, 0xc17f4e);
-    for (const y of [27.8, 30.6]) B.trim.add(DX + side * 21.5, y, DZ - 22, 0.2, 0.2, 17, 0, 0xc17f4e);
+    for (let j = -3; j <= 3; j++) B.trim.add(DX + side * 24, 32.8, DZ - 22 + j * 3.8, 0.2, 5.5, 0.28, 0, 0xc17f4e);
+    for (const y of [31.2, 34.2]) B.trim.add(DX + side * 24, y, DZ - 22, 0.22, 0.22, 19, 0, 0xc17f4e);
   }
   
-  B.dark.add(DX, upperEave + 6.0, DZ - 22, 31, 0.5, 0.8, 0, 0x667a6b);
-  addSignMesh('含元殿', DX, 21.5, DZ - 5.5, 0, 9.5, 2.8, { font: 96 });
+  B.dark.add(DX, upperEave + 6.5, DZ - 22, 35, 0.5, 0.9, 0, 0x667a6b);
+  addSignMesh('含元殿', DX, 24.5, DZ - 3.5, 0, 10, 3.0, { font: 100 });
   
   for (let i = -6; i <= 6; i++) {
-    B.trim.add(DX + i * 5.5, 21.3, DZ - 7.2, 4.5, 0.8, 0.3, 0, 0x315c5b);
-    B.trim.add(DX + i * 5.5, 21.3, DZ - 7.0, 3.5, 0.4, 0.1, 0, 0xb39a60);
-    addLantern(DX + i * 5.5, 18.6, DZ - 7.1, 1.4);
+    B.trim.add(DX + i * 6, 24.3, DZ - 5.2, 5.0, 0.9, 0.35, 0, 0x315c5b);
+    B.trim.add(DX + i * 6, 24.3, DZ - 5.0, 4.0, 0.45, 0.12, 0, 0xb39a60);
+    addLantern(DX + i * 6, 21.6, DZ - 5.1, 1.5);
   }
   
-  // v5: 殿前栏杆和台阶
-  addBalustrade(DX, 9.7, DZ - 45, 80, 0);
-  addStairs(DX, 0, DZ - 40, 15, 9.5, 12);
+  // v6: 殿前更宽的栏杆和台阶
+  addBalustrade(DX, 12.7, DZ - 55, 90, 0);
+  addStairs(DX, 0, DZ - 50, 18, 12.5, 14);
   
   for (const side of [-1, 1]) {
-    const tx = DX + side * 52, tz = DZ - 18;
-    B.stone.add(tx, 4, tz, 20, 8, 20, 0, 0xd4c3a4);
-    addPavilion(tx, tz, 6.5, { h: 8, roofH: 5, platform: 8.1, roofKind: 'gold' });
-    addCorridor(DX + side * 28, DZ - 12, tx - side * 6, DZ - 16, { w: 5, floor: 8.1 });
+    const tx = DX + side * 58, tz = DZ - 18;
+    B.stone.add(tx, 5.0, tz, 24, 10, 24, 0, 0xd4c3a4);
+    addPavilion(tx, tz, 7.5, { h: 9, roofH: 5.5, platform: 10.1, roofKind: 'gold' });
+    addCorridor(DX + side * 32, DZ - 12, tx - side * 7, DZ - 16, { w: 5, floor: 10.1 });
   }
   
-  addHall(DX, DZ - 60, 50, 25, { h: 10.5, roofH: 6.0, roofKind: 'gold', platform: 1.5, collider: true, windows: true });
-  addHall(DX, DZ - 95, 42, 21, { h: 9.2, roofH: 5.2, roofKind: 'gold', platform: 1.2, collider: true });
+  addHall(DX, DZ - 65, 55, 27, { h: 11.5, roofH: 6.5, roofKind: 'gold', platform: 1.8, collider: true, windows: true });
+  addHall(DX, DZ - 100, 46, 23, { h: 10.0, roofH: 5.8, roofKind: 'gold', platform: 1.5, collider: true });
   
-  addWater(DX + 95, DZ - 85, 40, 22, 3.1, { wobble: 0.2 });
-  addPavilion(DX + 58, DZ - 88, 4.5, { h: 4.5, roofH: 3.5 });
-  addCorridor(DX, DZ - 75, DX + 70, DZ - 88, { w: 4.2 });
+  addWater(DX + 105, DZ - 90, 45, 25, 3.1, { wobble: 0.2 });
+  addPavilion(DX + 62, DZ - 92, 5.0, { h: 5.0, roofH: 3.8 });
+  addCorridor(DX, DZ - 78, DX + 75, DZ - 92, { w: 4.5 });
   
-  for (let i = 0; i < 50; i++) addTree(rr(DX - 155, DX + 155), rr(DZ - 110, DZ + 40), i % 3 ? 'pine' : 'peach', rr(0.8, 1.3));
-  addSignMesh('大明宫', DX, 22, DZ + 62, 0, 16, 4, { font: 100 });
-  landmarks.push({ id: 'daming', name: '大明宫', x: DX, z: DZ - 25, radius: 60, poem: '金阙晓钟开万户，玉阶仙仗拥千官', desc: '千宫之宫。丹凤门五门洞开，含元殿高踞龙首原，双檐如翼。' });
+  for (let i = 0; i < 50; i++) addTree(rr(DX - 165, DX + 165), rr(DZ - 115, DZ + 40), i % 3 ? 'pine' : 'peach', rr(0.8, 1.3));
+  addSignMesh('大明宫', DX, 24, DZ + 62, 0, 18, 4.5, { font: 110 });
+  landmarks.push({ id: 'daming', name: '大明宫', x: DX, z: DZ - 25, radius: 70, poem: '金阙晓钟开万户，玉阶仙仗拥千官', desc: '千宫之宫。丹凤门五门洞开，含元殿高踞龙首原，双檐如翼。' });
 }
 
 // ============================================================
@@ -416,27 +425,30 @@ function buildXingqing() {
   addPavilion(610, -245, 7, { h: 5.5, roofH: 4.5, platform: 1.2, roofKind: 'gold', collider: true });
   addCorridor(565, -240, 582, -210, { w: 4.5 });
   
-  // 花萼相辉楼（三层）— v5 精修
-  B.stone.add(675, 1.0, -140, 34, 2.0, 25, 0, 0xd2c1a3);
-  addHall(675, -145, 30, 18, { h: 7.5, roofH: 4.2, platform: 1.8, collider: false, windows: true });
+  // 花萼相辉楼（三层）— v6 结构精修：更明显的平座和楼阁层次
+  B.stone.add(675, 1.0, -140, 38, 2.0, 28, 0, 0xd2c1a3);
+  addHall(675, -145, 34, 20, { h: 8.5, roofH: 4.8, platform: 1.8, collider: false, windows: true });
   
-  addDougongRow(675, 10, -135, 26, 8, 0.9);
-  addCaifeng(675, 9.3, -134.8, 28, 0);
+  addDougongRow(675, 11, -133, 30, 9, 1.0);
+  addCaifeng(675, 10.3, -132.8, 32, 0);
   
   // v5: 瓦垄和鸱吻
-  addTileRoofDetail(675, 12, -140, 28, 16, 0);
-  addChiwen(662, 13.5, -140, 1.0);
-  addChiwen(688, 13.5, -140, 1.0);
+  addTileRoofDetail(675, 13.5, -140, 30, 18, 0);
+  addChiwen(660, 15, -140, 1.1);
+  addChiwen(690, 15, -140, 1.1);
+  
+  // v6: 平座层 — 更明显的楼阁结构
+  B.stone.add(675, 10.5, -145, 32, 0.5, 19, 0, 0xd8c9ad);
   
   // v5: 栏杆
-  addBalustrade(675, 2.0, -135, 30, 0);
+  addBalustrade(675, 2.0, -133, 34, 0);
   
-  addHall(675, -150, 23, 11, { h: 6.2, roofH: 3.2, platform: 10.0, upperStorey: true, collider: false, windows: true });
-  addHall(675, -152, 15, 8, { h: 4.5, roofH: 2.6, platform: 17.5, upperStorey: true, collider: false });
-  addHall(545, -130, 28, 17, { h: 8.5, roofH: 4.5, platform: 1.2, collider: true, windows: true });
+  addHall(675, -150, 26, 13, { h: 7.0, roofH: 3.6, platform: 11.0, upperStorey: true, collider: false, windows: true });
+  addHall(675, -152, 17, 9, { h: 5.0, roofH: 2.8, platform: 19.0, upperStorey: true, collider: false });
+  addHall(545, -130, 30, 18, { h: 9.5, roofH: 5.0, platform: 1.5, collider: true, windows: true });
   
-  addSignMesh('花萼相辉楼', 675, 21.5, -155, 0, 14, 3.5, { font: 72 });
-  addSignMesh('沉香亭', 610, 11, -235, 0, 10, 3, { font: 72 });
+  addSignMesh('花萼相辉楼', 675, 23.5, -155, 0, 15, 3.8, { font: 78 });
+  addSignMesh('沉香亭', 610, 11, -235, 0, 11, 3.2, { font: 78 });
   
   for (let i = 0; i < 35; i++) {
     const a = rr(0, TAU), r = rr(1.15, 1.5);
@@ -444,8 +456,8 @@ function buildXingqing() {
     if (tx < 530 || tx > 700 || tz < -260 || tz > -130) continue;
     addTree(tx, tz, i % 2 ? 'willow' : 'peach', rr(0.8, 1.2));
   }
-  for (let i = 0; i < 4; i++) addPavilion(545 + i * 6, -135 - i * 5, 3.2, { h: 5.5, roofH: 2.8 });
-  landmarks.push({ id: 'xingqing', name: '兴庆宫', x: 610, z: -195, radius: 60, poem: '云想衣裳花想容，春风拂槛露华浓', desc: '龙池碧波，沉香亭畔牡丹盛放，花萼相辉楼飞檐三层。' });
+  for (let i = 0; i < 4; i++) addPavilion(545 + i * 6, -135 - i * 5, 3.2, { h: 6.0, roofH: 3.0 });
+  landmarks.push({ id: 'xingqing', name: '兴庆宫', x: 610, z: -195, radius: 65, poem: '云想衣裳花想容，春风拂槛露华浓', desc: '龙池碧波，沉香亭畔牡丹盛放，花萼相辉楼飞檐三层。' });
 }
 
 // ============================================================
@@ -453,17 +465,23 @@ function buildXingqing() {
 // ============================================================
 function addPagoda(x, z, levels, baseW, totalH, name) {
   const stoneMat = new THREE.MeshStandardMaterial({ map: TEX.stone, color: 0xe4cfad, roughness: 1 });
-  B.stone.add(x, 1.5, z, baseW + 15, 3.0, baseW + 15, 0, 0xd2c3a6);
-  let y = 3.0;
+  // v6: 更宽大的台基
+  B.stone.add(x, 1.8, z, baseW + 20, 3.6, baseW + 20, 0, 0xd2c3a6);
+  let y = 3.6;
   const tierH = totalH / levels;
   
   for (let i = 0; i < levels; i++) {
-    const t = i / (levels - 1), w = lerp(baseW, baseW * 0.5, t), hh = tierH * (i === 0 ? 1.18 : 0.94);
+    const t = i / (levels - 1), w = lerp(baseW, baseW * 0.5, t), hh = tierH * (i === 0 ? 1.2 : 0.95);
+    
+    // v6: 塔身
     const m = new THREE.Mesh(new THREE.BoxGeometry(w, hh, w), stoneMat);
     m.position.set(x, y + hh / 2, z); m.castShadow = true; m.receiveShadow = true; scene.add(m);
-    recordFlightObstacle(x, z, w + 2.5, w + 2.5, y + hh + 0.45);
-    B.stone.add(x, y + hh - 0.12, z, w + 1.5, 0.38, w + 1.5, 0, 0xc8b89a);
-    B.dark.add(x, y + hh + 0.2, z, w + 2.8, 0.42, w + 2.8, 0, 0x606e64);
+    
+    // v6: 叠涩塔檐 — 更明显的出檐
+    B.stone.add(x, y + hh + 0.15, z, w + 3.0, 0.4, w + 3.0, 0, 0xc8b89a);
+    B.stone.add(x, y + hh + 0.45, z, w + 2.0, 0.25, w + 2.0, 0, 0xd0c0a0);
+    
+    recordFlightObstacle(x, z, w + 3.5, w + 3.5, y + hh + 0.7);
     
     for (const ry of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
       const c = Math.cos(ry), s = Math.sin(ry), nw = w * 0.28, nh = hh * 0.56;
@@ -483,7 +501,7 @@ function addPagoda(x, z, levels, baseW, totalH, name) {
       put(B.trim, 0, y + hh * 0.2, w / 2 + 0.05, w * 0.8, 0.08, 0.1, 0xc8b89a);
       put(B.trim, 0, y + hh * 0.8, w / 2 + 0.05, w * 0.8, 0.08, 0.1, 0xc8b89a);
     }
-    y += hh + 0.6;
+    y += hh + 0.7;
   }
   
   // v5: 塔刹装饰
@@ -494,8 +512,8 @@ function addPagoda(x, z, levels, baseW, totalH, name) {
   B.trim.add(x, y + 5.5, z, 0.3, 0.3, 0.3, 0, 0xd4af37);
   
   recordFlightObstacle(x, z, 1.5, 1.5, y + 5.8);
-  addCollider(x - baseW / 2 - 2.5, x + baseW / 2 + 2.5, z - baseW / 2 - 2.5, z + baseW / 2 + 2.5, 'pagoda');
-  addSignMesh(name, x, 4.2, z + baseW / 2 + 8, 0, 10, 2.8, { font: 74 });
+  addCollider(x - baseW / 2 - 3.0, x + baseW / 2 + 3.0, z - baseW / 2 - 3.0, z + baseW / 2 + 3.0, 'pagoda');
+  addSignMesh(name, x, 4.5, z + baseW / 2 + 10, 0, 11, 3.0, { font: 80 });
 }
 
 function buildPagodas() {
@@ -513,18 +531,18 @@ function buildPagodas() {
   templeWall(x - 40, z, 3.0, 80); templeWall(x + 40, z, 3.0, 80);
   templeWall(x - 27, 410, 26, 3.0); templeWall(x + 27, 410, 26, 3.0);
   addGateHouse(300, 410, 28, 13, 5, 1.5, '大慈恩寺', false, false);
-  addPagoda(x, z, 7, 15, 60, '大雁塔');
-  addHall(x - 35, z - 23, 23, 14, { h: 7.2, roofH: 4.0, collider: true, windows: true });
-  addHall(x + 35, z - 23, 23, 14, { h: 7.2, roofH: 4.0, collider: true });
+  addPagoda(x, z, 7, 16, 65, '大雁塔');
+  addHall(x - 38, z - 25, 25, 15, { h: 7.5, roofH: 4.2, collider: true, windows: true });
+  addHall(x + 38, z - 25, 25, 15, { h: 7.5, roofH: 4.2, collider: true });
   
-  for (let i = 0; i < 14; i++) addTree(x + rr(-35, 35), z + rr(-30, 35), i % 2 ? 'pine' : 'peach', rr(0.75, 1.05));
-  landmarks.push({ id: 'dayanta', name: '大雁塔', x, z, radius: 35, poem: '塔势如涌出，孤高耸天宫', desc: '大慈恩寺内七层砖塔，玄奘法师译经之所。塔影入云，铃铎随风。' });
+  for (let i = 0; i < 14; i++) addTree(x + rr(-38, 38), z + rr(-32, 38), i % 2 ? 'pine' : 'peach', rr(0.75, 1.05));
+  landmarks.push({ id: 'dayanta', name: '大雁塔', x, z, radius: 40, poem: '塔势如涌出，孤高耸天宫', desc: '大慈恩寺内七层砖塔，玄奘法师译经之所。塔影入云，铃铎随风。' });
 
   const sx = -300, sz = 480;
-  addPagoda(sx, sz, 13, 10.5, 50, '小雁塔');
-  addHall(sx + 28, sz - 10, 20, 13, { h: 6.5, roofH: 3.6, collider: true });
-  for (let i = 0; i < 12; i++) addTree(sx + rr(-28, 28), sz + rr(-26, 32), i % 2 ? 'willow' : 'pine', rr(0.7, 1.0));
-  landmarks.push({ id: 'xiaoyanta', name: '小雁塔', x: sx, z: sz, radius: 28, poem: '晨钟暮鼓传巷陌，塔铃清越送斜阳', desc: '荐福寺内十三层密檐砖塔，晨钟暮鼓，是长安城南的清幽一景。' });
+  addPagoda(sx, sz, 13, 11, 55, '小雁塔');
+  addHall(sx + 30, sz - 12, 22, 14, { h: 7.0, roofH: 3.8, collider: true });
+  for (let i = 0; i < 12; i++) addTree(sx + rr(-30, 30), sz + rr(-28, 34), i % 2 ? 'willow' : 'pine', rr(0.7, 1.0));
+  landmarks.push({ id: 'xiaoyanta', name: '小雁塔', x: sx, z: sz, radius: 32, poem: '晨钟暮鼓传巷陌，塔铃清越送斜阳', desc: '荐福寺内十三层密檐砖塔，晨钟暮鼓，是长安城南的清幽一景。' });
 }
 
 // ============================================================
@@ -540,28 +558,28 @@ function buildQujiang() {
   addPavilion(QX, QZ, 4.5, { h: 4.5, roofH: 3.5, platform: 0.55, roofKind: 'gold' });
   addTree(QX - 9, QZ - 5, 'peach', 0.75);
   
-  // 紫云楼（三层，北岸）— v5 精修
-  B.stone.add(QX - 70, 1.3, QZ - 65, 38, 2.5, 26, 0, 0xd4c3a4);
-  addHall(QX - 70, QZ - 60, 32, 19, { h: 8.0, roofH: 4.5, platform: 2.0, collider: false, windows: true });
-  addHall(QX - 70, QZ - 65, 24, 12, { h: 6.0, roofH: 3.5, platform: 10.5, upperStorey: true, collider: false });
+  // 紫云楼（三层，北岸）— v6 结构精修
+  B.stone.add(QX - 70, 1.5, QZ - 65, 42, 3.0, 28, 0, 0xd4c3a4);
+  addHall(QX - 70, QZ - 60, 36, 21, { h: 9.0, roofH: 5.0, platform: 2.5, collider: false, windows: true });
+  addHall(QX - 70, QZ - 65, 27, 13, { h: 6.5, roofH: 3.8, platform: 12.0, upperStorey: true, collider: false });
   
-  addDougongRow(QX - 70, 11, QZ - 50, 28, 8, 0.9);
-  addCaifeng(QX - 70, 10.3, QZ - 49.8, 30, 0);
+  addDougongRow(QX - 70, 12, QZ - 48, 32, 9, 1.0);
+  addCaifeng(QX - 70, 11.3, QZ - 47.8, 34, 0);
   
   // v5: 瓦垄和鸱吻
-  addTileRoofDetail(QX - 70, 13.5, QZ - 55, 28, 15, 0);
-  addChiwen(QX - 83, 15, QZ - 55, 1.0);
-  addChiwen(QX - 57, 15, QZ - 55, 1.0);
+  addTileRoofDetail(QX - 70, 14.5, QZ - 55, 30, 17, 0);
+  addChiwen(QX - 85, 16, QZ - 55, 1.1);
+  addChiwen(QX - 55, 16, QZ - 55, 1.1);
   
   // v5: 栏杆
-  addBalustrade(QX - 70, 2.5, QZ - 55, 32, 0);
+  addBalustrade(QX - 70, 3.0, QZ - 53, 36, 0);
   
-  addSignMesh('紫云楼', QX - 70, 19.5, QZ - 72, 0, 12.5, 3.4, { font: 72 });
+  addSignMesh('紫云楼', QX - 70, 21, QZ - 72, 0, 14, 3.6, { font: 78 });
   
-  addPavilion(QX + 65, QZ - 40, 6, { h: 5.2, roofH: 4.0, platform: 0.9, roofKind: 'gold', collider: true });
-  addCorridor(QX - 40, QZ - 35, QX + 45, QZ - 35, { w: 4.8 });
-  addCorridor(QX - 40, QZ - 35, QX - 40, QZ - 55, { w: 4.8 });
-  addCorridor(QX + 45, QZ - 35, QX + 45, QZ - 55, { w: 4.8 });
+  addPavilion(QX + 70, QZ - 40, 6.5, { h: 5.5, roofH: 4.2, platform: 1.0, roofKind: 'gold', collider: true });
+  addCorridor(QX - 40, QZ - 35, QX + 45, QZ - 35, { w: 5.0 });
+  addCorridor(QX - 40, QZ - 35, QX - 40, QZ - 55, { w: 5.0 });
+  addCorridor(QX + 45, QZ - 35, QX + 45, QZ - 55, { w: 5.0 });
   
   B.stone.add(QX, 0.12, QZ - 58, 125, 0.22, 10, 0, 0xd8ccb3);
   bridgeZones.push({ points: [[QX-55,QZ-58],[QX+55,QZ-58]], halfWidth:5.2, y:0.22, squareEnds:true });
@@ -640,8 +658,8 @@ function buildQujiang() {
     addTree(tx, tz, i % 3 === 0 ? 'peach' : 'willow', rr(0.9, 1.35));
   }
   
-  addSignMesh('曲江池', QX - 70, 11, QZ - 90, 0, 15, 3.8, { font: 92 });
-  landmarks.push({ id: 'qujiang', name: '曲江池', x: QX, z: QZ, radius: 55, poem: '穿花蛱蝶深深见，点水蜻蜓款款飞', desc: '芙蓉园内曲江潋滟，画舫徐行，柳丝拂水，长安春色尽在此间。' });
+  addSignMesh('曲江池', QX - 70, 12, QZ - 90, 0, 16, 4.0, { font: 100 });
+  landmarks.push({ id: 'qujiang', name: '曲江池', x: QX, z: QZ, radius: 60, poem: '穿花蛱蝶深深见，点水蜻蜓款款飞', desc: '芙蓉园内曲江潋滟，画舫徐行，柳丝拂水，长安春色尽在此间。' });
 
   boatSpecs.push({
     type: 'painted',
