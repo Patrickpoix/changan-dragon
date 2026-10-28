@@ -1,4 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
+ * v105: 集成GLB模型自动加载，检测可用模型并替换程序化建筑
  * v104: 加载所有高精模型生成器（建筑/人物/植被/桥梁/动物/交通工具/奇观）
  */
 
@@ -57,13 +58,21 @@ function populateDeferredModels() {
 function loadHighQualityModels() {
   if (typeof CHANGAN_MODELS === 'undefined') return;
   
-  CHANGAN_MODELS.loadBatch([
-    'dayanta',
-    'pagodaSquare',
-    'templeHall'
-  ], (models) => {
-    console.log('[Boot] 高精模型加载完成:', Object.keys(models));
-  });
+  // v105: 自动检测并加载可用的GLB模型
+  if (CHANGAN_MODELS.autoLoad) {
+    CHANGAN_MODELS.autoLoad().then(availableKeys => {
+      console.log('[Boot] 自动加载可用GLB模型:', availableKeys.length, '个');
+    });
+  } else {
+    // 兜底：手动加载核心模型
+    CHANGAN_MODELS.loadBatch([
+      'dayanta',
+      'pagodaSquare',
+      'templeHall'
+    ], (models) => {
+      console.log('[Boot] 高精模型加载完成:', Object.keys(models));
+    });
+  }
 }
 
 (function boot() {
@@ -126,8 +135,9 @@ function loadHighQualityModels() {
         
         loadHighQualityModels();
         
-        console.log('[Boot] v104 核心模块加载完成');
+        console.log('[Boot] v105 核心模块加载完成');
         console.log('[Boot] 高精模型生成器已就绪:', typeof ChangAnModelLibrary !== 'undefined' ? '是' : '否');
+        console.log('[Boot] GLB模型加载器已就绪:', typeof CHANGAN_MODELS !== 'undefined' ? '是' : '否');
       }, 500);
     };
     document.head.appendChild(s);
