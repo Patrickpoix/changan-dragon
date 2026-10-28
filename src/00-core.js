@@ -1,7 +1,7 @@
 /* ============================================================
    龙游长安 · 核心场景 / 工具 / 材质 / 城市数据
+   v9: 精修PBR材质和纹理质量 — 增加更精细的法线和粗糙度贴图
    v8: 真实长安城比例 — 地图扩大到约12×11公里，匹配唐长安84平方公里规模
-   v7: 电影级视觉升级 — 更强光照对比、更精致材质、更丰富细节
    ============================================================ */
 
 const $ = (s, el = document) => el.querySelector(s);
@@ -116,6 +116,38 @@ function makeTexture(w, h, draw, { repeat = [1, 1], colorSpace = THREE.SRGBColor
   return tex;
 }
 
+// v9: 生成法线贴图的辅助函数
+function makeNormalMap(w, h, heightFn) {
+  const cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  const ctx = cv.getContext('2d');
+  const img = ctx.createImageData(w, h);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const hL = heightFn((x - 1 + w) % w, y);
+      const hR = heightFn((x + 1) % w, y);
+      const hD = heightFn(x, (y - 1 + h) % h);
+      const hU = heightFn(x, (y + 1) % h);
+      const dx = (hR - hL) * 2;
+      const dy = (hU - hD) * 2;
+      const len = Math.sqrt(dx * dx + dy * dy + 1);
+      const nx = -dx / len;
+      const ny = -dy / len;
+      const nz = 1 / len;
+      const i = (y * w + x) * 4;
+      img.data[i] = (nx * 0.5 + 0.5) * 255;
+      img.data[i + 1] = (ny * 0.5 + 0.5) * 255;
+      img.data[i + 2] = (nz * 0.5 + 0.5) * 255;
+      img.data[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(cv);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.colorSpace = THREE.NoColorSpace;
+  return tex;
+}
+
 const TEX = {};
 
 TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
@@ -143,6 +175,11 @@ TEX.plaster = makeTexture(256, 256, (ctx, w, h) => {
   }
 }, { repeat: [2, 2] });
 
+// v9: 灰泥法线贴图
+TEX.plasterNormal = makeNormalMap(128, 128, (x, y) => {
+  return Math.sin(x * 0.1) * 0.1 + Math.sin(y * 0.13) * 0.1 + Math.random() * 0.05;
+});
+
 TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   for (let i = 0; i < 40; i++) {
@@ -159,6 +196,11 @@ TEX.wood = makeTexture(256, 256, (ctx, w, h) => {
     ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
   }
 }, { repeat: [1, 2] });
+
+// v9: 木头法线贴图
+TEX.woodNormal = makeNormalMap(128, 128, (x, y) => {
+  return Math.sin(y * 0.15) * 0.2 + Math.random() * 0.03;
+});
 
 TEX.stone = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
@@ -181,6 +223,17 @@ TEX.stone = makeTexture(256, 256, (ctx, w, h) => {
   }
 }, { repeat: [1, 1] });
 
+// v9: 石头法线贴图
+TEX.stoneNormal = makeNormalMap(128, 128, (x, y) => {
+  const sw = 64, sh = 48;
+  const gx = Math.floor(x / sw), gy = Math.floor(y / sh);
+  const off = (gy % 2) * sw / 2;
+  const lx = (x - off) % sw;
+  const ly = y % sh;
+  const edge = Math.min(lx, sw - lx, ly, sh - ly);
+  return edge < 2 ? -0.5 : 0.1 + Math.random() * 0.1;
+});
+
 TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
   for (let x = 0; x < w; x += 12) {
@@ -196,6 +249,13 @@ TEX.roof = makeTexture(256, 256, (ctx, w, h) => {
     ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(0, y + 2, w, 1);
   }
 }, { repeat: [4, 3] });
+
+// v9: 屋顶法线贴图
+TEX.roofNormal = makeNormalMap(128, 128, (x, y) => {
+  const tx = (x % 12) - 6;
+  const ty = (y % 20) - 10;
+  return Math.cos(tx * 0.5) * 0.3 + Math.cos(ty * 0.3) * 0.1;
+});
 
 TEX.bark = makeTexture(128, 256, (ctx, w, h) => {
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
@@ -249,16 +309,17 @@ TEX.dirt = makeTexture(512, 512, (ctx, w, h) => {
 }, { repeat: [20, 20] });
 
 // ---------------------------------------------------------------- MAT materials
+// v9: 增加法线贴图提升PBR质感
 const MAT = {
-  plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xffffff, roughness: 0.75, metalness: 0.05 }),
-  plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, color: 0xfff5e0, roughness: 0.72, metalness: 0.05 }),
-  wood: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
-  red: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0xffffff, roughness: 0.45, metalness: 0.15 }),
-  stone: new THREE.MeshStandardMaterial({ map: TEX.stone, color: 0xffffff, roughness: 0.82, metalness: 0.05 }),
-  roof: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xffffff, roughness: 0.75, metalness: 0.08 }),
-  roofGlazed: new THREE.MeshStandardMaterial({ map: TEX.roof, color: 0xe8f0ff, roughness: 0.3, metalness: 0.35 }),
+  plaster: new THREE.MeshStandardMaterial({ map: TEX.plaster, normalMap: TEX.plasterNormal, normalScale: new THREE.Vector2(0.3, 0.3), color: 0xffffff, roughness: 0.75, metalness: 0.05 }),
+  plasterWarm: new THREE.MeshStandardMaterial({ map: TEX.plaster, normalMap: TEX.plasterNormal, normalScale: new THREE.Vector2(0.3, 0.3), color: 0xfff5e0, roughness: 0.72, metalness: 0.05 }),
+  wood: new THREE.MeshStandardMaterial({ map: TEX.wood, normalMap: TEX.woodNormal, normalScale: new THREE.Vector2(0.4, 0.4), color: 0xffffff, roughness: 0.55, metalness: 0.1 }),
+  red: new THREE.MeshStandardMaterial({ map: TEX.wood, normalMap: TEX.woodNormal, normalScale: new THREE.Vector2(0.4, 0.4), color: 0xffffff, roughness: 0.45, metalness: 0.15 }),
+  stone: new THREE.MeshStandardMaterial({ map: TEX.stone, normalMap: TEX.stoneNormal, normalScale: new THREE.Vector2(0.5, 0.5), color: 0xffffff, roughness: 0.82, metalness: 0.05 }),
+  roof: new THREE.MeshStandardMaterial({ map: TEX.roof, normalMap: TEX.roofNormal, normalScale: new THREE.Vector2(0.6, 0.6), color: 0xffffff, roughness: 0.75, metalness: 0.08 }),
+  roofGlazed: new THREE.MeshStandardMaterial({ map: TEX.roof, normalMap: TEX.roofNormal, normalScale: new THREE.Vector2(0.6, 0.6), color: 0xe8f0ff, roughness: 0.3, metalness: 0.35 }),
   gold: new THREE.MeshStandardMaterial({ color: C.gold, roughness: 0.25, metalness: 0.75 }),
-  dark: new THREE.MeshStandardMaterial({ map: TEX.wood, color: 0x999999, roughness: 0.85, metalness: 0.02 }),
+  dark: new THREE.MeshStandardMaterial({ map: TEX.wood, normalMap: TEX.woodNormal, normalScale: new THREE.Vector2(0.4, 0.4), color: 0x999999, roughness: 0.85, metalness: 0.02 }),
   leaf: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.85, metalness: 0 }),
   trunk: new THREE.MeshStandardMaterial({ map: TEX.bark, color: 0xffffff, roughness: 0.88, metalness: 0 }),
   blossom: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0 }),
