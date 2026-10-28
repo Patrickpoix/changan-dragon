@@ -1,5 +1,5 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v102: 精简整合 — 7个核心高质量模块
+ * v103: 加入高精GLB模型加载器
  */
 
 const smallScripts = [
@@ -10,7 +10,7 @@ const smallScripts = [
   'src/11-shorelines.js','src/12-landmarks.js','src/20-character.js',
   'src/25-exploration.js','src/25b-film-shots-extra.js','src/26-extra-places.js',
   'src/26b-extra-places-2.js','src/27-session.js','src/27b-extra-poems.js',
-  'src/27c-extra-poems-2.js','src/28-weather.js','src/99-safe-init.js',
+  'src/27c-extra-poems-2.js','src/28-weather.js','src/30-models.js','src/99-safe-init.js',
 ];
 
 const deferredBig = ['assets/scene-materials.js', 'assets/runtime-models.js'];
@@ -40,6 +40,20 @@ function populateDeferredModels() {
     console.log('[Boot] 延迟素材载入完成: ' + assets.count + '个物件');
   }).catch(err => console.warn('[Boot] 延迟素材载入失败:', err.message));
   return true;
+}
+
+// 加载高精GLB模型（如果存在）
+function loadHighQualityModels() {
+  if (typeof CHANGAN_MODELS === 'undefined') return;
+  
+  // 优先加载核心地标模型
+  CHANGAN_MODELS.loadBatch([
+    'dayanta',        // 大雁塔
+    'pagodaSquare',   // 小雁塔
+    'templeHall'      // 寺庙大殿
+  ], (models) => {
+    console.log('[Boot] 高精模型加载完成:', Object.keys(models));
+  });
 }
 
 (function boot() {
@@ -83,9 +97,9 @@ function populateDeferredModels() {
     s.async = false;
     s.onload = () => {
       setTimeout(() => {
-        // ===== 核心高质量精修模块（按优先级）=====
+        // ===== 核心精修模块（整合后保留）=====
         const coreScripts = [
-          'cinematic-core.js',       // 0. 电影级视觉核心（最先加载）
+          'cinematic-core.js',       // 0. 电影级视觉核心
           'sample-district.js',     // 1. 明德门—朱雀大街样板区
           'daming-palace.js',        // 2. 大明宫精修
           'pagoda-qujiang.js',       // 3. 大雁塔与曲江池
@@ -101,7 +115,10 @@ function populateDeferredModels() {
           document.head.appendChild(el);
         });
         
-        console.log('[Boot] 7个核心精修模块加载完成');
+        // 加载高精GLB模型（如果assets/models/目录下有文件）
+        loadHighQualityModels();
+        
+        console.log('[Boot] 核心模块加载完成');
       }, 500);
     };
     document.head.appendChild(s);
