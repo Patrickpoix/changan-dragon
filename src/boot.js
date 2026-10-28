@@ -1,10 +1,22 @@
 /* Local, ordered boot of shared engine and scene modules.
- * v103: 加入高精GLB模型加载器
+ * v104: 加载所有高精模型生成器（建筑/人物/植被/桥梁/动物/交通工具/奇观）
  */
 
 const smallScripts = [
   'vendor/three.min.js','vendor/rendering-addons.js',
   'assets/materials.js','assets/character-faces.js','assets/boat-hulls.js',
+  // 高精模型生成器
+  'assets/models/hq-architecture.js',
+  'assets/models/pro-roof-builder.js',
+  'assets/models/tang-architecture-pro.js',
+  'assets/models/fantasy-wonder-builder.js',
+  'assets/models/tang-character-builder.js',
+  'assets/models/tang-nature-builder.js',
+  'assets/models/tang-bridge-builder.js',
+  'assets/models/tang-animal-builder.js',
+  'assets/models/tang-vehicle-builder.js',
+  'assets/models/model-library.js',
+  // 核心引擎
   'src/00-core.js','src/04-compatibility.js','src/05-rendering.js','src/06-surfaces.js',
   'src/07-water.js','src/08-assets.js','src/09-botany.js','src/10-world.js',
   'src/11-shorelines.js','src/12-landmarks.js','src/20-character.js',
@@ -42,15 +54,13 @@ function populateDeferredModels() {
   return true;
 }
 
-// 加载高精GLB模型（如果存在）
 function loadHighQualityModels() {
   if (typeof CHANGAN_MODELS === 'undefined') return;
   
-  // 优先加载核心地标模型
   CHANGAN_MODELS.loadBatch([
-    'dayanta',        // 大雁塔
-    'pagodaSquare',   // 小雁塔
-    'templeHall'      // 寺庙大殿
+    'dayanta',
+    'pagodaSquare',
+    'templeHall'
   ], (models) => {
     console.log('[Boot] 高精模型加载完成:', Object.keys(models));
   });
@@ -97,15 +107,14 @@ function loadHighQualityModels() {
     s.async = false;
     s.onload = () => {
       setTimeout(() => {
-        // ===== 核心精修模块（整合后保留）=====
         const coreScripts = [
-          'cinematic-core.js',       // 0. 电影级视觉核心
-          'sample-district.js',     // 1. 明德门—朱雀大街样板区
-          'daming-palace.js',        // 2. 大明宫精修
-          'pagoda-qujiang.js',       // 3. 大雁塔与曲江池
-          'palaces.js',              // 4. 兴庆宫与太极宫
-          'atmosphere.js',           // 5. 全局氛围
-          'wonders-v3.js',            // 6. 仙侠奇观
+          'cinematic-core.js',
+          'sample-district.js',
+          'daming-palace.js',
+          'pagoda-qujiang.js',
+          'palaces.js',
+          'atmosphere.js',
+          'wonders-v3.js',
         ];
         
         coreScripts.forEach((script) => {
@@ -115,10 +124,10 @@ function loadHighQualityModels() {
           document.head.appendChild(el);
         });
         
-        // 加载高精GLB模型（如果assets/models/目录下有文件）
         loadHighQualityModels();
         
-        console.log('[Boot] 核心模块加载完成');
+        console.log('[Boot] v104 核心模块加载完成');
+        console.log('[Boot] 高精模型生成器已就绪:', typeof ChangAnModelLibrary !== 'undefined' ? '是' : '否');
       }, 500);
     };
     document.head.appendChild(s);
