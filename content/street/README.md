@@ -24,6 +24,7 @@ python tools/hero_street_test.py \
 | 用途 | 来源 | 许可 | 取得/加工 |
 | --- | --- | --- | --- |
 | 单层铺面、两层酒肆 | 本项目 `content/architecture` 参数化源码 | 本项目代码；miniLibs 构件算法 MIT | Blender 4.3.2 生成；GLB 见 `assets/kit/architecture` |
+| 男/女成人研究人物 | 现有 `assets/library/preparation-study/assembly.glb`，由本项目脚本独立导出 | MakeHuman 基体与 macro target CC0；唐服试片为本项目工作 | `resident-male.glb` / `resident-female.glb`，袖肩接缝仍待返工 |
 | 木、瓦、灰泥、土、布 PBR | Poly Haven / ambientCG，具体作者和固定来源在各自 `assets/library` 目录 | CC0 | 512 派生贴图；原文件与哈希保留 |
 | 街道研究树 | 本项目 EZ-Tree 固定提交生成 | MIT 代码；作者叶片许可见 `assets/library/vegetation` | LOD1 研究资产，仍标注未通过最终美术 |
 | `tree_small_02` | Poly Haven / Rico Cilliers | CC0 | 固定来源、MD5/SHA256 与运行时 GLB 保留 |
@@ -36,5 +37,5 @@ python tools/hero_street_test.py \
 
 已通过真实浏览器的桌面和 844×390 手机横屏尺寸模拟、键盘/触摸操作与
 近看机位，但这不等于手机真机帧率、真机触摸或本地文件。人工查看仍可见：
-龙首偏球、人物服装偏套筒、白墙和店面重复、街面生活细节不足。因此
+龙首偏球、人物袖肩接缝仍为研究级、白墙和店面重复、街面生活细节不足。因此
 `finalArtAccepted=false`，不把功能通过当作整街美术验收。

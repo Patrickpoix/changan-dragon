@@ -105,6 +105,14 @@ function kitMaterialSet() {
     mat_review_ground: make(0x8c8880, 0.92, 'mud', 6),
     mat_ruler: make(0x2e2e2e, 0.6, null, 0),
     mat_cloth: make(0xc45f4e, 0.9, 'cloth', 2),
+    mat_hair: make(0x302e29, 0.78, null, 0),
+    mat_skin: make(0xd3a583, 0.74, null, 0),
+    mat_belt: make(0xc9b68f, 0.82, 'cloth', 1),
+    mat_garment: make(0x526b78, 0.88, 'cloth', 2),
+    mat_red_cloth: make(0xa75c46, 0.9, 'cloth', 2),
+    mat_silk: make(0xc29561, 0.82, 'cloth', 2),
+    mat_eye: make(0xe7dfca, 0.36, null, 0),
+    mat_shoe: make(0x302e29, 0.82, null, 0),
   };
   materials.mat_cloth.side = THREE.DoubleSide;
   return materials;
@@ -128,12 +136,57 @@ function kitApplySharedMaterials(root) {
   root.traverse((node) => {
     if (!node.isMesh) return;
     const list = Array.isArray(node.material) ? node.material : [node.material];
-    node.material = list.map((mat) =>
-      mat && mat.name ? kitResolveMaterial(mat.name) : mat
-    );
+    node.material = list.map((mat) => {
+      const name = mat && mat.name ? mat.name : '';
+      if (name) return kitResolveMaterial(name);
+      // Character exports may lose material names while preserving node names.
+      // Recover semantic classes from the mesh node; never leave a pink fallback.
+      const nodeName = String(node.name || '').toLowerCase();
+      if (/shoe/.test(nodeName)) return kitResolveMaterial('mat_shoe');
+      if (/scalp|hair|eyebrow|pupil/.test(nodeName)) return kitResolveMaterial('mat_hair');
+      if (/head_neck|hands|skin/.test(nodeName)) return kitResolveMaterial('mat_skin');
+      if (/belt/.test(nodeName)) return kitResolveMaterial('mat_belt');
+      if (/sleeve|garment|robe|skirt/.test(nodeName)) return kitResolveMaterial('mat_garment');
+      if (window.GAME && GAME.initErrors) {
+        GAME.initErrors.push('kit: unnamed material on "' + nodeName + '"');
+      }
+      return mat;
+    });
     if (node.material.length === 1) node.material = node.material[0];
     node.castShadow = true;
     node.receiveShadow = true;
+  });
+}
+
+/* 人物研究 GLB 的材质名是中文语义的可读英文名，不能落入建筑材质的粉色兜底。 */
+function kitApplyCharacterMaterials(root) {
+  const semantic = {
+    'warm human skin': 'mat_skin',
+    'hair pupils and mouth': 'mat_hair',
+    'indigo cloth': 'mat_garment',
+    'scarf and belt': 'mat_red_cloth',
+    'muted ochre silk silhouette': 'mat_silk',
+  };
+  const byNode = (node) => {
+    const name = String(node.name || '').toLowerCase();
+    if (/shoe/.test(name)) return 'mat_shoe';
+    if (/eyebrow|scalp|hair/.test(name)) return 'mat_hair';
+    if (/iris|eyeball|pupil/.test(name)) return 'mat_eye';
+    if (/head_neck|hands|skin|eyeball/.test(name)) return 'mat_skin';
+    if (/belt/.test(name)) return 'mat_belt';
+    if (/sleeve|garment|robe|skirt/.test(name)) return 'mat_garment';
+    return null;
+  };
+  root.traverse((node) => {
+    if (!node.isMesh) return;
+    const list = Array.isArray(node.material) ? node.material : [node.material];
+    node.material = list.map((material) => {
+      const name = material && material.name ? material.name : '';
+      const target = semantic[name];
+      const nodeTarget = byNode(node);
+      return target ? kitResolveMaterial(target) : nodeTarget ? kitResolveMaterial(nodeTarget) : material;
+    });
+    if (node.material.length === 1) node.material = node.material[0];
   });
 }
 
@@ -153,6 +206,7 @@ function kitLoad(name, url) {
       (gltf) => {
         const root = gltf.scene;
         kitApplySharedMaterials(root);
+        kitApplyCharacterMaterials(root);
         root.updateMatrixWorld(true);
         KitLibrary.stats.loaded += 1;
         resolve(root);

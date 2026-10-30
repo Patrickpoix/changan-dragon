@@ -11,7 +11,9 @@
 - 新建 `content/street/index.html`、`src/hero-street.js`、`tools/hero_street_test.py`：
   真实三维街口、19 个建筑实例、摊位、灯笼、旗幌、人物、7 株研究街树与
   3 株 Poly Haven CC0 成熟树；共享 PBR 材质与 GLB 几何。可步行、飞行、
-  近看小龙；手机横屏有触摸摇杆与 44px 控件。
+  近看小龙；手机横屏有触摸摇杆与 44px 控件。人物已从现有 MakeHuman CC0
+  基体与唐服研究组合独立导出男/女共享 GLB，替换原先的套筒人物；袖肩
+  接缝仍是研究资产，不能称为生产完成。
 - 浏览器证据：`docs/qa-evidence/hero-street.json` 与四张精选图。桌面
   1280×720、手机横屏 844×390 实际通过入场/键盘与触摸移动/飞行升降/
   近看/返回/布局；glError=0，零页面、控制台与坏请求。只证明本次

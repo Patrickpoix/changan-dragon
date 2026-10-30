@@ -13,6 +13,8 @@ import os
 import sys
 
 import bpy
+import mathutils
+from mathutils import Vector
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tang_kit as kit
@@ -219,6 +221,98 @@ def count_triangles(objects):
         mesh.calc_loop_triangles()
         total += len(mesh.loop_triangles)
     return total
+
+
+def export_character_types(out_dir):
+    """从现有 preparation-study 组合中单独抽出两位自然成人研究人物。
+
+    这不是把整张研究台搬进首街。两位人物来自同一 GLB 中已实际检查的
+    MakeHuman CC0 基体与项目唐服试片；原组合保留不动，只按节点选择导出
+    独立运行文件，方便首街共享几何与变换。
+    """
+    source = os.path.abspath(
+        os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "assets",
+            "library",
+            "preparation-study",
+            "assembly.glb",
+        )
+    )
+    if not os.path.isfile(source):
+        raise FileNotFoundError("missing character study: " + source)
+    records = []
+    for node, output, label in (
+        ("round_collar_resident", "resident-male.glb", "round_collar_male"),
+        ("ruqun_resident", "resident-female.glb", "ruqun_female"),
+    ):
+        kit.reset_scene()
+        bpy.ops.import_scene.gltf(filepath=source)
+        root = bpy.data.objects.get(node)
+        if root is None:
+            normalized = node.replace("_", " ")
+            root = next(
+                (
+                    obj
+                    for obj in bpy.context.scene.objects
+                    if obj.name == normalized
+                    or obj.name.replace(" ", "_") == node
+                    or obj.name.startswith(normalized)
+                ),
+                None,
+            )
+        if root is None:
+            raise RuntimeError("character node missing: " + node)
+        # 只保留该人物对象树，其他研究台内容不进入独立运行 GLB。
+        keep = {root}
+        for child in root.children_recursive:
+            keep.add(child)
+        for obj in list(bpy.context.scene.objects):
+            if obj not in keep:
+                bpy.data.objects.remove(obj, do_unlink=True)
+        bpy.context.view_layer.update()
+        # 研究组合保留 T 型手臂；首街需要日常站姿。旋转整个袖网格而不是
+        # 逐顶点扭形，袖肩接缝仍需生产级返工，但不能把袖子切成碎片。
+        for obj in keep:
+            if obj.type != "MESH":
+                continue
+            lower = obj.name.lower()
+            if "sleeve" not in lower:
+                continue
+            bounds = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
+            center = sum(bounds, Vector()) / len(bounds)
+            side = -1.0 if center.x < 0 else 1.0
+            pivot = Vector((side * 0.18, 0.0, 1.35))
+            offset = obj.location - pivot
+            rotation = mathutils.Matrix.Rotation(side * math.radians(62.0), 4, "Y")
+            obj.location = pivot + (rotation @ offset)
+            obj.rotation_euler.y += side * math.radians(62.0)
+        meshes = [o for o in keep if o.type == "MESH"]
+        bounds_lo = Vector((1e9, 1e9, 1e9))
+        bounds_hi = Vector((-1e9, -1e9, -1e9))
+        for obj in meshes:
+            for corner in obj.bound_box:
+                point = obj.matrix_world @ Vector(corner)
+                bounds_lo = Vector((min(bounds_lo[i], point[i]) for i in range(3)))
+                bounds_hi = Vector((max(bounds_hi[i], point[i]) for i in range(3)))
+        triangles = count_triangles(meshes)
+        destination = os.path.join(out_dir, output)
+        export_glb(destination, meshes)
+        records.append(
+            {
+                "id": label,
+                "file": output,
+                "triangles": triangles,
+                "dimensions_m": tuple(
+                    round(bounds_hi[i] - bounds_lo[i], 3) for i in range(3)
+                ),
+                "source": "assets/library/preparation-study/assembly.glb",
+                "source_node": node,
+                "third_party": "MakeHuman CC0 body and targets; project Tang clothing study",
+                "visual_status": "study; sleeve/neck seams need production retopology",
+            }
+        )
+    return records
 
 
 def main():
@@ -464,6 +558,7 @@ def main():
         export_glb(os.path.join(out_dir, "column-%s.glb" % grade), [col])
 
     with open(os.path.join(out_dir, "kit-report.json"), "w", encoding="utf-8") as fh:
+        report["character_types"] = export_character_types(out_dir)
         json.dump(report, fh, ensure_ascii=False, indent=2)
     print("KIT_BUILD_OK", json.dumps(report, ensure_ascii=False)[:800])
 

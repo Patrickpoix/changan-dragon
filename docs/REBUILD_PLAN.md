@@ -108,13 +108,15 @@
 ## 2026-10-31 首街实况
 
 - 独立页面 `content/street/index.html` 与运行脚本 `src/hero-street.js`。
-- 实际复用 `shop-shijing.glb`、`tavern-shijing.glb`；运行包只加载 2 个
-  GLB，19 个建筑实例，街树另有 7 个研究 LOD1 与 3 个 Poly Haven CC0 树。
+- 实际复用 `shop-shijing.glb`、`tavern-shijing.glb` 与从现有
+  `preparation-study/assembly.glb` 独立导出的男/女成人研究人物；页面加载
+  4 个 GLB、29 个实例。街树另有 7 个研究 LOD1 与 3 个 Poly Haven CC0 树。
 - `tools/hero_street_test.py` 已真实执行 1280×720 与 844×390：入场、键盘/
   触摸移动、飞行升降、近看、返回、44px 控件、无溢出、glError=0、零页面/
   控制台/坏请求。证据在 `qa-evidence/hero-street*.png` 与 `hero-street.json`。
-- **美术未通过：**龙首仍偏球、颊鬃和鳞层未达到概念；人物仍偏套筒；建筑
-  白墙与店面重复；街面缺少真实排水、摊位层次与生活细节。软件渲染不代表
+- **美术未通过：**龙首仍偏球、颊鬃和鳞层未达到概念；新人物自然头脸与
+  发髻已替换套筒，但袖肩接缝仍是研究资产；建筑白墙与店面重复；街面缺少
+  真实排水、摊位层次与生活细节。软件渲染不代表
   手机真机帧率；桌面/手机尺寸模拟不等于真机触摸与本地文件。
 - 当前工作树的 313 个已跟踪文件显示为修改，`git diff --ignore-cr-at-eol`
   为空，属 Windows CRLF 表现；没有暂存或提交这些文件，也不覆盖用户原件。

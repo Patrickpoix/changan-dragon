@@ -159,5 +159,35 @@
       "height_m": 4.693
     }
   ],
-  "note": "唐构构件库，尺寸按材分制换算"
+  "note": "唐构构件库，尺寸按材分制换算",
+  "character_types": [
+    {
+      "id": "round_collar_male",
+      "file": "resident-male.glb",
+      "triangles": 25044,
+      "dimensions_m": [
+        1.139,
+        0.568,
+        1.801
+      ],
+      "source": "assets/library/preparation-study/assembly.glb",
+      "source_node": "round_collar_resident",
+      "third_party": "MakeHuman CC0 body and targets; project Tang clothing study",
+      "visual_status": "study; sleeve/neck seams need production retopology"
+    },
+    {
+      "id": "ruqun_female",
+      "file": "resident-female.glb",
+      "triangles": 23680,
+      "dimensions_m": [
+        1.151,
+        0.508,
+        1.741
+      ],
+      "source": "assets/library/preparation-study/assembly.glb",
+      "source_node": "ruqun_resident",
+      "third_party": "MakeHuman CC0 body and targets; project Tang clothing study",
+      "visual_status": "study; sleeve/neck seams need production retopology"
+    }
+  ]
 }

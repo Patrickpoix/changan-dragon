@@ -809,13 +809,23 @@
       mat_roof_ridge: materials.darkWood,
       mat_plaster: materials.plaster,
       mat_cloth: materials.cloth,
+      mat_hair: materials.hair,
+      mat_skin: materials.skin,
+      mat_belt: materials.plasterWarm,
+      mat_garment: materials.clothBlue,
+      mat_red_cloth: materials.red,
+      mat_silk: materials.clothOchre,
+      mat_eye: materials.eyeWhite,
+      mat_shoe: materials.hair,
     });
     state.kitStats = KitLibrary.stats;
 
     setProgress(0.2, '装起西市木构');
-    const [shopRoot, tavernRoot] = await Promise.all([
+    const [shopRoot, tavernRoot, residentMale, residentFemale] = await Promise.all([
       kitLoad('shop-shijing', '/assets/kit/architecture/shop-shijing.glb'),
       kitLoad('tavern-shijing', '/assets/kit/architecture/tavern-shijing.glb'),
+      kitLoad('resident-male', '/assets/kit/architecture/resident-male.glb'),
+      kitLoad('resident-female', '/assets/kit/architecture/resident-female.glb'),
     ]);
     // 源 GLB 保留分件网格；首街只把真实实例放进场景，背后的屋海由远景塔与
     // 两侧连续街墙建立纵深，不再重复加载 16 个不可读的完整建筑。
@@ -839,7 +849,7 @@
 
     setProgress(0.68, '摆摊、点灯、落人');
     createStreetProps();
-    createPeople();
+    createPeople({ male: residentMale, female: residentFemale });
     await addStreetTrees();
     setProgress(0.88, '让小龙落到街口');
     dragon = createDragon();
@@ -912,6 +922,31 @@
       tree.name = 'street-mature-tree';
       scene.add(tree);
     }
+  }
+
+  function makeCharacterMaterialSet(root) {
+    const sourceMaterials = new Map();
+    const recolored = [
+      ['cloth', 0x526b78],
+      ['silk', 0xc29561],
+      ['red', 0xa75c46],
+      ['skin', 0xd3a583],
+      ['dark', 0x302e29],
+    ];
+    root.traverse((node) => {
+      if (!node.isMesh) return;
+      const source = Array.isArray(node.material) ? node.material[0] : node.material;
+      if (!source) return;
+      const key = source.name || 'unnamed';
+      if (!sourceMaterials.has(key)) {
+        const material = source.clone();
+        material.side = THREE.FrontSide;
+        material.roughness = Math.max(0.68, material.roughness ?? 0.8);
+        material.metalness = 0;
+        sourceMaterials.set(key, material);
+      }
+      node.material = sourceMaterials.get(key);
+    });
   }
 
   function canopyGeometry(width, depth) {
@@ -1340,7 +1375,7 @@
     return group;
   }
 
-  function createPeople() {
+  function createPeople(characterRoots = {}) {
     const people = [
       [-4.35, 9.0, 0.1, { robe: 0x8d5a45, female: false, scale: 1.0 }],
       [4.45, 3.0, -0.25, { robe: 0x596e70, female: true, scale: 0.94 }],
@@ -1354,10 +1389,31 @@
       [-3.6, 27.5, 2.3, { robe: 0x9b7355, female: true, scale: 0.86 }],
     ];
     for (const [x, z, ry, options] of people) {
-      const person = makeRobeFigure(options);
-      person.position.set(x, 0.03, z);
-      person.rotation.y = ry;
-      person.userData.baseY = person.position.y;
+      const source = options.female ? characterRoots.female : characterRoots.male;
+      let person;
+      if (source) {
+        person = kitInstance(source, {
+          position: [x, 0.03, z],
+          rotationY: ry,
+          scale: options.scale,
+        });
+        person.traverse((node) => {
+          if (!node.isMesh) return;
+          node.castShadow = true;
+          node.receiveShadow = true;
+        });
+        person.userData.isPerson = true;
+        person.userData.phase = Math.random() * Math.PI * 2;
+        person.userData.baseY = 0.03;
+        // 共享 GLB 的人物材质仍保留原始皮肤/织物色，不能把整身都染成粉色。
+        person.userData.sharedCharacter = true;
+        scene.add(person);
+      } else {
+        person = makeRobeFigure(options);
+        person.position.set(x, 0.03, z);
+        person.rotation.y = ry;
+        person.userData.baseY = person.position.y;
+      }
     }
     state.people = scene.children.filter((o) => o.userData.isPerson);
   }
