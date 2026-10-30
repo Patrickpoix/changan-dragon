@@ -1,5 +1,20 @@
 # 浏览器验收
 
+## 2026-10-31 西市首街独立试段
+
+`qa-evidence/hero-street.json` 对应独立页面
+`content/street/index.html`，不是旧城整场景验收：
+
+- 1280×720 与 844×390 手机横屏尺寸均实际加载 r160、2 个构件 GLB、19 个
+  建筑实例与本地 PBR；完成入场、键盘/触摸移动、飞行升降、近看、返回街口。
+- 44px 控件、无溢出、近看机位到龙首约 1.85m、glError=0；无页面异常、
+  控制台错误或坏请求。
+- 已人工查看 `hero-street-desktop.png`、`hero-street-mobile.png` 与两张
+  近看图。它们仍是**未通过最终美术**的当前基线：龙首偏球、人物偏套筒、
+  白墙/店面重复、街面生活细节不足。
+- 使用 Chromium SwiftShader；手机横屏只是尺寸/触摸模拟，不是手机真机
+  帧率、真机触摸或本地文件通过。
+
 ## 最新：总体设计与资源研究检查
 
 本轮用户要求在正式整合前先完成设计/资源研究。记录见 [design-research.json](qa-evidence/design-research.json)，**不是新游戏画面的浏览器/美术/真机验收**：

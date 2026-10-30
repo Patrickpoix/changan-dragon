@@ -1,0 +1,163 @@
+{
+  "modules": [
+    {
+      "id": "roof_dadian",
+      "grade": 0.3,
+      "triangles": 6268,
+      "dimensions_m": [
+        10.869,
+        12.18,
+        2.714
+      ],
+      "eave_overhang_m": 1.5,
+      "rise_m": 2.1,
+      "geometry_mode": "closed_roof_shell_with_corner_lift"
+    },
+    {
+      "id": "hall_dadian",
+      "grade": 0.3,
+      "triangles": 27896,
+      "dimensions_m": [
+        15.069,
+        10.98,
+        10.193
+      ],
+      "height_m": 10.193,
+      "geometry_mode": "platform_columns_brackets_facade_hip_roof"
+    },
+    {
+      "id": "shop_dadian",
+      "grade": 0.3,
+      "triangles": 9356,
+      "dimensions_m": [
+        6.395,
+        7.145,
+        8.226
+      ],
+      "height_m": 8.226,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "puzuo_dadian",
+      "grade": 0.3,
+      "triangles": 1280,
+      "dimensions_m": [
+        2.425,
+        1.84,
+        1.917
+      ],
+      "bounds_min_m": [
+        -0.92,
+        -0.92,
+        0.0
+      ],
+      "bounds_max_m": [
+        1.505,
+        0.92,
+        1.917
+      ],
+      "parts_materials": [
+        "mat_bracket_block",
+        "mat_timber",
+        "mat_roof_tile"
+      ]
+    },
+    {
+      "id": "column_dadian",
+      "grade": 0.3,
+      "triangles": 1024,
+      "dimensions_m": [
+        1.26,
+        1.26,
+        6.4
+      ],
+      "height_m": 6.4
+    },
+    {
+      "id": "roof_shijing",
+      "grade": 0.22,
+      "triangles": 6268,
+      "dimensions_m": [
+        7.971,
+        8.932,
+        1.99
+      ],
+      "eave_overhang_m": 1.1,
+      "rise_m": 1.54,
+      "geometry_mode": "closed_roof_shell_with_corner_lift"
+    },
+    {
+      "id": "hall_shijing",
+      "grade": 0.22,
+      "triangles": 27896,
+      "dimensions_m": [
+        11.051,
+        8.052,
+        7.475
+      ],
+      "height_m": 7.475,
+      "geometry_mode": "platform_columns_brackets_facade_hip_roof"
+    },
+    {
+      "id": "shop_shijing",
+      "grade": 0.22,
+      "triangles": 9356,
+      "dimensions_m": [
+        4.69,
+        5.244,
+        6.032
+      ],
+      "height_m": 6.032,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "tavern_shijing",
+      "grade": 0.22,
+      "triangles": 26624,
+      "dimensions_m": [
+        6.652,
+        5.816,
+        8.198
+      ],
+      "height_m": 8.198,
+      "geometry_mode": "two_storey_gallery_tavern"
+    },
+    {
+      "id": "puzuo_shijing",
+      "grade": 0.22,
+      "triangles": 1280,
+      "dimensions_m": [
+        1.778,
+        1.349,
+        1.406
+      ],
+      "bounds_min_m": [
+        -0.675,
+        -0.675,
+        0.0
+      ],
+      "bounds_max_m": [
+        1.104,
+        0.675,
+        1.406
+      ],
+      "parts_materials": [
+        "mat_bracket_block",
+        "mat_timber",
+        "mat_roof_tile"
+      ]
+    },
+    {
+      "id": "column_shijing",
+      "grade": 0.22,
+      "triangles": 1024,
+      "dimensions_m": [
+        0.924,
+        0.924,
+        4.693
+      ],
+      "height_m": 4.693
+    }
+  ],
+  "note": "唐构构件库，尺寸按材分制换算"
+}

@@ -2,3 +2,4 @@ dist/*
 !dist/changan-dragon.html
 __pycache__/
 *.pyc
+content/architecture/__pycache__/

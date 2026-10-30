@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>唐构构件验收 · 引擎实景</title>
+<style>
+  :root { color-scheme: dark; }
+  html,body { margin:0; height:100%; background:#14161a; overflow:hidden;
+    font-family:"Noto Sans SC","Microsoft YaHei",sans-serif; }
+  #viewport { position:fixed; inset:0; }
+  #panel { position:fixed; left:18px; top:18px; width:320px; padding:14px 16px;
+    border-radius:12px; background:rgba(20,22,26,.82); color:#e8e2d6;
+    border:1px solid rgba(220,200,160,.22); font-size:13px; line-height:1.7; }
+  #panel h1 { margin:0 0 8px; font-size:15px; letter-spacing:.04em; color:#f0d9a8; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  button { background:#2a2d33; color:#e6ddca; border:1px solid rgba(220,200,160,.28);
+    border-radius:7px; padding:5px 10px; font-size:12px; cursor:pointer; }
+  button.on { background:#8a5a3c; border-color:#c79a6a; color:#fff6e6; }
+  #stats { margin-top:10px; color:#b9b1a2; font-size:12px; }
+  #err { margin-top:8px; color:#ff9e8a; font-size:12px; white-space:pre-wrap; }
+</style>
+</head>
+<body>
+<div id="viewport"></div>
+<div id="panel">
+  <h1>唐构构件验收 · 引擎实景</h1>
+  <div>Blender 生成的 GLB 构件，以引擎实际光照、阴影与色调映射渲染。</div>
+  <div class="row" id="models"></div>
+  <div class="row" id="cams"></div>
+  <div id="stats">载入中…</div>
+  <div id="err"></div>
+</div>
+<script src="../../vendor/three.min.js"></script>
+<script src="../../vendor/rendering-addons.js"></script>
+<script src="../../src/kit-loader.js"></script>
+<script>
+const MODELS = {
+  'hall-dadian': '../../assets/kit/architecture/hall-dadian.glb',
+  'shop-shijing': '../../assets/kit/architecture/shop-shijing.glb',
+  'tavern-shijing': '../../assets/kit/architecture/tavern-shijing.glb',
+  'roof-dadian': '../../assets/kit/architecture/roof-dadian.glb',
+  'puzuo-dadian': '../../assets/kit/architecture/puzuo-dadian.glb',
+  'column-dadian': '../../assets/kit/architecture/column-dadian.glb'
+};
+
+const VIEWS = {
+  正视: { az: 0, el: 8 },
+  三分: { az: 36, el: 18 },
+  檐下: { az: 40, el: 4 },
+  俯视: { az: 24, el: 50 }
+};
+
+let renderer, scene, camera, current, modelRoot, view = VIEWS['三分'];
+
+function init() {
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  document.getElementById('viewport').appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1d2a33);
+  scene.fog = new THREE.Fog(0x1d2a33, 60, 220);
+
+  camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, 0.1, 800);
+
+  const sun = new THREE.DirectionalLight(0xfff1d8, 3.1);
+  sun.position.set(28, 34, 20);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  const d = 40;
+  Object.assign(sun.shadow.camera, { left: -d, right: d, top: d, bottom: -d, near: 1, far: 140 });
+  sun.shadow.bias = -0.0006;
+  scene.add(sun, sun.target);
+
+  scene.add(new THREE.HemisphereLight(0x9fc0d8, 0x5a4a3a, 0.85));
+
+  // 真实 IBL：让木、石、瓦有环境反射而不是平光
+  const addons = window.ChanganRenderingAddons || {};
+  if (addons.RoomEnvironment) {
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new addons.RoomEnvironment(), 0.04).texture;
+    pmrem.dispose();
+  } else {
+    err('RoomEnvironment 不可用，环境反射缺失');
+  }
+
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(400, 400),
+    new THREE.MeshStandardMaterial({ color: 0x6f6a60, roughness: 0.95 })
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  kitInit();
+  buildButtons();
+  selectModel('hall-dadian');
+  animate();
+}
+
+function err(message) {
+  const box = document.getElementById('err');
+  box.textContent += message + '\n';
+}
+
+function buildButtons() {
+  const modelBox = document.getElementById('models');
+  Object.keys(MODELS).forEach((key) => {
+    const b = document.createElement('button');
+    b.textContent = key;
+    b.dataset.model = key;
+    b.onclick = () => selectModel(key);
+    modelBox.appendChild(b);
+  });
+  const camBox = document.getElementById('cams');
+  Object.keys(VIEWS).forEach((key) => {
+    const b = document.createElement('button');
+    b.textContent = key;
+    b.dataset.view = key;
+    b.onclick = () => { view = VIEWS[key]; mark(camBox, 'view', key); };
+    camBox.appendChild(b);
+  });
+  mark(camBox, 'view', '三分');
+}
+
+function mark(box, attr, value) {
+  [...box.children].forEach((b) => b.classList.toggle('on', b.dataset[attr] === value));
+}
+
+async function selectModel(key) {
+  mark(document.getElementById('models'), 'model', key);
+  try {
+    const root = await kitLoad(key, MODELS[key]);
+    if (modelRoot) scene.remove(modelRoot);
+    modelRoot = kitInstance(root, { position: [0, 0, 0] });
+    scene.add(modelRoot);
+    current = new THREE.Box3().setFromObject(modelRoot);
+    const size = current.getSize(new THREE.Vector3());
+    document.getElementById('stats').textContent =
+      `构件 ${key} · 三角形 ${countTri(modelRoot)} · 尺寸 ` +
+      `${size.x.toFixed(2)}×${size.y.toFixed(2)}×${size.z.toFixed(2)} m · ` +
+      `载入 ${KitLibrary.stats.loaded} · 失败 ${KitLibrary.stats.failed}`;
+  } catch (e) {
+    err(String(e.message || e));
+  }
+}
+
+function countTri(root) {
+  let n = 0;
+  root.traverse((o) => { if (o.isMesh && o.geometry) n += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; });
+  return Math.round(n);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (modelRoot && current) {
+    const center = current.getCenter(new THREE.Vector3());
+    const radius = current.getSize(new THREE.Vector3()).length() / 2;
+    const az = view.az * Math.PI / 180, el = view.el * Math.PI / 180;
+    const dist = radius / Math.tan(38 * Math.PI / 360) * 1.15;
+    camera.position.set(
+      center.x + Math.sin(az) * Math.cos(el) * dist,
+      center.y + Math.sin(el) * dist,
+      center.z + Math.cos(az) * Math.cos(el) * dist
+    );
+    camera.lookAt(center);
+  }
+  renderer.render(scene, camera);
+}
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+init();
+</script>
+</body>
+</html>

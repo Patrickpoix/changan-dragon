@@ -1,0 +1,381 @@
+{
+  "url": "http://127.0.0.1:8877/content/street/index.html",
+  "output": "C:\\Users\\21145\\AppData\\Local\\Temp\\changan-hero-gate-final3",
+  "browser": "Playwright Chromium",
+  "finalArtAccepted": false,
+  "phonePerformanceVerified": false,
+  "profiles": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "boot": {
+        "ready": true,
+        "error": "街口已开",
+        "frameCount": 2
+      },
+      "street": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          0,
+          0.03,
+          23
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.8761588962937452e-15,
+          3.193755216853571,
+          30.52
+        ],
+        "calls": 799,
+        "triangles": 560813,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 11
+      },
+      "walk": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          1.2642657388651101e-16,
+          0.03,
+          21.96764868062748
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.8020436043000928e-15,
+          3.193755216853571,
+          29.914802713359855
+        ],
+        "calls": 798,
+        "triangles": 559153,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 25
+      },
+      "flight": {
+        "started": true,
+        "mode": "fly",
+        "near": false,
+        "position": [
+          1.6947147018959693e-16,
+          1.61,
+          21.61616042839789
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.7352647321669418e-15,
+          3.5120995912137554,
+          29.369511841088396
+        ],
+        "calls": 797,
+        "triangles": 558969,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 32
+      },
+      "near": {
+        "camera": [
+          -0.9669713735217188,
+          2.861778203586009,
+          19.539977704213214
+        ],
+        "head": [
+          2.3058285893143837e-16,
+          2.78778726952737,
+          21.1171480700233
+        ],
+        "distance": 1.8514790461473964,
+        "calls": 796
+      },
+      "reset": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          0,
+          0.03,
+          23
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          0.8608075011462887,
+          3.324906403493803,
+          22.61385444697578
+        ],
+        "calls": 346,
+        "triangles": 314570,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 46
+      },
+      "layout": {
+        "controls": [
+          {
+            "text": "步行",
+            "x": 482.1875,
+            "y": 650,
+            "w": 72,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "飞行",
+            "x": 560.1875,
+            "y": 650,
+            "w": 72,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "上升",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0,
+            "visible": false,
+            "hit": false
+          },
+          {
+            "text": "下降",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0,
+            "visible": false,
+            "hit": false
+          },
+          {
+            "text": "近看小龙",
+            "x": 638.1875,
+            "y": 650,
+            "w": 76.8125,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "回到街口",
+            "x": 721,
+            "y": 650,
+            "w": 76.8125,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "passed": true,
+      "glError": 0
+    },
+    "landscape": {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "boot": {
+        "ready": true,
+        "error": "街口已开",
+        "frameCount": 2
+      },
+      "street": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          0,
+          0.03,
+          23
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.8761588962937452e-15,
+          3.193755216853571,
+          30.52
+        ],
+        "calls": 815,
+        "triangles": 568409,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 11
+      },
+      "walk": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          8.401190506705098e-17,
+          0.03,
+          22.31399073491603
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.8225731345186163e-15,
+          3.193755216853571,
+          30.08243904926353
+        ],
+        "calls": 809,
+        "triangles": 567061,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 29
+      },
+      "flight": {
+        "started": true,
+        "mode": "fly",
+        "near": false,
+        "position": [
+          1.0715571955981795e-16,
+          1.61,
+          22.125007147902366
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.784934507707577e-15,
+          3.5120995912137554,
+          29.77509633757519
+        ],
+        "calls": 807,
+        "triangles": 566693,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 36
+      },
+      "near": {
+        "camera": [
+          -0.9669713735217188,
+          2.8409195115778116,
+          20.048115839339903
+        ],
+        "head": [
+          1.672984872214126e-16,
+          2.766549630381374,
+          21.633904180879806
+        ],
+        "distance": 1.8588408163701184,
+        "calls": 158
+      },
+      "reset": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          0,
+          0.03,
+          23
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          0.8608075011462887,
+          3.3115413296872465,
+          23.12404506729668
+        ],
+        "calls": 497,
+        "triangles": 448479,
+        "kit": {
+          "loaded": 2,
+          "failed": 0,
+          "instances": 19,
+          "sharedGeometries": 0
+        },
+        "frames": 51
+      },
+      "layout": {
+        "controls": [
+          {
+            "text": "步行",
+            "x": 264.1875,
+            "y": 320,
+            "w": 72,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "飞行",
+            "x": 342.1875,
+            "y": 320,
+            "w": 72,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "上升",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0,
+            "visible": false,
+            "hit": false
+          },
+          {
+            "text": "下降",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0,
+            "visible": false,
+            "hit": false
+          },
+          {
+            "text": "近看小龙",
+            "x": 420.1875,
+            "y": 320,
+            "w": 76.8125,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "回到街口",
+            "x": 503,
+            "y": 320,
+            "w": 76.8125,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "passed": true,
+      "glError": 0
+    }
+  }
+}

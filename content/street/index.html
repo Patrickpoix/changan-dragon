@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#182d2a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2318322e'/%3E%3Cpath d='M12 18h40v28H12z' fill='%23b64b35'/%3E%3Cpath d='M20 25h24v14H20z' fill='%23f1e4c8'/%3E%3C/svg%3E">
+  <title>龙游长安 · 西市烟火</title>
+  <style>
+    @font-face {
+      font-family: "Ma Shan Zheng";
+      src: url("../../assets/fonts/MaShanZheng-Game.woff") format("woff");
+      font-display: swap;
+    }
+    :root {
+      --ink: #17322e;
+      --ink-soft: #284943;
+      --jade: #2c7967;
+      --jade-light: #85b7a3;
+      --vermilion: #b64b35;
+      --gold: #c89b52;
+      --paper: #f1e4c8;
+      --paper-dim: #d8c7a8;
+      --line: rgba(237, 219, 183, .28);
+      --shadow: rgba(8, 16, 15, .34);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #182d2a;
+      color: var(--paper);
+      font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+    #street {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+    }
+    #grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      mix-blend-mode: soft-light;
+      background-image:
+        radial-gradient(rgba(255,255,255,.16) 0.6px, transparent .7px),
+        radial-gradient(rgba(0,0,0,.13) 0.5px, transparent .6px);
+      background-size: 5px 5px, 7px 7px;
+      background-position: 0 0, 2px 3px;
+    }
+    .ui {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .5s ease;
+    }
+    body.entered .ui { opacity: 1; }
+    .ui button, .ui a, .ui input { pointer-events: auto; }
+    .brand {
+      position: absolute;
+      left: max(18px, env(safe-area-inset-left));
+      top: max(18px, env(safe-area-inset-top));
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      filter: drop-shadow(0 5px 12px var(--shadow));
+    }
+    .seal {
+      width: 46px;
+      height: 76px;
+      display: grid;
+      place-items: center;
+      color: #f8ead0;
+      background:
+        linear-gradient(180deg, rgba(202, 92, 60, .97), rgba(157, 54, 40, .97));
+      border: 1px solid rgba(255, 233, 194, .58);
+      box-shadow: inset 0 0 0 3px rgba(84, 24, 18, .22);
+      writing-mode: vertical-rl;
+      letter-spacing: .12em;
+      font-family: "Ma Shan Zheng", "STKaiti", serif;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .brand-copy { padding-top: 2px; }
+    .eyebrow {
+      color: var(--jade-light);
+      font-size: 10px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+    .brand-title {
+      margin-top: 3px;
+      font-family: "Ma Shan Zheng", "STKaiti", serif;
+      font-size: 27px;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-shadow: 0 2px 14px rgba(0,0,0,.28);
+    }
+    .brand-sub {
+      margin-top: 7px;
+      color: rgba(241,228,200,.72);
+      font-size: 11px;
+      letter-spacing: .12em;
+    }
+    .top-note {
+      position: absolute;
+      right: max(20px, env(safe-area-inset-right));
+      top: max(22px, env(safe-area-inset-top));
+      color: rgba(241,228,200,.65);
+      text-align: right;
+      font-size: 11px;
+      line-height: 1.9;
+      letter-spacing: .08em;
+      text-shadow: 0 2px 10px rgba(0,0,0,.4);
+    }
+    .top-note strong {
+      display: block;
+      color: var(--paper);
+      font-family: "Ma Shan Zheng", "STKaiti", serif;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: .12em;
+    }
+    .status {
+      position: absolute;
+      left: max(20px, env(safe-area-inset-left));
+      bottom: max(26px, env(safe-area-inset-bottom));
+      min-width: 188px;
+      padding: 11px 13px 12px;
+      border-left: 2px solid var(--gold);
+      background: linear-gradient(90deg, rgba(18,43,39,.72), rgba(18,43,39,.18));
+      backdrop-filter: blur(7px);
+      text-shadow: 0 1px 4px rgba(0,0,0,.35);
+    }
+    .status-label {
+      color: var(--jade-light);
+      font-size: 9px;
+      letter-spacing: .24em;
+    }
+    .status-main {
+      margin-top: 3px;
+      font-family: "Ma Shan Zheng", "STKaiti", serif;
+      font-size: 20px;
+      letter-spacing: .08em;
+    }
+    .status-meta {
+      margin-top: 4px;
+      color: rgba(241,228,200,.62);
+      font-size: 10px;
+      letter-spacing: .07em;
+    }
+    .actions {
+      position: absolute;
+      left: 50%;
+      bottom: max(20px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 6px;
+      padding: 5px;
+      background: rgba(18,42,38,.66);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(9px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .actions button {
+      min-width: 66px;
+      min-height: 44px;
+      padding: 0 11px;
+      color: rgba(241,228,200,.74);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 0;
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: .1em;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .actions button:hover,
+    .actions button.active {
+      color: #fff2d8;
+      background: rgba(177, 77, 52, .56);
+      border-color: rgba(241, 201, 128, .4);
+    }
+    .actions .mode {
+      min-width: 72px;
+      border-right: 1px solid rgba(237,219,183,.14);
+    }
+    .actions .mode:last-of-type { border-right: 0; }
+    .actions .utility { color: var(--jade-light); }
+    .actions .flight-only { display: none; }
+    body.flight .actions .flight-only { display: inline-block; }
+    .tip {
+      position: absolute;
+      right: max(20px, env(safe-area-inset-right));
+      bottom: max(26px, env(safe-area-inset-bottom));
+      color: rgba(241,228,200,.56);
+      text-align: right;
+      font-size: 10px;
+      line-height: 1.8;
+      letter-spacing: .08em;
+      text-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+    .tip b {
+      color: rgba(241,228,200,.86);
+      font-weight: 400;
+    }
+    #joystick {
+      position: absolute;
+      left: max(20px, env(safe-area-inset-left));
+      bottom: max(98px, calc(env(safe-area-inset-bottom) + 72px));
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      border: 1px solid rgba(241,228,200,.28);
+      background: radial-gradient(circle, rgba(22,55,48,.52), rgba(14,34,31,.22));
+      pointer-events: auto;
+      touch-action: none;
+      display: none;
+    }
+    #joystick::after {
+      content: "";
+      position: absolute;
+      inset: 34%;
+      border-radius: 50%;
+      border: 1px solid rgba(241,228,200,.18);
+    }
+    #stick {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 44px;
+      height: 44px;
+      margin: -22px 0 0 -22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 28%, #cbb47f, #876b3f 70%);
+      box-shadow: 0 5px 14px rgba(0,0,0,.28);
+      transform: translate3d(0,0,0);
+    }
+    .mobile #joystick { display: block; }
+    .mobile .status { bottom: 128px; }
+    body.near #joystick, body.near .status { display: none; }
+    .mobile .tip { display: none; }
+    #enter {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(90deg, rgba(14,33,30,.84), rgba(14,33,30,.15) 62%, rgba(14,33,30,.52)),
+        radial-gradient(circle at 74% 42%, rgba(205,155,82,.18), transparent 34%),
+        linear-gradient(180deg, rgba(20,43,39,.08), rgba(13,30,27,.72));
+      z-index: 20;
+      transition: opacity .65s ease, visibility .65s ease;
+    }
+    body.entered #enter { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .65s ease, visibility 0s linear .65s; }
+    .enter-card {
+      width: min(560px, calc(100vw - 40px));
+      padding: 36px 42px 34px;
+      border: 1px solid rgba(241,228,200,.26);
+      background:
+        linear-gradient(135deg, rgba(31,66,57,.8), rgba(16,42,37,.86)),
+        repeating-linear-gradient(90deg, transparent 0 44px, rgba(255,255,255,.025) 45px 46px);
+      box-shadow: 0 25px 70px rgba(0,0,0,.24);
+      position: relative;
+    }
+    .enter-card::before, .enter-card::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: var(--gold);
+      opacity: .7;
+    }
+    .enter-card::before { left: 10px; top: 10px; border-left: 1px solid; border-top: 1px solid; }
+    .enter-card::after { right: 10px; bottom: 10px; border-right: 1px solid; border-bottom: 1px solid; }
+    .enter-kicker {
+      color: var(--jade-light);
+      font-size: 10px;
+      letter-spacing: .3em;
+    }
+    .enter-title {
+      margin-top: 12px;
+      color: var(--paper);
+      font-family: "Ma Shan Zheng", "STKaiti", serif;
+      font-size: clamp(42px, 7vw, 72px);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: .08em;
+    }
+    .enter-title em {
+      color: var(--vermilion);
+      font-style: normal;
+      text-shadow: 0 3px 0 rgba(89, 31, 22, .2);
+    }
+    .enter-copy {
+      max-width: 390px;
+      margin: 18px 0 0;
+      color: rgba(241,228,200,.74);
+      font-size: 13px;
+      line-height: 2;
+      letter-spacing: .05em;
+    }
+    .enter-rule {
+      width: 54px;
+      height: 1px;
+      margin: 24px 0 18px;
+      background: var(--gold);
+    }
+    #enterBtn {
+      min-width: 150px;
+      min-height: 48px;
+      padding: 0 22px;
+      color: #fff1d5;
+      background: var(--vermilion);
+      border: 1px solid rgba(255,220,166,.54);
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: .18em;
+      cursor: pointer;
+      box-shadow: 0 9px 22px rgba(91,26,19,.24);
+    }
+    #enterBtn:hover { background: #c85a40; }
+    .enter-foot {
+      margin-top: 16px;
+      color: rgba(241,228,200,.42);
+      font-size: 10px;
+      letter-spacing: .1em;
+    }
+    #loading {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 30;
+      color: rgba(241,228,200,.7);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-align: center;
+    }
+    #loading.hidden { display: none !important; }
+    .loading-line {
+      width: 170px;
+      height: 1px;
+      margin-top: 8px;
+      background: rgba(241,228,200,.16);
+      overflow: hidden;
+    }
+    #loadingBar {
+      width: 0;
+      height: 100%;
+      background: var(--gold);
+      transition: width .2s ease;
+    }
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: 24px;
+      transform: translate(-50%, -12px);
+      z-index: 40;
+      padding: 8px 15px;
+      color: var(--paper);
+      background: rgba(17,41,37,.82);
+      border: 1px solid var(--line);
+      font-size: 11px;
+      letter-spacing: .1em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    body.entered #enter {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transition: opacity .55s ease, visibility 0s linear .55s;
+    }
+    @media (max-width: 760px) {
+      .brand { left: 12px; top: 12px; }
+      .seal { width: 36px; height: 62px; font-size: 16px; }
+      .brand-title { font-size: 21px; }
+      .brand-sub { display: none; }
+      .top-note { right: 12px; top: 13px; font-size: 9px; }
+      .top-note strong { font-size: 14px; }
+      .actions { bottom: 8px; gap: 2px; padding: 3px; }
+      .actions button { min-width: 0; min-height: 44px; padding: 0 8px; font-size: 11px; }
+      .status { left: 12px; bottom: 68px; min-width: 150px; padding: 8px 10px; }
+      .status-main { font-size: 17px; }
+      .mobile .status { left: 12px; top: 76px; bottom: auto; }
+      .mobile #joystick { bottom: 70px; width: 104px; height: 104px; }
+      .enter-card { padding: 28px 26px 26px; }
+      .enter-copy { font-size: 12px; line-height: 1.85; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="street" aria-label="西市首街三维场景"></canvas>
+  <div id="grain"></div>
+  <div class="ui" id="ui">
+    <div class="brand">
+      <div class="seal">西市</div>
+      <div class="brand-copy">
+        <div class="eyebrow">CHANG'AN · WEST MARKET</div>
+        <div class="brand-title">龙游长安</div>
+        <div class="brand-sub">西市 · 开元天宝</div>
+      </div>
+    </div>
+    <div class="top-note">
+      <strong>市声入云</strong>
+      日影西斜，坊门未闭
+    </div>
+    <div class="status">
+      <div class="status-label">当前位置</div>
+      <div class="status-main" id="placeName">西市 · 绸缎街</div>
+      <div class="status-meta" id="statusMeta">步行 · 0.0 米/秒</div>
+    </div>
+    <div class="actions" aria-label="首街操作">
+      <button class="mode active" data-mode="walk">步行</button>
+      <button class="mode" data-mode="fly">飞行</button>
+      <button class="utility flight-only" id="upBtn" aria-label="上升">上升</button>
+      <button class="utility flight-only" id="downBtn" aria-label="下降">下降</button>
+      <button class="utility" id="nearBtn">近看小龙</button>
+      <button class="utility" id="resetBtn">回到街口</button>
+    </div>
+    <div class="tip">
+      <b>WASD</b> 行走 · <b>拖动</b> 环视 · <b>滚轮</b> 远近<br>
+      <b>Q / E</b> 升降 · <b>F</b> 乘风
+    </div>
+    <div id="joystick" aria-label="移动摇杆">
+      <div id="stick"></div>
+    </div>
+  </div>
+  <div id="enter">
+    <div class="enter-card">
+      <div class="enter-kicker">龙游长安 · 西市</div>
+      <div class="enter-title">西市<em>烟火</em></div>
+      <p class="enter-copy">
+        日头偏西，布幌先动。沿街的胡饼香、绸缎色与车铃声一起涌来，
+        转过檐角，又是一院灯火。与小青龙一同走入西市，慢慢看，随心飞。
+      </p>
+      <div class="enter-rule"></div>
+      <button id="enterBtn">进入街道</button>
+      <div class="enter-foot">横屏游玩 · 触摸摇杆 · 自由步行与飞行</div>
+    </div>
+  </div>
+  <div id="loading">
+    <span id="loadingText">正在搭起西市街口</span>
+    <div class="loading-line"><div id="loadingBar"></div></div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../../vendor/three.min.js"></script>
+  <script src="../../vendor/rendering-addons.js"></script>
+  <script src="../../src/kit-loader.js"></script>
+  <script src="../../src/hero-street.js"></script>
+</body>
+</html>
