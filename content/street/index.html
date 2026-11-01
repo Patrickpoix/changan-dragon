@@ -189,6 +189,13 @@
       transition: color .2s ease, background .2s ease, border-color .2s ease;
     }
     .actions button:hover,
+    .actions button:focus-visible {
+      color: #fdf2dd;
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(241, 201, 128, .22);
+    }
+    /* 当前移动模式是唯一使用红底的按钮；悬停只能变浅，否则鼠标停在
+       "上升"上会被误读成已选中。 */
     .actions button.active {
       color: #fff2d8;
       background: rgba(177, 77, 52, .56);

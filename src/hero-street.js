@@ -779,23 +779,64 @@
     return group;
   }
 
-  function addBuildingSigns(entry) {
-    const { side, z, kind, scale } = entry;
-    const isTavern = kind === 'tavern';
+  // 西市真实行当：织物、胡食、香药、书肆、茶坊、陶器、果子、鞍马。
+  const SHOP_TRADES = [
+    { board: '胡饼铺', short: '饼' },
+    { board: '香药铺', short: '香' },
+    { board: '绸缎庄', short: '绸' },
+    { board: '书肆', short: '书' },
+    { board: '茶坊', short: '茶' },
+    { board: '陶器行', short: '陶' },
+    { board: '果子铺', short: '果' },
+    { board: '鞍马行', short: '马' },
+  ];
+
+  function shopTrade(entry) {
+    const index = Math.abs(Math.round(entry.z) + entry.side * 3) % SHOP_TRADES.length;
+    return SHOP_TRADES[index];
+  }
+
+  // 铺面的临街几何与招牌文案只有这一处定义：布局、招牌网格和验收记录共用，
+  // 避免"挂幌位置"在展示代码和记录数据里各算一遍而互相漂移。
+  function shopPlacement(entry) {
+    const isTavern = entry.kind === 'tavern';
     const depth = isTavern ? 5.82 : 5.24;
-    const frontX = side * (SHOP_X - (depth * scale) / 2 - 0.075);
-    const facing = side < 0 ? Math.PI / 2 : -Math.PI / 2;
-    const names = isTavern
-      ? ['酒', '西市酒肆']
-      : [['胡饼铺', '香药铺', '绸缎庄', '书肆', '茶坊'][Math.abs(Math.round(z)) % 5], '杂货'];
-    const board = makeSignMesh(names[1], isTavern ? 2.3 : 1.8, isTavern ? 0.7 : 0.56, { font: isTavern ? 82 : 66 });
+    const halfD = (isTavern ? 2.91 : 2.62) * entry.scale;
+    const trade = shopTrade(entry);
+    const hasHanging = isTavern || Math.abs(entry.z) % 14 < 1;
+    return {
+      isTavern,
+      frontX: entry.side * (SHOP_X - (depth * entry.scale) / 2 - 0.075),
+      facing: entry.side < 0 ? Math.PI / 2 : -Math.PI / 2,
+      board: isTavern ? '西市酒肆' : trade.board,
+      vertical: isTavern ? '酒' : trade.short,
+      hasHanging,
+      halfD,
+      hangingZ: hasHanging ? entry.z + halfD - 0.42 : null,
+    };
+  }
+
+  function addBuildingSigns(entry) {
+    const { z, side } = entry;
+    const placement = shopPlacement(entry);
+    const { isTavern, frontX, facing } = placement;
+    const board = makeSignMesh(
+      placement.board,
+      isTavern ? 2.3 : 1.8,
+      isTavern ? 0.7 : 0.56,
+      { font: isTavern ? 82 : 66 },
+    );
     board.position.set(frontX, isTavern ? 5.25 : 4.35, z);
     board.rotation.y = facing;
     board.scale.setScalar(1.15);
     scene.add(board);
-    if (isTavern || Math.abs(z) % 14 < 1) {
-      const hanging = makeSignMesh(names[0], 0.56, 1.5, { vertical: true, font: 62 });
-      hanging.position.set(frontX + (side < 0 ? -0.55 : 0.55), isTavern ? 3.7 : 2.85, z + (isTavern ? 3.15 : 2.15));
+    if (placement.hasHanging) {
+      const hanging = makeSignMesh(placement.vertical, 0.56, 1.5, { vertical: true, font: 62 });
+      hanging.position.set(
+        frontX + (side < 0 ? -0.55 : 0.55),
+        isTavern ? 3.7 : 2.85,
+        placement.hangingZ,
+      );
       hanging.rotation.y = facing;
       scene.add(hanging);
     }
@@ -951,6 +992,19 @@
     });
     entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
     flushBatches();
+    // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
+    state.streetPlan = entries.map((entry) => {
+      const placement = shopPlacement(entry);
+      return {
+        side: entry.side,
+        z: entry.z,
+        kind: entry.kind,
+        board: placement.board,
+        hangingZ: placement.hangingZ,
+        frontX: placement.frontX,
+        halfD: placement.halfD,
+      };
+    });
 
     setProgress(0.68, '摆摊、点灯、落人');
     createStreetProps();
@@ -1725,10 +1779,12 @@
   function createDragonHeadGeometry() {
     // 连续颅骨、颊部、鼻吻和下颌共用一个曲面，不再由外挂球体拼脸。
     const profile = {
-      z: [-0.36, -0.30, -0.20, -0.07, 0.08, 0.22, 0.34, 0.43, 0.50],
-      centerY: [0.045, 0.055, 0.060, 0.050, 0.020, -0.010, -0.032, -0.042, -0.040],
-      width: [0.145, 0.205, 0.252, 0.258, 0.238, 0.205, 0.164, 0.112, 0.035],
-      height: [0.150, 0.185, 0.210, 0.200, 0.166, 0.136, 0.105, 0.074, 0.030],
+      // 颅骨后段直接插进颈筒：此前后盖留在 z=-0.40，会比鬃环晚出 14cm，
+      // 正后方因此露出一枚光滑椭圆壳。
+      z: [-0.16, -0.09, -0.01, 0.08, 0.18, 0.28, 0.37, 0.44, 0.50],
+      centerY: [0.040, 0.052, 0.058, 0.050, 0.030, 0.008, -0.020, -0.038, -0.040],
+      width: [0.115, 0.175, 0.230, 0.252, 0.240, 0.212, 0.170, 0.115, 0.036],
+      height: [0.108, 0.150, 0.190, 0.198, 0.176, 0.146, 0.112, 0.078, 0.031],
     };
     const keys = Object.keys(profile);
     const lengthSegments = 42;
@@ -1822,14 +1878,30 @@
     return geometry;
   }
 
+  // 躯干横截面契约：几何与鳞片排布共用同一份剖面，避免鳞片脱离体表。
+  const DRAGON_BODY_PROFILE = {
+    z: [-0.64, -0.54, -0.40, -0.24, -0.06, 0.12, 0.30, 0.46, 0.60, 0.72, 0.82],
+    centerY: [0.56, 0.59, 0.63, 0.67, 0.71, 0.76, 0.81, 0.88, 0.95, 1.01, 1.06],
+    // 横截面横向大于纵向：四足动物的胸腹不是圆管。
+    width: [0.17, 0.26, 0.34, 0.39, 0.42, 0.43, 0.41, 0.37, 0.32, 0.26, 0.20],
+    height: [0.12, 0.17, 0.23, 0.27, 0.29, 0.30, 0.29, 0.27, 0.25, 0.21, 0.17],
+  };
+
+  function dragonBodySection(z) {
+    const profile = DRAGON_BODY_PROFILE;
+    const scaled = (z - profile.z[0]) / (profile.z[profile.z.length - 1] - profile.z[0]);
+    const index = clamp(Math.floor(scaled * (profile.z.length - 1)), 0, profile.z.length - 2);
+    const amount = clamp(scaled * (profile.z.length - 1) - index, 0, 1);
+    return {
+      centerY: catmullRomValue(profile.centerY, index, amount),
+      width: catmullRomValue(profile.width, index, amount),
+      height: catmullRomValue(profile.height, index, amount),
+    };
+  }
+
   function createDragonBodyGeometry() {
     // 躯干按胸、腹、臀的体块连续收放，避免圆管身体和直筒四肢。
-    const profile = {
-      z: [-0.64, -0.54, -0.40, -0.24, -0.06, 0.12, 0.30, 0.46, 0.60, 0.72, 0.82],
-      centerY: [0.55, 0.59, 0.64, 0.70, 0.76, 0.82, 0.88, 0.96, 1.04, 1.12, 1.18],
-      width: [0.16, 0.24, 0.32, 0.37, 0.40, 0.41, 0.40, 0.36, 0.31, 0.25, 0.19],
-      height: [0.14, 0.22, 0.31, 0.38, 0.41, 0.42, 0.40, 0.36, 0.31, 0.26, 0.20],
-    };
+    const profile = DRAGON_BODY_PROFILE;
     const keys = Object.keys(profile);
     const lengthSegments = 48;
     const radialSegments = 48;
@@ -1884,7 +1956,7 @@
       }
     }
     const backCenter = positions.length / 3;
-    positions.push(0, profile.centerY[0], profile.z[0] - 0.035);
+    positions.push(0, profile.centerY[0], profile.z[0] - 0.020);
     colors.push(jadeDark.r, jadeDark.g, jadeDark.b);
     uvs.push(0.5, 0);
     const frontCenter = positions.length / 3;
@@ -2040,8 +2112,14 @@
   }
 
   function createDragonLeg(side, z, front) {
+    // 腿长由"肩点到地面"直接推出，脚掌底面精确落在 y=0，
+    // 避免此前前脚悬空 3cm、后脚悬空 4cm 的漂浮站姿。
     const pivot = new THREE.Group();
-    pivot.position.set(side * (front ? 0.235 : 0.265), front ? 0.58 : 0.53, z);
+    const pivotY = front ? 0.56 : 0.52;
+    const footRadius = front ? 0.098 : 0.112;
+    const footHalfHeight = footRadius * 0.34;
+    const reach = pivotY - footHalfHeight;
+    pivot.position.set(side * (front ? 0.235 : 0.265), pivotY, z);
     const shoulder = new THREE.Mesh(
       new THREE.SphereGeometry(front ? 0.092 : 0.115, 16, 12),
       materials.jade,
@@ -2049,32 +2127,33 @@
     shoulder.scale.set(0.98, 0.88, 0.92);
     shoulder.castShadow = true;
     pivot.add(shoulder);
+    const upperLength = reach * 0.46;
     const upper = new THREE.Mesh(
-      new THREE.CapsuleGeometry(front ? 0.072 : 0.090, front ? 0.14 : 0.15, 5, 10),
+      new THREE.CapsuleGeometry(front ? 0.072 : 0.090, upperLength, 5, 10),
       materials.jade,
     );
-    upper.position.y = -0.13;
-    upper.rotation.x = front ? 0.04 : -0.10;
-    upper.rotation.z = side * -0.04;
+    upper.position.set(0, -reach * 0.30, front ? 0.012 : -0.012);
+    upper.rotation.x = front ? 0.07 : -0.12;
+    upper.rotation.z = side * -0.03;
     upper.castShadow = true;
     pivot.add(upper);
     const lower = new THREE.Mesh(
-      new THREE.CapsuleGeometry(front ? 0.056 : 0.070, front ? 0.13 : 0.14, 5, 10),
+      new THREE.CapsuleGeometry(front ? 0.058 : 0.072, reach * 0.40, 5, 10),
       materials.jadeDark,
     );
-    lower.position.set(0, -0.33, 0.050);
-    lower.rotation.x = -0.12;
+    lower.position.set(0, -reach * 0.68, 0.045);
+    lower.rotation.x = -0.14;
     lower.castShadow = true;
     pivot.add(lower);
-    const foot = new THREE.Mesh(new THREE.SphereGeometry(0.105, 16, 10), materials.jadeDark);
-    foot.scale.set(1.08, 0.32, 1.42);
-    foot.position.set(0, front ? -0.455 : -0.435, 0.115);
+    const foot = new THREE.Mesh(new THREE.SphereGeometry(footRadius, 16, 10), materials.jadeDark);
+    foot.scale.set(1.06, 0.34, 1.44);
+    foot.position.set(0, -reach, 0.118);
     foot.castShadow = true;
     pivot.add(foot);
     for (const x of [-0.060, 0, 0.060]) {
       const claw = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.09, 6), materials.horn);
       claw.rotation.x = Math.PI / 2;
-      claw.position.set(x, front ? -0.455 : -0.435, 0.245);
+      claw.position.set(x, -reach, 0.242);
       pivot.add(claw);
     }
     pivot.userData.front = front;
@@ -2175,56 +2254,53 @@
     body.castShadow = true;
     body.receiveShadow = true;
     visual.add(body);
-    const bodyCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 0.55, -0.64),
-      new THREE.Vector3(0, 0.64, -0.40),
-      new THREE.Vector3(0, 0.76, -0.06),
-      new THREE.Vector3(0, 0.88, 0.30),
-      new THREE.Vector3(0, 1.04, 0.60),
-      new THREE.Vector3(0, 1.18, 0.82),
-    ]);
-    const bodyRadii = [0.16, 0.32, 0.40, 0.40, 0.31, 0.19];
-
     // 背鳞、侧鳞和腹甲共用一片有厚度的叶片几何，按实例共享材质。
+    // 位置由剖面椭圆直接求出，鳞片因此贴着体表而不是悬在包围盒外。
     const bodyScaleEntries = [];
-    for (let row = 0; row < 13; row++) {
-      const t = 0.10 + row * 0.062;
-      const point = bodyCurve.getPointAt(t);
-      const radius = THREE.MathUtils.lerp(bodyRadii[0], bodyRadii[bodyRadii.length - 1], t);
-      const tangent = bodyCurve.getTangentAt(t).normalize();
-      for (const [normal, offset] of [
-        [new THREE.Vector3(0, 1, 0.08).normalize(), 0.97],
-        [new THREE.Vector3(0.64, 0.77, 0.04).normalize(), 0.94],
-        [new THREE.Vector3(-0.64, 0.77, 0.04).normalize(), 0.94],
-      ]) {
+    for (let row = 0; row < 26; row++) {
+      const z = -0.58 + row * 0.056;
+      const section = dragonBodySection(z);
+      for (const angle of [Math.PI / 2, Math.PI / 2 - 0.62, Math.PI / 2 + 0.62]) {
+        const sin = Math.sin(angle);
+        const cos = Math.cos(angle);
+        const point = new THREE.Vector3(
+          section.width * cos,
+          section.centerY + section.height * sin,
+          z,
+        );
+        const normal = new THREE.Vector3(cos / section.width, sin / section.height, 0).normalize();
         bodyScaleEntries.push({
-          position: point.clone().addScaledVector(normal, radius * offset),
-          direction: tangent.clone().multiplyScalar(-1).addScaledVector(normal, -0.12),
+          position: point.clone().addScaledVector(normal, 0.008),
+          direction: new THREE.Vector3(0, 0, -1).addScaledVector(normal, -0.14),
           normal,
-          width: 0.095 + radius * 0.10,
-          length: 0.12 + radius * 0.11,
-          thickness: 0.32,
-          color: row % 4 === 0 ? 0x3d8573 : 0x347b6c,
+          width: 0.044 + section.width * 0.048,
+          length: 0.050 + section.height * 0.070,
+          thickness: 0.34,
+          color: row % 4 === 0 ? 0x3f8574 : 0x37796b,
         });
       }
     }
     visual.add(createBladeInstances(bodyScaleEntries, materials.dragonScale, bladeGeometry));
 
     const bellyEntries = [];
-    for (let row = 0; row < 9; row++) {
-      const t = 0.13 + row * 0.083;
-      const point = bodyCurve.getPointAt(t);
-      const radius = THREE.MathUtils.lerp(bodyRadii[0], bodyRadii[bodyRadii.length - 1], t);
-      const tangent = bodyCurve.getTangentAt(t).normalize();
-      const normal = new THREE.Vector3(0, -0.58, 0.82).normalize();
+    for (let row = 0; row < 12; row++) {
+      const z = -0.50 + row * 0.112;
+      const section = dragonBodySection(z);
+      const angle = -Math.PI / 2 - 0.14;
+      const normal = new THREE.Vector3(Math.cos(angle) / section.width, Math.sin(angle) / section.height, 0).normalize();
+      const point = new THREE.Vector3(
+        section.width * Math.cos(angle),
+        section.centerY + section.height * Math.sin(angle),
+        z,
+      );
       bellyEntries.push({
-        position: point.clone().addScaledVector(normal, radius * 0.94),
-        direction: tangent.clone().multiplyScalar(-1),
+        position: point.clone().addScaledVector(normal, 0.006),
+        direction: new THREE.Vector3(0, 0, -1),
         normal,
-        width: 0.24 + (1 - t) * 0.09,
-        length: 0.095 + (1 - t) * 0.028,
-        thickness: 0.42,
-        color: row % 2 ? 0xe7dab8 : 0xf0e5c8,
+        width: 0.105 + section.width * 0.115,
+        length: 0.045 + section.height * 0.075,
+        thickness: 0.26,
+        color: row % 2 ? 0xd8cbaa : 0xe2d6b6,
       });
     }
     const bellyScutes = createBladeInstances(bellyEntries, materials.dragonScale, bladeGeometry);
@@ -2233,19 +2309,19 @@
 
     const neckTube = createTaperedTube(
       [
-        new THREE.Vector3(0, 1.17, 0.73),
-        new THREE.Vector3(0, 1.25, 0.80),
-        new THREE.Vector3(0, 1.33, 0.88),
+        new THREE.Vector3(0, 1.00, 0.71),
+        new THREE.Vector3(0, 1.14, 0.80),
+        new THREE.Vector3(0, 1.27, 0.88),
       ],
-      [0.195, 0.17, 0.205],
-      materials.jade,
+      [0.215, 0.190, 0.185],
+      materials.jadeDark,
       20,
       14,
     );
     visual.add(neckTube.mesh);
 
     const head = new THREE.Group();
-      head.position.set(0, 1.34, 0.93);
+    head.position.set(0, 1.30, 0.93);
     visual.add(head);
     const eyelids = [];
     const headMesh = createDragonHeadMesh();
@@ -2561,7 +2637,6 @@
     visual.userData.tail = tail;
     visual.userData.eyelids = eyelids;
     visual.userData.body = body;
-    visual.userData.bodyCurve = bodyCurve;
     return {
       root,
       visual,
@@ -2925,6 +3000,10 @@
     reset: resetStreet,
     near: toggleNear,
     get joystick() { return { ...joystick }; },
+    get streetPlan() {
+      // 供验收脚本核对招牌文案是否重复、挂幌是否落在铺面范围内。
+      return state.streetPlan || [];
+    },
     teleport(x, z, y = 0.03) {
       state.position.set(x, y, z);
       if (dragon) dragon.root.position.copy(state.position);

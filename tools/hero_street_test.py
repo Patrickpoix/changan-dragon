@@ -51,6 +51,46 @@ async def read(page):
     )
 
 
+MODE_STYLE = """() => {
+  const modeColor = 'rgba(177, 77, 52, 0.56)';
+  const rows = [...document.querySelectorAll('.actions button')].map((el) => ({
+    label: el.dataset.mode || el.id || el.textContent.trim(),
+    mode: el.dataset.mode,
+    active: el.classList.contains('active'),
+    hover: el.matches(':hover'),
+    background: getComputedStyle(el).backgroundColor,
+    selectedColor: getComputedStyle(el).backgroundColor === modeColor,
+  }));
+  const modes = rows.filter((row) => row.mode);
+  const active = modes.filter((m) => m.active);
+  const selected = rows.filter((row) => row.selectedColor);
+  return {
+    rows,
+    settled: active.length === 1 &&
+      selected.length === 1 &&
+      selected[0].active,
+  };
+}"""
+
+
+async def wait_mode_style(page):
+    """Wait until the mode highlight finished its 0.2s CSS transition.
+
+    SwiftShader can render under one frame per second, so a fixed sleep would
+    either be too short or waste minutes. Poll the real computed style instead
+    and fail loudly if it never settles.
+    """
+    try:
+        await page.wait_for_function(
+            "() => { const s = (" + MODE_STYLE + ")(); return s.settled; }",
+            timeout=30000,
+        )
+    except Exception:
+        state = await page.evaluate(MODE_STYLE)
+        raise AssertionError("mode highlight never settled: " + repr(state))
+    return await page.evaluate(MODE_STYLE)
+
+
 async def run(args):
     output = Path(args.output or tempfile.mkdtemp(prefix="changan-hero-street-"))
     output.mkdir(parents=True, exist_ok=True)
@@ -166,6 +206,8 @@ async def run(args):
 
                     await page.locator('[data-mode="fly"]').click()
                     await page.wait_for_function("__street.state.mode === 'fly'")
+                    # 软件渲染每帧可能接近一秒；等真正的高亮稳定，而不是赌固定时长。
+                    await wait_mode_style(page)
                     if mobile:
                         await page.locator("#upBtn").dispatch_event("pointerdown")
                         await page.wait_for_timeout(800)
@@ -211,7 +253,46 @@ async def run(args):
                     await page.wait_for_function(
                         "__street.state.position.z > 22 && __street.state.mode === 'walk'"
                     )
+                    await wait_mode_style(page)
                     item["reset"] = await read(page)
+
+                    # 西市不能一排店都挂同一个招牌，挂幌也不能甩到铺面之外。
+                    plan = await page.evaluate("__street.streetPlan")
+                    assert len(plan) >= 15, plan
+                    boards = [row["board"] for row in plan]
+                    assert len(set(boards)) >= 4, boards
+                    for row in plan:
+                        assert row["board"], row
+                        if row["hangingZ"] is None:
+                            continue
+                        low = row["z"] - row["halfD"]
+                        high = row["z"] + row["halfD"]
+                        assert low <= row["hangingZ"] <= high, row
+                    item["streetPlan"] = plan
+
+                    # 悬停在任意按钮上都不能冒充"当前模式"的选中色；
+                    # 桌面端把鼠标停在"上升"上曾被误读成飞行已选中。
+                    hover_probe = []
+                    for handle in await page.locator(".actions button").element_handles():
+                        box = await handle.bounding_box()
+                        if not box or box["width"] < 1:
+                            continue
+                        await page.mouse.move(
+                            box["x"] + box["width"] / 2,
+                            box["y"] + box["height"] / 2,
+                        )
+                        await wait_mode_style(page)
+                        hover_probe.append(await page.evaluate(MODE_STYLE))
+                    await page.mouse.move(4, 4)
+                    await wait_mode_style(page)
+                    item["modeHighlight"] = hover_probe
+                    for state in hover_probe:
+                        hovered = [row for row in state["rows"] if row["hover"]]
+                        for row in hovered:
+                            assert not row["selectedColor"] or row["active"], state
+                        selected = [row for row in state["rows"] if row["selectedColor"]]
+                        assert len(selected) == 1 and selected[0]["active"], state
+
                     item["layout"] = await page.evaluate(
                         """() => {
                           const ids=['enterBtn','nearBtn','resetBtn'];
