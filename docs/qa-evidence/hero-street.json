@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8877/content/street/index.html",
-  "output": "D:\\tmp\\changan-street-main-clean-v11",
+  "output": "D:\\tmp\\changan-street-paving-final",
   "browser": "Playwright Chromium",
   "finalArtAccepted": false,
   "phonePerformanceVerified": false,
@@ -30,79 +30,79 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 767,
-        "triangles": 940629,
+        "calls": 817,
+        "triangles": 957403,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 11
+        "frames": 10
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          1.2642657388651101e-16,
+          1.3290285978576809e-16,
           0.03,
-          21.96764868062748
+          21.914765793057235
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.8020436043000928e-15,
+          -1.7972504399132475e-15,
           3.193755216853571,
-          29.914802713359855
+          29.875663555929464
         ],
-        "calls": 765,
-        "triangles": 937427,
+        "calls": 814,
+        "triangles": 953481,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 26
+        "frames": 25
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.6983457965371317e-16,
+          1.7610759286394986e-16,
           1.61,
-          21.61319541461295
+          21.56197237451188
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7345278479795606e-15,
+          -1.7292814939012573e-15,
           3.5120995912137554,
-          29.36349472506854
+          29.320654992976348
         ],
-        "calls": 748,
-        "triangles": 926679,
+        "calls": 798,
+        "triangles": 943453,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 33
+        "frames": 32
       },
       "near": {
         "camera": [
-          -1.1237775422009164,
-          2.8524828126630766,
-          19.212368781013076
+          -1.2283149879870483,
+          2.807284968132992,
+          19.03245327149239
         ],
         "head": [
-          2.3448355083772173e-16,
-          2.7634918786044373,
-          21.08529650344101
+          2.4175925157590905e-16,
+          2.773294034074353,
+          21.025885898332227
         ],
-        "distance": 2.1860131756553653,
-        "calls": 749
+        "distance": 2.3417272964761238,
+        "calls": 799
       },
       "reset": {
         "started": true,
@@ -115,12 +115,12 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.7608234736484802,
-          3.3187644031492964,
-          22.405013343152646
+          0.6941674553166075,
+          3.2871920025295718,
+          22.268307847291023
         ],
-        "calls": 218,
-        "triangles": 313347,
+        "calls": 216,
+        "triangles": 322225,
         "kit": {
           "loaded": 11,
           "failed": 0,
@@ -216,15 +216,15 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 779,
-        "triangles": 949845,
+        "calls": 829,
+        "triangles": 966619,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 11
+        "frames": 10
       },
       "walk": {
         "started": true,
@@ -241,54 +241,54 @@
           3.193755216853571,
           30.08243904926353
         ],
-        "calls": 780,
-        "triangles": 948681,
+        "calls": 830,
+        "triangles": 965455,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 29
+        "frames": 28
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.0833873751508012e-16,
+          1.0704847382818833e-16,
           1.61,
-          22.115347073209108
+          22.12588287575879
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7821572508484347e-15,
+          -1.785126139735302e-15,
           3.5120995912137554,
-          29.75241831431921
+          29.77666113183145
         ],
-        "calls": 764,
-        "triangles": 937813,
+        "calls": 815,
+        "triangles": 956483,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 36
+        "frames": 35
       },
       "near": {
         "camera": [
-          -1.1237775422009164,
-          2.835942012477446,
-          19.716783666258074
+          -1.2283149879870483,
+          2.7868085205213116,
+          19.58886095719994
         ],
         "head": [
-          1.7271054337196366e-16,
-          2.7469510784188067,
-          21.589711388686013
+          1.736189624436347e-16,
+          2.7528175864626725,
+          21.58229358403978
         ],
-        "distance": 2.186013175655368,
-        "calls": 763
+        "distance": 2.3417272964761238,
+        "calls": 813
       },
       "reset": {
         "started": true,
@@ -301,19 +301,19 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.7608234736484802,
-          3.3117763765045405,
-          22.904189542952125
+          0.6941674553166075,
+          3.2777781437555635,
+          22.82802126031671
         ],
-        "calls": 254,
-        "triangles": 438493,
+        "calls": 247,
+        "triangles": 334879,
         "kit": {
           "loaded": 11,
           "failed": 0,
           "instances": 61,
           "sharedGeometries": 0
         },
-        "frames": 50
+        "frames": 49
       },
       "layout": {
         "controls": [

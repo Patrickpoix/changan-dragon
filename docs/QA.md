@@ -5,7 +5,9 @@
 `qa-evidence/hero-street.json` 为当前源码 `content/street/index.html` 的最新
 运行结果：1280×720 与 844×390 都实际加载 11 个共享 GLB / 61 个实例，
 入场、键盘/触摸移动、飞行升降、近看、返回、44px 控件与无溢出检查通过，
-近看机位到龙首 2.19m，glError=0，零页面/控制台/坏请求。
+近看机位到龙首 2.34m，glError=0，零页面/控制台/坏请求。该版本同时加入
+浅灰褐碎石主带、边石/排水沟/门石与龙后鬃鳞，但石缝重复和侧身轮廓仍未
+通过美术。
 
 已人工查看 `hero-street-desktop.png`、`hero-street-mobile.png`、
 `hero-street-near.png`、`hero-street-mobile-near.png` 及新增正/侧/背/

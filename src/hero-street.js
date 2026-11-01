@@ -505,6 +505,12 @@
       walk.position.set(side * 6.95, 0.018, -3);
       walk.receiveShadow = true;
       scene.add(walk);
+
+      const sidewalk = new THREE.Mesh(new THREE.PlaneGeometry(2.28, 77), materials.stone);
+      sidewalk.rotation.x = -Math.PI / 2;
+      sidewalk.position.set(side * 6.85, 0.026, -3);
+      sidewalk.receiveShadow = true;
+      scene.add(sidewalk);
     }
 
     // 路缘石用实例化重复，既读出街道边界，又不为每块石头单独提交 draw call。
@@ -529,6 +535,79 @@
     curb.castShadow = true;
     curb.receiveShadow = true;
     scene.add(curb);
+
+    // 排水沟沿街两侧连续铺设，凹槽与湿痕让路面有真实坡度方向。
+    const gutterMaterial = new THREE.MeshStandardMaterial({
+      color: 0x594d3e,
+      roughness: 0.72,
+      metalness: 0,
+      envMapIntensity: 0.55,
+    });
+    const gutterStoneMaterial = new THREE.MeshStandardMaterial({
+      color: 0x837968,
+      roughness: 0.92,
+      metalness: 0,
+    });
+    for (const side of [-1, 1]) {
+      const channel = new THREE.Mesh(new THREE.PlaneGeometry(0.24, 77), gutterMaterial);
+      channel.rotation.x = -Math.PI / 2;
+      channel.position.set(side * 5.28, 0.022, -3);
+      channel.receiveShadow = true;
+      scene.add(channel);
+      for (let i = 0; i < 22; i++) {
+        const slab = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.055, 3.15), gutterStoneMaterial);
+        slab.position.set(side * 5.43, 0.020, STREET_Z0 + 1.7 + i * 3.42);
+        slab.receiveShadow = true;
+        slab.castShadow = true;
+        scene.add(slab);
+      }
+      // 侧巷口的浅色门石与主街铺装断开，避免整条街只有一条相同带子。
+      for (const z of [-19.6, 8.0, 24.4]) {
+        const threshold = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.075, 0.55), gutterStoneMaterial);
+        threshold.position.set(side * 4.90, 0.043, z);
+        threshold.receiveShadow = true;
+        scene.add(threshold);
+      }
+    }
+
+    // 中间步行带用较亮的方石拼接，两侧留土路与车辙，形成主次铺装。
+    const pavingMaterial = materials.stone.clone();
+    pavingMaterial.name = 'street-paving';
+    pavingMaterial.color.setHex(0xf2ead7);
+    pavingMaterial.normalScale.set(0.26, 0.26);
+    pavingMaterial.roughness = 0.94;
+    const paving = new THREE.Mesh(new THREE.PlaneGeometry(4.25, 77), pavingMaterial);
+    paving.rotation.x = -Math.PI / 2;
+    paving.position.set(0, 0.024, -3);
+    paving.receiveShadow = true;
+    scene.add(paving);
+    const slabGeometry = new THREE.BoxGeometry(0.62, 0.035, 0.94);
+    const slabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, 13 * 82);
+    let slabCursor = 0;
+    for (let row = 0; row < 82; row++) {
+      for (let column = 0; column < 13; column++) {
+        const offset = row % 2 ? 0.30 : 0;
+        const jitter = ((row * 7 + column * 11) % 9 - 4) * 0.015;
+        matrix.makeTranslation(
+          -1.92 + column * 0.32 + offset * 0.16 + jitter,
+          0.026 + ((row + column) % 3) * 0.0015,
+          STREET_Z0 + 0.8 + row * 0.92 + jitter,
+        );
+        slabs.setMatrixAt(slabCursor, matrix);
+        color.setHex(
+          (row + column) % 7 === 0 ? 0xf0e5ce
+            : (row + column) % 5 === 0 ? 0xd2c5ac
+              : (row + column) % 3 === 0 ? 0xdfd2b8 : 0xe9ddc5,
+        );
+        slabs.setColorAt(slabCursor, color);
+        slabCursor++;
+      }
+    }
+    slabs.instanceMatrix.needsUpdate = true;
+    if (slabs.instanceColor) slabs.instanceColor.needsUpdate = true;
+    slabs.castShadow = false;
+    slabs.receiveShadow = true;
+    scene.add(slabs);
 
     // 车辙是道路使用痕迹，不做贴图滤镜；两条细长暗面帮助读出通行方向。
     for (const x of [-1.35, 1.35]) {
@@ -1805,7 +1884,7 @@
       }
     }
     const backCenter = positions.length / 3;
-    positions.push(0, profile.centerY[0], profile.z[0]);
+    positions.push(0, profile.centerY[0], profile.z[0] - 0.035);
     colors.push(jadeDark.r, jadeDark.g, jadeDark.b);
     uvs.push(0.5, 0);
     const frontCenter = positions.length / 3;
@@ -2166,7 +2245,7 @@
     visual.add(neckTube.mesh);
 
     const head = new THREE.Group();
-    head.position.set(0, 1.36, 0.91);
+      head.position.set(0, 1.34, 0.93);
     visual.add(head);
     const eyelids = [];
     const headMesh = createDragonHeadMesh();
@@ -2178,14 +2257,33 @@
       const x = Math.sin(angle) * 0.205;
       const y = 0.175 + Math.cos(angle) * 0.165;
       maneEntries.push({
-        position: new THREE.Vector3(x, y, -0.105 - Math.abs(angle) * 0.025),
-        direction: new THREE.Vector3(Math.sin(angle) * 0.90, 0.30 + Math.cos(angle) * 0.55, -0.74),
+        position: new THREE.Vector3(x, y, -0.095 - Math.abs(angle) * 0.018),
+        direction: new THREE.Vector3(Math.sin(angle) * 0.90, 0.34 + Math.cos(angle) * 0.55, -0.80),
         normal: new THREE.Vector3(Math.sin(angle) * 0.48, 0.28, 0.82),
-        width: 0.075 + Math.cos(angle) * 0.014,
-        length: 0.175 + Math.cos(angle) * 0.040,
+        width: 0.078 + Math.cos(angle) * 0.014,
+        length: 0.185 + Math.cos(angle) * 0.040,
         thickness: 0.48,
         color: i % 4 === 0 ? 0xe7dab8 : i % 3 === 0 ? 0x2f7164 : 0x5a9e86,
       });
+    }
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 7; column++) {
+        const u = (column + 0.5) / 7 - 0.5;
+        const v = (row + 0.5) / 3;
+        maneEntries.push({
+          position: new THREE.Vector3(
+            u * 0.30,
+            0.075 - v * 0.26,
+            -0.135 - Math.cos(u * Math.PI) * 0.040,
+          ),
+          direction: new THREE.Vector3(u * 0.92, 0.30 - v * 0.40, -0.74),
+          normal: new THREE.Vector3(u * 0.30, 0.22, 0.94),
+          width: 0.048 + Math.cos(u * Math.PI) * 0.012,
+          length: 0.11 + (1 - v) * 0.035,
+          thickness: 0.42,
+          color: (row + column) % 4 === 0 ? 0xe7dab8 : (row + column) % 3 === 0 ? 0x2f7164 : 0x5a9e86,
+        });
+      }
     }
     for (const side of [-1, 1]) {
       maneEntries.push({
@@ -2463,6 +2561,7 @@
     visual.userData.tail = tail;
     visual.userData.eyelids = eyelids;
     visual.userData.body = body;
+    visual.userData.bodyCurve = bodyCurve;
     return {
       root,
       visual,
@@ -2728,9 +2827,9 @@
     if (state.near) {
       dragon.root.updateMatrixWorld(true);
       dragon.head.getWorldPosition(dragon.headWorld);
-      target = dragon.headWorld.clone().add(new THREE.Vector3(0, 0.035, -0.04));
+      target = dragon.headWorld.clone().add(new THREE.Vector3(0, -0.02, 0.01));
       angle = state.yaw + state.orbitYaw;
-      distance = 2.15;
+      distance = 2.35;
       height = 0.02 + Math.sin(state.orbitPitch) * 0.85;
     } else {
       const forward = new THREE.Vector3(Math.sin(state.yaw), 0, Math.cos(state.yaw));
