@@ -453,6 +453,9 @@
     materials.dragonLip = makeMat('dragon-lip', 0x2f5d52, 0.60, 0);
     materials.dragonNose = makeMat('dragon-nose', 0x8e5a52, 0.52, 0);
     materials.dragonEar = makeMat('dragon-ear', 0xd9a094, 0.68, 0);
+    // 吻部：奶油色略偏暖，与腹甲同一色系但不完全一样，避免整脸一个白块。
+    materials.dragonMuzzle = makeMat('dragon-muzzle', 0xe9d9b6, 0.66, 0);
+    materials.dragonNostril = makeMat('dragon-nostril', 0x6f4a44, 0.62, 0);
     materials.dragonSocket = makeMat('dragon-eye-socket', 0x2a5449, 0.62, 0);
     materials.whisker = makeMat('dragon-whisker', 0xe0d3b4, 0.46, 0);
     materials.dragonEyeRim = makeMat('dragon-eye-rim', 0x5b3b20, 0.36, 0.08);
@@ -1939,6 +1942,7 @@
       tongue: materials.dragonTongue,
       lip: materials.dragonLip,
       nose: materials.dragonNose,
+      nostril: materials.dragonNostril,
       socket: materials.dragonSocket,
       eyeWhite: materials.eyeWhite,
       eyeAmber: materials.eyeAmber,
@@ -1947,6 +1951,7 @@
       lid: materials.dragonLid,
       ear: materials.dragonEar,
       cream: materials.cream,
+      muzzle: materials.dragonMuzzle,
       mane: materials.dragonScale,
       maneBase: materials.dragonManeBase,
       fin: materials.dragonFin,

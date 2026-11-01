@@ -88,11 +88,11 @@
         uvs.push(column / radial, t);
         if (colors) {
           const { base, belly, top } = colors;
-          // 腹面的奶油色只保留在正前方一条窄带里，向上不越过胸口中线；
-          // 之前用较宽的 pow(-sin, 1.45) 会让整片前身变成白色围兜。
-          const bellyMix = Math.pow(clamp(-sin, 0, 1), 2.6);
+          // 腹面的奶油色：从腹中线向两侧渐变，边界不要收得太窄，
+          // 否则正前方会留下一条细白线，读成拉链。
+          const bellyMix = Math.pow(clamp(-sin, 0, 1), 1.9);
           const topMix = Math.pow(clamp(sin, 0, 1), 1.6);
-          color.copy(base).lerp(top, topMix * 0.24).lerp(belly, bellyMix * 0.92);
+          color.copy(base).lerp(top, topMix * 0.24).lerp(belly, bellyMix * 0.86);
           vertexColors.push(color.r, color.g, color.b);
         }
         if (row < rings && column < radial) {
@@ -355,19 +355,19 @@
   /* 躯干鳞/头鳞的几何贴片已撤销：凸面上必然翘边。这里只保留贴图入口，
    * 由调用方把它挂到躯干/头材质上（见 window.ChanganDragonModel）。 */
 
-  /* 头：大颅骨 + 低而宽的吻。颅骨最宽 0.62、最高 0.54，
-   * 约占身高三分之一，与概念图的大头比例一致。 */
+  /* 头：颅骨是一颗偏扁的球，吻是另一颗宽而短的椭球，从颅骨前下方长出，
+   * 两者之间用一道鼻梁过渡。这样侧影是"圆颅 + 短吻"两段弧，
+   * 而不是一个球拖出一条锥形长坡。 */
   const HEAD = [
-    { z: -0.30, y: 0.020, w: 0.140, h: 0.132 },
-    { z: -0.22, y: 0.046, w: 0.216, h: 0.200 },
-    { z: -0.12, y: 0.056, w: 0.268, h: 0.244 },
-    { z: -0.02, y: 0.050, w: 0.288, h: 0.262 },
-    { z: 0.07, y: 0.036, w: 0.284, h: 0.250 },
-    { z: 0.15, y: 0.014, w: 0.258, h: 0.218 },
-    { z: 0.22, y: -0.014, w: 0.216, h: 0.176 },
-    { z: 0.27, y: -0.044, w: 0.168, h: 0.132 },
-    { z: 0.300, y: -0.070, w: 0.112, h: 0.092 },
-    { z: 0.318, y: -0.088, w: 0.058, h: 0.054 },
+    { z: -0.26, y: 0.030, w: 0.132, h: 0.124 },
+    { z: -0.18, y: 0.048, w: 0.204, h: 0.186 },
+    { z: -0.10, y: 0.054, w: 0.248, h: 0.222 },
+    { z: -0.02, y: 0.050, w: 0.262, h: 0.232 },
+    { z: 0.05, y: 0.040, w: 0.252, h: 0.220 },
+    { z: 0.11, y: 0.024, w: 0.226, h: 0.190 },
+    { z: 0.16, y: 0.004, w: 0.190, h: 0.152 },
+    { z: 0.20, y: -0.020, w: 0.150, h: 0.116 },
+    { z: 0.23, y: -0.042, w: 0.108, h: 0.082 },
   ];
 
   const HEAD_COLORS = {
@@ -380,11 +380,12 @@
     const head = new T.Group();
     head.name = 'dragon-head';
 
-    const upper = loftStations(HEAD, { rings: 56, radial: 40, colors: HEAD_COLORS });
+    const upper = loftStations(HEAD, { rings: 60, radial: 40, colors: HEAD_COLORS });
     const skullGeometry = upper.geometry;
     const pos = skullGeometry.attributes.position;
     const colorAttr = skullGeometry.attributes.color;
     const topColor = new T.Color(0x3d8573);
+    const creamColor = new T.Color(0xf2e6c6);
     const color = new T.Color();
     for (let i = 0; i < pos.count; i++) {
       const x = pos.getX(i);
@@ -393,22 +394,27 @@
       const absX = Math.abs(x);
       const side = Math.sign(x) || 1;
       // 眼窝外凸、眉骨抬起、颊部收窄：大眼坐在凸起的眼窝上。
-      const socket = Math.exp(-(((absX - 0.208) / 0.072) ** 2))
-        * Math.exp(-(((z - 0.030) / 0.072) ** 2))
-        * Math.exp(-(((y - 0.052) / 0.066) ** 2));
-      const brow = Math.exp(-(((absX - 0.180) / 0.082) ** 2))
-        * Math.exp(-(((z + 0.055) / 0.082) ** 2))
-        * Math.exp(-(((y - 0.140) / 0.060) ** 2));
-      const cheek = Math.exp(-(((absX - 0.240) / 0.070) ** 2))
-        * Math.exp(-(((z + 0.010) / 0.125) ** 2))
-        * Math.exp(-(((y + 0.030) / 0.085) ** 2));
-      pos.setX(i, x + side * (socket * 0.016 - cheek * 0.010));
-      pos.setY(i, y + brow * 0.016 + socket * 0.012);
+      const socket = Math.exp(-(((absX - 0.200) / 0.072) ** 2))
+        * Math.exp(-(((z - 0.020) / 0.074) ** 2))
+        * Math.exp(-(((y - 0.048) / 0.068) ** 2));
+      const brow = Math.exp(-(((absX - 0.176) / 0.082) ** 2))
+        * Math.exp(-(((z + 0.060) / 0.084) ** 2))
+        * Math.exp(-(((y - 0.136) / 0.062) ** 2));
+      const cheek = Math.exp(-(((absX - 0.238) / 0.072) ** 2))
+        * Math.exp(-(((z + 0.010) / 0.128) ** 2))
+        * Math.exp(-(((y + 0.030) / 0.086) ** 2));
+      pos.setX(i, x + side * (socket * 0.014 - cheek * 0.008));
+      pos.setY(i, y + brow * 0.014 + socket * 0.010);
       pos.setZ(i, z - socket * 0.004);
       if (colorAttr) {
         color.fromBufferAttribute(colorAttr, i);
+        // 奶油色只涂在吻部下沿（z > 0.12 且 y < 0），不到颊侧、不到额顶。
+        const snout = smoothstepValue(0.08, 0.22, z);
+        const under = smoothstepValue(0.02, -0.08, y);
+        const creamMix = snout * under;
+        color.lerp(creamColor, creamMix * 0.94);
         const topMix = clamp((y + 0.02) / 0.26, 0, 1);
-        color.lerp(topColor, topMix * 0.28);
+        color.lerp(topColor, topMix * 0.26 * (1 - creamMix));
         colorAttr.setXYZ(i, color.r, color.g, color.b);
       }
     }
@@ -419,33 +425,38 @@
     skull.layers.set(layer);
     head.add(skull);
 
-    // 奶油色吻部：包住口鼻的浅色面，宽度约为头宽的一半，位置压在眼下。
-    const muzzle = new T.Mesh(new T.SphereGeometry(1, 28, 22), materials.cream);
-    muzzle.scale.set(0.104, 0.076, 0.108);
-    muzzle.position.set(0, -0.128, 0.242);
+    // 吻：宽而扁的一段，覆盖脸的下半部（横向到颊侧），上缘埋进颅骨，
+    // 只露出前面一段弧面。这是"大嘴龙"的脸型关键：吻要宽，不能是小鼻头。
+    const muzzle = new T.Mesh(new T.SphereGeometry(1, 32, 24), materials.muzzle);
+    muzzle.scale.set(0.150, 0.082, 0.115);
+    muzzle.position.set(0, -0.070, 0.180);
     muzzle.castShadow = true;
     muzzle.receiveShadow = true;
     muzzle.layers.set(layer);
     head.add(muzzle);
 
+    // 鼻梁：从眉骨连到吻根的一道窄脊，把"圆颅"和"圆吻"缝起来，
+    // 避免两颗球各长各的、侧面看出接缝。
+    const bridge = new T.Mesh(new T.SphereGeometry(1, 20, 16), materials.body);
+    bridge.scale.set(0.062, 0.052, 0.120);
+    bridge.position.set(0, 0.006, 0.128);
+    bridge.castShadow = true;
+    bridge.layers.set(layer);
+    head.add(bridge);
+
     // 下巴：吻部下沿的圆钝面，让嘴部有厚度。
     const chin = new T.Mesh(new T.SphereGeometry(1, 22, 16), materials.cream);
-    chin.scale.set(0.062, 0.040, 0.062);
-    chin.position.set(0, -0.186, 0.230);
+    chin.scale.set(0.096, 0.044, 0.086);
+    chin.position.set(0, -0.128, 0.176);
     chin.castShadow = true;
     chin.layers.set(layer);
     head.add(chin);
 
-    // 鼻头：吻端一枚小圆鼻，配两个鼻孔。
-    const nose = new T.Mesh(new T.SphereGeometry(1, 18, 14), materials.nose);
-    nose.scale.set(0.034, 0.026, 0.024);
-    nose.position.set(0, -0.108, 0.348);
-    nose.layers.set(layer);
-    head.add(nose);
+    // 鼻头：吻端两枚鼻孔，不再放一颗圆鼻球——圆鼻球会让脸读成猪。
     for (const side of [-1, 1]) {
-      const nostril = new T.Mesh(new T.SphereGeometry(0.009, 10, 8), materials.pupil);
-      nostril.scale.set(1.1, 1.5, 0.5);
-      nostril.position.set(side * 0.019, -0.112, 0.352);
+      const nostril = new T.Mesh(new T.SphereGeometry(0.0105, 12, 10), materials.nostril);
+      nostril.scale.set(1.2, 1.5, 0.45);
+      nostril.position.set(side * 0.030, -0.052, 0.286);
       nostril.layers.set(layer);
       head.add(nostril);
     }
@@ -453,35 +464,35 @@
     // 笑口：沿吻侧一条上扬的弧线，读作"笑眯眯"。
     const smile = taperedTube(
       [
-        new T.Vector3(-0.104, -0.166, 0.238),
-        new T.Vector3(-0.054, -0.186, 0.276),
-        new T.Vector3(0, -0.192, 0.288),
-        new T.Vector3(0.054, -0.186, 0.276),
-        new T.Vector3(0.104, -0.166, 0.238),
+        new T.Vector3(-0.132, -0.104, 0.176),
+        new T.Vector3(-0.070, -0.124, 0.232),
+        new T.Vector3(0, -0.130, 0.252),
+        new T.Vector3(0.070, -0.124, 0.232),
+        new T.Vector3(0.132, -0.104, 0.176),
       ],
-      [0.005, 0.009, 0.011, 0.009, 0.005],
+      [0.005, 0.010, 0.012, 0.010, 0.005],
       materials.lip,
-      { segments: 20, radial: 6 },
+      { segments: 24, radial: 6 },
     );
     smile.mesh.layers.set(layer);
     head.add(smile.mesh);
 
     // 口腔与舌头：笑口内侧一小片暗红 + 粉色舌。
     const mouthInner = new T.Mesh(new T.SphereGeometry(1, 18, 12), materials.mouth);
-    mouthInner.scale.set(0.062, 0.036, 0.026);
-    mouthInner.position.set(0, -0.176, 0.276);
+    mouthInner.scale.set(0.076, 0.030, 0.026);
+    mouthInner.position.set(0, -0.116, 0.238);
     mouthInner.layers.set(layer);
     head.add(mouthInner);
     const tongue = new T.Mesh(new T.SphereGeometry(1, 16, 12), materials.tongue);
-    tongue.scale.set(0.040, 0.020, 0.020);
-    tongue.position.set(0, -0.182, 0.282);
+    tongue.scale.set(0.050, 0.014, 0.018);
+    tongue.position.set(0, -0.122, 0.242);
     tongue.layers.set(layer);
     head.add(tongue);
     // 两颗小尖牙：从笑口上缘露出来。
     for (const side of [-1, 1]) {
-      const fang = new T.Mesh(new T.ConeGeometry(0.009, 0.024, 7), materials.cream);
+      const fang = new T.Mesh(new T.ConeGeometry(0.009, 0.022, 7), materials.cream);
       fang.rotation.x = Math.PI;
-      fang.position.set(side * 0.048, -0.172, 0.268);
+      fang.position.set(side * 0.054, -0.104, 0.228);
       fang.castShadow = true;
       fang.layers.set(layer);
       head.add(fang);
@@ -490,13 +501,18 @@
     return { head, skull };
   }
 
+  function smoothstepValue(edge0, edge1, x) {
+    const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
+    return t * t * (3 - 2 * t);
+  }
+
   /* 大眼：眼白 + 大琥珀虹膜 + 圆瞳 + 两点高光 + 上眼睑 + 睫毛。
    * 眼位在颅侧偏前，朝前约 25°，正面能看见两只眼。 */
   function buildEye(side, materials, layer) {
     const group = new T.Group();
-    // 眼位：更靠前（z 0.13），朝向再收一点，正面能同时看到两只大眼。
-    group.position.set(side * 0.196, 0.076, 0.130);
-    group.rotation.y = side * 0.22;
+    // 眼位：颅骨前缘、朝前约 20°，正面能同时看到两只大眼。
+    group.position.set(side * 0.196, 0.070, 0.078);
+    group.rotation.y = side * 0.18;
     group.rotation.z = side * -0.04;
 
     const blink = new T.Group();
@@ -574,16 +590,17 @@
   /* 耳：侧面一对圆耳，内耳偏粉。 */
   function buildEar(side, materials, layer) {
     const group = new T.Group();
-    group.position.set(side * 0.276, 0.112, -0.072);
-    group.rotation.set(0.10, side * 0.30, side * -0.46);
+    // 耳要小、贴在颊侧后方，不能做成一对向外支棱的大耳片。
+    group.position.set(side * 0.244, 0.086, -0.086);
+    group.rotation.set(0.10, side * 0.24, side * -0.36);
     const outer = new T.Mesh(new T.SphereGeometry(1, 18, 14), materials.body);
-    outer.scale.set(0.062, 0.092, 0.036);
+    outer.scale.set(0.040, 0.062, 0.026);
     outer.castShadow = true;
     outer.layers.set(layer);
     group.add(outer);
     const inner = new T.Mesh(new T.SphereGeometry(1, 14, 12), materials.ear);
-    inner.scale.set(0.038, 0.066, 0.018);
-    inner.position.z = 0.020;
+    inner.scale.set(0.024, 0.044, 0.012);
+    inner.position.z = 0.016;
     inner.layers.set(layer);
     group.add(inner);
     return group;
@@ -664,14 +681,15 @@
     group.add(base);
 
     const entries = [];
-    const geometry = bladeGeometry({ width: 0.52, length: 1.0, thickness: 0.13 });
+    // 叶片压薄：厚度 0.13 的叶叠三层，侧看会连成一块厚板。
+    const geometry = bladeGeometry({ width: 0.52, length: 1.0, thickness: 0.055 });
     const center = new T.Vector3(0, 0.040, -0.052);
-    // 三圈叶：贴着颅后向后铺，叶尖朝外后方；yawSpan 收窄，
-    // 避免从侧面看像一对横向张开的翅膀。
+    // 三圈叶：贴着颅后向后铺，叶尖朝后，不外扩。
+    // 之前 yawSpan 太宽、叶片太大，侧看像两排白色的鳍插在头上。
     const rows = [
-      { count: 13, yawSpan: 0.98, pitch: -0.16, radius: 0.98, size: 0.190, color: 0x3f8875 },
-      { count: 11, yawSpan: 0.86, pitch: -0.30, radius: 1.05, size: 0.162, color: 0x59a08a },
-      { count: 9, yawSpan: 0.74, pitch: -0.44, radius: 1.10, size: 0.138, color: 0x8dc2a8 },
+      { count: 11, yawSpan: 0.80, pitch: -0.22, radius: 0.98, size: 0.150, color: 0x3f8875 },
+      { count: 9, yawSpan: 0.70, pitch: -0.34, radius: 1.03, size: 0.128, color: 0x59a08a },
+      { count: 7, yawSpan: 0.60, pitch: -0.46, radius: 1.07, size: 0.108, color: 0x8dc2a8 },
     ];
     for (const row of rows) {
       for (let i = 0; i < row.count; i++) {
@@ -681,23 +699,23 @@
         const cosYaw = Math.cos(yaw);
         const dir = new T.Vector3(
           sinYaw * 0.300 * row.radius,
-          row.pitch * 0.280 + cosYaw * 0.180 * row.radius,
+          row.pitch * 0.280 + cosYaw * 0.150 * row.radius,
           -cosYaw * 0.292 * row.radius,
         );
         const point = center.clone().add(dir);
         const outward = new T.Vector3(
-          sinYaw * 0.92,
-          row.pitch + 0.10,
-          -cosYaw * 0.46,
+          sinYaw * 0.62,
+          row.pitch + 0.06,
+          -cosYaw * 0.86,
         ).normalize();
         entries.push({
           position: point,
-          // 叶尖朝外、略向下后方：鬃是一圈蓬松的叶，不是竖起的刺。
-          direction: outward.clone().add(new T.Vector3(0, 0.16, -0.34)).normalize(),
+          // 叶尖朝后、略向下：鬃是脑后一片向后掠的叶，不是放射的冠。
+          direction: outward.clone().add(new T.Vector3(0, -0.10, -0.42)).normalize(),
           normal: new T.Vector3(-sinYaw * 0.44, 0.16, cosYaw * 0.86).normalize(),
-          width: row.size * 0.80,
+          width: row.size * 0.72,
           length: row.size,
-          thickness: 0.26,
+          thickness: 0.10,
           color: (i + Math.round(row.pitch * 12)) % 5 === 0 ? 0xefe3c2 : row.color,
         });
       }
@@ -715,19 +733,17 @@
         color: i % 2 === 0 ? 0xefe3c2 : 0x59a08a,
       });
     }
-    // 两颊各两片长鬃，向后下方甩出，不要横向张开。
+    // 两颊各一片短鬃，贴着脸向后。
     for (const side of [-1, 1]) {
-      for (let i = 0; i < 2; i++) {
-        entries.push({
-          position: new T.Vector3(side * (0.252 - i * 0.016), 0.010 - i * 0.070, -0.020 - i * 0.026),
-          direction: new T.Vector3(side * 0.52, -0.16 - i * 0.22, -0.82).normalize(),
-          normal: new T.Vector3(side * 0.34, 0.16, 0.92).normalize(),
-          width: 0.080,
-          length: 0.180 - i * 0.032,
-          thickness: 0.26,
-          color: i === 0 ? 0x59a08a : 0xefe3c2,
-        });
-      }
+      entries.push({
+        position: new T.Vector3(side * 0.238, 0.010, -0.030),
+        direction: new T.Vector3(side * 0.34, -0.12, -0.94).normalize(),
+        normal: new T.Vector3(side * 0.34, 0.16, 0.92).normalize(),
+        width: 0.062,
+        length: 0.128,
+        thickness: 0.24,
+        color: 0x59a08a,
+      });
     }
     group.add(bladeInstances(entries, materials.mane, geometry, layer));
     return group;
@@ -813,14 +829,22 @@
   function buildArm(side, materials, layer) {
     const pivot = new T.Group();
     const shoulderY = 0.782;
-    pivot.position.set(side * 0.212, shoulderY, 0.036);
+    pivot.position.set(side * 0.208, shoulderY, 0.036);
     pivot.rotation.z = side * 0.16;
 
+    // 肩头：埋在躯干里的一团肌肉，让手臂与身体之间没有"切管口"。
+    const shoulder = new T.Mesh(new T.SphereGeometry(1, 18, 14), materials.limb);
+    shoulder.scale.set(0.086, 0.090, 0.084);
+    shoulder.position.set(side * -0.014, 0.010, 0);
+    shoulder.castShadow = true;
+    shoulder.layers.set(layer);
+    pivot.add(shoulder);
+
     const stations = [
-      { z: 0.0, y: 0.0, w: 0.070, h: 0.074 },
-      { z: 0.012, y: -0.066, w: 0.064, h: 0.068 },
-      { z: 0.028, y: -0.128, w: 0.054, h: 0.058 },
-      { z: 0.042, y: -0.178, w: 0.050, h: 0.054 },
+      { z: 0.0, y: -0.010, w: 0.068, h: 0.072 },
+      { z: 0.012, y: -0.072, w: 0.062, h: 0.066 },
+      { z: 0.028, y: -0.132, w: 0.052, h: 0.056 },
+      { z: 0.042, y: -0.178, w: 0.048, h: 0.052 },
     ];
     const { geometry } = loftStations(stations, { rings: 16, radial: 16 });
     const mesh = new T.Mesh(geometry, materials.limb);
@@ -1005,7 +1029,6 @@
     const body = buildBody(materials, layer);
     visual.add(body.mesh);
     visual.add(body.neckMesh);
-    // 躯干鳞：沿身体两侧与脊背分列铺开，只覆盖上半个截面（腹部留给腹甲）。
 
     const headGroup = new T.Group();
     // 头坐落在颈顶：颈顶 y≈1.074，头心 y≈1.210。
