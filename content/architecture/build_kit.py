@@ -13,6 +13,7 @@ import os
 import sys
 
 import bpy
+import bmesh
 import mathutils
 from mathutils import Vector
 
@@ -271,23 +272,91 @@ def export_character_types(out_dir):
             if obj not in keep:
                 bpy.data.objects.remove(obj, do_unlink=True)
         bpy.context.view_layer.update()
-        # 研究组合保留 T 型手臂；首街需要日常站姿。旋转整个袖网格而不是
-        # 逐顶点扭形，袖肩接缝仍需生产级返工，但不能把袖子切成碎片。
-        for obj in keep:
-            if obj.type != "MESH":
-                continue
-            lower = obj.name.lower()
-            if "sleeve" not in lower:
-                continue
-            bounds = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
-            center = sum(bounds, Vector()) / len(bounds)
-            side = -1.0 if center.x < 0 else 1.0
-            pivot = Vector((side * 0.18, 0.0, 1.35))
-            offset = obj.location - pivot
-            rotation = mathutils.Matrix.Rotation(side * math.radians(62.0), 4, "Y")
-            obj.location = pivot + (rotation @ offset)
-            obj.rotation_euler.y += side * math.radians(62.0)
         meshes = [o for o in keep if o.type == "MESH"]
+        # 手臂收拢：研究台人物是 A 字站姿，袖子与手各自向外张开，出现在街上
+        # 就是"张开双臂"。人物没有骨骼可摆，所以按几何绕肩点旋转：
+        # - 袖网格整体转；
+        # - 手/前臂与头颈挤在同一个网格里，按连通件取出手臂部件再转。
+        # 两者共用同一枢轴与角度，袖口与手的相对关系因此保持不变。
+        rest_lo = Vector((1e9, 1e9, 1e9))
+        rest_hi = Vector((-1e9, -1e9, -1e9))
+        for obj in meshes:
+            for corner in obj.bound_box:
+                point = obj.matrix_world @ Vector(corner)
+                rest_lo = Vector((min(rest_lo[i], point[i]) for i in range(3)))
+                rest_hi = Vector((max(rest_hi[i], point[i]) for i in range(3)))
+        body_center_x = (rest_lo.x + rest_hi.x) * 0.5
+        shoulder_z = rest_lo.z + (rest_hi.z - rest_lo.z) * 0.74
+        arm_tuck = math.radians(44.0)
+
+        def arm_pivot(side):
+            return Vector((body_center_x + side * 0.20, rest_lo.y, shoulder_z))
+
+        def rotate_object_about(obj, pivot, angle):
+            transform = (
+                mathutils.Matrix.Translation(pivot)
+                @ mathutils.Matrix.Rotation(angle, 4, "Y")
+                @ mathutils.Matrix.Translation(-pivot)
+            )
+            obj.matrix_world = transform @ obj.matrix_world
+
+        def loose_parts(obj):
+            """按连通性把网格拆成独立部件，返回顶点索引列表。"""
+            bm = bmesh.new()
+            bm.from_mesh(obj.data)
+            bm.verts.ensure_lookup_table()
+            seen = set()
+            groups = []
+            for vertex in bm.verts:
+                if vertex.index in seen:
+                    continue
+                stack = [vertex]
+                seen.add(vertex.index)
+                members = []
+                while stack:
+                    current = stack.pop()
+                    members.append(current.index)
+                    for edge in current.link_edges:
+                        other = edge.other_vert(current)
+                        if other.index not in seen:
+                            seen.add(other.index)
+                            stack.append(other)
+                groups.append(members)
+            bm.free()
+            return groups
+
+        def rotate_vertices(obj, indices, pivot, angle):
+            world = obj.matrix_world.copy()
+            inverse = world.inverted()
+            rotation = mathutils.Matrix.Rotation(angle, 4, "Y")
+            for index in indices:
+                vertex = obj.data.vertices[index]
+                point = world @ vertex.co
+                vertex.co = inverse @ (pivot + (rotation @ (point - pivot)))
+            obj.data.update()
+
+        for obj in meshes:
+            lower = obj.name.lower()
+            if "sleeve" in lower:
+                bounds = [obj.matrix_world @ Vector(c) for c in obj.bound_box]
+                center = sum(bounds, Vector()) / len(bounds)
+                side = -1.0 if center.x < body_center_x else 1.0
+                rotate_object_about(obj, arm_pivot(side), side * arm_tuck)
+                continue
+            if "head" not in lower:
+                continue
+            world = obj.matrix_world.copy()
+            for members in loose_parts(obj):
+                total = Vector()
+                for index in members:
+                    total += world @ obj.data.vertices[index].co
+                center = total / len(members)
+                # 头、颈、躯干干件贴近中线且位置高；只有横向远离中线的手/前臂
+                # 属于手臂部件。
+                if abs(center.x - body_center_x) < 0.30:
+                    continue
+                side = -1.0 if center.x < body_center_x else 1.0
+                rotate_vertices(obj, members, arm_pivot(side), side * arm_tuck)
         bounds_lo = Vector((1e9, 1e9, 1e9))
         bounds_hi = Vector((-1e9, -1e9, -1e9))
         for obj in meshes:

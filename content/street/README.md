@@ -61,3 +61,11 @@ python tools/hero_street_test.py \
 对照 `docs/concept-market.png`，街两侧补上雨篷（篷布/垂帘/斜撑，复用一份
 单位盒几何与共享布材质）与两层/单层交错：7 间两层酒肆与 12 间单层铺面
 交替分布，`state.streetGaps` 实测相邻最小间距 1.482m，无穿透。
+
+## 人物手臂
+
+`resident-male.glb` / `resident-female.glb` 由 `content/architecture/build_kit.py`
+在导出时收拢手臂：研究台基体是 A 字站姿，且 `assembly.glb` 无 skin/动画，
+运行时无法摆臂。实测头颈手横向跨度由 1.139m 降到 0.442m（手落到髋部高度），
+袖与躯干无脱缝。人物仍是研究级：手与袖口间隙、唐服剪裁、面部与发式均
+未达到生产标准，不通过美术验收。
