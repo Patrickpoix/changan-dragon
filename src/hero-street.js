@@ -850,6 +850,40 @@
     const windowMat = materials.window;
     const frameMat = materials.darkWood;
 
+    // 概念图里的市街靠"沿街木构 + 挑檐雨篷 + 布色变化"读出来，不是一排
+    // 相同白墙。雨篷直接按世界坐标构造：临街面固定在 |x|=铺面前沿，
+    // 只向街心挑出有限深度，避免此前误用局部轴导致篷布伸到街心。
+    function addStreetAwning() {
+      const eaveY = isTavern ? 3.46 : 2.78;
+      // halfD 是铺面沿街半宽；雨篷略窄于铺面，不能盖到邻铺。
+      const halfSpan = halfD * 0.94;
+      const attachX = SHOP_FRONT * entry.scale;
+      const reach = isTavern ? 1.05 : 0.92;
+      const outerX = attachX - reach;
+      const centerX = entry.side * (attachX + outerX) / 2;
+      // 单位盒 1×0.06×1：X 是挑出深度，Y 是厚薄/垂高，Z 是沿街宽度。
+      // 绕 Z 轴旋转才能让 X 方向的篷布向街心下倾；绕 Y 会把沿街宽度扭进
+      // X 方向，实测会多伸出约 1 米并盖住邻铺。
+      const place = (x, y, z, sx, sy, sz, tiltZ = 0) => {
+        const matrix = new THREE.Matrix4().makeTranslation(x, y, z);
+        if (tiltZ) matrix.multiply(new THREE.Matrix4().makeRotationZ(entry.side * tiltZ));
+        matrix.multiply(new THREE.Matrix4().makeScale(sx, sy, sz));
+        return matrix;
+      };
+      const cloth = Math.abs(Math.round(entry.z)) % 2 ? materials.clothBlue : materials.clothOchre;
+      // 篷布：由铺面前沿向街心下倾，前端略低。
+      queueBatch('awning-canopy', sharedGeometry.awning, cloth,
+        place(centerX, eaveY + 0.08, entry.z, reach + 0.10, 1, halfSpan * 2, 0.20));
+      // 前缘垂帘：明确的篷下阴影边界。
+      queueBatch('awning-valance', sharedGeometry.awning, cloth,
+        place(entry.side * outerX, eaveY - 0.17, entry.z, 0.05, 0.32, halfSpan * 2));
+      // 两根斜撑把篷布锚回铺面，避免悬空布板。
+      for (const dz of [-halfSpan * 0.74, halfSpan * 0.74]) {
+        queueBatch('awning-strut', sharedGeometry.awning, frameMat,
+          place(centerX, eaveY - 0.36, entry.z + dz, reach + 0.14, 0.07, 0.07, 0.50));
+      }
+    }
+
     function addSideWindow(side, z, y, width = 0.9, height = 0.72) {
       const local = new THREE.Matrix4().makeTranslation(side * (halfW + 0.035), y, z);
       const scale = entry.scale;
@@ -884,6 +918,7 @@
       const beamWorld = beam.clone().multiply(new THREE.Matrix4().makeScale(1, 1, halfD * 1.72));
       queueBatch(isTavern ? 'tavern-beam' : 'shop-beam', beamGeo, frameMat, beamWorld);
     }
+    addStreetAwning();
     if (!isTavern) {
       for (const x of [-1.35, 0, 1.35]) {
         const scale = entry.scale;
@@ -977,18 +1012,27 @@
     // 两侧连续街墙建立纵深，不再重复加载 16 个不可读的完整建筑。
     setProgress(0.54, '排布临街铺面');
 
+    // 概念图的市街靠两层与单层交错读出来；两层酒肆按铺面位置间隔布置，
+    // 而不是只有一间。仍复用同一个酒肆 GLB，靠变换与共享材质区分类别。
     const leftZ = [-31, -24, -17, -8.8, 1.2, 8.6, 16.0, 23.4, 30.8];
     const rightZ = [-31, -24, -17, -10, -3, 4, 11, 18, 25, 32];
+    const TAVERN_Z = new Set([-24, 8.6, 23.4]);
     const entries = [];
     leftZ.forEach((z, i) => {
-      if (z === -8.8) {
+      if (z === -8.8 || TAVERN_Z.has(z)) {
         entries.push({ side: -1, z, kind: 'tavern', scale: 0.96 });
       } else {
         entries.push({ side: -1, z, kind: 'shop', scale: i % 3 === 0 ? 0.96 : i % 3 === 1 ? 1.0 : 1.04 });
       }
     });
+    const rightTavern = new Set([-17, 4, 25]);
     rightZ.forEach((z, i) => {
-      entries.push({ side: 1, z, kind: 'shop', scale: i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0 });
+      entries.push({
+        side: 1,
+        z,
+        kind: rightTavern.has(z) ? 'tavern' : 'shop',
+        scale: rightTavern.has(z) ? 0.96 : i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0,
+      });
     });
     entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
     flushBatches();
@@ -999,12 +1043,24 @@
         side: entry.side,
         z: entry.z,
         kind: entry.kind,
+        isTavern: placement.isTavern,
         board: placement.board,
         hangingZ: placement.hangingZ,
         frontX: placement.frontX,
         halfD: placement.halfD,
       };
     });
+    // 相邻铺面沿街范围不能互相侵入：两层酒肆与单层铺面共用同一条排布线。
+    state.streetGaps = [];
+    for (const side of [-1, 1]) {
+      const lane = state.streetPlan
+        .filter((row) => row.side === side)
+        .sort((a, b) => a.z - b.z);
+      for (let i = 1; i < lane.length; i++) {
+        const gap = (lane[i].z - lane[i].halfD) - (lane[i - 1].z + lane[i - 1].halfD);
+        state.streetGaps.push({ side, a: lane[i - 1].z, b: lane[i].z, gap: +gap.toFixed(3) });
+      }
+    }
 
     setProgress(0.68, '摆摊、点灯、落人');
     createStreetProps();
@@ -1219,6 +1275,8 @@
     sideBeam: null,
     transom: new THREE.BoxGeometry(0.86, 0.34, 0.055),
     transomBar: new THREE.BoxGeometry(0.88, 0.045, 0.07),
+    // 单位尺寸雨篷：所有铺面共用一份几何，靠实例矩阵缩放成不同宽度。
+    awning: new THREE.BoxGeometry(1, 0.06, 1),
   };
 
   const batchQueues = new Map();
@@ -3003,6 +3061,10 @@
     get streetPlan() {
       // 供验收脚本核对招牌文案是否重复、挂幌是否落在铺面范围内。
       return state.streetPlan || [];
+    },
+    get streetGaps() {
+      // 相邻铺面沿街间距；负值代表两层与单层店铺互相穿透。
+      return state.streetGaps || [];
     },
     teleport(x, z, y = 0.03) {
       state.position.set(x, y, z);

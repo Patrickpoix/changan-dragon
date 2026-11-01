@@ -261,6 +261,12 @@ async def run(args):
                     assert len(plan) >= 15, plan
                     boards = [row["board"] for row in plan]
                     assert len(set(boards)) >= 4, boards
+                    # 街道必须有楼层变化（两层酒肆与单层铺面交错），
+                    # 否则会退回"整条街同一栋白墙店"的观感。
+                    kinds = {row["isTavern"] for row in plan}
+                    assert kinds == {True, False}, plan
+                    taverns = sum(1 for row in plan if row["isTavern"])
+                    assert taverns >= 5, taverns
                     for row in plan:
                         assert row["board"], row
                         if row["hangingZ"] is None:
@@ -268,7 +274,11 @@ async def run(args):
                         low = row["z"] - row["halfD"]
                         high = row["z"] + row["halfD"]
                         assert low <= row["hangingZ"] <= high, row
+                    # 相邻铺面不能互相穿透。
+                    gaps = await page.evaluate("__street.streetGaps")
+                    assert gaps and min(row["gap"] for row in gaps) > 0, gaps
                     item["streetPlan"] = plan
+                    item["streetGaps"] = gaps
 
                     # 悬停在任意按钮上都不能冒充"当前模式"的选中色；
                     # 桌面端把鼠标停在"上升"上曾被误读成飞行已选中。
