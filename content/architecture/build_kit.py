@@ -295,6 +295,20 @@ def export_character_types(out_dir):
                 point = obj.matrix_world @ Vector(corner)
                 bounds_lo = Vector((min(bounds_lo[i], point[i]) for i in range(3)))
                 bounds_hi = Vector((max(bounds_hi[i], point[i]) for i in range(3)))
+        # 研究台里的两位人物留在组合场景坐标上；独立导出必须水平居中、
+        # 脚底归零，否则首街实例会被整体平移数米并插进店铺。
+        origin = Vector(
+            (
+                (bounds_lo.x + bounds_hi.x) * 0.5,
+                (bounds_lo.y + bounds_hi.y) * 0.5,
+                bounds_lo.z,
+            )
+        )
+        for obj in meshes:
+            obj.matrix_world = mathutils.Matrix.Translation(-origin) @ obj.matrix_world
+        bpy.context.view_layer.update()
+        bounds_lo -= origin
+        bounds_hi -= origin
         triangles = count_triangles(meshes)
         destination = os.path.join(out_dir, output)
         export_glb(destination, meshes)
