@@ -273,18 +273,30 @@ def export_character_types(out_dir):
                 bpy.data.objects.remove(obj, do_unlink=True)
         bpy.context.view_layer.update()
         meshes = [o for o in keep if o.type == "MESH"]
+
+        def world_bounds(objects):
+            """按实际顶点算世界包围盒。
+
+            obj.bound_box 是缓存：逐顶点改动后不刷新，用它会把收拢前后的
+            尺寸混在一起（实测 male 报告 1.139m，运行时只有 0.568m），
+            并且会让后面的"水平居中、脚底归零"基于过期数据。
+            """
+            lo = Vector((1e9, 1e9, 1e9))
+            hi = Vector((-1e9, -1e9, -1e9))
+            for obj in objects:
+                matrix = obj.matrix_world
+                for vertex in obj.data.vertices:
+                    point = matrix @ vertex.co
+                    lo = Vector((min(lo[i], point[i]) for i in range(3)))
+                    hi = Vector((max(hi[i], point[i]) for i in range(3)))
+            return lo, hi
+
         # 手臂收拢：研究台人物是 A 字站姿，袖子与手各自向外张开，出现在街上
         # 就是"张开双臂"。人物没有骨骼可摆，所以按几何绕肩点旋转：
         # - 袖网格整体转；
         # - 手/前臂与头颈挤在同一个网格里，按连通件取出手臂部件再转。
         # 两者共用同一枢轴与角度，袖口与手的相对关系因此保持不变。
-        rest_lo = Vector((1e9, 1e9, 1e9))
-        rest_hi = Vector((-1e9, -1e9, -1e9))
-        for obj in meshes:
-            for corner in obj.bound_box:
-                point = obj.matrix_world @ Vector(corner)
-                rest_lo = Vector((min(rest_lo[i], point[i]) for i in range(3)))
-                rest_hi = Vector((max(rest_hi[i], point[i]) for i in range(3)))
+        rest_lo, rest_hi = world_bounds(meshes)
         body_center_x = (rest_lo.x + rest_hi.x) * 0.5
         shoulder_z = rest_lo.z + (rest_hi.z - rest_lo.z) * 0.74
         arm_tuck = math.radians(44.0)
@@ -357,13 +369,7 @@ def export_character_types(out_dir):
                     continue
                 side = -1.0 if center.x < body_center_x else 1.0
                 rotate_vertices(obj, members, arm_pivot(side), side * arm_tuck)
-        bounds_lo = Vector((1e9, 1e9, 1e9))
-        bounds_hi = Vector((-1e9, -1e9, -1e9))
-        for obj in meshes:
-            for corner in obj.bound_box:
-                point = obj.matrix_world @ Vector(corner)
-                bounds_lo = Vector((min(bounds_lo[i], point[i]) for i in range(3)))
-                bounds_hi = Vector((max(bounds_hi[i], point[i]) for i in range(3)))
+        bounds_lo, bounds_hi = world_bounds(meshes)
         # 研究台里的两位人物留在组合场景坐标上；独立导出必须水平居中、
         # 脚底归零，否则首街实例会被整体平移数米并插进店铺。
         origin = Vector(
@@ -381,13 +387,25 @@ def export_character_types(out_dir):
         triangles = count_triangles(meshes)
         destination = os.path.join(out_dir, output)
         export_glb(destination, meshes)
+        # 报告尺寸改为"重新导入导出的 GLB 再量"：导出会写入 Y-up 与节点
+        # 旋转/缩放，直接在 Blender 里量内存对象得到的数字与渲染器最终看到的
+        # 不一致（实测 male 报 1.139m、运行时只有 0.49m 宽）。
+        kit.reset_scene()
+        bpy.ops.import_scene.gltf(filepath=destination)
+        # 导入后必须刷新依赖图，否则 matrix_world 仍是导入前的值，
+        # 量出来的宽度会比运行时大（实测 male 报 0.799m，运行时 0.57m）。
+        bpy.context.view_layer.update()
+        exported_meshes = [
+            o for o in bpy.context.scene.objects if o.type == "MESH"
+        ]
+        exported_lo, exported_hi = world_bounds(exported_meshes)
         records.append(
             {
                 "id": label,
                 "file": output,
                 "triangles": triangles,
                 "dimensions_m": tuple(
-                    round(bounds_hi[i] - bounds_lo[i], 3) for i in range(3)
+                    round(exported_hi[i] - exported_lo[i], 3) for i in range(3)
                 ),
                 "source": "assets/library/preparation-study/assembly.glb",
                 "source_node": node,
@@ -403,6 +421,23 @@ def main():
     out_dir = os.path.abspath(args.out)
     shots_dir = os.path.join(out_dir, "review")
     os.makedirs(shots_dir, exist_ok=True)
+
+    # --only characters：只重导两位人物并就地合并报告。
+    # 人物改动不需要重跑建筑构件，否则每次都会刷新 50 张只差渲染噪声的
+    # 验收图，既拖慢流程又污染 diff。
+    if args.only == "characters":
+        report_path = os.path.join(out_dir, "kit-report.json")
+        report = {}
+        if os.path.isfile(report_path):
+            with open(report_path, "r", encoding="utf-8") as fh:
+                report = json.load(fh)
+        report.setdefault("modules", [])
+        report.setdefault("note", "唐构构件库，尺寸按材分制换算")
+        report["character_types"] = export_character_types(out_dir)
+        with open(report_path, "w", encoding="utf-8") as fh:
+            json.dump(report, fh, ensure_ascii=False, indent=2)
+        print("KIT_BUILD_OK characters")
+        return
 
     report = {"modules": [], "note": "唐构构件库，尺寸按材分制换算"}
 

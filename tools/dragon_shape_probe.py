@@ -89,6 +89,8 @@ async def run(args):
             launch["executable_path"] = executable
         browser = await p.chromium.launch(**launch)
         page = await browser.new_page(viewport={"width": 1280, "height": 720})
+        # 软件渲染下每帧接近一秒，Playwright 默认 30s 的截图超时会误报失败。
+        page.set_default_timeout(120000)
         errors = []
         console_errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))

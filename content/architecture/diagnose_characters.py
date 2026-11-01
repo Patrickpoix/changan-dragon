@@ -89,7 +89,9 @@ def main():
         for obj in sorted(keep, key=lambda o: o.name):
             if obj.type != "MESH":
                 continue
-            bounds = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
+            # 用实际顶点而不是 obj.bound_box：后者是缓存，逐顶点改动后不刷新，
+            # 会把收拢前后的尺寸混在一起。
+            bounds = [obj.matrix_world @ vertex.co for vertex in obj.data.vertices]
             lo = Vector((min(b[i] for b in bounds) for i in range(3)))
             hi = Vector((max(b[i] for b in bounds) for i in range(3)))
             print(

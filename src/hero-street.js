@@ -46,7 +46,7 @@
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.35 : 1.8));
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xc9c2a8, 40, 122);
+  scene.fog = new THREE.Fog(0xe6d5b8, 34, 118);
   const camera = new THREE.PerspectiveCamera(48, 1, 0.08, 320);
   const clock = new THREE.Clock();
   const textureLoader = new THREE.TextureLoader();
@@ -85,6 +85,9 @@
   let hemi = null;
   let rootWorld = null;
   let sky = null;
+  let composer = null;
+  let fxaaPass = null;
+  let bloomPass = null;
   let introAngle = 0;
   let toastTimer = 0;
 
@@ -137,12 +140,47 @@
     });
   }
 
-  async function loadPBR(name, base, normal, rough, repeat = [2, 2], color = 0xffffff) {
-    const [baseMap, normalMap, roughMap] = await Promise.all([
+  const LIFT_CACHE = new Map();
+
+  /* 贴图提亮：CC0 扫描贴图的原色偏暗（细纹木平均 #413020），直接乘语义色会
+   * 把整条街压成近黑。这里在 512² 画布上按固定系数提亮一次，结果按 URL+系数
+   * 缓存，全城构件共用同一张贴图，不新增下载量。 */
+  function liftTexture(texture, factor, key) {
+    if (LIFT_CACHE.has(key)) return LIFT_CACHE.get(key);
+    const image = texture.image;
+    const size = Math.min(512, image.width || 512, image.height || 512);
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0, size, size);
+    const data = ctx.getImageData(0, 0, size, size);
+    const px = data.data;
+    for (let i = 0; i < px.length; i += 4) {
+      px[i] = Math.min(255, px[i] * factor);
+      px[i + 1] = Math.min(255, px[i + 1] * factor);
+      px[i + 2] = Math.min(255, px[i + 2] * factor);
+    }
+    ctx.putImageData(data, 0, 0);
+    const lifted = new THREE.CanvasTexture(canvas);
+    lifted.wrapS = texture.wrapS;
+    lifted.wrapT = texture.wrapT;
+    lifted.repeat.copy(texture.repeat);
+    lifted.colorSpace = texture.colorSpace;
+    lifted.anisotropy = texture.anisotropy;
+    lifted.needsUpdate = true;
+    LIFT_CACHE.set(key, lifted);
+    return lifted;
+  }
+
+  async function loadPBR(name, base, normal, rough, repeat = [2, 2], color = 0xffffff, lift = 1) {
+    const [baseMapRaw, normalMap, roughMap] = await Promise.all([
       base ? loadTexture(base, { srgb: true, repeat }) : Promise.resolve(null),
       loadTexture(normal, { repeat }),
       loadTexture(rough, { repeat }),
     ]);
+    const baseMap = baseMapRaw && lift !== 1
+      ? liftTexture(baseMapRaw, lift, base + '|lift' + lift)
+      : baseMapRaw;
     const material = new THREE.MeshStandardMaterial({
       name,
       color,
@@ -250,25 +288,25 @@
     const root = '/assets/library/production-materials/';
     const [mud, stone, wood, darkWood, cloth, roof] = await Promise.all([
       loadPBR('street-mud', root + 'brown_mud_02/basecolor_512.png',
-        root + 'brown_mud_02/normal_512.png', root + 'brown_mud_02/roughness_512.png', [7, 20], 0x8f8068),
+        root + 'brown_mud_02/normal_512.png', root + 'brown_mud_02/roughness_512.png', [7, 20], 0xd9c6a4, 1.35),
       loadPBR('street-stone', root + 'grey_stone_path/basecolor_512.png',
-        root + 'grey_stone_path/normal_512.png', root + 'grey_stone_path/roughness_512.png', [2, 8], 0xb5aa92),
+        root + 'grey_stone_path/normal_512.png', root + 'grey_stone_path/roughness_512.png', [2, 8], 0xd6cdbb, 1.5),
       loadPBR('street-wood', root + 'fine_grained_wood/basecolor_512.png',
-        root + 'fine_grained_wood/normal_512.png', root + 'fine_grained_wood/roughness_512.png', [1, 3], 0x9e7553),
+        root + 'fine_grained_wood/normal_512.png', root + 'fine_grained_wood/roughness_512.png', [1, 3], 0xd8b18a, 1.9),
       loadPBR('street-darkwood', root + 'dark_wood/basecolor_512.png',
-        root + 'dark_wood/normal_512.png', root + 'dark_wood/roughness_512.png', [1, 2], 0x4f3328),
+        root + 'dark_wood/normal_512.png', root + 'dark_wood/roughness_512.png', [1, 2], 0xb08a72, 1.5),
       loadPBR('street-cloth', root + 'Fabric081C/basecolor_512.png',
-        root + 'Fabric081C/normal_512.png', root + 'Fabric081C/roughness_512.png', [3, 2], 0xb75b48),
+        root + 'Fabric081C/normal_512.png', root + 'Fabric081C/roughness_512.png', [3, 2], 0xb75b48, 1),
       loadPBR('street-roof', null,
         '/assets/library/architecture/pbr/clay_roof_tiles_02/normal.jpg',
-        '/assets/library/architecture/pbr/clay_roof_tiles_02/roughness.jpg', [6, 3], 0x6d7472),
+        '/assets/library/architecture/pbr/clay_roof_tiles_02/roughness.jpg', [6, 3], 0x6d7472, 1),
     ]);
-    mud.color.setHex(0x9a8769);
-    stone.color.setHex(0xb7aa91);
-    wood.color.setHex(0x9a7051);
-    darkWood.color.setHex(0x4b3026);
+    mud.color.setHex(0xd9c6a4);
+    stone.color.setHex(0xd6cdbb);
+    wood.color.setHex(0xd8b18a);
+    darkWood.color.setHex(0xb08a72);
     cloth.color.setHex(0xb4513e);
-    roof.color.setHex(0x666f6e);
+    roof.color.setHex(0x6b7472);
     cloth.side = THREE.DoubleSide;
     materials.mud = mud;
     materials.stone = stone;
@@ -348,20 +386,70 @@
     });
     materials.cream = makeMat('dragon-cream', 0xe7dab8, 0.62, 0);
     materials.horn = makeMat('dragon-horn', 0xd9cbaa, 0.52, 0);
+    // 鳞片/鬃/背鳍：一片薄板几何，靠实例色与朝向区分，材质只有一份。
     materials.dragonScale = new THREE.MeshStandardMaterial({
       name: 'dragon-scale-instances',
       color: 0xffffff,
-      roughness: 0.62,
+      roughness: 0.58,
       metalness: 0,
-      envMapIntensity: 0.64,
+      envMapIntensity: 0.70,
     });
+    // 腹甲更亮更哑，与青鳞拉开明度，近看能读出分节。
+    materials.dragonScute = new THREE.MeshStandardMaterial({
+      name: 'dragon-belly-scutes',
+      color: 0xffffff,
+      roughness: 0.72,
+      metalness: 0,
+      envMapIntensity: 0.62,
+    });
+    // 背鳍/鬃膜：半透光的薄鳍，双面渲染，逆光时能透出暖色。
+    materials.dragonFin = new THREE.MeshStandardMaterial({
+      name: 'dragon-fin-membrane',
+      color: 0x2f7064,
+      roughness: 0.52,
+      metalness: 0,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.94,
+      envMapIntensity: 0.70,
+    });
+    // 鬃底：包住颅后的一层深色绒面，用来遮住秃颅并衬托鬃叶。
+    materials.dragonManeBase = new THREE.MeshStandardMaterial({
+      name: 'dragon-mane-base',
+      color: 0x3f8875,
+      roughness: 0.74,
+      metalness: 0,
+      envMapIntensity: 0.62,
+    });
+    // 躯干/头/颌共用一份顶点色材质：皮肤的青-奶白过渡烘焙在顶点色里。
     materials.dragonBody = new THREE.MeshStandardMaterial({
       name: 'dragon-body-vertex-color',
       vertexColors: true,
+      roughness: 0.52,
+      metalness: 0,
+      envMapIntensity: 0.72,
+    });
+    // 四肢比躯干略深，避免四条腿和身体读成同一根管子。
+    materials.dragonLimb = new THREE.MeshStandardMaterial({
+      name: 'dragon-limb',
+      color: 0x478b74,
+      roughness: 0.54,
+      metalness: 0,
+      envMapIntensity: 0.70,
+    });
+    materials.dragonLimbDark = new THREE.MeshStandardMaterial({
+      name: 'dragon-limb-dark',
+      color: 0x336b5f,
       roughness: 0.56,
       metalness: 0,
-      envMapIntensity: 0.68,
+      envMapIntensity: 0.66,
     });
+    materials.dragonLid = makeMat('dragon-lid', 0x3f8271, 0.58, 0);
+    materials.dragonLip = makeMat('dragon-lip', 0x2f5d52, 0.60, 0);
+    materials.dragonNose = makeMat('dragon-nose', 0x8e5a52, 0.52, 0);
+    materials.dragonEar = makeMat('dragon-ear', 0xd9a094, 0.68, 0);
+    materials.dragonSocket = makeMat('dragon-eye-socket', 0x2a5449, 0.62, 0);
+    materials.whisker = makeMat('dragon-whisker', 0xe0d3b4, 0.46, 0);
     materials.dragonEyeRim = makeMat('dragon-eye-rim', 0x5b3b20, 0.36, 0.08);
     materials.dragonMouth = makeMat('dragon-mouth', 0x3a1716, 0.7, 0);
     materials.dragonTongue = makeMat('dragon-tongue', 0xc65b59, 0.64, 0);
@@ -391,6 +479,11 @@
     materials.fruitGreen = makeMat('fruit-green', 0x71834b, 0.7, 0);
     materials.terracotta = makeMat('terracotta', 0x9b6646, 0.88, 0);
     materials.plasterWarm = makeMat('street-plaster-warm', 0xcab995, 0.86, 0);
+    // 后排屋海的材质：比前店更浅、更偏冷，配合雾把纵深压进空气里，
+    // 避免后排与前店同样的对比度，让整条街像两堵平行的墙。
+    materials.plasterDistant = makeMat('street-plaster-distant', 0xcfc3ab, 0.94, 0);
+    materials.roofDistant = makeMat('street-roof-distant', 0x59605f, 0.94, 0);
+    materials.woodDistant = makeMat('street-wood-distant', 0x6f5240, 0.92, 0);
     materials.vermilion = makeMat('street-vermilion', 0x8f4034, 0.72, 0.02);
     materials.greenPaint = makeMat('street-green-paint', 0x365f58, 0.76, 0.01);
     materials.doorBlue = makeMat('street-door-blue', 0x344f55, 0.8, 0.02);
@@ -409,16 +502,17 @@
   }
 
   function createSky() {
-    const geometry = new THREE.SphereGeometry(240, 32, 18);
+    const geometry = new THREE.SphereGeometry(260, 48, 24);
     const material = new THREE.ShaderMaterial({
       side: THREE.BackSide,
       depthWrite: false,
       fog: false,
       uniforms: {
-        topColor: { value: new THREE.Color(0x5f8f9c) },
-        horizonColor: { value: new THREE.Color(0xe6d2ac) },
-        groundColor: { value: new THREE.Color(0x95876e) },
-        sunDirection: { value: new THREE.Vector3(0.42, 0.52, 0.32).normalize() },
+        topColor: { value: new THREE.Color(0x3f7f9c) },
+        midColor: { value: new THREE.Color(0x9fc0c8) },
+        horizonColor: { value: new THREE.Color(0xf3ddb6) },
+        groundColor: { value: new THREE.Color(0xb49a74) },
+        sunDirection: { value: new THREE.Vector3(0.42, 0.34, 0.32).normalize() },
       },
       vertexShader: `
         varying vec3 vWorld;
@@ -429,17 +523,62 @@
       `,
       fragmentShader: `
         uniform vec3 topColor;
+        uniform vec3 midColor;
         uniform vec3 horizonColor;
         uniform vec3 groundColor;
         uniform vec3 sunDirection;
         varying vec3 vWorld;
+
+        // 三维噪声只用于云的软边，不参与建筑或地面着色。
+        float hash(vec2 p) {
+          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+        }
+        float noise(vec2 p) {
+          vec2 i = floor(p);
+          vec2 f = fract(p);
+          vec2 u = f * f * (3.0 - 2.0 * f);
+          return mix(
+            mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+            mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+            u.y
+          );
+        }
+        float fbm(vec2 p) {
+          float value = 0.0;
+          float amplitude = 0.5;
+          for (int i = 0; i < 3; i++) {
+            value += noise(p) * amplitude;
+            p *= 2.05;
+            amplitude *= 0.5;
+          }
+          return value;
+        }
+
         void main() {
           vec3 dir = normalize(vWorld - cameraPosition);
-          float h = smoothstep(-0.15, 0.72, dir.y);
-          vec3 color = mix(horizonColor, topColor, h);
-          color = mix(groundColor, color, smoothstep(-0.22, 0.03, dir.y));
-          float sun = pow(max(dot(dir, normalize(sunDirection)), 0.0), 220.0);
-          color += vec3(1.0, 0.68, 0.34) * sun * 0.52;
+          float h = clamp(dir.y, -0.2, 1.0);
+          // 天顶到地平线三段渐变：唐长安的黄昏不是一整块土黄。
+          vec3 color = mix(horizonColor, midColor, smoothstep(0.0, 0.30, h));
+          color = mix(color, topColor, smoothstep(0.22, 0.85, h));
+          color = mix(groundColor, color, smoothstep(-0.20, 0.02, dir.y));
+
+          // 低角度暖阳与光晕，让顺光/逆光的建筑轮廓有方向感。
+          float sunDot = max(dot(dir, normalize(sunDirection)), 0.0);
+          color += vec3(1.0, 0.70, 0.38) * pow(sunDot, 260.0) * 1.35;
+          color += vec3(1.0, 0.76, 0.48) * pow(sunDot, 14.0) * 0.20;
+          color += vec3(0.95, 0.72, 0.46) * pow(sunDot, 3.0) * 0.05;
+
+          // 高空薄云：只在仰角较高处出现，靠近街面的地平线保持干净。
+          // 云只在 dir.y > 0.05 时采样噪声，地面以下与街景方向不做无用的 fbm。
+          if (dir.y > 0.05) {
+            vec2 cloudUv = dir.xz / max(0.20, dir.y + 0.25) * 1.35;
+            float cloud = fbm(cloudUv + vec2(2.4, 1.1));
+            float cloudMask = smoothstep(0.56, 0.86, cloud)
+              * smoothstep(0.06, 0.42, dir.y)
+              * (1.0 - smoothstep(0.62, 0.98, dir.y));
+            color = mix(color, vec3(1.0, 0.93, 0.82), cloudMask * 0.55);
+          }
+
           gl_FragColor = vec4(color, 1.0);
         }
       `,
@@ -450,12 +589,13 @@
   }
 
   function createLights() {
-    hemi = new THREE.HemisphereLight(0xbcd5d2, 0x5c4b3d, 1.08);
+    // 冷暖分离：天光偏青、太阳偏橙，避免整条街被同一色温压平。
+    hemi = new THREE.HemisphereLight(0xa9cfe0, 0x6b5540, 0.95);
     scene.add(hemi);
-    const ambient = new THREE.AmbientLight(0xffebc9, 0.22);
+    const ambient = new THREE.AmbientLight(0xffe6c4, 0.16);
     scene.add(ambient);
-    sun = new THREE.DirectionalLight(0xffd9a2, 2.15);
-    sun.position.set(18, 32, 22);
+    sun = new THREE.DirectionalLight(0xffd9a6, 2.55);
+    sun.position.set(22, 26, 16);
     sun.castShadow = true;
     sun.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
     sun.shadow.camera.near = 1;
@@ -487,7 +627,9 @@
   }
 
   function createGround() {
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), materials.mud);
+    // 地面必须远大于可视距离：120m 见方的土面在 60m 处就露出边缘，远看像
+    // 一堵棕色墙。改成 520m 见方，配合雾把远处收进天色。
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(520, 520), materials.mud);
     ground.rotation.x = -Math.PI / 2;
     ground.position.set(0, -0.025, -8);
     ground.receiveShadow = true;
@@ -966,11 +1108,48 @@
       rotationY: side < 0 ? -Math.PI / 2 : Math.PI / 2,
       scale,
     });
-    group.traverse((node) => {
-      if (!node.isMesh) return;
-      node.visible = false;
-    });
     return group;
+  }
+
+  /* 临街铺面背后再排一层屋海：街两侧的天际线不能只由一排店铺和空地看着。
+   * 第二排复用同一份 GLB 与共享材质，只做变换，因此不增加下载量；
+   * 屋顶轮廓、楼层高度与沿街方向都与前店错开，读出"坊内纵深"。 */
+  function addBackRows(shopRoot, tavernRoot) {
+    const rows = [];
+    for (const side of [-1, 1]) {
+      for (let i = 0; i < 9; i++) {
+        const z = STREET_Z0 + 6 + i * 8.4;
+        const isTavern = i % 3 === 1;
+        const scale = isTavern ? 0.90 : 0.86 + (i % 3) * 0.05;
+        const group = addBackgroundBuilding(
+          isTavern ? tavernRoot : shopRoot,
+          side,
+          z,
+          scale,
+        );
+        group.position.y = -0.02;
+        group.rotation.y = (side < 0 ? -Math.PI / 2 : Math.PI / 2) + (i % 2 ? 0.10 : -0.08);
+        group.traverse((node) => {
+          if (!node.isMesh) return;
+          // 后排不做投影：阴影贴图覆盖不到这里，投影只会浪费采样。
+          node.castShadow = false;
+          node.receiveShadow = true;
+          const material = Array.isArray(node.material) ? node.material[0] : node.material;
+          if (!material) return;
+          if (/mat_plaster/i.test(material.name || '')) {
+            node.material = materials.plasterDistant;
+          } else if (/mat_roof/i.test(material.name || '')) {
+            node.material = materials.roofDistant;
+          } else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+            node.material = materials.woodDistant;
+          }
+        });
+        scene.add(group);
+        rows.push(group);
+      }
+    }
+    state.backgroundRows = rows;
+    return rows;
   }
 
   async function createStreet() {
@@ -1036,6 +1215,7 @@
     });
     entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
     flushBatches();
+    addBackRows(shopRoot, tavernRoot);
     // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
     state.streetPlan = entries.map((entry) => {
       const placement = shopPlacement(entry);
@@ -1741,970 +1921,46 @@
     state.people = scene.children.filter((o) => o.userData.isPerson);
   }
 
-  function createTaperedTube(points, radii, material, segments = 32, radial = 12) {
-    const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal');
-    const frames = curve.computeFrenetFrames(segments, false);
-    const vertices = [];
-    const indices = [];
-    const uvs = [];
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments;
-      const point = curve.getPointAt(t);
-      const next = Math.min(radii.length - 1, Math.max(0, t * (radii.length - 1)));
-      const low = Math.floor(next);
-      const high = Math.min(radii.length - 1, low + 1);
-      const radius = THREE.MathUtils.lerp(radii[low], radii[high], next - low);
-      const normal = frames.normals[i];
-      const binormal = frames.binormals[i];
-      for (let j = 0; j <= radial; j++) {
-        const angle = (j / radial) * Math.PI * 2;
-        const vertex = point.clone()
-          .addScaledVector(normal, Math.cos(angle) * radius)
-          .addScaledVector(binormal, Math.sin(angle) * radius);
-        vertices.push(vertex.x, vertex.y, vertex.z);
-        uvs.push(t, j / radial);
-        if (i < segments && j < radial) {
-          const a = i * (radial + 1) + j;
-          const b = a + 1;
-          const c = a + radial + 1;
-          const d = c + 1;
-          indices.push(a, c, b, b, c, d);
-        }
-      }
-    }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-    geometry.setIndex(indices);
-    geometry.computeVertexNormals();
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    return { mesh, curve };
-  }
-
-  function createRibbon(points, width, material) {
-    const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal');
-    const segments = 16;
-    const vertices = [];
-    const indices = [];
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments;
-      const p = curve.getPointAt(t);
-      const tangent = curve.getTangentAt(t).normalize();
-      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-      const w = width * (1 - t * 0.55);
-      vertices.push(
-        p.x - side.x * w, p.y - side.y * w, p.z - side.z * w,
-        p.x + side.x * w, p.y + side.y * w, p.z + side.z * w,
-      );
-      if (i < segments) {
-        const a = i * 2;
-        indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
-      }
-    }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    geometry.setIndex(indices);
-    geometry.computeVertexNormals();
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.material.side = THREE.DoubleSide;
-    mesh.castShadow = true;
-    return mesh;
-  }
-
-  function catmullRomValue(values, index, amount) {
-    const count = values.length;
-    const i1 = clamp(index, 0, count - 1);
-    const i0 = Math.max(0, i1 - 1);
-    const i2 = Math.min(count - 1, i1 + 1);
-    const i3 = Math.min(count - 1, i1 + 2);
-    const v0 = values[i0];
-    const v1 = values[i1];
-    const v2 = values[i2];
-    const v3 = values[i3];
-    const t = amount;
-    const t2 = t * t;
-    const t3 = t2 * t;
-    return 0.5 * (
-      2 * v1
-      + (-v0 + v2) * t
-      + (2 * v0 - 5 * v1 + 4 * v2 - v3) * t2
-      + (-v0 + 3 * v1 - 3 * v2 + v3) * t3
-    );
-  }
-
-  function createDragonHeadGeometry() {
-    // 连续颅骨、颊部、鼻吻和下颌共用一个曲面，不再由外挂球体拼脸。
-    const profile = {
-      // 颅骨后段直接插进颈筒：此前后盖留在 z=-0.40，会比鬃环晚出 14cm，
-      // 正后方因此露出一枚光滑椭圆壳。
-      z: [-0.16, -0.09, -0.01, 0.08, 0.18, 0.28, 0.37, 0.44, 0.50],
-      centerY: [0.040, 0.052, 0.058, 0.050, 0.030, 0.008, -0.020, -0.038, -0.040],
-      width: [0.115, 0.175, 0.230, 0.252, 0.240, 0.212, 0.170, 0.115, 0.036],
-      height: [0.108, 0.150, 0.190, 0.198, 0.176, 0.146, 0.112, 0.078, 0.031],
-    };
-    const keys = Object.keys(profile);
-    const lengthSegments = 42;
-    const radialSegments = 52;
-    const positions = [];
-    const colors = [];
-    const uvs = [];
-    const indices = [];
-    const jade = new THREE.Color(0x5a9e86);
-    const jadeDark = new THREE.Color(0x2f7164);
-    const cream = new THREE.Color(0xe7dab8);
-    const color = new THREE.Color();
-
-    for (let row = 0; row <= lengthSegments; row++) {
-      const t = row / lengthSegments;
-      const scaled = t * (profile.z.length - 1);
-      const index = Math.min(profile.z.length - 1, Math.floor(scaled));
-      const amount = scaled - index;
-      const values = {};
-      for (const key of keys) values[key] = catmullRomValue(profile[key], index, amount);
-      for (let column = 0; column <= radialSegments; column++) {
-        const angle = (column / radialSegments) * Math.PI * 2;
-        const sin = Math.sin(angle);
-        const cos = Math.cos(angle);
-        const lower = Math.max(0, -sin);
-        let x = values.width * cos * (1 - lower * 0.12);
-        let y = values.centerY + values.height * Math.sign(sin || 1) * Math.pow(Math.abs(sin), 0.92);
-        let z = values.z;
-
-        const absX = Math.abs(x);
-        const side = Math.sign(x) || 1;
-        const brow = Math.exp(-Math.pow((absX - 0.150) / 0.075, 2))
-          * Math.exp(-Math.pow((z - 0.165) / 0.105, 2))
-          * Math.exp(-Math.pow((y - 0.078) / 0.070, 2));
-        const socket = Math.exp(-Math.pow((absX - 0.150) / 0.060, 2))
-          * Math.exp(-Math.pow((z - 0.245) / 0.070, 2))
-          * Math.exp(-Math.pow((y - 0.065) / 0.052, 2));
-        const cheek = Math.exp(-Math.pow((absX - 0.220) / 0.085, 2))
-          * Math.exp(-Math.pow((z - 0.105) / 0.135, 2))
-          * Math.exp(-Math.pow((y + 0.015) / 0.095, 2));
-        y += brow * 0.020;
-        x += side * (brow * 0.004 + cheek * 0.012 - socket * 0.006);
-        z += brow * 0.006 - socket * 0.009;
-
-        positions.push(x, y, z);
-        uvs.push(column / radialSegments, t);
-        const muzzle = smoothstep(0.06, 0.36, z) * (1 - smoothstep(-0.005, 0.120, y));
-        const chin = smoothstep(0.05, 0.30, z) * (1 - smoothstep(-0.115, -0.020, y));
-        const throat = (1 - smoothstep(-0.135, -0.010, y)) * smoothstep(-0.20, 0.16, z);
-        const creamMix = clamp(muzzle * 0.92 + chin * 0.42 + throat * 0.70, 0, 1);
-        const upper = smoothstep(-0.02, 0.20, y);
-        const back = 1 - smoothstep(-0.26, 0.14, z);
-        color.copy(jade).lerp(jadeDark, 0.12 + upper * 0.12 + back * 0.14);
-        color.lerp(cream, creamMix);
-        colors.push(color.r, color.g, color.b);
-
-        if (row < lengthSegments && column < radialSegments) {
-          const a = row * (radialSegments + 1) + column;
-          const b = a + 1;
-          const c = a + radialSegments + 1;
-          const d = c + 1;
-          indices.push(a, c, b, b, c, d);
-        }
-      }
-    }
-
-    const backCenter = positions.length / 3;
-    positions.push(0, profile.centerY[0], profile.z[0]);
-    colors.push(jade.r * 0.82, jade.g * 0.82, jade.b * 0.82);
-    uvs.push(0.5, 0);
-    const frontCenter = positions.length / 3;
-    positions.push(0, profile.centerY[profile.centerY.length - 1], profile.z[profile.z.length - 1]);
-    colors.push(cream.r, cream.g, cream.b);
-    uvs.push(0.5, 1);
-    for (let column = 0; column < radialSegments; column++) {
-      const backA = column;
-      const backB = column + 1;
-      indices.push(backCenter, backB, backA);
-      const frontBase = lengthSegments * (radialSegments + 1);
-      const frontA = frontBase + column;
-      const frontB = frontBase + column + 1;
-      indices.push(frontCenter, frontA, frontB);
-    }
-
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-    geometry.setIndex(indices);
-    geometry.computeVertexNormals();
-    return geometry;
-  }
-
-  // 躯干横截面契约：几何与鳞片排布共用同一份剖面，避免鳞片脱离体表。
-  const DRAGON_BODY_PROFILE = {
-    z: [-0.64, -0.54, -0.40, -0.24, -0.06, 0.12, 0.30, 0.46, 0.60, 0.72, 0.82],
-    centerY: [0.56, 0.59, 0.63, 0.67, 0.71, 0.76, 0.81, 0.88, 0.95, 1.01, 1.06],
-    // 横截面横向大于纵向：四足动物的胸腹不是圆管。
-    width: [0.17, 0.26, 0.34, 0.39, 0.42, 0.43, 0.41, 0.37, 0.32, 0.26, 0.20],
-    height: [0.12, 0.17, 0.23, 0.27, 0.29, 0.30, 0.29, 0.27, 0.25, 0.21, 0.17],
-  };
-
-  function dragonBodySection(z) {
-    const profile = DRAGON_BODY_PROFILE;
-    const scaled = (z - profile.z[0]) / (profile.z[profile.z.length - 1] - profile.z[0]);
-    const index = clamp(Math.floor(scaled * (profile.z.length - 1)), 0, profile.z.length - 2);
-    const amount = clamp(scaled * (profile.z.length - 1) - index, 0, 1);
-    return {
-      centerY: catmullRomValue(profile.centerY, index, amount),
-      width: catmullRomValue(profile.width, index, amount),
-      height: catmullRomValue(profile.height, index, amount),
-    };
-  }
-
-  function createDragonBodyGeometry() {
-    // 躯干按胸、腹、臀的体块连续收放，避免圆管身体和直筒四肢。
-    const profile = DRAGON_BODY_PROFILE;
-    const keys = Object.keys(profile);
-    const lengthSegments = 48;
-    const radialSegments = 48;
-    const positions = [];
-    const colors = [];
-    const uvs = [];
-    const indices = [];
-    const jade = new THREE.Color(0x5a9e86);
-    const jadeDark = new THREE.Color(0x2f7164);
-    const cream = new THREE.Color(0xe7dab8);
-    const color = new THREE.Color();
-
-    for (let row = 0; row <= lengthSegments; row++) {
-      const t = row / lengthSegments;
-      const scaled = t * (profile.z.length - 1);
-      const index = Math.min(profile.z.length - 1, Math.floor(scaled));
-      const amount = scaled - index;
-      const values = {};
-      for (const key of keys) values[key] = catmullRomValue(profile[key], index, amount);
-      for (let column = 0; column <= radialSegments; column++) {
-        const angle = (column / radialSegments) * Math.PI * 2;
-        const sin = Math.sin(angle);
-        const cos = Math.cos(angle);
-        const shoulder = Math.exp(-Math.pow((values.z - 0.42) / 0.20, 2));
-        const rump = Math.exp(-Math.pow((values.z + 0.30) / 0.22, 2));
-        const belly = Math.exp(-Math.pow((values.z - 0.10) / 0.32, 2));
-        let x = values.width * Math.sign(cos) * Math.pow(Math.abs(cos), 0.90);
-        let y = values.centerY + values.height * Math.sign(sin) * Math.pow(Math.abs(sin), 0.92);
-        let z = values.z;
-        if (sin > 0) {
-          y += shoulder * 0.030 * sin;
-          x *= 1 + shoulder * 0.035;
-        } else {
-          y -= belly * 0.022 * -sin;
-        }
-        if (sin < 0) x *= 1 + belly * 0.025;
-        x *= 1 + rump * 0.025;
-        positions.push(x, y, z);
-        uvs.push(column / radialSegments, t);
-        const bellyMix = smoothstep(0.12, 0.82, -sin) * smoothstep(-0.18, 0.34, z);
-        const topMix = smoothstep(0.16, 0.84, sin);
-        color.copy(jade).lerp(jadeDark, 0.10 + topMix * 0.16);
-        color.lerp(cream, bellyMix * 0.88);
-        colors.push(color.r, color.g, color.b);
-        if (row < lengthSegments && column < radialSegments) {
-          const a = row * (radialSegments + 1) + column;
-          const b = a + 1;
-          const c = a + radialSegments + 1;
-          const d = c + 1;
-          indices.push(a, c, b, b, c, d);
-        }
-      }
-    }
-    const backCenter = positions.length / 3;
-    positions.push(0, profile.centerY[0], profile.z[0] - 0.020);
-    colors.push(jadeDark.r, jadeDark.g, jadeDark.b);
-    uvs.push(0.5, 0);
-    const frontCenter = positions.length / 3;
-    positions.push(0, profile.centerY[profile.centerY.length - 1], profile.z[profile.z.length - 1]);
-    colors.push(jade.r, jade.g, jade.b);
-    uvs.push(0.5, 1);
-    for (let column = 0; column < radialSegments; column++) {
-      indices.push(backCenter, column + 1, column);
-      const frontBase = lengthSegments * (radialSegments + 1);
-      indices.push(frontCenter, frontBase + column, frontBase + column + 1);
-    }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-    geometry.setIndex(indices);
-    geometry.computeVertexNormals();
-    return geometry;
-  }
-
-  function createBladeGeometry() {
-    const shape = new THREE.Shape();
-    shape.moveTo(0, -0.08);
-    shape.bezierCurveTo(-0.30, 0.05, -0.42, 0.63, 0, 1);
-    shape.bezierCurveTo(0.42, 0.63, 0.30, 0.05, 0, -0.08);
-    const geometry = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.12,
-      bevelEnabled: true,
-      bevelSegments: 2,
-      bevelSize: 0.035,
-      bevelThickness: 0.035,
-      steps: 1,
-      curveSegments: 7,
-    });
-    geometry.translate(0, 0, -0.06);
-    geometry.computeVertexNormals();
-    return geometry;
-  }
-
-  function createBladeInstances(entries, material, geometry) {
-    const mesh = new THREE.InstancedMesh(geometry, material, entries.length);
-    const matrix = new THREE.Matrix4();
-    const basis = new THREE.Matrix4();
-    const quaternion = new THREE.Quaternion();
-    const scale = new THREE.Vector3();
-    const yAxis = new THREE.Vector3();
-    const zAxis = new THREE.Vector3();
-    const xAxis = new THREE.Vector3();
-    const color = new THREE.Color();
-    entries.forEach((entry, index) => {
-      yAxis.copy(entry.direction).normalize();
-      zAxis.copy(entry.normal);
-      zAxis.addScaledVector(yAxis, -zAxis.dot(yAxis));
-      if (zAxis.lengthSq() < 0.0001) zAxis.set(0, 0, 1);
-      zAxis.normalize();
-      xAxis.crossVectors(yAxis, zAxis).normalize();
-      basis.makeBasis(xAxis, yAxis, zAxis);
-      quaternion.setFromRotationMatrix(basis);
-      scale.set(entry.width, entry.length, entry.thickness || 0.36);
-      matrix.compose(entry.position, quaternion, scale);
-      mesh.setMatrixAt(index, matrix);
-      color.setHex(entry.color || 0xffffff);
-      mesh.setColorAt(index, color);
-    });
-    mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    mesh.computeBoundingSphere();
-    return mesh;
-  }
-
-  function createDragonEye(side) {
-    const group = new THREE.Group();
-    group.position.set(side * 0.154, 0.070, 0.242);
-    group.rotation.y = side * 0.12;
-    group.rotation.z = side * -0.055;
-
-    const socket = new THREE.Mesh(new THREE.SphereGeometry(0.078, 24, 16), materials.jadeDark);
-    socket.scale.set(1.14, 0.83, 0.16);
-    socket.position.z = -0.012;
-    socket.castShadow = true;
-    group.add(socket);
-
-    const blink = new THREE.Group();
-    group.add(blink);
-    const iris = new THREE.Mesh(new THREE.SphereGeometry(0.061, 24, 16), materials.eyeAmber);
-    iris.scale.set(1.02, 0.76, 0.20);
-    iris.position.z = 0.010;
-    blink.add(iris);
-    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.064, 0.0065, 8, 32), materials.pupil);
-    rim.scale.set(1.02, 0.76, 1);
-    rim.position.z = 0.021;
-    blink.add(rim);
-    const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.020, 16, 12), materials.pupil);
-    pupil.scale.set(0.38, 1.16, 0.14);
-    pupil.position.z = 0.029;
-    blink.add(pupil);
-    const catchlight = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 10, 8), materials.eyeWhite);
-    catchlight.position.set(side * -0.010, 0.014, 0.034);
-    blink.add(catchlight);
-
-    const upperLid = createTaperedTube(
-      [
-        new THREE.Vector3(-0.074, 0.018, 0.022),
-        new THREE.Vector3(-0.018, 0.061, 0.037),
-        new THREE.Vector3(0.042, 0.052, 0.037),
-        new THREE.Vector3(0.073, 0.018, 0.022),
-      ],
-      [0.008, 0.015, 0.014, 0.007],
-      materials.jade,
-      12,
-      6,
-    );
-    blink.add(upperLid.mesh);
-    const lowerLid = createTaperedTube(
-      [
-        new THREE.Vector3(-0.070, -0.025, 0.022),
-        new THREE.Vector3(-0.010, -0.050, 0.034),
-        new THREE.Vector3(0.055, -0.031, 0.027),
-      ],
-      [0.005, 0.008, 0.004],
-      materials.cream,
-      10,
-      5,
-    );
-    blink.add(lowerLid.mesh);
-    const tearline = createTaperedTube(
-      [
-        new THREE.Vector3(-0.070, 0.004, 0.018),
-        new THREE.Vector3(-0.010, -0.010, 0.030),
-        new THREE.Vector3(0.058, 0.001, 0.024),
-      ],
-      [0.0032, 0.0045, 0.0025],
-      materials.dragonEyeRim,
-      10,
-      5,
-    );
-    blink.add(tearline.mesh);
-    const brow = createTaperedTube(
-      [
-        new THREE.Vector3(-0.078, 0.078, -0.002),
-        new THREE.Vector3(-0.014, 0.121, 0.018),
-        new THREE.Vector3(0.072, 0.083, 0.000),
-      ],
-      [0.010, 0.019, 0.008],
-      materials.jadeDark,
-      12,
-      6,
-    );
-    group.add(brow.mesh);
-    return { group, blink };
-  }
-
-  function createDragonLeg(side, z, front) {
-    // 腿长由"肩点到地面"直接推出，脚掌底面精确落在 y=0，
-    // 避免此前前脚悬空 3cm、后脚悬空 4cm 的漂浮站姿。
-    const pivot = new THREE.Group();
-    const pivotY = front ? 0.56 : 0.52;
-    const footRadius = front ? 0.098 : 0.112;
-    const footHalfHeight = footRadius * 0.34;
-    const reach = pivotY - footHalfHeight;
-    pivot.position.set(side * (front ? 0.235 : 0.265), pivotY, z);
-    const shoulder = new THREE.Mesh(
-      new THREE.SphereGeometry(front ? 0.092 : 0.115, 16, 12),
-      materials.jade,
-    );
-    shoulder.scale.set(0.98, 0.88, 0.92);
-    shoulder.castShadow = true;
-    pivot.add(shoulder);
-    const upperLength = reach * 0.46;
-    const upper = new THREE.Mesh(
-      new THREE.CapsuleGeometry(front ? 0.072 : 0.090, upperLength, 5, 10),
-      materials.jade,
-    );
-    upper.position.set(0, -reach * 0.30, front ? 0.012 : -0.012);
-    upper.rotation.x = front ? 0.07 : -0.12;
-    upper.rotation.z = side * -0.03;
-    upper.castShadow = true;
-    pivot.add(upper);
-    const lower = new THREE.Mesh(
-      new THREE.CapsuleGeometry(front ? 0.058 : 0.072, reach * 0.40, 5, 10),
-      materials.jadeDark,
-    );
-    lower.position.set(0, -reach * 0.68, 0.045);
-    lower.rotation.x = -0.14;
-    lower.castShadow = true;
-    pivot.add(lower);
-    const foot = new THREE.Mesh(new THREE.SphereGeometry(footRadius, 16, 10), materials.jadeDark);
-    foot.scale.set(1.06, 0.34, 1.44);
-    foot.position.set(0, -reach, 0.118);
-    foot.castShadow = true;
-    pivot.add(foot);
-    for (const x of [-0.060, 0, 0.060]) {
-      const claw = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.09, 6), materials.horn);
-      claw.rotation.x = Math.PI / 2;
-      claw.position.set(x, -reach, 0.242);
-      pivot.add(claw);
-    }
-    pivot.userData.front = front;
-    pivot.userData.side = side;
-    return pivot;
-  }
-
-  function createDragonTail(baseY = 0.58) {
-    const tail = new THREE.Group();
-    tail.position.set(0, baseY, -0.62);
-    const tailTube = createTaperedTube(
-      [
-        new THREE.Vector3(0, 0.02, 0),
-        new THREE.Vector3(0, -0.08, -0.34),
-        new THREE.Vector3(0, -0.20, -0.73),
-        new THREE.Vector3(0, -0.28, -1.08),
-        new THREE.Vector3(0, -0.28, -1.36),
-        new THREE.Vector3(0, -0.18, -1.60),
-      ],
-      [0.17, 0.145, 0.105, 0.062, 0.025, 0.010],
-      materials.jade,
-      32,
-      12,
-    );
-    tail.add(tailTube.mesh);
-    const scaleEntries = [];
-    const finEntries = [];
-    for (let i = 0; i < 10; i++) {
-      const t = 0.08 + i * 0.083;
-      const p = tailTube.curve.getPointAt(t);
-      const tangent = tailTube.curve.getTangentAt(t).normalize();
-      const radius = THREE.MathUtils.lerp(0.17, 0.010, t);
-      finEntries.push({
-        position: p.clone().add(new THREE.Vector3(0, radius * 0.86, 0)),
-        direction: new THREE.Vector3(0, 0.50 + t * 0.22, -0.86),
-        normal: new THREE.Vector3(1, 0, 0),
-        width: 0.030 + t * 0.035,
-        length: 0.11 + t * 0.10,
-        thickness: 0.28,
-        color: i % 3 === 0 ? 0x2f7164 : 0xe7dab8,
-      });
-      for (const side of [-1, 1]) {
-        scaleEntries.push({
-          position: p.clone().add(new THREE.Vector3(side * radius * 0.56, radius * 0.54, 0)),
-          direction: tangent.clone().multiplyScalar(-1),
-          normal: new THREE.Vector3(side * 0.70, 0.72, 0.04).normalize(),
-          width: 0.045 + radius * 0.22,
-          length: 0.062 + radius * 0.26,
-          thickness: 0.28,
-          color: i % 4 === 0 ? 0x3d8573 : 0x347b6c,
-        });
-      }
-    }
-    tail.add(createBladeInstances(scaleEntries, materials.dragonScale, createBladeGeometry()));
-    tail.add(createBladeInstances(finEntries, materials.dragonScale, createBladeGeometry()));
-    const fanEntries = [
-      [new THREE.Vector3(0, -0.18, -1.62), new THREE.Vector3(0, 0.36, -1), 0.10, 0.29],
-      [new THREE.Vector3(0.040, -0.17, -1.58), new THREE.Vector3(0.34, 0.18, -1), 0.095, 0.245],
-      [new THREE.Vector3(-0.040, -0.17, -1.58), new THREE.Vector3(-0.34, 0.18, -1), 0.095, 0.245],
-    ].map(([position, direction, width, length], index) => ({
-      position,
-      direction,
-      normal: new THREE.Vector3(index === 0 ? 1 : 0.45, 0, index === 0 ? 0 : 0.85),
-      width,
-      length,
-      thickness: 0.26,
-      color: index === 1 ? 0xe7dab8 : 0x5a9e86,
-    }));
-    tail.add(createBladeInstances(fanEntries, materials.dragonScale, createBladeGeometry()));
-    return tail;
-  }
-
-  function createDragonHeadMesh() {
-    const geometry = createDragonHeadGeometry();
-    const material = new THREE.MeshStandardMaterial({
-      name: 'dragon-head-blended',
-      vertexColors: true,
-      roughness: 0.54,
-      metalness: 0,
-      envMapIntensity: 0.68,
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    mesh.layers.set(DRAGON_LAYER);
-    return mesh;
-  }
-
+  /* 小青龙：几何、材质与动画在 src/dragon-model.js，这里只做装配。
+   * 拆分的理由是这个文件已经到三千行，龙又是最需要反复调整的部分；
+   * 模型文件只产出几何，材质仍由本文件按全项目共享表传入。 */
   function createDragon() {
-    const root = new THREE.Group();
-    root.name = 'player-dragon';
-    root.scale.setScalar(0.78);
-    const visual = new THREE.Group();
-    root.add(visual);
-    const bladeGeometry = createBladeGeometry();
-
-    const body = new THREE.Mesh(createDragonBodyGeometry(), materials.dragonBody);
-    body.castShadow = true;
-    body.receiveShadow = true;
-    visual.add(body);
-    // 背鳞、侧鳞和腹甲共用一片有厚度的叶片几何，按实例共享材质。
-    // 位置由剖面椭圆直接求出，鳞片因此贴着体表而不是悬在包围盒外。
-    const bodyScaleEntries = [];
-    for (let row = 0; row < 26; row++) {
-      const z = -0.58 + row * 0.056;
-      const section = dragonBodySection(z);
-      for (const angle of [Math.PI / 2, Math.PI / 2 - 0.62, Math.PI / 2 + 0.62]) {
-        const sin = Math.sin(angle);
-        const cos = Math.cos(angle);
-        const point = new THREE.Vector3(
-          section.width * cos,
-          section.centerY + section.height * sin,
-          z,
-        );
-        const normal = new THREE.Vector3(cos / section.width, sin / section.height, 0).normalize();
-        bodyScaleEntries.push({
-          position: point.clone().addScaledVector(normal, 0.008),
-          direction: new THREE.Vector3(0, 0, -1).addScaledVector(normal, -0.14),
-          normal,
-          width: 0.044 + section.width * 0.048,
-          length: 0.050 + section.height * 0.070,
-          thickness: 0.34,
-          color: row % 4 === 0 ? 0x3f8574 : 0x37796b,
-        });
-      }
-    }
-    visual.add(createBladeInstances(bodyScaleEntries, materials.dragonScale, bladeGeometry));
-
-    const bellyEntries = [];
-    for (let row = 0; row < 12; row++) {
-      const z = -0.50 + row * 0.112;
-      const section = dragonBodySection(z);
-      const angle = -Math.PI / 2 - 0.14;
-      const normal = new THREE.Vector3(Math.cos(angle) / section.width, Math.sin(angle) / section.height, 0).normalize();
-      const point = new THREE.Vector3(
-        section.width * Math.cos(angle),
-        section.centerY + section.height * Math.sin(angle),
-        z,
-      );
-      bellyEntries.push({
-        position: point.clone().addScaledVector(normal, 0.006),
-        direction: new THREE.Vector3(0, 0, -1),
-        normal,
-        width: 0.105 + section.width * 0.115,
-        length: 0.045 + section.height * 0.075,
-        thickness: 0.26,
-        color: row % 2 ? 0xd8cbaa : 0xe2d6b6,
-      });
-    }
-    const bellyScutes = createBladeInstances(bellyEntries, materials.dragonScale, bladeGeometry);
-    bellyScutes.layers.set(DRAGON_LAYER);
-    visual.add(bellyScutes);
-
-    const neckTube = createTaperedTube(
-      [
-        new THREE.Vector3(0, 1.00, 0.71),
-        new THREE.Vector3(0, 1.14, 0.80),
-        new THREE.Vector3(0, 1.27, 0.88),
-      ],
-      [0.215, 0.190, 0.185],
-      materials.jadeDark,
-      20,
-      14,
-    );
-    visual.add(neckTube.mesh);
-
-    const head = new THREE.Group();
-    head.position.set(0, 1.30, 0.93);
-    visual.add(head);
-    const eyelids = [];
-    const headMesh = createDragonHeadMesh();
-    head.add(headMesh);
-
-    const maneEntries = [];
-    for (let i = 0; i < 11; i++) {
-      const angle = (i / 10 - 0.5) * 1.55;
-      const x = Math.sin(angle) * 0.205;
-      const y = 0.175 + Math.cos(angle) * 0.165;
-      maneEntries.push({
-        position: new THREE.Vector3(x, y, -0.095 - Math.abs(angle) * 0.018),
-        direction: new THREE.Vector3(Math.sin(angle) * 0.90, 0.34 + Math.cos(angle) * 0.55, -0.80),
-        normal: new THREE.Vector3(Math.sin(angle) * 0.48, 0.28, 0.82),
-        width: 0.078 + Math.cos(angle) * 0.014,
-        length: 0.185 + Math.cos(angle) * 0.040,
-        thickness: 0.48,
-        color: i % 4 === 0 ? 0xe7dab8 : i % 3 === 0 ? 0x2f7164 : 0x5a9e86,
-      });
-    }
-    for (let row = 0; row < 3; row++) {
-      for (let column = 0; column < 7; column++) {
-        const u = (column + 0.5) / 7 - 0.5;
-        const v = (row + 0.5) / 3;
-        maneEntries.push({
-          position: new THREE.Vector3(
-            u * 0.30,
-            0.075 - v * 0.26,
-            -0.135 - Math.cos(u * Math.PI) * 0.040,
-          ),
-          direction: new THREE.Vector3(u * 0.92, 0.30 - v * 0.40, -0.74),
-          normal: new THREE.Vector3(u * 0.30, 0.22, 0.94),
-          width: 0.048 + Math.cos(u * Math.PI) * 0.012,
-          length: 0.11 + (1 - v) * 0.035,
-          thickness: 0.42,
-          color: (row + column) % 4 === 0 ? 0xe7dab8 : (row + column) % 3 === 0 ? 0x2f7164 : 0x5a9e86,
-        });
-      }
-    }
-    for (const side of [-1, 1]) {
-      maneEntries.push({
-        position: new THREE.Vector3(side * 0.255, 0.125, -0.020),
-        direction: new THREE.Vector3(side * 0.92, 0.54, -0.22),
-        normal: new THREE.Vector3(side * 0.22, 0.24, 0.94),
-        width: 0.118,
-        length: 0.235,
-        thickness: 0.44,
-        color: 0xe7dab8,
-      });
-      for (let i = 0; i < 6; i++) {
-        const t = i / 5;
-        maneEntries.push({
-          position: new THREE.Vector3(
-            side * (0.235 + t * 0.035),
-            0.125 - t * 0.285,
-            0.015 + t * 0.135,
-          ),
-          direction: new THREE.Vector3(
-            side * (0.88 + t * 0.14),
-            0.18 - t * 0.58,
-            -0.18 + t * 0.20,
-          ),
-          normal: new THREE.Vector3(side * 0.18, 0.14, 0.97),
-          width: 0.064 + (1 - t) * 0.024,
-          length: 0.158 + (1 - t) * 0.042,
-          thickness: 0.46,
-          color: i % 3 === 0 ? 0xe7dab8 : i % 2 ? 0x2f7164 : 0x5a9e86,
-        });
-      }
-      for (let i = 0; i < 3; i++) {
-        maneEntries.push({
-          position: new THREE.Vector3(side * (0.060 + i * 0.035), 0.245 - i * 0.018, 0.110 + i * 0.035),
-          direction: new THREE.Vector3(side * (0.12 + i * 0.10), 0.88, 0.48),
-          normal: new THREE.Vector3(side * 0.10, 0.38, 0.92),
-          width: 0.040,
-          length: 0.070 - i * 0.007,
-          thickness: 0.42,
-          color: 0xe7dab8,
-        });
-      }
-      for (let i = 0; i < 5; i++) {
-        const t = i / 4;
-        maneEntries.push({
-          position: new THREE.Vector3(
-            side * (0.205 + t * 0.026),
-            0.090 - t * 0.225,
-            0.070 + t * 0.070,
-          ),
-          direction: new THREE.Vector3(side * 0.78, -0.06 - t * 0.38, -0.50 + t * 0.20),
-          normal: new THREE.Vector3(side * 0.30, 0.15, 0.94),
-          width: 0.048,
-          length: 0.115 + (1 - t) * 0.028,
-          thickness: 0.44,
-          color: i % 2 ? 0x2f7164 : 0x5a9e86,
-        });
-      }
-    }
-    head.add(createBladeInstances(maneEntries, materials.dragonScale, bladeGeometry));
-
-    for (const side of [-1, 1]) {
-      const eye = createDragonEye(side);
-      head.add(eye.group);
-      eyelids.push(eye.blink);
-      const nostril = new THREE.Mesh(new THREE.SphereGeometry(0.014, 10, 8), materials.pupil);
-      nostril.scale.set(1.25, 0.62, 0.55);
-      nostril.position.set(side * 0.044, 0.004, 0.498);
-      head.add(nostril);
-
-      const horn = createTaperedTube(
-        [
-          new THREE.Vector3(side * 0.145, 0.205, -0.035),
-          new THREE.Vector3(side * 0.165, 0.335, -0.055),
-          new THREE.Vector3(side * 0.185, 0.455, -0.150),
-          new THREE.Vector3(side * 0.160, 0.535, -0.285),
-          new THREE.Vector3(side * 0.105, 0.575, -0.385),
-        ],
-        [0.052, 0.043, 0.032, 0.020, 0.006],
-        materials.horn,
-        24,
-        8,
-      );
-      head.add(horn.mesh);
-      const forkA = createTaperedTube(
-        [
-          new THREE.Vector3(side * 0.175, 0.415, -0.115),
-          new THREE.Vector3(side * 0.265, 0.485, -0.130),
-          new THREE.Vector3(side * 0.315, 0.565, -0.185),
-        ],
-        [0.024, 0.016, 0.005],
-        materials.horn,
-        12,
-        6,
-      );
-      head.add(forkA.mesh);
-      const forkB = createTaperedTube(
-        [
-          new THREE.Vector3(side * 0.158, 0.510, -0.240),
-          new THREE.Vector3(side * 0.235, 0.565, -0.300),
-          new THREE.Vector3(side * 0.250, 0.635, -0.365),
-        ],
-        [0.018, 0.012, 0.004],
-        materials.horn,
-        10,
-        6,
-      );
-      head.add(forkB.mesh);
-      const whisker = createTaperedTube(
-        [
-          new THREE.Vector3(side * 0.082, -0.056, 0.455),
-          new THREE.Vector3(side * 0.180, -0.072, 0.500),
-          new THREE.Vector3(side * 0.285, -0.055, 0.480),
-          new THREE.Vector3(side * 0.350, -0.015, 0.405),
-          new THREE.Vector3(side * 0.375, 0.035, 0.330),
-        ],
-        [0.007, 0.006, 0.0045, 0.0025, 0.0008],
-        materials.horn,
-        18,
-        5,
-      );
-      head.add(whisker.mesh);
-    }
-
-    const noseBridge = createTaperedTube(
-      [
-        new THREE.Vector3(0, 0.132, 0.165),
-        new THREE.Vector3(0, 0.086, 0.300),
-        new THREE.Vector3(0, 0.040, 0.445),
-      ],
-      [0.031, 0.027, 0.018],
-      materials.jade,
-      16,
-      7,
-    );
-    head.add(noseBridge.mesh);
-    const mouth = createTaperedTube(
-      [
-        new THREE.Vector3(-0.090, -0.060, 0.430),
-        new THREE.Vector3(-0.050, -0.082, 0.470),
-        new THREE.Vector3(0, -0.090, 0.494),
-        new THREE.Vector3(0.050, -0.082, 0.470),
-        new THREE.Vector3(0.090, -0.060, 0.430),
-      ],
-      [0.004, 0.007, 0.008, 0.007, 0.004],
-      materials.pupil,
-      18,
-      5,
-    );
-    head.add(mouth.mesh);
-    const lowerLip = createTaperedTube(
-      [
-        new THREE.Vector3(-0.084, -0.078, 0.438),
-        new THREE.Vector3(0, -0.104, 0.488),
-        new THREE.Vector3(0.084, -0.078, 0.438),
-      ],
-      [0.005, 0.011, 0.005],
-      materials.cream,
-      14,
-      6,
-    );
-    head.add(lowerLip.mesh);
-    const mouthInterior = new THREE.Mesh(
-      new THREE.SphereGeometry(0.092, 20, 12, 0, Math.PI * 2, Math.PI * 0.50, Math.PI * 0.50),
-      materials.dragonMouth,
-    );
-    mouthInterior.scale.set(1.0, 0.60, 0.48);
-    mouthInterior.position.set(0, -0.074, 0.452);
-    mouthInterior.rotation.x = 0.08;
-    head.add(mouthInterior);
-    const tongue = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.032, 0.060, 5, 10),
-      materials.dragonTongue,
-    );
-    tongue.rotation.x = Math.PI / 2 - 0.20;
-    tongue.scale.set(1.0, 0.55, 0.72);
-    tongue.position.set(0, -0.084, 0.474);
-    head.add(tongue);
-    for (const side of [-1, 1]) {
-      const fang = new THREE.Mesh(new THREE.ConeGeometry(0.0075, 0.034, 7), materials.eyeWhite);
-      fang.rotation.x = Math.PI;
-      fang.position.set(side * 0.054, -0.073, 0.462);
-      fang.castShadow = true;
-      head.add(fang);
-    }
-
-    const legs = [
-      createDragonLeg(-1, 0.25, true),
-      createDragonLeg(1, 0.25, true),
-      createDragonLeg(-1, -0.38, false),
-      createDragonLeg(1, -0.38, false),
-    ];
-    legs.forEach((leg) => visual.add(leg));
-
-    const tail = createDragonTail(0.58);
-    visual.add(tail);
-
-    const scarf = createTaperedTube(
-      [
-        new THREE.Vector3(0.09, 1.25, 0.69),
-        new THREE.Vector3(0.20, 1.235, 0.78),
-        new THREE.Vector3(0.21, 1.20, 0.89),
-        new THREE.Vector3(0.10, 1.18, 0.96),
-        new THREE.Vector3(0, 1.17, 0.98),
-        new THREE.Vector3(-0.10, 1.18, 0.96),
-        new THREE.Vector3(-0.21, 1.20, 0.89),
-        new THREE.Vector3(-0.20, 1.235, 0.78),
-        new THREE.Vector3(-0.09, 1.25, 0.69),
-        new THREE.Vector3(0, 1.255, 0.66),
-      ],
-      [0.020, 0.032, 0.040, 0.035, 0.030, 0.035, 0.040, 0.032, 0.020, 0.012],
-      materials.dragonScarf,
-      36,
-      8,
-    );
-    visual.add(scarf.mesh);
-    const scarfKnot = new THREE.Mesh(new THREE.SphereGeometry(0.055, 12, 8), materials.dragonScarf);
-    scarfKnot.scale.set(1.0, 0.72, 0.70);
-    scarfKnot.position.set(0.04, 1.205, 0.925);
-    scarfKnot.castShadow = true;
-    visual.add(scarfKnot);
-    const ribbonA = createRibbon(
-      [
-        new THREE.Vector3(0.08, 1.19, 0.80),
-        new THREE.Vector3(0.19, 1.13, 0.48),
-        new THREE.Vector3(0.28, 1.02, 0.05),
-        new THREE.Vector3(0.31, 0.87, -0.37),
-      ],
-      0.08,
-      materials.dragonScarf,
-    );
-    const ribbonB = createRibbon(
-      [
-        new THREE.Vector3(-0.04, 1.18, 0.78),
-        new THREE.Vector3(-0.16, 1.10, 0.43),
-        new THREE.Vector3(-0.28, 0.97, -0.02),
-        new THREE.Vector3(-0.34, 0.81, -0.43),
-      ],
-      0.065,
-      materials.dragonScarf,
-    );
-    visual.add(ribbonA, ribbonB);
-
-    const stateMotion = { bob: 0, blink: 0 };
-    function update(dt, time, speed, mode, steer) {
-      const moving = Math.min(1, Math.abs(speed) / 2.8);
-      stateMotion.bob += dt * (mode === 'fly' ? 2.2 : 5.0 + moving * 3.0);
-      const bob = mode === 'fly' ? Math.sin(stateMotion.bob) * 0.06 : Math.sin(stateMotion.bob * 2) * 0.025 * moving;
-      visual.position.y = bob;
-      visual.rotation.x = damp(visual.rotation.x, mode === 'fly' ? -0.20 : 0, 5, dt);
-      visual.rotation.z = damp(visual.rotation.z, steer * (mode === 'fly' ? 0.12 : 0.06), 5, dt);
-      head.rotation.y = Math.sin(time * 0.8) * 0.06 + steer * 0.08;
-      head.rotation.x = mode === 'fly' ? -0.08 : Math.sin(time * 0.55) * 0.025;
-      tail.rotation.y = Math.sin(time * 2.0) * 0.13 + steer * 0.22;
-      tail.rotation.x = Math.sin(time * 1.2) * 0.04;
-      for (let i = 0; i < legs.length; i++) {
-        const leg = legs[i];
-        const phase = (i < 2 ? 0 : Math.PI) + (i % 2) * Math.PI;
-        const swing = mode === 'fly' ? -0.95 : Math.sin(stateMotion.bob + phase) * 0.42 * moving;
-        leg.rotation.x = damp(leg.rotation.x, swing, 8, dt);
-        leg.rotation.z = mode === 'fly' ? (leg.userData.side * 0.35) : 0;
-      }
-      ribbonA.rotation.y = Math.sin(time * 2.3) * 0.11;
-      ribbonB.rotation.y = Math.sin(time * 2.0 + 1.3) * 0.10;
-      scarf.mesh.rotation.z = Math.sin(time * 1.8) * 0.025;
-      stateMotion.blink += dt;
-      if (stateMotion.blink > 4.4) stateMotion.blink = 0;
-      const blink = stateMotion.blink > 4.22 ? 0.14 : 1;
-      eyelids.forEach((lid) => { lid.scale.y = blink; });
-    }
-    root.traverse((node) => {
-      node.layers.set(DRAGON_LAYER);
-    });
-    visual.userData.head = head;
-    visual.userData.tail = tail;
-    visual.userData.eyelids = eyelids;
-    visual.userData.body = body;
-    return {
-      root,
-      visual,
-      head,
-      legs,
-      tail,
-      update,
-      headWorld: new THREE.Vector3(),
+    const dragonMaterials = {
+      body: materials.dragonBody,
+      limb: materials.dragonLimb,
+      limbDark: materials.dragonLimbDark,
+      claw: materials.horn,
+      mouth: materials.dragonMouth,
+      tongue: materials.dragonTongue,
+      lip: materials.dragonLip,
+      nose: materials.dragonNose,
+      socket: materials.dragonSocket,
+      eyeWhite: materials.eyeWhite,
+      eyeAmber: materials.eyeAmber,
+      pupil: materials.pupil,
+      catchlight: materials.eyeWhite,
+      lid: materials.dragonLid,
+      ear: materials.dragonEar,
+      cream: materials.cream,
+      mane: materials.dragonScale,
+      maneBase: materials.dragonManeBase,
+      fin: materials.dragonFin,
+      scutes: materials.dragonScute,
+      scales: materials.dragonScale,
+      horn: materials.horn,
+      whisker: materials.whisker,
+      scarf: materials.dragonScarf,
     };
+    const model = window.ChanganDragonModel.create({
+      materials: dragonMaterials,
+      layer: DRAGON_LAYER,
+      scale: 0.78,
+    });
+    // 供验收脚本与近看镜头使用的既有接口。
+    model.visual.userData.head = model.head;
+    return model;
   }
+
 
   function setMode(mode) {
     if (!['walk', 'fly'].includes(mode) || state.mode === mode) return;

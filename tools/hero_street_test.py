@@ -281,37 +281,33 @@ async def run(args):
                     item["streetGaps"] = gaps
 
                     # 街上人物不能是张臂站姿：研究台基体是 A 字臂，导出时必须
-                    # 收拢。用"头颈手网格横向跨度 ÷ 身高"判断，不靠看图：
-                    # 双臂自然下垂时略宽于躯干，所以不与躯干硬比；A 字臂时
-                    # 该比值约 0.63，收拢后约 0.21–0.32。
+                    # 收拢。必须用网格的"局部"包围盒：街上实例带 rotationY，
+                    # 用世界 X 会量到身体前后厚度而不是肩宽，测的不是要测的东西。
+                    # 判据：头颈手网格横向跨度 ÷ 躯干横向跨度 < 1.0。
+                    # 未收拢时约 2.42（1.139/0.47），收拢后约 0.86。
                     posture = await page.evaluate(
                         """() => __street.state.people.map((p) => {
-                          p.updateMatrixWorld(true);
                           let armSpan = 0;
                           let torsoSpan = 0;
-                          const whole = new THREE.Box3();
                           p.traverse((o) => {
                             if (!o.isMesh) return;
                             o.geometry.computeBoundingBox();
-                            const b = o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld);
-                            whole.union(b);
-                            const w = b.max.x - b.min.x;
+                            const box = o.geometry.boundingBox;
+                            const span = box.max.x - box.min.x;
                             const n = (o.name || '').toLowerCase();
-                            if (/head|hand/.test(n)) armSpan = Math.max(armSpan, w);
-                            if (/garment|skirt|belt/.test(n)) torsoSpan = Math.max(torsoSpan, w);
+                            if (/head|hand/.test(n)) armSpan = Math.max(armSpan, span);
+                            if (/garment|skirt|belt/.test(n)) torsoSpan = Math.max(torsoSpan, span);
                           });
-                          const height = whole.max.y - whole.min.y;
                           return {
                             armSpan: +armSpan.toFixed(3),
                             torsoSpan: +torsoSpan.toFixed(3),
-                            height: +height.toFixed(3),
-                            armToHeight: +(armSpan / height).toFixed(3),
+                            armToTorso: +(armSpan / torsoSpan).toFixed(3),
                           };
                         })""",
                     )
                     item["posture"] = posture
                     for row in posture:
-                        assert row["armToHeight"] <= 0.40, row
+                        assert row["armToTorso"] < 1.0, row
 
                     # 悬停在任意按钮上都不能冒充"当前模式"的选中色；
                     # 桌面端把鼠标停在"上升"上曾被误读成飞行已选中。
