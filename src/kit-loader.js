@@ -205,8 +205,26 @@ function kitLoad(name, url) {
       url,
       (gltf) => {
         const root = gltf.scene;
-        kitApplySharedMaterials(root);
-        kitApplyCharacterMaterials(root);
+        // 只有本项目构件库/人物导出件使用语义材质表。Poly Haven 等外部
+        // 道具必须保留其内嵌 PBR 材质，不能被建筑语义映射成统一色。
+        if (/^\/assets\/kit\//.test(url)) {
+          kitApplySharedMaterials(root);
+          kitApplyCharacterMaterials(root);
+        } else {
+          root.traverse((node) => {
+            if (!node.isMesh) return;
+            node.castShadow = true;
+            node.receiveShadow = true;
+            const list = Array.isArray(node.material) ? node.material : [node.material];
+            list.forEach((material) => {
+              if (!material) return;
+              material.envMapIntensity = 0.8;
+              if (typeof material.roughness === 'number') {
+                material.roughness = Math.max(0.5, material.roughness);
+              }
+            });
+          });
+        }
         root.updateMatrixWorld(true);
         KitLibrary.stats.loaded += 1;
         resolve(root);

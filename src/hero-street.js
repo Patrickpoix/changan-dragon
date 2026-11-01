@@ -275,6 +275,12 @@
     materials.wood = wood;
     materials.darkWood = darkWood;
     materials.cloth = cloth;
+    materials.dragonScarf = cloth.clone();
+    materials.dragonScarf.name = 'dragon-scarf';
+    materials.dragonScarf.color.setHex(0xb94232);
+    materials.dragonScarf.roughness = 0.84;
+    materials.dragonScarf.normalScale.set(0.85, 0.85);
+    materials.dragonScarf.side = THREE.DoubleSide;
     materials.roof = roof;
     materials.road = mud.clone();
     materials.road.name = 'street-road';
@@ -315,6 +321,8 @@
       envMapIntensity: 0.78,
     });
     materials.plaster.normalScale.set(0.20, 0.20);
+    materials.plaster.color.setHex(0xd6c7a8);
+    materials.plaster.roughness = 0.9;
     materials.redWood = wood.clone();
     materials.redWood.name = 'street-red-wood';
     materials.redWood.color.setHex(0x9f4b3d);
@@ -322,24 +330,41 @@
     materials.ink = makeMat('street-ink', 0x1b2b28, 0.8);
     materials.jade = new THREE.MeshPhysicalMaterial({
       name: 'dragon-jade',
-      color: 0x4ca58e,
-      roughness: 0.38,
+      color: 0x5a9e86,
+      roughness: 0.48,
       metalness: 0,
-      clearcoat: 0.22,
-      clearcoatRoughness: 0.55,
-      envMapIntensity: 0.9,
+      clearcoat: 0.12,
+      clearcoatRoughness: 0.68,
+      envMapIntensity: 0.76,
     });
     materials.jadeDark = new THREE.MeshPhysicalMaterial({
       name: 'dragon-jade-dark',
-      color: 0x256d62,
-      roughness: 0.44,
+      color: 0x2f7164,
+      roughness: 0.54,
       metalness: 0,
-      clearcoat: 0.16,
-      clearcoatRoughness: 0.65,
-      envMapIntensity: 0.8,
+      clearcoat: 0.08,
+      clearcoatRoughness: 0.72,
+      envMapIntensity: 0.7,
     });
-    materials.cream = makeMat('dragon-cream', 0xe3d7b7, 0.58, 0);
-    materials.horn = makeMat('dragon-horn', 0xd8cfb7, 0.48, 0);
+    materials.cream = makeMat('dragon-cream', 0xe7dab8, 0.62, 0);
+    materials.horn = makeMat('dragon-horn', 0xd9cbaa, 0.52, 0);
+    materials.dragonScale = new THREE.MeshStandardMaterial({
+      name: 'dragon-scale-instances',
+      color: 0xffffff,
+      roughness: 0.62,
+      metalness: 0,
+      envMapIntensity: 0.64,
+    });
+    materials.dragonBody = new THREE.MeshStandardMaterial({
+      name: 'dragon-body-vertex-color',
+      vertexColors: true,
+      roughness: 0.56,
+      metalness: 0,
+      envMapIntensity: 0.68,
+    });
+    materials.dragonEyeRim = makeMat('dragon-eye-rim', 0x5b3b20, 0.36, 0.08);
+    materials.dragonMouth = makeMat('dragon-mouth', 0x3a1716, 0.7, 0);
+    materials.dragonTongue = makeMat('dragon-tongue', 0xc65b59, 0.64, 0);
     materials.gold = makeMat('street-gold', 0xc6944b, 0.34, 0.36);
     materials.red = makeMat('street-red', 0xb74b37, 0.64, 0.02);
     materials.lantern = new THREE.MeshStandardMaterial({
@@ -685,8 +710,9 @@
       ? ['酒', '西市酒肆']
       : [['胡饼铺', '香药铺', '绸缎庄', '书肆', '茶坊'][Math.abs(Math.round(z)) % 5], '杂货'];
     const board = makeSignMesh(names[1], isTavern ? 2.3 : 1.8, isTavern ? 0.7 : 0.56, { font: isTavern ? 82 : 66 });
-    board.position.set(frontX, isTavern ? 5.65 : 4.2, z);
+    board.position.set(frontX, isTavern ? 5.25 : 4.35, z);
     board.rotation.y = facing;
+    board.scale.setScalar(1.15);
     scene.add(board);
     if (isTavern || Math.abs(z) % 14 < 1) {
       const hanging = makeSignMesh(names[0], 0.56, 1.5, { vertical: true, font: 62 });
@@ -761,7 +787,7 @@
     group.name = entry.kind + '-' + entry.side + '-' + entry.z;
     group.userData.entry = entry;
     const tint = [materials.redWood, materials.wood, materials.greenPaint][Math.abs(Math.round(entry.z)) % 3];
-    const plasterTint = [materials.plaster, materials.plaster, materials.stone][Math.abs(Math.round(entry.z)) % 3];
+    const plasterTint = [materials.plaster, materials.plasterWarm, materials.stone][Math.abs(Math.round(entry.z)) % 3];
     group.traverse((node) => {
       if (!node.isMesh) return;
       const material = Array.isArray(node.material) ? node.material[0] : node.material;
@@ -850,6 +876,7 @@
     setProgress(0.68, '摆摊、点灯、落人');
     createStreetProps();
     createPeople({ male: residentMale, female: residentFemale });
+    await addShopGoods();
     await addStreetTrees();
     setProgress(0.88, '让小龙落到街口');
     dragon = createDragon();
@@ -881,9 +908,9 @@
     root.updateMatrixWorld(true);
     matureTree.updateMatrixWorld(true);
     const placements = [
-      [-5.0, 26.5, 0.9], [5.0, 20.5, 0.84], [-5.0, 13.0, 0.8],
-      [5.0, 6.5, 0.76], [-5.0, -6.0, 0.9], [5.0, -16.0, 0.82],
-      [-5.0, -27.5, 0.8],
+      [-5.3, 28.5, 0.66], [5.3, 22.5, 0.62], [-5.3, 15.8, 0.58],
+      [5.3, 9.5, 0.56], [-5.3, -7.5, 0.66], [5.3, -17.0, 0.60],
+      [-5.3, -28.5, 0.58],
     ];
     for (const [x, z, scale] of placements) {
       const tree = root.clone(true);
@@ -899,7 +926,7 @@
       scene.add(tree);
     }
     for (const [x, z, scale, rot] of [
-      [-5.45, 3.5, 1.05, 0.8], [5.35, -11.0, 1.08, -0.5], [-5.35, -20.0, 0.98, 0.3],
+      [-5.6, 2.0, 0.78, 0.8], [5.5, -12.0, 0.80, -0.5], [-5.5, -20.5, 0.74, 0.3],
     ]) {
       const tree = matureTree.clone(true);
       tree.position.set(x, 0.02, z);
@@ -921,6 +948,63 @@
       });
       tree.name = 'street-mature-tree';
       scene.add(tree);
+    }
+  }
+
+  const GOODS_ASSETS = [
+    ['ceramic-pot', '/assets/library/polyhaven/ceramic_pot/runtime.glb'],
+    ['wicker-basket', '/assets/library/polyhaven/wicker_basket_01/runtime.glb'],
+    ['wooden-bowl', '/assets/library/polyhaven/wooden_bowl_02/runtime.glb'],
+    ['wooden-bucket', '/assets/library/polyhaven/wooden_bucket_01/runtime.glb'],
+    ['pomegranate', '/assets/library/polyhaven/food_pomegranate_01/runtime.glb'],
+    ['pears', '/assets/library/polyhaven/food_pears_asian_01/runtime.glb'],
+    ['lychee', '/assets/library/polyhaven/food_lychee_01/runtime.glb'],
+  ];
+
+  async function addShopGoods() {
+    setProgress(0.72, '摆上陶器、竹篮与果品');
+    const templates = await Promise.all(
+      GOODS_ASSETS.map(([name, url]) => kitLoad('goods-' + name, url)),
+    );
+    const byName = new Map(GOODS_ASSETS.map(([name], index) => [name, templates[index]]));
+    const clusters = [
+      [-1, 11.9, 0.0],
+      [-1, 5.0, 0.0],
+      [-1, -12.8, 0.0],
+      [-1, -22.0, 0.0],
+      [1, 16.7, Math.PI],
+      [1, 6.6, Math.PI],
+      [1, -5.8, Math.PI],
+      [1, -18.4, Math.PI],
+    ];
+    for (const [side, z, facing] of clusters) {
+      const cx = side * 4.78;
+      const ground = 0.03;
+      const props = [
+        ['ceramic-pot', -0.43, 0.12, 0.48, -0.4],
+        ['wicker-basket', 0.18, 0.18, 0.20, 0.2],
+        ['wooden-bowl', 0.52, 0.05, 0.14, 0.5],
+        ['pomegranate', 0.12, -0.48, 0.11, 0.1],
+      ];
+      for (const [name, lx, lz, height, rotation] of props) {
+        const source = byName.get(name);
+        if (!source) continue;
+        const box = new THREE.Box3().setFromObject(source);
+        const dimensions = box.getSize(new THREE.Vector3());
+        if (!Number.isFinite(dimensions.y) || dimensions.y < 0.001) continue;
+        const instance = kitInstance(source, {
+          position: [cx + lx, ground, z + lz],
+          rotationY: facing + rotation,
+          scale: height / dimensions.y,
+        });
+        instance.name = 'shop-good-' + name + '-' + side + '-' + z;
+        instance.traverse((node) => {
+          if (!node.isMesh) return;
+          node.castShadow = true;
+          node.receiveShadow = true;
+        });
+        scene.add(instance);
+      }
     }
   }
 
@@ -1209,6 +1293,17 @@
     ]) {
       createHangingBanner(text, side * 5.02, y, z, side < 0 ? Math.PI / 2 : -Math.PI / 2, materials.cloth);
     }
+    for (const [side, z, text] of [[-1, -11.8, '酒'], [1, 1.2, '茶']]) {
+      const banner = createHangingBanner(
+        text,
+        side * 4.2,
+        3.35,
+        z,
+        side < 0 ? Math.PI / 2 : -Math.PI / 2,
+        materials.clothOchre,
+      );
+      banner.scale.setScalar(1.35);
+    }
     for (const [x, z, sx, sz, rot] of [
       [1.75, -1.8, 2.7, 0.9, -0.1],
       [-2.15, 13.8, 1.5, 0.55, 0.12],
@@ -1256,6 +1351,43 @@
         crate.add(box);
       }
       scene.add(crate);
+    }
+    // 酒肆前檐下：长凳、矮桌与酒坛形成可停留的街角，不是路边摆件。
+    for (const [side, z] of [[-1, -8.8], [1, 4.0]]) {
+      const x = side * 4.05;
+      const bench = new THREE.Group();
+      bench.position.set(x, 0.03, z);
+      const plank = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.12, 2.1), materials.wood);
+      plank.position.y = 0.48;
+      plank.castShadow = plank.receiveShadow = true;
+      bench.add(plank);
+      for (const dz of [-0.82, 0, 0.82]) {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.46, 0.10), materials.darkWood);
+        leg.position.set(0, 0.23, dz);
+        leg.castShadow = true;
+        bench.add(leg);
+      }
+      for (const dz of [-0.55, 0.55]) {
+        const jar = new THREE.Mesh(JAR_GEOMETRY, materials.terracotta);
+        jar.scale.setScalar(0.68);
+        jar.position.set(side * 0.38, 0.02, dz);
+        jar.castShadow = true;
+        bench.add(jar);
+      }
+      scene.add(bench);
+      const table = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.08, 0.8), materials.wood);
+      table.position.set(side * 3.4, 0.58, z + 1.25);
+      table.castShadow = true;
+      scene.add(table);
+      for (const [dx, dz] of [[-0.3, -0.3], [0.3, -0.3], [-0.3, 0.3], [0.3, 0.3]]) {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.56, 0.07), materials.darkWood);
+        leg.position.set(side * 3.4 + dx, 0.31, z + 1.25 + dz);
+        scene.add(leg);
+      }
+      const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.055, 0.13, 10), materials.plasterWarm);
+      cup.position.set(side * 3.25, 0.70, z + 1.2);
+      cup.castShadow = true;
+      scene.add(cup);
     }
   }
 
@@ -1377,14 +1509,14 @@
 
   function createPeople(characterRoots = {}) {
     const people = [
-      [-4.35, 9.0, 0.1, { robe: 0x8d5a45, female: false, scale: 1.0 }],
-      [4.45, 3.0, -0.25, { robe: 0x596e70, female: true, scale: 0.94 }],
-      [-4.15, -14.0, 0.2, { robe: 0xa16b47, female: false, scale: 1.03 }],
-      [4.4, -24.0, -0.1, { robe: 0x76634c, female: false, scale: 0.96 }],
-      [-2.5, 14.0, 0.45, { robe: 0x7d5042, female: true, scale: 0.9 }],
-      [2.65, -3.0, -0.6, { robe: 0x465b55, female: false, guard: true, scale: 1.02 }],
-      [4.1, 17.5, 2.9, { robe: 0x8a6647, female: false, scale: 0.98 }],
-      [-1.7, -30.0, -2.8, { robe: 0x6f6252, female: false, scale: 0.94 }],
+      [-5.15, 11.9, -Math.PI / 2, { robe: 0x8d5a45, female: false, scale: 1.0 }],
+      [-4.28, 12.1, Math.PI / 2, { robe: 0x596e70, female: true, scale: 0.94 }],
+      [-5.15, -12.8, -Math.PI / 2, { robe: 0xa16b47, female: false, scale: 1.03 }],
+      [5.15, 6.6, Math.PI / 2, { robe: 0x76634c, female: false, scale: 0.96 }],
+      [4.28, 6.9, -Math.PI / 2, { robe: 0x7d5042, female: true, scale: 0.9 }],
+      [5.15, -18.4, Math.PI / 2, { robe: 0x465b55, female: false, guard: true, scale: 1.02 }],
+      [4.25, -18.0, -Math.PI / 2, { robe: 0x8a6647, female: false, scale: 0.98 }],
+      [-4.25, 5.1, Math.PI / 2, { robe: 0x6f6252, female: false, scale: 0.94 }],
       [3.9, -33.0, -1.4, { robe: 0x4e5c5c, female: false, guard: true, scale: 1.0 }],
       [-3.6, 27.5, 2.3, { robe: 0x9b7355, female: true, scale: 0.86 }],
     ];
@@ -1490,27 +1622,380 @@
     return mesh;
   }
 
+  function catmullRomValue(values, index, amount) {
+    const count = values.length;
+    const i1 = clamp(index, 0, count - 1);
+    const i0 = Math.max(0, i1 - 1);
+    const i2 = Math.min(count - 1, i1 + 1);
+    const i3 = Math.min(count - 1, i1 + 2);
+    const v0 = values[i0];
+    const v1 = values[i1];
+    const v2 = values[i2];
+    const v3 = values[i3];
+    const t = amount;
+    const t2 = t * t;
+    const t3 = t2 * t;
+    return 0.5 * (
+      2 * v1
+      + (-v0 + v2) * t
+      + (2 * v0 - 5 * v1 + 4 * v2 - v3) * t2
+      + (-v0 + 3 * v1 - 3 * v2 + v3) * t3
+    );
+  }
+
+  function createDragonHeadGeometry() {
+    // 连续颅骨、颊部、鼻吻和下颌共用一个曲面，不再由外挂球体拼脸。
+    const profile = {
+      z: [-0.36, -0.30, -0.20, -0.07, 0.08, 0.22, 0.34, 0.43, 0.50],
+      centerY: [0.045, 0.055, 0.060, 0.050, 0.020, -0.010, -0.032, -0.042, -0.040],
+      width: [0.145, 0.205, 0.252, 0.258, 0.238, 0.205, 0.164, 0.112, 0.035],
+      height: [0.150, 0.185, 0.210, 0.200, 0.166, 0.136, 0.105, 0.074, 0.030],
+    };
+    const keys = Object.keys(profile);
+    const lengthSegments = 42;
+    const radialSegments = 52;
+    const positions = [];
+    const colors = [];
+    const uvs = [];
+    const indices = [];
+    const jade = new THREE.Color(0x5a9e86);
+    const jadeDark = new THREE.Color(0x2f7164);
+    const cream = new THREE.Color(0xe7dab8);
+    const color = new THREE.Color();
+
+    for (let row = 0; row <= lengthSegments; row++) {
+      const t = row / lengthSegments;
+      const scaled = t * (profile.z.length - 1);
+      const index = Math.min(profile.z.length - 1, Math.floor(scaled));
+      const amount = scaled - index;
+      const values = {};
+      for (const key of keys) values[key] = catmullRomValue(profile[key], index, amount);
+      for (let column = 0; column <= radialSegments; column++) {
+        const angle = (column / radialSegments) * Math.PI * 2;
+        const sin = Math.sin(angle);
+        const cos = Math.cos(angle);
+        const lower = Math.max(0, -sin);
+        let x = values.width * cos * (1 - lower * 0.12);
+        let y = values.centerY + values.height * Math.sign(sin || 1) * Math.pow(Math.abs(sin), 0.92);
+        let z = values.z;
+
+        const absX = Math.abs(x);
+        const side = Math.sign(x) || 1;
+        const brow = Math.exp(-Math.pow((absX - 0.150) / 0.075, 2))
+          * Math.exp(-Math.pow((z - 0.165) / 0.105, 2))
+          * Math.exp(-Math.pow((y - 0.078) / 0.070, 2));
+        const socket = Math.exp(-Math.pow((absX - 0.150) / 0.060, 2))
+          * Math.exp(-Math.pow((z - 0.245) / 0.070, 2))
+          * Math.exp(-Math.pow((y - 0.065) / 0.052, 2));
+        const cheek = Math.exp(-Math.pow((absX - 0.220) / 0.085, 2))
+          * Math.exp(-Math.pow((z - 0.105) / 0.135, 2))
+          * Math.exp(-Math.pow((y + 0.015) / 0.095, 2));
+        y += brow * 0.020;
+        x += side * (brow * 0.004 + cheek * 0.012 - socket * 0.006);
+        z += brow * 0.006 - socket * 0.009;
+
+        positions.push(x, y, z);
+        uvs.push(column / radialSegments, t);
+        const muzzle = smoothstep(0.06, 0.36, z) * (1 - smoothstep(-0.005, 0.120, y));
+        const chin = smoothstep(0.05, 0.30, z) * (1 - smoothstep(-0.115, -0.020, y));
+        const throat = (1 - smoothstep(-0.135, -0.010, y)) * smoothstep(-0.20, 0.16, z);
+        const creamMix = clamp(muzzle * 0.92 + chin * 0.42 + throat * 0.70, 0, 1);
+        const upper = smoothstep(-0.02, 0.20, y);
+        const back = 1 - smoothstep(-0.26, 0.14, z);
+        color.copy(jade).lerp(jadeDark, 0.12 + upper * 0.12 + back * 0.14);
+        color.lerp(cream, creamMix);
+        colors.push(color.r, color.g, color.b);
+
+        if (row < lengthSegments && column < radialSegments) {
+          const a = row * (radialSegments + 1) + column;
+          const b = a + 1;
+          const c = a + radialSegments + 1;
+          const d = c + 1;
+          indices.push(a, c, b, b, c, d);
+        }
+      }
+    }
+
+    const backCenter = positions.length / 3;
+    positions.push(0, profile.centerY[0], profile.z[0]);
+    colors.push(jade.r * 0.82, jade.g * 0.82, jade.b * 0.82);
+    uvs.push(0.5, 0);
+    const frontCenter = positions.length / 3;
+    positions.push(0, profile.centerY[profile.centerY.length - 1], profile.z[profile.z.length - 1]);
+    colors.push(cream.r, cream.g, cream.b);
+    uvs.push(0.5, 1);
+    for (let column = 0; column < radialSegments; column++) {
+      const backA = column;
+      const backB = column + 1;
+      indices.push(backCenter, backB, backA);
+      const frontBase = lengthSegments * (radialSegments + 1);
+      const frontA = frontBase + column;
+      const frontB = frontBase + column + 1;
+      indices.push(frontCenter, frontA, frontB);
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geometry.setIndex(indices);
+    geometry.computeVertexNormals();
+    return geometry;
+  }
+
+  function createDragonBodyGeometry() {
+    // 躯干按胸、腹、臀的体块连续收放，避免圆管身体和直筒四肢。
+    const profile = {
+      z: [-0.64, -0.54, -0.40, -0.24, -0.06, 0.12, 0.30, 0.46, 0.60, 0.72, 0.82],
+      centerY: [0.55, 0.59, 0.64, 0.70, 0.76, 0.82, 0.88, 0.96, 1.04, 1.12, 1.18],
+      width: [0.16, 0.24, 0.32, 0.37, 0.40, 0.41, 0.40, 0.36, 0.31, 0.25, 0.19],
+      height: [0.14, 0.22, 0.31, 0.38, 0.41, 0.42, 0.40, 0.36, 0.31, 0.26, 0.20],
+    };
+    const keys = Object.keys(profile);
+    const lengthSegments = 48;
+    const radialSegments = 48;
+    const positions = [];
+    const colors = [];
+    const uvs = [];
+    const indices = [];
+    const jade = new THREE.Color(0x5a9e86);
+    const jadeDark = new THREE.Color(0x2f7164);
+    const cream = new THREE.Color(0xe7dab8);
+    const color = new THREE.Color();
+
+    for (let row = 0; row <= lengthSegments; row++) {
+      const t = row / lengthSegments;
+      const scaled = t * (profile.z.length - 1);
+      const index = Math.min(profile.z.length - 1, Math.floor(scaled));
+      const amount = scaled - index;
+      const values = {};
+      for (const key of keys) values[key] = catmullRomValue(profile[key], index, amount);
+      for (let column = 0; column <= radialSegments; column++) {
+        const angle = (column / radialSegments) * Math.PI * 2;
+        const sin = Math.sin(angle);
+        const cos = Math.cos(angle);
+        const shoulder = Math.exp(-Math.pow((values.z - 0.42) / 0.20, 2));
+        const rump = Math.exp(-Math.pow((values.z + 0.30) / 0.22, 2));
+        const belly = Math.exp(-Math.pow((values.z - 0.10) / 0.32, 2));
+        let x = values.width * Math.sign(cos) * Math.pow(Math.abs(cos), 0.90);
+        let y = values.centerY + values.height * Math.sign(sin) * Math.pow(Math.abs(sin), 0.92);
+        let z = values.z;
+        if (sin > 0) {
+          y += shoulder * 0.030 * sin;
+          x *= 1 + shoulder * 0.035;
+        } else {
+          y -= belly * 0.022 * -sin;
+        }
+        if (sin < 0) x *= 1 + belly * 0.025;
+        x *= 1 + rump * 0.025;
+        positions.push(x, y, z);
+        uvs.push(column / radialSegments, t);
+        const bellyMix = smoothstep(0.12, 0.82, -sin) * smoothstep(-0.18, 0.34, z);
+        const topMix = smoothstep(0.16, 0.84, sin);
+        color.copy(jade).lerp(jadeDark, 0.10 + topMix * 0.16);
+        color.lerp(cream, bellyMix * 0.88);
+        colors.push(color.r, color.g, color.b);
+        if (row < lengthSegments && column < radialSegments) {
+          const a = row * (radialSegments + 1) + column;
+          const b = a + 1;
+          const c = a + radialSegments + 1;
+          const d = c + 1;
+          indices.push(a, c, b, b, c, d);
+        }
+      }
+    }
+    const backCenter = positions.length / 3;
+    positions.push(0, profile.centerY[0], profile.z[0]);
+    colors.push(jadeDark.r, jadeDark.g, jadeDark.b);
+    uvs.push(0.5, 0);
+    const frontCenter = positions.length / 3;
+    positions.push(0, profile.centerY[profile.centerY.length - 1], profile.z[profile.z.length - 1]);
+    colors.push(jade.r, jade.g, jade.b);
+    uvs.push(0.5, 1);
+    for (let column = 0; column < radialSegments; column++) {
+      indices.push(backCenter, column + 1, column);
+      const frontBase = lengthSegments * (radialSegments + 1);
+      indices.push(frontCenter, frontBase + column, frontBase + column + 1);
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geometry.setIndex(indices);
+    geometry.computeVertexNormals();
+    return geometry;
+  }
+
+  function createBladeGeometry() {
+    const shape = new THREE.Shape();
+    shape.moveTo(0, -0.08);
+    shape.bezierCurveTo(-0.30, 0.05, -0.42, 0.63, 0, 1);
+    shape.bezierCurveTo(0.42, 0.63, 0.30, 0.05, 0, -0.08);
+    const geometry = new THREE.ExtrudeGeometry(shape, {
+      depth: 0.12,
+      bevelEnabled: true,
+      bevelSegments: 2,
+      bevelSize: 0.035,
+      bevelThickness: 0.035,
+      steps: 1,
+      curveSegments: 7,
+    });
+    geometry.translate(0, 0, -0.06);
+    geometry.computeVertexNormals();
+    return geometry;
+  }
+
+  function createBladeInstances(entries, material, geometry) {
+    const mesh = new THREE.InstancedMesh(geometry, material, entries.length);
+    const matrix = new THREE.Matrix4();
+    const basis = new THREE.Matrix4();
+    const quaternion = new THREE.Quaternion();
+    const scale = new THREE.Vector3();
+    const yAxis = new THREE.Vector3();
+    const zAxis = new THREE.Vector3();
+    const xAxis = new THREE.Vector3();
+    const color = new THREE.Color();
+    entries.forEach((entry, index) => {
+      yAxis.copy(entry.direction).normalize();
+      zAxis.copy(entry.normal);
+      zAxis.addScaledVector(yAxis, -zAxis.dot(yAxis));
+      if (zAxis.lengthSq() < 0.0001) zAxis.set(0, 0, 1);
+      zAxis.normalize();
+      xAxis.crossVectors(yAxis, zAxis).normalize();
+      basis.makeBasis(xAxis, yAxis, zAxis);
+      quaternion.setFromRotationMatrix(basis);
+      scale.set(entry.width, entry.length, entry.thickness || 0.36);
+      matrix.compose(entry.position, quaternion, scale);
+      mesh.setMatrixAt(index, matrix);
+      color.setHex(entry.color || 0xffffff);
+      mesh.setColorAt(index, color);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.computeBoundingSphere();
+    return mesh;
+  }
+
+  function createDragonEye(side) {
+    const group = new THREE.Group();
+    group.position.set(side * 0.154, 0.070, 0.242);
+    group.rotation.y = side * 0.12;
+    group.rotation.z = side * -0.055;
+
+    const socket = new THREE.Mesh(new THREE.SphereGeometry(0.078, 24, 16), materials.jadeDark);
+    socket.scale.set(1.14, 0.83, 0.16);
+    socket.position.z = -0.012;
+    socket.castShadow = true;
+    group.add(socket);
+
+    const blink = new THREE.Group();
+    group.add(blink);
+    const iris = new THREE.Mesh(new THREE.SphereGeometry(0.061, 24, 16), materials.eyeAmber);
+    iris.scale.set(1.02, 0.76, 0.20);
+    iris.position.z = 0.010;
+    blink.add(iris);
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.064, 0.0065, 8, 32), materials.pupil);
+    rim.scale.set(1.02, 0.76, 1);
+    rim.position.z = 0.021;
+    blink.add(rim);
+    const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.020, 16, 12), materials.pupil);
+    pupil.scale.set(0.38, 1.16, 0.14);
+    pupil.position.z = 0.029;
+    blink.add(pupil);
+    const catchlight = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 10, 8), materials.eyeWhite);
+    catchlight.position.set(side * -0.010, 0.014, 0.034);
+    blink.add(catchlight);
+
+    const upperLid = createTaperedTube(
+      [
+        new THREE.Vector3(-0.074, 0.018, 0.022),
+        new THREE.Vector3(-0.018, 0.061, 0.037),
+        new THREE.Vector3(0.042, 0.052, 0.037),
+        new THREE.Vector3(0.073, 0.018, 0.022),
+      ],
+      [0.008, 0.015, 0.014, 0.007],
+      materials.jade,
+      12,
+      6,
+    );
+    blink.add(upperLid.mesh);
+    const lowerLid = createTaperedTube(
+      [
+        new THREE.Vector3(-0.070, -0.025, 0.022),
+        new THREE.Vector3(-0.010, -0.050, 0.034),
+        new THREE.Vector3(0.055, -0.031, 0.027),
+      ],
+      [0.005, 0.008, 0.004],
+      materials.cream,
+      10,
+      5,
+    );
+    blink.add(lowerLid.mesh);
+    const tearline = createTaperedTube(
+      [
+        new THREE.Vector3(-0.070, 0.004, 0.018),
+        new THREE.Vector3(-0.010, -0.010, 0.030),
+        new THREE.Vector3(0.058, 0.001, 0.024),
+      ],
+      [0.0032, 0.0045, 0.0025],
+      materials.dragonEyeRim,
+      10,
+      5,
+    );
+    blink.add(tearline.mesh);
+    const brow = createTaperedTube(
+      [
+        new THREE.Vector3(-0.078, 0.078, -0.002),
+        new THREE.Vector3(-0.014, 0.121, 0.018),
+        new THREE.Vector3(0.072, 0.083, 0.000),
+      ],
+      [0.010, 0.019, 0.008],
+      materials.jadeDark,
+      12,
+      6,
+    );
+    group.add(brow.mesh);
+    return { group, blink };
+  }
+
   function createDragonLeg(side, z, front) {
     const pivot = new THREE.Group();
-    pivot.position.set(side * 0.24, 0.75, z);
-    const upper = new THREE.Mesh(new THREE.CapsuleGeometry(0.086, 0.16, 4, 8), materials.jade);
-    upper.position.y = -0.12;
+    pivot.position.set(side * (front ? 0.235 : 0.265), front ? 0.58 : 0.53, z);
+    const shoulder = new THREE.Mesh(
+      new THREE.SphereGeometry(front ? 0.092 : 0.115, 16, 12),
+      materials.jade,
+    );
+    shoulder.scale.set(0.98, 0.88, 0.92);
+    shoulder.castShadow = true;
+    pivot.add(shoulder);
+    const upper = new THREE.Mesh(
+      new THREE.CapsuleGeometry(front ? 0.072 : 0.090, front ? 0.14 : 0.15, 5, 10),
+      materials.jade,
+    );
+    upper.position.y = -0.13;
+    upper.rotation.x = front ? 0.04 : -0.10;
+    upper.rotation.z = side * -0.04;
     upper.castShadow = true;
     pivot.add(upper);
-    const lower = new THREE.Mesh(new THREE.CapsuleGeometry(0.068, 0.15, 4, 8), materials.jadeDark);
-    lower.position.set(0, -0.35, 0.035);
+    const lower = new THREE.Mesh(
+      new THREE.CapsuleGeometry(front ? 0.056 : 0.070, front ? 0.13 : 0.14, 5, 10),
+      materials.jadeDark,
+    );
+    lower.position.set(0, -0.33, 0.050);
     lower.rotation.x = -0.12;
     lower.castShadow = true;
     pivot.add(lower);
-    const foot = new THREE.Mesh(new THREE.SphereGeometry(0.115, 12, 8), materials.jadeDark);
-    foot.scale.set(1.12, 0.38, 1.32);
-    foot.position.set(0, -0.49, 0.10);
+    const foot = new THREE.Mesh(new THREE.SphereGeometry(0.105, 16, 10), materials.jadeDark);
+    foot.scale.set(1.08, 0.32, 1.42);
+    foot.position.set(0, front ? -0.455 : -0.435, 0.115);
     foot.castShadow = true;
     pivot.add(foot);
-    for (const x of [-0.055, 0, 0.055]) {
+    for (const x of [-0.060, 0, 0.060]) {
       const claw = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.09, 6), materials.horn);
       claw.rotation.x = Math.PI / 2;
-      claw.position.set(x, -0.51, 0.22);
+      claw.position.set(x, front ? -0.455 : -0.435, 0.245);
       pivot.add(claw);
     }
     pivot.userData.front = front;
@@ -1518,51 +2003,79 @@
     return pivot;
   }
 
-  function createDragonHeadMesh() {
-    const geometry = new THREE.SphereGeometry(1, 44, 30);
-    const position = geometry.attributes.position;
-    const uv = geometry.attributes.uv;
-    const colors = new Float32Array(position.count * 3);
-    const jade = new THREE.Color(0x4ca58e);
-    const cream = new THREE.Color(0xe3d7b7);
-    const color = new THREE.Color();
-    for (let i = 0; i < position.count; i++) {
-      const x = position.getX(i);
-      const y = position.getY(i);
-      const z = position.getZ(i);
-      const baseU = uv.getX(i);
-      const baseV = uv.getY(i);
-      const front = smoothstep(-0.1, 0.9, z);
-      const upper = smoothstep(-0.35, 0.4, y);
-      // 颅骨横向略窄、纵向略高，鼻吻只占前段，不再像一个整球。
-      let px = x * 0.285 * (1 - front * 0.16);
-      let py = y * 0.235;
-      let pz = z * 0.295 + front * front * 0.06;
-      const brow = Math.exp(-Math.pow((y - 0.12) / 0.13, 2)) * Math.exp(-Math.pow(x / 0.30, 2));
-      const muzzle = Math.exp(-Math.pow((y + 0.05) / 0.14, 2)) * Math.exp(-Math.pow(x / 0.22, 2));
-      const cheek = Math.exp(-Math.pow((y + 0.01) / 0.12, 2)) * Math.exp(-Math.pow((Math.abs(x) - 0.23) / 0.10, 2));
-      const chin = Math.exp(-Math.pow((y + 0.21) / 0.10, 2)) * Math.exp(-Math.pow(x / 0.24, 2));
-      px *= 1 + cheek * 0.16 * smoothstep(0.0, 0.9, z);
-      py += brow * 0.055 * smoothstep(0.1, 0.95, z);
-      pz += muzzle * 0.070 * smoothstep(0.1, 1.0, z);
-      pz -= chin * 0.015 * smoothstep(0.2, 1.0, z);
-      if (y < -0.12 && z > 0.2) py -= smoothstep(0.1, 0.95, z) * 0.035;
-      position.setXYZ(i, px, py, pz);
-      const creamMix = smoothstep(0.2, 0.9, z) * (1 - upper * 0.9);
-      color.copy(jade).lerp(cream, creamMix * 0.82);
-      colors[i * 3] = color.r;
-      colors[i * 3 + 1] = color.g;
-      colors[i * 3 + 2] = color.b;
-      uv.setXY(i, baseU * 1.35, baseV * 1.25);
+  function createDragonTail(baseY = 0.58) {
+    const tail = new THREE.Group();
+    tail.position.set(0, baseY, -0.62);
+    const tailTube = createTaperedTube(
+      [
+        new THREE.Vector3(0, 0.02, 0),
+        new THREE.Vector3(0, -0.08, -0.34),
+        new THREE.Vector3(0, -0.20, -0.73),
+        new THREE.Vector3(0, -0.28, -1.08),
+        new THREE.Vector3(0, -0.28, -1.36),
+        new THREE.Vector3(0, -0.18, -1.60),
+      ],
+      [0.17, 0.145, 0.105, 0.062, 0.025, 0.010],
+      materials.jade,
+      32,
+      12,
+    );
+    tail.add(tailTube.mesh);
+    const scaleEntries = [];
+    const finEntries = [];
+    for (let i = 0; i < 10; i++) {
+      const t = 0.08 + i * 0.083;
+      const p = tailTube.curve.getPointAt(t);
+      const tangent = tailTube.curve.getTangentAt(t).normalize();
+      const radius = THREE.MathUtils.lerp(0.17, 0.010, t);
+      finEntries.push({
+        position: p.clone().add(new THREE.Vector3(0, radius * 0.86, 0)),
+        direction: new THREE.Vector3(0, 0.50 + t * 0.22, -0.86),
+        normal: new THREE.Vector3(1, 0, 0),
+        width: 0.030 + t * 0.035,
+        length: 0.11 + t * 0.10,
+        thickness: 0.28,
+        color: i % 3 === 0 ? 0x2f7164 : 0xe7dab8,
+      });
+      for (const side of [-1, 1]) {
+        scaleEntries.push({
+          position: p.clone().add(new THREE.Vector3(side * radius * 0.56, radius * 0.54, 0)),
+          direction: tangent.clone().multiplyScalar(-1),
+          normal: new THREE.Vector3(side * 0.70, 0.72, 0.04).normalize(),
+          width: 0.045 + radius * 0.22,
+          length: 0.062 + radius * 0.26,
+          thickness: 0.28,
+          color: i % 4 === 0 ? 0x3d8573 : 0x347b6c,
+        });
+      }
     }
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    geometry.computeVertexNormals();
+    tail.add(createBladeInstances(scaleEntries, materials.dragonScale, createBladeGeometry()));
+    tail.add(createBladeInstances(finEntries, materials.dragonScale, createBladeGeometry()));
+    const fanEntries = [
+      [new THREE.Vector3(0, -0.18, -1.62), new THREE.Vector3(0, 0.36, -1), 0.10, 0.29],
+      [new THREE.Vector3(0.040, -0.17, -1.58), new THREE.Vector3(0.34, 0.18, -1), 0.095, 0.245],
+      [new THREE.Vector3(-0.040, -0.17, -1.58), new THREE.Vector3(-0.34, 0.18, -1), 0.095, 0.245],
+    ].map(([position, direction, width, length], index) => ({
+      position,
+      direction,
+      normal: new THREE.Vector3(index === 0 ? 1 : 0.45, 0, index === 0 ? 0 : 0.85),
+      width,
+      length,
+      thickness: 0.26,
+      color: index === 1 ? 0xe7dab8 : 0x5a9e86,
+    }));
+    tail.add(createBladeInstances(fanEntries, materials.dragonScale, createBladeGeometry()));
+    return tail;
+  }
+
+  function createDragonHeadMesh() {
+    const geometry = createDragonHeadGeometry();
     const material = new THREE.MeshStandardMaterial({
       name: 'dragon-head-blended',
       vertexColors: true,
-      roughness: 0.47,
+      roughness: 0.54,
       metalness: 0,
-      envMapIntensity: 0.7,
+      envMapIntensity: 0.68,
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
@@ -1577,251 +2090,342 @@
     root.scale.setScalar(0.78);
     const visual = new THREE.Group();
     root.add(visual);
+    const bladeGeometry = createBladeGeometry();
 
-    const bodyPoints = [
-      new THREE.Vector3(0, 0.70, -0.54),
-      new THREE.Vector3(0, 0.80, -0.25),
-      new THREE.Vector3(0, 0.92, 0.03),
-      new THREE.Vector3(0, 1.02, 0.28),
-      new THREE.Vector3(0, 1.12, 0.50),
-      new THREE.Vector3(0, 1.25, 0.69),
-    ];
-    const bodyRadii = [0.20, 0.30, 0.37, 0.36, 0.28, 0.18];
-    const body = createTaperedTube(bodyPoints, bodyRadii, materials.jade, 36, 14);
-    visual.add(body.mesh);
-    const bodyCurve = body.curve;
-    // 沿背部补一条连续鬃脊：不是零散尖刺，而是有主次的曲面层。
-    for (let i = 0; i < 9; i++) {
-      const t = 0.06 + i * 0.09;
-      const p = bodyCurve.getPointAt(t);
-      const radius = THREE.MathUtils.lerp(bodyRadii[0], bodyRadii[bodyRadii.length - 1], t);
-      const crest = new THREE.Mesh(
-        new THREE.ConeGeometry(0.055 + (1 - t) * 0.018, 0.14 + (1 - t) * 0.08, 6),
-        i % 2 ? materials.jadeDark : materials.cream,
-      );
-      crest.position.set(0, p.y + radius * 0.90, p.z - 0.015);
-      crest.rotation.x = -0.42;
-      crest.castShadow = true;
-      visual.add(crest);
-    }
+    const body = new THREE.Mesh(createDragonBodyGeometry(), materials.dragonBody);
+    body.castShadow = true;
+    body.receiveShadow = true;
+    visual.add(body);
+    const bodyCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0, 0.55, -0.64),
+      new THREE.Vector3(0, 0.64, -0.40),
+      new THREE.Vector3(0, 0.76, -0.06),
+      new THREE.Vector3(0, 0.88, 0.30),
+      new THREE.Vector3(0, 1.04, 0.60),
+      new THREE.Vector3(0, 1.18, 0.82),
+    ]);
+    const bodyRadii = [0.16, 0.32, 0.40, 0.40, 0.31, 0.19];
 
-    // 腹甲用一组压扁的暖色甲片，贴着连续躯干，不用另一套球体拼贴。
-    for (let i = 0; i < 7; i++) {
-      const t = 0.12 + i * 0.12;
-      const p = bodyCurve.getPointAt(t);
+    // 背鳞、侧鳞和腹甲共用一片有厚度的叶片几何，按实例共享材质。
+    const bodyScaleEntries = [];
+    for (let row = 0; row < 13; row++) {
+      const t = 0.10 + row * 0.062;
+      const point = bodyCurve.getPointAt(t);
       const radius = THREE.MathUtils.lerp(bodyRadii[0], bodyRadii[bodyRadii.length - 1], t);
-      const plate = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8), materials.cream);
-      plate.scale.set(1.05, 0.32, 1.32);
-      plate.position.set(0, p.y - radius * 0.68, p.z + 0.015);
-      plate.castShadow = true;
-      visual.add(plate);
+      const tangent = bodyCurve.getTangentAt(t).normalize();
+      for (const [normal, offset] of [
+        [new THREE.Vector3(0, 1, 0.08).normalize(), 0.97],
+        [new THREE.Vector3(0.64, 0.77, 0.04).normalize(), 0.94],
+        [new THREE.Vector3(-0.64, 0.77, 0.04).normalize(), 0.94],
+      ]) {
+        bodyScaleEntries.push({
+          position: point.clone().addScaledVector(normal, radius * offset),
+          direction: tangent.clone().multiplyScalar(-1).addScaledVector(normal, -0.12),
+          normal,
+          width: 0.095 + radius * 0.10,
+          length: 0.12 + radius * 0.11,
+          thickness: 0.32,
+          color: row % 4 === 0 ? 0x3d8573 : 0x347b6c,
+        });
+      }
     }
+    visual.add(createBladeInstances(bodyScaleEntries, materials.dragonScale, bladeGeometry));
+
+    const bellyEntries = [];
+    for (let row = 0; row < 9; row++) {
+      const t = 0.13 + row * 0.083;
+      const point = bodyCurve.getPointAt(t);
+      const radius = THREE.MathUtils.lerp(bodyRadii[0], bodyRadii[bodyRadii.length - 1], t);
+      const tangent = bodyCurve.getTangentAt(t).normalize();
+      const normal = new THREE.Vector3(0, -0.58, 0.82).normalize();
+      bellyEntries.push({
+        position: point.clone().addScaledVector(normal, radius * 0.94),
+        direction: tangent.clone().multiplyScalar(-1),
+        normal,
+        width: 0.24 + (1 - t) * 0.09,
+        length: 0.095 + (1 - t) * 0.028,
+        thickness: 0.42,
+        color: row % 2 ? 0xe7dab8 : 0xf0e5c8,
+      });
+    }
+    const bellyScutes = createBladeInstances(bellyEntries, materials.dragonScale, bladeGeometry);
+    bellyScutes.layers.set(DRAGON_LAYER);
+    visual.add(bellyScutes);
+
+    const neckTube = createTaperedTube(
+      [
+        new THREE.Vector3(0, 1.17, 0.73),
+        new THREE.Vector3(0, 1.25, 0.80),
+        new THREE.Vector3(0, 1.33, 0.88),
+      ],
+      [0.195, 0.17, 0.205],
+      materials.jade,
+      20,
+      14,
+    );
+    visual.add(neckTube.mesh);
+
     const head = new THREE.Group();
-    head.position.set(0, 1.37, 0.87);
+    head.position.set(0, 1.36, 0.91);
     visual.add(head);
     const eyelids = [];
     const headMesh = createDragonHeadMesh();
     head.add(headMesh);
-    const neck = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.19, 0.16, 6, 12),
-      materials.jade,
-    );
-    neck.rotation.x = Math.PI * 0.34;
-    neck.position.set(0, -0.17, -0.08);
-    neck.castShadow = true;
-    head.add(neck);
-    // 额心鳞甲与鼻梁隆起给正脸一个视觉中心，避免双眼之间一片平。
-    const foreheadScale = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.12, 6), materials.cream);
-    foreheadScale.position.set(0, 0.255, 0.20);
-    foreheadScale.rotation.x = -0.55;
-    head.add(foreheadScale);
-    const noseBridge = new THREE.Mesh(new THREE.CapsuleGeometry(0.032, 0.16, 4, 8), materials.jade);
-    noseBridge.rotation.x = Math.PI / 2;
-    noseBridge.position.set(0, 0.08, 0.33);
-    head.add(noseBridge);
-    // 颊鬃沿头部外缘做有厚度的叶片，正面看到蓬松轮廓，侧面也有体积。
+
+    const maneEntries = [];
+    for (let i = 0; i < 11; i++) {
+      const angle = (i / 10 - 0.5) * 1.55;
+      const x = Math.sin(angle) * 0.205;
+      const y = 0.175 + Math.cos(angle) * 0.165;
+      maneEntries.push({
+        position: new THREE.Vector3(x, y, -0.105 - Math.abs(angle) * 0.025),
+        direction: new THREE.Vector3(Math.sin(angle) * 0.90, 0.30 + Math.cos(angle) * 0.55, -0.74),
+        normal: new THREE.Vector3(Math.sin(angle) * 0.48, 0.28, 0.82),
+        width: 0.075 + Math.cos(angle) * 0.014,
+        length: 0.175 + Math.cos(angle) * 0.040,
+        thickness: 0.48,
+        color: i % 4 === 0 ? 0xe7dab8 : i % 3 === 0 ? 0x2f7164 : 0x5a9e86,
+      });
+    }
     for (const side of [-1, 1]) {
-      for (let i = 0; i < 7; i++) {
-        const t = i / 6;
-        const tuft = new THREE.Mesh(
-          new THREE.ConeGeometry(0.045 + (1 - t) * 0.014, 0.14 + (1 - t) * 0.06, 6),
-          i % 2 ? materials.cream : materials.jadeDark,
-        );
-        tuft.scale.set(0.8, 1, 0.8);
-        tuft.position.set(
-          side * (0.235 + t * 0.055),
-          0.13 - t * 0.26,
-          0.06 + t * 0.055,
-        );
-        tuft.rotation.z = side * -(0.80 + t * 0.14);
-        tuft.castShadow = true;
-        head.add(tuft);
+      maneEntries.push({
+        position: new THREE.Vector3(side * 0.255, 0.125, -0.020),
+        direction: new THREE.Vector3(side * 0.92, 0.54, -0.22),
+        normal: new THREE.Vector3(side * 0.22, 0.24, 0.94),
+        width: 0.118,
+        length: 0.235,
+        thickness: 0.44,
+        color: 0xe7dab8,
+      });
+      for (let i = 0; i < 6; i++) {
+        const t = i / 5;
+        maneEntries.push({
+          position: new THREE.Vector3(
+            side * (0.235 + t * 0.035),
+            0.125 - t * 0.285,
+            0.015 + t * 0.135,
+          ),
+          direction: new THREE.Vector3(
+            side * (0.88 + t * 0.14),
+            0.18 - t * 0.58,
+            -0.18 + t * 0.20,
+          ),
+          normal: new THREE.Vector3(side * 0.18, 0.14, 0.97),
+          width: 0.064 + (1 - t) * 0.024,
+          length: 0.158 + (1 - t) * 0.042,
+          thickness: 0.46,
+          color: i % 3 === 0 ? 0xe7dab8 : i % 2 ? 0x2f7164 : 0x5a9e86,
+        });
       }
       for (let i = 0; i < 3; i++) {
-        const browTuft = new THREE.Mesh(
-          new THREE.SphereGeometry(0.045, 8, 6),
-          i % 2 ? materials.cream : materials.jadeDark,
-        );
-        browTuft.scale.set(1.15, 0.38, 0.70);
-        browTuft.position.set(side * (0.10 + i * 0.06), 0.22 - i * 0.03, 0.18 + i * 0.02);
-        browTuft.rotation.z = side * -0.52;
-        head.add(browTuft);
+        maneEntries.push({
+          position: new THREE.Vector3(side * (0.060 + i * 0.035), 0.245 - i * 0.018, 0.110 + i * 0.035),
+          direction: new THREE.Vector3(side * (0.12 + i * 0.10), 0.88, 0.48),
+          normal: new THREE.Vector3(side * 0.10, 0.38, 0.92),
+          width: 0.040,
+          length: 0.070 - i * 0.007,
+          thickness: 0.42,
+          color: 0xe7dab8,
+        });
+      }
+      for (let i = 0; i < 5; i++) {
+        const t = i / 4;
+        maneEntries.push({
+          position: new THREE.Vector3(
+            side * (0.205 + t * 0.026),
+            0.090 - t * 0.225,
+            0.070 + t * 0.070,
+          ),
+          direction: new THREE.Vector3(side * 0.78, -0.06 - t * 0.38, -0.50 + t * 0.20),
+          normal: new THREE.Vector3(side * 0.30, 0.15, 0.94),
+          width: 0.048,
+          length: 0.115 + (1 - t) * 0.028,
+          thickness: 0.44,
+          color: i % 2 ? 0x2f7164 : 0x5a9e86,
+        });
       }
     }
+    head.add(createBladeInstances(maneEntries, materials.dragonScale, bladeGeometry));
+
     for (const side of [-1, 1]) {
-      const eye = new THREE.Mesh(new THREE.SphereGeometry(0.094, 20, 14), materials.eyeWhite);
-      eye.scale.set(1.02, 1.08, 0.78);
-      eye.position.set(side * 0.128, 0.062, 0.277);
-      head.add(eye);
-      const iris = new THREE.Mesh(new THREE.SphereGeometry(0.054, 16, 12), materials.eyeAmber);
-      iris.scale.set(1.0, 1.06, 0.78);
-      iris.position.set(side * 0.137, 0.062, 0.336);
-      head.add(iris);
-      const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.031, 12, 10), materials.pupil);
-      pupil.scale.set(0.88, 1.06, 0.82);
-      pupil.position.set(side * 0.138, 0.060, 0.366);
-      head.add(pupil);
-      const catchlight = new THREE.Mesh(new THREE.SphereGeometry(0.009, 8, 6), materials.eyeWhite);
-      catchlight.position.set(side * 0.132, 0.078, 0.388);
-      head.add(catchlight);
-      // 上眼睑压在眼球上，眼窝由头部体积包住，避免外挂球眼。
-      const lid = new THREE.Mesh(
-        new THREE.SphereGeometry(0.134, 20, 10, 0, Math.PI * 2, 0, Math.PI * 0.40),
-        materials.jade,
-      );
-      lid.scale.set(1.03, 0.82, 0.9);
-      lid.position.set(side * 0.128, 0.101, 0.277);
-      lid.rotation.x = -0.08;
-      head.add(lid);
-      eyelids.push(lid);
-      const brow = new THREE.Mesh(new THREE.CapsuleGeometry(0.021, 0.10, 4, 8), materials.jadeDark);
-      brow.rotation.z = side * 1.10;
-      brow.rotation.x = -0.25;
-      brow.position.set(side * 0.128, 0.168, 0.210);
-      head.add(brow);
-      const ear = new THREE.Mesh(new THREE.SphereGeometry(0.085, 10, 8), materials.jadeDark);
-      ear.scale.set(1.2, 0.62, 0.42);
-      ear.position.set(side * 0.29, 0.15, 0.015);
-      ear.rotation.z = side * -0.55;
-      head.add(ear);
-      const earInner = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 6), materials.cream);
-      earInner.scale.set(1.05, 0.45, 0.26);
-      earInner.position.set(side * 0.285, 0.145, 0.045);
-      earInner.rotation.z = side * -0.55;
-      head.add(earInner);
-      const nostril = new THREE.Mesh(new THREE.SphereGeometry(0.014, 8, 6), materials.pupil);
-      nostril.position.set(side * 0.060, -0.035, 0.530);
+      const eye = createDragonEye(side);
+      head.add(eye.group);
+      eyelids.push(eye.blink);
+      const nostril = new THREE.Mesh(new THREE.SphereGeometry(0.014, 10, 8), materials.pupil);
+      nostril.scale.set(1.25, 0.62, 0.55);
+      nostril.position.set(side * 0.044, 0.004, 0.498);
       head.add(nostril);
-      const hornPoints = [
-        new THREE.Vector3(side * 0.14, 0.21, -0.03),
-        new THREE.Vector3(side * 0.18, 0.36, -0.10),
-        new THREE.Vector3(side * 0.19, 0.50, -0.23),
-        new THREE.Vector3(side * 0.13, 0.58, -0.31),
-        new THREE.Vector3(side * 0.06, 0.59, -0.35),
-      ];
-      const horn = createTaperedTube(hornPoints, [0.056, 0.045, 0.033, 0.020, 0.008], materials.horn, 22, 8);
-      horn.mesh.castShadow = true;
+
+      const horn = createTaperedTube(
+        [
+          new THREE.Vector3(side * 0.145, 0.205, -0.035),
+          new THREE.Vector3(side * 0.165, 0.335, -0.055),
+          new THREE.Vector3(side * 0.185, 0.455, -0.150),
+          new THREE.Vector3(side * 0.160, 0.535, -0.285),
+          new THREE.Vector3(side * 0.105, 0.575, -0.385),
+        ],
+        [0.052, 0.043, 0.032, 0.020, 0.006],
+        materials.horn,
+        24,
+        8,
+      );
       head.add(horn.mesh);
-      const fork = createTaperedTube([
-        new THREE.Vector3(side * 0.16, 0.44, -0.17),
-        new THREE.Vector3(side * 0.26, 0.49, -0.22),
-        new THREE.Vector3(side * 0.30, 0.53, -0.27),
-      ], [0.025, 0.017, 0.006], materials.horn, 10, 6);
-      head.add(fork.mesh);
-      const whiskerPoints = [
-        new THREE.Vector3(side * 0.10, -0.09, 0.44),
-        new THREE.Vector3(side * 0.21, -0.11, 0.50),
-        new THREE.Vector3(side * 0.30, -0.07, 0.43),
-      ];
-      const whisker = createTaperedTube(whiskerPoints, [0.009, 0.006, 0.002], materials.horn, 10, 5);
+      const forkA = createTaperedTube(
+        [
+          new THREE.Vector3(side * 0.175, 0.415, -0.115),
+          new THREE.Vector3(side * 0.265, 0.485, -0.130),
+          new THREE.Vector3(side * 0.315, 0.565, -0.185),
+        ],
+        [0.024, 0.016, 0.005],
+        materials.horn,
+        12,
+        6,
+      );
+      head.add(forkA.mesh);
+      const forkB = createTaperedTube(
+        [
+          new THREE.Vector3(side * 0.158, 0.510, -0.240),
+          new THREE.Vector3(side * 0.235, 0.565, -0.300),
+          new THREE.Vector3(side * 0.250, 0.635, -0.365),
+        ],
+        [0.018, 0.012, 0.004],
+        materials.horn,
+        10,
+        6,
+      );
+      head.add(forkB.mesh);
+      const whisker = createTaperedTube(
+        [
+          new THREE.Vector3(side * 0.082, -0.056, 0.455),
+          new THREE.Vector3(side * 0.180, -0.072, 0.500),
+          new THREE.Vector3(side * 0.285, -0.055, 0.480),
+          new THREE.Vector3(side * 0.350, -0.015, 0.405),
+          new THREE.Vector3(side * 0.375, 0.035, 0.330),
+        ],
+        [0.007, 0.006, 0.0045, 0.0025, 0.0008],
+        materials.horn,
+        18,
+        5,
+      );
       head.add(whisker.mesh);
     }
-    const mouthCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.085, -0.135, 0.425),
-      new THREE.Vector3(0, -0.158, 0.458),
-      new THREE.Vector3(0.085, -0.135, 0.425),
-    ]);
-    const mouth = new THREE.Mesh(new THREE.TubeGeometry(mouthCurve, 10, 0.007, 5, false), materials.pupil);
-    head.add(mouth);
-    const lowerLip = new THREE.Mesh(new THREE.SphereGeometry(0.115, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.42), materials.cream);
-    lowerLip.scale.set(0.90, 0.42, 0.78);
-    lowerLip.position.set(0, -0.155, 0.350);
-    lowerLip.rotation.x = 0.2;
-    head.add(lowerLip);
-    const noseTip = new THREE.Mesh(new THREE.SphereGeometry(0.048, 14, 10), materials.cream);
-    noseTip.scale.set(1.2, 0.52, 0.68);
-    noseTip.position.set(0, 0.010, 0.474);
-    noseTip.castShadow = true;
-    head.add(noseTip);
-    for (let i = 0; i < 4; i++) {
-      const fin = new THREE.Mesh(new THREE.ConeGeometry(0.060, 0.18, 5), materials.jadeDark);
-      fin.position.set(0, 0.19 - i * 0.055, -0.14 - i * 0.10);
-      fin.rotation.x = -0.55;
-      head.add(fin);
+
+    const noseBridge = createTaperedTube(
+      [
+        new THREE.Vector3(0, 0.132, 0.165),
+        new THREE.Vector3(0, 0.086, 0.300),
+        new THREE.Vector3(0, 0.040, 0.445),
+      ],
+      [0.031, 0.027, 0.018],
+      materials.jade,
+      16,
+      7,
+    );
+    head.add(noseBridge.mesh);
+    const mouth = createTaperedTube(
+      [
+        new THREE.Vector3(-0.090, -0.060, 0.430),
+        new THREE.Vector3(-0.050, -0.082, 0.470),
+        new THREE.Vector3(0, -0.090, 0.494),
+        new THREE.Vector3(0.050, -0.082, 0.470),
+        new THREE.Vector3(0.090, -0.060, 0.430),
+      ],
+      [0.004, 0.007, 0.008, 0.007, 0.004],
+      materials.pupil,
+      18,
+      5,
+    );
+    head.add(mouth.mesh);
+    const lowerLip = createTaperedTube(
+      [
+        new THREE.Vector3(-0.084, -0.078, 0.438),
+        new THREE.Vector3(0, -0.104, 0.488),
+        new THREE.Vector3(0.084, -0.078, 0.438),
+      ],
+      [0.005, 0.011, 0.005],
+      materials.cream,
+      14,
+      6,
+    );
+    head.add(lowerLip.mesh);
+    const mouthInterior = new THREE.Mesh(
+      new THREE.SphereGeometry(0.092, 20, 12, 0, Math.PI * 2, Math.PI * 0.50, Math.PI * 0.50),
+      materials.dragonMouth,
+    );
+    mouthInterior.scale.set(1.0, 0.60, 0.48);
+    mouthInterior.position.set(0, -0.074, 0.452);
+    mouthInterior.rotation.x = 0.08;
+    head.add(mouthInterior);
+    const tongue = new THREE.Mesh(
+      new THREE.CapsuleGeometry(0.032, 0.060, 5, 10),
+      materials.dragonTongue,
+    );
+    tongue.rotation.x = Math.PI / 2 - 0.20;
+    tongue.scale.set(1.0, 0.55, 0.72);
+    tongue.position.set(0, -0.084, 0.474);
+    head.add(tongue);
+    for (const side of [-1, 1]) {
+      const fang = new THREE.Mesh(new THREE.ConeGeometry(0.0075, 0.034, 7), materials.eyeWhite);
+      fang.rotation.x = Math.PI;
+      fang.position.set(side * 0.054, -0.073, 0.462);
+      fang.castShadow = true;
+      head.add(fang);
     }
 
     const legs = [
-      createDragonLeg(-1, 0.30, true),
-      createDragonLeg(1, 0.30, true),
-      createDragonLeg(-1, -0.31, false),
-      createDragonLeg(1, -0.31, false),
+      createDragonLeg(-1, 0.25, true),
+      createDragonLeg(1, 0.25, true),
+      createDragonLeg(-1, -0.38, false),
+      createDragonLeg(1, -0.38, false),
     ];
     legs.forEach((leg) => visual.add(leg));
 
-    const tail = new THREE.Group();
-    tail.position.set(0, 0.72, -0.55);
-    const tailTube = createTaperedTube(
-      [
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 0.01, -0.30),
-        new THREE.Vector3(0, 0.10, -0.68),
-        new THREE.Vector3(0, 0.21, -1.04),
-        new THREE.Vector3(0, 0.29, -1.27),
-      ],
-      [0.18, 0.15, 0.10, 0.045, 0.012],
-      materials.jade,
-      24,
-      10,
-    );
-    tail.add(tailTube.mesh);
-    const tailFin = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.34, 5), materials.jadeDark);
-    tailFin.rotation.x = Math.PI / 2;
-    tailFin.position.set(0, 0.30, -1.34);
-    tail.add(tailFin);
-    for (let i = 0; i < 7; i++) {
-      const t = 0.15 + i * 0.10;
-      const p = tailTube.curve.getPointAt(t);
-      const fin = new THREE.Mesh(new THREE.ConeGeometry(0.06 + t * 0.02, 0.16 + t * 0.08, 5), materials.cream);
-      fin.position.set(0, p.y + 0.12, p.z - 0.02);
-      fin.rotation.x = -0.55;
-      tail.add(fin);
-    }
+    const tail = createDragonTail(0.58);
     visual.add(tail);
 
-    const scarf = new THREE.Mesh(new THREE.TorusGeometry(0.235, 0.045, 8, 24), materials.red);
-    scarf.rotation.x = Math.PI / 2;
-    scarf.position.set(0, 1.18, 0.50);
-    scarf.castShadow = true;
-    visual.add(scarf);
+    const scarf = createTaperedTube(
+      [
+        new THREE.Vector3(0.09, 1.25, 0.69),
+        new THREE.Vector3(0.20, 1.235, 0.78),
+        new THREE.Vector3(0.21, 1.20, 0.89),
+        new THREE.Vector3(0.10, 1.18, 0.96),
+        new THREE.Vector3(0, 1.17, 0.98),
+        new THREE.Vector3(-0.10, 1.18, 0.96),
+        new THREE.Vector3(-0.21, 1.20, 0.89),
+        new THREE.Vector3(-0.20, 1.235, 0.78),
+        new THREE.Vector3(-0.09, 1.25, 0.69),
+        new THREE.Vector3(0, 1.255, 0.66),
+      ],
+      [0.020, 0.032, 0.040, 0.035, 0.030, 0.035, 0.040, 0.032, 0.020, 0.012],
+      materials.dragonScarf,
+      36,
+      8,
+    );
+    visual.add(scarf.mesh);
+    const scarfKnot = new THREE.Mesh(new THREE.SphereGeometry(0.055, 12, 8), materials.dragonScarf);
+    scarfKnot.scale.set(1.0, 0.72, 0.70);
+    scarfKnot.position.set(0.04, 1.205, 0.925);
+    scarfKnot.castShadow = true;
+    visual.add(scarfKnot);
     const ribbonA = createRibbon(
       [
-        new THREE.Vector3(0.07, 1.15, 0.38),
-        new THREE.Vector3(0.17, 1.10, 0.10),
-        new THREE.Vector3(0.27, 1.00, -0.25),
-        new THREE.Vector3(0.30, 0.86, -0.56),
+        new THREE.Vector3(0.08, 1.19, 0.80),
+        new THREE.Vector3(0.19, 1.13, 0.48),
+        new THREE.Vector3(0.28, 1.02, 0.05),
+        new THREE.Vector3(0.31, 0.87, -0.37),
       ],
       0.08,
-      materials.red,
+      materials.dragonScarf,
     );
     const ribbonB = createRibbon(
       [
-        new THREE.Vector3(-0.05, 1.14, 0.36),
-        new THREE.Vector3(-0.16, 1.06, 0.08),
-        new THREE.Vector3(-0.28, 0.95, -0.30),
-        new THREE.Vector3(-0.34, 0.80, -0.60),
+        new THREE.Vector3(-0.04, 1.18, 0.78),
+        new THREE.Vector3(-0.16, 1.10, 0.43),
+        new THREE.Vector3(-0.28, 0.97, -0.02),
+        new THREE.Vector3(-0.34, 0.81, -0.43),
       ],
       0.065,
-      materials.red,
+      materials.dragonScarf,
     );
     visual.add(ribbonA, ribbonB);
 
@@ -1846,11 +2450,11 @@
       }
       ribbonA.rotation.y = Math.sin(time * 2.3) * 0.11;
       ribbonB.rotation.y = Math.sin(time * 2.0 + 1.3) * 0.10;
-      scarf.rotation.z = Math.sin(time * 1.8) * 0.035;
+      scarf.mesh.rotation.z = Math.sin(time * 1.8) * 0.025;
       stateMotion.blink += dt;
       if (stateMotion.blink > 4.4) stateMotion.blink = 0;
-      const blink = stateMotion.blink > 4.22 ? 0.12 : 1;
-      eyelids.forEach((lid) => { lid.scale.y = 0.72 * blink; });
+      const blink = stateMotion.blink > 4.22 ? 0.14 : 1;
+      eyelids.forEach((lid) => { lid.scale.y = blink; });
     }
     root.traverse((node) => {
       node.layers.set(DRAGON_LAYER);
@@ -1858,7 +2462,7 @@
     visual.userData.head = head;
     visual.userData.tail = tail;
     visual.userData.eyelids = eyelids;
-    visual.userData.body = body.mesh;
+    visual.userData.body = body;
     return {
       root,
       visual,
@@ -2124,10 +2728,10 @@
     if (state.near) {
       dragon.root.updateMatrixWorld(true);
       dragon.head.getWorldPosition(dragon.headWorld);
-      target = dragon.headWorld.clone();
+      target = dragon.headWorld.clone().add(new THREE.Vector3(0, 0.035, -0.04));
       angle = state.yaw + state.orbitYaw;
-      distance = 1.85;
-      height = 0.04 + Math.sin(state.orbitPitch) * 0.85;
+      distance = 2.15;
+      height = 0.02 + Math.sin(state.orbitPitch) * 0.85;
     } else {
       const forward = new THREE.Vector3(Math.sin(state.yaw), 0, Math.cos(state.yaw));
       target = state.position.clone().add(new THREE.Vector3(0, 0.98, 0)).addScaledVector(forward, 0.28);

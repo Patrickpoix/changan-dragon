@@ -202,7 +202,7 @@ async def run(args):
                           calls: __street.renderer.info.render.calls
                         })"""
                     )
-                    assert 1.8 <= near["distance"] <= 3.5, near
+                    assert 2.0 <= near["distance"] <= 3.5, near
                     item["near"] = near
                     await page.screenshot(path=str(directory / "05-near.png"))
 

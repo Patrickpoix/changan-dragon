@@ -1,5 +1,18 @@
 # 浏览器验收
 
+## 2026-11-01 小龙头脸/体块返工
+
+`qa-evidence/hero-street.json` 为当前源码 `content/street/index.html` 的最新
+运行结果：1280×720 与 844×390 都实际加载 11 个共享 GLB / 61 个实例，
+入场、键盘/触摸移动、飞行升降、近看、返回、44px 控件与无溢出检查通过，
+近看机位到龙首 2.19m，glError=0，零页面/控制台/坏请求。
+
+已人工查看 `hero-street-desktop.png`、`hero-street-mobile.png`、
+`hero-street-near.png`、`hero-street-mobile-near.png` 及新增正/侧/背/
+三分之四图。它们只证明本轮运行与角度检查，**不是美术验收通过**：躯干侧看
+过圆、四肢偏直、后脑过光滑、鳞片/围巾层次不足。此结果来自 Chromium
+SwiftShader，不是手机真机帧率、真机触摸或本地文件验证。
+
 ## 2026-10-31 西市首街独立试段
 
 `qa-evidence/hero-street.json` 对应独立页面
