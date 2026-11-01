@@ -422,6 +422,7 @@
       envMapIntensity: 0.62,
     });
     // 躯干/头/颌共用一份顶点色材质：皮肤的青-奶白过渡烘焙在顶点色里。
+    // 鳞序用程序化法线贴图表达：几何贴片在凸面上会在轮廓翘出毛边。
     materials.dragonBody = new THREE.MeshStandardMaterial({
       name: 'dragon-body-vertex-color',
       vertexColors: true,
@@ -429,6 +430,10 @@
       metalness: 0,
       envMapIntensity: 0.72,
     });
+    const scaleNormal = window.ChanganDragonModel.scaleNormalTexture();
+    materials.dragonBody.normalMap = scaleNormal;
+    // 强度必须压住：0.55 在近看时会把整张脸读成高尔夫球表面。
+    materials.dragonBody.normalScale.set(0.16, 0.16);
     // 四肢比躯干略深，避免四条腿和身体读成同一根管子。
     materials.dragonLimb = new THREE.MeshStandardMaterial({
       name: 'dragon-limb',

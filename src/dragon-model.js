@@ -302,6 +302,59 @@
 
   /* ---------------------------------------------------------------- 头脸 */
 
+  /* 鳞片不靠独立几何片：贴片在凸面上必然在轮廓处翘出毛边（已实测）。
+   * 改为程序化鳞片法线贴图，铺在同一份躯干/头材质上——近看有鳞序，
+   * 轮廓仍然干净。贴图只生成一次，全项目共享。 */
+  const SCALE_NORMAL_CACHE = { texture: null };
+
+  function scaleNormalTexture() {
+    if (SCALE_NORMAL_CACHE.texture) return SCALE_NORMAL_CACHE.texture;
+    const SIZE = 512;
+    const ROWS = 8;
+    const COLUMNS = 8;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = SIZE;
+    const ctx = canvas.getContext('2d');
+    const image = ctx.createImageData(SIZE, SIZE);
+    const data = image.data;
+    // 每片鳞是一个上凸的半球面：法线由鳞心向外倾斜，边缘回落为平面。
+    for (let y = 0; y < SIZE; y++) {
+      for (let x = 0; x < SIZE; x++) {
+        const cellW = SIZE / COLUMNS;
+        const cellH = SIZE / ROWS;
+        const row = Math.floor(y / cellH);
+        const offset = (row % 2) * cellW * 0.5;
+        const localX = ((x + offset) % cellW) / cellW;
+        const localY = (y % cellH) / cellH;
+        // 鳞形：上缘平、下缘圆，横向略窄。
+        const dx = (localX - 0.5) * 2.0;
+        const dy = (localY - 0.35) * 2.2;
+        const radial = Math.min(1, Math.sqrt(dx * dx + dy * dy));
+        const dome = Math.cos(radial * Math.PI * 0.5);
+        const nx = dx * dome * 0.62;
+        const ny = dy * dome * 0.62;
+        const nz = Math.sqrt(Math.max(0.02, 1 - nx * nx - ny * ny));
+        const i = (y * SIZE + x) * 4;
+        data[i] = Math.round((nx * 0.5 + 0.5) * 255);
+        data[i + 1] = Math.round((ny * 0.5 + 0.5) * 255);
+        data[i + 2] = Math.round(nz * 255);
+        data[i + 3] = 255;
+      }
+    }
+    ctx.putImageData(image, 0, 0);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    // 鳞片要细：repeat 太小会变成一颗颗凸起的球。
+    texture.repeat.set(7, 9);
+    texture.anisotropy = 4;
+    texture.needsUpdate = true;
+    SCALE_NORMAL_CACHE.texture = texture;
+    return texture;
+  }
+
+  /* 躯干鳞/头鳞的几何贴片已撤销：凸面上必然翘边。这里只保留贴图入口，
+   * 由调用方把它挂到躯干/头材质上（见 window.ChanganDragonModel）。 */
+
   /* 头：大颅骨 + 低而宽的吻。颅骨最宽 0.62、最高 0.54，
    * 约占身高三分之一，与概念图的大头比例一致。 */
   const HEAD = [
@@ -952,6 +1005,7 @@
     const body = buildBody(materials, layer);
     visual.add(body.mesh);
     visual.add(body.neckMesh);
+    // 躯干鳞：沿身体两侧与脊背分列铺开，只覆盖上半个截面（腹部留给腹甲）。
 
     const headGroup = new T.Group();
     // 头坐落在颈顶：颈顶 y≈1.074，头心 y≈1.210。
@@ -1077,5 +1131,5 @@
     };
   }
 
-  window.ChanganDragonModel = { create, bladeGeometry, taperedTube };
+  window.ChanganDragonModel = { create, bladeGeometry, taperedTube, scaleNormalTexture };
 })();
