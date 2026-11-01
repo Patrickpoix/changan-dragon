@@ -46,7 +46,7 @@
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.35 : 1.8));
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xe6d5b8, 34, 118);
+  scene.fog = new THREE.Fog(0xe6d5b8, 40, 168);
   const camera = new THREE.PerspectiveCamera(48, 1, 0.08, 320);
   const clock = new THREE.Clock();
   const textureLoader = new THREE.TextureLoader();
@@ -492,6 +492,9 @@
     materials.plasterDistant = makeMat('street-plaster-distant', 0xcfc3ab, 0.94, 0);
     materials.roofDistant = makeMat('street-roof-distant', 0x59605f, 0.94, 0);
     materials.woodDistant = makeMat('street-wood-distant', 0x6f5240, 0.92, 0);
+    // 远景塔：比近景深一档，才能在雾里读出一层层屋檐。
+    materials.pagodaBody = makeMat('pagoda-body', 0x9d8f78, 0.88, 0);
+    materials.pagodaRoof = makeMat('pagoda-roof', 0x4a5457, 0.86, 0);
     materials.vermilion = makeMat('street-vermilion', 0x8f4034, 0.72, 0.02);
     materials.greenPaint = makeMat('street-green-paint', 0x365f58, 0.76, 0.01);
     materials.doorBlue = makeMat('street-door-blue', 0x344f55, 0.8, 0.02);
@@ -720,34 +723,47 @@
       }
     }
 
-    // 中间步行带用较亮的方石拼接，两侧留土路与车辙，形成主次铺装。
-    const pavingMaterial = materials.stone.clone();
-    pavingMaterial.name = 'street-paving';
-    pavingMaterial.color.setHex(0xf2ead7);
-    pavingMaterial.normalScale.set(0.26, 0.26);
-    pavingMaterial.roughness = 0.94;
-    const paving = new THREE.Mesh(new THREE.PlaneGeometry(4.25, 77), pavingMaterial);
+    // 主街铺装：整条街面用方石铺满，只在最靠店铺的一米留土路。
+    // 之前只在街心铺 4.25m，两侧是大片土黄，整条街读成"土路中间一条石板"。
+    // 主街铺装：整条街面用方石铺满，只在最靠店铺的一米留土路。
+    // 铺装材质不用灰石路的 basecolor——那张图本身偏褐，乘上实例色后整条街
+    // 读成泥地。这里只用它的法线/粗糙度，底色交给实例色。
+    const pavingMaterial = new THREE.MeshStandardMaterial({
+      name: 'street-paving',
+      color: 0xffffff,
+      normalMap: materials.stone.normalMap,
+      roughnessMap: materials.stone.roughnessMap,
+      roughness: 0.95,
+      metalness: 0,
+      envMapIntensity: 0.55,
+    });
+    pavingMaterial.normalScale.set(0.34, 0.34);
+    const paving = new THREE.Mesh(new THREE.PlaneGeometry(9.0, 77), pavingMaterial);
     paving.rotation.x = -Math.PI / 2;
     paving.position.set(0, 0.024, -3);
     paving.receiveShadow = true;
     scene.add(paving);
     const slabGeometry = new THREE.BoxGeometry(0.62, 0.035, 0.94);
-    const slabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, 13 * 82);
+    const COLUMNS = 21;
+    const ROWS = 82;
+    const slabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, COLUMNS * ROWS);
     let slabCursor = 0;
-    for (let row = 0; row < 82; row++) {
-      for (let column = 0; column < 13; column++) {
+    for (let row = 0; row < ROWS; row++) {
+      for (let column = 0; column < COLUMNS; column++) {
         const offset = row % 2 ? 0.30 : 0;
-        const jitter = ((row * 7 + column * 11) % 9 - 4) * 0.015;
+        // 每块石头单独一点位移与缩放，避免整条街读成一张重复贴图。
+        const jitter = ((row * 7 + column * 11) % 9 - 4) * 0.016;
+        const wobble = ((row * 13 + column * 5) % 7 - 3) * 0.004;
         matrix.makeTranslation(
-          -1.92 + column * 0.32 + offset * 0.16 + jitter,
-          0.026 + ((row + column) % 3) * 0.0015,
-          STREET_Z0 + 0.8 + row * 0.92 + jitter,
+          -4.20 + column * 0.42 + offset * 0.21 + jitter,
+          0.026 + ((row + column) % 3) * 0.0018,
+          STREET_Z0 + 0.8 + row * 0.92 + wobble,
         );
         slabs.setMatrixAt(slabCursor, matrix);
         color.setHex(
-          (row + column) % 7 === 0 ? 0xf0e5ce
-            : (row + column) % 5 === 0 ? 0xd2c5ac
-              : (row + column) % 3 === 0 ? 0xdfd2b8 : 0xe9ddc5,
+          (row + column) % 7 === 0 ? 0x8e8778
+            : (row + column) % 5 === 0 ? 0x6f695d
+              : (row + column) % 3 === 0 ? 0x7d7668 : 0x797265,
         );
         slabs.setColorAt(slabCursor, color);
         slabCursor++;
@@ -846,28 +862,30 @@
   function createPagoda() {
     const pagoda = new THREE.Group();
     pagoda.name = 'distant-pagoda';
-    pagoda.position.set(0, 0, -76);
-    const stone = materials.darkWood;
-    const roof = materials.roof;
+    // 塔放在坊门之后、雾的过渡带里：太远会洗成一团白，太近会抢街景。
+    pagoda.position.set(0, 0, -64);
+    // 远景剪影：比近景构件深一档，才能在雾里读出塔的层次。
+    const stone = materials.pagodaBody;
+    const roof = materials.pagodaRoof;
     for (let i = 0; i < 5; i++) {
-      const radius = 3.0 - i * 0.34;
-      const h = 4.1 - i * 0.28;
-      const y = 2.0 + i * 4.45;
-      const body = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius + 0.18, h, 10), stone);
+      const radius = 2.6 - i * 0.30;
+      const h = 3.6 - i * 0.24;
+      const y = 2.0 + i * 3.95;
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius + 0.16, h, 10), stone);
       body.position.y = y;
       body.castShadow = body.receiveShadow = true;
       pagoda.add(body);
-      const eave = new THREE.Mesh(new THREE.ConeGeometry(radius + 1.05, 1.05, 10, 1, true), roof);
-      eave.position.y = y + h * 0.5 + 0.34;
+      const eave = new THREE.Mesh(new THREE.ConeGeometry(radius + 0.92, 0.95, 10, 1, true), roof);
+      eave.position.y = y + h * 0.5 + 0.30;
       eave.rotation.y = Math.PI / 10;
       eave.castShadow = true;
       pagoda.add(eave);
-      const balcony = new THREE.Mesh(new THREE.CylinderGeometry(radius + 0.34, radius + 0.34, 0.12, 10), materials.stone);
-      balcony.position.y = y + h * 0.5 - 0.1;
+      const balcony = new THREE.Mesh(new THREE.CylinderGeometry(radius + 0.30, radius + 0.30, 0.11, 10), materials.stone);
+      balcony.position.y = y + h * 0.5 - 0.10;
       pagoda.add(balcony);
     }
-    const spire = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.2, 2.2, 8), materials.gold);
-    spire.position.y = 23.1;
+    const spire = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.17, 2.0, 8), materials.gold);
+    spire.position.y = 20.9;
     spire.castShadow = true;
     pagoda.add(spire);
     scene.add(pagoda);
