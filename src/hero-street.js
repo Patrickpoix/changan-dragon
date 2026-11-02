@@ -351,6 +351,13 @@
     materials.clothOchre = cloth.clone();
     materials.clothOchre.name = 'street-cloth-ochre';
     materials.clothOchre.color.setHex(0xb88a4f);
+    // 布篷需要第四档：深青。唐式市街的遮阳布本来就有青、赭、绛几种，
+    // 只有蓝/赭/红三色时，赭与绛在夕照下会混成同一种"红"，
+    // 整条街的篷布仍读成一片红（实测）。
+    materials.clothGreen = cloth.clone();
+    materials.clothGreen.name = 'street-cloth-green';
+    materials.clothGreen.color.setHex(0x4d6b56);
+    materials.clothGreen.roughness = 0.92;
     const plasterNormal = await loadTexture('/assets/library/architecture/pbr/white_plaster_rough_01/normal.jpg', { repeat: [2.2, 2.2] });
     const plasterRough = await loadTexture('/assets/library/architecture/pbr/white_plaster_rough_01/roughness.jpg', { repeat: [2.2, 2.2] });
     materials.plaster = new THREE.MeshStandardMaterial({
@@ -1452,40 +1459,6 @@
     const windowMat = materials.window;
     const frameMat = materials.darkWood;
 
-    // 概念图里的市街靠"沿街木构 + 挑檐雨篷 + 布色变化"读出来，不是一排
-    // 相同白墙。雨篷直接按世界坐标构造：临街面固定在 |x|=铺面前沿，
-    // 只向街心挑出有限深度，避免此前误用局部轴导致篷布伸到街心。
-    function addStreetAwning() {
-      const eaveY = isTavern ? 3.46 : 2.78;
-      // halfD 是铺面沿街半宽；雨篷略窄于铺面，不能盖到邻铺。
-      const halfSpan = halfD * 0.94;
-      const attachX = SHOP_FRONT * entry.scale;
-      const reach = isTavern ? 1.05 : 0.92;
-      const outerX = attachX - reach;
-      const centerX = entry.side * (attachX + outerX) / 2;
-      // 单位盒 1×0.06×1：X 是挑出深度，Y 是厚薄/垂高，Z 是沿街宽度。
-      // 绕 Z 轴旋转才能让 X 方向的篷布向街心下倾；绕 Y 会把沿街宽度扭进
-      // X 方向，实测会多伸出约 1 米并盖住邻铺。
-      const place = (x, y, z, sx, sy, sz, tiltZ = 0) => {
-        const matrix = new THREE.Matrix4().makeTranslation(x, y, z);
-        if (tiltZ) matrix.multiply(new THREE.Matrix4().makeRotationZ(entry.side * tiltZ));
-        matrix.multiply(new THREE.Matrix4().makeScale(sx, sy, sz));
-        return matrix;
-      };
-      const cloth = Math.abs(Math.round(entry.z)) % 2 ? materials.clothBlue : materials.clothOchre;
-      // 篷布：由铺面前沿向街心下倾，前端略低。
-      queueBatch('awning-canopy', sharedGeometry.awning, cloth,
-        place(centerX, eaveY + 0.08, entry.z, reach + 0.10, 1, halfSpan * 2, 0.20));
-      // 前缘垂帘：明确的篷下阴影边界。
-      queueBatch('awning-valance', sharedGeometry.awning, cloth,
-        place(entry.side * outerX, eaveY - 0.17, entry.z, 0.05, 0.32, halfSpan * 2));
-      // 两根斜撑把篷布锚回铺面，避免悬空布板。
-      for (const dz of [-halfSpan * 0.74, halfSpan * 0.74]) {
-        queueBatch('awning-strut', sharedGeometry.awning, frameMat,
-          place(centerX, eaveY - 0.36, entry.z + dz, reach + 0.14, 0.07, 0.07, 0.50));
-      }
-    }
-
     /* 檐下暗部：沿铺面立面贴一片上深下透的渐变，模拟挑檐挡住的天光。
      * 没有这层，整面白灰墙从檐口到地面亮度一样，读成一张贴纸；
      * 这是廉价但有效的假 AO，比加几何檐口更省。 */
@@ -1573,21 +1546,27 @@
       materials.plaster, materials.plasterWarm, materials.plasterOchre,
     ][Math.abs(Math.round(entry.z)) % 3];
     // 布篷按铺面轮换颜色：整条街清一色红布篷会读成一条流水线。
+    // 四色之间要拉开明度与色相，赭与绛在夕照下会混成同一种红，因此加入深青。
     const clothTint = [
-      materials.clothBlue, materials.clothOchre, materials.cloth, materials.clothOchre,
+      materials.clothBlue, materials.clothGreen, materials.clothOchre, materials.cloth,
     ][Math.abs(Math.round(entry.z)) % 4];
     group.traverse((node) => {
       if (!node.isMesh) return;
       const material = Array.isArray(node.material) ? node.material[0] : node.material;
       if (!material) return;
-      if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+      // 注意：这里必须匹配"运行时材质名"，不能匹配 GLB 里的语义名。
+      // kitApplySharedMaterials 在装载时已把 mat_cloth / mat_plaster / mat_vermilion
+      // 换成 street-cloth / street-plaster / street-red-wood，
+      // 之前按 mat_* 匹配，整套按铺面换色的代码从未生效过（实测确认）。
+      const name = material.name || '';
+      if (/street-red-wood|street-wood/i.test(name)) {
         node.material = tint;
-      } else if (/mat_interior/i.test(material.name || '')) {
+      } else if (/street-shop-interior/i.test(name)) {
         // 内壁必须保持深色：混进 plasterTint 会重新变白。
         node.material = materials.shopInterior;
-      } else if (/mat_plaster/i.test(material.name || '')) {
+      } else if (/street-plaster/i.test(name)) {
         node.material = plasterTint;
-      } else if (/mat_cloth/i.test(material.name || '')) {
+      } else if (/street-cloth/i.test(name)) {
         node.material = clothTint;
       }
     });
