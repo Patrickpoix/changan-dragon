@@ -1622,6 +1622,117 @@
     return material;
   }
 
+  /* 侧巷：唐式坊内除了主街，还有通往宅邸后院的曲巷。
+   * 只有一条直街、两侧铺面连成铁板一块时，从街上看不出"坊内还有纵深"。
+   * 这里在预留的巷口处补一条退进的巷子：两侧巷墙 + 巷底一栋铺面 +
+   * 巷口地坪。巷宽 3.2–3.6m，退深 9m，能看见巷底的建筑但看不穿。
+   * 全部复用现有 GLB 与共享材质，不增加下载量。 */
+  function addSideAlleys(shopRoot, tavernRoot) {
+    // 巷宽 4.6-5.0m：唐式坊内曲巷能容一辆车通过。
+    // 3.2-3.6m 太窄，从街上看只像铺面之间的一条缝，读不出"巷口"。
+    const LANE_GAPS = {
+      '-1': [{ z: 3.0, width: 4.8 }, { z: -19.5, width: 4.6 }],
+      1: [{ z: -5.0, width: 4.6 }, { z: 18.0, width: 5.0 }],
+    };
+    const DEPTH = 9.0;
+
+    for (const side of [-1, 1]) {
+      for (const gap of LANE_GAPS[String(side)] || []) {
+        const group = new THREE.Group();
+        group.name = 'side-alley-' + side + '-' + gap.z;
+
+        // 巷口地坪：从街面铺装一直铺进巷底。
+        const floor = new THREE.Mesh(
+          new THREE.PlaneGeometry(DEPTH, gap.width - 0.1),
+          materials.road,
+        );
+        floor.rotation.x = -Math.PI / 2;
+        floor.rotation.z = Math.PI / 2;
+        floor.position.set(
+          side * (SHOP_X + DEPTH / 2 - 1.2),
+          0.026,
+          gap.z,
+        );
+        floor.receiveShadow = true;
+        group.add(floor);
+
+        // 巷墙：巷子两侧各一道墙，把巷子围出来。
+        // 墙高比铺面矮一档，读作"后院墙"而不是主街铺面。
+        const wallH = 2.55;
+        for (const along of [-1, 1]) {
+          const wall = new THREE.Mesh(
+            new THREE.BoxGeometry(DEPTH, wallH, 0.42),
+            materials.plaster,
+          );
+          wall.position.set(
+            side * (SHOP_X + DEPTH / 2 - 1.2),
+            wallH / 2,
+            gap.z + along * (gap.width / 2 + 0.21),
+          );
+          wall.castShadow = true;
+          wall.receiveShadow = true;
+          group.add(wall);
+          // 墙头压瓦，避免读成一堵水泥板。
+          const cap = new THREE.Mesh(
+            new THREE.BoxGeometry(DEPTH + 0.2, 0.14, 0.60),
+            materials.roof,
+          );
+          cap.position.set(
+            side * (SHOP_X + DEPTH / 2 - 1.2),
+            wallH + 0.07,
+            gap.z + along * (gap.width / 2 + 0.21),
+          );
+          group.add(cap);
+        }
+
+        // 巷底：一栋退进的小铺面，挡住视线尽头。
+        const end = kitInstance(shopRoot, {
+          // 巷底铺面的临街面必须朝向巷口（即街心方向）。
+          // 主街左铺（x<0）用 -π/2 让临街面朝 +X，巷底同侧因此也用 -π/2；
+          // 写成 +π/2 会让它背对巷子，巷底就只剩一堵后墙。
+          position: [side * (SHOP_X + DEPTH - 0.6), 0, gap.z],
+          rotationY: side < 0 ? -Math.PI / 2 : Math.PI / 2,
+          scale: 0.88,
+        });
+        end.traverse((node) => {
+          if (!node.isMesh) return;
+          node.castShadow = false;
+          node.receiveShadow = true;
+          const material = Array.isArray(node.material) ? node.material[0] : node.material;
+          if (!material) return;
+          const name = material.name || '';
+          if (/street-plaster/i.test(name)) node.material = materials.plasterWarm;
+          else if (/street-shop-interior/i.test(name)) node.material = materials.shopInterior;
+          else if (/street-roof/i.test(name)) node.material = distantTint(materials.roof, 0.82, 'street-roof-alley');
+          else if (/street-cloth/i.test(name)) node.material = distantTint(materials.clothOchre, 0.85, 'street-cloth-alley');
+          else if (/street-red-wood|street-wood|street-darkwood/i.test(name)) {
+            node.material = distantTint(materials.wood, 0.70, 'street-wood-alley');
+          }
+        });
+        group.add(end);
+
+        // 巷口两根石柱：给巷口一个明确的边界，不然只是墙上一个洞。
+        for (const along of [-1, 1]) {
+          const post = new THREE.Mesh(
+            new THREE.BoxGeometry(0.34, 2.9, 0.34),
+            materials.stone,
+          );
+          post.position.set(
+            side * (SHOP_FRONT - 0.1),
+            1.45,
+            gap.z + along * (gap.width / 2 + 0.28),
+          );
+          post.castShadow = true;
+          post.receiveShadow = true;
+          group.add(post);
+        }
+
+        scene.add(group);
+      }
+    }
+    return true;
+  }
+
   function addBackRows(shopRoot, tavernRoot) {
     const rows = [];
     for (const side of [-1, 1]) {
@@ -1726,16 +1837,33 @@
     const halfDepthOf = (kind, scale) => (kind === 'tavern' ? 2.91 : 2.62) * scale;
     const SEAM = 0.12;
 
+    // 巷口：唐式坊内是"十字街 + 若干曲巷"，一条直街两侧铺满铁板一块，
+    // 读不出坊内纵深。这里在两侧各留两个巷口（gap 以米计），
+    // 巷口处不放铺面，并在缺口后补一条退进的巷子。
+    // 巷宽 4.6-5.0m：唐式坊内曲巷能容一辆车通过。
+    // 3.2-3.6m 太窄，从街上看只像铺面之间的一条缝，读不出"巷口"。
+    const LANE_GAPS = {
+      '-1': [{ z: 3.0, width: 4.8 }, { z: -19.5, width: 4.6 }],
+      1: [{ z: -5.0, width: 4.6 }, { z: 18.0, width: 5.0 }],
+    };
+
     const layLane = (side, plan, startZ) => {
       const lane = [];
       let cursor = startZ;
+      const gaps = LANE_GAPS[String(side)] || [];
       plan.forEach((item, i) => {
         // 三档铺面沿街半深相同（进深都是 5.24m），所以排布不受档位影响；
         // 档位只改高度与屋顶，不改占地。
         const scale = item.kind === 'tavern' ? 0.96
           : i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0;
         const halfD = halfDepthOf(item.kind, scale);
-        const z = cursor + halfD;
+        let z = cursor + halfD;
+        // 若这一间会压住巷口，就整体越过巷口再放。
+        const blocking = gaps.find((g) => z + halfD > g.z - g.width / 2 && z - halfD < g.z + g.width / 2);
+        if (blocking) {
+          cursor = blocking.z + blocking.width / 2 + SEAM;
+          z = cursor + halfD;
+        }
         lane.push({ side, z, kind: item.kind, tier: item.tier || 1, scale });
         cursor = z + halfD + SEAM;
       });
@@ -1768,6 +1896,7 @@
       return shopRoot;
     };
     entries.forEach((entry) => addBuilding(rootFor(entry), entry));
+    addSideAlleys(shopRoot, tavernRoot);
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
     addWardHalls(hallRoot);
