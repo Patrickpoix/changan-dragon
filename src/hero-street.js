@@ -996,6 +996,90 @@
     crown.position.set(0, 0.018, -3);
     crown.receiveShadow = true;
     scene.add(crown);
+
+    /* 街心两侧的排水明沟与路缘石。
+     * 之前街面是一整片铺装，边缘直接接到土路，读成"一张纸"。
+     * 唐式坊内道路在铺装与土路之间有明确的构造层：
+     *   路缘石（高出铺装约 6cm，压住铺装边）→ 明沟（低下去约 8cm 的槽）
+     * 这两道横线让地面有了厚度与方向，也解释了水往哪里走。 */
+    const GUTTER_X = 5.72;          // 明沟中心
+    const CURB_X = 5.30;            // 路缘石中心
+    const Z0 = STREET_Z0 + 1.2;
+    const Z1 = STREET_Z1 - 1.2;
+    const runLen = Z1 - Z0;
+    const runMid = (Z0 + Z1) / 2;
+
+    // 路缘石：长条石，沿街连续。
+    // 高度必须明显高于沟底，否则石缘与沟底几乎同高，明沟读成一条浅色线（实测）。
+    // 抬到 0.14m 高、沟底下沉到 -0.06m，两者高差约 0.2m 才读得出构造。
+    for (const side of [-1, 1]) {
+      const curb = new THREE.Mesh(
+        new THREE.BoxGeometry(0.30, 0.14, runLen),
+        materials.stone,
+      );
+      curb.position.set(side * CURB_X, 0.062, runMid);
+      curb.castShadow = true;
+      curb.receiveShadow = true;
+      scene.add(curb);
+    }
+
+    // 明沟：低下去的槽底 + 两侧沟壁。
+    const gutterBed = new THREE.MeshStandardMaterial({
+      name: 'street-gutter-bed',
+      color: 0x6d6455,
+      roughness: 0.95,
+      metalness: 0,
+      envMapIntensity: 0.4,
+    });
+    for (const side of [-1, 1]) {
+      // 槽底
+      const bed = new THREE.Mesh(
+        new THREE.BoxGeometry(0.62, 0.02, runLen),
+        gutterBed,
+      );
+      bed.position.set(side * GUTTER_X, -0.058, runMid);
+      bed.receiveShadow = true;
+      scene.add(bed);
+      // 两道沟壁：内侧（靠铺装）与外侧（靠土路）
+      for (const inner of [-1, 1]) {
+        const wall = new THREE.Mesh(
+          new THREE.BoxGeometry(0.10, 0.10, runLen),
+          materials.stone,
+        );
+        wall.position.set(
+          side * GUTTER_X + inner * 0.31,
+          -0.020,
+          runMid,
+        );
+        wall.receiveShadow = true;
+        scene.add(wall);
+      }
+    }
+
+    // 沟内的盖板石：每隔一段铺一块，读作"可踏过的排水沟"而不是一条裂缝。
+    const coverGeo = new THREE.BoxGeometry(0.58, 0.05, 0.42);
+    const COVERS = 34;
+    for (const side of [-1, 1]) {
+      const covers = new THREE.InstancedMesh(coverGeo, materials.stone, COVERS);
+      const m4 = new THREE.Matrix4();
+      for (let i = 0; i < COVERS; i++) {
+        // 只铺一部分：断续的盖板比连续盖板更像真实明沟。
+        const zz = Z0 + (runLen * (i + 0.5)) / COVERS;
+        if (i % 3 === 2) {
+          // 空一格，露出沟底
+          m4.makeScale(0, 0, 0);
+          covers.setMatrixAt(i, m4);
+          continue;
+        }
+        m4.identity();
+        m4.setPosition(side * GUTTER_X, 0.028, zz);
+        covers.setMatrixAt(i, m4);
+      }
+      covers.instanceMatrix.needsUpdate = true;
+      covers.castShadow = false;
+      covers.receiveShadow = true;
+      scene.add(covers);
+    }
   }
 
   /* 坊墙与坊外街景：从街心望出去，坊门之后不能是一片空地和地平线。
