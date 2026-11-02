@@ -394,12 +394,14 @@
       const absX = Math.abs(x);
       const side = Math.sign(x) || 1;
       // 眼窝外凸、眉骨抬起、颊部收窄：大眼坐在凸起的眼窝上。
-      const socket = Math.exp(-(((absX - 0.200) / 0.072) ** 2))
-        * Math.exp(-(((z - 0.020) / 0.074) ** 2))
-        * Math.exp(-(((y - 0.048) / 0.068) ** 2));
-      const brow = Math.exp(-(((absX - 0.176) / 0.082) ** 2))
-        * Math.exp(-(((z + 0.060) / 0.084) ** 2))
-        * Math.exp(-(((y - 0.136) / 0.062) ** 2));
+      // 眼位从 x≈0.20 前移到 x≈0.15、z≈0.13：概念图的眼睛几乎朝前，
+      // 靠得太侧会读成"恐龙头"，正面看不到两只完整的眼。
+      const socket = Math.exp(-(((absX - 0.152) / 0.080) ** 2))
+        * Math.exp(-(((z - 0.118) / 0.086) ** 2))
+        * Math.exp(-(((y - 0.050) / 0.076) ** 2));
+      const brow = Math.exp(-(((absX - 0.144) / 0.086) ** 2))
+        * Math.exp(-(((z + 0.020) / 0.092) ** 2))
+        * Math.exp(-(((y - 0.132) / 0.064) ** 2));
       const cheek = Math.exp(-(((absX - 0.238) / 0.072) ** 2))
         * Math.exp(-(((z + 0.010) / 0.128) ** 2))
         * Math.exp(-(((y + 0.030) / 0.086) ** 2));
@@ -475,38 +477,42 @@
       head.add(nostril);
     }
 
-    // 笑口：沿吻侧一条上扬的弧线，读作"笑眯眯"。
+    // 笑口：一张张开的嘴。上唇是上扬的弧，口腔是一块暗红面，
+    // 舌头压在下缘，两颗小尖牙从上唇露出。
+    // 之前只有一条细线，读成"抿嘴"，和概念图那个开怀笑差得远。
     const smile = taperedTube(
       [
-        new T.Vector3(-0.132, -0.104, 0.176),
-        new T.Vector3(-0.070, -0.124, 0.232),
-        new T.Vector3(0, -0.130, 0.252),
-        new T.Vector3(0.070, -0.124, 0.232),
-        new T.Vector3(0.132, -0.104, 0.176),
+        new T.Vector3(-0.134, -0.096, 0.172),
+        new T.Vector3(-0.072, -0.116, 0.230),
+        new T.Vector3(0, -0.122, 0.250),
+        new T.Vector3(0.072, -0.116, 0.230),
+        new T.Vector3(0.134, -0.096, 0.172),
       ],
-      [0.005, 0.010, 0.012, 0.010, 0.005],
+      [0.006, 0.011, 0.013, 0.011, 0.006],
       materials.lip,
       { segments: 24, radial: 6 },
     );
     smile.mesh.layers.set(layer);
     head.add(smile.mesh);
 
-    // 口腔与舌头：笑口内侧一小片暗红 + 粉色舌。
-    const mouthInner = new T.Mesh(new T.SphereGeometry(1, 18, 12), materials.mouth);
-    mouthInner.scale.set(0.076, 0.030, 0.026);
-    mouthInner.position.set(0, -0.116, 0.238);
+    // 口腔：一块贴在吻部下缘的暗色面，必须略微凸出吻面才看得见——
+    // 放在吻部球体内部会被完全遮住，读成一条唇线（已实测）。
+    const mouthInner = new T.Mesh(new T.SphereGeometry(1, 20, 14), materials.mouth);
+    mouthInner.scale.set(0.094, 0.042, 0.062);
+    mouthInner.position.set(0, -0.104, 0.246);
     mouthInner.layers.set(layer);
     head.add(mouthInner);
-    const tongue = new T.Mesh(new T.SphereGeometry(1, 16, 12), materials.tongue);
-    tongue.scale.set(0.050, 0.014, 0.018);
-    tongue.position.set(0, -0.122, 0.242);
+    // 舌头：压在口腔下缘，前端略抬起。
+    const tongue = new T.Mesh(new T.SphereGeometry(1, 18, 12), materials.tongue);
+    tongue.scale.set(0.058, 0.016, 0.030);
+    tongue.position.set(0, -0.122, 0.276);
     tongue.layers.set(layer);
     head.add(tongue);
-    // 两颗小尖牙：从笑口上缘露出来。
+    // 两颗小尖牙：从上唇露出来。
     for (const side of [-1, 1]) {
-      const fang = new T.Mesh(new T.ConeGeometry(0.009, 0.022, 7), materials.cream);
+      const fang = new T.Mesh(new T.ConeGeometry(0.010, 0.026, 7), materials.cream);
       fang.rotation.x = Math.PI;
-      fang.position.set(side * 0.054, -0.104, 0.228);
+      fang.position.set(side * 0.056, -0.098, 0.234);
       fang.castShadow = true;
       fang.layers.set(layer);
       head.add(fang);
@@ -524,59 +530,61 @@
    * 眼位在颅侧偏前，朝前约 25°，正面能看见两只眼。 */
   function buildEye(side, materials, layer) {
     const group = new T.Group();
-    // 眼位：颅骨前缘、朝前约 20°，正面能同时看到两只大眼。
-    group.position.set(side * 0.196, 0.070, 0.078);
-    group.rotation.y = side * 0.18;
+    // 眼位：靠前、靠中，朝前约 14°，正面能同时看到两只完整的眼。
+    group.position.set(side * 0.158, 0.062, 0.118);
+    group.rotation.y = side * 0.14;
     group.rotation.z = side * -0.04;
 
     const blink = new T.Group();
     group.add(blink);
 
-    const eyeball = new T.Mesh(new T.SphereGeometry(0.104, 26, 20), materials.eyeWhite);
-    eyeball.scale.set(1.0, 1.05, 0.90);
+    // 眼球 0.100：再大就会凸出颅骨，读成一副护目镜（已实测）。
+    const eyeball = new T.Mesh(new T.SphereGeometry(0.100, 28, 22), materials.eyeWhite);
+    eyeball.scale.set(1.0, 1.04, 0.94);
     blink.add(eyeball);
 
-    const iris = new T.Mesh(new T.SphereGeometry(0.086, 24, 18), materials.eyeAmber);
-    iris.scale.set(1.0, 1.03, 0.54);
-    iris.position.set(0, 0, 0.046);
+    // 虹膜几乎填满眼球：概念图的眼睛是"大琥珀 + 细白边"，不是白眼球加小虹膜。
+    const iris = new T.Mesh(new T.SphereGeometry(0.093, 26, 20), materials.eyeAmber);
+    iris.scale.set(1.0, 1.02, 0.62);
+    iris.position.set(0, 0, 0.034);
     blink.add(iris);
 
-    const pupil = new T.Mesh(new T.SphereGeometry(0.048, 18, 14), materials.pupil);
+    const pupil = new T.Mesh(new T.SphereGeometry(0.052, 20, 16), materials.pupil);
     pupil.scale.set(1.0, 1.06, 0.38);
-    pupil.position.set(0, 0, 0.080);
+    pupil.position.set(0, 0, 0.076);
     blink.add(pupil);
 
     const catchA = new T.Mesh(new T.SphereGeometry(0.018, 10, 8), materials.catchlight);
-    catchA.position.set(side * -0.028, 0.034, 0.088);
+    catchA.position.set(side * -0.026, 0.034, 0.082);
     blink.add(catchA);
     const catchB = new T.Mesh(new T.SphereGeometry(0.009, 8, 6), materials.catchlight);
-    catchB.position.set(side * 0.024, -0.030, 0.090);
+    catchB.position.set(side * 0.024, -0.030, 0.084);
     blink.add(catchB);
 
     // 上眼睑：压在眼球上缘，让眼神温和而不是瞪眼。
     const upperLid = taperedTube(
       [
-        new T.Vector3(-0.108, 0.042, 0.010),
-        new T.Vector3(-0.034, 0.100, 0.046),
-        new T.Vector3(0.052, 0.094, 0.048),
-        new T.Vector3(0.114, 0.034, 0.014),
+        new T.Vector3(-0.104, 0.040, 0.010),
+        new T.Vector3(-0.034, 0.096, 0.044),
+        new T.Vector3(0.050, 0.090, 0.046),
+        new T.Vector3(0.110, 0.032, 0.014),
       ],
       [0.016, 0.034, 0.032, 0.010],
       materials.lid,
-      { segments: 16, radial: 8 },
+      { segments: 18, radial: 8 },
     );
     blink.add(upperLid.mesh);
 
     // 下眼睑：一条浅色窄边。
     const lowerLid = taperedTube(
       [
-        new T.Vector3(-0.100, -0.056, 0.012),
-        new T.Vector3(0, -0.092, 0.048),
-        new T.Vector3(0.098, -0.048, 0.014),
+        new T.Vector3(-0.096, -0.054, 0.012),
+        new T.Vector3(0, -0.090, 0.046),
+        new T.Vector3(0.094, -0.048, 0.014),
       ],
       [0.008, 0.018, 0.008],
       materials.cream,
-      { segments: 14, radial: 6 },
+      { segments: 16, radial: 6 },
     );
     blink.add(lowerLid.mesh);
 
@@ -585,8 +593,8 @@
       const t = i / 2;
       const lash = taperedTube(
         [
-          new T.Vector3(side * (0.094 - t * 0.058), 0.056 - t * 0.014, 0.012),
-          new T.Vector3(side * (0.146 - t * 0.066), 0.094 - t * 0.010, 0.006),
+          new T.Vector3(side * (0.092 - t * 0.056), 0.052 - t * 0.014, 0.012),
+          new T.Vector3(side * (0.142 - t * 0.064), 0.090 - t * 0.010, 0.008),
         ],
         [0.0055, 0.0012],
         materials.pupil,
@@ -701,9 +709,9 @@
     // 三圈叶：贴着颅后向后铺，叶尖朝后，不外扩。
     // 之前 yawSpan 太宽、叶片太大，侧看像两排白色的鳍插在头上。
     const rows = [
-      { count: 11, yawSpan: 0.80, pitch: -0.22, radius: 0.98, size: 0.150, color: 0x3f8875 },
-      { count: 9, yawSpan: 0.70, pitch: -0.34, radius: 1.03, size: 0.128, color: 0x59a08a },
-      { count: 7, yawSpan: 0.60, pitch: -0.46, radius: 1.07, size: 0.108, color: 0x8dc2a8 },
+      { count: 13, yawSpan: 0.92, pitch: -0.20, radius: 0.98, size: 0.132, color: 0x2f6f60 },
+      { count: 11, yawSpan: 0.80, pitch: -0.32, radius: 1.03, size: 0.112, color: 0x3f8875 },
+      { count: 9, yawSpan: 0.68, pitch: -0.44, radius: 1.07, size: 0.094, color: 0x59a08a },
     ];
     for (const row of rows) {
       for (let i = 0; i < row.count; i++) {
@@ -730,7 +738,8 @@
           width: row.size * 0.72,
           length: row.size,
           thickness: 0.10,
-          color: (i + Math.round(row.pitch * 12)) % 5 === 0 ? 0xefe3c2 : row.color,
+          // 不再每五片插一片奶油色：零散的浅色叶在深色鬃里读成白色碎片。
+          color: row.color,
         });
       }
     }
@@ -760,6 +769,66 @@
       });
     }
     group.add(bladeInstances(entries, materials.mane, geometry, layer));
+    return group;
+  }
+
+  /* 脸周鬃环：概念图上最醒目的一笔——一整圈叶状鬃把脸框起来，
+   * 从颊侧绕过头顶，叶尖朝外。没有这圈，头就是一个光秃的球。
+   * 叶按环向排布，位置在颅骨后方一点的平面上，因此不会挡住五官。 */
+  function buildRuff(materials, layer) {
+    const entries = [];
+    // 叶要宽、要短：宽 0.62、长 0.62 的叶片读作"叶"；
+    // 之前宽 0.62、长 1.0 又只给 0.088 的宽度，结果是一圈放射的尖刺。
+    const geometry = bladeGeometry({ width: 0.62, length: 1.0, thickness: 0.06 });
+    const COUNT = 34;
+    for (let i = 0; i < COUNT; i++) {
+      // θ 从 -1.62 到 1.62：留出下巴那一段不铺叶。
+      const theta = (i / (COUNT - 1) - 0.5) * 3.24;
+      const sinT = Math.sin(theta);
+      const cosT = Math.cos(theta);
+      // 半径：头顶略收、两颊略放，读成椭圆环而不是正圆。
+      const rx = 0.286 + Math.abs(sinT) * 0.024;
+      const ry = 0.268 - cosT * 0.010;
+      const position = new T.Vector3(
+        sinT * rx,
+        0.030 + cosT * ry,
+        // 环面后倾：颊侧靠前、头顶靠后，绕着脸包过去。
+        -0.116 - cosT * 0.048 + Math.abs(sinT) * 0.028,
+      );
+      const outward = new T.Vector3(sinT * 0.94, cosT * 0.86, -0.30).normalize();
+      entries.push({
+        position,
+        // 叶尖向外但强烈向后倒：叶是"趴"在颅骨上的，不是竖着插进去的。
+        direction: outward.clone().add(new T.Vector3(0, 0, -0.62)).normalize(),
+        normal: new T.Vector3(-cosT * 0.36, sinT * 0.36, 0.90).normalize(),
+        width: 0.116 - cosT * 0.014,
+        length: 0.104 + Math.abs(sinT) * 0.026,
+        thickness: 0.10,
+        // 深浅交替：一圈纯色会读成一个硬壳，交替才有叶序。
+        color: i % 2 ? 0x3f8875 : 0x2f6f60,
+      });
+    }
+    return bladeInstances(entries, materials.mane, geometry, layer);
+  }
+
+  /* 龙须：吻侧两根细长须，向外甩出后回卷。这是概念图上很明显的识别点，
+   * 也是"龙"而非"幼兽"的关键。 */
+  function buildWhiskers(materials, layer) {
+    const group = new T.Group();
+    for (const side of [-1, 1]) {
+      const points = [
+        new T.Vector3(side * 0.098, -0.062, 0.286),
+        new T.Vector3(side * 0.196, -0.040, 0.318),
+        new T.Vector3(side * 0.288, 0.012, 0.318),
+        new T.Vector3(side * 0.344, 0.078, 0.286),
+        new T.Vector3(side * 0.360, 0.140, 0.236),
+      ];
+      const whisker = taperedTube(points, [0.0085, 0.0072, 0.0058, 0.0040, 0.0018],
+        materials.whisker, { segments: 24, radial: 5 });
+      whisker.mesh.castShadow = true;
+      whisker.mesh.layers.set(layer);
+      group.add(whisker.mesh);
+    }
     return group;
   }
 
@@ -808,11 +877,12 @@
     mesh.layers.set(layer);
     pivot.add(mesh);
 
-    // 脚掌：奶油色，前伸，底面切在局部 y=0。
-    const footHeight = 0.068;
+    // 脚掌：奶油色，前伸，底面切在局部 y=0。脚要宽、要厚，
+    // 之前 0.096×0.068×0.146 太窄太薄，侧面看像两只白色拖鞋。
+    const footHeight = 0.074;
     const foot = new T.Mesh(new T.SphereGeometry(1, 22, 16), materials.cream);
-    foot.scale.set(0.096, footHeight, 0.146);
-    foot.position.set(0, -reach + footHeight, 0.052);
+    foot.scale.set(0.118, footHeight, 0.164);
+    foot.position.set(0, -reach + footHeight, 0.048);
     foot.castShadow = true;
     foot.receiveShadow = true;
     foot.layers.set(layer);
@@ -821,14 +891,14 @@
     // 三趾 + 小爪。
     for (const toe of [-1, 0, 1]) {
       const toeMesh = new T.Mesh(new T.SphereGeometry(1, 14, 10), materials.cream);
-      toeMesh.scale.set(0.034, 0.034, 0.054);
-      toeMesh.position.set(toe * 0.052, -reach + 0.032, 0.148);
+      toeMesh.scale.set(0.040, 0.038, 0.058);
+      toeMesh.position.set(toe * 0.058, -reach + 0.034, 0.150);
       toeMesh.castShadow = true;
       toeMesh.layers.set(layer);
       pivot.add(toeMesh);
-      const claw = new T.Mesh(new T.ConeGeometry(0.013, 0.042, 7), materials.claw);
+      const claw = new T.Mesh(new T.ConeGeometry(0.014, 0.044, 7), materials.claw);
       claw.rotation.x = Math.PI / 2 - 0.16;
-      claw.position.set(toe * 0.052, -reach + 0.026, 0.194);
+      claw.position.set(toe * 0.058, -reach + 0.028, 0.198);
       claw.castShadow = true;
       claw.layers.set(layer);
       pivot.add(claw);
@@ -1051,6 +1121,8 @@
     const headParts = buildHead(materials, layer);
     headGroup.add(headParts.head);
     headGroup.add(buildMane(materials, layer));
+    headGroup.add(buildRuff(materials, layer));
+    headGroup.add(buildWhiskers(materials, layer));
     headGroup.add(buildBrows(materials, layer));
 
     const eyelids = [];
