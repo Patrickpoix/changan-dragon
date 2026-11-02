@@ -646,11 +646,15 @@
     sun.castShadow = true;
     sun.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
     sun.shadow.camera.near = 1;
-    sun.shadow.camera.far = 95;
-    sun.shadow.camera.left = -34;
-    sun.shadow.camera.right = 34;
-    sun.shadow.camera.top = 34;
-    sun.shadow.camera.bottom = -34;
+    // 阴影相机必须覆盖整条街（-38 到 34，约 72m 长）与两座门楼（±39/41）。
+    // 之前只覆盖 ±34，坊门与街口都落在阴影范围之外，
+    // 那里自然没有接触阴影，地面读成一张平铺的纸（已实测确认）。
+    // far 也要相应拉长，否则远处物体被 near/far 裁掉后不投影。
+    sun.shadow.camera.far = 170;
+    sun.shadow.camera.left = -52;
+    sun.shadow.camera.right = 52;
+    sun.shadow.camera.top = 56;
+    sun.shadow.camera.bottom = -56;
     sun.shadow.bias = -0.00045;
     sun.shadow.normalBias = 0.035;
     scene.add(sun);
