@@ -865,6 +865,79 @@
   /* 坊墙与坊外街景：从街心望出去，坊门之后不能是一片空地和地平线。
    * 这里在坊门后补一道横墙、一段横向街道和两排远景屋顶，
    * 让视线有落点；全部复用现有共享材质与简单几何。 */
+  /* 坊内殿堂：街尽头的主景。
+   * 目标要求"宏大建筑奇观"，而首街两侧只有市井小铺，屋面高度基本在同一线，
+   * 天际线缺一个高点。放在街侧会被两排铺面完全挡住（实测过：x=±19 时
+   * 屋顶只高出铺面 1m，从街上看不见）。因此改放在坊门之后的轴线上——
+   * 唐长安里坊的空间逻辑本来就是"坊门内十字街、两侧宅邸寺观"，
+   * 从街心穿过门洞看到的应当是殿宇，而不是另一排铺面。
+   * 只用变换复用同一份 GLB 与共享材质，不增加下载量。 */
+  function addWardHalls(hallRoot) {
+    if (!hallRoot) return null;
+    const group = new THREE.Group();
+    group.name = 'ward-halls';
+    // 尺寸经过实测标定：殿堂原本 scale 0.96、台基 1.35m 时屋面只到 8.5m，
+    // 被门楼（脊高 6.48m、宽 15m）完全挡住，从街上只看得到一片白墙。
+    // 现在 scale 1.5、台基 3.2m，屋面到 14.4m，能在门楼之上露出整片屋顶——
+    // 这是"宏大建筑奇观"在街景里唯一能成立的位置：街道尽头的主景。
+    const SCALE = 1.5;
+    const BASE_H = 3.2;
+    const HALL_Z = -52.0;
+    const baseW = 16.6;
+    const baseD = 12.2;
+
+    const base = new THREE.Mesh(new THREE.BoxGeometry(baseW, BASE_H, baseD), materials.stone);
+    base.position.set(0, BASE_H / 2 - 0.02, HALL_Z);
+    base.castShadow = base.receiveShadow = true;
+    group.add(base);
+    const coping = new THREE.Mesh(new THREE.BoxGeometry(baseW + 0.5, 0.26, baseD + 0.5), materials.stone);
+    coping.position.set(0, BASE_H - 0.06, HALL_Z);
+    group.add(coping);
+    // 台基压边下一道暗色墙脚，避免台基读成一块大方盒子。
+    const plinth = new THREE.Mesh(
+      new THREE.BoxGeometry(baseW + 0.2, 0.5, baseD + 0.2),
+      materials.darkWood,
+    );
+    plinth.position.set(0, 0.25, HALL_Z);
+    group.add(plinth);
+
+    const hall = kitInstance(hallRoot, {
+      position: [0, BASE_H, HALL_Z],
+      rotationY: Math.PI,
+      scale: SCALE,
+    });
+    hall.traverse((node) => {
+      if (!node.isMesh) return;
+      node.castShadow = true;
+      node.receiveShadow = true;
+      const material = Array.isArray(node.material) ? node.material[0] : node.material;
+      if (!material) return;
+      // 殿堂用比市井更重的木色与更深的屋面，读作"更高等级"。
+      if (/mat_vermilion/i.test(material.name || '')) node.material = materials.redWood;
+      else if (/mat_timber|mat_bracket_block/i.test(material.name || '')) node.material = materials.darkWood;
+      else if (/mat_roof_surface|mat_roof_tile/i.test(material.name || '')) node.material = materials.roof;
+      else if (/mat_roof_ridge/i.test(material.name || '')) node.material = materials.darkWood;
+      else if (/mat_plaster/i.test(material.name || '')) node.material = materials.plaster;
+    });
+    group.add(hall);
+    // 殿前踏道：从坊门地面接到台基，给主景一条可读的路径。
+    const STEPS = 7;
+    for (let i = 0; i < STEPS; i++) {
+      const h = BASE_H * (STEPS - i) / STEPS;
+      const step = new THREE.Mesh(
+        new THREE.BoxGeometry(5.2, h, 0.74),
+        materials.stone,
+      );
+      step.position.set(0, h / 2, -45.3 - i * 0.74);
+      step.receiveShadow = true;
+      step.castShadow = true;
+      group.add(step);
+    }
+    scene.add(group);
+    state.wardHalls = 1;
+    return group;
+  }
+
   /* 坊墙：唐长安的里坊以夯土墙围合，墙头压瓦。之前这里是一块无构造的
    * 平板盒子，远看读成一块灰绿色板子。这里按"台基 + 墙身 + 双坡瓦顶"
    * 三段构造，并让门洞后一定有建筑封住视线。 */
@@ -924,9 +997,9 @@
     }
 
     // 门洞之后必须有建筑：否则从街上穿过门洞看到的是雾里的一片白。
-    // 门洞正后放一栋两层酒肆，两侧再各补一栋铺面。
+    // 正中不放铺面——那里留给 addWardHalls 的殿堂作主景；
+    // 只在两侧各补一栋，把门洞两侧的空隙填住。
     const beyond = [
-      [0, -53.0, Math.PI, 1.0, tavernRoot],
       [-11.5, -50.0, Math.PI, 0.9, shopRoot],
       [11.5, -50.0, Math.PI, 0.9, shopRoot],
       [-22.0, -47.5, Math.PI, 0.86, tavernRoot],
@@ -1045,8 +1118,9 @@
   function createPagoda() {
     const pagoda = new THREE.Group();
     pagoda.name = 'distant-pagoda';
-    // 塔放在坊门之后、雾的过渡带里：太远会洗成一团白，太近会抢街景。
-    pagoda.position.set(0, 0, -64);
+    // 塔放在坊门之后的偏侧：正对轴线会被殿堂完全挡住（实测），
+    // 偏到 x=-24 后与殿堂各占一条天际线，从街心看是"左塔右殿"的层次。
+    pagoda.position.set(-24.0, 0, -66);
     const stone = materials.pagodaBody;
     const eaveMat = materials.pagodaRoof;
     const woodMat = materials.pagodaWood;
@@ -1488,9 +1562,13 @@
     state.kitStats = KitLibrary.stats;
 
     setProgress(0.2, '装起西市木构');
-    const [shopRoot, tavernRoot, residentMale, residentFemale] = await Promise.all([
+    const [shopRoot, tavernRoot, hallRoot, residentMale, residentFemale] = await Promise.all([
       kitLoad('shop-shijing', '/assets/kit/architecture/shop-shijing.glb'),
       kitLoad('tavern-shijing', '/assets/kit/architecture/tavern-shijing.glb'),
+      // 殿堂构件：目标要求"宏大建筑奇观"，只靠市井小铺做不到。
+      // 这里把已有的殿堂 GLB 作为坊内宏大量体放在街廓之后，
+      // 与街面铺面共用同一套语义材质，不额外下载贴图。
+      kitLoad('hall-shijing', '/assets/kit/architecture/hall-shijing.glb'),
       kitLoad('resident-male', '/assets/kit/architecture/resident-male.glb'),
       kitLoad('resident-female', '/assets/kit/architecture/resident-female.glb'),
     ]);
@@ -1540,6 +1618,7 @@
     entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
+    addWardHalls(hallRoot);
     createWardWall(shopRoot, tavernRoot);
     // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
     state.streetPlan = entries.map((entry) => {
