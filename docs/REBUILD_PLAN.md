@@ -867,6 +867,18 @@
 - **仍未验证**：真实手机上的帧率与触摸手感。软件渲染 + 尺寸模拟
   不等于真机通过。
 
+### 同轮：资源缺失降级实测（第三十七轮，健壮性验收）
+
+- 用 Playwright 拦截 `tavern-shijing.glb` 返回 404，观察降级行为：
+  - 封面页保持可见，不会进入空白场景；
+  - 页面底部以红字给出具体原因：
+    `街口没有搭起来：kit model failed: /assets/kit/architecture/tavern-shijing.glb
+     (fetch ... responded with 404: Not Found)`；
+  - `state.ready` 保持 false，`kitLoaded=7 / kitFailed=1`，`buildings=0`。
+- 结论：资源缺失是**明确报错并停住**，不是静默失败或半成品场景。
+  这是正确的降级方式——宁可停在封面并说清原因，也不要让用户进到一个缺件的街。
+- 文案实测无乱码（封面与错误行都正常显示中文）。
+
 ## 决策记录
 
 - 构件几何统一以"底面 z=0"为基准，便于按层堆叠与复用。
