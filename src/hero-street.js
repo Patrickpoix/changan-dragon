@@ -633,6 +633,46 @@
             color = mix(color, vec3(1.0, 0.93, 0.82), cloudMask * 0.55);
           }
 
+          // 远山：在天空里画山脊，不往场景里放几何。
+          // 之前两次用实体锥体/条带都失败（纸板剪影；条带横穿街道挡住铺装）。
+          // 这里按视线方位角算出山脊高度，视线低于山脊就混成山色：
+          // 纯着色、不参与深度、不可能遮挡建筑。
+          //
+          // 第一版山脊只有 0.030 rad（约 1.7°），实测被街两侧建筑完全挡住，
+          // 肉眼看不出（诊断着色确认 mask 数学正确，只是高度太低）。
+          // 抬到 0.10-0.17 rad（约 6-10°）：架空仙侠的远山本就该比写实更高，
+          // 这样在街心与俯瞰两个视角都能露出轮廓。
+          float az = atan(dir.x, -dir.z);
+          // 近层：较低、较深；远层：更高、更淡。两层才有纵深。
+          // 0.105-0.150 rad 只占天空最下面一条，街景里几乎看不出（实测像素跨度确认）。
+          // 抬到 0.16-0.26 rad：远山占天际线以上明显一段，但不到压住建筑的程度。
+          float nearH =
+            0.160
+            + 0.030 * sin(az * 2.0 + 0.8)
+            + 0.019 * sin(az * 5.0 + 2.3)
+            + 0.011 * sin(az * 11.0 + 4.1)
+            + 0.007 * sin(az * 19.0 + 1.2);
+          float farH =
+            0.225
+            + 0.038 * sin(az * 1.6 + 3.4)
+            + 0.024 * sin(az * 4.0 + 0.5)
+            + 0.012 * sin(az * 9.0 + 5.6);
+          // smoothstep(edge0>edge1) 的写法：dir.y 低于山脊时为 1，高于时为 0。
+          float nearMask = smoothstep(nearH + 0.004, nearH - 0.004, dir.y);
+          float farMask = smoothstep(farH + 0.004, farH - 0.004, dir.y);
+          // 空气透视：越靠山脚越接近天色，山顶略深。
+          // 天空材质不参与场景雾，所以这层透视要在 shader 里自己算。
+          float nearDepth = smoothstep(0.02, nearH, dir.y);
+          float farDepth = smoothstep(0.06, farH, dir.y);
+          // 山色必须比天色明显更深，否则与天色同明度、读成一片（实测）。
+          // 近层用青灰（比地平线的暖米色低约 35% 明度），远层只淡一档。
+          // 街宽只有 11m、铺面 6-9m 高，天空在街景里只剩画面上部一条窄带，
+          // 所以山色必须够深才看得出来（实测像素跨度 85-127 仍偏淡）。
+          vec3 nearHill = mix(horizonColor, vec3(0.14, 0.17, 0.19), 0.86 + nearDepth * 0.14);
+          vec3 farHill = mix(horizonColor, vec3(0.30, 0.33, 0.35), 0.62 + farDepth * 0.20);
+          color = mix(color, farHill, farMask * 0.98);
+          color = mix(color, nearHill, nearMask * 1.00);
+
           gl_FragColor = vec4(color, 1.0);
         }
       `,
