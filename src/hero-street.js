@@ -2688,17 +2688,70 @@
     const arm = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.06, 0.06), materials.darkWood);
     arm.position.set(side * -0.32, 2.62, 0);
     group.add(arm);
-    const lantern = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 10), materials.lantern);
-    lantern.scale.set(1, 0.78, 1);
-    lantern.position.set(side * -0.62, 2.3, 0);
+    // 灯笼：唐式灯笼是椭球形，上下各有短颈，不是一颗圆球加一根锥子。
+    // 之前用一个 0.18m 的球 + 0.22m 长的锥形流苏，近看像"球上插锥"（实测）。
+    const lx = side * -0.62;
+    const lantern = new THREE.Mesh(
+      new THREE.SphereGeometry(0.155, 18, 14),
+      materials.lantern,
+    );
+    // 纵向拉长、横向略扁：读作灯笼而不是球。
+    lantern.scale.set(0.92, 1.06, 0.92);
+    lantern.position.set(lx, 2.30, 0);
     lantern.castShadow = true;
     group.add(lantern);
-    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.14, 0.055, 10), materials.darkWood);
-    cap.position.set(side * -0.62, 2.44, 0);
-    group.add(cap);
-    const tassel = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.22, 6), materials.red);
-    tassel.position.set(side * -0.62, 2.04, 0);
+
+    // 上颈：收口的木盖，压在灯笼顶。
+    const capTop = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.055, 0.085, 0.055, 12),
+      materials.darkWood,
+    );
+    capTop.position.set(lx, 2.462, 0);
+    capTop.castShadow = true;
+    group.add(capTop);
+    // 顶上的挂环，把灯笼与横臂连起来。
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(0.028, 0.010, 6, 12),
+      materials.darkWood,
+    );
+    ring.rotation.x = Math.PI / 2;
+    ring.position.set(lx, 2.505, 0);
+    group.add(ring);
+
+    // 下颈：收口的底座。
+    const capBottom = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.082, 0.052, 0.048, 12),
+      materials.darkWood,
+    );
+    capBottom.position.set(lx, 2.136, 0);
+    group.add(capBottom);
+
+    // 流苏：细而短，垂在底座下。0.22m 太长，像一根锥子。
+    const tassel = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.014, 0.020, 0.10, 6),
+      materials.red,
+    );
+    tassel.position.set(lx, 2.062, 0);
     group.add(tassel);
+
+    // 灯笼骨：四道竖箍，给灯身一点结构感，近看不是一颗光滑的球。
+    // 竖箍：每道是半个圆环，绕灯笼的竖轴均分四份。
+    // 之前同时设 rotation.y 与 rotation.x，欧拉角顺序让它们互相覆盖，
+    // 结果四道箍挤成两片黑带（实测）。这里只用 rotation.x 立起圆环、
+    // 用 rotation.z 绕竖轴分布，两个轴不冲突。
+    for (let i = 0; i < 4; i++) {
+      const rib = new THREE.Mesh(
+        new THREE.TorusGeometry(0.150, 0.007, 5, 16, Math.PI),
+        materials.darkWood,
+      );
+      // 先把圆环转到竖直平面（绕 X 立起），再绕 Z 均分。
+      rib.rotation.set(0, 0, 0);
+      rib.rotateX(Math.PI / 2);
+      rib.rotateZ((i / 4) * Math.PI);
+      rib.scale.set(0.94, 1.06, 0.94);
+      rib.position.set(lx, 2.30, 0);
+      group.add(rib);
+    }
     if (lit) {
       const light = new THREE.PointLight(0xff9a5b, 0.7, 6, 2);
       light.position.set(side * -0.62, 2.25, 0);
