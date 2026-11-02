@@ -1771,6 +1771,41 @@ def build_shop(
             )
         )
 
+    # 货架：柜台之后的两排搁板 + 立柱。
+    # 之前只有柜台没有货架，从街上看进店内是一片空墙，
+    # 读不出"这是卖东西的铺子"。货架靠内壁立起，两排高度错开。
+    shelf_y = half_y - m.f(26)
+    for row, shelf_z in enumerate((0.72, 1.18)):
+        parts.append(
+            box(
+                "%s_shelf_%d" % (name, row),
+                (half_x * 1.60, m.f(5), m.f(30)),
+                materials["wood"],
+                (0.0, shelf_y, wall_z + m.f(shelf_z * 100)),
+            )
+        )
+    for sign, tag in ((-1.0, "n"), (1.0, "p")):
+        parts.append(
+            box(
+                "%s_shelf_post_%s" % (name, tag),
+                (m.f(7), m.f(7), m.f(130)),
+                materials["wood"],
+                (sign * half_x * 0.80, shelf_y, wall_z + m.f(65)),
+            )
+        )
+    # 货架上的货：陶罐与布卷，给货架一点体量，不读成空搁板。
+    for i in range(4):
+        jx = -half_x * 0.58 + i * (half_x * 0.39)
+        for row, shelf_z in enumerate((0.72, 1.18)):
+            parts.append(
+                box(
+                    "%s_shelf_goods_%d_%d" % (name, i, row),
+                    (m.f(18), m.f(20), m.f(18)),
+                    materials["vermilion"] if (i + row) % 2 else materials["wood"],
+                    (jx, shelf_y, wall_z + m.f(shelf_z * 100 + 16)),
+                )
+            )
+
     # 檐下构造：额枋 + 雀替 + 檐椽。
     # 之前柱顶直接接铺作，柱与斗拱之间是空的，近看只有"柱子上顶着一堆斗"；
     # 唐构在柱头必有额枋联系，柱内侧还有雀替承托，檐下另有檐椽出挑。
