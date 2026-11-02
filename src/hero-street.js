@@ -1154,9 +1154,13 @@
     coping.position.set(0, BASE_H - 0.06, HALL_Z);
     group.add(coping);
     // 台基压边下一道暗色墙脚，避免台基读成一块大方盒子。
+    // 台基下沿不能用 materials.darkWood（#b08a72 偏红褐）：
+    // 它比台基宽 0.2m，从门洞看过去会在坊门两侧墙脚各露出一角，
+    // 读成两块突兀的深红方块。该缺陷追查七轮才定位到这一行。
+    // 台基下沿本来就该是石色，改用 materials.stone。
     const plinth = new THREE.Mesh(
       new THREE.BoxGeometry(baseW + 0.2, 0.5, baseD + 0.2),
-      materials.darkWood,
+      materials.stone,
     );
     plinth.position.set(0, 0.25, HALL_Z);
     group.add(plinth);
@@ -1456,6 +1460,15 @@
       wall.position.set(side * 10.0, 1.62, z);
       wall.castShadow = wall.receiveShadow = true;
       gate.add(wall);
+      // 侧墙墙脚的阶条石：唐式门楼墙本来就有一圈压边石。
+      const foot = new THREE.Mesh(
+        new THREE.BoxGeometry(7.5, 0.42, 0.86),
+        materials.stone,
+      );
+      foot.position.set(side * 10.0, 0.21, z);
+      foot.castShadow = true;
+      foot.receiveShadow = true;
+      gate.add(foot);
     }
     // 门楼斗拱：唐式坊门在梁上有一排铺作托住瓦顶。
     // 之前梁上直接压瓦，门楼读成"两根柱子架一块板"，没有等级。
