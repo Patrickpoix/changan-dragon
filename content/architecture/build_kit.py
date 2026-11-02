@@ -455,7 +455,8 @@ def main():
         report.setdefault("modules", [])
         report.setdefault("note", "唐构构件库，尺寸按材分制换算")
         m = kit.TangModule(0.22)
-        shop_ids = ("shop_low_shijing", "shop_shijing", "shop_tall_shijing", "tavern_shijing")
+        shop_ids = ("shop_low_shijing", "shop_shijing", "shop_tall_shijing",
+                    "shop_double_shijing", "tavern_shijing")
         modules = [row for row in report["modules"] if row.get("id") not in shop_ids]
 
         def ground(size):
@@ -471,6 +472,8 @@ def main():
             (0, "shop_low_shijing", "shop-low-shijing", "shop-low"),
             (1, "shop_shijing", "shop-shijing", "shop"),
             (2, "shop_tall_shijing", "shop-tall-shijing", "shop-tall"),
+            # 重檐铺面：这条街天际线的最高一档。
+            (3, "shop_double_shijing", "shop-double-shijing", "shop-double"),
         ):
             kit.reset_scene()
             mats = kit_materials()

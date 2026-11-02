@@ -930,8 +930,10 @@
     // 放大到 0.055×0.020×0.34m，并把撒落点放在街心而不是靠墙处。
     // 尺寸要"小而成堆"：0.055 x 0.020 x 0.34m 单根太大，看着像散落的木条。
     // 改为 0.022 x 0.008 x 0.16m 并加大数量，才读作"干草碎屑"。
+    // 900 根撒在半径 1.2-1.9m 的圆里密度过高，读成"撒了一地木屑"（实测）。
+    // 减到 360 根、收小半径，只在车与驴脚下成小片，才像零星掉落的草。
     const strawGeo = new THREE.BoxGeometry(0.022, 0.008, 0.16);
-    const STRAW = 900;
+    const STRAW = 360;
     // 草料不能用布料材质：clothOchre 是织物，色相与铺装接近，
     // 撒在石板上几乎看不出来（实测）。单独建一份干草材质，
     // 更黄更亮、粗糙度更高，才读得出"散落的草"。
@@ -948,9 +950,8 @@
     // 撒落点跟独轮车、驮驴的实际位置对齐，并往街心偏一点：
     // 全贴着墙根时会被铺面阴影吞掉。
     const strawSpots = [
-      [-2.2, 6.8, 1.8], [2.6, -9.2, 1.7], [-1.8, -26.0, 1.6],
-      [-3.0, 18.2, 1.9], [2.9, -18.0, 1.7], [-3.0, 10.2, 1.4],
-      [0.6, -2.0, 1.2], [-0.8, 24.0, 1.3],
+      [-2.2, 6.8, 0.85], [2.6, -9.2, 0.80], [-1.8, -26.0, 0.75],
+      [-3.0, 18.2, 0.90], [2.9, -18.0, 0.80], [-3.0, 10.2, 0.70],
     ];
     let si = 0;
     for (const [sx, sz, radius] of strawSpots) {
@@ -1914,12 +1915,14 @@
     state.kitStats = KitLibrary.stats;
 
     setProgress(0.2, '装起西市木构');
-    const [shopLowRoot, shopRoot, shopTallRoot, tavernRoot, hallRoot, residentMale, residentFemale] = await Promise.all([
+    const [shopLowRoot, shopRoot, shopTallRoot, shopDoubleRoot, tavernRoot, hallRoot, residentMale, residentFemale] = await Promise.all([
       // 三档铺面：同一套构件，柱高 / 铺作跳数 / 举高 / 台基不同，
       // 屋脊高度 5.38 / 6.03 / 6.89 米。檐口因此有真实的高低错落。
       kitLoad('shop-low-shijing', '/assets/kit/architecture/shop-low-shijing.glb'),
       kitLoad('shop-shijing', '/assets/kit/architecture/shop-shijing.glb'),
       kitLoad('shop-tall-shijing', '/assets/kit/architecture/shop-tall-shijing.glb'),
+      // 重檐铺面：这条街天际线的最高一档，只给少数大行铺用。
+      kitLoad('shop-double-shijing', '/assets/kit/architecture/shop-double-shijing.glb'),
       kitLoad('tavern-shijing', '/assets/kit/architecture/tavern-shijing.glb'),
       // 殿堂构件：目标要求"宏大建筑奇观"，只靠市井小铺做不到。
       // 这里把已有的殿堂 GLB 作为坊内宏大量体放在街廓之后，
@@ -1977,14 +1980,14 @@
     // 左侧从 -30.25 起、右侧从 -33.0 起，两侧错开半间，避免正对面的铺面
     // 檐口在同一位置对齐。tier 是三档铺面（0 低 / 1 常 / 2 高）。
     const leftPlan = [
-      { kind: 'shop', tier: 0 }, { kind: 'tavern' }, { kind: 'shop', tier: 2 },
+      { kind: 'shop', tier: 0 }, { kind: 'tavern' }, { kind: 'shop', tier: 3 },
       { kind: 'shop', tier: 1 }, { kind: 'shop', tier: 0 }, { kind: 'shop', tier: 1 },
       { kind: 'tavern' }, { kind: 'shop', tier: 2 }, { kind: 'shop', tier: 0 },
       { kind: 'tavern' }, { kind: 'shop', tier: 1 }, { kind: 'shop', tier: 0 },
     ];
     const rightPlan = [
       { kind: 'shop', tier: 1 }, { kind: 'shop', tier: 0 }, { kind: 'shop', tier: 1 },
-      { kind: 'tavern' }, { kind: 'shop', tier: 2 }, { kind: 'shop', tier: 1 },
+      { kind: 'tavern' }, { kind: 'shop', tier: 3 }, { kind: 'shop', tier: 1 },
       { kind: 'shop', tier: 0 }, { kind: 'tavern' }, { kind: 'shop', tier: 1 },
       { kind: 'shop', tier: 2 }, { kind: 'tavern' }, { kind: 'shop', tier: 0 },
     ];
@@ -1997,6 +2000,7 @@
       if (entry.kind === 'tavern') return tavernRoot;
       if (entry.tier === 0) return shopLowRoot;
       if (entry.tier === 2) return shopTallRoot;
+      if (entry.tier === 3) return shopDoubleRoot;
       return shopRoot;
     };
     entries.forEach((entry) => addBuilding(rootFor(entry), entry));

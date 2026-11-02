@@ -1642,8 +1642,12 @@ def build_shop(
         0: {"col": 160.0, "plat": 16.0, "rise": 62.0, "jumps": 1, "bay": 110.0},
         1: {"col": 190.0, "plat": 20.0, "rise": 70.0, "jumps": 1, "bay": 120.0},
         2: {"col": 228.0, "plat": 26.0, "rise": 80.0, "jumps": 2, "bay": 132.0},
+        # 3 = 重檐：柱更高、台基更高、铺作两跳，并在檐下另加一道腰檐。
+        # 唐式市街里只有规模较大的行铺（绸缎庄、香药铺一类）才用重檐，
+        # 它是这条街天际线的最高一档，不能和常铺同高。
+        3: {"col": 300.0, "plat": 34.0, "rise": 104.0, "jumps": 2, "bay": 150.0},
     }
-    spec = STOREYS[max(0, min(2, int(storey)))]
+    spec = STOREYS[max(0, min(3, int(storey)))]
 
     bay = m.f(spec["bay"])
     half_x = bay * bays / 2.0
@@ -1883,6 +1887,85 @@ def build_shop(
     for obj in roof:
         obj.location.z += puzuo_top
     parts += roof
+
+    # 重檐：在主檐之下再加一道腰檐。
+    # 腰檐不做完整屋顶，只把同一套坡面缩小、降低一档挂上去；
+    # 这样从街上看是"两层檐"，而不是把单层屋顶整体抬高。
+    if int(storey) >= 3:
+        # 腰檐必须挂在"墙顶、主檐铺作之下"这一层：
+        # 放低会悬在墙体中部，上下都不接，侧视是两块脱开的板（实测）。
+        # 取墙顶再减去腰檐自身举高，让檐口正好压在墙顶线上。
+        waist_rise = m.f(24)
+        waist_z = wall_z + wall_h - waist_rise
+        waist = build_gable_roof(
+            "%s_waist_roof" % name,
+            # 腰檐出挑要小于主檐，读作"下层檐"而不是第二个屋顶。
+            half_x + m.f(16),
+            half_y + m.f(16),
+            m.f(30),
+            waist_rise,
+            materials,
+            gable_overhang=m.f(14),
+        )
+        for obj in waist:
+            obj.location.z += waist_z
+        parts += waist
+
+        # 两层檐之间必须有"上层墙身"，否则中间空着，
+        # 读成两栋楼叠在一起，而不是一栋重檐楼（实测正视/侧视都这样）。
+        # 这段墙身比下层略收进，靠铺作承托上层檐。
+        upper_z = waist_z + waist_rise
+        upper_h = puzuo_top - upper_z
+        if upper_h > m.f(10):
+            parts.append(
+                box(
+                    "%s_upper_wall" % name,
+                    (half_x * 1.94, m.f(12), upper_h),
+                    materials["plaster"],
+                    (0.0, half_y - m.f(9), upper_z + upper_h * 0.5),
+                )
+            )
+            # 上层墙身的窗：重檐楼的上层通常是整排窗，不是实墙。
+            # 窗必须贴在墙的临街面（+Y 一侧）：墙中心在 half_y - 9 分、
+            # 厚 12 分，临街面在 half_y - 3 分。之前放在 half_y - 15 分，
+            # 那是墙的背面，从街上完全看不见（实测正视是实墙）。
+            parts.append(
+                box(
+                    "%s_upper_window" % name,
+                    (half_x * 1.60, m.f(3), upper_h * 0.62),
+                    materials["interior"],
+                    (0.0, half_y - m.f(1), upper_z + upper_h * 0.56),
+                )
+            )
+            # 窗棂：两根横棂 + 三根竖棂，把黑窗格成格子，不读成一块黑板。
+            for wy in (0.30, 0.52, 0.74):
+                parts.append(
+                    box(
+                        "%s_upper_mullion_h_%d" % (name, int(wy * 100)),
+                        (half_x * 1.62, m.f(5), m.f(3)),
+                        materials["wood"],
+                        (0.0, half_y - m.f(1), upper_z + upper_h * wy),
+                    )
+                )
+            for wx in (-0.62, -0.21, 0.21, 0.62):
+                parts.append(
+                    box(
+                        "%s_upper_mullion_v_%d" % (name, int((wx + 1) * 100)),
+                        (m.f(3), m.f(5), upper_h * 0.62),
+                        materials["wood"],
+                        (wx * half_x * 1.60, half_y - m.f(1), upper_z + upper_h * 0.56),
+                    )
+                )
+            # 上层墙身两侧的短柱，把窗框住。
+            for sx in (-1.0, 1.0):
+                parts.append(
+                    box(
+                        "%s_upper_col_%s" % (name, "n" if sx < 0 else "p"),
+                        (m.f(14), m.f(16), upper_h),
+                        materials["vermilion"],
+                        (sx * half_x * 0.95, half_y - m.f(8), upper_z + upper_h * 0.5),
+                    )
+                )
 
     # 雨篷（遮阳棚）：从铺面挑出，外缘略低；立柱落回台基，
     # 不能像旧版一样在檐下悬着一块平板。
