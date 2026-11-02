@@ -2368,11 +2368,15 @@
     // 库里已有四种树（street / blossom / willow / pine），此前只用了一种，
     // 街上读成同一棵树复制七遍。唐长安的坊内行道树本就混植，
     // 这里按四种混种，并复用同一份 GLB 的 LOD1，不增加下载量。
+    // 街树用 lod0 而不是 lod1。
+    // 实测三角形数：street 6806 vs 2958、willow 11072 vs 4464、pine 18756 vs 7512，
+    // lod0 约为 lod1 的 2.3-2.5 倍；全街十余棵树只增加约 6 万三角形，
+    // 相对整帧 337 万可忽略，但近景叶片的卡片感明显减轻。
     const [streetTree, blossomTree, willowTree, pineTree, matureTree] = await Promise.all([
-      loadTree('/assets/library/vegetation/studies/street-lod1.glb'),
-      loadTree('/assets/library/vegetation/studies/blossom-lod1.glb'),
-      loadTree('/assets/library/vegetation/studies/willow-lod1.glb'),
-      loadTree('/assets/library/vegetation/studies/pine-lod1.glb'),
+      loadTree('/assets/library/vegetation/studies/street-lod0.glb'),
+      loadTree('/assets/library/vegetation/studies/blossom-lod0.glb'),
+      loadTree('/assets/library/vegetation/studies/willow-lod0.glb'),
+      loadTree('/assets/library/vegetation/studies/pine-lod0.glb'),
       loadTree('/assets/library/polyhaven/tree_small_02/runtime.glb'),
     ]);
     for (const tree of [streetTree, blossomTree, willowTree, pineTree, matureTree]) {
