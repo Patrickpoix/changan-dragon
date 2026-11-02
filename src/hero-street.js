@@ -1215,7 +1215,9 @@
     return pagoda;
   }
 
-  function signTexture(text, { vertical = false, font = 72 } = {}) {
+  /* 招牌贴图：底色、字色与边框色都可由行当指定。
+   * 之前所有招牌都是同一种深木底 + 米色字，整条街的匾额看起来像同一块复制品。 */
+  function signTexture(text, { vertical = false, font = 72, style = null } = {}) {
     const canvas = document.createElement('canvas');
     canvas.width = vertical ? 192 : 512;
     canvas.height = vertical ? 512 : 160;
@@ -1223,15 +1225,35 @@
     const w = canvas.width;
     const h = canvas.height;
     ctx.clearRect(0, 0, w, h);
+
+    const palette = style
+      ? {
+        top: '#' + style.board.toString(16).padStart(6, '0'),
+        bottom: '#' + shadeHex(style.board, 0.72),
+        border: '#' + shadeHex(style.glyph, 0.80),
+        glyph: '#' + style.glyph.toString(16).padStart(6, '0'),
+      }
+      : { top: '#5b3927', bottom: '#342219', border: '#c6a15e', glyph: '#f1dfb7' };
+
     const grad = ctx.createLinearGradient(0, 0, 0, h);
-    grad.addColorStop(0, '#5b3927');
-    grad.addColorStop(1, '#342219');
+    grad.addColorStop(0, palette.top);
+    grad.addColorStop(1, palette.bottom);
     ctx.fillStyle = grad;
     ctx.fillRect(3, 3, w - 6, h - 6);
-    ctx.strokeStyle = '#c6a15e';
+    // 木纹：几道极淡的横向深线，避免匾面读成一块纯色塑料。
+    ctx.strokeStyle = 'rgba(0,0,0,0.10)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 6; i++) {
+      const y = 12 + i * (h - 24) / 5;
+      ctx.beginPath();
+      ctx.moveTo(6, y);
+      ctx.lineTo(w - 6, y + 3);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = palette.border;
     ctx.lineWidth = 4;
     ctx.strokeRect(10, 10, w - 20, h - 20);
-    ctx.fillStyle = '#f1dfb7';
+    ctx.fillStyle = palette.glyph;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     if (vertical) {
@@ -1249,11 +1271,29 @@
     return texture;
   }
 
+  /* 把十六进制颜色按比例压暗，用于匾额底部的渐变与边框。 */
+  function shadeHex(hex, factor) {
+    const r = Math.round(((hex >> 16) & 0xff) * factor);
+    const g = Math.round(((hex >> 8) & 0xff) * factor);
+    const b = Math.round((hex & 0xff) * factor);
+    return ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+  }
+
   function makeSignMesh(text, width, height, opts = {}) {
     const group = new THREE.Group();
-    const backing = new THREE.Mesh(new THREE.BoxGeometry(width + 0.12, height + 0.12, 0.09), materials.darkWood);
+    // 招牌底：唐式市井的匾额多为深木本色，少数朱漆；底色按行当分配，
+    // 不再整条街清一色黑底金字。
+    const backingMat = opts.backing || materials.darkWood;
+    const backing = new THREE.Mesh(new THREE.BoxGeometry(width + 0.12, height + 0.12, 0.09), backingMat);
     backing.castShadow = true;
     group.add(backing);
+    // 匾框：上下两道压边，读作"挂起来的匾"而不是一块贴纸。
+    const frameMat = opts.frame || materials.darkWood;
+    for (const dy of [-(height / 2 + 0.05), height / 2 + 0.05]) {
+      const rail = new THREE.Mesh(new THREE.BoxGeometry(width + 0.20, 0.055, 0.13), frameMat);
+      rail.position.y = dy;
+      group.add(rail);
+    }
     const texture = signTexture(text, opts);
     const plane = new THREE.Mesh(
       new THREE.PlaneGeometry(width, height),
@@ -1271,15 +1311,23 @@
   }
 
   // 西市真实行当：织物、胡食、香药、书肆、茶坊、陶器、果子、鞍马。
+  // 每个行当带自己的匾额底色与字形色：胡食铺用朱漆、香药铺用青、
+  // 书肆用素木、茶坊用绿——街上一眼能分出"这家卖什么"。
+  const SIGN_STYLES = {
+    lacquer: { board: 0x8f3a2e, glyph: 0xf0dcae },
+    ink: { board: 0x2b3230, glyph: 0xe6d8b4 },
+    plain: { board: 0x6b5237, glyph: 0xf2e6c8 },
+    jade: { board: 0x33564c, glyph: 0xe8dfc2 },
+  };
   const SHOP_TRADES = [
-    { board: '胡饼铺', short: '饼' },
-    { board: '香药铺', short: '香' },
-    { board: '绸缎庄', short: '绸' },
-    { board: '书肆', short: '书' },
-    { board: '茶坊', short: '茶' },
-    { board: '陶器行', short: '陶' },
-    { board: '果子铺', short: '果' },
-    { board: '鞍马行', short: '马' },
+    { board: '胡饼铺', short: '饼', style: 'lacquer' },
+    { board: '香药铺', short: '香', style: 'jade' },
+    { board: '绸缎庄', short: '绸', style: 'lacquer' },
+    { board: '书肆', short: '书', style: 'plain' },
+    { board: '茶坊', short: '茶', style: 'jade' },
+    { board: '陶器行', short: '陶', style: 'plain' },
+    { board: '果子铺', short: '果', style: 'ink' },
+    { board: '鞍马行', short: '马', style: 'ink' },
   ];
 
   function shopTrade(entry) {
@@ -1295,12 +1343,19 @@
     const halfD = (isTavern ? 2.91 : 2.62) * entry.scale;
     const trade = shopTrade(entry);
     const hasHanging = isTavern || Math.abs(entry.z) % 14 < 1;
+    // 招牌位置随铺面档位走：高铺的匾额更高，低铺更低。
+    // 之前所有匾额都在同一高度，从街上一眼看过去是一条水平线。
+    const boardY = isTavern ? 5.25
+      : entry.tier === 0 ? 4.00
+        : entry.tier === 2 ? 4.72 : 4.35;
     return {
       isTavern,
       frontX: entry.side * (SHOP_X - (depth * entry.scale) / 2 - 0.075),
       facing: entry.side < 0 ? Math.PI / 2 : -Math.PI / 2,
       board: isTavern ? '西市酒肆' : trade.board,
       vertical: isTavern ? '酒' : trade.short,
+      style: isTavern ? SIGN_STYLES.lacquer : SIGN_STYLES[trade.style] || SIGN_STYLES.plain,
+      boardY,
       hasHanging,
       halfD,
       hangingZ: hasHanging ? entry.z + halfD - 0.42 : null,
@@ -1310,19 +1365,21 @@
   function addBuildingSigns(entry) {
     const { z, side } = entry;
     const placement = shopPlacement(entry);
-    const { isTavern, frontX, facing } = placement;
+    const { isTavern, frontX, facing, style } = placement;
     const board = makeSignMesh(
       placement.board,
       isTavern ? 2.3 : 1.8,
       isTavern ? 0.7 : 0.56,
-      { font: isTavern ? 82 : 66 },
+      { font: isTavern ? 82 : 66, style },
     );
-    board.position.set(frontX, isTavern ? 5.25 : 4.35, z);
+    board.position.set(frontX, placement.boardY, z);
     board.rotation.y = facing;
     board.scale.setScalar(1.15);
     scene.add(board);
     if (placement.hasHanging) {
-      const hanging = makeSignMesh(placement.vertical, 0.56, 1.5, { vertical: true, font: 62 });
+      const hanging = makeSignMesh(placement.vertical, 0.56, 1.5, {
+        vertical: true, font: 62, style,
+      });
       hanging.position.set(
         frontX + (side < 0 ? -0.55 : 0.55),
         isTavern ? 3.7 : 2.85,
