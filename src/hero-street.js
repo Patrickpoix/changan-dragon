@@ -977,11 +977,12 @@
       const material = Array.isArray(node.material) ? node.material[0] : node.material;
       if (!material) return;
       // 殿堂用比市井更重的木色与更深的屋面，读作"更高等级"。
-      if (/mat_vermilion/i.test(material.name || '')) node.material = materials.redWood;
-      else if (/mat_timber|mat_bracket_block/i.test(material.name || '')) node.material = materials.darkWood;
-      else if (/mat_roof_surface|mat_roof_tile/i.test(material.name || '')) node.material = materials.roof;
-      else if (/mat_roof_ridge/i.test(material.name || '')) node.material = materials.darkWood;
-      else if (/mat_plaster/i.test(material.name || '')) node.material = materials.plaster;
+      // 匹配运行时材质名（kitApplySharedMaterials 已把 mat_* 换成 street-*）。
+      const name = material.name || '';
+      if (/street-red-wood/i.test(name)) node.material = materials.redWood;
+      else if (/street-wood|street-darkwood/i.test(name)) node.material = materials.darkWood;
+      else if (/street-roof/i.test(name)) node.material = materials.roof;
+      else if (/street-plaster/i.test(name)) node.material = materials.plaster;
     });
     group.add(hall);
     // 殿前踏道：从坊门地面接到台基，给主景一条可读的路径。
@@ -1079,10 +1080,11 @@
         node.receiveShadow = true;
         const material = Array.isArray(node.material) ? node.material[0] : node.material;
         if (!material) return;
-        if (/mat_plaster/i.test(material.name || '')) node.material = materials.plasterDistant;
-        else if (/mat_interior/i.test(material.name || '')) node.material = materials.shopInterior;
-        else if (/mat_roof/i.test(material.name || '')) node.material = materials.roofDistant;
-        else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+        const name = material.name || '';
+        if (/street-plaster/i.test(name)) node.material = materials.plasterDistant;
+        else if (/street-shop-interior/i.test(name)) node.material = materials.shopInterior;
+        else if (/street-roof/i.test(name)) node.material = materials.roofDistant;
+        else if (/street-red-wood|street-wood|street-darkwood/i.test(name)) {
           node.material = materials.woodDistant;
         }
       });
@@ -1100,10 +1102,11 @@
       node.receiveShadow = true;
       const material = Array.isArray(node.material) ? node.material[0] : node.material;
       if (!material) return;
-      if (/mat_plaster/i.test(material.name || '')) node.material = materials.plaster;
-      else if (/mat_interior/i.test(material.name || '')) node.material = materials.shopInterior;
-      else if (/mat_roof/i.test(material.name || '')) node.material = materials.roof;
-      else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+      const name = material.name || '';
+      if (/street-plaster/i.test(name)) node.material = materials.plaster;
+      else if (/street-shop-interior/i.test(name)) node.material = materials.shopInterior;
+      else if (/street-roof/i.test(name)) node.material = materials.roof;
+      else if (/street-red-wood|street-wood|street-darkwood/i.test(name)) {
         node.material = materials.wood;
       }
     });
@@ -1631,15 +1634,15 @@
           const material = Array.isArray(node.material) ? node.material[0] : node.material;
           if (!material) return;
           const name = material.name || '';
-          if (/mat_plaster/i.test(name)) {
+          if (/street-plaster/i.test(name)) {
             node.material = distantTint(materials.plaster, 0.72, 'street-plaster-back');
-          } else if (/mat_interior/i.test(name)) {
+          } else if (/street-shop-interior/i.test(name)) {
             node.material = materials.shopInterior;
-          } else if (/mat_roof/i.test(name)) {
+          } else if (/street-roof/i.test(name)) {
             node.material = distantTint(materials.roof, 0.80, 'street-roof-back');
-          } else if (/mat_cloth/i.test(name)) {
+          } else if (/street-cloth/i.test(name)) {
             node.material = distantTint(materials.cloth, 0.78, 'street-cloth-back');
-          } else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(name)) {
+          } else if (/street-red-wood|street-wood|street-darkwood/i.test(name)) {
             node.material = distantTint(materials.wood, 0.66, 'street-wood-back');
           }
         });
