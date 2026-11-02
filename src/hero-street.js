@@ -2779,12 +2779,62 @@
     addEventListener('resize', resize);
   }
 
+  /* 后处理管线：Composer + 轻度泛光 + FXAA。
+   * 之前 composer/fxaaPass/bloomPass 三个变量声明了却从未创建，
+   * 场景直接走 renderer.render()，于是：
+   *   - 灯笼、金饰、夕阳这些高光没有溢光，画面读成"塑料平光"；
+   *   - 没有抗锯齿，屋檐与瓦垄的斜边在 1280 宽下有明显阶梯。
+   * 这两项是"电影感"里最省成本、收益最直接的一层。 */
+  function setupPostProcessing() {
+    const addons = window.ChanganRenderingAddons;
+    if (!addons?.EffectComposer || !addons.RenderPass) return false;
+    composer = new addons.EffectComposer(renderer);
+    composer.addPass(new addons.RenderPass(scene, camera));
+
+    // 泛光：只让高光溢开一点。阈值要高（0.92），否则整条街发糊。
+    // 半径也要小：0.72 会把整幅画面的大块区域抬起来，阴影被泛光填平，
+    // 实测整条街明显变暗、暗部细节消失。改为 0.38 / strength 0.18。
+    if (addons.UnrealBloomPass) {
+      bloomPass = new addons.UnrealBloomPass(
+        new THREE.Vector2(innerWidth, innerHeight),
+        0.18,   // strength
+        0.38,   // radius
+        0.92,   // threshold
+      );
+      composer.addPass(bloomPass);
+    }
+
+    // 输出必须走 OutputPass：它负责 sRGB 编码与色调映射。
+    // 缺了它，composer 的最后一步写回画布时没有做 sRGB 转换，
+    // 整幅画面会比直出暗一档（实测确认）。
+    if (addons.OutputPass) {
+      composer.addPass(new addons.OutputPass());
+    }
+
+    // FXAA 放在最后：先合成再抗锯齿，避免把泛光边缘二次模糊。
+    if (addons.ShaderPass && addons.FXAAShader) {
+      fxaaPass = new addons.ShaderPass(addons.FXAAShader);
+      const pr = renderer.getPixelRatio();
+      fxaaPass.material.uniforms.resolution.value.set(
+        1 / (innerWidth * pr), 1 / (innerHeight * pr),
+      );
+      composer.addPass(fxaaPass);
+    }
+    return true;
+  }
+
   function resize() {
     const width = innerWidth;
     const height = innerHeight;
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    // 后处理管线也要跟着改尺寸，否则窗口变化后泛光与 FXAA 会按旧尺寸采样。
+    if (composer) composer.setSize(width, height);
+    if (fxaaPass) {
+      const pr = renderer.getPixelRatio();
+      fxaaPass.material.uniforms.resolution.value.set(1 / (width * pr), 1 / (height * pr));
+    }
   }
 
   function updateMovement(dt) {
@@ -2900,7 +2950,14 @@
     updateAmbientMotion(dt);
     updateCamera(dt);
     camera.layers.enable(DRAGON_LAYER);
-    renderer.render(scene, camera);
+    // 后处理不可用时退回直出，不能因为管线缺失就黑屏。
+    // renderer.info 默认每趟 pass 自动清零，接上 composer 之后
+    // info.render.calls 只会剩最后一趟的数值（实测为 1），验收记录因此失真。
+    // 关掉自动清零、每帧手动清零，读到的才是整帧（含所有 pass）的真实总量。
+    renderer.info.autoReset = false;
+    renderer.info.reset();
+    if (composer) composer.render(dt);
+    else renderer.render(scene, camera);
     state.frameCount++;
   }
 
@@ -2913,6 +2970,8 @@
         ]);
       }
       resize();
+      // 后处理必须在相机与渲染尺寸就位之后建立，否则首帧会按错误尺寸采样。
+      state.postProcessing = setupPostProcessing();
       await buildMaterials();
       setProgress(0.16, '搭起街口与屋顶');
       await createStreet();

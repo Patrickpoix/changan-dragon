@@ -448,6 +448,26 @@
   不再在这块细节上继续消耗；下一步从更宏观的街景层次入手。
 - 复审 1280×720 / 844×390 均 passed，2124/2153 calls、约 184/188 万三角形。
 
+### 同轮：接上后处理管线（渲染第十一轮）
+
+- **结构性缺口**：`composer` / `fxaaPass` / `bloomPass` 三个变量在源码里声明了，
+  却从未创建，场景一直直接 `renderer.render()`。后果是：
+  灯笼、金饰、夕阳的高光没有溢光，画面读成"塑料平光"；
+  屋檐与瓦垄的斜边在 1280 宽下有可见阶梯。
+- 接上 `EffectComposer + RenderPass + UnrealBloomPass + OutputPass + FXAA`。
+- **踩到两个坑，都已修**：
+  1. 泛光 radius 0.72 / strength 0.28 会把整幅画面的大块区域抬起来，
+     阴影被泛光填平，整条街明显变暗、暗部细节消失。改为 0.38 / 0.18。
+  2. 缺 `OutputPass` 时 composer 最后一步写回画布没有做 sRGB 转换与色调映射，
+     整幅画面比直出暗一档。补上 OutputPass 后亮度恢复正常。
+- **验收口径修正**：接上 composer 后 `renderer.info` 每趟 pass 自动清零，
+  `info.render.calls` 只剩最后一趟（实测为 1），验收记录里的 draw call 与
+  三角形数因此失真。改为 `info.autoReset = false` + 每帧手动 `reset()`，
+  读到的是含所有 pass 的整帧真实总量。
+  因此本轮的 3287/3316 calls、327/331 万三角形与之前直出时的
+  2120/2153 calls **不是同一口径**，不能直接比较。
+- 复审 1280×720 / 844×390 均 passed，glError=0。
+
 ## 决策记录
 
 - 构件几何统一以"底面 z=0"为基准，便于按层堆叠与复用。
