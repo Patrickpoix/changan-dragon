@@ -1748,6 +1748,51 @@ def build_shop(
             )
         )
 
+    # 檐下构造：额枋 + 雀替 + 檐椽。
+    # 之前柱顶直接接铺作，柱与斗拱之间是空的，近看只有"柱子上顶着一堆斗"；
+    # 唐构在柱头必有额枋联系，柱内侧还有雀替承托，檐下另有檐椽出挑。
+    # 这三件是铺面立面读起来"有构造"而不是"贴片"的关键。
+    fang_h = m.f(20)
+    fang_z = wall_z + wall_h - fang_h * 0.5
+    parts.append(
+        box(
+            "%s_efang" % name,
+            (half_x * 2.0 + m.f(10), m.f(12), fang_h),
+            materials["wood"],
+            (0.0, half_y - col_d * 0.9, fang_z),
+        )
+    )
+    # 雀替：柱头内侧的斜撑，从柱身斜向上接到额枋。
+    for px in col_xs:
+        for sign in (-1.0, 1.0):
+            parts.append(
+                extrude_profile(
+                    [
+                        (0.0, 0.0),
+                        (m.f(26), 0.0),
+                        (0.0, -m.f(30)),
+                    ],
+                    "x",
+                    m.f(9),
+                    "%s_queti_%s_%s" % (name, _tag(px), _tag(sign)),
+                    materials["wood"],
+                    (px + sign * m.f(12), half_y - col_d * 0.9, fang_z - fang_h * 0.5),
+                )
+            )
+    # 檐椽：沿檐口等距排布的一排出挑椽头，压在额枋之上。
+    rafter_y = half_y + m.f(6)
+    rafter_count = max(6, int(round((half_x * 2.0) / m.f(22))))
+    for i in range(rafter_count):
+        rx = -half_x + (half_x * 2.0) * (i + 0.5) / rafter_count
+        parts.append(
+            box(
+                "%s_rafter_%d" % (name, i),
+                (m.f(7), m.f(34), m.f(7)),
+                materials["wood"],
+                (rx, rafter_y + m.f(10), fang_z + fang_h * 0.5 + m.f(4)),
+            )
+        )
+
     # 檐下铺作：市井用四铺作单抄（无下昂），体量小、层次简单
     puzuo_z = wall_z + wall_h
     puzuo_top = puzuo_z

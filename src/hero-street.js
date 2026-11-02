@@ -1377,18 +1377,22 @@
 
     // 概念图的市街靠两层与单层交错读出来；两层酒肆按铺面位置间隔布置，
     // 而不是只有一间。仍复用同一个酒肆 GLB，靠变换与共享材质区分类别。
-    const leftZ = [-31, -24, -17, -8.8, 1.2, 8.6, 16.0, 23.4, 30.8];
-    const rightZ = [-31, -24, -17, -10, -3, 4, 11, 18, 25, 32];
-    const TAVERN_Z = new Set([-24, 8.6, 23.4]);
+    // 唐式市街是连排的：铺面之间不留缝，山墙被邻铺挡住。
+    // 之前按 7.4m 间距排 5.24m 进深的铺面，每两间之间空出约 1.7m，
+    // 缝里露出白灰山墙，整条街读成一排白带——这是"白墙街"的另一半原因。
+    // 进深按 5.6m 留 0.4m 的缝：完全不重叠，但缝窄到从街上读不出山墙。
+    const leftZ = [-31, -24.4, -17.8, -11.2, -4.6, 2.0, 8.6, 15.2, 21.8, 28.4, 35.0];
+    const rightZ = [-35.0, -28.4, -21.8, -15.2, -8.6, -2.0, 4.6, 11.2, 17.8, 24.4, 31.0];
+    const TAVERN_Z = new Set([-24.4, 8.6, 21.8]);
     const entries = [];
     leftZ.forEach((z, i) => {
-      if (z === -8.8 || TAVERN_Z.has(z)) {
+      if (z === -11.2 || TAVERN_Z.has(z)) {
         entries.push({ side: -1, z, kind: 'tavern', scale: 0.96 });
       } else {
         entries.push({ side: -1, z, kind: 'shop', scale: i % 3 === 0 ? 0.96 : i % 3 === 1 ? 1.0 : 1.04 });
       }
     });
-    const rightTavern = new Set([-17, 4, 25]);
+    const rightTavern = new Set([-21.8, 4.6, 24.4]);
     rightZ.forEach((z, i) => {
       entries.push({
         side: 1,
