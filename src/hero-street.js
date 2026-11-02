@@ -1727,6 +1727,39 @@
           group.add(post);
         }
 
+        // 巷口护墙：把让开铺面后暴露的裸山墙挡住。
+        // 只留石柱和巷墙时，巷口两侧是邻铺的米色山墙，俯瞰看过去是一块裸板，
+        // 比不开巷更刺眼（实测）。这里在巷口两侧各贴一段与铺面同高的护墙，
+        // 墙头压瓦，让它读作"巷口两侧的房子"，而不是"被切开的铺面断面"。
+        // 护墙沿 X 方向从临街面伸到铺面中心，沿 Z 方向很薄：
+        // 它是"巷口两侧的墙面"，不能横在巷口前面。
+        // 上一版把 X/Z 尺寸写反（X 0.55、Z 2.6），等于在巷口前横了一道墙，
+        // 从俯瞰看巷子被完全堵住（实测）。
+        const wingH = 3.4;
+        const wingLen = (SHOP_X - SHOP_FRONT) + 0.5;
+        const wingX = side * (SHOP_FRONT + wingLen / 2 - 0.15);
+        for (const along of [-1, 1]) {
+          const wingZ = gap.z + along * (gap.width / 2 + 0.30);
+          const wing = new THREE.Mesh(
+            new THREE.BoxGeometry(wingLen, wingH, 0.46),
+            materials.plaster,
+          );
+          wing.position.set(wingX, wingH / 2, wingZ);
+          wing.castShadow = true;
+          wing.receiveShadow = true;
+          group.add(wing);
+          // 墙头压瓦：沿 X 方向双坡，与坊墙同一套做法。
+          for (const s2 of [-1, 1]) {
+            const cap = new THREE.Mesh(
+              new THREE.BoxGeometry(wingLen + 0.3, 0.10, 0.44),
+              materials.roof,
+            );
+            cap.position.set(wingX, wingH + 0.10, wingZ + s2 * 0.18);
+            cap.rotation.x = -s2 * 0.30;
+            group.add(cap);
+          }
+        }
+
         scene.add(group);
       }
     }
