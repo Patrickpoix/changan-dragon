@@ -695,22 +695,29 @@
     nearGround.receiveShadow = true;
     scene.add(nearGround);
 
-    const road = new THREE.Mesh(new THREE.PlaneGeometry(11.1, 78), materials.road);
+    // 车辙泥路只铺在街内：范围必须严格落在街段 STREET_Z0(-38) 到 STREET_Z1(34)
+    // 之内。之前 78m 长、中心 -3，实际覆盖 -42 到 36，越出门洞后压在铺装之上，
+    // 近看门洞时读成"街尽头一块土黄平台"。
+    const ROAD_Z0 = STREET_Z0;
+    const ROAD_Z1 = STREET_Z1;
+    const roadLen = ROAD_Z1 - ROAD_Z0;
+    const roadMid = (ROAD_Z0 + ROAD_Z1) / 2;
+    const road = new THREE.Mesh(new THREE.PlaneGeometry(11.1, roadLen), materials.road);
     road.rotation.x = -Math.PI / 2;
-    road.position.set(0, 0.002, -3);
+    road.position.set(0, 0.002, roadMid);
     road.receiveShadow = true;
     scene.add(road);
 
     for (const side of [-1, 1]) {
-      const walk = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 78), materials.roadEdge);
+      const walk = new THREE.Mesh(new THREE.PlaneGeometry(2.8, roadLen), materials.roadEdge);
       walk.rotation.x = -Math.PI / 2;
-      walk.position.set(side * 6.95, 0.018, -3);
+      walk.position.set(side * 6.95, 0.018, roadMid);
       walk.receiveShadow = true;
       scene.add(walk);
 
-      const sidewalk = new THREE.Mesh(new THREE.PlaneGeometry(2.28, 77), materials.stone);
+      const sidewalk = new THREE.Mesh(new THREE.PlaneGeometry(2.28, roadLen), materials.stone);
       sidewalk.rotation.x = -Math.PI / 2;
-      sidewalk.position.set(side * 6.85, 0.026, -3);
+      sidewalk.position.set(side * 6.85, 0.026, roadMid);
       sidewalk.receiveShadow = true;
       scene.add(sidewalk);
     }
@@ -797,14 +804,17 @@
       metalness: 0,
       envMapIntensity: 0.5,
     });
-    const paving = new THREE.Mesh(new THREE.PlaneGeometry(9.0, 84), pavingBase);
+    // 铺装要盖住门洞前后的整段：石板实例排到 z≈-45 就结束，
+    // 再往外露出的就是泥地。近看门洞时会读成"街尽头铺了一块土黄平台"。
+    // 这里把底层平面延伸到坊门之后，并在门洞前后补一段石板。
+    const paving = new THREE.Mesh(new THREE.PlaneGeometry(9.0, 112), pavingBase);
     paving.rotation.x = -Math.PI / 2;
-    paving.position.set(0, 0.024, -3);
+    paving.position.set(0, 0.024, -8);
     paving.receiveShadow = true;
     scene.add(paving);
     const slabGeometry = new THREE.BoxGeometry(0.62, 0.035, 0.94);
     const COLUMNS = 21;
-    const ROWS = 88;
+    const ROWS = 104;
     const slabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, COLUMNS * ROWS);
     let slabCursor = 0;
     // 街面读成"补丁被面"的根因是每块石头的色差太大（明度差 30%），
@@ -837,6 +847,40 @@
     slabs.castShadow = false;
     slabs.receiveShadow = true;
     scene.add(slabs);
+
+    // 门洞地坪：坊门两侧是夯土墙，门洞正中那段地面既没有铺装也不属于街段，
+    // 从街上看过去是一块土黄平台。这里在门洞内外各铺一段石板，
+    // 让"穿过门洞"这件事在地面上也连续。
+    for (const gateZ of [-39.2, 41.0]) {
+      const apron = new THREE.Mesh(new THREE.PlaneGeometry(10.6, 12.0), pavingBase);
+      apron.rotation.x = -Math.PI / 2;
+      apron.position.set(0, 0.028, gateZ - Math.sign(gateZ) * 3.0);
+      apron.receiveShadow = true;
+      scene.add(apron);
+      // 石板：与主街同尺寸，横向 16 列、纵向 12 行，盖住 10.6×12 的铺装面。
+      const apronSlabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, 16 * 12);
+      let cursor = 0;
+      for (let row = 0; row < 12; row++) {
+        for (let column = 0; column < 16; column++) {
+          matrix.makeTranslation(
+            -4.20 + column * 0.56,
+            0.030 + ((row + column) % 3) * 0.0012,
+            gateZ - Math.sign(gateZ) * 3.0 - 5.4 + row * 0.94,
+          );
+          apronSlabs.setMatrixAt(cursor, matrix);
+          color.setHex(
+            (row + column) % 9 === 0 ? 0x84806f
+              : (row + column) % 5 === 0 ? 0x7e7a6a : 0x7a7768,
+          );
+          apronSlabs.setColorAt(cursor, color);
+          cursor++;
+        }
+      }
+      apronSlabs.instanceMatrix.needsUpdate = true;
+      if (apronSlabs.instanceColor) apronSlabs.instanceColor.needsUpdate = true;
+      apronSlabs.receiveShadow = true;
+      scene.add(apronSlabs);
+    }
 
     // 车辙是道路使用痕迹，不做贴图滤镜；两条细长暗面帮助读出通行方向。
     for (const x of [-1.35, 1.35]) {
@@ -1008,11 +1052,13 @@
     // 门洞之后必须有建筑：否则从街上穿过门洞看到的是雾里的一片白。
     // 正中不放铺面——那里留给 addWardHalls 的殿堂作主景；
     // 只在两侧各补一栋，把门洞两侧的空隙填住。
+    // 两侧建筑要退出视线锥：之前放在 x=±22、z=-47.5，酒肆的红色布篷
+    // 正好从门洞两侧各露出一个角，近看门洞像墙脚挂着两块红牌（已实测定位）。
     const beyond = [
-      [-11.5, -50.0, Math.PI, 0.9, shopRoot],
-      [11.5, -50.0, Math.PI, 0.9, shopRoot],
-      [-22.0, -47.5, Math.PI, 0.86, tavernRoot],
-      [22.0, -47.5, Math.PI, 0.86, tavernRoot],
+      [-14.5, -52.0, Math.PI, 0.9, shopRoot],
+      [14.5, -52.0, Math.PI, 0.9, shopRoot],
+      [-26.0, -50.0, Math.PI, 0.86, tavernRoot],
+      [26.0, -50.0, Math.PI, 0.86, tavernRoot],
     ];
     for (const [x, z, ry, scale, root] of beyond) {
       const building = kitInstance(root, { position: [x, -0.02, z], rotationY: ry, scale });
