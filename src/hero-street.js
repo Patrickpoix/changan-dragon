@@ -780,14 +780,26 @@
       envMapIntensity: 0.55,
     });
     pavingMaterial.normalScale.set(0.34, 0.34);
-    const paving = new THREE.Mesh(new THREE.PlaneGeometry(9.0, 77), pavingMaterial);
+    // 铺装底层：石板实例覆盖不到的地方（街两端）会露出这一层。
+    // 之前这层用白底材质，结果坊门前露出两块刺眼的白斑；
+    // 这里单独给一层石灰色底，漏出的部分读作"石板缝里的砂浆"。
+    const pavingBase = new THREE.MeshStandardMaterial({
+      name: 'street-paving-base',
+      color: 0x8b8377,
+      normalMap: materials.stone.normalMap,
+      roughnessMap: materials.stone.roughnessMap,
+      roughness: 0.95,
+      metalness: 0,
+      envMapIntensity: 0.5,
+    });
+    const paving = new THREE.Mesh(new THREE.PlaneGeometry(9.0, 84), pavingBase);
     paving.rotation.x = -Math.PI / 2;
     paving.position.set(0, 0.024, -3);
     paving.receiveShadow = true;
     scene.add(paving);
     const slabGeometry = new THREE.BoxGeometry(0.62, 0.035, 0.94);
     const COLUMNS = 21;
-    const ROWS = 82;
+    const ROWS = 88;
     const slabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, COLUMNS * ROWS);
     let slabCursor = 0;
     for (let row = 0; row < ROWS; row++) {
@@ -987,12 +999,27 @@
     beam.castShadow = true;
     gate.add(beam);
     const slope = 0.25;
+    // 门楼的屋面同样需要瓦垄：整条街的屋面都有瓦垄，只有门楼是一块黑板，
+    // 从街上一眼就能看出它是临时搭的。
     for (const side of [-1, 1]) {
       const slab = new THREE.Mesh(new THREE.BoxGeometry(15.2, 0.17, 3.35), materials.roof);
       slab.position.set(0, 6.0, z + side * 1.38);
       slab.rotation.x = -side * slope;
       slab.castShadow = slab.receiveShadow = true;
       gate.add(slab);
+      // 瓦垄：沿门楼长度方向每 0.36m 一道。
+      const rolls = 42;
+      for (let i = 0; i < rolls; i++) {
+        const rx = -7.4 + 14.8 * (i + 0.5) / rolls;
+        const roll = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.09, 3.3), materials.roofTile);
+        roll.position.set(rx, 6.10, z + side * 1.38);
+        roll.rotation.x = -side * slope;
+        gate.add(roll);
+      }
+      // 檐口压边：把坡面下缘收成一条明确的线。
+      const edge = new THREE.Mesh(new THREE.BoxGeometry(15.3, 0.10, 0.16), materials.roofTile);
+      edge.position.set(0, 6.0 - Math.sin(slope) * 1.66, z + side * 2.72);
+      gate.add(edge);
     }
     const ridge = new THREE.Mesh(new THREE.BoxGeometry(15.3, 0.2, 0.3), materials.roof);
     ridge.position.set(0, 6.48, z);
