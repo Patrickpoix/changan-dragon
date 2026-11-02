@@ -1152,6 +1152,33 @@
    * 唐长安里坊的空间逻辑本来就是"坊门内十字街、两侧宅邸寺观"，
    * 从街心穿过门洞看到的应当是殿宇，而不是另一排铺面。
    * 只用变换复用同一份 GLB 与共享材质，不增加下载量。 */
+  /* 坊内铺地：把门洞到殿堂台基之间的地面铺满。
+   *
+   * 注意：我原先以为这里是"裸露的 far-ground 裸地"，并用射线与像素采样核对过——
+   * 门洞后的地面颜色 (153,143,116) 与街面 (153,142,116) 几乎一致，
+   * 那片深色其实是**门楼投下的阴影**，不是裸地。前两轮追的是一个不存在的问题。
+   * 这块地坪仍然值得铺：坊墙内侧本来就该有与门洞连续的院内地面，
+   * 而不是依赖门洞铺装（apron）刚好延伸到哪。 */
+  function addWardInteriorPaving() {
+    // 北门在内侧 z=-39.2，殿堂台基前缘约 -45.8；南门在 +41 一侧。
+    // 用一整块覆盖两段之间所有可能露土的区域。
+    for (const seg of [
+      { z0: -46.4, z1: -38.2 },
+      { z0: 38.2, z1: 46.4 },
+    ]) {
+      const len = seg.z1 - seg.z0;
+      const mid = (seg.z0 + seg.z1) / 2;
+      const pad = new THREE.Mesh(
+        new THREE.PlaneGeometry(23.0, len),
+        materials.stone,
+      );
+      pad.rotation.x = -Math.PI / 2;
+      pad.position.set(0, 0.026, mid);
+      pad.receiveShadow = true;
+      scene.add(pad);
+    }
+  }
+
   function addWardHalls(hallRoot) {
     if (!hallRoot) return null;
     const group = new THREE.Group();
@@ -2267,6 +2294,7 @@
     addBackRows(shopRoot, tavernRoot);
     addWardHalls(hallRoot);
     createWardWall(shopRoot, tavernRoot);
+    addWardInteriorPaving();
     // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
     state.streetPlan = entries.map((entry) => {
       const placement = shopPlacement(entry);
