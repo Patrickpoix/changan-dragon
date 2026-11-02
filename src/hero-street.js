@@ -522,7 +522,8 @@
         topColor: { value: new THREE.Color(0x3f7f9c) },
         midColor: { value: new THREE.Color(0x9fc0c8) },
         horizonColor: { value: new THREE.Color(0xf3ddb6) },
-        groundColor: { value: new THREE.Color(0xb49a74) },
+        // 地平线以下用雾色，远处地面才能和天空接上，不出现一条硬边。
+        groundColor: { value: new THREE.Color(0xe6d5b8) },
         sunDirection: { value: new THREE.Vector3(0.42, 0.34, 0.32).normalize() },
       },
       vertexShader: `
@@ -638,13 +639,26 @@
   }
 
   function createGround() {
-    // 地面必须远大于可视距离：120m 见方的土面在 60m 处就露出边缘，远看像
-    // 一堵棕色墙。改成 520m 见方，配合雾把远处收进天色。
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(520, 520), materials.mud);
+    // 远景地面：只作为坊外土地，颜色接近雾色，远处不会读成一条深色"海面"。
+    // 街面本身另有铺装与土路，不靠这张大平面。
+    const farGround = new THREE.MeshStandardMaterial({
+      name: 'far-ground',
+      color: 0xc8b696,
+      roughness: 1,
+      metalness: 0,
+    });
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(520, 520), farGround);
     ground.rotation.x = -Math.PI / 2;
     ground.position.set(0, -0.025, -8);
     ground.receiveShadow = true;
     scene.add(ground);
+
+    // 街两侧的土路只铺在近处，作为铺装与店铺之间的过渡。
+    const nearGround = new THREE.Mesh(new THREE.PlaneGeometry(40, 90), materials.mud);
+    nearGround.rotation.x = -Math.PI / 2;
+    nearGround.position.set(0, -0.012, -3);
+    nearGround.receiveShadow = true;
+    scene.add(nearGround);
 
     const road = new THREE.Mesh(new THREE.PlaneGeometry(11.1, 78), materials.road);
     road.rotation.x = -Math.PI / 2;
@@ -808,10 +822,101 @@
     scene.add(crown);
   }
 
-  function createGate() {
+  /* 坊墙与坊外街景：从街心望出去，坊门之后不能是一片空地和地平线。
+   * 这里在坊门后补一道横墙、一段横向街道和两排远景屋顶，
+   * 让视线有落点；全部复用现有共享材质与简单几何。 */
+  function createWardWall(shopRoot, tavernRoot) {
+    const group = new THREE.Group();
+    group.name = 'ward-wall';
+    // 坊墙是连续的：只在门洞处断开。之前按两段矮墙放在 ±16.6，
+    // 街两侧 5.5–12m 的缺口会直接露出远处地平线，读成"街外是海"。
+    const wallSegments = [
+      // 北端（坊门之后）
+      { z: -43.5, xs: [-23, -13.5, 13.5, 23] },
+      // 南端（街口之后）
+      { z: 39.5, xs: [-23, -13.5, 13.5, 23] },
+    ];
+    for (const { z, xs } of wallSegments) {
+      for (const x of xs) {
+        const wall = new THREE.Mesh(
+          new THREE.BoxGeometry(9.2, 3.4, 0.7),
+          // 用带法线/粗糙度的灰泥材质，不用纯色远景材质：这两道墙离街口
+          // 只有十几米，纯色会读成一块灰色板。
+          materials.plaster,
+        );
+        wall.position.set(x, 1.7, z);
+        wall.castShadow = false;
+        wall.receiveShadow = true;
+        group.add(wall);
+        const cap = new THREE.Mesh(new THREE.BoxGeometry(9.5, 0.22, 1.05), materials.roof);
+        cap.position.set(x, 3.5, z);
+        group.add(cap);
+      }
+      // 门洞两侧的短墙：从门楼边缘接到外侧长墙，把缺口补满。
+      for (const side of [-1, 1]) {
+        const wall = new THREE.Mesh(
+          new THREE.BoxGeometry(5.8, 3.2, 0.7),
+          materials.plaster,
+        );
+        wall.position.set(side * 6.3, 1.6, z);
+        wall.receiveShadow = true;
+        group.add(wall);
+        const cap = new THREE.Mesh(new THREE.BoxGeometry(6.0, 0.20, 1.0), materials.roof);
+        cap.position.set(side * 6.3, 3.3, z);
+        group.add(cap);
+      }
+    }
+    // 街口门楼之后：门洞外不能是一块发白的地面。补一道坊外横街的铺面，
+    // 让视线穿过门洞时落在建筑上。
+    const beyondGate = kitInstance(tavernRoot, {
+      position: [0, -0.02, 48.5],
+      rotationY: Math.PI,
+      scale: 1.0,
+    });
+    beyondGate.traverse((node) => {
+      if (!node.isMesh) return;
+      node.castShadow = false;
+      node.receiveShadow = true;
+      const material = Array.isArray(node.material) ? node.material[0] : node.material;
+      if (!material) return;
+      if (/mat_plaster/i.test(material.name || '')) node.material = materials.plaster;
+      else if (/mat_roof/i.test(material.name || '')) node.material = materials.roof;
+      else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+        node.material = materials.wood;
+      }
+    });
+    group.add(beyondGate);
+    // 坊外横街：两排远景铺面横在门后，错开高度。
+    for (const [x, scale, tavern] of [
+      [-18.5, 0.92, false], [-8.5, 0.86, true], [8.5, 0.90, false], [18.5, 0.86, true],
+    ]) {
+      const root = tavern ? tavernRoot : shopRoot;
+      const building = kitInstance(root, {
+        position: [x, -0.02, -50.5],
+        rotationY: 0,
+        scale,
+      });
+      building.traverse((node) => {
+        if (!node.isMesh) return;
+        node.castShadow = false;
+        node.receiveShadow = true;
+        const material = Array.isArray(node.material) ? node.material[0] : node.material;
+        if (!material) return;
+        if (/mat_plaster/i.test(material.name || '')) node.material = materials.plasterDistant;
+        else if (/mat_roof/i.test(material.name || '')) node.material = materials.roofDistant;
+        else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+          node.material = materials.woodDistant;
+        }
+      });
+      group.add(building);
+    }
+    scene.add(group);
+    return group;
+  }
+
+  function createGate(z = -39.2, facing = 1) {
     const gate = new THREE.Group();
     gate.name = 'west-market-gate';
-    const z = -39.2;
     for (const side of [-1, 1]) {
       const pier = new THREE.Mesh(new THREE.BoxGeometry(1.18, 4.8, 1.38), materials.stone);
       pier.position.set(side * 6.15, 2.4, z);
@@ -853,7 +958,8 @@
       gate.add(wall);
     }
     const sign = makeSignMesh('西市', 3.3, 0.86, { vertical: false, font: 112 });
-    sign.position.set(0, 4.55, z + 0.36);
+    sign.position.set(0, 4.55, z + 0.36 * facing);
+    if (facing < 0) sign.rotation.y = Math.PI;
     gate.add(sign);
     scene.add(gate);
     return gate;
@@ -1183,6 +1289,8 @@
     createLights();
     createGround();
     createGate();
+    // 街口另立一座门楼：从街内回望时，视线落在门上而不是空墙。
+    createGate(41.0, -1);
     createPagoda();
     kitInit();
     Object.assign(KitLibrary.materials, {
@@ -1242,6 +1350,7 @@
     entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
+    createWardWall(shopRoot, tavernRoot);
     // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
     state.streetPlan = entries.map((entry) => {
       const placement = shopPlacement(entry);
@@ -1904,7 +2013,39 @@
     return group;
   }
 
+  /* 人物衣色变体：同一份 GLB 只克隆"布"材质，按颜色缓存。
+   * 这样三十个人有六七种衣色，但几何与皮肤材质仍是共享的，
+   * 不会为每个人复制整套贴图。 */
+  const robeVariantCache = new Map();
+
+  function robeVariant(source, color) {
+    const key = (source.name || 'robe') + '|' + color.toString(16);
+    if (robeVariantCache.has(key)) return robeVariantCache.get(key);
+    const material = source.clone();
+    material.name = 'resident-robe-' + color.toString(16);
+    material.color = new THREE.Color(color);
+    material.roughness = Math.max(0.72, material.roughness ?? 0.8);
+    material.metalness = 0;
+    robeVariantCache.set(key, material);
+    return material;
+  }
+
+  function applyRobeColor(person, color) {
+    person.traverse((node) => {
+      if (!node.isMesh) return;
+      const source = Array.isArray(node.material) ? node.material[0] : node.material;
+      if (!source) return;
+      // 只改衣物类材质：皮肤、头发、瞳孔保持原样。
+      if (/cloth|silk|scarf|belt/i.test(source.name || '')) {
+        node.material = robeVariant(source, color);
+      }
+    });
+  }
+
   function createPeople(characterRoots = {}) {
+    // 街上的人分三类位置：铺面前的主顾、摊位边的买卖双方、街心走动的行人。
+    // 只放十个人会让整条街读成空巷；这里加到三十余人，且成组出现，
+    // 每组两三人，才像"市井"而不是排列的模型。
     const people = [
       [-5.15, 11.9, -Math.PI / 2, { robe: 0x8d5a45, female: false, scale: 1.0 }],
       [-4.28, 12.1, Math.PI / 2, { robe: 0x596e70, female: true, scale: 0.94 }],
@@ -1916,6 +2057,30 @@
       [-4.25, 5.1, Math.PI / 2, { robe: 0x6f6252, female: false, scale: 0.94 }],
       [3.9, -33.0, -1.4, { robe: 0x4e5c5c, female: false, guard: true, scale: 1.0 }],
       [-3.6, 27.5, 2.3, { robe: 0x9b7355, female: true, scale: 0.86 }],
+      // 摊位前的买卖双方：与 createStall 的位置对齐。
+      [-3.05, 9.2, 2.6, { robe: 0x7c6a4e, female: false, scale: 0.98 }],
+      [-3.10, 10.6, 2.9, { robe: 0x8e5f4a, female: true, scale: 0.88 }],
+      [3.05, 1.3, -2.7, { robe: 0x5f7074, female: false, scale: 1.0 }],
+      [3.12, 2.7, -2.5, { robe: 0x9a6a4c, female: true, scale: 0.92 }],
+      [-3.02, -15.6, 2.5, { robe: 0x6b5a48, female: false, scale: 1.02 }],
+      [3.08, -24.4, -2.6, { robe: 0x7a5a50, female: false, scale: 0.95 }],
+      // 街心行人：成组走动，给主街以人流。
+      [-1.7, 19.5, 2.9, { robe: 0x6d7a68, female: false, scale: 0.97 }],
+      [-1.1, 18.8, 3.1, { robe: 0x8a5b4a, female: true, scale: 0.9 }],
+      [1.4, 13.0, -0.3, { robe: 0x5d6a72, female: false, scale: 1.0 }],
+      [0.9, 3.6, -0.2, { robe: 0x7f6a4f, female: true, scale: 0.93 }],
+      [-2.2, -2.5, 2.8, { robe: 0x6a5c4b, female: false, scale: 0.99 }],
+      [-1.5, -3.4, 2.6, { robe: 0x8d6a52, female: false, scale: 0.92 }],
+      [1.9, -9.8, -0.4, { robe: 0x596b5f, female: false, scale: 1.01 }],
+      [1.2, -10.9, -0.2, { robe: 0x9a7258, female: true, scale: 0.87 }],
+      [-2.4, -21.0, 2.9, { robe: 0x70604c, female: false, scale: 0.96 }],
+      [2.6, -27.5, -0.5, { robe: 0x5f6a63, female: false, scale: 0.98 }],
+      [0.4, -30.5, -0.1, { robe: 0x86604a, female: true, scale: 0.9 }],
+      [-0.9, 24.8, 2.7, { robe: 0x77664e, female: false, scale: 0.94 }],
+      [2.2, 25.6, -0.4, { robe: 0x6b5d55, female: false, scale: 1.0 }],
+      [4.4, 16.4, -Math.PI / 2, { robe: 0x7d6a52, female: true, scale: 0.9 }],
+      [-4.5, -5.6, Math.PI / 2, { robe: 0x5b6b62, female: false, scale: 0.96 }],
+      [-4.4, -6.4, Math.PI / 2, { robe: 0x8b5f4b, female: true, scale: 0.88 }],
     ];
     for (const [x, z, ry, options] of people) {
       const source = options.female ? characterRoots.female : characterRoots.male;
@@ -1931,6 +2096,7 @@
           node.castShadow = true;
           node.receiveShadow = true;
         });
+        applyRobeColor(person, options.robe);
         person.userData.isPerson = true;
         person.userData.phase = Math.random() * Math.PI * 2;
         person.userData.baseY = 0.03;

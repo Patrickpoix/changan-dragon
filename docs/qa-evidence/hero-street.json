@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8899/content/street/index.html",
-  "output": "D:\\tmp\\changan-accept4-20261102",
+  "output": "D:\\tmp\\changan-accept5-20261102",
   "browser": "Playwright Chromium",
   "finalArtAccepted": false,
   "phonePerformanceVerified": false,
@@ -30,37 +30,37 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 945,
-        "triangles": 1229519,
+        "calls": 1368,
+        "triangles": 1841681,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 41
+        "frames": 40
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          1.3712204423454876e-16,
+          1.4653040031011452e-16,
           0.03,
-          21.880313537503074
+          21.803488480008
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7922087495868532e-15,
+          -1.786234994343436e-15,
           3.193755216853571,
-          29.834495030196944
+          29.785715616838115
         ],
-        "calls": 943,
-        "triangles": 1223781,
+        "calls": 1366,
+        "triangles": 1835943,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
         "frames": 65
@@ -70,39 +70,39 @@
         "mode": "fly",
         "near": false,
         "position": [
-          1.8258343149860978e-16,
-          1.61,
-          21.50909313913423
+          1.9704971385749627e-16,
+          1.7238800000309944,
+          21.39096697925729
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.6970083733083679e-15,
-          3.9568554656390855,
-          29.05712496443784
+          -1.6814704340425276e-15,
+          4.24983430601404,
+          28.930248061834916
         ],
-        "calls": 943,
-        "triangles": 1223693,
+        "calls": 1345,
+        "triangles": 1824947,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 83
+        "frames": 86
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.4207888329331797,
-          18.96497867213799
+          2.5365653144847835,
+          18.84339275529893
         ],
         "head": [
-          2.5002250678822107e-16,
-          2.3867978988745406,
-          20.958411298977826
+          2.649834125851406e-16,
+          2.5011168163989037,
+          20.836246232222777
         ],
-        "distance": 2.3417272964761238,
-        "calls": 942
+        "distance": 2.341255920701032,
+        "calls": 246
       },
       "reset": {
         "started": true,
@@ -115,19 +115,19 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.33987001023581276,
-          3.111866522619528,
-          26.441539529905636
+          0.3840904744493838,
+          3.2071963129386534,
+          27.256482063999094
         ],
-        "calls": 356,
-        "triangles": 497497,
+        "calls": 1011,
+        "triangles": 1589507,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 118
+        "frames": 124
       },
       "streetPlan": [
         {
@@ -475,6 +475,116 @@
           "armSpan": 0.42,
           "torsoSpan": 0.57,
           "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
         }
       ],
       "modeHighlight": [
@@ -623,7 +733,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.016)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
@@ -676,7 +786,7 @@
               "mode": null,
               "active": false,
               "hover": false,
-              "background": "rgba(255, 255, 255, 0.016)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
@@ -778,79 +888,79 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 969,
-        "triangles": 1263915,
+        "calls": 1392,
+        "triangles": 1876077,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 42
+        "frames": 39
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          8.617816080983863e-17,
+          8.402612952573682e-17,
           0.03,
-          22.296301914398178
+          22.313874583396295
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.8206868596059953e-15,
+          -1.8226639567066887e-15,
           3.193755216853571,
-          30.067036445721563
+          30.083180668709524
         ],
-        "calls": 964,
-        "triangles": 1258007,
+        "calls": 1387,
+        "triangles": 1870169,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 70
+        "frames": 66
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.1295228591297897e-16,
-          1.61,
-          22.077674591632288
+          1.1434985424378551e-16,
+          1.7836799998760224,
+          22.066262580170868
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.765031734251955e-15,
-          4.029469049118542,
-          29.612577859027095
+          -1.7629717087902808e-15,
+          4.31113368289629,
+          29.595756474582963
         ],
-        "calls": 958,
-        "triangles": 1241503,
+        "calls": 1374,
+        "triangles": 1849057,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 89
+        "frames": 88
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.4084519749417734,
-          19.529138643834905
+          2.5988591049666496,
+          19.516855123252554
         ],
         "head": [
-          1.8093283643365138e-16,
-          2.3744610408831344,
-          21.522571270674742
+          1.8258509013662124e-16,
+          2.561103664942551,
+          21.509079595327044
         ],
-        "distance": 2.3417272964761238,
-        "calls": 959
+        "distance": 2.3407566148785133,
+        "calls": 248
       },
       "reset": {
         "started": true,
@@ -863,19 +973,19 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.48539511116809403,
-          3.0754386494006822,
-          25.09252262068828
+          0.08375745686161451,
+          3.079721952678698,
+          24.959946667478278
         ],
-        "calls": 159,
-        "triangles": 108706,
+        "calls": 168,
+        "triangles": 142012,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 79,
+          "instances": 106,
           "sharedGeometries": 0
         },
-        "frames": 125
+        "frames": 124
       },
       "streetPlan": [
         {
@@ -1223,6 +1333,116 @@
           "armSpan": 0.42,
           "torsoSpan": 0.57,
           "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
         }
       ],
       "modeHighlight": [
@@ -1294,7 +1514,7 @@
               "mode": "fly",
               "active": false,
               "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
@@ -1347,7 +1567,7 @@
               "mode": "fly",
               "active": false,
               "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.063)",
               "selectedColor": false
             },
             {
@@ -1371,7 +1591,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.016)",
               "selectedColor": false
             },
             {
@@ -1424,7 +1644,7 @@
               "mode": null,
               "active": false,
               "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.016)",
               "selectedColor": false
             },
             {
