@@ -1542,7 +1542,16 @@
     });
     group.name = entry.kind + '-' + entry.side + '-' + entry.z;
     group.userData.entry = entry;
-    const tint = [materials.redWood, materials.wood, materials.greenPaint][Math.abs(Math.round(entry.z)) % 3];
+    // 檐柱（朱红）与木构/格扇（本木）必须分开上色。
+    // 之前把两者合并成同一个 tint，轮到"青漆"那档时整间铺面的柱子、
+    // 格扇、额枋全染成同一块青绿平板，铺面读成一块色板（实测在香药铺出现）。
+    // 唐式铺面是"朱柱 + 木色格扇"的对比，柱色轮换、木作保持本木。
+    const columnTint = [
+      materials.redWood, materials.redWood, materials.darkWood,
+    ][Math.abs(Math.round(entry.z)) % 3];
+    const timberTint = [
+      materials.wood, materials.wood, materials.darkWood,
+    ][Math.abs(Math.round(entry.z)) % 3];
     // 墙面三色都用带法线/粗糙度的灰泥类材质。这里不能用 materials.stone：
     // 灰石路的贴图偏亮偏白，乘上后整面读成一块白板（实测在右侧铺面出现）。
     const plasterTint = [
@@ -1562,8 +1571,10 @@
       // 换成 street-cloth / street-plaster / street-red-wood，
       // 之前按 mat_* 匹配，整套按铺面换色的代码从未生效过（实测确认）。
       const name = material.name || '';
-      if (/street-red-wood|street-wood/i.test(name)) {
-        node.material = tint;
+      if (/street-red-wood/i.test(name)) {
+        node.material = columnTint;
+      } else if (/street-wood/i.test(name)) {
+        node.material = timberTint;
       } else if (/street-shop-interior/i.test(name)) {
         // 内壁必须保持深色：混进 plasterTint 会重新变白。
         node.material = materials.shopInterior;
