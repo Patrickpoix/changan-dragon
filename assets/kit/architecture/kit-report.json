@@ -135,15 +135,42 @@
       "height_m": 4.693
     },
     {
+      "id": "shop_low_shijing",
+      "grade": 0.22,
+      "storey": 0,
+      "triangles": 9460,
+      "dimensions_m": [
+        4.359,
+        5.244,
+        5.381
+      ],
+      "height_m": 5.381,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
       "id": "shop_shijing",
       "grade": 0.22,
-      "triangles": 9580,
+      "storey": 1,
+      "triangles": 9736,
       "dimensions_m": [
         4.69,
         5.244,
         6.032
       ],
       "height_m": 6.032,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "shop_tall_shijing",
+      "grade": 0.22,
+      "storey": 2,
+      "triangles": 10652,
+      "dimensions_m": [
+        5.089,
+        5.244,
+        6.895
+      ],
+      "height_m": 6.895,
       "geometry_mode": "street_frontage_gable_roof_awning"
     },
     {

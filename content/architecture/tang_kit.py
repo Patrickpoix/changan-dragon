@@ -1616,12 +1616,18 @@ def build_shop(
     materials=None,
     has_upper=False,
     awning=True,
+    storey=0,
 ):
     """市井店铺：夯土/白灰墙 + 木构门面 + 悬山顶，可沿街连续排列。
 
     与殿宇共用同一套构件函数（柱、柱础、铺作、屋面、格扇），
     区别只在材等（三号材）、开间数与是否用悬山。这样市井与宫阙是同一套
     营造体系下的不同等级，而不是两批风格不同的模型。
+
+    storey 是铺面的等级档位（0/1/2）：同一套构件、同一份 GLB，
+    靠柱高、铺作跳数、举高与台基高度形成真实的檐口高低差。
+    之前整条街的铺面共用一个尺度，屋檐几乎在同一条线上，
+    天际线读成一条直线——这是"街不像街"的主要原因之一。
     """
     materials = resolve_materials(
         materials,
@@ -1631,12 +1637,20 @@ def build_shop(
     m = TangModule(grade)
     parts = []
 
-    bay = m.f(120)
+    # 三档尺度：低铺 / 常铺 / 高铺。数值是"分"，按材分制换算。
+    STOREYS = {
+        0: {"col": 160.0, "plat": 16.0, "rise": 62.0, "jumps": 1, "bay": 110.0},
+        1: {"col": 190.0, "plat": 20.0, "rise": 70.0, "jumps": 1, "bay": 120.0},
+        2: {"col": 228.0, "plat": 26.0, "rise": 80.0, "jumps": 2, "bay": 132.0},
+    }
+    spec = STOREYS[max(0, min(2, int(storey)))]
+
+    bay = m.f(spec["bay"])
     half_x = bay * bays / 2.0
     half_y = m.f(120)
     col_d = m.f(28)
-    col_h = m.f(190) if not has_upper else m.f(170)
-    plat_h = m.f(20)
+    col_h = m.f(spec["col"]) if not has_upper else m.f(170)
+    plat_h = m.f(spec["plat"])
 
     parts.append(
         box(
@@ -1644,6 +1658,15 @@ def build_shop(
             (half_x * 2 + m.f(24), half_y * 2 + m.f(24), plat_h),
             materials["stone"],
             (0.0, 0.0, plat_h / 2.0),
+        )
+    )
+    # 台基压边：三档台基高度不同，压边让台基读成"阶基"而不是一块垫板。
+    parts.append(
+        box(
+            "%s_plinth_coping" % name,
+            (half_x * 2 + m.f(30), half_y * 2 + m.f(30), m.f(5)),
+            materials["stone"],
+            (0.0, 0.0, plat_h - m.f(2.5)),
         )
     )
     top = plat_h
@@ -1793,7 +1816,8 @@ def build_shop(
             )
         )
 
-    # 檐下铺作：市井用四铺作单抄（无下昂），体量小、层次简单
+    # 檐下铺作：市井用四铺作单抄；高铺用两跳，斗拱更大一层，
+    # 这是"高铺"与"常铺"最直观的等级差。
     puzuo_z = wall_z + wall_h
     puzuo_top = puzuo_z
     for index, px in enumerate(col_xs):
@@ -1802,7 +1826,7 @@ def build_shop(
             m,
             materials,
             origin=(0.0, 0.0, puzuo_z),
-            jumps=1,
+            jumps=spec["jumps"],
         )
         for obj in group:
             obj.location.y += half_y - col_d * 0.9
@@ -1815,7 +1839,7 @@ def build_shop(
         half_x + m.f(10),
         half_y + m.f(10),
         m.f(45),
-        m.f(70),
+        m.f(spec["rise"]),
         materials,
         gable_overhang=m.f(20),
     )
@@ -1827,9 +1851,11 @@ def build_shop(
 
     # 雨篷（遮阳棚）：从铺面挑出，外缘略低；立柱落回台基，
     # 不能像旧版一样在檐下悬着一块平板。
+    # 篷口高度随柱高走：三档铺面的篷口位置因此不同，街上看过去
+    # 篷布也形成错落，而不是一条连续的横线。
     if awning:
         cloth = materials.get("cloth") or materials["wood"]
-        z_inner = top + m.f(98)
+        z_inner = top + m.f(spec["col"] * 0.52)
         z_outer = z_inner - m.f(10)
         y_outer = half_y + m.f(58)
         parts.append(

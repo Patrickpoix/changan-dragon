@@ -513,11 +513,16 @@
     materials.fruitGreen = makeMat('fruit-green', 0x71834b, 0.7, 0);
     materials.terracotta = makeMat('terracotta', 0x9b6646, 0.88, 0);
     materials.plasterWarm = makeMat('street-plaster-warm', 0xcab995, 0.86, 0);
+    // 第三档墙色：偏土的赭黄。三档墙面各自有法线/粗糙度贴图，
+    // 不能拿灰石路材质顶替——那张贴图偏亮偏白，会把整面墙读成白板。
+    materials.plasterOchre = materials.plaster.clone();
+    materials.plasterOchre.name = 'street-plaster-ochre';
+    materials.plasterOchre.color.setHex(0xbfa886);
     // 铺面内壁：比外墙暗两档的暖灰，格扇后面的暗部。
     materials.shopInterior = makeMat('street-shop-interior', 0x2e251d, 0.94, 0);
     // 后排屋海的材质：比前店更浅、更偏冷，配合雾把纵深压进空气里，
     // 避免后排与前店同样的对比度，让整条街像两堵平行的墙。
-    materials.plasterDistant = makeMat('street-plaster-distant', 0xcfc3ab, 0.94, 0);
+    materials.plasterDistant = makeMat('street-plaster-distant', 0x8f8672, 0.94, 0);
     materials.roofDistant = makeMat('street-roof-distant', 0x59605f, 0.94, 0);
     materials.woodDistant = makeMat('street-wood-distant', 0x6f5240, 0.92, 0);
     // 远景塔：比近景深一档，才能在雾里读出一层层屋檐。
@@ -1451,7 +1456,11 @@
     group.name = entry.kind + '-' + entry.side + '-' + entry.z;
     group.userData.entry = entry;
     const tint = [materials.redWood, materials.wood, materials.greenPaint][Math.abs(Math.round(entry.z)) % 3];
-    const plasterTint = [materials.plaster, materials.plasterWarm, materials.stone][Math.abs(Math.round(entry.z)) % 3];
+    // 墙面三色都用带法线/粗糙度的灰泥类材质。这里不能用 materials.stone：
+    // 灰石路的贴图偏亮偏白，乘上后整面读成一块白板（实测在右侧铺面出现）。
+    const plasterTint = [
+      materials.plaster, materials.plasterWarm, materials.plasterOchre,
+    ][Math.abs(Math.round(entry.z)) % 3];
     // 布篷按铺面轮换颜色：整条街清一色红布篷会读成一条流水线。
     const clothTint = [
       materials.clothBlue, materials.clothOchre, materials.cloth, materials.clothOchre,
@@ -1489,7 +1498,26 @@
 
   /* 临街铺面背后再排一层屋海：街两侧的天际线不能只由一排店铺和空地看着。
    * 第二排复用同一份 GLB 与共享材质，只做变换，因此不增加下载量；
-   * 屋顶轮廓、楼层高度与沿街方向都与前店错开，读出"坊内纵深"。 */
+   * 屋顶轮廓、楼层高度与沿街方向都与前店错开，读出"坊内纵深"。
+   *
+   * 这里必须复用前排的真实材质，只把明度压暗一档：
+   * 之前用 plasterDistant 之类的纯色无贴图材质，整排屋海读成一片白板墙，
+   * 从街上一眼就能看出后排是假的（射线实测确认那片白就是这排）。
+   * 现在按"乘一个暗色"的方式复用前排材质，贴图与法线仍在，
+   * 远看是同一套建筑，只是退到后面、暗了一层。 */
+  const distantTintCache = new Map();
+  function distantTint(source, factor, name) {
+    const key = source.name + '|' + factor;
+    if (distantTintCache.has(key)) return distantTintCache.get(key);
+    const material = source.clone();
+    material.name = name;
+    material.color = source.color.clone().multiplyScalar(factor);
+    material.roughness = Math.min(1, (source.roughness ?? 0.9) + 0.04);
+    material.envMapIntensity = Math.min(source.envMapIntensity ?? 0.8, 0.35);
+    distantTintCache.set(key, material);
+    return material;
+  }
+
   function addBackRows(shopRoot, tavernRoot) {
     const rows = [];
     for (const side of [-1, 1]) {
@@ -1512,12 +1540,17 @@
           node.receiveShadow = true;
           const material = Array.isArray(node.material) ? node.material[0] : node.material;
           if (!material) return;
-          if (/mat_plaster/i.test(material.name || '')) {
-            node.material = materials.plasterDistant;
-          } else if (/mat_roof/i.test(material.name || '')) {
-            node.material = materials.roofDistant;
-          } else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
-            node.material = materials.woodDistant;
+          const name = material.name || '';
+          if (/mat_plaster/i.test(name)) {
+            node.material = distantTint(materials.plaster, 0.72, 'street-plaster-back');
+          } else if (/mat_interior/i.test(name)) {
+            node.material = materials.shopInterior;
+          } else if (/mat_roof/i.test(name)) {
+            node.material = distantTint(materials.roof, 0.80, 'street-roof-back');
+          } else if (/mat_cloth/i.test(name)) {
+            node.material = distantTint(materials.cloth, 0.78, 'street-cloth-back');
+          } else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(name)) {
+            node.material = distantTint(materials.wood, 0.66, 'street-wood-back');
           }
         });
         scene.add(group);
@@ -1562,8 +1595,12 @@
     state.kitStats = KitLibrary.stats;
 
     setProgress(0.2, '装起西市木构');
-    const [shopRoot, tavernRoot, hallRoot, residentMale, residentFemale] = await Promise.all([
+    const [shopLowRoot, shopRoot, shopTallRoot, tavernRoot, hallRoot, residentMale, residentFemale] = await Promise.all([
+      // 三档铺面：同一套构件，柱高 / 铺作跳数 / 举高 / 台基不同，
+      // 屋脊高度 5.38 / 6.03 / 6.89 米。檐口因此有真实的高低错落。
+      kitLoad('shop-low-shijing', '/assets/kit/architecture/shop-low-shijing.glb'),
       kitLoad('shop-shijing', '/assets/kit/architecture/shop-shijing.glb'),
+      kitLoad('shop-tall-shijing', '/assets/kit/architecture/shop-tall-shijing.glb'),
       kitLoad('tavern-shijing', '/assets/kit/architecture/tavern-shijing.glb'),
       // 殿堂构件：目标要求"宏大建筑奇观"，只靠市井小铺做不到。
       // 这里把已有的殿堂 GLB 作为坊内宏大量体放在街廓之后，
@@ -1589,33 +1626,44 @@
       const lane = [];
       let cursor = startZ;
       plan.forEach((item, i) => {
+        // 三档铺面沿街半深相同（进深都是 5.24m），所以排布不受档位影响；
+        // 档位只改高度与屋顶，不改占地。
         const scale = item.kind === 'tavern' ? 0.96
           : i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0;
         const halfD = halfDepthOf(item.kind, scale);
         const z = cursor + halfD;
-        lane.push({ side, z, kind: item.kind, scale });
+        lane.push({ side, z, kind: item.kind, tier: item.tier || 1, scale });
         cursor = z + halfD + SEAM;
       });
       return lane;
     };
 
     // 左侧从 -30.25 起、右侧从 -33.0 起，两侧错开半间，避免正对面的铺面
-    // 檐口在同一位置对齐。
+    // 檐口在同一位置对齐。tier 是三档铺面（0 低 / 1 常 / 2 高）。
     const leftPlan = [
-      { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' }, { kind: 'shop' },
-      { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' },
-      { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' }, { kind: 'shop' },
+      { kind: 'shop', tier: 0 }, { kind: 'tavern' }, { kind: 'shop', tier: 2 },
+      { kind: 'shop', tier: 1 }, { kind: 'shop', tier: 0 }, { kind: 'shop', tier: 1 },
+      { kind: 'tavern' }, { kind: 'shop', tier: 2 }, { kind: 'shop', tier: 0 },
+      { kind: 'tavern' }, { kind: 'shop', tier: 1 }, { kind: 'shop', tier: 0 },
     ];
     const rightPlan = [
-      { kind: 'shop' }, { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' },
-      { kind: 'shop' }, { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' },
-      { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' },
+      { kind: 'shop', tier: 1 }, { kind: 'shop', tier: 0 }, { kind: 'shop', tier: 1 },
+      { kind: 'tavern' }, { kind: 'shop', tier: 2 }, { kind: 'shop', tier: 1 },
+      { kind: 'shop', tier: 0 }, { kind: 'tavern' }, { kind: 'shop', tier: 1 },
+      { kind: 'shop', tier: 2 }, { kind: 'tavern' }, { kind: 'shop', tier: 0 },
     ];
     const entries = [
       ...layLane(-1, leftPlan, -30.25),
       ...layLane(1, rightPlan, -33.0),
     ];
-    entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
+    // 按档位选对应的 GLB：同一套构件，三份不同高度的导出。
+    const rootFor = (entry) => {
+      if (entry.kind === 'tavern') return tavernRoot;
+      if (entry.tier === 0) return shopLowRoot;
+      if (entry.tier === 2) return shopTallRoot;
+      return shopRoot;
+    };
+    entries.forEach((entry) => addBuilding(rootFor(entry), entry));
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
     addWardHalls(hallRoot);

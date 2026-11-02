@@ -61,9 +61,12 @@ def build_hall_module(m, mats, name="hall_kaijian", modules=(3, 2)):
     return kit.build_hall(name, modules=modules, grade=m.cai, materials=mats)
 
 
-def build_shop_module(m, mats, name="shop_san", bays=2, has_upper=False):
+def build_shop_module(m, mats, name="shop_san", bays=2, has_upper=False, storey=1):
     """市井店铺：与殿宇同一套构件、不同材等与屋顶形制。"""
-    return kit.build_shop(name, bays=bays, grade=m.cai, materials=mats, has_upper=has_upper)
+    return kit.build_shop(
+        name, bays=bays, grade=m.cai, materials=mats,
+        has_upper=has_upper, storey=storey,
+    )
 
 
 def build_townhouse_module(m, mats, name="tavern_san", bays=3):
@@ -452,7 +455,8 @@ def main():
         report.setdefault("modules", [])
         report.setdefault("note", "唐构构件库，尺寸按材分制换算")
         m = kit.TangModule(0.22)
-        modules = [row for row in report["modules"] if row.get("id") not in ("shop_shijing", "tavern_shijing")]
+        shop_ids = ("shop_low_shijing", "shop_shijing", "shop_tall_shijing", "tavern_shijing")
+        modules = [row for row in report["modules"] if row.get("id") not in shop_ids]
 
         def ground(size):
             bpy.ops.mesh.primitive_plane_add(size=size, location=(0, 0, -0.002))
@@ -461,33 +465,41 @@ def main():
                 kit.make_material("mat_review_ground", kit.srgb(0x8C8880), 0.9)
             )
 
-        kit.reset_scene()
-        mats = kit_materials()
-        cam = setup_render(None)
-        shop = join(build_shop_module(m, mats, "shop_shijing", bays=2), "shop_shijing")
-        bpy.context.view_layer.update()
-        ground(60.0)
-        sh_center, sh_radius, sh_lo, sh_hi = bounds([shop])
-        modules.append(
-            {
-                "id": "shop_shijing",
-                "grade": m.cai,
-                "triangles": count_triangles([shop]),
-                "dimensions_m": tuple(round(v, 3) for v in shop.dimensions),
-                "height_m": round(sh_hi[2] - sh_lo[2], 3),
-                "geometry_mode": "street_frontage_gable_roof_awning",
-            }
-        )
-        for label, az, el in (
-            ("front", 180.0, 7.0),
-            ("three-quarter", 148.0, 16.0),
-            ("shopfront", 172.0, 3.0),
-            ("side", 90.0, 10.0),
-            ("aerial", 205.0, 45.0),
+        # 三档铺面各出一份 GLB：同一套构件、同一份材质，只差柱高、
+        # 铺作跳数、举高与台基高度。这样街上的檐口才有真实的高低错落。
+        for storey, module_id, glb, label in (
+            (0, "shop_low_shijing", "shop-low-shijing", "shop-low"),
+            (1, "shop_shijing", "shop-shijing", "shop"),
+            (2, "shop_tall_shijing", "shop-tall-shijing", "shop-tall"),
         ):
-            place_camera(cam, sh_center, sh_radius, az, el, zoom=1.1)
-            render_to(os.path.join(shots_dir, "shop-shijing-%s.jpg" % label))
-        export_glb(os.path.join(out_dir, "shop-shijing.glb"), [shop])
+            kit.reset_scene()
+            mats = kit_materials()
+            cam = setup_render(None)
+            shop = join(build_shop_module(m, mats, module_id, bays=2, storey=storey), module_id)
+            bpy.context.view_layer.update()
+            ground(60.0)
+            sh_center, sh_radius, sh_lo, sh_hi = bounds([shop])
+            modules.append(
+                {
+                    "id": module_id,
+                    "grade": m.cai,
+                    "storey": storey,
+                    "triangles": count_triangles([shop]),
+                    "dimensions_m": tuple(round(v, 3) for v in shop.dimensions),
+                    "height_m": round(sh_hi[2] - sh_lo[2], 3),
+                    "geometry_mode": "street_frontage_gable_roof_awning",
+                }
+            )
+            for shot, az, el in (
+                ("front", 180.0, 7.0),
+                ("three-quarter", 148.0, 16.0),
+                ("shopfront", 172.0, 3.0),
+                ("side", 90.0, 10.0),
+                ("aerial", 205.0, 45.0),
+            ):
+                place_camera(cam, sh_center, sh_radius, az, el, zoom=1.1)
+                render_to(os.path.join(shots_dir, "%s-%s.jpg" % (label, shot)))
+            export_glb(os.path.join(out_dir, glb + ".glb"), [shop])
 
         kit.reset_scene()
         mats = kit_materials()
