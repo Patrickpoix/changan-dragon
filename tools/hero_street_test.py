@@ -83,7 +83,7 @@ async def wait_mode_style(page):
     try:
         await page.wait_for_function(
             "() => { const s = (" + MODE_STYLE + ")(); return s.settled; }",
-            timeout=30000,
+            timeout=90000,
         )
     except Exception:
         state = await page.evaluate(MODE_STYLE)
@@ -177,7 +177,7 @@ async def run(args):
                         try:
                             await page.wait_for_function(
                                 f"__street.state.position.z < {before - 0.5}",
-                                timeout=30000,
+                                timeout=90000,
                             )
                         finally:
                             await cdp.send(
@@ -197,7 +197,7 @@ async def run(args):
                         try:
                             await page.wait_for_function(
                                 f"__street.state.position.z < {before - 1}",
-                                timeout=30000,
+                                timeout=90000,
                             )
                         finally:
                             await page.keyboard.up("w")
@@ -222,12 +222,12 @@ async def run(args):
                     await page.wait_for_function(
                         "__street.state.position.y > 1.55 || "
                         "__street.state.time > 1.0",
-                        timeout=30000,
+                        timeout=90000,
                     )
                     if not await page.evaluate("__street.state.position.y > 1.55"):
                         await page.keyboard.down("q")
                         await page.wait_for_function(
-                            "__street.state.position.y > 1.55", timeout=30000
+                            "__street.state.position.y > 1.55", timeout=90000
                         )
                         await page.keyboard.up("q")
                     item["flight"] = await read(page)

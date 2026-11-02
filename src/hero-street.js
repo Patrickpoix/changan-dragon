@@ -453,6 +453,27 @@
     materials.dragonLip = makeMat('dragon-lip', 0x2f5d52, 0.60, 0);
     materials.dragonNose = makeMat('dragon-nose', 0x8e5a52, 0.52, 0);
     materials.dragonEar = makeMat('dragon-ear', 0xd9a094, 0.68, 0);
+    // 檐下暗部：上深下透的竖向渐变，一张 4×64 画布生成一次，全街共享。
+    const shadeCanvas = document.createElement('canvas');
+    shadeCanvas.width = 4;
+    shadeCanvas.height = 64;
+    const shadeCtx = shadeCanvas.getContext('2d');
+    const shadeGradient = shadeCtx.createLinearGradient(0, 0, 0, 64);
+    shadeGradient.addColorStop(0, 'rgba(38, 30, 22, 0.55)');
+    shadeGradient.addColorStop(0.45, 'rgba(38, 30, 22, 0.20)');
+    shadeGradient.addColorStop(1, 'rgba(38, 30, 22, 0)');
+    shadeCtx.fillStyle = shadeGradient;
+    shadeCtx.fillRect(0, 0, 4, 64);
+    const shadeTexture = new THREE.CanvasTexture(shadeCanvas);
+    shadeTexture.needsUpdate = true;
+    materials.facadeShade = new THREE.MeshBasicMaterial({
+      name: 'facade-shade',
+      map: shadeTexture,
+      transparent: true,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      toneMapped: false,
+    });
     // 吻部：奶油色略偏暖，与腹甲同一色系但不完全一样，避免整脸一个白块。
     materials.dragonMuzzle = makeMat('dragon-muzzle', 0xe9d9b6, 0.66, 0);
     materials.dragonNostril = makeMat('dragon-nostril', 0x6f4a44, 0.62, 0);
@@ -1158,6 +1179,23 @@
       }
     }
 
+    /* 檐下暗部：沿铺面立面贴一片上深下透的渐变，模拟挑檐挡住的天光。
+     * 没有这层，整面白灰墙从檐口到地面亮度一样，读成一张贴纸；
+     * 这是廉价但有效的假 AO，比加几何檐口更省。 */
+    function addFacadeShade() {
+      const eaveY = isTavern ? 3.46 : 2.78;
+      const halfSpan = halfD * 0.94;
+      const frontX = SHOP_FRONT * entry.scale;
+      const shade = new THREE.Mesh(
+        sharedGeometry.facadeShade,
+        materials.facadeShade,
+      );
+      shade.position.set(entry.side * (frontX - 0.02), eaveY - 0.62, entry.z);
+      shade.rotation.y = entry.side < 0 ? Math.PI / 2 : -Math.PI / 2;
+      shade.scale.set(halfSpan * 1.9, 1.24, 1);
+      scene.add(shade);
+    }
+
     function addSideWindow(side, z, y, width = 0.9, height = 0.72) {
       const local = new THREE.Matrix4().makeTranslation(side * (halfW + 0.035), y, z);
       const scale = entry.scale;
@@ -1193,6 +1231,7 @@
       queueBatch(isTavern ? 'tavern-beam' : 'shop-beam', beamGeo, frameMat, beamWorld);
     }
     addStreetAwning();
+    addFacadeShade();
     if (!isTavern) {
       for (const x of [-1.35, 0, 1.35]) {
         const scale = entry.scale;
@@ -1592,6 +1631,8 @@
     transomBar: new THREE.BoxGeometry(0.88, 0.045, 0.07),
     // 单位尺寸雨篷：所有铺面共用一份几何，靠实例矩阵缩放成不同宽度。
     awning: new THREE.BoxGeometry(1, 0.06, 1),
+    // 檐下暗部：1×1 平面，靠缩放贴到不同宽高的立面上。
+    facadeShade: new THREE.PlaneGeometry(1, 1),
   };
 
   const batchQueues = new Map();

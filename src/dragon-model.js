@@ -408,11 +408,13 @@
       pos.setZ(i, z - socket * 0.004);
       if (colorAttr) {
         color.fromBufferAttribute(colorAttr, i);
-        // 奶油色只涂在吻部下沿（z > 0.12 且 y < 0），不到颊侧、不到额顶。
-        const snout = smoothstepValue(0.08, 0.22, z);
-        const under = smoothstepValue(0.02, -0.08, y);
+        // 奶油色只涂在吻部下沿：z > 0.12 且 y < -0.06 的一条窄带。
+        // 之前用 y < 0.02，把整个前半张脸（含两颊）都涂成了浅色，
+        // 近看像戴了一张白色面具。
+        const snout = smoothstepValue(0.10, 0.22, z);
+        const under = smoothstepValue(-0.02, -0.10, y);
         const creamMix = snout * under;
-        color.lerp(creamColor, creamMix * 0.94);
+        color.lerp(creamColor, creamMix * 0.90);
         const topMix = clamp((y + 0.02) / 0.26, 0, 1);
         color.lerp(topColor, topMix * 0.26 * (1 - creamMix));
         colorAttr.setXYZ(i, color.r, color.g, color.b);
@@ -425,14 +427,26 @@
     skull.layers.set(layer);
     head.add(skull);
 
-    // 吻：宽而扁的一段，覆盖脸的下半部（横向到颊侧），上缘埋进颅骨，
-    // 只露出前面一段弧面。这是"大嘴龙"的脸型关键：吻要宽，不能是小鼻头。
-    const muzzle = new T.Mesh(new T.SphereGeometry(1, 32, 24), materials.muzzle);
+    // 吻：宽而扁的一段，覆盖脸的下半部。颜色用与颅骨同一份皮肤材质，
+    // 由顶点色区分——独立浅色球会在脸上贴出一块"白口罩"。
+    const muzzle = new T.Mesh(new T.SphereGeometry(1, 32, 24), materials.body);
     muzzle.scale.set(0.150, 0.082, 0.115);
     muzzle.position.set(0, -0.070, 0.180);
     muzzle.castShadow = true;
     muzzle.receiveShadow = true;
     muzzle.layers.set(layer);
+    // 顶点色：吻部整体压成奶油色，边缘略深，和颅骨自然衔接。
+    const muzzleColor = new T.Color(0xe9d9b6);
+    const mPos = muzzle.geometry.attributes.position;
+    const mColors = new Float32Array(mPos.count * 3);
+    for (let i = 0; i < mPos.count; i++) {
+      const v = mPos.getY(i);
+      const shade = 0.82 + 0.18 * clamp((v + 1) / 2, 0, 1);
+      mColors[i * 3] = muzzleColor.r * shade;
+      mColors[i * 3 + 1] = muzzleColor.g * shade;
+      mColors[i * 3 + 2] = muzzleColor.b * shade;
+    }
+    muzzle.geometry.setAttribute('color', new THREE.Float32BufferAttribute(mColors, 3));
     head.add(muzzle);
 
     // 鼻梁：从眉骨连到吻根的一道窄脊，把"圆颅"和"圆吻"缝起来，
