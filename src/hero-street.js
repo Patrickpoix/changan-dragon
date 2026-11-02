@@ -893,22 +893,93 @@
       scene.add(apronSlabs);
     }
 
-    // 车辙是道路使用痕迹，不做贴图滤镜；两条细长暗面帮助读出通行方向。
-    for (const x of [-1.35, 1.35]) {
-      const rut = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.16, 74),
-        new THREE.MeshStandardMaterial({
-          color: 0x5c4c3b,
-          roughness: 1,
-          transparent: true,
-          opacity: 0.16,
-          depthWrite: false,
-        }),
-      );
-      rut.rotation.x = -Math.PI / 2;
-      rut.position.set(x, 0.021, -3);
-      scene.add(rut);
+    // 车辙：两条连续的淡线读成"画上去的线"，不像真的碾过。
+    // 改为断续的辙段：每段长度、宽度、深浅都不同，中间有断开，
+    // 这样才像长期碾压出来的痕迹。
+    const rutMat = new THREE.MeshStandardMaterial({
+      color: 0x504234,
+      roughness: 1,
+      transparent: true,
+      opacity: 0.20,
+      depthWrite: false,
+    });
+    for (const lane of [-1.35, 1.35]) {
+      let z = STREET_Z0 + 2;
+      let seg = 0;
+      while (z < STREET_Z1 - 2) {
+        // 段长 1.4–4.2m，间隔 0.5–1.6m：辙痕本来就是断续的。
+        const len = 1.4 + ((seg * 7 + 3) % 5) * 0.7;
+        const gapLen = 0.5 + ((seg * 5 + 1) % 4) * 0.35;
+        const width = 0.13 + ((seg * 3) % 3) * 0.025;
+        const rut = new THREE.Mesh(new THREE.PlaneGeometry(width, len), rutMat);
+        rut.rotation.x = -Math.PI / 2;
+        rut.position.set(
+          lane + ((seg * 11) % 5 - 2) * 0.018,
+          0.021,
+          z + len / 2,
+        );
+        scene.add(rut);
+        z += len + gapLen;
+        seg += 1;
+      }
     }
+
+    // 散落草料：独轮车与驮驴走过的地方会掉草。
+    // 用实例化的小扁方块，几百根草叶只占一次 draw call。
+    // 草叶尺寸要够大才看得见：0.03×0.012×0.22m 在 5m 外基本不可见（实测）。
+    // 放大到 0.055×0.020×0.34m，并把撒落点放在街心而不是靠墙处。
+    // 尺寸要"小而成堆"：0.055 x 0.020 x 0.34m 单根太大，看着像散落的木条。
+    // 改为 0.022 x 0.008 x 0.16m 并加大数量，才读作"干草碎屑"。
+    const strawGeo = new THREE.BoxGeometry(0.022, 0.008, 0.16);
+    const STRAW = 900;
+    // 草料不能用布料材质：clothOchre 是织物，色相与铺装接近，
+    // 撒在石板上几乎看不出来（实测）。单独建一份干草材质，
+    // 更黄更亮、粗糙度更高，才读得出"散落的草"。
+    const strawMat = new THREE.MeshStandardMaterial({
+      name: 'street-straw',
+      color: 0xc8a961,
+      roughness: 0.95,
+      metalness: 0,
+      envMapIntensity: 0.45,
+    });
+    const straw = new THREE.InstancedMesh(strawGeo, strawMat, STRAW);
+    const strawMatrix = new THREE.Matrix4();
+    const strawColor = new THREE.Color();
+    // 撒落点跟独轮车、驮驴的实际位置对齐，并往街心偏一点：
+    // 全贴着墙根时会被铺面阴影吞掉。
+    const strawSpots = [
+      [-2.2, 6.8, 1.8], [2.6, -9.2, 1.7], [-1.8, -26.0, 1.6],
+      [-3.0, 18.2, 1.9], [2.9, -18.0, 1.7], [-3.0, 10.2, 1.4],
+      [0.6, -2.0, 1.2], [-0.8, 24.0, 1.3],
+    ];
+    let si = 0;
+    for (const [sx, sz, radius] of strawSpots) {
+      const count = Math.floor(STRAW / strawSpots.length);
+      for (let k = 0; k < count && si < STRAW; k++) {
+        // 用确定性伪随机，保证每次运行草料位置一致，便于验收对比。
+        const a = ((k * 37 + si * 13) % 97) / 97;
+        const b = ((k * 71 + si * 29) % 89) / 89;
+        const r = radius * Math.sqrt(a);
+        const ang = b * Math.PI * 2;
+        strawMatrix.makeRotationY(ang * 1.7);
+        // 石板顶面在 0.043-0.048（中心 0.026-0.030 + 半厚 0.0175），
+        // 草料放在 0.028 会被埋进石板里看不见（实测）。
+        strawMatrix.setPosition(
+          sx + Math.cos(ang) * r,
+          0.052,
+          sz + Math.sin(ang) * r,
+        );
+        straw.setMatrixAt(si, strawMatrix);
+        strawColor.setHex((k % 4 === 0) ? 0x9a7f4c : (k % 3 === 0 ? 0xb59352 : 0x8d7647));
+        straw.setColorAt(si, strawColor);
+        si += 1;
+      }
+    }
+    straw.instanceMatrix.needsUpdate = true;
+    if (straw.instanceColor) straw.instanceColor.needsUpdate = true;
+    straw.castShadow = false;
+    straw.receiveShadow = true;
+    scene.add(straw);
     // 街道横断面的排水微高差：中心略高、两侧略低，避免整条街像一块水平桌面。
     const crownGeo = new THREE.PlaneGeometry(11.1, 78, 12, 40);
     const pos = crownGeo.attributes.position;
