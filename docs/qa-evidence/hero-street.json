@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8899/content/street/index.html",
-  "output": "D:\\tmp\\changan-accept13-20261102",
+  "output": "D:\\tmp\\changan-accept16-20261102",
   "browser": "Playwright Chromium",
   "finalArtAccepted": false,
   "phonePerformanceVerified": false,
@@ -30,79 +30,79 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 1473,
-        "triangles": 1871557,
+        "calls": 1973,
+        "triangles": 1909277,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
-        "frames": 42
+        "frames": 39
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          1.6119748065958215e-16,
+          1.4430829090879023e-16,
           0.03,
-          21.683722680108147
+          21.821633380258998
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7711062857200485e-15,
+          -1.7855810142020553e-15,
           3.193755216853571,
-          29.66218033602148
+          29.780375463727555
         ],
-        "calls": 1468,
-        "triangles": 1870419,
+        "calls": 1973,
+        "triangles": 1906787,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
-        "frames": 65
+        "frames": 63
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          2.0465680191731013e-16,
-          1.9485199999690055,
-          21.32885039131446
+          1.8852122414466248e-16,
+          1.61,
+          21.460607382668066
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.6724609462832227e-15,
-          4.835608741066781,
-          28.856680011311468
+          -1.6895480669965846e-15,
+          4.029469049118542,
+          28.996206940424898
         ],
-        "calls": 1433,
-        "triangles": 1833035,
+        "calls": 1955,
+        "triangles": 1897651,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
-        "frames": 92
+        "frames": 84
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.7382470105832337,
-          18.776753003087144
+          2.3888550944615297,
+          18.911266867826768
         ],
         "head": [
-          2.7309939467670764e-16,
-          2.701753896327862,
-          20.769974209160964
+          2.566623143448901e-16,
+          2.3534644703171868,
+          20.90419315574427
         ],
-        "distance": 2.3415849831778583,
-        "calls": 254
+        "distance": 2.3413170214782073,
+        "calls": 430
       },
       "reset": {
         "started": true,
@@ -115,94 +115,44 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.3849884067445574,
-          3.2880891180455087,
-          25.799810924931016
+          0.032835316518785004,
+          3.037369985066012,
+          26.542623636041867
         ],
-        "calls": 254,
-        "triangles": 264762,
+        "calls": 676,
+        "triangles": 897602,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
-        "frames": 129
+        "frames": 125
       },
       "streetPlan": [
         {
           "side": -1,
-          "z": -31,
+          "z": -27.7086,
           "kind": "shop",
           "isTavern": false,
-          "board": "绸缎庄",
+          "board": "鞍马行",
           "hangingZ": null,
-          "frontX": -5.9098,
-          "halfD": 2.5152
+          "frontX": -5.8836,
+          "halfD": 2.5414
         },
         {
           "side": -1,
-          "z": -24.4,
+          "z": -22.2536,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": -22.0264,
+          "hangingZ": -19.88,
           "frontX": -5.6314,
           "halfD": 2.7936
         },
         {
           "side": -1,
-          "z": -17.8,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "陶器行",
-          "hangingZ": null,
-          "frontX": -5.7002,
-          "halfD": 2.7248
-        },
-        {
-          "side": -1,
-          "z": -11.2,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": -8.8264,
-          "frontX": -5.6314,
-          "halfD": 2.7936
-        },
-        {
-          "side": -1,
-          "z": -4.6,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "胡饼铺",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 2.62
-        },
-        {
-          "side": -1,
-          "z": 2,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": null,
-          "frontX": -5.7002,
-          "halfD": 2.7248
-        },
-        {
-          "side": -1,
-          "z": 8.6,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 10.9736,
-          "frontX": -5.6314,
-          "halfD": 2.7936
-        },
-        {
-          "side": -1,
-          "z": 15.2,
+          "z": -16.719999999999995,
           "kind": "shop",
           "isTavern": false,
           "board": "茶坊",
@@ -212,27 +162,77 @@
         },
         {
           "side": -1,
-          "z": 21.8,
+          "z": -11.281399999999994,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "果子铺",
+          "hangingZ": null,
+          "frontX": -5.726399999999999,
+          "halfD": 2.6986000000000003
+        },
+        {
+          "side": -1,
+          "z": -5.921399999999995,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.5414
+        },
+        {
+          "side": -1,
+          "z": -0.6399999999999948,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "茶坊",
+          "hangingZ": 1.5600000000000054,
+          "frontX": -5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": -1,
+          "z": 4.8936000000000055,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": 24.1736,
+          "hangingZ": 7.267200000000006,
           "frontX": -5.6314,
           "halfD": 2.7936
         },
         {
           "side": -1,
-          "z": 28.4,
+          "z": 10.427200000000006,
           "kind": "shop",
           "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": 30.495199999999997,
-          "frontX": -5.9098,
-          "halfD": 2.5152
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.62
         },
         {
           "side": -1,
-          "z": 35,
+          "z": 15.708600000000006,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "陶器行",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.5414
+        },
+        {
+          "side": -1,
+          "z": 21.16360000000001,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 23.53720000000001,
+          "frontX": -5.6314,
+          "halfD": 2.7936
+        },
+        {
+          "side": -1,
+          "z": 26.697200000000013,
           "kind": "shop",
           "isTavern": false,
           "board": "胡饼铺",
@@ -241,111 +241,131 @@
           "halfD": 2.62
         },
         {
-          "side": 1,
-          "z": -35,
+          "side": -1,
+          "z": 32.057200000000016,
           "kind": "shop",
           "isTavern": false,
-          "board": "胡饼铺",
+          "board": "陶器行",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": 1,
+          "z": -30.4586,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "书肆",
           "hangingZ": null,
           "frontX": 5.8836,
           "halfD": 2.5414
         },
         {
           "side": 1,
-          "z": -28.4,
+          "z": -25.1772,
           "kind": "shop",
           "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": -26.2,
+          "board": "果子铺",
+          "hangingZ": null,
           "frontX": 5.805,
           "halfD": 2.62
         },
         {
           "side": 1,
-          "z": -21.8,
+          "z": -19.817199999999996,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": 1,
+          "z": -14.283599999999995,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": -19.4264,
+          "hangingZ": -11.909999999999995,
           "frontX": 5.6314,
           "halfD": 2.7936
         },
         {
           "side": 1,
-          "z": -15.2,
+          "z": -8.828599999999996,
           "kind": "shop",
           "isTavern": false,
-          "board": "茶坊",
+          "board": "果子铺",
+          "hangingZ": null,
+          "frontX": 5.8836,
+          "halfD": 2.5414
+        },
+        {
+          "side": 1,
+          "z": -3.5471999999999966,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": 1,
+          "z": 1.891400000000004,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "陶器行",
           "hangingZ": null,
           "frontX": 5.726399999999999,
           "halfD": 2.6986000000000003
         },
         {
           "side": 1,
-          "z": -8.6,
+          "z": 7.503600000000004,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 9.877200000000004,
+          "frontX": 5.6314,
+          "halfD": 2.7936
+        },
+        {
+          "side": 1,
+          "z": 12.958600000000002,
           "kind": "shop",
           "isTavern": false,
-          "board": "果子铺",
+          "board": "胡饼铺",
           "hangingZ": null,
           "frontX": 5.8836,
           "halfD": 2.5414
         },
         {
           "side": 1,
-          "z": -2,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.62
-        },
-        {
-          "side": 1,
-          "z": 4.6,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 6.973599999999999,
-          "frontX": 5.6314,
-          "halfD": 2.7936
-        },
-        {
-          "side": 1,
-          "z": 11.2,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "果子铺",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.62
-        },
-        {
-          "side": 1,
-          "z": 17.8,
+          "z": 18.3186,
           "kind": "shop",
           "isTavern": false,
           "board": "陶器行",
           "hangingZ": null,
-          "frontX": 5.8836,
-          "halfD": 2.5414
+          "frontX": 5.726399999999999,
+          "halfD": 2.6986000000000003
         },
         {
           "side": 1,
-          "z": 24.4,
+          "z": 23.9308,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": 26.7736,
+          "hangingZ": 26.3044,
           "frontX": 5.6314,
           "halfD": 2.7936
         },
         {
           "side": 1,
-          "z": 31,
+          "z": 29.464400000000005,
           "kind": "shop",
           "isTavern": false,
-          "board": "绸缎庄",
+          "board": "胡饼铺",
           "hangingZ": null,
           "frontX": 5.805,
           "halfD": 2.62
@@ -354,123 +374,135 @@
       "streetGaps": [
         {
           "side": -1,
-          "a": -31,
-          "b": -24.4,
-          "gap": 1.291
+          "a": -27.7086,
+          "b": -22.2536,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -24.4,
-          "b": -17.8,
-          "gap": 1.082
+          "a": -22.2536,
+          "b": -16.719999999999995,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -17.8,
-          "b": -11.2,
-          "gap": 1.082
+          "a": -16.719999999999995,
+          "b": -11.281399999999994,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -11.2,
-          "b": -4.6,
-          "gap": 1.186
+          "a": -11.281399999999994,
+          "b": -5.921399999999995,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -4.6,
-          "b": 2,
-          "gap": 1.255
+          "a": -5.921399999999995,
+          "b": -0.6399999999999948,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 2,
-          "b": 8.6,
-          "gap": 1.082
+          "a": -0.6399999999999948,
+          "b": 4.8936000000000055,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 8.6,
-          "b": 15.2,
-          "gap": 1.186
+          "a": 4.8936000000000055,
+          "b": 10.427200000000006,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 15.2,
-          "b": 21.8,
-          "gap": 1.186
+          "a": 10.427200000000006,
+          "b": 15.708600000000006,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 21.8,
-          "b": 28.4,
-          "gap": 1.291
+          "a": 15.708600000000006,
+          "b": 21.16360000000001,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 28.4,
-          "b": 35,
-          "gap": 1.465
+          "a": 21.16360000000001,
+          "b": 26.697200000000013,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 26.697200000000013,
+          "b": 32.057200000000016,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -35,
-          "b": -28.4,
-          "gap": 1.439
+          "a": -30.4586,
+          "b": -25.1772,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -28.4,
-          "b": -21.8,
-          "gap": 1.186
+          "a": -25.1772,
+          "b": -19.817199999999996,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -21.8,
-          "b": -15.2,
-          "gap": 1.108
+          "a": -19.817199999999996,
+          "b": -14.283599999999995,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -15.2,
-          "b": -8.6,
-          "gap": 1.36
+          "a": -14.283599999999995,
+          "b": -8.828599999999996,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -8.6,
-          "b": -2,
-          "gap": 1.439
+          "a": -8.828599999999996,
+          "b": -3.5471999999999966,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -2,
-          "b": 4.6,
-          "gap": 1.186
+          "a": -3.5471999999999966,
+          "b": 1.891400000000004,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 4.6,
-          "b": 11.2,
-          "gap": 1.186
+          "a": 1.891400000000004,
+          "b": 7.503600000000004,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 11.2,
-          "b": 17.8,
-          "gap": 1.439
+          "a": 7.503600000000004,
+          "b": 12.958600000000002,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 17.8,
-          "b": 24.4,
-          "gap": 1.265
+          "a": 12.958600000000002,
+          "b": 18.3186,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 24.4,
-          "b": 31,
-          "gap": 1.186
+          "a": 18.3186,
+          "b": 23.9308,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 23.9308,
+          "b": 29.464400000000005,
+          "gap": 0.12
         }
       ],
       "posture": [
@@ -704,7 +736,7 @@
               "mode": "fly",
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
@@ -757,7 +789,7 @@
               "mode": "fly",
               "active": false,
               "hover": false,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
@@ -936,12 +968,12 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 1500,
-        "triangles": 1906413,
+        "calls": 1999,
+        "triangles": 1944329,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
         "frames": 41
@@ -951,47 +983,47 @@
         "mode": "walk",
         "near": false,
         "position": [
-          8.127492923275497e-17,
+          8.024377006347975e-17,
           0.03,
-          22.336339838642928
+          22.344759892245268
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.82530037886502e-15,
+          -1.8257893867433646e-15,
           3.193755216853571,
-          30.104708689361413
+          30.10870174171484
         ],
-        "calls": 1495,
-        "triangles": 1900505,
+        "calls": 1996,
+        "triangles": 1938757,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
-        "frames": 71
+        "frames": 68
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.10447510252565e-16,
+          1.1040192963431295e-16,
           1.61,
-          22.09812763705043
+          22.098499831043693
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7685260504449987e-15,
-          4.179430640518888,
-          29.64111111608927
+          -1.767512133369371e-15,
+          4.029469049118542,
+          29.632831854866083
         ],
-        "calls": 1483,
-        "triangles": 1879969,
+        "calls": 1985,
+        "triangles": 1918573,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
         "frames": 88
@@ -999,16 +1031,16 @@
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.4100375203178537,
-          19.54826044963728
+          2.3911753721127305,
+          19.549493473138256
         ],
         "head": [
-          1.785910906066718e-16,
-          2.3760465862592146,
-          21.541693076477117
+          1.7856725956566197e-16,
+          2.35412603538847,
+          21.541887671694496
         ],
-        "distance": 2.3417272964761238,
-        "calls": 1485
+        "distance": 2.340889789269434,
+        "calls": 445
       },
       "reset": {
         "started": true,
@@ -1021,16 +1053,16 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.3914948425994522,
-          3.090109080694808,
-          25.958707642078238
+          0.44262071144951765,
+          3.0876899476752477,
+          25.584118473438323
         ],
-        "calls": 344,
-        "triangles": 393150,
+        "calls": 267,
+        "triangles": 265614,
         "kit": {
           "loaded": 11,
           "failed": 0,
-          "instances": 109,
+          "instances": 112,
           "sharedGeometries": 0
         },
         "frames": 126
@@ -1038,77 +1070,27 @@
       "streetPlan": [
         {
           "side": -1,
-          "z": -31,
+          "z": -27.7086,
           "kind": "shop",
           "isTavern": false,
-          "board": "绸缎庄",
+          "board": "鞍马行",
           "hangingZ": null,
-          "frontX": -5.9098,
-          "halfD": 2.5152
+          "frontX": -5.8836,
+          "halfD": 2.5414
         },
         {
           "side": -1,
-          "z": -24.4,
+          "z": -22.2536,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": -22.0264,
+          "hangingZ": -19.88,
           "frontX": -5.6314,
           "halfD": 2.7936
         },
         {
           "side": -1,
-          "z": -17.8,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "陶器行",
-          "hangingZ": null,
-          "frontX": -5.7002,
-          "halfD": 2.7248
-        },
-        {
-          "side": -1,
-          "z": -11.2,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": -8.8264,
-          "frontX": -5.6314,
-          "halfD": 2.7936
-        },
-        {
-          "side": -1,
-          "z": -4.6,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "胡饼铺",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 2.62
-        },
-        {
-          "side": -1,
-          "z": 2,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": null,
-          "frontX": -5.7002,
-          "halfD": 2.7248
-        },
-        {
-          "side": -1,
-          "z": 8.6,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 10.9736,
-          "frontX": -5.6314,
-          "halfD": 2.7936
-        },
-        {
-          "side": -1,
-          "z": 15.2,
+          "z": -16.719999999999995,
           "kind": "shop",
           "isTavern": false,
           "board": "茶坊",
@@ -1118,27 +1100,77 @@
         },
         {
           "side": -1,
-          "z": 21.8,
+          "z": -11.281399999999994,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "果子铺",
+          "hangingZ": null,
+          "frontX": -5.726399999999999,
+          "halfD": 2.6986000000000003
+        },
+        {
+          "side": -1,
+          "z": -5.921399999999995,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.5414
+        },
+        {
+          "side": -1,
+          "z": -0.6399999999999948,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "茶坊",
+          "hangingZ": 1.5600000000000054,
+          "frontX": -5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": -1,
+          "z": 4.8936000000000055,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": 24.1736,
+          "hangingZ": 7.267200000000006,
           "frontX": -5.6314,
           "halfD": 2.7936
         },
         {
           "side": -1,
-          "z": 28.4,
+          "z": 10.427200000000006,
           "kind": "shop",
           "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": 30.495199999999997,
-          "frontX": -5.9098,
-          "halfD": 2.5152
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.62
         },
         {
           "side": -1,
-          "z": 35,
+          "z": 15.708600000000006,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "陶器行",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.5414
+        },
+        {
+          "side": -1,
+          "z": 21.16360000000001,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 23.53720000000001,
+          "frontX": -5.6314,
+          "halfD": 2.7936
+        },
+        {
+          "side": -1,
+          "z": 26.697200000000013,
           "kind": "shop",
           "isTavern": false,
           "board": "胡饼铺",
@@ -1147,111 +1179,131 @@
           "halfD": 2.62
         },
         {
-          "side": 1,
-          "z": -35,
+          "side": -1,
+          "z": 32.057200000000016,
           "kind": "shop",
           "isTavern": false,
-          "board": "胡饼铺",
+          "board": "陶器行",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": 1,
+          "z": -30.4586,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "书肆",
           "hangingZ": null,
           "frontX": 5.8836,
           "halfD": 2.5414
         },
         {
           "side": 1,
-          "z": -28.4,
+          "z": -25.1772,
           "kind": "shop",
           "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": -26.2,
+          "board": "果子铺",
+          "hangingZ": null,
           "frontX": 5.805,
           "halfD": 2.62
         },
         {
           "side": 1,
-          "z": -21.8,
+          "z": -19.817199999999996,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": 1,
+          "z": -14.283599999999995,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": -19.4264,
+          "hangingZ": -11.909999999999995,
           "frontX": 5.6314,
           "halfD": 2.7936
         },
         {
           "side": 1,
-          "z": -15.2,
+          "z": -8.828599999999996,
           "kind": "shop",
           "isTavern": false,
-          "board": "茶坊",
+          "board": "果子铺",
+          "hangingZ": null,
+          "frontX": 5.8836,
+          "halfD": 2.5414
+        },
+        {
+          "side": 1,
+          "z": -3.5471999999999966,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.62
+        },
+        {
+          "side": 1,
+          "z": 1.891400000000004,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "陶器行",
           "hangingZ": null,
           "frontX": 5.726399999999999,
           "halfD": 2.6986000000000003
         },
         {
           "side": 1,
-          "z": -8.6,
+          "z": 7.503600000000004,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 9.877200000000004,
+          "frontX": 5.6314,
+          "halfD": 2.7936
+        },
+        {
+          "side": 1,
+          "z": 12.958600000000002,
           "kind": "shop",
           "isTavern": false,
-          "board": "果子铺",
+          "board": "胡饼铺",
           "hangingZ": null,
           "frontX": 5.8836,
           "halfD": 2.5414
         },
         {
           "side": 1,
-          "z": -2,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.62
-        },
-        {
-          "side": 1,
-          "z": 4.6,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 6.973599999999999,
-          "frontX": 5.6314,
-          "halfD": 2.7936
-        },
-        {
-          "side": 1,
-          "z": 11.2,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "果子铺",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.62
-        },
-        {
-          "side": 1,
-          "z": 17.8,
+          "z": 18.3186,
           "kind": "shop",
           "isTavern": false,
           "board": "陶器行",
           "hangingZ": null,
-          "frontX": 5.8836,
-          "halfD": 2.5414
+          "frontX": 5.726399999999999,
+          "halfD": 2.6986000000000003
         },
         {
           "side": 1,
-          "z": 24.4,
+          "z": 23.9308,
           "kind": "tavern",
           "isTavern": true,
           "board": "西市酒肆",
-          "hangingZ": 26.7736,
+          "hangingZ": 26.3044,
           "frontX": 5.6314,
           "halfD": 2.7936
         },
         {
           "side": 1,
-          "z": 31,
+          "z": 29.464400000000005,
           "kind": "shop",
           "isTavern": false,
-          "board": "绸缎庄",
+          "board": "胡饼铺",
           "hangingZ": null,
           "frontX": 5.805,
           "halfD": 2.62
@@ -1260,123 +1312,135 @@
       "streetGaps": [
         {
           "side": -1,
-          "a": -31,
-          "b": -24.4,
-          "gap": 1.291
+          "a": -27.7086,
+          "b": -22.2536,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -24.4,
-          "b": -17.8,
-          "gap": 1.082
+          "a": -22.2536,
+          "b": -16.719999999999995,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -17.8,
-          "b": -11.2,
-          "gap": 1.082
+          "a": -16.719999999999995,
+          "b": -11.281399999999994,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -11.2,
-          "b": -4.6,
-          "gap": 1.186
+          "a": -11.281399999999994,
+          "b": -5.921399999999995,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": -4.6,
-          "b": 2,
-          "gap": 1.255
+          "a": -5.921399999999995,
+          "b": -0.6399999999999948,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 2,
-          "b": 8.6,
-          "gap": 1.082
+          "a": -0.6399999999999948,
+          "b": 4.8936000000000055,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 8.6,
-          "b": 15.2,
-          "gap": 1.186
+          "a": 4.8936000000000055,
+          "b": 10.427200000000006,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 15.2,
-          "b": 21.8,
-          "gap": 1.186
+          "a": 10.427200000000006,
+          "b": 15.708600000000006,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 21.8,
-          "b": 28.4,
-          "gap": 1.291
+          "a": 15.708600000000006,
+          "b": 21.16360000000001,
+          "gap": 0.12
         },
         {
           "side": -1,
-          "a": 28.4,
-          "b": 35,
-          "gap": 1.465
+          "a": 21.16360000000001,
+          "b": 26.697200000000013,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 26.697200000000013,
+          "b": 32.057200000000016,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -35,
-          "b": -28.4,
-          "gap": 1.439
+          "a": -30.4586,
+          "b": -25.1772,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -28.4,
-          "b": -21.8,
-          "gap": 1.186
+          "a": -25.1772,
+          "b": -19.817199999999996,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -21.8,
-          "b": -15.2,
-          "gap": 1.108
+          "a": -19.817199999999996,
+          "b": -14.283599999999995,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -15.2,
-          "b": -8.6,
-          "gap": 1.36
+          "a": -14.283599999999995,
+          "b": -8.828599999999996,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -8.6,
-          "b": -2,
-          "gap": 1.439
+          "a": -8.828599999999996,
+          "b": -3.5471999999999966,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": -2,
-          "b": 4.6,
-          "gap": 1.186
+          "a": -3.5471999999999966,
+          "b": 1.891400000000004,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 4.6,
-          "b": 11.2,
-          "gap": 1.186
+          "a": 1.891400000000004,
+          "b": 7.503600000000004,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 11.2,
-          "b": 17.8,
-          "gap": 1.439
+          "a": 7.503600000000004,
+          "b": 12.958600000000002,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 17.8,
-          "b": 24.4,
-          "gap": 1.265
+          "a": 12.958600000000002,
+          "b": 18.3186,
+          "gap": 0.12
         },
         {
           "side": 1,
-          "a": 24.4,
-          "b": 31,
-          "gap": 1.186
+          "a": 18.3186,
+          "b": 23.9308,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 23.9308,
+          "b": 29.464400000000005,
+          "gap": 0.12
         }
       ],
       "posture": [
@@ -1610,7 +1674,7 @@
               "mode": "fly",
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
@@ -1687,7 +1751,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
@@ -1740,7 +1804,7 @@
               "mode": null,
               "active": false,
               "hover": false,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {

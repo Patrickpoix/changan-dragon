@@ -306,7 +306,12 @@
     wood.color.setHex(0xd8b18a);
     darkWood.color.setHex(0xb08a72);
     cloth.color.setHex(0xb4513e);
-    roof.color.setHex(0x6b7472);
+    // 唐式是深青灰陶瓦。之前用 0x6b7472 且 envMapIntensity 0.85，
+    // 高光与环境反射把屋面冲成近白，俯瞰整条街读成"白顶街"。
+    roof.color.setHex(0x2f3839);
+    roof.roughness = 0.86;
+    roof.envMapIntensity = 0.28;
+    roof.normalScale.set(0.42, 0.42);
     cloth.side = THREE.DoubleSide;
     materials.mud = mud;
     materials.stone = stone;
@@ -508,14 +513,18 @@
     materials.fruitGreen = makeMat('fruit-green', 0x71834b, 0.7, 0);
     materials.terracotta = makeMat('terracotta', 0x9b6646, 0.88, 0);
     materials.plasterWarm = makeMat('street-plaster-warm', 0xcab995, 0.86, 0);
+    // 铺面内壁：比外墙暗两档的暖灰，格扇后面的暗部。
+    materials.shopInterior = makeMat('street-shop-interior', 0x2e251d, 0.94, 0);
     // 后排屋海的材质：比前店更浅、更偏冷，配合雾把纵深压进空气里，
     // 避免后排与前店同样的对比度，让整条街像两堵平行的墙。
     materials.plasterDistant = makeMat('street-plaster-distant', 0xcfc3ab, 0.94, 0);
     materials.roofDistant = makeMat('street-roof-distant', 0x59605f, 0.94, 0);
     materials.woodDistant = makeMat('street-wood-distant', 0x6f5240, 0.92, 0);
     // 远景塔：比近景深一档，才能在雾里读出一层层屋檐。
-    materials.pagodaBody = makeMat('pagoda-body', 0x9d8f78, 0.88, 0);
-    materials.pagodaRoof = makeMat('pagoda-roof', 0x4a5457, 0.86, 0);
+    // 塔身偏暖砖色、檐口深青灰、木构带赭红：三段明度差是"塔"与"白罐子"的区别。
+    materials.pagodaBody = makeMat('pagoda-body', 0x9a7f63, 0.88, 0);
+    materials.pagodaRoof = makeMat('pagoda-roof', 0x333b3d, 0.84, 0);
+    materials.pagodaWood = makeMat('pagoda-wood', 0x8d4a3a, 0.82, 0);
     materials.vermilion = makeMat('street-vermilion', 0x8f4034, 0.72, 0.02);
     materials.greenPaint = makeMat('street-green-paint', 0x365f58, 0.76, 0.01);
     materials.doorBlue = makeMat('street-door-blue', 0x344f55, 0.8, 0.02);
@@ -759,8 +768,6 @@
     }
 
     // 主街铺装：整条街面用方石铺满，只在最靠店铺的一米留土路。
-    // 之前只在街心铺 4.25m，两侧是大片土黄，整条街读成"土路中间一条石板"。
-    // 主街铺装：整条街面用方石铺满，只在最靠店铺的一米留土路。
     // 铺装材质不用灰石路的 basecolor——那张图本身偏褐，乘上实例色后整条街
     // 读成泥地。这里只用它的法线/粗糙度，底色交给实例色。
     const pavingMaterial = new THREE.MeshStandardMaterial({
@@ -846,77 +853,75 @@
   /* 坊墙与坊外街景：从街心望出去，坊门之后不能是一片空地和地平线。
    * 这里在坊门后补一道横墙、一段横向街道和两排远景屋顶，
    * 让视线有落点；全部复用现有共享材质与简单几何。 */
+  /* 坊墙：唐长安的里坊以夯土墙围合，墙头压瓦。之前这里是一块无构造的
+   * 平板盒子，远看读成一块灰绿色板子。这里按"台基 + 墙身 + 双坡瓦顶"
+   * 三段构造，并让门洞后一定有建筑封住视线。 */
   function createWardWall(shopRoot, tavernRoot) {
     const group = new THREE.Group();
     group.name = 'ward-wall';
-    // 坊墙是连续的：只在门洞处断开。之前按两段矮墙放在 ±16.6，
-    // 街两侧 5.5–12m 的缺口会直接露出远处地平线，读成"街外是海"。
-    const wallSegments = [
-      // 北端（坊门之后）
-      { z: -43.5, xs: [-23, -13.5, 13.5, 23] },
-      // 南端（街口之后）
-      { z: 39.5, xs: [-23, -13.5, 13.5, 23] },
-    ];
-    for (const { z, xs } of wallSegments) {
-      for (const x of xs) {
-        const wall = new THREE.Mesh(
-          new THREE.BoxGeometry(9.2, 3.4, 0.7),
-          // 用带法线/粗糙度的灰泥材质，不用纯色远景材质：这两道墙离街口
-          // 只有十几米，纯色会读成一块灰色板。
-          materials.plaster,
-        );
-        wall.position.set(x, 1.7, z);
-        wall.castShadow = false;
-        wall.receiveShadow = true;
-        group.add(wall);
-        const cap = new THREE.Mesh(new THREE.BoxGeometry(9.5, 0.22, 1.05), materials.roof);
-        cap.position.set(x, 3.5, z);
-        group.add(cap);
-      }
-      // 门洞两侧的短墙：从门楼边缘接到外侧长墙，把缺口补满。
+
+    const capRoof = materials.roof;
+    // 瓦垄用同一份瓦面材质的深色克隆：坊墙离街只有十几米，
+    // 与铺面共用 roof 材质会看不出墙头与屋面的差别。
+    const capTile = materials.roofTile || (materials.roofTile = materials.roof.clone());
+    // 一段坊墙：长度可变，构造固定。
+    const addWall = (x, z, width) => {
+      const bodyH = 3.05;
+      const base = new THREE.Mesh(new THREE.BoxGeometry(width + 0.34, 0.42, 1.02), materials.stone);
+      base.position.set(x, 0.21, z);
+      base.receiveShadow = true;
+      base.castShadow = true;
+      group.add(base);
+
+      const body = new THREE.Mesh(new THREE.BoxGeometry(width, bodyH, 0.78), materials.plaster);
+      body.position.set(x, 0.42 + bodyH / 2, z);
+      body.castShadow = true;
+      body.receiveShadow = true;
+      group.add(body);
+
+      // 墙头：两道坡瓦，中间一道脊。单块平板读不出"墙头"，必须双坡。
+      const capY = 0.42 + bodyH;
       for (const side of [-1, 1]) {
-        const wall = new THREE.Mesh(
-          new THREE.BoxGeometry(5.8, 3.2, 0.7),
-          materials.plaster,
-        );
-        wall.position.set(side * 6.3, 1.6, z);
-        wall.receiveShadow = true;
-        group.add(wall);
-        const cap = new THREE.Mesh(new THREE.BoxGeometry(6.0, 0.20, 1.0), materials.roof);
-        cap.position.set(side * 6.3, 3.3, z);
-        group.add(cap);
+        const slope = new THREE.Mesh(new THREE.BoxGeometry(width + 0.5, 0.11, 0.66), capRoof);
+        slope.position.set(x, capY + 0.16, z + side * 0.28);
+        slope.rotation.x = -side * 0.26;
+        slope.castShadow = true;
+        slope.receiveShadow = true;
+        group.add(slope);
+        // 瓦垄：沿墙长每 0.34m 一道，给墙头一点肌理。
+        const rolls = Math.max(4, Math.round((width + 0.5) / 0.34));
+        for (let i = 0; i < rolls; i++) {
+          const rx = x - (width + 0.5) / 2 + (width + 0.5) * (i + 0.5) / rolls;
+          const roll = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.07, 0.62), capTile);
+          roll.position.set(rx, capY + 0.24, z + side * 0.28);
+          roll.rotation.x = -side * 0.26;
+          group.add(roll);
+        }
       }
+      const ridge = new THREE.Mesh(new THREE.BoxGeometry(width + 0.56, 0.16, 0.16), capTile);
+      ridge.position.set(x, capY + 0.30, z);
+      ridge.castShadow = true;
+      group.add(ridge);
+    };
+
+    // 北端（坊门之后）与南端（街口之后）：连续墙段，只在门洞处断开。
+    for (const z of [-43.5, 39.5]) {
+      for (const x of [-23, -13.6, 13.6, 23]) addWall(x, z, 9.2);
+      // 门洞两侧的短墙，把门楼边缘到外侧长墙之间补满。
+      for (const side of [-1, 1]) addWall(side * 6.3, z, 5.8);
     }
-    // 街口门楼之后：门洞外不能是一块发白的地面。补一道坊外横街的铺面，
-    // 让视线穿过门洞时落在建筑上。
-    const beyondGate = kitInstance(tavernRoot, {
-      position: [0, -0.02, 48.5],
-      rotationY: Math.PI,
-      scale: 1.0,
-    });
-    beyondGate.traverse((node) => {
-      if (!node.isMesh) return;
-      node.castShadow = false;
-      node.receiveShadow = true;
-      const material = Array.isArray(node.material) ? node.material[0] : node.material;
-      if (!material) return;
-      if (/mat_plaster/i.test(material.name || '')) node.material = materials.plaster;
-      else if (/mat_roof/i.test(material.name || '')) node.material = materials.roof;
-      else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
-        node.material = materials.wood;
-      }
-    });
-    group.add(beyondGate);
-    // 坊外横街：两排远景铺面横在门后，错开高度。
-    for (const [x, scale, tavern] of [
-      [-18.5, 0.92, false], [-8.5, 0.86, true], [8.5, 0.90, false], [18.5, 0.86, true],
-    ]) {
-      const root = tavern ? tavernRoot : shopRoot;
-      const building = kitInstance(root, {
-        position: [x, -0.02, -50.5],
-        rotationY: 0,
-        scale,
-      });
+
+    // 门洞之后必须有建筑：否则从街上穿过门洞看到的是雾里的一片白。
+    // 门洞正后放一栋两层酒肆，两侧再各补一栋铺面。
+    const beyond = [
+      [0, -53.0, Math.PI, 1.0, tavernRoot],
+      [-11.5, -50.0, Math.PI, 0.9, shopRoot],
+      [11.5, -50.0, Math.PI, 0.9, shopRoot],
+      [-22.0, -47.5, Math.PI, 0.86, tavernRoot],
+      [22.0, -47.5, Math.PI, 0.86, tavernRoot],
+    ];
+    for (const [x, z, ry, scale, root] of beyond) {
+      const building = kitInstance(root, { position: [x, -0.02, z], rotationY: ry, scale });
       building.traverse((node) => {
         if (!node.isMesh) return;
         node.castShadow = false;
@@ -924,6 +929,7 @@
         const material = Array.isArray(node.material) ? node.material[0] : node.material;
         if (!material) return;
         if (/mat_plaster/i.test(material.name || '')) node.material = materials.plasterDistant;
+        else if (/mat_interior/i.test(material.name || '')) node.material = materials.shopInterior;
         else if (/mat_roof/i.test(material.name || '')) node.material = materials.roofDistant;
         else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
           node.material = materials.woodDistant;
@@ -931,6 +937,26 @@
       });
       group.add(building);
     }
+    // 街口（南端）门洞之后同样不能是空地。
+    const beyondSouth = kitInstance(tavernRoot, {
+      position: [0, -0.02, 48.5],
+      rotationY: Math.PI,
+      scale: 1.0,
+    });
+    beyondSouth.traverse((node) => {
+      if (!node.isMesh) return;
+      node.castShadow = false;
+      node.receiveShadow = true;
+      const material = Array.isArray(node.material) ? node.material[0] : node.material;
+      if (!material) return;
+      if (/mat_plaster/i.test(material.name || '')) node.material = materials.plaster;
+      else if (/mat_interior/i.test(material.name || '')) node.material = materials.shopInterior;
+      else if (/mat_roof/i.test(material.name || '')) node.material = materials.roof;
+      else if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
+        node.material = materials.wood;
+      }
+    });
+    group.add(beyondSouth);
     scene.add(group);
     return group;
   }
@@ -986,35 +1012,99 @@
     return gate;
   }
 
+  /* 远景楼阁式塔：五层，逐层收分，每层"塔身 + 铺作带 + 檐口 + 平坐"四段。
+   * 之前每层只是一段白圆柱加一片开口锥面，远看像几节白罐子叠着——
+   * 檐口是薄片、塔身没有分段的木构，读不出"塔"。 */
   function createPagoda() {
     const pagoda = new THREE.Group();
     pagoda.name = 'distant-pagoda';
     // 塔放在坊门之后、雾的过渡带里：太远会洗成一团白，太近会抢街景。
     pagoda.position.set(0, 0, -64);
-    // 远景剪影：比近景构件深一档，才能在雾里读出塔的层次。
     const stone = materials.pagodaBody;
-    const roof = materials.pagodaRoof;
+    const eaveMat = materials.pagodaRoof;
+    const woodMat = materials.pagodaWood;
+
+    let baseY = 0;
     for (let i = 0; i < 5; i++) {
-      const radius = 2.6 - i * 0.30;
-      const h = 3.6 - i * 0.24;
-      const y = 2.0 + i * 3.95;
-      const body = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius + 0.16, h, 10), stone);
-      body.position.y = y;
+      const radius = 2.45 - i * 0.28;
+      const bodyH = 2.9 - i * 0.16;
+      // 塔身：微收分的柱身，每层比下层细一档。
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(radius * 0.94, radius, bodyH, 12),
+        stone,
+      );
+      body.position.y = baseY + bodyH / 2;
       body.castShadow = body.receiveShadow = true;
       pagoda.add(body);
-      const eave = new THREE.Mesh(new THREE.ConeGeometry(radius + 0.92, 0.95, 10, 1, true), roof);
-      eave.position.y = y + h * 0.5 + 0.30;
-      eave.rotation.y = Math.PI / 10;
+
+      // 木构带：塔身顶部一圈深色额枋 + 每间一朵小斗，读出"层"的分界。
+      const band = new THREE.Mesh(
+        new THREE.CylinderGeometry(radius + 0.06, radius + 0.06, 0.26, 12),
+        woodMat,
+      );
+      band.position.y = baseY + bodyH - 0.13;
+      pagoda.add(band);
+      const bracketCount = 8;
+      for (let k = 0; k < bracketCount; k++) {
+        const a = (k / bracketCount) * Math.PI * 2;
+        const dou = new THREE.Mesh(new THREE.BoxGeometry(0.30, 0.22, 0.30), woodMat);
+        dou.position.set(Math.sin(a) * (radius + 0.16), baseY + bodyH + 0.10, Math.cos(a) * (radius + 0.16));
+        dou.rotation.y = a;
+        pagoda.add(dou);
+      }
+
+      // 檐口：向外下斜的实心台锥（不是开口薄片），外缘再压一圈脊。
+      const eave = new THREE.Mesh(
+        new THREE.CylinderGeometry(radius + 0.30, radius + 1.18, 0.42, 12),
+        eaveMat,
+      );
+      eave.position.y = baseY + bodyH + 0.38;
       eave.castShadow = true;
       pagoda.add(eave);
-      const balcony = new THREE.Mesh(new THREE.CylinderGeometry(radius + 0.30, radius + 0.30, 0.11, 10), materials.stone);
-      balcony.position.y = y + h * 0.5 - 0.10;
-      pagoda.add(balcony);
+      const eaveEdge = new THREE.Mesh(
+        new THREE.CylinderGeometry(radius + 1.18, radius + 1.22, 0.12, 12),
+        eaveMat,
+      );
+      eaveEdge.position.y = baseY + bodyH + 0.20;
+      pagoda.add(eaveEdge);
+
+      // 平坐：檐口之上、上层塔身之下的平台，带一圈勾栏剪影。
+      const deckY = baseY + bodyH + 0.62;
+      const deck = new THREE.Mesh(
+        new THREE.CylinderGeometry(radius + 0.12, radius + 0.12, 0.14, 12),
+        woodMat,
+      );
+      deck.position.y = deckY;
+      pagoda.add(deck);
+      const railCount = 16;
+      for (let k = 0; k < railCount; k++) {
+        const a = (k / railCount) * Math.PI * 2;
+        const post = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.42, 0.07), woodMat);
+        post.position.set(Math.sin(a) * (radius + 0.06), deckY + 0.28, Math.cos(a) * (radius + 0.06));
+        pagoda.add(post);
+      }
+
+      baseY = deckY + 0.06;
     }
-    const spire = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.17, 2.0, 8), materials.gold);
-    spire.position.y = 20.9;
-    spire.castShadow = true;
+
+    // 塔顶：覆钵 + 相轮 + 宝珠。
+    const bowl = new THREE.Mesh(new THREE.SphereGeometry(0.62, 14, 10), eaveMat);
+    bowl.position.y = baseY + 0.42;
+    bowl.scale.y = 0.72;
+    pagoda.add(bowl);
+    for (let i = 0; i < 5; i++) {
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.26 - i * 0.03, 0.05, 6, 14), materials.gold);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = baseY + 0.92 + i * 0.20;
+      pagoda.add(ring);
+    }
+    const spire = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.10, 1.30, 8), materials.gold);
+    spire.position.y = baseY + 1.62;
     pagoda.add(spire);
+    const pearl = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 10), materials.gold);
+    pearl.position.y = baseY + 2.32;
+    pagoda.add(pearl);
+
     scene.add(pagoda);
     return pagoda;
   }
@@ -1271,6 +1361,9 @@
       if (!material) return;
       if (/mat_vermilion|mat_timber|mat_bracket_block/i.test(material.name || '')) {
         node.material = tint;
+      } else if (/mat_interior/i.test(material.name || '')) {
+        // 内壁必须保持深色：混进 plasterTint 会重新变白。
+        node.material = materials.shopInterior;
       } else if (/mat_plaster/i.test(material.name || '')) {
         node.material = plasterTint;
       } else if (/mat_cloth/i.test(material.name || '')) {
@@ -1352,6 +1445,9 @@
       mat_roof_surface: materials.roof,
       mat_roof_ridge: materials.darkWood,
       mat_plaster: materials.plaster,
+      // 铺面内壁：格扇后面那层暗色面。没有它，格眼后面直接透出后墙白灰，
+      // 整面读成"白墙贴了一排木格子"。
+      mat_interior: materials.shopInterior,
       mat_cloth: materials.cloth,
       mat_hair: materials.hair,
       mat_skin: materials.skin,
@@ -1377,30 +1473,43 @@
 
     // 概念图的市街靠两层与单层交错读出来；两层酒肆按铺面位置间隔布置，
     // 而不是只有一间。仍复用同一个酒肆 GLB，靠变换与共享材质区分类别。
-    // 唐式市街是连排的：铺面之间不留缝，山墙被邻铺挡住。
-    // 之前按 7.4m 间距排 5.24m 进深的铺面，每两间之间空出约 1.7m，
-    // 缝里露出白灰山墙，整条街读成一排白带——这是"白墙街"的另一半原因。
-    // 进深按 5.6m 留 0.4m 的缝：完全不重叠，但缝窄到从街上读不出山墙。
-    const leftZ = [-31, -24.4, -17.8, -11.2, -4.6, 2.0, 8.6, 15.2, 21.8, 28.4, 35.0];
-    const rightZ = [-35.0, -28.4, -21.8, -15.2, -8.6, -2.0, 4.6, 11.2, 17.8, 24.4, 31.0];
-    const TAVERN_Z = new Set([-24.4, 8.6, 21.8]);
-    const entries = [];
-    leftZ.forEach((z, i) => {
-      if (z === -11.2 || TAVERN_Z.has(z)) {
-        entries.push({ side: -1, z, kind: 'tavern', scale: 0.96 });
-      } else {
-        entries.push({ side: -1, z, kind: 'shop', scale: i % 3 === 0 ? 0.96 : i % 3 === 1 ? 1.0 : 1.04 });
-      }
-    });
-    const rightTavern = new Set([-21.8, 4.6, 24.4]);
-    rightZ.forEach((z, i) => {
-      entries.push({
-        side: 1,
-        z,
-        kind: rightTavern.has(z) ? 'tavern' : 'shop',
-        scale: rightTavern.has(z) ? 0.96 : i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0,
+    // 唐式市街是连排的：铺面之间几乎贴住，山墙被邻铺挡住。
+    // 位置不能按固定步长算：每间铺面的 scale 不同，半深随之变化，
+    // 固定步长会让个别相邻铺面互相侵入（实测出现 -0.018m 的重叠）。
+    // 这里按"上一间的实际半深 + 本间半深 + 一条窄缝"累加排布。
+    const halfDepthOf = (kind, scale) => (kind === 'tavern' ? 2.91 : 2.62) * scale;
+    const SEAM = 0.12;
+
+    const layLane = (side, plan, startZ) => {
+      const lane = [];
+      let cursor = startZ;
+      plan.forEach((item, i) => {
+        const scale = item.kind === 'tavern' ? 0.96
+          : i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0;
+        const halfD = halfDepthOf(item.kind, scale);
+        const z = cursor + halfD;
+        lane.push({ side, z, kind: item.kind, scale });
+        cursor = z + halfD + SEAM;
       });
-    });
+      return lane;
+    };
+
+    // 左侧从 -30.25 起、右侧从 -33.0 起，两侧错开半间，避免正对面的铺面
+    // 檐口在同一位置对齐。
+    const leftPlan = [
+      { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' }, { kind: 'shop' },
+      { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' },
+      { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' }, { kind: 'shop' },
+    ];
+    const rightPlan = [
+      { kind: 'shop' }, { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' },
+      { kind: 'shop' }, { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' },
+      { kind: 'shop' }, { kind: 'shop' }, { kind: 'tavern' }, { kind: 'shop' },
+    ];
+    const entries = [
+      ...layLane(-1, leftPlan, -30.25),
+      ...layLane(1, rightPlan, -33.0),
+    ];
     entries.forEach((entry) => addBuilding(entry.kind === 'tavern' ? tavernRoot : shopRoot, entry));
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
