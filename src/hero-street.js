@@ -1722,54 +1722,60 @@
         (error) => reject(new Error('街树载入失败：' + error)),
       );
     });
-    const [root, matureTree] = await Promise.all([
+    // 库里已有四种树（street / blossom / willow / pine），此前只用了一种，
+    // 街上读成同一棵树复制七遍。唐长安的坊内行道树本就混植，
+    // 这里按四种混种，并复用同一份 GLB 的 LOD1，不增加下载量。
+    const [streetTree, blossomTree, willowTree, pineTree, matureTree] = await Promise.all([
       loadTree('/assets/library/vegetation/studies/street-lod1.glb'),
+      loadTree('/assets/library/vegetation/studies/blossom-lod1.glb'),
+      loadTree('/assets/library/vegetation/studies/willow-lod1.glb'),
+      loadTree('/assets/library/vegetation/studies/pine-lod1.glb'),
       loadTree('/assets/library/polyhaven/tree_small_02/runtime.glb'),
     ]);
-    root.updateMatrixWorld(true);
-    matureTree.updateMatrixWorld(true);
-    const placements = [
-      [-5.3, 28.5, 0.66], [5.3, 22.5, 0.62], [-5.3, 15.8, 0.58],
-      [5.3, 9.5, 0.56], [-5.3, -7.5, 0.66], [5.3, -17.0, 0.60],
-      [-5.3, -28.5, 0.58],
-    ];
-    for (const [x, z, scale] of placements) {
-      const tree = root.clone(true);
-      tree.position.set(x, 0.02, z);
-      tree.rotation.y = (x < 0 ? 0.7 : -0.4) + z * 0.03;
-      tree.scale.setScalar(scale);
-      tree.traverse((node) => {
-        if (!node.isMesh) return;
-        node.castShadow = true;
-        node.receiveShadow = true;
-      });
-      tree.name = 'street-tree';
-      scene.add(tree);
+    for (const tree of [streetTree, blossomTree, willowTree, pineTree, matureTree]) {
+      tree.updateMatrixWorld(true);
     }
-    for (const [x, z, scale, rot] of [
-      [-5.6, 2.0, 0.78, 0.8], [5.5, -12.0, 0.80, -0.5], [-5.5, -20.5, 0.74, 0.3],
-    ]) {
-      const tree = matureTree.clone(true);
-      tree.position.set(x, 0.02, z);
-      tree.rotation.y = rot;
-      tree.scale.setScalar(scale);
+
+    const variants = [
+      { root: streetTree, scale: 0.62, sink: 0.02 },
+      { root: blossomTree, scale: 0.58, sink: 0.02 },
+      { root: willowTree, scale: 0.70, sink: 0.02 },
+      { root: pineTree, scale: 0.54, sink: 0.02 },
+      { root: matureTree, scale: 0.78, sink: 0.02 },
+    ];
+    // 沿街两侧交替种，避免同一种树连着出现两次。
+    const placements = [
+      [-5.3, 28.5, 0], [5.3, 22.5, 1], [-5.3, 15.8, 2], [5.3, 9.5, 3],
+      [-5.3, -7.5, 1], [5.3, -17.0, 0], [-5.3, -28.5, 2],
+      [5.6, 2.0, 4], [-5.5, -12.0, 3], [5.5, -20.5, 4],
+    ];
+    const treeMaterials = new Map();
+    placements.forEach(([x, z, variantIndex], i) => {
+      const variant = variants[variantIndex % variants.length];
+      const tree = variant.root.clone(true);
+      tree.position.set(x, variant.sink, z);
+      // 每棵树单独转一个角度、给一点尺寸抖动，读作"种的树"而不是"复制的树"。
+      tree.rotation.y = (x < 0 ? 0.7 : -0.4) + z * 0.03 + (i % 3) * 0.18;
+      tree.scale.setScalar(variant.scale * (0.94 + (i % 4) * 0.035));
       tree.traverse((node) => {
         if (!node.isMesh) return;
         node.castShadow = true;
         node.receiveShadow = true;
         const source = Array.isArray(node.material) ? node.material[0] : node.material;
         if (!source) return;
-        const key = 'mature-tree-' + source.name;
-        if (!materials[key]) {
+        // 每棵树的材质按"树型 + 明度"缓存一份，不逐棵克隆。
+        const tint = 0.82 + (i % 5) * 0.055;
+        const key = 'street-tree|' + (source.name || 'leaf') + '|' + tint.toFixed(2);
+        if (!treeMaterials.has(key)) {
           const clone = source.clone();
-          clone.color?.multiplyScalar(0.88);
-          materials[key] = clone;
+          clone.color?.multiplyScalar(tint);
+          treeMaterials.set(key, clone);
         }
-        node.material = materials[key];
+        node.material = treeMaterials.get(key);
       });
-      tree.name = 'street-mature-tree';
+      tree.name = 'street-tree';
       scene.add(tree);
-    }
+    });
   }
 
   const GOODS_ASSETS = [
