@@ -2324,6 +2324,178 @@
       cup.castShadow = true;
       scene.add(cup);
     }
+    // 市集的"使用痕迹"：独轮车与驮货的驴。
+    // 只有铺面、摊位与行人时，街面读成干净的展台；
+    // 这两类大轮廓物件是"这里真的在运货"的关键信号，也补上街心的体积感。
+    addHandcarts();
+    addPackDonkeys();
+  }
+
+  /* 独轮车：一只木轮 + 车架 + 两侧货担。
+   * 唐式市集短途运货主要靠这种独轮车，形制简单、轮廓清楚。 */
+  function addHandcarts() {
+    const placements = [
+      // [x, z, 朝向]
+      [-2.6, 6.4, 0.42],
+      [3.05, -9.5, -0.55],
+      [-2.2, -26.5, 0.28],
+    ];
+    for (const [x, z, yaw] of placements) {
+      const cart = new THREE.Group();
+      cart.position.set(x, 0.03, z);
+      cart.rotation.y = yaw;
+
+      // 车轮：竖立的圆盘，轮缘一圈木条。
+      const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.09, 16), materials.darkWood);
+      wheel.rotation.z = Math.PI / 2;
+      wheel.position.set(0, 0.42, 0);
+      wheel.castShadow = true;
+      cart.add(wheel);
+      for (let i = 0; i < 8; i++) {
+        const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.78, 0.05), materials.wood);
+        spoke.rotation.x = (i / 8) * Math.PI;
+        spoke.position.set(0, 0.42, 0);
+        spoke.castShadow = true;
+        cart.add(spoke);
+      }
+      // 车架：一根横梁 + 两根把手。
+      const beam = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.10, 1.85), materials.wood);
+      beam.position.set(0, 0.80, 0);
+      beam.castShadow = beam.receiveShadow = true;
+      cart.add(beam);
+      for (const side of [-1, 1]) {
+        const handle = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.07, 1.15), materials.wood);
+        handle.position.set(side * 0.30, 0.92, -1.28);
+        handle.rotation.x = 0.16;
+        handle.castShadow = true;
+        cart.add(handle);
+      }
+      // 两侧货担：竹筐 + 麻袋，让车不是空架。
+      for (const side of [-1, 1]) {
+        const basket = makeBasket(0.24, 0.20);
+        basket.position.set(side * 0.34, 0.92, -0.28);
+        cart.add(basket);
+        addProduce(basket, 0.06, 0.16);
+        const sack = new THREE.Mesh(new THREE.SphereGeometry(0.24, 12, 9), materials.clothOchre);
+        sack.scale.set(1, 0.78, 1.15);
+        sack.position.set(side * 0.34, 1.10, 0.48);
+        sack.castShadow = true;
+        cart.add(sack);
+      }
+      cart.name = 'street-handcart';
+      scene.add(cart);
+    }
+  }
+
+  /* 驮货的驴：市集运输的另一半。
+   * 用低多边形体块拼出可辨认的轮廓（身、头、四腿、驮架），
+   * 不追求写实，只求在街景尺度上读得出"这是一头驮畜"。
+   * 毛色不能用 materials.hair（近乎纯黑）：全黑会读成一块剪影，
+   * 失去体块转折。这里单独给驴一身暖灰褐毛色，腹面再浅一档。 */
+  const donkeyCoat = new THREE.MeshStandardMaterial({
+    name: 'donkey-coat',
+    color: 0x6f6154,
+    roughness: 0.92,
+    metalness: 0,
+    envMapIntensity: 0.55,
+  });
+  const donkeyCoatLight = new THREE.MeshStandardMaterial({
+    name: 'donkey-coat-light',
+    color: 0x9a8b7a,
+    roughness: 0.92,
+    metalness: 0,
+    envMapIntensity: 0.55,
+  });
+  const donkeyHoof = new THREE.MeshStandardMaterial({
+    name: 'donkey-hoof',
+    color: 0x2c2723,
+    roughness: 0.78,
+    metalness: 0,
+    envMapIntensity: 0.4,
+  });
+
+  function addPackDonkeys() {
+    const placements = [
+      [-3.6, 18.5, 1.9],
+      [3.4, -18.5, -1.2],
+    ];
+    for (const [x, z, yaw] of placements) {
+      const donkey = new THREE.Group();
+      donkey.position.set(x, 0.03, z);
+      donkey.rotation.y = yaw;
+
+      const body = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 10), donkeyCoat);
+      body.scale.set(0.30, 0.30, 0.62);
+      body.position.set(0, 0.92, 0);
+      body.castShadow = true;
+      donkey.add(body);
+      // 腹面浅一档：体块转折靠明度差读出来，不是靠全黑轮廓。
+      const belly = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 8), donkeyCoatLight);
+      belly.scale.set(0.24, 0.20, 0.50);
+      belly.position.set(0, 0.78, 0);
+      donkey.add(belly);
+
+      // 颈与头：低头歇脚的姿态，头低一点更像真的。
+      const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.17, 0.52, 8), donkeyCoat);
+      neck.position.set(0, 1.16, 0.52);
+      neck.rotation.x = -0.62;
+      neck.castShadow = true;
+      donkey.add(neck);
+      const head = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 9), donkeyCoat);
+      head.scale.set(0.14, 0.16, 0.30);
+      head.position.set(0, 1.30, 0.78);
+      head.castShadow = true;
+      donkey.add(head);
+      // 口鼻：浅色，给头一个明确的前端。
+      const muzzle = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), donkeyCoatLight);
+      muzzle.scale.set(0.10, 0.10, 0.14);
+      muzzle.position.set(0, 1.22, 0.98);
+      donkey.add(muzzle);
+      for (const side of [-1, 1]) {
+        const ear = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.22, 6), donkeyCoat);
+        ear.position.set(side * 0.10, 1.48, 0.74);
+        ear.rotation.z = side * 0.28;
+        ear.castShadow = true;
+        donkey.add(ear);
+        // 眼：两颗小暗点，正面能看出朝向。
+        const eye = new THREE.Mesh(new THREE.SphereGeometry(0.022, 8, 6), donkeyHoof);
+        eye.position.set(side * 0.11, 1.34, 0.88);
+        donkey.add(eye);
+      }
+
+      // 四条腿：细长，末端留出蹄。
+      for (const [lx, lz] of [[-0.17, 0.38], [0.17, 0.38], [-0.17, -0.40], [0.17, -0.40]]) {
+        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.045, 0.78, 7), donkeyCoat);
+        leg.position.set(lx, 0.42, lz);
+        leg.castShadow = true;
+        donkey.add(leg);
+        const hoof = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.055, 0.10, 7), donkeyHoof);
+        hoof.position.set(lx, 0.08, lz);
+        hoof.castShadow = true;
+        donkey.add(hoof);
+      }
+      // 尾巴。
+      const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.02, 0.55, 6), donkeyCoat);
+      tail.position.set(0, 0.92, -0.62);
+      tail.rotation.x = 0.30;
+      donkey.add(tail);
+
+      // 驮架：两侧的货捆，明确读作"运货的驴"。
+      for (const side of [-1, 1]) {
+        const bundle = new THREE.Mesh(new THREE.BoxGeometry(0.20, 0.34, 0.52), materials.clothOchre);
+        bundle.position.set(side * 0.30, 1.06, 0.02);
+        bundle.rotation.z = side * 0.08;
+        bundle.castShadow = true;
+        donkey.add(bundle);
+      }
+      const saddle = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.07, 0.46), materials.darkWood);
+      saddle.position.set(0, 1.20, 0.02);
+      saddle.castShadow = true;
+      donkey.add(saddle);
+
+      donkey.name = 'street-pack-donkey';
+      scene.add(donkey);
+    }
   }
 
   function makeRobeFigure({ robe = 0x8c5e48, female = false, guard = false, scale = 1 } = {}) {
