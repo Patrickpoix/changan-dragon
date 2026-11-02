@@ -1245,8 +1245,59 @@
       wall.castShadow = wall.receiveShadow = true;
       gate.add(wall);
     }
+    // 门楼斗拱：唐式坊门在梁上有一排铺作托住瓦顶。
+    // 之前梁上直接压瓦，门楼读成"两根柱子架一块板"，没有等级。
+    // 这里沿门宽排 9 朵，每朵由栌斗 + 两层出跳组成，与殿堂构件同一套比例。
+    const douSize = 0.30;
+    for (let i = 0; i < 9; i++) {
+      const dx = -6.0 + 12.0 * (i / 8);
+      // 栌斗
+      const dou = new THREE.Mesh(
+        new THREE.BoxGeometry(douSize * 1.15, douSize * 0.75, douSize * 1.15),
+        materials.darkWood,
+      );
+      dou.position.set(dx, 5.44, z);
+      dou.castShadow = true;
+      gate.add(dou);
+      // 两跳出跳：每跳比上一跳更薄、更外伸。
+      for (let jump = 0; jump < 2; jump++) {
+        const armW = douSize * (1.9 - jump * 0.35);
+        const arm = new THREE.Mesh(
+          new THREE.BoxGeometry(armW, douSize * 0.52, douSize * 2.4),
+          materials.redWood,
+        );
+        arm.position.set(dx, 5.62 + jump * douSize * 0.55, z);
+        arm.castShadow = true;
+        gate.add(arm);
+        // 跳头的小斗
+        const cap = new THREE.Mesh(
+          new THREE.BoxGeometry(douSize * 0.9, douSize * 0.5, douSize * 0.9),
+          materials.darkWood,
+        );
+        cap.position.set(dx, 5.78 + jump * douSize * 0.55, z);
+        gate.add(cap);
+      }
+    }
+    // 斗拱之上的通长枋：把 9 朵铺作连成一条，托住瓦顶。
+    const topBeam = new THREE.Mesh(
+      new THREE.BoxGeometry(14.6, 0.26, 0.72),
+      materials.redWood,
+    );
+    topBeam.position.set(0, 6.28, z);
+    topBeam.castShadow = true;
+    gate.add(topBeam);
+
+    // 门额：梁下的一块横匾底，写坊名。
+    const plaque = new THREE.Mesh(
+      new THREE.BoxGeometry(3.9, 1.12, 0.16),
+      materials.darkWood,
+    );
+    plaque.position.set(0, 4.62, z + 0.30 * facing);
+    plaque.castShadow = true;
+    gate.add(plaque);
+
     const sign = makeSignMesh('西市', 3.3, 0.86, { vertical: false, font: 112 });
-    sign.position.set(0, 4.55, z + 0.36 * facing);
+    sign.position.set(0, 4.62, z + 0.40 * facing);
     if (facing < 0) sign.rotation.y = Math.PI;
     gate.add(sign);
     scene.add(gate);
