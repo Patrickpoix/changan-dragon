@@ -807,22 +807,26 @@
     const ROWS = 88;
     const slabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, COLUMNS * ROWS);
     let slabCursor = 0;
+    // 街面读成"补丁被面"的根因是每块石头的色差太大（明度差 30%），
+    // 加上逐块随机平移，整条街读成拼布。这里把色差压到 8% 以内，
+    // 只保留一层极淡的深浅错动，让铺装读作"同一批石料"；
+    // 变化交给贴图、接缝与阴影，而不是靠每块石头换色。
     for (let row = 0; row < ROWS; row++) {
       for (let column = 0; column < COLUMNS; column++) {
-        const offset = row % 2 ? 0.30 : 0;
-        // 每块石头单独一点位移与缩放，避免整条街读成一张重复贴图。
-        const jitter = ((row * 7 + column * 11) % 9 - 4) * 0.016;
-        const wobble = ((row * 13 + column * 5) % 7 - 3) * 0.004;
+        const offset = row % 2 ? 0.21 : 0;
+        // 位移只用于打破完全对齐的网格，幅度极小。
+        const jitter = ((row * 7 + column * 11) % 9 - 4) * 0.006;
+        const wobble = ((row * 13 + column * 5) % 7 - 3) * 0.002;
         matrix.makeTranslation(
-          -4.20 + column * 0.42 + offset * 0.21 + jitter,
-          0.026 + ((row + column) % 3) * 0.0018,
+          -4.20 + column * 0.42 + offset + jitter,
+          0.026 + ((row + column) % 3) * 0.0012,
           STREET_Z0 + 0.8 + row * 0.92 + wobble,
         );
         slabs.setMatrixAt(slabCursor, matrix);
         color.setHex(
-          (row + column) % 7 === 0 ? 0x8e8778
-            : (row + column) % 5 === 0 ? 0x6f695d
-              : (row + column) % 3 === 0 ? 0x7d7668 : 0x797265,
+          (row + column) % 11 === 0 ? 0x84806f
+            : (row + column) % 7 === 0 ? 0x7e7a6a
+              : (row + column) % 4 === 0 ? 0x787565 : 0x7a7768,
         );
         slabs.setColorAt(slabCursor, color);
         slabCursor++;
