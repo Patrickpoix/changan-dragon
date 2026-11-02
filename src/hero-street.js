@@ -740,9 +740,17 @@
     scene.add(ground);
 
     // 街两侧的土路只铺在近处，作为铺装与店铺之间的过渡。
-    const nearGround = new THREE.Mesh(new THREE.PlaneGeometry(40, 90), materials.mud);
+    // 原来是一块 40 x 90 的大平面（z 从 -48 到 +42），把坊门前的铺装
+    // 整片盖成深褐色土面，从近处看是"一片土 + 一条硬切的边"。
+    // 改为沿街段长度、只留两侧各 14m 的过渡带。
+    const mudZ0 = STREET_Z0 - 1.0;
+    const mudZ1 = STREET_Z1 + 1.0;
+    const nearGround = new THREE.Mesh(
+      new THREE.PlaneGeometry(40, mudZ1 - mudZ0),
+      materials.mud,
+    );
     nearGround.rotation.x = -Math.PI / 2;
-    nearGround.position.set(0, -0.012, -3);
+    nearGround.position.set(0, -0.012, (mudZ0 + mudZ1) / 2);
     nearGround.receiveShadow = true;
     scene.add(nearGround);
 
@@ -902,16 +910,28 @@
     // 门洞地坪：坊门两侧是夯土墙，门洞正中那段地面既没有铺装也不属于街段，
     // 从街上看过去是一块土黄平台。这里在门洞内外各铺一段石板，
     // 让"穿过门洞"这件事在地面上也连续。
+    // 门洞前后的铺装：原来只有 12m 长（覆盖门洞前 6m），
+    // 门洞后方（更远那一侧）是裸露的 far-ground 米褐色大平面，
+    // 近看是"一片土 + 一条硬切的边"（实测）。
+    // 改为 20m 长并整体后移，把门洞内外都铺到。
     for (const gateZ of [-39.2, 41.0]) {
-      const apron = new THREE.Mesh(new THREE.PlaneGeometry(10.6, 12.0), pavingBase);
+      const APRON_LEN = 20.0;
+      const apronCenter = gateZ - Math.sign(gateZ) * 5.5;
+      const apron = new THREE.Mesh(
+        new THREE.PlaneGeometry(10.6, APRON_LEN),
+        pavingBase,
+      );
       apron.rotation.x = -Math.PI / 2;
-      apron.position.set(0, 0.028, gateZ - Math.sign(gateZ) * 3.0);
+      apron.position.set(0, 0.028, apronCenter);
       apron.receiveShadow = true;
       scene.add(apron);
       // 石板：与主街同尺寸，横向 16 列、纵向 12 行，盖住 10.6×12 的铺装面。
-      const apronSlabs = new THREE.InstancedMesh(slabGeometry, pavingMaterial, 16 * 12);
+      const APRON_ROWS = 22;
+      const apronSlabs = new THREE.InstancedMesh(
+        slabGeometry, pavingMaterial, 16 * APRON_ROWS,
+      );
       let cursor = 0;
-      for (let row = 0; row < 12; row++) {
+      for (let row = 0; row < APRON_ROWS; row++) {
         for (let column = 0; column < 16; column++) {
           matrix.makeTranslation(
             -4.20 + column * 0.56,
