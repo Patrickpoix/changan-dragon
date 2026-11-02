@@ -2644,13 +2644,28 @@
     valance.position.set(0, 2.18, -depth * 0.48);
     valance.rotation.x = Math.PI * 0.08;
     group.add(valance);
-    const table = new THREE.Mesh(new THREE.BoxGeometry(width * 0.84, 0.09, depth * 0.66), materials.wood);
-    table.position.set(0, 0.82, 0.05);
+    // 摊位桌面与桌腿必须真正接上。
+    // 之前桌面中心 0.82、厚 0.09（底面 0.775），桌腿高 0.78、中心 0.4
+    // （顶端 0.79）——桌面浮在腿上方 0.035m 的空隙里（实测尺寸对不上）。
+    // 现在让桌腿顶端正好顶到桌面底面。
+    const TABLE_TOP_Y = 0.82;
+    const TABLE_THICK = 0.09;
+    const legTop = TABLE_TOP_Y - TABLE_THICK / 2;
+    const legH = legTop - 0.005;          // 底端落在铺装面上，留 5mm 容差
+    const table = new THREE.Mesh(
+      new THREE.BoxGeometry(width * 0.84, TABLE_THICK, depth * 0.66),
+      materials.wood,
+    );
+    table.position.set(0, TABLE_TOP_Y, 0.05);
     table.castShadow = table.receiveShadow = true;
     group.add(table);
     for (const sx of [-1, 1]) {
-      const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.78, 0.08), materials.darkWood);
-      leg.position.set(sx * width * 0.32, 0.4, 0.05);
+      const leg = new THREE.Mesh(
+        new THREE.BoxGeometry(0.08, legH, 0.08),
+        materials.darkWood,
+      );
+      leg.position.set(sx * width * 0.32, 0.005 + legH / 2, 0.05);
+      leg.castShadow = true;
       group.add(leg);
     }
     const basket = makeBasket(0.18, 0.16);
