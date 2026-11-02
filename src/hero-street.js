@@ -1206,12 +1206,36 @@
     });
     group.add(hall);
     // 殿前踏道：从坊门地面接到台基，给主景一条可读的路径。
+    // 台阶必须用单独的材质：street-stone 的 repeat 是 (2, 8)，
+    // 那是按 16.6 x 3.2 x 12.2 的大台基调的；套到 5.2 x h x 0.74 的台阶上，
+    // 0.74m 深的面被纵向重复 8 次，石纹被压成横向丝条（近景实测）。
+    // 这里按"每 1.2m 一个纹理周期"重设 repeat，让石纹在台阶上保持正方。
+    const stepStone = materials.stone.clone();
+    stepStone.name = 'street-stone-step';
+    if (stepStone.map) {
+      stepStone.map = stepStone.map.clone();
+      stepStone.map.needsUpdate = true;
+      stepStone.map.repeat.set(1.6, 0.5);
+      stepStone.map.wrapS = stepStone.map.wrapT = THREE.RepeatWrapping;
+    }
+    if (stepStone.normalMap) {
+      stepStone.normalMap = stepStone.normalMap.clone();
+      stepStone.normalMap.needsUpdate = true;
+      stepStone.normalMap.repeat.set(1.6, 0.5);
+      stepStone.normalMap.wrapS = stepStone.normalMap.wrapT = THREE.RepeatWrapping;
+    }
+    if (stepStone.roughnessMap) {
+      stepStone.roughnessMap = stepStone.roughnessMap.clone();
+      stepStone.roughnessMap.needsUpdate = true;
+      stepStone.roughnessMap.repeat.set(1.6, 0.5);
+      stepStone.roughnessMap.wrapS = stepStone.roughnessMap.wrapT = THREE.RepeatWrapping;
+    }
     const STEPS = 7;
     for (let i = 0; i < STEPS; i++) {
       const h = BASE_H * (STEPS - i) / STEPS;
       const step = new THREE.Mesh(
         new THREE.BoxGeometry(5.2, h, 0.74),
-        materials.stone,
+        stepStone,
       );
       step.position.set(0, h / 2, -45.3 - i * 0.74);
       step.receiveShadow = true;
