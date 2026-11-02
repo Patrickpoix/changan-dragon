@@ -478,7 +478,10 @@ def main():
             kit.reset_scene()
             mats = kit_materials()
             cam = setup_render(None)
-            shop = join(build_shop_module(m, mats, module_id, bays=2, storey=storey), module_id)
+            # 重檐用 3 开间：只靠高度差（0.67m）在俯瞰视角会被压缩掉，
+            # 宽度差才能让它一眼读作"更大的行铺"。
+            bays = 3 if storey >= 3 else 2
+            shop = join(build_shop_module(m, mats, module_id, bays=bays, storey=storey), module_id)
             bpy.context.view_layer.update()
             ground(60.0)
             sh_center, sh_radius, sh_lo, sh_hi = bounds([shop])

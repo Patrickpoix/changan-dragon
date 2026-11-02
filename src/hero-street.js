@@ -1524,10 +1524,27 @@
 
   // 铺面的临街几何与招牌文案只有这一处定义：布局、招牌网格和验收记录共用，
   // 避免"挂幌位置"在展示代码和记录数据里各算一遍而互相漂移。
+  /* 各档铺面的实测基座半宽（scale=1.0）。
+   * 在场景里逐个量过基座（plinth / platform_core）的 z 范围换算得到：
+   *   常铺 tier 0/1  4.690m → 2.345m
+   *   常铺 tier 2    5.089m → 2.545m
+   *   酒肆           6.652m → 3.326m
+   *   重檐 tier 3    7.892m → 3.946m
+   * 旧的估计值（常铺 2.62、酒肆 2.91）偏大偏小不一，
+   * 导致酒肆与邻铺长期有 -0.004 ~ -0.535m 的基座侵入。
+   * 排布与间隙核对必须共用这一份数据，否则两套半宽会互相矛盾（实测验收失败）。 */
+  const BODY_HALF_WIDTH = { shop0: 2.345, shop1: 2.345, shop2: 2.545, shop3: 3.946, tavern: 3.326 };
+  function bodyHalfWidth(kind, tier = 1) {
+    if (kind === 'tavern') return BODY_HALF_WIDTH.tavern;
+    if (tier === 3) return BODY_HALF_WIDTH.shop3;
+    if (tier === 2) return BODY_HALF_WIDTH.shop2;
+    return BODY_HALF_WIDTH.shop1;
+  }
+
   function shopPlacement(entry) {
     const isTavern = entry.kind === 'tavern';
     const depth = isTavern ? 5.82 : 5.24;
-    const halfD = (isTavern ? 2.91 : 2.62) * entry.scale;
+    const halfD = bodyHalfWidth(entry.kind, entry.tier) * entry.scale;
     const trade = shopTrade(entry);
     const hasHanging = isTavern || Math.abs(entry.z) % 14 < 1;
     // 招牌位置随铺面档位走：高铺的匾额更高，低铺更低。
@@ -1992,7 +2009,16 @@
     // 位置不能按固定步长算：每间铺面的 scale 不同，半深随之变化，
     // 固定步长会让个别相邻铺面互相侵入（实测出现 -0.018m 的重叠）。
     // 这里按"上一间的实际半深 + 本间半深 + 一条窄缝"累加排布。
-    const halfDepthOf = (kind, scale) => (kind === 'tavern' ? 2.91 : 2.62) * scale;
+    // 沿街半宽必须用实测的基座半宽，不能沿用旧的估计值。
+    // 在场景里逐个量过基座（plinth / platform_core）的 z 范围，换算到 scale=1.0：
+    //   常铺 tier 0/1  4.690m → 半宽 2.345m
+    //   常铺 tier 2    5.089m → 半宽 2.545m
+    //   酒肆           6.652m → 半宽 3.326m
+    //   重檐 tier 3    7.892m → 半宽 3.946m
+    // 旧值（常铺 2.62、酒肆 2.91）与实测不符：酒肆偏小 0.42m，
+    // 因此酒肆与邻铺一直有 -0.004 ~ -0.535m 的基座侵入（实测确认）。
+    const halfDepthOf = (kind, scale, tier = 1) =>
+      bodyHalfWidth(kind, tier) * scale;
     const SEAM = 0.12;
 
     // 巷口：唐式坊内是"十字街 + 若干曲巷"，一条直街两侧铺满铁板一块，
@@ -2014,7 +2040,7 @@
         // 档位只改高度与屋顶，不改占地。
         const scale = item.kind === 'tavern' ? 0.96
           : i % 4 === 0 ? 0.97 : i % 3 === 0 ? 1.03 : 1.0;
-        const halfD = halfDepthOf(item.kind, scale);
+        const halfD = halfDepthOf(item.kind, scale, item.tier || 1);
         let z = cursor + halfD;
         // 若这一间会压住巷口，就整体越过巷口再放。
         const blocking = gaps.find((g) => z + halfD > g.z - g.width / 2 && z - halfD < g.z + g.width / 2);
