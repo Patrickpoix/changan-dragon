@@ -1335,88 +1335,6 @@
     return group;
   }
 
-  /* 石狮：用体块拼出可辨认的坐狮轮廓（须弥座 + 身 + 前腿 + 昂起的头 + 鬃鬣）。
-   * 街景尺度上不求写实，只求读得出"一对石兽蹲在坊门前"。
-   * 石狮朝外守门，因此朝向随坊门的 facing 一起转。 */
-  function addStoneLion(parent, x, z, facing, side) {
-    const lion = new THREE.Group();
-    lion.position.set(x, 0, z);
-    // 石狮要够大才读得出"镇守"：初版约 1.5m 高，在 4.5m 外只有一小团。
-    lion.scale.setScalar(1.45);
-    lion.rotation.y = facing > 0 ? 0 : Math.PI;
-    lion.name = 'gate-stone-lion';
-
-    const stone = materials.stone;
-    const dark = materials.darkWood;
-
-    // 须弥座
-    const pedestal = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.42, 1.35), stone);
-    pedestal.position.set(0, 0.21, 0);
-    pedestal.castShadow = pedestal.receiveShadow = true;
-    lion.add(pedestal);
-    const pedTop = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.12, 1.22), stone);
-    pedTop.position.set(0, 0.48, 0);
-    lion.add(pedTop);
-
-    // 身：坐姿，前高后低
-    const body = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 10), stone);
-    body.scale.set(0.34, 0.40, 0.44);
-    body.position.set(0, 0.86, -0.05);
-    body.castShadow = true;
-    lion.add(body);
-
-    // 前腿：两根立柱，撑在须弥座上
-    for (const lx of [-0.18, 0.18]) {
-      const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.12, 0.52, 8), stone);
-      leg.position.set(lx, 0.72, 0.26);
-      leg.castShadow = true;
-      lion.add(leg);
-      const paw = new THREE.Mesh(new THREE.BoxGeometry(0.20, 0.10, 0.26), stone);
-      paw.position.set(lx, 0.52, 0.34);
-      lion.add(paw);
-    }
-
-    // 头：昂起，略侧向街心
-    const head = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 10), stone);
-    head.scale.set(0.25, 0.25, 0.23);
-    head.position.set(0, 1.32, 0.10);
-    head.castShadow = true;
-    lion.add(head);
-    // 吻部
-    const muzzle = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.16, 0.18), stone);
-    muzzle.position.set(0, 1.26, 0.26);
-    lion.add(muzzle);
-    // 眼：两颗暗点，正面能看出朝向
-    for (const ex of [-0.10, 0.10]) {
-      const eye = new THREE.Mesh(new THREE.SphereGeometry(0.032, 8, 6), dark);
-      eye.position.set(ex, 1.38, 0.24);
-      lion.add(eye);
-    }
-    // 鬃鬣：一圈短锥，从颅后向外，读作石狮的卷鬃
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * Math.PI * 2;
-      const tuft = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.20, 5), stone);
-      tuft.position.set(
-        Math.cos(a) * 0.21,
-        1.34 + Math.sin(a) * 0.13,
-        -0.05 + Math.sin(a) * 0.10,
-      );
-      tuft.rotation.z = a;
-      tuft.castShadow = true;
-      lion.add(tuft);
-    }
-    // 尾：从身后上卷
-    const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.03, 0.46, 6), stone);
-    tail.position.set(0, 1.02, -0.44);
-    tail.rotation.x = -0.55;
-    lion.add(tail);
-
-    // 面朝街心一侧略偏，两只狮子的头因此不完全平行。
-    lion.rotation.y += side * 0.16 * (facing > 0 ? 1 : -1);
-    parent.add(lion);
-    return lion;
-  }
-
   function createGate(z = -39.2, facing = 1) {
     const gate = new THREE.Group();
     gate.name = 'west-market-gate';
@@ -1434,12 +1352,6 @@
       cap.castShadow = cap.receiveShadow = true;
       gate.add(cap);
     }
-    // 坊门两侧的一对石狮：唐式坊门本有石兽守门，
-    // 只有石柱与门楼时，门洞读成"一个洞"，缺少镇守的体量。
-    for (const side of [-1, 1]) {
-      addStoneLion(gate, side * 4.55, z + facing * 2.35, facing, side);
-    }
-
     const lintel = new THREE.Mesh(new THREE.BoxGeometry(13.45, 0.48, 0.58), materials.darkWood);
     lintel.position.set(0, 5.0, z);
     lintel.castShadow = lintel.receiveShadow = true;
