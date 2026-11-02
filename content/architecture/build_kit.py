@@ -42,6 +42,8 @@ def kit_materials():
         "ridge": kit.make_material("mat_roof_ridge", kit.srgb(0x4A504E), 0.70),
         "plaster": kit.make_material("mat_plaster", kit.srgb(0xD8CEBB), 0.82),
         "cloth": kit.make_material("mat_cloth", kit.srgb(0xC9553F), 0.86),
+        # 铺面内壁：格扇后面那层暗色面，不能与外墙同色，否则格眼后面一片白。
+        "interior": kit.make_material("mat_interior", kit.srgb(0x3A3028), 0.92),
     }
 
 
@@ -437,6 +439,88 @@ def main():
         with open(report_path, "w", encoding="utf-8") as fh:
             json.dump(report, fh, ensure_ascii=False, indent=2)
         print("KIT_BUILD_OK characters")
+        return
+
+    # --only shops：只重导市井铺面与酒肆。改铺面内部结构时不必重跑
+    # 殿宇与斗拱，否则每次都会刷新几十张只差渲染噪声的验收图。
+    if args.only == "shops":
+        report_path = os.path.join(out_dir, "kit-report.json")
+        report = {}
+        if os.path.isfile(report_path):
+            with open(report_path, "r", encoding="utf-8") as fh:
+                report = json.load(fh)
+        report.setdefault("modules", [])
+        report.setdefault("note", "唐构构件库，尺寸按材分制换算")
+        m = kit.TangModule(0.22)
+        modules = [row for row in report["modules"] if row.get("id") not in ("shop_shijing", "tavern_shijing")]
+
+        def ground(size):
+            bpy.ops.mesh.primitive_plane_add(size=size, location=(0, 0, -0.002))
+            bpy.context.object.name = "review_ground"
+            bpy.context.object.data.materials.append(
+                kit.make_material("mat_review_ground", kit.srgb(0x8C8880), 0.9)
+            )
+
+        kit.reset_scene()
+        mats = kit_materials()
+        cam = setup_render(None)
+        shop = join(build_shop_module(m, mats, "shop_shijing", bays=2), "shop_shijing")
+        bpy.context.view_layer.update()
+        ground(60.0)
+        sh_center, sh_radius, sh_lo, sh_hi = bounds([shop])
+        modules.append(
+            {
+                "id": "shop_shijing",
+                "grade": m.cai,
+                "triangles": count_triangles([shop]),
+                "dimensions_m": tuple(round(v, 3) for v in shop.dimensions),
+                "height_m": round(sh_hi[2] - sh_lo[2], 3),
+                "geometry_mode": "street_frontage_gable_roof_awning",
+            }
+        )
+        for label, az, el in (
+            ("front", 180.0, 7.0),
+            ("three-quarter", 148.0, 16.0),
+            ("shopfront", 172.0, 3.0),
+            ("side", 90.0, 10.0),
+            ("aerial", 205.0, 45.0),
+        ):
+            place_camera(cam, sh_center, sh_radius, az, el, zoom=1.1)
+            render_to(os.path.join(shots_dir, "shop-shijing-%s.jpg" % label))
+        export_glb(os.path.join(out_dir, "shop-shijing.glb"), [shop])
+
+        kit.reset_scene()
+        mats = kit_materials()
+        cam = setup_render(None)
+        townhouse = join(build_townhouse_module(m, mats, "tavern_shijing"), "tavern_shijing")
+        bpy.context.view_layer.update()
+        ground(70.0)
+        th_center, th_radius, th_lo, th_hi = bounds([townhouse])
+        modules.append(
+            {
+                "id": "tavern_shijing",
+                "grade": m.cai,
+                "triangles": count_triangles([townhouse]),
+                "dimensions_m": tuple(round(v, 3) for v in townhouse.dimensions),
+                "height_m": round(th_hi[2] - th_lo[2], 3),
+                "geometry_mode": "two_storey_gallery_tavern",
+            }
+        )
+        for label, az, el in (
+            ("front", 180.0, 6.0),
+            ("three-quarter", 148.0, 15.0),
+            ("street", 164.0, 4.0),
+            ("side", 90.0, 9.0),
+            ("aerial", 205.0, 44.0),
+        ):
+            place_camera(cam, th_center, th_radius, az, el, zoom=1.08)
+            render_to(os.path.join(shots_dir, "tavern-shijing-%s.jpg" % label))
+        export_glb(os.path.join(out_dir, "tavern-shijing.glb"), [townhouse])
+
+        report["modules"] = modules
+        with open(report_path, "w", encoding="utf-8") as fh:
+            json.dump(report, fh, ensure_ascii=False, indent=2)
+        print("KIT_BUILD_OK shops")
         return
 
     report = {"modules": [], "note": "唐构构件库，尺寸按材分制换算"}

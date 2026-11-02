@@ -1230,7 +1230,9 @@
       const beamWorld = beam.clone().multiply(new THREE.Matrix4().makeScale(1, 1, halfD * 1.72));
       queueBatch(isTavern ? 'tavern-beam' : 'shop-beam', beamGeo, frameMat, beamWorld);
     }
-    addStreetAwning();
+    // 雨篷不再在运行时另铺：构件库的 build_shop/build_townhouse 已经带一条
+    // 有下垂弧与波浪垂边的布篷，颜色由 addBuilding 按铺面轮换。
+    // 之前这里再叠一层平板布篷，街上会同时看到两套篷，且平板读成一根横杆。
     addFacadeShade();
     if (!isTavern) {
       for (const x of [-1.35, 0, 1.35]) {
@@ -1247,6 +1249,9 @@
   }
 
   function addBuilding(root, entry) {
+    // 构件库的临街面在局部 -Z（Blender 的 +Y 经 yup 导出翻成 glTF -Z）。
+    // 左铺（x<0）绕 Y 转 -π/2、右铺转 +π/2，临街面才朝向街心；
+    // 这一点用"红布篷是否朝向街心"实测确认过，不要凭 +Z 假设去改。
     const group = kitInstance(root, {
       position: [entry.side * SHOP_X, 0, entry.z],
       rotationY: entry.side < 0 ? -Math.PI / 2 : Math.PI / 2,
@@ -1256,6 +1261,10 @@
     group.userData.entry = entry;
     const tint = [materials.redWood, materials.wood, materials.greenPaint][Math.abs(Math.round(entry.z)) % 3];
     const plasterTint = [materials.plaster, materials.plasterWarm, materials.stone][Math.abs(Math.round(entry.z)) % 3];
+    // 布篷按铺面轮换颜色：整条街清一色红布篷会读成一条流水线。
+    const clothTint = [
+      materials.clothBlue, materials.clothOchre, materials.cloth, materials.clothOchre,
+    ][Math.abs(Math.round(entry.z)) % 4];
     group.traverse((node) => {
       if (!node.isMesh) return;
       const material = Array.isArray(node.material) ? node.material[0] : node.material;
@@ -1264,6 +1273,8 @@
         node.material = tint;
       } else if (/mat_plaster/i.test(material.name || '')) {
         node.material = plasterTint;
+      } else if (/mat_cloth/i.test(material.name || '')) {
+        node.material = clothTint;
       }
     });
     scene.add(group);

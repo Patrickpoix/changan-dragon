@@ -102,6 +102,8 @@ function kitMaterialSet() {
     mat_roof_surface: make(0x3f4547, 0.76, 'tile', 4),
     mat_roof_ridge: make(0x34393b, 0.72, 'tile', 2),
     mat_plaster: make(0xd8cebb, 0.86, 'plaster', 2),
+    // 铺面内壁：深暖灰，格扇后面的暗部。与外墙同色会把整面读成白墙。
+    mat_interior: make(0x3a3028, 0.94, 'darkWood', 2),
     mat_review_ground: make(0x8c8880, 0.92, 'mud', 6),
     mat_ruler: make(0x2e2e2e, 0.6, null, 0),
     mat_cloth: make(0xc45f4e, 0.9, 'cloth', 2),

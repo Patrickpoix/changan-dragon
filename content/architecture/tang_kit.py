@@ -1626,7 +1626,7 @@ def build_shop(
     materials = resolve_materials(
         materials,
         "wood", "block", "tile", "stone", "plaster", "vermilion",
-        "roof", "ridge",
+        "roof", "ridge", "interior",
     )
     m = TangModule(grade)
     parts = []
@@ -1717,6 +1717,37 @@ def build_shop(
             )
         )
 
+    # 铺面内部：格扇是透空的，后面必须有一层暗色内壁，否则透过格眼直接看到
+    # 后墙的白灰，整面读成"白墙贴了一排木格子"——这是首街最刺眼的假象。
+    # 内壁略退进，留出柜台进深，近看能读出"店"而不是"墙"。
+    parts.append(
+        box(
+            "%s_interior" % name,
+            (half_x * 2.0, m.f(5), wall_h * 0.94),
+            materials["interior"],
+            (0.0, half_y - m.f(30), wall_z + wall_h * 0.47),
+        )
+    )
+    # 柜台：临街一排木台面，给内壁一个前景，避免内壁读成一块黑板。
+    parts.append(
+        box(
+            "%s_counter" % name,
+            (half_x * 1.72, m.f(46), m.f(8),
+            ),
+            materials["wood"],
+            (0.0, half_y - m.f(36), wall_z + m.f(74)),
+        )
+    )
+    for sign, tag in ((-1.0, "n"), (1.0, "p")):
+        parts.append(
+            box(
+                "%s_counter_leg_%s" % (name, tag),
+                (m.f(8), m.f(8), m.f(74)),
+                materials["wood"],
+                (sign * half_x * 0.72, half_y - m.f(36), wall_z + m.f(37)),
+            )
+        )
+
     # 檐下铺作：市井用四铺作单抄（无下昂），体量小、层次简单
     puzuo_z = wall_z + wall_h
     puzuo_top = puzuo_z
@@ -1792,7 +1823,7 @@ def build_townhouse(
     materials = resolve_materials(
         materials,
         "wood", "block", "tile", "stone", "plaster", "vermilion",
-        "roof", "ridge", "cloth",
+        "roof", "ridge", "cloth", "interior",
     )
     m = TangModule(grade)
     parts = []
@@ -1885,6 +1916,35 @@ def build_townhouse(
             )
         )
 
+    # 一层店内：格扇后面必须有暗色内壁。酒肆的格扇同样透空，
+    # 直接看到后墙白灰会把一层读成一排白墙加木格子。
+    parts.append(
+        box(
+            "%s_ground_interior" % name,
+            (half_x * 2.0, m.f(6), ground_wall_h * 0.96),
+            materials["interior"],
+            (0.0, front_y - m.f(34), wall_z + ground_wall_h * 0.48),
+        )
+    )
+    # 柜台：临街一排长台面 + 两条腿。
+    parts.append(
+        box(
+            "%s_ground_counter" % name,
+            (half_x * 1.78, m.f(50), m.f(8)),
+            materials["wood"],
+            (0.0, front_y - m.f(40), wall_z + m.f(80)),
+        )
+    )
+    for sign, tag in ((-1.0, "n"), (1.0, "p")):
+        parts.append(
+            box(
+                "%s_ground_counter_leg_%s" % (name, tag),
+                (m.f(8), m.f(8), m.f(80)),
+                materials["wood"],
+                (sign * half_x * 0.76, front_y - m.f(40), wall_z + m.f(40)),
+            )
+        )
+
     # 一层额枋与楼板：楼板外挑，形成真实可站立的楼廊。
     ground_top = wall_z + ground_col_h
     parts.append(
@@ -1961,6 +2021,15 @@ def build_townhouse(
                 position=(cx, upper_front_y, upper_base + upper_wall_h * 0.52),
             )
         )
+    # 二层窗后同样要暗：从街上透过二层格窗看到后墙白灰，会读成"白板"。
+    parts.append(
+        box(
+            "%s_upper_interior" % name,
+            (half_x * 2.0, m.f(5), upper_wall_h * 0.94),
+            materials["interior"],
+            (0.0, upper_front_y - m.f(22), upper_base + upper_wall_h * 0.48),
+        )
+    )
 
     # 楼廊勾栏与一层布篷：让二层不是贴在一层上的一个方盒。
     parts.append(

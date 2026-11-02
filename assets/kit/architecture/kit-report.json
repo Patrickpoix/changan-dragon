@@ -99,30 +99,6 @@
       "geometry_mode": "platform_columns_brackets_facade_hip_roof"
     },
     {
-      "id": "shop_shijing",
-      "grade": 0.22,
-      "triangles": 9356,
-      "dimensions_m": [
-        4.69,
-        5.244,
-        6.032
-      ],
-      "height_m": 6.032,
-      "geometry_mode": "street_frontage_gable_roof_awning"
-    },
-    {
-      "id": "tavern_shijing",
-      "grade": 0.22,
-      "triangles": 26624,
-      "dimensions_m": [
-        6.652,
-        5.816,
-        8.198
-      ],
-      "height_m": 8.198,
-      "geometry_mode": "two_storey_gallery_tavern"
-    },
-    {
       "id": "puzuo_shijing",
       "grade": 0.22,
       "triangles": 1280,
@@ -157,6 +133,30 @@
         4.693
       ],
       "height_m": 4.693
+    },
+    {
+      "id": "shop_shijing",
+      "grade": 0.22,
+      "triangles": 9404,
+      "dimensions_m": [
+        4.69,
+        5.244,
+        6.032
+      ],
+      "height_m": 6.032,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "tavern_shijing",
+      "grade": 0.22,
+      "triangles": 26684,
+      "dimensions_m": [
+        6.652,
+        5.816,
+        8.198
+      ],
+      "height_m": 8.198,
+      "geometry_mode": "two_storey_gallery_tavern"
     }
   ],
   "note": "唐构构件库，尺寸按材分制换算",
