@@ -200,6 +200,65 @@
     return material;
   }
 
+  /* 地面接触阴影：一张径向渐变的暗斑，贴在物件与地面的接触处。
+   *
+   * 场景没有可用的环境光遮蔽（SAOPass 实测会把画面破坏成白边加黑斑），
+   * 因此墙角、桌脚、罐底、人脚都没有暗部，一切像"浮"在地上。
+   * 这张贴片是廉价但有效的替代：只在接触点附近压暗，不改变几何。
+   *
+   * 做法与檐下暗部一致（canvas 渐变 + MeshBasicMaterial + 不写深度），
+   * 保证两者的暗部颜色与浓度来自同一套参数。 */
+  let contactShadowMaterial = null;
+  function getContactShadowMaterial() {
+    if (contactShadowMaterial) return contactShadowMaterial;
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(
+      size / 2, size / 2, 0,
+      size / 2, size / 2, size / 2,
+    );
+    // 中心最暗、边缘完全透明：接触处最实，向外迅速衰减。
+    grad.addColorStop(0, 'rgba(26, 20, 14, 0.62)');
+    grad.addColorStop(0.42, 'rgba(26, 20, 14, 0.34)');
+    grad.addColorStop(0.72, 'rgba(26, 20, 14, 0.11)');
+    grad.addColorStop(1, 'rgba(26, 20, 14, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.needsUpdate = true;
+    contactShadowMaterial = new THREE.MeshBasicMaterial({
+      name: 'contact-shadow',
+      map: tex,
+      transparent: true,
+      depthWrite: false,
+      toneMapped: false,
+      side: THREE.DoubleSide,
+    });
+    return contactShadowMaterial;
+  }
+
+  const contactShadowGeo = new THREE.PlaneGeometry(1, 1);
+
+  /* 在 (x, z) 贴一片接触阴影。radius 是暗斑半径（米），
+   * y 略高于地面避免与铺装 z-fighting。 */
+  function addContactShadow(x, z, radius, y = 0.056, opacity = 1) {
+    const mesh = new THREE.Mesh(contactShadowGeo, getContactShadowMaterial());
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.scale.set(radius * 2, radius * 2, 1);
+    mesh.position.set(x, y, z);
+    mesh.renderOrder = 1;
+    if (opacity !== 1) mesh.material = mesh.material.clone();
+    if (opacity !== 1) {
+      mesh.material.opacity = opacity;
+      mesh.material.transparent = true;
+    }
+    scene.add(mesh);
+    return mesh;
+  }
+
   function makeMat(name, color, roughness = 0.82, metalness = 0) {
     return new THREE.MeshStandardMaterial({
       name,
@@ -1167,6 +1226,37 @@
    * 唐长安里坊的空间逻辑本来就是"坊门内十字街、两侧宅邸寺观"，
    * 从街心穿过门洞看到的应当是殿宇，而不是另一排铺面。
    * 只用变换复用同一份 GLB 与共享材质，不增加下载量。 */
+  /* 扫描场景里直接挂在场景上的落地立体物件，按尺寸自动贴接触阴影。
+   *
+   * 半径取物件横向尺寸的 0.62 倍（略大于物件本身，让暗部从接触点向外溢出），
+   * 高度越高的物件阴影越淡，避免大物件底下压出一块死黑。 */
+  function addContactShadowsToGroundedProps() {
+    let placed = 0;
+    for (const node of scene.children.slice()) {
+      const box = new THREE.Box3().setFromObject(node);
+      if (box.isEmpty()) continue;
+      const sz = new THREE.Vector3();
+      box.getSize(sz);
+      const ctr = new THREE.Vector3();
+      box.getCenter(ctr);
+
+      // 必须落地、有高度、横向不过大
+      if (box.min.y > 0.12) continue;
+      if (sz.y < 0.25) continue;
+      const footprint = Math.max(sz.x, sz.z);
+      if (footprint > 4.0) continue;
+      if (footprint < 0.12) continue;
+
+      const radius = Math.min(2.2, footprint * 0.62);
+      // 高物件（>2.5m）的阴影淡一些，避免一整片死黑。
+      const opacity = sz.y > 2.5 ? 0.55 : 1.0;
+      addContactShadow(ctr.x, ctr.z, radius, 0.056, opacity);
+      placed += 1;
+    }
+    state.contactShadows = placed;
+    return placed;
+  }
+
   /* 坊内铺地：把门洞到殿堂台基之间的地面铺满。
    *
    * 注意：我原先以为这里是"裸露的 far-ground 裸地"，并用射线与像素采样核对过——
@@ -2410,6 +2500,10 @@
     createWardWall(shopRoot, tavernRoot);
     addWardInteriorPaving();
     // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
+    // 给所有落地立体物件补接触阴影。
+    // 只处理有高度（>0.25m）且横向不大（<4m）的物件，
+    // 排除铺装条、地面片这类本来就不该有接触暗部的对象。
+    addContactShadowsToGroundedProps();
     state.streetPlan = entries.map((entry) => {
       const placement = shopPlacement(entry);
       return {
