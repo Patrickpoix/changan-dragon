@@ -2178,7 +2178,7 @@
     /* 檐下暗部：沿铺面立面贴一片上深下透的渐变，模拟挑檐挡住的天光。
      * 没有这层，整面白灰墙从檐口到地面亮度一样，读成一张贴纸；
      * 这是廉价但有效的假 AO，比加几何檐口更省。 */
-    function addFacadeShade() {
+  function addFacadeShade() {
       const eaveY = isTavern ? 3.46 : 2.78;
       const halfSpan = halfD * 0.94;
       const frontX = SHOP_FRONT * entry.scale;
@@ -2543,6 +2543,109 @@
     return rows;
   }
 
+  /* 立面变化：给相邻铺面加上不同的附加构件，打破"一条街全是同一张脸"。
+   *
+   * 24 间铺面用的是同一套构件库，主体立面必然相同。
+   * 真实市街的差异来自"店家自己加的"东西：
+   * 挑檐、垂花柱、雨篷、门楼、招牌位置。这些不属于营造制度，
+   * 正是它们让一条街看起来是活的。
+   *
+   * 按铺面的 z 坐标做确定性轮换（0-3 四种），保证每次运行一致。 */
+  function addFacadeVariation(entry) {
+    const variant = Math.abs(Math.round(entry.z)) % 4;
+    const frontX = SHOP_FRONT * (entry.scale || 1);
+    const side = entry.side;
+    const outward = side * frontX;
+    const scale = entry.scale || 1;
+
+    // variant 0：挑檐下加一排短椽头，读作"店家加的小檐"。
+    if (variant === 0) {
+      for (let i = 0; i < 5; i++) {
+        const rafter = new THREE.Mesh(
+          new THREE.BoxGeometry(0.30, 0.075, 0.10),
+          materials.wood,
+        );
+        rafter.position.set(
+          side * (frontX - 0.16),
+          2.62 * scale,
+          entry.z - 1.5 + i * 0.75,
+        );
+        rafter.castShadow = true;
+        scene.add(rafter);
+      }
+    }
+
+    // variant 1：垂花柱——檐下两根短柱，柱头雕花（用叠层小方块表示）。
+    if (variant === 1) {
+      for (const dz of [-1.25, 1.25]) {
+        const post = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.055, 0.055, 0.52, 8),
+          materials.redWood,
+        );
+        post.position.set(side * (frontX - 0.10), 2.30 * scale, entry.z + dz);
+        post.castShadow = true;
+        scene.add(post);
+        // 柱头雕花：三层渐小的方块
+        for (let k = 0; k < 3; k++) {
+          const bud = new THREE.Mesh(
+            new THREE.BoxGeometry(0.14 - k * 0.03, 0.055, 0.14 - k * 0.03),
+            materials.redWood,
+          );
+          bud.position.set(
+            side * (frontX - 0.10),
+            (2.02 - k * 0.07) * scale,
+            entry.z + dz,
+          );
+          bud.rotation.y = Math.PI / 4;
+          scene.add(bud);
+        }
+      }
+    }
+
+    // variant 2：外挑的雨篷——比布篷更小，只有一段斜板 + 两根斜撑。
+    if (variant === 2) {
+      const canopy = new THREE.Mesh(
+        new THREE.BoxGeometry(0.85, 0.045, 2.6),
+        materials.darkWood,
+      );
+      canopy.position.set(side * (frontX - 0.42), 2.90 * scale, entry.z);
+      canopy.rotation.z = side * 0.22;
+      canopy.castShadow = true;
+      scene.add(canopy);
+      for (const dz of [-1.0, 1.0]) {
+        const brace = new THREE.Mesh(
+          new THREE.BoxGeometry(0.055, 0.055, 0.95),
+          materials.wood,
+        );
+        brace.position.set(side * (frontX - 0.40), 2.62 * scale, entry.z + dz);
+        brace.rotation.x = Math.PI / 2;
+        brace.rotation.z = side * 0.22;
+        scene.add(brace);
+      }
+    }
+
+    // variant 3：门前加一道矮门楼（门框 + 小额枋），读作"这家的门脸更讲究"。
+    if (variant === 3) {
+      for (const dz of [-1.35, 1.35]) {
+        const jamb = new THREE.Mesh(
+          new THREE.BoxGeometry(0.16, 2.30, 0.16),
+          materials.redWood,
+        );
+        jamb.position.set(side * (frontX - 0.06), 1.18 * scale, entry.z + dz);
+        jamb.castShadow = true;
+        scene.add(jamb);
+      }
+      const lintel = new THREE.Mesh(
+        new THREE.BoxGeometry(0.18, 0.16, 2.95),
+        materials.redWood,
+      );
+      lintel.position.set(side * (frontX - 0.06), 2.38 * scale, entry.z);
+      lintel.castShadow = true;
+      scene.add(lintel);
+    }
+  }
+
+
   async function createStreet() {
     createSky();
     createLights();
@@ -2675,6 +2778,7 @@
       return shopRoot;
     };
     entries.forEach((entry) => addBuilding(rootFor(entry), entry));
+    entries.forEach((entry) => addFacadeVariation(entry));
     addSideAlleys(shopRoot, tavernRoot);
     flushBatches();
     addBackRows(shopRoot, tavernRoot);

@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8899/content/street/index.html",
-  "output": "D:\\tmp\\changan-accept74-20261103",
+  "output": "D:\\tmp\\changan-accept75-20261103",
   "browser": "Playwright Chromium",
   "finalArtAccepted": false,
   "phonePerformanceVerified": false,
@@ -30,946 +30,8 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 4937,
-        "triangles": 6106482,
-        "kit": {
-          "loaded": 15,
-          "failed": 0,
-          "instances": 164,
-          "sharedGeometries": 0
-        },
-        "frames": 26
-      },
-      "walk": {
-        "started": true,
-        "mode": "walk",
-        "near": false,
-        "position": [
-          1.437442658144677e-16,
-          0.03,
-          21.8262389946673
-        ],
-        "yaw": 3.141592653589793,
-        "camera": [
-          -1.7880144953707706e-15,
-          3.193755216853571,
-          29.800246345441447
-        ],
-        "calls": 4964,
-        "triangles": 6154538,
-        "kit": {
-          "loaded": 15,
-          "failed": 0,
-          "instances": 164,
-          "sharedGeometries": 0
-        },
-        "frames": 45
-      },
-      "flight": {
-        "started": true,
-        "mode": "fly",
-        "near": false,
-        "position": [
-          1.964486574127116e-16,
-          1.61,
-          21.395874977589564
-        ],
-        "yaw": 3.141592653589793,
-        "camera": [
-          -1.6865881146050461e-15,
-          4.137599743063111,
-          28.972037094934755
-        ],
-        "calls": 4952,
-        "triangles": 6173484,
-        "kit": {
-          "loaded": 15,
-          "failed": 0,
-          "instances": 164,
-          "sharedGeometries": 0
-        },
-        "frames": 59
-      },
-      "near": {
-        "camera": [
-          -1.2283149879870483,
-          2.3960385681900305,
-          18.8513005314518
-        ],
-        "head": [
-          2.6394406390065736e-16,
-          2.3620476341313914,
-          20.844733158291636
-        ],
-        "distance": 2.3417272964761238,
-        "calls": 4945
-      },
-      "reset": {
-        "started": true,
-        "mode": "walk",
-        "near": false,
-        "position": [
-          0,
-          0.03,
-          23
-        ],
-        "yaw": 3.141592653589793,
-        "camera": [
-          0.29139018805542355,
-          3.132164456936577,
-          26.975791700013474
-        ],
-        "calls": 3518,
-        "triangles": 5220774,
-        "kit": {
-          "loaded": 15,
-          "failed": 0,
-          "instances": 164,
-          "sharedGeometries": 0
-        },
-        "frames": 91
-      },
-      "streetPlan": [
-        {
-          "side": -1,
-          "z": -27.97535,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "鞍马行",
-          "hangingZ": null,
-          "frontX": -5.8836,
-          "halfD": 2.2746500000000003
-        },
-        {
-          "side": -1,
-          "z": -13.887039999999999,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": -11.11408,
-          "frontX": -5.6314,
-          "halfD": 3.19296
-        },
-        {
-          "side": -1,
-          "z": -6.628080000000001,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "绸缎庄",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 3.946
-        },
-        {
-          "side": -1,
-          "z": 7.935350000000001,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "陶器行",
-          "hangingZ": null,
-          "frontX": -5.726399999999999,
-          "halfD": 2.41535
-        },
-        {
-          "side": -1,
-          "z": 12.745349999999998,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "绸缎庄",
-          "hangingZ": null,
-          "frontX": -5.8836,
-          "halfD": 2.2746500000000003
-        },
-        {
-          "side": -1,
-          "z": 17.485,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "果子铺",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 2.345
-        },
-        {
-          "side": -1,
-          "z": 23.14296,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 25.915919999999996,
-          "frontX": -5.6314,
-          "halfD": 3.19296
-        },
-        {
-          "side": -1,
-          "z": 29.00092,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "绸缎庄",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 2.545
-        },
-        {
-          "side": -1,
-          "z": 33.94057,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "鞍马行",
-          "hangingZ": null,
-          "frontX": -5.8836,
-          "halfD": 2.2746500000000003
-        },
-        {
-          "side": -1,
-          "z": 39.52818,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 42.30114,
-          "frontX": -5.6314,
-          "halfD": 3.19296
-        },
-        {
-          "side": -1,
-          "z": 45.186139999999995,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "绸缎庄",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 2.345
-        },
-        {
-          "side": -1,
-          "z": 49.99613999999999,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "鞍马行",
-          "hangingZ": null,
-          "frontX": -5.805,
-          "halfD": 2.345
-        },
-        {
-          "side": 1,
-          "z": -30.72535,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "茶坊",
-          "hangingZ": null,
-          "frontX": 5.8836,
-          "halfD": 2.2746500000000003
-        },
-        {
-          "side": 1,
-          "z": -25.985699999999998,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "鞍马行",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.345
-        },
-        {
-          "side": 1,
-          "z": -21.1757,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "绸缎庄",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.345
-        },
-        {
-          "side": 1,
-          "z": -15.51774,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": -12.74478,
-          "frontX": 5.6314,
-          "halfD": 3.19296
-        },
-        {
-          "side": 1,
-          "z": 1.24762,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "茶坊",
-          "hangingZ": null,
-          "frontX": 5.8836,
-          "halfD": 3.82762
-        },
-        {
-          "side": 1,
-          "z": 7.540240000000001,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "书肆",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.345
-        },
-        {
-          "side": 1,
-          "z": 12.42059,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "鞍马行",
-          "hangingZ": null,
-          "frontX": 5.726399999999999,
-          "halfD": 2.41535
-        },
-        {
-          "side": 1,
-          "z": 23.81296,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 26.585919999999998,
-          "frontX": 5.6314,
-          "halfD": 3.19296
-        },
-        {
-          "side": 1,
-          "z": 29.400570000000002,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "胡饼铺",
-          "hangingZ": null,
-          "frontX": 5.8836,
-          "halfD": 2.2746500000000003
-        },
-        {
-          "side": 1,
-          "z": 34.41657000000001,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "陶器行",
-          "hangingZ": null,
-          "frontX": 5.726399999999999,
-          "halfD": 2.62135
-        },
-        {
-          "side": 1,
-          "z": 40.350880000000004,
-          "kind": "tavern",
-          "isTavern": true,
-          "board": "西市酒肆",
-          "hangingZ": 43.12384,
-          "frontX": 5.6314,
-          "halfD": 3.19296
-        },
-        {
-          "side": 1,
-          "z": 46.00884,
-          "kind": "shop",
-          "isTavern": false,
-          "board": "香药铺",
-          "hangingZ": null,
-          "frontX": 5.805,
-          "halfD": 2.345
-        }
-      ],
-      "streetGaps": [
-        {
-          "side": -1,
-          "a": -27.97535,
-          "b": -13.887039999999999,
-          "gap": 8.621
-        },
-        {
-          "side": -1,
-          "a": -13.887039999999999,
-          "b": -6.628080000000001,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": -6.628080000000001,
-          "b": 7.935350000000001,
-          "gap": 8.202
-        },
-        {
-          "side": -1,
-          "a": 7.935350000000001,
-          "b": 12.745349999999998,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 12.745349999999998,
-          "b": 17.485,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 17.485,
-          "b": 23.14296,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 23.14296,
-          "b": 29.00092,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 29.00092,
-          "b": 33.94057,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 33.94057,
-          "b": 39.52818,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 39.52818,
-          "b": 45.186139999999995,
-          "gap": 0.12
-        },
-        {
-          "side": -1,
-          "a": 45.186139999999995,
-          "b": 49.99613999999999,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": -30.72535,
-          "b": -25.985699999999998,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": -25.985699999999998,
-          "b": -21.1757,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": -21.1757,
-          "b": -15.51774,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": -15.51774,
-          "b": 1.24762,
-          "gap": 9.745
-        },
-        {
-          "side": 1,
-          "a": 1.24762,
-          "b": 7.540240000000001,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": 7.540240000000001,
-          "b": 12.42059,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": 12.42059,
-          "b": 23.81296,
-          "gap": 5.784
-        },
-        {
-          "side": 1,
-          "a": 23.81296,
-          "b": 29.400570000000002,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": 29.400570000000002,
-          "b": 34.41657000000001,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": 34.41657000000001,
-          "b": 40.350880000000004,
-          "gap": 0.12
-        },
-        {
-          "side": 1,
-          "a": 40.350880000000004,
-          "b": 46.00884,
-          "gap": 0.12
-        }
-      ],
-      "posture": [
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        },
-        {
-          "armSpan": 0.491,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.861
-        },
-        {
-          "armSpan": 0.42,
-          "torsoSpan": 0.57,
-          "armToTorso": 0.737
-        }
-      ],
-      "modeHighlight": [
-        {
-          "rows": [
-            {
-              "label": "walk",
-              "mode": "walk",
-              "active": true,
-              "hover": true,
-              "background": "rgba(177, 77, 52, 0.56)",
-              "selectedColor": true
-            },
-            {
-              "label": "fly",
-              "mode": "fly",
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "upBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "downBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "nearBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "resetBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            }
-          ],
-          "settled": true
-        },
-        {
-          "rows": [
-            {
-              "label": "walk",
-              "mode": "walk",
-              "active": true,
-              "hover": false,
-              "background": "rgba(177, 77, 52, 0.56)",
-              "selectedColor": true
-            },
-            {
-              "label": "fly",
-              "mode": "fly",
-              "active": false,
-              "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "upBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "downBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "nearBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "resetBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            }
-          ],
-          "settled": true
-        },
-        {
-          "rows": [
-            {
-              "label": "walk",
-              "mode": "walk",
-              "active": true,
-              "hover": false,
-              "background": "rgba(177, 77, 52, 0.56)",
-              "selectedColor": true
-            },
-            {
-              "label": "fly",
-              "mode": "fly",
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "upBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "downBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "nearBtn",
-              "mode": null,
-              "active": false,
-              "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "resetBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            }
-          ],
-          "settled": true
-        },
-        {
-          "rows": [
-            {
-              "label": "walk",
-              "mode": "walk",
-              "active": true,
-              "hover": false,
-              "background": "rgba(177, 77, 52, 0.56)",
-              "selectedColor": true
-            },
-            {
-              "label": "fly",
-              "mode": "fly",
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "upBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "downBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "nearBtn",
-              "mode": null,
-              "active": false,
-              "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            },
-            {
-              "label": "resetBtn",
-              "mode": null,
-              "active": false,
-              "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
-              "selectedColor": false
-            }
-          ],
-          "settled": true
-        }
-      ],
-      "layout": {
-        "controls": [
-          {
-            "text": "步行",
-            "x": 482.1875,
-            "y": 650,
-            "w": 72,
-            "h": 44,
-            "visible": true,
-            "hit": true
-          },
-          {
-            "text": "飞行",
-            "x": 560.1875,
-            "y": 650,
-            "w": 72,
-            "h": 44,
-            "visible": true,
-            "hit": true
-          },
-          {
-            "text": "上升",
-            "x": 0,
-            "y": 0,
-            "w": 0,
-            "h": 0,
-            "visible": false,
-            "hit": false
-          },
-          {
-            "text": "下降",
-            "x": 0,
-            "y": 0,
-            "w": 0,
-            "h": 0,
-            "visible": false,
-            "hit": false
-          },
-          {
-            "text": "近看小龙",
-            "x": 638.1875,
-            "y": 650,
-            "w": 76.8125,
-            "h": 44,
-            "visible": true,
-            "hit": true
-          },
-          {
-            "text": "回到街口",
-            "x": 721,
-            "y": 650,
-            "w": 76.8125,
-            "h": 44,
-            "visible": true,
-            "hit": true
-          }
-        ],
-        "overflow": false
-      },
-      "passed": true,
-      "glError": 0
-    },
-    "landscape": {
-      "viewport": {
-        "width": 844,
-        "height": 390
-      },
-      "boot": {
-        "ready": true,
-        "error": "街口已开",
-        "frameCount": 2
-      },
-      "street": {
-        "started": true,
-        "mode": "walk",
-        "near": false,
-        "position": [
-          0,
-          0.03,
-          23
-        ],
-        "yaw": 3.141592653589793,
-        "camera": [
-          -1.8761588962937452e-15,
-          3.193755216853571,
-          30.52
-        ],
-        "calls": 5007,
-        "triangles": 6268040,
+        "calls": 5090,
+        "triangles": 6108638,
         "kit": {
           "loaded": 15,
           "failed": 0,
@@ -983,64 +45,64 @@
         "mode": "walk",
         "near": false,
         "position": [
-          9.325370987186345e-17,
+          1.2642657388651101e-16,
           0.03,
-          22.238525671754577
+          21.96764868062748
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.8145806863420294e-15,
+          -1.8020436043000928e-15,
           3.193755216853571,
-          30.017175757168605
+          29.914802713359855
         ],
-        "calls": 5000,
-        "triangles": 6226460,
+        "calls": 5113,
+        "triangles": 6156394,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 56
+        "frames": 52
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.230038539974999e-16,
-          1.87,
-          21.99559730950066
+          1.821935364250209e-16,
+          2.8392800000309943,
+          21.51227687401894
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7553964266709416e-15,
-          4.23181642364145,
-          29.5338996018535
+          -1.694732144587433e-15,
+          5.133708272070971,
+          29.038538146405745
         ],
-        "calls": 5001,
-        "triangles": 6244344,
+        "calls": 5077,
+        "triangles": 6133960,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 73
+        "frames": 77
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.6884101805165215,
-          19.45002471999035
+          3.6440926161565974,
+          18.96109960146138
         ],
         "head": [
-          1.909178882721232e-16,
-          2.649894289870123,
-          21.441037134910665
+          2.5049755593699925e-16,
+          3.6101016820979583,
+          20.95453222830122
         ],
-        "distance": 2.339737510900045,
-        "calls": 3074
+        "distance": 2.3417272964761238,
+        "calls": 5081
       },
       "reset": {
         "started": true,
@@ -1053,12 +115,12 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.48792176502978496,
-          3.301295807988912,
-          27.676924393835495
+          0.44262071144951765,
+          3.871469950408063,
+          25.210254777592972
         ],
-        "calls": 4077,
-        "triangles": 6021996,
+        "calls": 2504,
+        "triangles": 3533098,
         "kit": {
           "loaded": 15,
           "failed": 0,
@@ -1674,7 +736,7 @@
               "mode": "fly",
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.075)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
@@ -1804,7 +866,945 @@
               "mode": null,
               "active": false,
               "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "resetBtn",
+              "mode": null,
+              "active": false,
+              "hover": true,
               "background": "rgba(255, 255, 255, 0.08)",
+              "selectedColor": false
+            }
+          ],
+          "settled": true
+        }
+      ],
+      "layout": {
+        "controls": [
+          {
+            "text": "步行",
+            "x": 482.1875,
+            "y": 650,
+            "w": 72,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "飞行",
+            "x": 560.1875,
+            "y": 650,
+            "w": 72,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "上升",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0,
+            "visible": false,
+            "hit": false
+          },
+          {
+            "text": "下降",
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0,
+            "visible": false,
+            "hit": false
+          },
+          {
+            "text": "近看小龙",
+            "x": 638.1875,
+            "y": 650,
+            "w": 76.8125,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          },
+          {
+            "text": "回到街口",
+            "x": 721,
+            "y": 650,
+            "w": 76.8125,
+            "h": 44,
+            "visible": true,
+            "hit": true
+          }
+        ],
+        "overflow": false
+      },
+      "passed": true,
+      "glError": 0
+    },
+    "landscape": {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "boot": {
+        "ready": true,
+        "error": "街口已开",
+        "frameCount": 2
+      },
+      "street": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          0,
+          0.03,
+          23
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.8761588962937452e-15,
+          3.193755216853571,
+          30.52
+        ],
+        "calls": 5162,
+        "triangles": 6270220,
+        "kit": {
+          "loaded": 15,
+          "failed": 0,
+          "instances": 164,
+          "sharedGeometries": 0
+        },
+        "frames": 33
+      },
+      "walk": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          9.106323316082228e-17,
+          0.03,
+          22.256412271487385
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.8150220318724896e-15,
+          3.193755216853571,
+          30.020779616916307
+        ],
+        "calls": 5154,
+        "triangles": 6228628,
+        "kit": {
+          "loaded": 15,
+          "failed": 0,
+          "instances": 164,
+          "sharedGeometries": 0
+        },
+        "frames": 57
+      },
+      "flight": {
+        "started": true,
+        "mode": "fly",
+        "near": false,
+        "position": [
+          1.1345068251046826e-16,
+          1.87,
+          22.073604874569085
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          -1.7636018132820382e-15,
+          4.707711234564532,
+          29.60090166821917
+        ],
+        "calls": 5161,
+        "triangles": 6268626,
+        "kit": {
+          "loaded": 15,
+          "failed": 0,
+          "instances": 164,
+          "sharedGeometries": 0
+        },
+        "frames": 77
+      },
+      "near": {
+        "camera": [
+          -1.2283149879870483,
+          2.660199577883096,
+          19.52137470850014
+        ],
+        "head": [
+          1.8192260246525544e-16,
+          2.621764115592411,
+          21.514489217691853
+        ],
+        "distance": 2.3415252382209433,
+        "calls": 3175
+      },
+      "reset": {
+        "started": true,
+        "mode": "walk",
+        "near": false,
+        "position": [
+          0,
+          0.03,
+          23
+        ],
+        "yaw": 3.141592653589793,
+        "camera": [
+          0.35343981685125375,
+          3.2400344016172444,
+          26.56581489480655
+        ],
+        "calls": 2936,
+        "triangles": 4163693,
+        "kit": {
+          "loaded": 15,
+          "failed": 0,
+          "instances": 164,
+          "sharedGeometries": 0
+        },
+        "frames": 115
+      },
+      "streetPlan": [
+        {
+          "side": -1,
+          "z": -27.97535,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.2746500000000003
+        },
+        {
+          "side": -1,
+          "z": -13.887039999999999,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": -11.11408,
+          "frontX": -5.6314,
+          "halfD": 3.19296
+        },
+        {
+          "side": -1,
+          "z": -6.628080000000001,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "绸缎庄",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 3.946
+        },
+        {
+          "side": -1,
+          "z": 7.935350000000001,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "陶器行",
+          "hangingZ": null,
+          "frontX": -5.726399999999999,
+          "halfD": 2.41535
+        },
+        {
+          "side": -1,
+          "z": 12.745349999999998,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "绸缎庄",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.2746500000000003
+        },
+        {
+          "side": -1,
+          "z": 17.485,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "果子铺",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.345
+        },
+        {
+          "side": -1,
+          "z": 23.14296,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 25.915919999999996,
+          "frontX": -5.6314,
+          "halfD": 3.19296
+        },
+        {
+          "side": -1,
+          "z": 29.00092,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "绸缎庄",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.545
+        },
+        {
+          "side": -1,
+          "z": 33.94057,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": -5.8836,
+          "halfD": 2.2746500000000003
+        },
+        {
+          "side": -1,
+          "z": 39.52818,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 42.30114,
+          "frontX": -5.6314,
+          "halfD": 3.19296
+        },
+        {
+          "side": -1,
+          "z": 45.186139999999995,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "绸缎庄",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.345
+        },
+        {
+          "side": -1,
+          "z": 49.99613999999999,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": -5.805,
+          "halfD": 2.345
+        },
+        {
+          "side": 1,
+          "z": -30.72535,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "茶坊",
+          "hangingZ": null,
+          "frontX": 5.8836,
+          "halfD": 2.2746500000000003
+        },
+        {
+          "side": 1,
+          "z": -25.985699999999998,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.345
+        },
+        {
+          "side": 1,
+          "z": -21.1757,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "绸缎庄",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.345
+        },
+        {
+          "side": 1,
+          "z": -15.51774,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": -12.74478,
+          "frontX": 5.6314,
+          "halfD": 3.19296
+        },
+        {
+          "side": 1,
+          "z": 1.24762,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "茶坊",
+          "hangingZ": null,
+          "frontX": 5.8836,
+          "halfD": 3.82762
+        },
+        {
+          "side": 1,
+          "z": 7.540240000000001,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "书肆",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.345
+        },
+        {
+          "side": 1,
+          "z": 12.42059,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "鞍马行",
+          "hangingZ": null,
+          "frontX": 5.726399999999999,
+          "halfD": 2.41535
+        },
+        {
+          "side": 1,
+          "z": 23.81296,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 26.585919999999998,
+          "frontX": 5.6314,
+          "halfD": 3.19296
+        },
+        {
+          "side": 1,
+          "z": 29.400570000000002,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "胡饼铺",
+          "hangingZ": null,
+          "frontX": 5.8836,
+          "halfD": 2.2746500000000003
+        },
+        {
+          "side": 1,
+          "z": 34.41657000000001,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "陶器行",
+          "hangingZ": null,
+          "frontX": 5.726399999999999,
+          "halfD": 2.62135
+        },
+        {
+          "side": 1,
+          "z": 40.350880000000004,
+          "kind": "tavern",
+          "isTavern": true,
+          "board": "西市酒肆",
+          "hangingZ": 43.12384,
+          "frontX": 5.6314,
+          "halfD": 3.19296
+        },
+        {
+          "side": 1,
+          "z": 46.00884,
+          "kind": "shop",
+          "isTavern": false,
+          "board": "香药铺",
+          "hangingZ": null,
+          "frontX": 5.805,
+          "halfD": 2.345
+        }
+      ],
+      "streetGaps": [
+        {
+          "side": -1,
+          "a": -27.97535,
+          "b": -13.887039999999999,
+          "gap": 8.621
+        },
+        {
+          "side": -1,
+          "a": -13.887039999999999,
+          "b": -6.628080000000001,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": -6.628080000000001,
+          "b": 7.935350000000001,
+          "gap": 8.202
+        },
+        {
+          "side": -1,
+          "a": 7.935350000000001,
+          "b": 12.745349999999998,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 12.745349999999998,
+          "b": 17.485,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 17.485,
+          "b": 23.14296,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 23.14296,
+          "b": 29.00092,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 29.00092,
+          "b": 33.94057,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 33.94057,
+          "b": 39.52818,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 39.52818,
+          "b": 45.186139999999995,
+          "gap": 0.12
+        },
+        {
+          "side": -1,
+          "a": 45.186139999999995,
+          "b": 49.99613999999999,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": -30.72535,
+          "b": -25.985699999999998,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": -25.985699999999998,
+          "b": -21.1757,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": -21.1757,
+          "b": -15.51774,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": -15.51774,
+          "b": 1.24762,
+          "gap": 9.745
+        },
+        {
+          "side": 1,
+          "a": 1.24762,
+          "b": 7.540240000000001,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 7.540240000000001,
+          "b": 12.42059,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 12.42059,
+          "b": 23.81296,
+          "gap": 5.784
+        },
+        {
+          "side": 1,
+          "a": 23.81296,
+          "b": 29.400570000000002,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 29.400570000000002,
+          "b": 34.41657000000001,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 34.41657000000001,
+          "b": 40.350880000000004,
+          "gap": 0.12
+        },
+        {
+          "side": 1,
+          "a": 40.350880000000004,
+          "b": 46.00884,
+          "gap": 0.12
+        }
+      ],
+      "posture": [
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        }
+      ],
+      "modeHighlight": [
+        {
+          "rows": [
+            {
+              "label": "walk",
+              "mode": "walk",
+              "active": true,
+              "hover": true,
+              "background": "rgba(177, 77, 52, 0.56)",
+              "selectedColor": true
+            },
+            {
+              "label": "fly",
+              "mode": "fly",
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "upBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "downBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "nearBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "resetBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            }
+          ],
+          "settled": true
+        },
+        {
+          "rows": [
+            {
+              "label": "walk",
+              "mode": "walk",
+              "active": true,
+              "hover": false,
+              "background": "rgba(177, 77, 52, 0.56)",
+              "selectedColor": true
+            },
+            {
+              "label": "fly",
+              "mode": "fly",
+              "active": false,
+              "hover": true,
+              "background": "rgba(255, 255, 255, 0.08)",
+              "selectedColor": false
+            },
+            {
+              "label": "upBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "downBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "nearBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "resetBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            }
+          ],
+          "settled": true
+        },
+        {
+          "rows": [
+            {
+              "label": "walk",
+              "mode": "walk",
+              "active": true,
+              "hover": false,
+              "background": "rgba(177, 77, 52, 0.56)",
+              "selectedColor": true
+            },
+            {
+              "label": "fly",
+              "mode": "fly",
+              "active": false,
+              "hover": false,
+              "background": "rgba(255, 255, 255, 0.08)",
+              "selectedColor": false
+            },
+            {
+              "label": "upBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "downBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "nearBtn",
+              "mode": null,
+              "active": false,
+              "hover": true,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "resetBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            }
+          ],
+          "settled": true
+        },
+        {
+          "rows": [
+            {
+              "label": "walk",
+              "mode": "walk",
+              "active": true,
+              "hover": false,
+              "background": "rgba(177, 77, 52, 0.56)",
+              "selectedColor": true
+            },
+            {
+              "label": "fly",
+              "mode": "fly",
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "upBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "downBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
+              "selectedColor": false
+            },
+            {
+              "label": "nearBtn",
+              "mode": null,
+              "active": false,
+              "hover": false,
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
