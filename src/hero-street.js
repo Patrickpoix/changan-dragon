@@ -2091,18 +2091,64 @@
       }
 
       // 檐口：向外下斜的实心台锥（不是开口薄片），外缘再压一圈脊。
-      const eave = new THREE.Mesh(
-        new THREE.CylinderGeometry(radius + 0.30, radius + 1.18, 0.42, 12),
-        eaveMat,
-      );
-      eave.position.y = baseY + bodyH + 0.38;
+      /* 塔檐必须用带举折的曲面，不能用上下两段圆锥。
+       *
+       * 圆锥檐口读作"帽檐"——檐面是一条直线，
+       * 而真实唐塔的檐口是举折曲面：檐口平缓、近塔身陡峻，
+       * 且转角处微微起翘。塔是街景里每张图都能看到的远景地标，
+       * 这个形状错误比近景的细节更影响整体观感。
+       *
+       * 用环形放样：径向 24 段、举折 6 段，高度按 1.45 次幂上升。 */
+      const RING_SEG = 24;
+      const EAVE_ST = 6;
+      const rIn = radius + 0.30;
+      const rOut = radius + 1.18;
+      const eaveH = 0.52;
+      const positions = [];
+      const indices = [];
+      for (let j = 0; j <= EAVE_ST; j++) {
+        const t = j / EAVE_ST;
+        // 举折：从外檐（t=0）到塔身（t=1），高度按 1.45 次幂上升
+        const rr = rOut + (rIn - rOut) * t;
+        const yy = baseY + bodyH + 0.18 + eaveH * Math.pow(t, 1.45);
+        for (let i = 0; i < RING_SEG; i++) {
+          const a = (i / RING_SEG) * Math.PI * 2;
+          // 转角起翘：8 个方向各抬一点，形成塔檐的节奏
+          const curl = 0.055 * Math.pow(1 - t, 1.6)
+            * Math.pow(Math.abs(Math.cos(a * 4)), 2.0);
+          positions.push(
+            Math.sin(a) * rr,
+            yy + curl,
+            Math.cos(a) * rr,
+          );
+        }
+      }
+      for (let j = 0; j < EAVE_ST; j++) {
+        for (let i = 0; i < RING_SEG; i++) {
+          const i2 = (i + 1) % RING_SEG;
+          const a = j * RING_SEG + i;
+          const b = j * RING_SEG + i2;
+          const c = (j + 1) * RING_SEG + i;
+          const d = (j + 1) * RING_SEG + i2;
+          indices.push(a, c, b, b, c, d);
+        }
+      }
+      const eaveGeo = new THREE.BufferGeometry();
+      eaveGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      eaveGeo.setIndex(indices);
+      eaveGeo.computeVertexNormals();
+      const eave = new THREE.Mesh(eaveGeo, eaveMat);
       eave.castShadow = true;
+      eave.receiveShadow = true;
       pagoda.add(eave);
+
+      // 檐口收边：一圈略粗的边，给檐口一条明确的结束线
       const eaveEdge = new THREE.Mesh(
-        new THREE.CylinderGeometry(radius + 1.18, radius + 1.22, 0.12, 12),
+        new THREE.TorusGeometry(rOut, 0.055, 6, RING_SEG),
         eaveMat,
       );
-      eaveEdge.position.y = baseY + bodyH + 0.20;
+      eaveEdge.rotation.x = Math.PI / 2;
+      eaveEdge.position.y = baseY + bodyH + 0.18;
       pagoda.add(eaveEdge);
 
       // 平坐：檐口之上、上层塔身之下的平台，带一圈勾栏剪影。
