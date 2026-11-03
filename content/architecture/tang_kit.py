@@ -1595,35 +1595,53 @@ def build_awning(
     """沿街布篷：从墙面挑出，外缘略低，布面有受重下垂与波浪垂边。"""
     bm = bmesh.new()
     grid = []
-    for j in range(columns + 1):
-        v = j / columns
+    # 横向 33 段、纵向 8 段：布篷要有足够的细分才撑得起褶皱。
+    # 原先 17x5 的网格只能表现整体下垂，褶皱会被拉成斜面。
+    COLS = 33
+    ROWS = 8
+    for j in range(ROWS + 1):
+        v = j / ROWS
         row = []
-        for i in range(17):
-            u = i / 16.0
+        for i in range(COLS + 1):
+            u = i / COLS
             x = (u * 2.0 - 1.0) * half_width
             y = y_inner + (y_outer - y_inner) * v
-            z = z_inner + (z_outer - z_inner) * v - sag * math.sin(math.pi * u) * v
+            # 整体下垂：布面中段受重下沉。
+            base_sag = sag * math.sin(math.pi * u) * v
+            # 纵向褶皱：沿挑出方向（v）做 4 条起伏，越靠外缘越明显。
+            # 真实布篷的褶皱是"从挂点到外缘逐渐加深"的。
+            fold = 0.018 * math.sin(u * math.pi * 9.0) * (v ** 1.5)
+            # 边缘的轻微卷边：外缘两侧微微上翘，读作布被拉紧。
+            curl = 0.010 * (u ** 4 + (1.0 - u) ** 4) * v
+            z = (z_inner + (z_outer - z_inner) * v
+                 - base_sag + fold + curl)
             row.append(bm.verts.new((x, y, z)))
         grid.append(row)
-    for j in range(columns):
-        for i in range(16):
+    for j in range(ROWS):
+        for i in range(COLS):
             bm.faces.new(
                 (grid[j][i], grid[j][i + 1], grid[j + 1][i + 1], grid[j + 1][i])
             )
     # 波浪垂边：从外缘向下挂一小段，形成真实布篷的节奏。
     outer = []
-    for i in range(17):
-        u = i / 16.0
+    for i in range(COLS + 1):
+        u = i / COLS
         x = (u * 2.0 - 1.0) * half_width
-        z = z_outer - sag * math.sin(math.pi * u)
+        # 垂边同样带褶皱，与外缘连续，不能是直板。
+        fold = 0.018 * math.sin(u * math.pi * 9.0)
+        z = z_outer - sag * math.sin(math.pi * u) + fold
         outer.append(bm.verts.new((x, y_outer, z)))
     bottom = []
-    for i in range(17):
-        u = i / 16.0
+    for i in range(COLS + 1):
+        u = i / COLS
         x = (u * 2.0 - 1.0) * half_width
-        scallop = 0.20 + (0.10 if i % 2 == 0 else 0.0)
-        bottom.append(bm.verts.new((x, y_outer + 0.015, z_outer - scallop)))
-    for i in range(16):
+        # 扇贝边：按 6 段周期起伏，比原先"奇偶交替"更接近真实布的垂坠。
+        scallop = 0.16 + 0.075 * (0.5 + 0.5 * math.cos(u * math.pi * 12.0))
+        fold = 0.018 * math.sin(u * math.pi * 9.0)
+        bottom.append(
+            bm.verts.new((x, y_outer + 0.015, z_outer - scallop + fold))
+        )
+    for i in range(COLS):
         bm.faces.new((outer[i], outer[i + 1], bottom[i + 1], bottom[i]))
     bm.normal_update()
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
