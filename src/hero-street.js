@@ -3897,6 +3897,57 @@
         person.rotation.x = (r3 - 0.5) * 0.035;
         // 身高再浮动 ±1.5%，与已有的 scale 差异叠加。
         person.scale.multiplyScalar(0.985 + r1 * 0.030);
+
+        // 手持物件：人物是静态网格、无法改站姿，
+        // 但"手上有没有东西"是站姿读起来活不活的关键。
+        // 给约三分之一的人一件随身物：挑担、提篮、持伞、抱布卷。
+        // 这些都挂在人物组里，跟随人物的位置与朝向。
+        const prop = (seed % 3);
+        if (prop === 0) {
+          // 提篮：垂在右手侧，位置在胯旁（不是身前悬空）
+          const basket = makeBasket(0.12, 0.11);
+          basket.position.set(0.29, 0.78, 0.02);
+          person.add(basket);
+        } else if (prop === 1) {
+          // 布卷：横抱在身前腰际，贴着身体
+          const bolt = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.080, 0.080, 0.40, 10),
+            materials.cloth,
+          );
+          bolt.position.set(0.02, 1.02, 0.15);
+          bolt.rotation.z = Math.PI / 2;
+          bolt.castShadow = true;
+          person.add(bolt);
+        } else {
+          // 挑担：扁担压在后肩、货物垂在身体两侧下方。
+          // 位置必须按人的实际尺度：身高约 1.73m，肩高约 1.40m，
+          // 扁担压在肩上（z 略靠后），货物挂在两端、下垂到腰胯之间。
+          const pole = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.020, 0.020, 1.34, 6),
+            materials.wood,
+          );
+          pole.position.set(0, 1.40, -0.04);
+          pole.rotation.z = Math.PI / 2;
+          pole.castShadow = true;
+          person.add(pole);
+          // 两端的吊绳：从扁担垂到货物，避免货物看起来"悬空"。
+          for (const dx of [-0.60, 0.60]) {
+            const rope = new THREE.Mesh(
+              new THREE.CylinderGeometry(0.006, 0.006, 0.34, 4),
+              materials.darkWood,
+            );
+            rope.position.set(dx, 1.22, -0.04);
+            person.add(rope);
+            const load = new THREE.Mesh(
+              new THREE.CylinderGeometry(0.135, 0.115, 0.24, 10),
+              materials.terracotta,
+            );
+            load.position.set(dx, 1.02, -0.04);
+            load.castShadow = true;
+            person.add(load);
+          }
+        }
+
         scene.add(person);
       } else {
         person = makeRobeFigure(options);
