@@ -1179,6 +1179,66 @@
     }
   }
 
+  /* 坊外远景：坊墙之外再铺一圈低矮屋顶。
+   *
+   * 俯瞰时坊墙外是一片均匀的米色空场，读不出"这是一座被城墙与坊墙围住的城市"。
+   * 这里在墙外摆两圈压扁的铺面，只露屋顶轮廓、不做投影、材质压暗，
+   * 目的是让天际线在坊墙之后继续延伸，而不是突然变成空地。
+   * 全部复用已有 GLB 与共享材质，不增加下载量。 */
+  function addOuterSkyline(shopRoot, tavernRoot) {
+    const group = new THREE.Group();
+    group.name = 'outer-skyline';
+
+    // 两圈：内圈较近较高，外圈更远更低（被空气透视压扁）。
+    const RINGS = [
+      { radius: 30.5, count: 26, scale: 0.80, y: -0.5, tint: 0.62 },
+      { radius: 42.0, count: 34, scale: 0.68, y: -0.7, tint: 0.50 },
+    ];
+
+    for (const ring of RINGS) {
+      for (let i = 0; i < ring.count; i++) {
+        const a = (i / ring.count) * Math.PI * 2;
+        // 跳过正对街道两端的位置：那里是坊门与街口，不该有房子堵住。
+        const deg = (a * 180) / Math.PI;
+        if (deg > 250 && deg < 290) continue;
+        if (deg > 70 && deg < 110) continue;
+
+        const root = i % 3 === 0 ? tavernRoot : shopRoot;
+        const b = kitInstance(root, {
+          position: [
+            Math.cos(a) * ring.radius,
+            ring.y,
+            Math.sin(a) * ring.radius,
+          ],
+          rotationY: a + Math.PI / 2,
+          scale: ring.scale,
+        });
+        b.traverse((node) => {
+          if (!node.isMesh) return;
+          node.castShadow = false;
+          node.receiveShadow = true;
+          const material = Array.isArray(node.material) ? node.material[0] : node.material;
+          if (!material) return;
+          const name = material.name || '';
+          if (/street-plaster/i.test(name)) {
+            node.material = distantTint(materials.plaster, ring.tint, 'outer-plaster');
+          } else if (/street-shop-interior/i.test(name)) {
+            node.material = materials.shopInterior;
+          } else if (/street-roof/i.test(name)) {
+            node.material = distantTint(materials.roof, ring.tint + 0.06, 'outer-roof');
+          } else if (/street-cloth/i.test(name)) {
+            node.material = distantTint(materials.cloth, ring.tint, 'outer-cloth');
+          } else if (/street-red-wood|street-wood|street-darkwood/i.test(name)) {
+            node.material = distantTint(materials.wood, ring.tint, 'outer-wood');
+          }
+        });
+        group.add(b);
+      }
+    }
+    scene.add(group);
+    return group;
+  }
+
   function addWardHalls(hallRoot) {
     if (!hallRoot) return null;
     const group = new THREE.Group();
@@ -2292,6 +2352,7 @@
     addSideAlleys(shopRoot, tavernRoot);
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
+    addOuterSkyline(shopRoot, tavernRoot);
     addWardHalls(hallRoot);
     createWardWall(shopRoot, tavernRoot);
     addWardInteriorPaving();
