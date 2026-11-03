@@ -1494,8 +1494,18 @@
     // 横向周期 8.55m、纵向周期只有 0.03m，各向异性 263:1，
     // 石纹被压成横向丝条（实测，这就是门洞里那面墙的观感）。
     // 这里按"每约 2m 一个纹理周期"给每个构件单独算 repeat。
-    const base = new THREE.Mesh(
-      new THREE.BoxGeometry(baseW, BASE_H, baseD),
+    /* 台基必须带收分。
+     *
+     * 从街上看进门洞，正对着的就是这块 16.6 x 3.2 的台基正面——
+     * 它是一整面纯方块的平板，是门洞里最显眼的平面。
+     * 真实台基是层层砌筑的，每一层都略向内收，
+     * 侧面因此有连续的横向砖缝与轻微的斜面，受光时不会是一块死平的色。
+     * 收分约 3%（3.2m 高收 0.10m），与唐宋台基的实测比例接近。 */
+    const baseTaper = 0.10;
+    const base = taperedBox(
+      'ward-hall-base',
+      baseW, baseW - baseTaper, BASE_H,
+      baseD, baseD - baseTaper,
       stoneWithPeriod('street-stone-base', baseW, BASE_H, 2.0),
     );
     base.position.set(0, BASE_H / 2 - 0.02, HALL_Z);
