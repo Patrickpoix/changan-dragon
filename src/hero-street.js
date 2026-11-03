@@ -830,9 +830,25 @@
     scene.add(sun);
     scene.add(sun.target);
     sun.target.position.set(0, 1.5, -4);
-    if (window.ChanganRenderingAddons?.RoomEnvironment) {
+    // 环境贴图必须来自**实际的天空**，不能再用 RoomEnvironment。
+    // RoomEnvironment 是一个室内房间：它的高光与间接光方向都和户外街景无关，
+    // 结果所有 PBR 材质（瓦、石、木、金属）的反射都指向错误方向，
+    // 高光位置读起来"对不上太阳"，这是画面像 CG 预览的一个隐藏原因。
+    // 这里用 sky（已在 createSky 里建好）生成 PMREM：
+    // 环境光与天空颜色一致，金属与石面的高光方向也就与太阳一致。
+    if (window.ChanganRenderingAddons?.PMREMGenerator === undefined && THREE.PMREMGenerator) {
+      // THREE.PMREMGenerator 在核心库内，不需要 addons。
+    }
+    if (sky) {
       const pmrem = new THREE.PMREMGenerator(renderer);
-      scene.environment = pmrem.fromScene(new window.ChanganRenderingAddons.RoomEnvironment(), 0.035).texture;
+      pmrem.compileEquirectangularShader();
+      // 只把天空球放进一个临时场景，避免把建筑也烘进环境贴图。
+      const envScene = new THREE.Scene();
+      const skyClone = new THREE.Mesh(sky.geometry, sky.material);
+      skyClone.frustumCulled = false;
+      envScene.add(skyClone);
+      const envRT = pmrem.fromScene(envScene, 0.02, 0.1, 400);
+      scene.environment = envRT.texture;
       pmrem.dispose();
     }
     // 街口和街心的真实点光让灯笼与布篷之间产生局部明暗，不把全城铺平。
