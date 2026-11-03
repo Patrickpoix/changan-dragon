@@ -2094,7 +2094,12 @@
       const bracketCount = 8;
       for (let k = 0; k < bracketCount; k++) {
         const a = (k / bracketCount) * Math.PI * 2;
-        const dou = new THREE.Mesh(new THREE.BoxGeometry(0.30, 0.22, 0.30), woodMat);
+        // 塔的斗与塔的椽一样是木构件，唐式做法用圆断面；
+        // 方块在远景也能看出"方头方脑"，与近景的圆椽不统一。
+        const dou = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.15, 0.17, 0.22, 8),
+          woodMat,
+        );
         dou.position.set(Math.sin(a) * (radius + 0.16), baseY + bodyH + 0.10, Math.cos(a) * (radius + 0.16));
         dou.rotation.y = a;
         pagoda.add(dou);
@@ -2172,7 +2177,11 @@
       const railCount = 16;
       for (let k = 0; k < railCount; k++) {
         const a = (k / railCount) * Math.PI * 2;
-        const post = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.42, 0.07), woodMat);
+        // 栏杆望柱：圆断面，与殿堂勾栏同一做法。
+        const post = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.035, 0.040, 0.42, 6),
+          woodMat,
+        );
         post.position.set(Math.sin(a) * (radius + 0.06), deckY + 0.28, Math.cos(a) * (radius + 0.06));
         pagoda.add(post);
       }
