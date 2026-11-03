@@ -40,7 +40,9 @@
   });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.98;
+  // 曝光 0.98 → 1.06：直方图显示 95% 像素亮度低于 0.63、0.8 以上几乎没有，
+  // 画面读成阴天漫射光。略提曝光并配合下面的光比调整，把亮部推开。
+  renderer.toneMappingExposure = 1.06;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.35 : 1.8));
@@ -88,6 +90,7 @@
   let composer = null;
   let fxaaPass = null;
   let bloomPass = null;
+  let gradePass = null;
   let introAngle = 0;
   let toastTimer = 0;
 
@@ -191,7 +194,9 @@
       metalness: 0,
       envMapIntensity: 0.85,
     });
-    material.normalScale.set(0.62, 0.62);
+    // 法线强度：0.62 是按 512px 贴图调的，换成 2k 后细节更多，
+    // 但强度过高会在近景出现"塑料浮雕感"，取 0.85 兼顾细节与自然。
+    material.normalScale.set(0.85, 0.85);
     return material;
   }
 
@@ -286,15 +291,19 @@
   async function buildMaterials() {
     setProgress(0.08, '辨认木、瓦、土、石');
     const root = '/assets/library/production-materials/';
+    // 贴图分辨率：原先全部是 512px，是"精细度不够"的直接原因之一。
+    // 换成 Poly Haven 的 2k CC0 贴图（来源与许可已记录在 asset-manifest.json），
+    // 近景的石面颗粒与木纹细节因此能真正显示出来。
+    // 布与瓦仍是 512px：它们的表面以平涂为主，放大收益小于石与木。
     const [mud, stone, wood, darkWood, cloth, roof] = await Promise.all([
-      loadPBR('street-mud', root + 'brown_mud_02/basecolor_512.png',
-        root + 'brown_mud_02/normal_512.png', root + 'brown_mud_02/roughness_512.png', [7, 20], 0xd9c6a4, 1.35),
-      loadPBR('street-stone', root + 'grey_stone_path/basecolor_512.png',
-        root + 'grey_stone_path/normal_512.png', root + 'grey_stone_path/roughness_512.png', [2, 8], 0xd6cdbb, 1.5),
-      loadPBR('street-wood', root + 'fine_grained_wood/basecolor_512.png',
-        root + 'fine_grained_wood/normal_512.png', root + 'fine_grained_wood/roughness_512.png', [1, 3], 0xd8b18a, 1.9),
-      loadPBR('street-darkwood', root + 'dark_wood/basecolor_512.png',
-        root + 'dark_wood/normal_512.png', root + 'dark_wood/roughness_512.png', [1, 2], 0xb08a72, 1.5),
+      loadPBR('street-mud', root + 'brown_mud_02/basecolor_2k.jpg',
+        root + 'brown_mud_02/normal_2k.jpg', root + 'brown_mud_02/roughness_2k.jpg', [7, 20], 0xd9c6a4, 1.35),
+      loadPBR('street-stone', root + 'grey_stone_path/basecolor_2k.jpg',
+        root + 'grey_stone_path/normal_2k.jpg', root + 'grey_stone_path/roughness_2k.jpg', [2, 8], 0xd6cdbb, 1.5),
+      loadPBR('street-wood', root + 'fine_grained_wood/basecolor_2k.jpg',
+        root + 'fine_grained_wood/normal_2k.jpg', root + 'fine_grained_wood/roughness_2k.jpg', [1, 3], 0xd8b18a, 1.9),
+      loadPBR('street-darkwood', root + 'dark_wood/basecolor_2k.jpg',
+        root + 'dark_wood/normal_2k.jpg', root + 'dark_wood/roughness_2k.jpg', [1, 2], 0xb08a72, 1.5),
       loadPBR('street-cloth', root + 'Fabric081C/basecolor_512.png',
         root + 'Fabric081C/normal_512.png', root + 'Fabric081C/roughness_512.png', [3, 2], 0xb75b48, 1),
       loadPBR('street-roof', null,
@@ -684,11 +693,17 @@
 
   function createLights() {
     // 冷暖分离：天光偏青、太阳偏橙，避免整条街被同一色温压平。
-    hemi = new THREE.HemisphereLight(0xa9cfe0, 0x6b5540, 0.95);
+    // 光比是"电影感"的核心：天光与补光负责托底，太阳负责造型。
+    // 原来 0.95 / 0.16 / 2.55 的比例让环境光过强，阴影被填平、高光不足，
+    // 整条街读成阴天漫射（直方图确认：95% 像素低于 0.63，0.8 以上几乎为零）。
+    // 改为压低天光与补光、抬高太阳，让直射光与阴影真正拉开。
+    hemi = new THREE.HemisphereLight(0x8fb8d8, 0x6a5238, 0.78);
     scene.add(hemi);
-    const ambient = new THREE.AmbientLight(0xffe6c4, 0.16);
+    // 补光偏冷、很弱：只用来避免阴影死黑，同时把冷色带进暗部。
+    const ambient = new THREE.AmbientLight(0xc8d8ea, 0.09);
     scene.add(ambient);
-    sun = new THREE.DirectionalLight(0xffd9a6, 2.55);
+    // 太阳更暖、更强：与冷色天光形成明确的冷暖分离，这是国风漫剧常用的光色关系。
+    sun = new THREE.DirectionalLight(0xffc890, 4.35);
     sun.position.set(22, 26, 16);
     sun.castShadow = true;
     sun.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
@@ -3683,6 +3698,94 @@
       );
       composer.addPass(fxaaPass);
     }
+    // 调色必须放在最后：颗粒与暗角不应被抗锯齿处理。
+    setupGrade();
+    return true;
+  }
+
+  /* 电影调色：三向调色（阴影偏青、高光偏暖）+ S 曲线对比 + 黑位提亮
+   * + 饱和度 + 暗角 + 细颗粒。
+   *
+   * 之前整条链路只有 Bloom 与 OutputPass，没有调色：
+   * 画面是"正确"的，但读起来平、冷、像建模预览，而不是国风漫剧的质感。
+   * 调色放在 FXAA 之后（最后一个 pass），这样颗粒不会被抗锯齿抹平。
+   *
+   * 参数取向：唐式街景的主色是朱红、青瓦、米色墙面，
+   * 因此高光推暖金、阴影推青蓝，让红更沉、瓦更冷，中间调保持中性。 */
+  function setupGrade() {
+    const addons = window.ChanganRenderingAddons;
+    if (!addons?.ShaderPass) return false;
+
+    const gradeShader = {
+      uniforms: {
+        tDiffuse: { value: null },
+        uTime: { value: 0 },
+        uContrast: { value: 0.34 },
+        uSaturation: { value: 1.10 },
+        uLift: { value: 0.026 },
+        uShadowTint: { value: new THREE.Vector3(0.010, 0.020, 0.038) },
+        uHighlightTint: { value: new THREE.Vector3(0.052, 0.030, 0.004) },
+        uVignette: { value: 0.20 },
+        uGrain: { value: 0.016 },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform float uTime;
+        uniform float uContrast;
+        uniform float uSaturation;
+        uniform float uLift;
+        uniform vec3 uShadowTint;
+        uniform vec3 uHighlightTint;
+        uniform float uVignette;
+        uniform float uGrain;
+        varying vec2 vUv;
+
+        void main() {
+          vec3 c = texture2D(tDiffuse, vUv).rgb;
+
+          // 1) 三向调色：按明度把阴影与高光分开上色
+          float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
+          float shadowW = 1.0 - smoothstep(0.02, 0.52, luma);
+          float highW = smoothstep(0.38, 1.0, luma);
+          c += uShadowTint * shadowW * 0.85;
+          c += uHighlightTint * highW * 0.55;
+
+          // 2) S 曲线对比：只压两端，不整体变暗
+          c = mix(c, c * c * (3.0 - 2.0 * c), uContrast);
+
+          // 3) 黑位提亮：胶片黑不是纯黑，抬一点让暗部有层次
+          c = c + uLift * (1.0 - c);
+
+          // 4) 饱和度：只在中低明度加，避免高光过曝出色斑
+          float l2 = dot(c, vec3(0.2126, 0.7152, 0.0722));
+          float satW = mix(uSaturation, 1.0, smoothstep(0.62, 1.0, l2));
+          c = mix(vec3(l2), c, satW);
+
+          // 5) 暗角：把视线收拢到街心
+          vec2 d = vUv - 0.5;
+          float vig = 1.0 - uVignette * dot(d, d) * 2.6;
+          c *= clamp(vig, 0.0, 1.0);
+
+          // 6) 细颗粒：打散色带，同时给出胶片质感
+          float g = fract(sin(dot(vUv + fract(uTime) * 0.37,
+                                  vec2(12.9898, 78.233))) * 43758.5453);
+          c += (g - 0.5) * uGrain;
+
+          gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+        }
+      `,
+    };
+
+    gradePass = new addons.ShaderPass(gradeShader);
+    gradePass.renderToScreen = true;
+    composer.addPass(gradePass);
     return true;
   }
 
@@ -3819,6 +3922,7 @@
     // 关掉自动清零、每帧手动清零，读到的才是整帧（含所有 pass）的真实总量。
     renderer.info.autoReset = false;
     renderer.info.reset();
+    if (gradePass) gradePass.uniforms.uTime.value = state.time;
     if (composer) composer.render(dt);
     else renderer.render(scene, camera);
     state.frameCount++;
