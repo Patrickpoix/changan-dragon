@@ -591,7 +591,11 @@
       metalness: 0,
       envMapIntensity: 0.78,
     });
-    materials.plaster.normalScale.set(0.20, 0.20);
+    // 墙面法线强度：0.20 是按"纯色板"时代调的（那时贴图根本没生效，
+    // 只能靠极弱的法线避免出现假起伏）。UV 修好之后 0.20 让墙面读作平板，
+    // 而石材与木料都是 0.85。统一到 0.72：抹灰的起伏比石材弱，
+    // 但足以在近景看出抹刀的痕迹。
+    materials.plaster.normalScale.set(0.72, 0.72);
     materials.plaster.color.setHex(0xd6c7a8);
     materials.plaster.roughness = 0.9;
     // 朱红大漆：唐式木构是上大漆的，表面有清漆层。
