@@ -3249,6 +3249,94 @@
     // 这两类大轮廓物件是"这里真的在运货"的关键信号，也补上街心的体积感。
     addHandcarts();
     addPackDonkeys();
+    addStreetClutter();
+  }
+
+  /* 街面杂物：拴马桩、石锁、木桶、竹筐、散置的陶罐。
+   *
+   * 市街的"生活感"很大程度来自这些体积大、轮廓清楚、位置随意的日常物件。
+   * 之前街面只有摊位与推车，读起来像布景，不像有人天天在这里过日子。
+   * 全部复用已有几何与材质，不增加下载量。 */
+  function addStreetClutter() {
+    // 拴马桩：唐式市街在铺面前立石桩拴牲口，桩头有孔。
+    for (const [x, z] of [[-4.35, 12.5], [4.35, -21.5], [-4.35, -30.0]]) {
+      const post = new THREE.Group();
+      post.position.set(x, 0.03, z);
+      const shaft = new THREE.Mesh(
+        new THREE.BoxGeometry(0.22, 1.05, 0.22),
+        materials.stone,
+      );
+      shaft.position.y = 0.52;
+      shaft.castShadow = shaft.receiveShadow = true;
+      post.add(shaft);
+      // 桩头：略粗，带一个穿孔（用两道细边表示）
+      const head = new THREE.Mesh(
+        new THREE.BoxGeometry(0.30, 0.20, 0.30),
+        materials.stone,
+      );
+      head.position.y = 1.14;
+      head.castShadow = true;
+      post.add(head);
+      const hole = new THREE.Mesh(
+        new THREE.BoxGeometry(0.34, 0.055, 0.075),
+        materials.darkWood,
+      );
+      hole.position.y = 1.14;
+      post.add(hole);
+      post.name = 'street-hitching-post';
+      scene.add(post);
+    }
+
+    // 石锁：拴牲口用的重石，圆鼓形，顶上有一圈绳槽。
+    for (const [x, z] of [[-3.9, 16.0], [3.9, -12.0]]) {
+      const lock = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.26, 0.30, 0.42, 12),
+        materials.stone,
+      );
+      lock.position.set(x, 0.24, z);
+      lock.castShadow = lock.receiveShadow = true;
+      scene.add(lock);
+      const groove = new THREE.Mesh(
+        new THREE.TorusGeometry(0.27, 0.028, 6, 14),
+        materials.darkWood,
+      );
+      groove.position.set(x, 0.40, z);
+      groove.rotation.x = Math.PI / 2;
+      scene.add(groove);
+    }
+
+    // 木桶与竹筐：沿铺面前散置，给街边一层低矮的体积。
+    for (const [x, z, kind] of [
+      [-4.5, 8.4, 'barrel'], [4.5, 3.6, 'basket'],
+      [-4.5, -17.5, 'basket'], [4.5, -27.0, 'barrel'],
+      [-4.5, 22.0, 'barrel'],
+    ]) {
+      if (kind === 'barrel') {
+        const barrel = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.24, 0.22, 0.52, 14),
+          materials.wood,
+        );
+        barrel.position.set(x, 0.29, z);
+        barrel.castShadow = barrel.receiveShadow = true;
+        scene.add(barrel);
+        // 两道铁箍
+        for (const y of [0.14, 0.44]) {
+          const hoop = new THREE.Mesh(
+            new THREE.TorusGeometry(0.235, 0.018, 5, 16),
+            materials.iron,
+          );
+          hoop.position.set(x, y, z);
+          hoop.rotation.x = Math.PI / 2;
+          scene.add(hoop);
+        }
+      } else {
+        const basket = makeBasket(0.26, 0.22);
+        basket.position.set(x, 0.03, z);
+        basket.rotation.y = z * 0.3;
+        scene.add(basket);
+        addProduce(basket, 0.07, 0.18);
+      }
+    }
   }
 
   /* 独轮车：一只木轮 + 车架 + 两侧货担。
