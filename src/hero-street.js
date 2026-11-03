@@ -465,16 +465,27 @@
     materials.road.color.setHex(0x9b896d);
     materials.road.map = makeRoadTexture();
     materials.road.normalMap = mud.normalMap.clone();
-    materials.road.normalMap.repeat.set(4, 22);
+    /* 铺装的纹理密度必须按实际尺寸算。
+     *
+     * 实测（改前）：街面 72 x 11.1m，repeat (3, 18)，
+     * 横向周期 24m——一块 512px 贴图铺满 24m，**每米只有 21 像素**。
+     * 街面是观察距离最近的表面，密度却最低，纹理被拉成一片模糊的色。
+     * 按"每 4m 一个纹理周期"重算：横向 18 次、纵向 3 次，
+     * 每米约 128 像素，近景能看出砂土颗粒与车辙的细节。
+     * normal 与 roughness 三张图必须同步，否则法线与底色错位。 */
+    const ROAD_LEN = 78.0;
+    const ROAD_W = 11.1;
+    const roadRepeatX = Math.round(ROAD_W / 4.0);
+    const roadRepeatZ = Math.round(ROAD_LEN / 4.0);
+    materials.road.map.repeat.set(roadRepeatX, roadRepeatZ);
+    materials.road.map.needsUpdate = true;
+    materials.road.normalMap.repeat.set(roadRepeatX, roadRepeatZ);
     materials.road.normalMap.needsUpdate = true;
-    materials.road.roughnessMap = mud.roughnessMap.clone();
-    materials.road.roughnessMap.repeat.set(4, 22);
+    materials.road.roughnessMap.repeat.set(roadRepeatX, roadRepeatZ);
     materials.road.roughnessMap.needsUpdate = true;
-    materials.road.normalScale.set(0.20, 0.20);
+    materials.road.normalScale.set(0.28, 0.28);
     materials.road.roughness = 0.98;
     materials.road.color.setHex(0xb19e7c);
-    materials.road.normalMap.repeat.set(3, 18);
-    materials.road.roughnessMap.repeat.set(3, 18);
     materials.mud.normalScale.set(0.24, 0.24);
     materials.mud.color.setHex(0x9d8c70);
     materials.roadEdge = mud.clone();
