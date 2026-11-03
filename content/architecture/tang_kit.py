@@ -1836,6 +1836,43 @@ def build_shop(
                 (sign * half_x * 0.80, shelf_y, wall_z + m.f(65)),
             )
         )
+    # 柜台上的物件：算盘、账册、小秤、待售的货。
+    # 之前柜台是一块空台面，读作"一张桌子"而不是"正在营业的铺子"。
+    counter_y = half_y - m.f(36)
+    counter_top = wall_z + m.f(74) + m.f(8) * 0.5
+    for i, (cx_frac, w_frac, h_frac, mat) in enumerate((
+        (-0.46, 0.10, 0.035, materials["vermilion"]),   # 算盘
+        (0.02, 0.13, 0.022, materials["wood"]),         # 摊开的账册
+        (0.44, 0.09, 0.075, materials["wood"]),         # 小秤/木匣
+    )):
+        parts.append(
+            box(
+                "%s_counter_item_%d" % (name, i),
+                (half_x * w_frac, m.f(h_frac * 100), m.f(28)),
+                mat,
+                (cx_frac * half_x, counter_y, counter_top + m.f(h_frac * 50)),
+            )
+        )
+    # 柜台后的坐凳：店家坐的位置，让柜台有"人"的尺度。
+    parts.append(
+        box(
+            "%s_stool" % name,
+            (m.f(26), m.f(40), m.f(26)),
+            materials["wood"],
+            (half_x * 0.62, half_y - m.f(42), wall_z + m.f(30)),
+        )
+    )
+    # 柜台下塞着的货篓：真实铺子柜台下总是堆着东西。
+    for i, cx_frac in enumerate((-0.52, 0.10, 0.58)):
+        parts.append(
+            box(
+                "%s_counter_basket_%d" % (name, i),
+                (m.f(30), m.f(26), m.f(26)),
+                materials["wood"],
+                (cx_frac * half_x, half_y - m.f(36), wall_z + m.f(22)),
+            )
+        )
+
     # 货架上的货：陶罐与布卷，给货架一点体量，不读成空搁板。
     for i in range(4):
         jx = -half_x * 0.58 + i * (half_x * 0.39)
