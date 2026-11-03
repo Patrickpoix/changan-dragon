@@ -44,7 +44,10 @@
   // 画面读成阴天漫射光。略提曝光并配合下面的光比调整，把亮部推开。
   renderer.toneMappingExposure = 1.06;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  // 阴影类型：PCFSoft 在 4096 贴图 + 收紧相机后软化半径相对像素变小，
+  // 边缘出现明显阶梯。改用 VSM：它按距离自动软化，
+  // 近处边缘紧、远处边缘柔，正适合这种 70m 长的街景。
+  renderer.shadowMap.type = THREE.VSMShadowMap;
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.35 : 1.8));
 
   const scene = new THREE.Scene();
@@ -814,19 +817,33 @@
     sun = new THREE.DirectionalLight(0xffc890, 4.35);
     sun.position.set(22, 26, 16);
     sun.castShadow = true;
-    sun.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
+    // 阴影分辨率必须与覆盖范围匹配。
+    // 原来 2048 贴图覆盖 104 x 112m，每像素约 5cm；
+    // 街上檐柱直径只有 13cm，阴影边缘只剩 2-3 像素，必然糊成一片。
+    // 桌面提到 4096，并把相机收紧到街道与门楼的实际范围
+    // （x ±30、z ±46），每像素降到约 1.5cm，柱子与栏杆的阴影才立得住。
+    sun.shadow.mapSize.set(isMobile ? 1024 : 4096, isMobile ? 1024 : 4096);
     sun.shadow.camera.near = 1;
     // 阴影相机必须覆盖整条街（-38 到 34，约 72m 长）与两座门楼（±39/41）。
     // 之前只覆盖 ±34，坊门与街口都落在阴影范围之外，
     // 那里自然没有接触阴影，地面读成一张平铺的纸（已实测确认）。
     // far 也要相应拉长，否则远处物体被 near/far 裁掉后不投影。
-    sun.shadow.camera.far = 170;
-    sun.shadow.camera.left = -52;
-    sun.shadow.camera.right = 52;
-    sun.shadow.camera.top = 56;
-    sun.shadow.camera.bottom = -56;
-    sun.shadow.bias = -0.00045;
-    sun.shadow.normalBias = 0.035;
+    sun.shadow.camera.far = 150;
+    // 覆盖范围收紧到实际有投影物体的区域：街道两侧铺面（|x| < 22）、
+    // 两座门楼（z = -39.2 / 41）、殿堂（z 到 -60）。
+    // 再大只会摊薄分辨率，远处又本来就被雾吞掉。
+    sun.shadow.camera.left = -30;
+    sun.shadow.camera.right = 30;
+    sun.shadow.camera.top = 46;
+    sun.shadow.camera.bottom = -46;
+    // bias 随分辨率提高而收紧：分辨率变高后原来的 -0.00045 会过冲，
+    // 在薄构件（棂条、栏杆）上出现漏光。
+    sun.shadow.bias = -0.00022;
+    sun.shadow.normalBias = 0.018;
+    // VSM 的软化采样数：太小边缘硬，太大阴影糊。
+    sun.shadow.blurSamples = 12;
+    // radius 控制 VSM 的软化半径，与贴图分辨率配合。
+    sun.shadow.radius = 2.2;
     scene.add(sun);
     scene.add(sun.target);
     sun.target.position.set(0, 1.5, -4);
