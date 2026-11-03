@@ -3881,6 +3881,22 @@
         person.userData.baseY = 0.03;
         // 共享 GLB 的人物材质仍保留原始皮肤/织物色，不能把整身都染成粉色。
         person.userData.sharedCharacter = true;
+
+        // 人物是静态分件网格、没有骨骼，无法摆姿势；
+        // 但完全一致的站姿让 32 个人像同一张图贴了 32 次。
+        // 这里用确定性伪随机给每个人一点姿态差异：
+        // 极小的前倾/侧倾、略不同的身高、略不同的朝向微偏。
+        // 幅度必须很小：人的站姿差异本来就只有几度，
+        // 超过 3 度就会读成"站不稳"。
+        const seed = Math.abs(Math.round(x * 100) + Math.round(z * 100));
+        const r1 = (seed % 17) / 17;
+        const r2 = ((seed * 7) % 13) / 13;
+        const r3 = ((seed * 11) % 19) / 19;
+        person.rotation.y += (r1 - 0.5) * 0.10;
+        person.rotation.z = (r2 - 0.5) * 0.045;
+        person.rotation.x = (r3 - 0.5) * 0.035;
+        // 身高再浮动 ±1.5%，与已有的 scale 差异叠加。
+        person.scale.multiplyScalar(0.985 + r1 * 0.030);
         scene.add(person);
       } else {
         person = makeRobeFigure(options);
