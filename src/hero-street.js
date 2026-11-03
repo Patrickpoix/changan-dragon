@@ -1884,37 +1884,145 @@
     // 门楼斗拱：唐式坊门在梁上有一排铺作托住瓦顶。
     // 之前梁上直接压瓦，门楼读成"两根柱子架一块板"，没有等级。
     // 这里沿门宽排 9 朵，每朵由栌斗 + 两层出跳组成，与殿堂构件同一套比例。
+    /* 门楼斗拱：必须用带卷杀与欹平耳的形体，不能是方块堆叠。
+     *
+     * 构件库里的斗（`build_dou`）有欹（下外撇）、平（束腰）、耳（上略张）
+     * 三段轮廓，拱（`build_gong`）有卷杀曲线（端头急收）。
+     * 但门楼是在场景代码里手搓的，原先只是三件 BoxGeometry 堆起来：
+     * 斗、出跳、跳头小斗——近景一眼读作"积木"。
+     * 这里按构件库的同一套比例，用顶点环放样重建：
+     * - 斗：5 个高度环，宽度按 1.0 / 0.84 / 0.88 / 0.94 / 0.90 变化；
+     * - 拱（出跳）：侧视轮廓带卷杀，端头收到 0.55 高度。
+     */
     const douSize = 0.30;
+
+    // 通用放样：给定若干 (半宽X, 半宽Z, 高度Y) 环，生成闭合体。
+    const loftRings = (rings, material, name) => {
+      const positions = [];
+      const indices = [];
+      const N = 4; // 每环 4 个角点（矩形环）
+      for (const r of rings) {
+        const [hx, hz, y] = r;
+        positions.push(
+          -hx, y, -hz,  hx, y, -hz,  hx, y, hz,  -hx, y, hz,
+        );
+      }
+      const ringCount = rings.length;
+      for (let k = 0; k < ringCount - 1; k++) {
+        const a0 = k * N;
+        const b0 = (k + 1) * N;
+        for (let i = 0; i < N; i++) {
+          const j = (i + 1) % N;
+          indices.push(
+            a0 + i, b0 + i, b0 + j,
+            a0 + i, b0 + j, a0 + j,
+          );
+        }
+      }
+      // 封顶与封底
+      const topStart = (ringCount - 1) * N;
+      indices.push(topStart, topStart + 1, topStart + 2,
+        topStart, topStart + 2, topStart + 3);
+      indices.push(3, 2, 1, 3, 1, 0);
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setIndex(indices);
+      geo.computeVertexNormals();
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.name = name;
+      return mesh;
+    };
+
+    // 斗：欹、平、耳三段，与构件库 build_dou 的比例一致。
+    const makeDou = (hx, hz, h, material, name) => {
+      const hQi = h * 0.40;
+      const hPing = h * 0.20;
+      const inset = h * 0.06;
+      return loftRings([
+        [hx, hz, 0],
+        [hx * 0.84, hz * 0.84, hQi],
+        [hx * 0.88, hz * 0.88, hQi + hPing],
+        [hx * 0.94, hz * 0.94, h - inset],
+        [hx * 0.90, hz * 0.90, h],
+      ], material, name);
+    };
+
+    // 拱：侧视带卷杀（端头收到 0.55 高度），沿出跳方向挤出。
+    // 用 8 段卷杀，靠近端头收得急（0.55 次幂）。
+    const makeGong = (halfLen, h, depth, material, name) => {
+      const endH = h * 0.55;
+      const cut = halfLen * 0.42;
+      const steps = 6;
+      const outline = [];
+      // 底边
+      outline.push([-halfLen, 0], [halfLen, 0], [halfLen, endH]);
+      // 右端卷杀：从端头向中心上升
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        outline.push([halfLen - cut * t, endH + (h - endH) * Math.pow(t, 0.55)]);
+      }
+      outline.push([-halfLen + cut, h]);
+      // 左端卷杀
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        outline.push([
+          -halfLen + cut * (1 - t),
+          h - (h - endH) * Math.pow(t, 0.55),
+        ]);
+      }
+      // 挤出成板
+      const positions = [];
+      const indices = [];
+      const half = depth / 2;
+      const n = outline.length;
+      for (const [x, y] of outline) positions.push(x, y, -half);
+      for (const [x, y] of outline) positions.push(x, y, half);
+      for (let i = 0; i < n; i++) {
+        const j = (i + 1) % n;
+        indices.push(i, j, n + j, i, n + j, n + i);
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setIndex(indices);
+      geo.computeVertexNormals();
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.name = name;
+      return mesh;
+    };
+
     for (let i = 0; i < 9; i++) {
       const dx = -6.0 + 12.0 * (i / 8);
       // 栌斗
-      const dou = new THREE.Mesh(
-        new THREE.BoxGeometry(douSize * 1.15, douSize * 0.75, douSize * 1.15),
-        materials.darkWood,
+      const dou = makeDou(
+        douSize * 0.575, douSize * 0.575, douSize * 0.75,
+        materials.darkWood, 'gate-ludou',
       );
       dou.position.set(dx, 5.44, z);
       dou.castShadow = true;
       gate.add(dou);
-      // 两跳出跳：每跳比上一跳更薄、更外伸。
+
       for (let jump = 0; jump < 2; jump++) {
-        const armW = douSize * (1.9 - jump * 0.35);
-        const arm = new THREE.Mesh(
-          new THREE.BoxGeometry(armW, douSize * 0.52, douSize * 2.4),
-          materials.redWood,
+        // 出跳：带卷杀的拱
+        const armLen = douSize * (1.9 - jump * 0.35);
+        const arm = makeGong(
+          armLen / 2, douSize * 0.52, douSize * 2.4,
+          materials.redWood, 'gate-huagong',
         );
         arm.position.set(dx, 5.62 + jump * douSize * 0.55, z);
         arm.castShadow = true;
         gate.add(arm);
-        // 跳头的小斗
-        const cap = new THREE.Mesh(
-          new THREE.BoxGeometry(douSize * 0.9, douSize * 0.5, douSize * 0.9),
-          materials.darkWood,
+
+        // 跳头小斗：同样带欹平耳
+        const cap = makeDou(
+          douSize * 0.45, douSize * 0.45, douSize * 0.50,
+          materials.darkWood, 'gate-sandou',
         );
         cap.position.set(dx, 5.78 + jump * douSize * 0.55, z);
+        cap.castShadow = true;
         gate.add(cap);
       }
     }
-    // 斗拱之上的通长枋：把 9 朵铺作连成一条，托住瓦顶。
+
     const topBeam = new THREE.Mesh(
       new THREE.BoxGeometry(14.6, 0.26, 0.72),
       materials.redWood,
