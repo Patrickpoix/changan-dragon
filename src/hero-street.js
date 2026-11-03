@@ -985,7 +985,13 @@
       walk.receiveShadow = true;
       scene.add(walk);
 
-      const sidewalk = new THREE.Mesh(new THREE.PlaneGeometry(2.28, roadLen), materials.stone);
+      // 人行道是 2.28 x 72m 的大平面，直接套 materials.stone 的 repeat (2,8)
+      // 会让纹理横向周期 1.14m、纵向 9m（纵向被拉成条带）。
+      // 按每 1.2m 一个周期分配。
+      const sidewalk = new THREE.Mesh(
+        new THREE.PlaneGeometry(2.28, roadLen),
+        stoneWithPeriod('street-stone-walk', 2.28, roadLen, 1.2),
+      );
       sidewalk.rotation.x = -Math.PI / 2;
       sidewalk.position.set(side * 6.85, 0.026, roadMid);
       sidewalk.receiveShadow = true;
@@ -1426,7 +1432,8 @@
       const mid = (seg.z0 + seg.z1) / 2;
       const pad = new THREE.Mesh(
         new THREE.PlaneGeometry(23.0, len),
-        materials.stone,
+        // 23 x 8m 的铺地同样按尺寸分配 repeat（每 1.6m 一个周期）。
+        stoneWithPeriod('street-stone-pad', 23.0, len, 1.6),
       );
       pad.rotation.x = -Math.PI / 2;
       pad.position.set(0, 0.026, mid);
