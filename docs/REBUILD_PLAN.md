@@ -943,6 +943,26 @@
   - 石狮已因三版失败移除，说明程序化体块拼不出可辨认的小型动物造型。
 - 因此后续不应继续在此类"疑似缺陷"上投入，而应等用户对这条街的判断。
 
+### 同轮：素材来源与许可核查（第四十二轮）
+
+目标要求"素材自建或免费且可商用，记录来源和许可"。此前只记录过调研过程，
+本轮第一次把**实际运行引用的资源**与清单逐条核对：
+
+- 从 `src/hero-street.js` 抽出 25 条 `/assets/...` 引用，
+  与 `docs/asset-manifest.json`（约 67KB）比对：**25/25 全部覆盖，无遗漏**。
+- 许可字段核查：46 处条目带 `license` / `license_evidence` / `source_url` /
+  `authors` / `asset_page` 等字段；`assets` 4 条全部有 `license` 与
+  `license_evidence`，字体有 `license` + `source_url` + `sha256`。
+- 建筑材质：`architecture_materials` 逐条记录 CC0-1.0 许可、作者、
+  每个文件的 source_url / md5 / sha256 / 字节数，并明确写明
+  **只用 normal 与 roughness、底色由项目美术方向自定**，
+  不冒充考古依据。
+- 自建部分：`architecture_algorithm_source` 指向
+  `assets/library/architecture/minilibs-source/source-manifest.json`，
+  参数化构件库的算法来源可追溯。
+- 结论：许可记录完整、可核查，符合目标要求。这是**核对而非改动**，
+  本轮无代码改动。
+
 ## 决策记录
 
 - 构件几何统一以"底面 z=0"为基准，便于按层堆叠与复用。
