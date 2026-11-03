@@ -1258,25 +1258,6 @@
     // 横向周期 8.55m、纵向周期只有 0.03m，各向异性 263:1，
     // 石纹被压成横向丝条（实测，这就是门洞里那面墙的观感）。
     // 这里按"每约 2m 一个纹理周期"给每个构件单独算 repeat。
-    const stoneWithPeriod = (name, w, h, period = 2.0) => {
-      const mat = materials.stone.clone();
-      mat.name = name;
-      const setRepeat = (tex, rx, ry) => {
-        if (!tex) return null;
-        const t = tex.clone();
-        t.needsUpdate = true;
-        t.wrapS = t.wrapT = THREE.RepeatWrapping;
-        t.repeat.set(rx, ry);
-        return t;
-      };
-      const rx = Math.max(1, Math.round(w / period));
-      const ry = Math.max(1, Math.round(h / period));
-      mat.map = setRepeat(mat.map, rx, ry);
-      mat.normalMap = setRepeat(mat.normalMap, rx, ry);
-      mat.roughnessMap = setRepeat(mat.roughnessMap, rx, ry);
-      return mat;
-    };
-
     const base = new THREE.Mesh(
       new THREE.BoxGeometry(baseW, BASE_H, baseD),
       stoneWithPeriod('street-stone-base', baseW, BASE_H, 2.0),
@@ -1378,7 +1359,11 @@
     // 一段坊墙：长度可变，构造固定。
     const addWall = (x, z, width) => {
       const bodyH = 3.05;
-      const base = new THREE.Mesh(new THREE.BoxGeometry(width + 0.34, 0.42, 1.02), materials.stone);
+      // 坊墙墙基按自身宽度分配 UV：9.2m 的墙段套共享 repeat (2,8) 会横向拉伸。
+      const base = new THREE.Mesh(
+        new THREE.BoxGeometry(width + 0.34, 0.42, 1.02),
+        stoneWithPeriod('street-stone-wallbase', width + 0.34, 0.42, 1.2),
+      );
       base.position.set(x, 0.21, z);
       base.receiveShadow = true;
       base.castShadow = true;
@@ -1831,6 +1816,29 @@
    * 旧的估计值（常铺 2.62、酒肆 2.91）偏大偏小不一，
    * 导致酒肆与邻铺长期有 -0.004 ~ -0.535m 的基座侵入。
    * 排布与间隙核对必须共用这一份数据，否则两套半宽会互相矛盾（实测验收失败）。 */
+  /* 按"每 period 米一个纹理周期"给共享材质生成按尺寸匹配的副本。
+   * 共享材质的 repeat 是按某一个构件调的，套到尺寸差别大的构件上就会拉伸
+   * （已实测两例：踏道台阶各向异性 20:1、殿堂台基 263:1）。
+   * basecolor / normal / roughness 三张图必须同步设置，否则法线与底色错位。 */
+  function stoneWithPeriod(name, w, h, period = 2.0) {
+    const mat = materials.stone.clone();
+    mat.name = name;
+    const setRepeat = (tex, rx, ry) => {
+      if (!tex) return null;
+      const t = tex.clone();
+      t.needsUpdate = true;
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(rx, ry);
+      return t;
+    };
+    const rx = Math.max(1, Math.round(w / period));
+    const ry = Math.max(1, Math.round(h / period));
+    mat.map = setRepeat(mat.map, rx, ry);
+    mat.normalMap = setRepeat(mat.normalMap, rx, ry);
+    mat.roughnessMap = setRepeat(mat.roughnessMap, rx, ry);
+    return mat;
+  }
+
   const BODY_HALF_WIDTH = { shop0: 2.345, shop1: 2.345, shop2: 2.545, shop3: 3.946, tavern: 3.326 };
   function bodyHalfWidth(kind, tier = 1) {
     if (kind === 'tavern') return BODY_HALF_WIDTH.tavern;
