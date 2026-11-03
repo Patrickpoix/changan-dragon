@@ -963,7 +963,13 @@
     // 44 度接近顶光，阴影短，街道缺少纵深，也缺少国风漫剧常用的
     // "斜射光切过街面"的戏剧性。27 度能让铺面的阴影拉长横过街面，
     // 一侧受光、一侧背阴，形成明确的明暗分界。
-    sun = new THREE.DirectionalLight(0xffc890, 4.35);
+    // 太阳颜色不能这么橙。
+    // 0xffc890 的色相约 35 度，强度 4.35——它把整个场景的受光面
+    // 都染成橙黄（实测改完材质色相仍是 53 度，说明主导因素就是这盏灯）。
+    // 真实日光的色温约 5500K，偏暖但不该是橙色；
+    // 改为 0xfff0d8（色相约 40 度但饱和度极低），强度略降到 3.9，
+    // 让材质本身的青灰与朱红能显出来。
+    sun = new THREE.DirectionalLight(0xfff0d8, 3.9);
     sun.position.set(22, 13.86, 16);
     sun.castShadow = true;
     // 阴影分辨率必须与覆盖范围匹配。
@@ -1191,7 +1197,11 @@
     // 铺装用的贴图平均亮度只有 0.334，直接当 albedo 会让整条街发暗。
     // 用 canvas 做一次 gamma 提亮（贴图管细节、color 管色调），
     // 与 loadPBR 里的 lift 是同一个思路，只是这里要单独做。
-    const liftCanvas = (tex, gamma = 1.55) => {
+    // tint 参数：在提亮的同时把贴图的色相往目标方向拉。
+    // 石路贴图本身色相 34 度（偏褐），只提亮会变成"浅褐"，
+    // 而真实石板在天光下应偏青灰。这里对每个像素做一次向冷色的偏移：
+    // 压红、提蓝，同时保持亮度。
+    const liftCanvas = (tex, gamma = 1.55, tint = null) => {
       if (!tex || !tex.image) return null;
       const w = tex.image.width;
       const h = tex.image.height;
@@ -1203,9 +1213,19 @@
       const img = ctx.getImageData(0, 0, w, h);
       const data = img.data;
       for (let i = 0; i < data.length; i += 4) {
-        data[i] = Math.min(255, Math.pow(data[i] / 255, 1 / gamma) * 255);
-        data[i + 1] = Math.min(255, Math.pow(data[i + 1] / 255, 1 / gamma) * 255);
-        data[i + 2] = Math.min(255, Math.pow(data[i + 2] / 255, 1 / gamma) * 255);
+        let r = Math.pow(data[i] / 255, 1 / gamma) * 255;
+        let g = Math.pow(data[i + 1] / 255, 1 / gamma) * 255;
+        let b = Math.pow(data[i + 2] / 255, 1 / gamma) * 255;
+        if (tint) {
+          // 向目标色相偏移：保持亮度，调整 RGB 的相对比例
+          const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          r = r * (1 - tint) + (lum * tint * 1.00);
+          g = g * (1 - tint) + (lum * tint * 1.06);
+          b = b * (1 - tint) + (lum * tint * 1.16);
+        }
+        data[i] = Math.min(255, r);
+        data[i + 1] = Math.min(255, g);
+        data[i + 2] = Math.min(255, b);
       }
       ctx.putImageData(img, 0, 0);
       const out = new THREE.CanvasTexture(cv);
@@ -1224,7 +1244,9 @@
       t.repeat.set(1, SLAB_D / SLAB_W);
       return t;
     };
-    pavingMaterial.map = liftCanvas(setSlabRepeat(pavingMaterial.map));
+    // tint 0.42：把偏褐的石路拉向青灰（蓝通道 ×1.16、红通道 ×1.00）。
+    // 这是画面里面积最大的表面，它的色相决定整幅画的冷暖倾向。
+    pavingMaterial.map = liftCanvas(setSlabRepeat(pavingMaterial.map), 1.55, 0.42);
     pavingMaterial.normalMap = setSlabRepeat(pavingMaterial.normalMap);
     pavingMaterial.roughnessMap = setSlabRepeat(pavingMaterial.roughnessMap);
     pavingMaterial.normalScale.set(0.55, 0.55);
