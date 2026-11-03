@@ -2423,7 +2423,32 @@ def lattice_panel(
 
 def wall_panel(name, width, height, thickness, material, position, rotation_y=0.0):
     """墙面板：白灰墙或夯土墙。"""
-    obj = box(name, (width, thickness, height), material, (0, 0, 0))
+    # 夯土墙是版筑的，越往上越收；直板读作"隔断"而不是"墙"。
+    # 收分取厚度的 18%（约 4-8% 收分率，与唐宋夯土墙实测比例接近）。
+    # 墙顶因此有一条向内的斜面，受光时出现从上到下渐变的明暗，
+    # 这正是"有厚度的实体"的视觉来源。
+    half_w = width / 2.0
+    half_h = height / 2.0
+    hd0 = thickness / 2.0
+    hd1 = thickness / 2.0 * 0.82
+
+    verts = [
+        [-half_w, -half_h, -hd0], [half_w, -half_h, -hd0],
+        [half_w, -half_h, hd0], [-half_w, -half_h, hd0],
+        [-half_w, half_h, -hd1], [half_w, half_h, -hd1],
+        [half_w, half_h, hd1], [-half_w, half_h, hd1],
+    ]
+    faces = [
+        [0, 1, 5, 4], [1, 2, 6, 5], [2, 3, 7, 6],
+        [3, 0, 4, 7], [4, 5, 6, 7], [3, 2, 1, 0],
+    ]
+    bm = bmesh.new()
+    bverts = [bm.verts.new(v) for v in verts]
+    for face in faces:
+        bm.faces.new([bverts[i] for i in face])
+    bm.normal_update()
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    obj = new_object(name, bm, material)
     obj.location = position
     obj.rotation_euler.z = rotation_y
     return obj
