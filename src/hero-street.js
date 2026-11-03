@@ -309,6 +309,38 @@
     return clone;
   }
 
+  /* 兜底 UV：给缺 UV 的网格按世界坐标补一份平面投影。
+   *
+   * 缺 UV 的网格采样不到贴图，表面是纯色，无论贴图多精细都没用。
+   * 已经在构件库（立方投影）与手建 BufferGeometry（逐处补）修过两轮，
+   * 这里再兜一层，避免以后新加网格时又悄悄丢掉贴图。
+   * 投影按 XZ 平面（俯视），对绝大多数小物件够用。
+   */
+  function ensureSceneUVs() {
+    let patched = 0;
+    scene.traverse((node) => {
+      if (!node.isMesh) return;
+      const geo = node.geometry;
+      if (!geo || !geo.attributes || !geo.attributes.position) return;
+      if (geo.attributes.uv) return;
+      const pos = geo.attributes.position;
+      const uvs = new Float32Array(pos.count * 2);
+      node.updateWorldMatrix(true, false);
+      const m = node.matrixWorld;
+      const v = new THREE.Vector3();
+      for (let i = 0; i < pos.count; i++) {
+        v.set(pos.getX(i), pos.getY(i), pos.getZ(i)).applyMatrix4(m);
+        uvs[i * 2] = v.x;
+        uvs[i * 2 + 1] = v.z;
+      }
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geo.attributes.uv.needsUpdate = true;
+      patched += 1;
+    });
+    state.uvPatched = patched;
+    return patched;
+  }
+
   function makeMat(name, color, roughness = 0.82, metalness = 0) {
     return new THREE.MeshStandardMaterial({
       name,
@@ -3291,10 +3323,13 @@
     createWardWall(shopRoot, tavernRoot);
     addWardInteriorPaving();
     // 记录每间铺面的行当与挂幌纵向范围，供验收核对不重复、不出铺面。
+
     // 给所有落地立体物件补接触阴影。
     // 只处理有高度（>0.25m）且横向不大（<4m）的物件，
     // 排除铺装条、地面片这类本来就不该有接触暗部的对象。
     addContactShadowsToGroundedProps();
+    // 兜底：所有网格建完后再补 UV，保证没有网格悄悄丢掉贴图。
+    ensureSceneUVs();
     state.streetPlan = entries.map((entry) => {
       const placement = shopPlacement(entry);
       return {
@@ -3514,8 +3549,17 @@
         indices.push(a, c, b, b, c, d);
       }
     }
+    // 布篷必须带 UV，否则贴图采样不到，布面读作一片纯色。
+    // 按布的展开面积给米制 UV：横向按宽度、纵向按进深。
+    const uvs = [];
+    for (let iz = 0; iz <= nz; iz++) {
+      for (let ix = 0; ix <= nx; ix++) {
+        uvs.push(width * (ix / nx), depth * (iz / nz));
+      }
+    }
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
     geometry.setIndex(indices);
     geometry.computeVertexNormals();
     return geometry;
