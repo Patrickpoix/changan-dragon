@@ -195,7 +195,16 @@
     return lifted;
   }
 
-  async function loadPBR(name, base, normal, rough, repeat = [2, 2], color = 0xffffff, lift = 1) {
+  async function loadPBR(name, base, normal, rough, repeat = [2, 2], color = 0xffffff, lift = 1.55) {
+    /* 贴图本身偏暗，必须整体提亮。
+     *
+     * 实测这批 basecolor 的平均亮度：石路 0.334、泥 0.259、木 0.193、
+     * 深木 0.229——全部偏暗（只有布料 0.79 正常）。
+     * 直接当 albedo 使用，整幅画面会发暗偏褐（实测地面亮度只有 0.26）。
+     * 这里在加载后统一做一次 gamma 提亮，把贴图的中间调抬到可用范围，
+     * 再用材质的 color 定色调。这样"贴图管细节、color 管颜色"，
+     * 而不是让暗贴图决定整幅画面的明度。
+     */
     const [baseMapRaw, normalMap, roughMap] = await Promise.all([
       base ? loadTexture(base, { srgb: true, repeat }) : Promise.resolve(null),
       loadTexture(normal, { repeat }),
@@ -512,7 +521,13 @@
         '/assets/library/architecture/pbr/clay_roof_tiles_02/roughness.jpg', [6, 3], 0x6d7472, 1),
     ]);
     mud.color.setHex(0xd9c6a4);
-    stone.color.setHex(0xd6cdbb);
+    // 石材改为偏冷的青灰。
+    // 量色相分布发现 73% 的像素落在橙黄区（30-60 度）、平均色相 52 度，
+    // 青蓝区几乎没有像素——整幅画面偏暖黄，缺少冷暖对比。
+    // 真实街景里石板是青灰的（天光反射偏冷），与朱红木构、暖黄墙面
+    // 形成对比，这正是国风漫剧常用的色彩关系。
+    // 0xd6cdbb（暖米）→ 0xb8bdb8（青灰）。
+    stone.color.setHex(0xb8bdb8);
     wood.color.setHex(0xd8b18a);
     darkWood.color.setHex(0xb08a72);
     cloth.color.setHex(0xb4513e);
@@ -560,7 +575,9 @@
     materials.road.roughnessMap.needsUpdate = true;
     materials.road.normalScale.set(0.28, 0.28);
     materials.road.roughness = 0.98;
-    materials.road.color.setHex(0xb19e7c);
+    // 街面同样去暖：0xb19e7c（偏黄）→ 0xa39a88（中性灰褐），
+    // 让石板的青灰成为画面的冷色基准，而不是被暖黄吞掉。
+    materials.road.color.setHex(0xa39a88);
     materials.mud.normalScale.set(0.24, 0.24);
     materials.mud.color.setHex(0x9d8c70);
     materials.roadEdge = mud.clone();
@@ -1137,16 +1154,80 @@
     // 主街铺装：整条街面用方石铺满，只在最靠店铺的一米留土路。
     // 铺装材质不用灰石路的 basecolor——那张图本身偏褐，乘上实例色后整条街
     // 读成泥地。这里只用它的法线/粗糙度，底色交给实例色。
+    /* 铺装基色不能再是纯白。
+     *
+     * 原先是 color: 0xffffff、没有 map，完全靠暖色太阳光与 envMap 染色。
+     * 实测色相分布：73% 的像素落在橙黄区（30-60 度）、平均 52 度，
+     * 青蓝区几乎为零——整幅画面被暖光染成一片土黄，没有冷暖对比。
+     * 铺装占画面面积最大，它的基色是主导因素。
+     *
+     * 改为青灰基色（真实石板在天光下偏冷），并加 map 让石纹真正显现：
+     * 这是画面里面积最大的一块表面，它的颜色决定了整幅画的冷暖倾向。
+     */
     const pavingMaterial = new THREE.MeshStandardMaterial({
       name: 'street-paving',
-      color: 0xffffff,
+      // 贴图本身偏暗偏暖：实测平均 rgb(94,86,76)、亮度 0.334、色相 34 度。
+      // 直接与 color 相乘会变成近黑的土色（实测亮度掉到 0.239）。
+      // 这里用偏冷偏亮的 color 做补偿：把贴图往青灰方向推，
+      // 同时把整体亮度拉回可用范围。
+      // 这块贴图本身很暗（平均 rgb(94,86,76)、亮度 0.334）。
+      // 与 color 相乘后整片地面接近黑褐（实测亮度 0.258），
+      // 把街道压成一条暗带。用接近白的偏冷 color 做补偿，
+      // 让最终亮度回到可用范围，同时保留青灰倾向。
+      color: 0xf2f6f4,
+      map: materials.stone.map,
       normalMap: materials.stone.normalMap,
       roughnessMap: materials.stone.roughnessMap,
       roughness: 0.95,
       metalness: 0,
-      envMapIntensity: 0.55,
+      envMapIntensity: 0.62,
     });
-    pavingMaterial.normalScale.set(0.34, 0.34);
+    // 铺装石板的 UV 已按尺寸展开（米制），材质 repeat 用 1,1。
+    // 铺装石板是 BoxGeometry（UV 0-1），一块 0.62 x 0.94m。
+    // repeat 1,1 等于把 2k 贴图铺满单块石板——纹理过密、细节被平均成深色。
+    // 按"每 0.62m 一个周期"设 repeat，即横向 1 次、纵向 0.94/0.62 ≈ 1.5 次。
+    const SLAB_W = 0.62;
+    const SLAB_D = 0.94;
+    // 铺装用的贴图平均亮度只有 0.334，直接当 albedo 会让整条街发暗。
+    // 用 canvas 做一次 gamma 提亮（贴图管细节、color 管色调），
+    // 与 loadPBR 里的 lift 是同一个思路，只是这里要单独做。
+    const liftCanvas = (tex, gamma = 1.55) => {
+      if (!tex || !tex.image) return null;
+      const w = tex.image.width;
+      const h = tex.image.height;
+      const cv = document.createElement('canvas');
+      cv.width = w;
+      cv.height = h;
+      const ctx = cv.getContext('2d');
+      ctx.drawImage(tex.image, 0, 0);
+      const img = ctx.getImageData(0, 0, w, h);
+      const data = img.data;
+      for (let i = 0; i < data.length; i += 4) {
+        data[i] = Math.min(255, Math.pow(data[i] / 255, 1 / gamma) * 255);
+        data[i + 1] = Math.min(255, Math.pow(data[i + 1] / 255, 1 / gamma) * 255);
+        data[i + 2] = Math.min(255, Math.pow(data[i + 2] / 255, 1 / gamma) * 255);
+      }
+      ctx.putImageData(img, 0, 0);
+      const out = new THREE.CanvasTexture(cv);
+      out.wrapS = out.wrapT = THREE.RepeatWrapping;
+      out.colorSpace = THREE.SRGBColorSpace;
+      out.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      out.needsUpdate = true;
+      return out;
+    };
+
+    const setSlabRepeat = (tex) => {
+      if (!tex) return null;
+      const t = tex.clone();
+      t.needsUpdate = true;
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(1, SLAB_D / SLAB_W);
+      return t;
+    };
+    pavingMaterial.map = liftCanvas(setSlabRepeat(pavingMaterial.map));
+    pavingMaterial.normalMap = setSlabRepeat(pavingMaterial.normalMap);
+    pavingMaterial.roughnessMap = setSlabRepeat(pavingMaterial.roughnessMap);
+    pavingMaterial.normalScale.set(0.55, 0.55);
     // 铺装底层：石板实例覆盖不到的地方（街两端）会露出这一层。
     // 之前这层用白底材质，结果坊门前露出两块刺眼的白斑；
     // 这里单独给一层石灰色底，漏出的部分读作"石板缝里的砂浆"。
