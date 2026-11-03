@@ -1426,27 +1426,40 @@ def build_railing(name, length, height, post_size, material, position, rotation_
 
     唐式栏干常为"勾栏"，寻杖（上横木）贯通，望柱出头，蜀柱较疏。
     """
+    # 唐式勾栏的望柱与寻杖都是**圆断面**的。
+    # 方断面在近景读作"木栅栏"，圆断面才有真实栏杆的圆润轮廓与
+    # 连续的高光——这是唐式勾栏最典型的特征。
     bm = bmesh.new()
-    pieces = []
     half = length / 2.0
     post_h = height
-    rail_h = post_size * 0.9
+    rail_r = post_size * 0.45
     bays = bays or max(3, int(round(length / (height * 1.4))))
-    # 望柱
+
+    def add_cylinder(cx, cz, radius, depth, segments=10):
+        """在 XZ 平面内放一个沿 Y 轴的圆柱。"""
+        before = len(bm.verts)
+        ring_a = []
+        ring_b = []
+        for i in range(segments):
+            a = (i / segments) * math.pi * 2
+            px = math.cos(a) * radius
+            pz = math.sin(a) * radius
+            ring_a.append(bm.verts.new((cx + px, -depth / 2, cz + pz)))
+            ring_b.append(bm.verts.new((cx + px, depth / 2, cz + pz)))
+        for i in range(segments):
+            j = (i + 1) % segments
+            bm.faces.new((ring_a[i], ring_a[j], ring_b[j], ring_b[i]))
+        bm.faces.new(list(reversed(ring_a)))
+        bm.faces.new(ring_b)
+
+    # 望柱：圆形，柱头略高
     for i in range(bays + 1):
         x = -half + length * i / bays
-        pieces.append((x, post_h / 2.0, post_size, post_h))
-    # 寻杖（上横木）与下枋
-    pieces.append((0.0, post_h - rail_h / 2.0, length, rail_h))
-    pieces.append((0.0, post_h * 0.34, length, rail_h * 0.8))
-    for cx, cz, sx, sz in pieces:
-        before = len(bm.verts)
-        bmesh.ops.create_cube(bm, size=1.0)
-        bm.verts.ensure_lookup_table()
-        for v in bm.verts[before:]:
-            v.co.x = v.co.x * sx + cx
-            v.co.z = v.co.z * sz + cz
-            v.co.y = v.co.y * post_size
+        add_cylinder(x, post_h / 2.0, post_size * 0.5, post_size)
+    # 寻杖（上横木）：圆断面的长木，沿栏杆方向贯通
+    add_cylinder(0.0, post_h - rail_r, rail_r, length)
+    # 下枋：略细的圆木
+    add_cylinder(0.0, post_h * 0.34, rail_r * 0.8, length)
     bm.normal_update()
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
     obj = new_object(name, bm, material)
