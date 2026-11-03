@@ -484,10 +484,24 @@
     materials.plaster.normalScale.set(0.20, 0.20);
     materials.plaster.color.setHex(0xd6c7a8);
     materials.plaster.roughness = 0.9;
-    materials.redWood = wood.clone();
-    materials.redWood.name = 'street-red-wood';
-    materials.redWood.color.setHex(0x9f4b3d);
-    materials.redWood.roughness = 0.76;
+    // 朱红大漆：唐式木构是上大漆的，表面有清漆层。
+    // 原先只是把木料染红、roughness 0.76，读作"红漆木板"而不是"大漆"。
+    // 大漆的关键是**清漆层**：底层哑光、表层有一层薄而光滑的透明漆，
+    // 于是柱身出现一条窄而亮的高光，这才是国风建筑里朱红柱的观感。
+    // 用 MeshPhysicalMaterial 的 clearcoat 表达，不用改几何。
+    materials.redWood = new THREE.MeshPhysicalMaterial({
+      name: 'street-red-wood',
+      color: 0x9f4b3d,
+      map: wood.map,
+      normalMap: wood.normalMap,
+      roughnessMap: wood.roughnessMap,
+      roughness: 0.62,
+      metalness: 0,
+      clearcoat: 0.55,
+      clearcoatRoughness: 0.30,
+      envMapIntensity: 1.0,
+    });
+    materials.redWood.normalScale.set(0.55, 0.55);
     materials.ink = makeMat('street-ink', 0x1b2b28, 0.8);
     materials.jade = new THREE.MeshPhysicalMaterial({
       name: 'dragon-jade',
