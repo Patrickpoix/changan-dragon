@@ -628,6 +628,15 @@
     materials.fruitGreen = makeMat('fruit-green', 0x71834b, 0.7, 0);
     materials.terracotta = makeMat('terracotta', 0x9b6646, 0.88, 0);
     materials.plasterWarm = makeMat('street-plaster-warm', 0xcab995, 0.86, 0);
+    // 铁件：招牌挂钩、门环、铁箍用。金属度必须给足，
+    // 否则铁件会读成"涂黑的木头"，与旁边的木构混在一起。
+    materials.iron = new THREE.MeshStandardMaterial({
+      name: 'street-iron',
+      color: 0x3a3733,
+      roughness: 0.52,
+      metalness: 0.78,
+      envMapIntensity: 1.1,
+    });
     // 第三档墙色：偏土的赭黄。三档墙面各自有法线/粗糙度贴图，
     // 不能拿灰石路材质顶替——那张贴图偏亮偏白，会把整面墙读成白板。
     materials.plasterOchre = materials.plaster.clone();
@@ -1913,15 +1922,48 @@
     // 招牌底：唐式市井的匾额多为深木本色，少数朱漆；底色按行当分配，
     // 不再整条街清一色黑底金字。
     const backingMat = opts.backing || materials.darkWood;
-    const backing = new THREE.Mesh(new THREE.BoxGeometry(width + 0.12, height + 0.12, 0.09), backingMat);
+    // 牌匾要有真实构造：厚木底 + 四边完整边框 + 悬挂铁钩。
+    // 原先只有上下两条压条、左右敞开，近景读作"一块贴字的板"。
+    // 底板加厚到 0.13m：真实木牌匾有厚度，侧面能看出木料断面。
+    const backing = new THREE.Mesh(
+      new THREE.BoxGeometry(width + 0.14, height + 0.14, 0.13),
+      backingMat,
+    );
     backing.castShadow = true;
+    backing.receiveShadow = true;
     group.add(backing);
     // 匾框：上下两道压边，读作"挂起来的匾"而不是一块贴纸。
     const frameMat = opts.frame || materials.darkWood;
     for (const dy of [-(height / 2 + 0.05), height / 2 + 0.05]) {
-      const rail = new THREE.Mesh(new THREE.BoxGeometry(width + 0.20, 0.055, 0.13), frameMat);
+      const rail = new THREE.Mesh(new THREE.BoxGeometry(width + 0.22, 0.055, 0.16), frameMat);
       rail.position.y = dy;
+      rail.castShadow = true;
       group.add(rail);
+    }
+    // 左右立框：补全边框，让牌匾四边收口。
+    for (const dx of [-(width / 2 + 0.05), width / 2 + 0.05]) {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.055, height + 0.22, 0.16), frameMat);
+      post.position.x = dx;
+      post.castShadow = true;
+      group.add(post);
+    }
+    // 悬挂铁钩：两根细铁条从牌匾顶端向上，读作"牌子是挂上去的"。
+    if (opts.hooks !== false) {
+      const hookMat = materials.iron || materials.darkWood;
+      for (const dx of [-width * 0.30, width * 0.30]) {
+        const hook = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.014, 0.014, 0.26, 6), hookMat,
+        );
+        hook.position.set(dx, height / 2 + 0.16, 0.02);
+        hook.castShadow = true;
+        group.add(hook);
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(0.030, 0.010, 5, 10), hookMat,
+        );
+        ring.position.set(dx, height / 2 + 0.29, 0.02);
+        ring.rotation.y = Math.PI / 2;
+        group.add(ring);
+      }
     }
     const texture = signTexture(text, opts);
     const plane = new THREE.Mesh(
