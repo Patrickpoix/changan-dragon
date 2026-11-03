@@ -1066,32 +1066,30 @@ def tile_rolls_along_slope(
             # 筒瓦坐在屋面之上：整体抬到瓦高的一半，底面两角才不穿进屋面。
             center = Vector((center.x, center.y, center.z + half * 0.55))
             # 垄为半圆筒，跨在瓦沟之上；三点沿"垂直垄向"展开。
-            ring = [
-                bm.verts.new(
-                    (
-                        center.x - across.x * half,
-                        center.y - across.y * half,
-                        center.z - half * 0.42,
+            # 筒瓦横截面：7 点圆弧替代 3 点折面。
+            # 3 点折面在近景读作"波纹铁皮"；真实筒瓦是半圆筒，
+            # 圆弧截面才能在瓦垄上形成连续的明暗过渡。
+            # 角度跨 190°，略大于半圆，让相邻瓦垄之间有自然的搭接。
+            RING_SEGMENTS = 7
+            ring = []
+            for k in range(RING_SEGMENTS):
+                ang = math.radians(-95.0 + 190.0 * k / (RING_SEGMENTS - 1))
+                off_across = half * 0.92 * math.sin(ang)
+                off_up = half * 0.95 * math.cos(ang)
+                # 瓦口两侧略微下沉，形成瓦沟
+                sink = half * 0.42 * (abs(off_across) / max(1e-6, half * 0.92)) ** 1.6
+                ring.append(
+                    bm.verts.new(
+                        (
+                            center.x + across.x * off_across,
+                            center.y + across.y * off_across,
+                            center.z + off_up - sink,
+                        )
                     )
-                ),
-                bm.verts.new(
-                    (
-                        center.x,
-                        center.y,
-                        center.z + half * 0.95,
-                    )
-                ),
-                bm.verts.new(
-                    (
-                        center.x + across.x * half,
-                        center.y + across.y * half,
-                        center.z - half * 0.18,
-                    )
-                ),
-            ]
+                )
             rings.append(ring)
         for i in range(len(rings) - 1):
-            for j in range(2):
+            for j in range(len(rings[i]) - 1):
                 bm.faces.new(
                     (
                         rings[i][j],

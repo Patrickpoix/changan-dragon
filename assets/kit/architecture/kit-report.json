@@ -138,7 +138,7 @@
       "id": "shop_low_shijing",
       "grade": 0.22,
       "storey": 0,
-      "triangles": 12308,
+      "triangles": 18068,
       "dimensions_m": [
         4.359,
         5.244,
@@ -151,7 +151,7 @@
       "id": "shop_shijing",
       "grade": 0.22,
       "storey": 1,
-      "triangles": 12744,
+      "triangles": 18936,
       "dimensions_m": [
         4.69,
         5.244,
@@ -164,7 +164,7 @@
       "id": "shop_tall_shijing",
       "grade": 0.22,
       "storey": 2,
-      "triangles": 13820,
+      "triangles": 20444,
       "dimensions_m": [
         5.089,
         5.244,
@@ -177,7 +177,7 @@
       "id": "shop_double_shijing",
       "grade": 0.22,
       "storey": 3,
-      "triangles": 34760,
+      "triangles": 60536,
       "dimensions_m": [
         7.892,
         5.244,
@@ -189,7 +189,7 @@
     {
       "id": "tavern_shijing",
       "grade": 0.22,
-      "triangles": 29628,
+      "triangles": 37260,
       "dimensions_m": [
         6.652,
         5.816,
