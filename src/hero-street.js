@@ -2726,8 +2726,13 @@
         // 墙高比铺面矮一档，读作"后院墙"而不是主街铺面。
         const wallH = 2.55;
         for (const along of [-1, 1]) {
-          const wall = new THREE.Mesh(
-            new THREE.BoxGeometry(DEPTH, wallH, 0.42),
+          // 巷墙同样带收分：2.55m 高、进深 0.42 → 0.34（约 8%）。
+          // 与坊墙、门楼翼墙保持同一套形体语言，
+          // 否则近景一眼能看出"这段墙是纸板、那段是实体"。
+          const wall = taperedBox(
+            'alley-wall',
+            DEPTH, DEPTH, wallH,
+            0.42, 0.34,
             materials.plaster,
           );
           wall.position.set(
