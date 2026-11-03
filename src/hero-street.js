@@ -1851,6 +1851,7 @@
     for (const side of [-1, 1]) {
       const positions = [];
       const indices = [];
+      const uvs = [];
       for (let j = 0; j <= STATIONS; j++) {
         const t = j / STATIONS;
         for (let i = 0; i <= SEG; i++) {
@@ -1860,6 +1861,8 @@
             6.0 + liftAt(t) + curlAt(t, u),
             z + zAt(side, t),
           );
+          // 屋面 UV：横向按宽度、纵向按坡长（米制）
+          uvs.push(15.2 * u, slopeSpan * t);
         }
       }
       for (let j = 0; j < STATIONS; j++) {
@@ -1873,6 +1876,7 @@
       }
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
       geo.setIndex(indices);
       geo.computeVertexNormals();
       const surface = new THREE.Mesh(geo, materials.roof);
@@ -1887,6 +1891,7 @@
         const u = (i + 0.5) / rolls;
         const xx = -7.4 + 14.8 * u;
         const verts = [];
+        const rollUvs = [];
         const idx = [];
         for (let k = 0; k <= STATIONS; k++) {
           const t = k / STATIONS;
@@ -1899,6 +1904,8 @@
               py + Math.sin(ang) * rw * 0.95,
               pz,
             );
+            // 筒瓦 UV：沿瓦垄方向按坡长、横向按圆弧展开长度
+            rollUvs.push(slopeSpan * t, rw * Math.PI * (r / (ring - 1)));
           }
         }
         for (let k = 0; k < STATIONS; k++) {
@@ -1909,6 +1916,7 @@
         }
         const rgeo = new THREE.BufferGeometry();
         rgeo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        rgeo.setAttribute('uv', new THREE.Float32BufferAttribute(rollUvs, 2));
         rgeo.setIndex(idx);
         rgeo.computeVertexNormals();
         const roll = new THREE.Mesh(rgeo, materials.roofTile);
@@ -1975,12 +1983,17 @@
     // 通用放样：给定若干 (半宽X, 半宽Z, 高度Y) 环，生成闭合体。
     const loftRings = (rings, material, name) => {
       const positions = [];
+      const uvs = [];
       const indices = [];
       const N = 4; // 每环 4 个角点（矩形环）
       for (const r of rings) {
         const [hx, hz, y] = r;
         positions.push(
           -hx, y, -hz,  hx, y, -hz,  hx, y, hz,  -hx, y, hz,
+        );
+        // 侧面按周长方向展开、竖向按高度：米制 UV。
+        uvs.push(
+          -hx * 2, y, hx * 2, y, hx * 2, y, -hx * 2, y,
         );
       }
       const ringCount = rings.length;
@@ -2002,6 +2015,7 @@
       indices.push(3, 2, 1, 3, 1, 0);
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
       geo.setIndex(indices);
       geo.computeVertexNormals();
       const mesh = new THREE.Mesh(geo, material);
@@ -2048,17 +2062,25 @@
       }
       // 挤出成板
       const positions = [];
+      const uvs = [];
       const indices = [];
       const half = depth / 2;
       const n = outline.length;
-      for (const [x, y] of outline) positions.push(x, y, -half);
-      for (const [x, y] of outline) positions.push(x, y, half);
+      for (const [x, y] of outline) {
+        positions.push(x, y, -half);
+        uvs.push(x, y);
+      }
+      for (const [x, y] of outline) {
+        positions.push(x, y, half);
+        uvs.push(x, y);
+      }
       for (let i = 0; i < n; i++) {
         const j = (i + 1) % n;
         indices.push(i, j, n + j, i, n + j, n + i);
       }
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
       geo.setIndex(indices);
       geo.computeVertexNormals();
       const mesh = new THREE.Mesh(geo, material);
@@ -2186,6 +2208,7 @@
       const rOut = radius + 1.18;
       const eaveH = 0.52;
       const positions = [];
+      const uvs = [];
       const indices = [];
       for (let j = 0; j <= EAVE_ST; j++) {
         const t = j / EAVE_ST;
@@ -2202,6 +2225,8 @@
             yy + curl,
             Math.cos(a) * rr,
           );
+          // 塔檐 UV：环向按周长、径向按坡长（米制）
+          uvs.push(2 * Math.PI * rr * (i / RING_SEG), eaveH * t);
         }
       }
       for (let j = 0; j < EAVE_ST; j++) {
@@ -2216,6 +2241,7 @@
       }
       const eaveGeo = new THREE.BufferGeometry();
       eaveGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      eaveGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
       eaveGeo.setIndex(indices);
       eaveGeo.computeVertexNormals();
       const eave = new THREE.Mesh(eaveGeo, eaveMat);
@@ -2497,15 +2523,33 @@
       [3, 2, 1, 0],  // -Y（底）
     ];
     const positions = [];
+    const uvs = [];
     const indices = [];
     let base = 0;
-    for (const face of faces) {
-      for (const idx of face) positions.push(...v[idx]);
+    // 每个面按自己的两个切向轴生成米制 UV。
+    // 没有 UV 的 BufferGeometry 采样不到贴图，表面会是一片纯色——
+    // 这正是"墙是光板"的原因，与构件库的退化 UV 是同一类问题。
+    const faceAxes = [
+      [0, 2], // -Z 面：x, z
+      [2, 1], // +X 面：z, y
+      [0, 2], // +Z 面：x, z
+      [2, 1], // -X 面：z, y
+      [0, 1], // +Y 顶面：x, y
+      [0, 2], // -Y 底面：x, z
+    ];
+    for (let fi = 0; fi < faces.length; fi++) {
+      const face = faces[fi];
+      const [au, av] = faceAxes[fi];
+      for (const idx of face) {
+        positions.push(...v[idx]);
+        uvs.push(v[idx][au], v[idx][av]);
+      }
       indices.push(base, base + 1, base + 2, base, base + 2, base + 3);
       base += 4;
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
     geo.setIndex(indices);
     geo.computeVertexNormals();
     const mesh = new THREE.Mesh(geo, material);
