@@ -57,7 +57,11 @@
     // 真实街景里 30m 外就该有明显的大气衰减，
     // 这既是物理事实，也是国风漫剧用来拉开层次的主要手段。
     // 近端 18m 起、远端 96m 结束：街内 30-70m 处能看出逐层后退。
-    Fog(0xe6d5b8, 18, 96);
+    // 远端从 96 推到 132：坊门在 z = -39.2，距街心观察点约 39m，
+// 落在原雾的强衰减区间，实测亮度被冲到 0.759-0.784（接近白色），
+// 街道尽头的地标几乎消失。推到 132 后坊门仍是"退入空气"，
+// 但轮廓与斗拱还能辨认，纵深与地标两者都保住。
+    Fog(0xe6d5b8, 18, 132);
   const camera = new THREE.PerspectiveCamera(48, 1, 0.08, 320);
   const clock = new THREE.Clock();
   const textureLoader = new THREE.TextureLoader();
@@ -834,8 +838,12 @@
     const ambient = new THREE.AmbientLight(0xc8d8ea, 0.09);
     scene.add(ambient);
     // 太阳更暖、更强：与冷色天光形成明确的冷暖分离，这是国风漫剧常用的光色关系。
+    // 太阳高度角从约 44 度降到约 27 度。
+    // 44 度接近顶光，阴影短，街道缺少纵深，也缺少国风漫剧常用的
+    // "斜射光切过街面"的戏剧性。27 度能让铺面的阴影拉长横过街面，
+    // 一侧受光、一侧背阴，形成明确的明暗分界。
     sun = new THREE.DirectionalLight(0xffc890, 4.35);
-    sun.position.set(22, 26, 16);
+    sun.position.set(22, 13.86, 16);
     sun.castShadow = true;
     // 阴影分辨率必须与覆盖范围匹配。
     // 原来 2048 贴图覆盖 104 x 112m，每像素约 5cm；
@@ -852,10 +860,12 @@
     // 覆盖范围收紧到实际有投影物体的区域：街道两侧铺面（|x| < 22）、
     // 两座门楼（z = -39.2 / 41）、殿堂（z 到 -60）。
     // 再大只会摊薄分辨率，远处又本来就被雾吞掉。
-    sun.shadow.camera.left = -30;
-    sun.shadow.camera.right = 30;
-    sun.shadow.camera.top = 46;
-    sun.shadow.camera.bottom = -46;
+    // 低角度光把阴影拉长，覆盖范围相应放宽，
+    // 否则铺面的长影会在边缘被截断，出现"影子突然消失"的硬边。
+    sun.shadow.camera.left = -34;
+    sun.shadow.camera.right = 34;
+    sun.shadow.camera.top = 50;
+    sun.shadow.camera.bottom = -50;
     // bias 随分辨率提高而收紧：分辨率变高后原来的 -0.00045 会过冲，
     // 在薄构件（棂条、栏杆）上出现漏光。
     sun.shadow.bias = -0.00022;
