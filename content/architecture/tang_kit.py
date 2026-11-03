@@ -663,6 +663,29 @@ def box(name, size, material, position):
     bm = bmesh.new()
     bmesh.ops.create_cube(bm, size=1.0)
     bmesh.ops.scale(bm, vec=(sx, sy, sz), verts=bm.verts)
+
+    # 微倒角：硬 90 度棱在实时渲染下只出一条锐利切线，像建模预览；
+    # 真实木石构件有 1-3mm 圆角，会在棱上接住一条细高光。
+    # 倒角量按最小边长取比例并夹在 2-12mm：太小看不见，
+    # 太大会把细棂条削圆，反而不像木构。
+    smallest = min(abs(sx), abs(sy), abs(sz))
+    if smallest >= 0.004:
+        offset = min(0.012, max(0.002, smallest * 0.06))
+        try:
+            bmesh.ops.bevel(
+                bm,
+                geom=list(bm.verts) + list(bm.edges),
+                offset=offset,
+                offset_type='OFFSET',
+                segments=1,
+                profile=0.5,
+                affect='EDGES',
+            )
+        except TypeError:
+            pass
+
+    bm.normal_update()
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
     obj = new_object(name, bm, material)
     obj.location = position
     return obj
