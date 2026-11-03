@@ -1605,7 +1605,15 @@
       base.castShadow = true;
       group.add(base);
 
-      const body = new THREE.Mesh(new THREE.BoxGeometry(width, bodyH, 0.78), materials.plaster);
+      // 墙身必须有收分：夯土墙是版筑的，越往上越收，
+      // 直上直下的板读作"隔断墙"而不是"坊墙"。
+      // 收分约 5%（3.05m 高收 0.15m），与唐代夯土城墙的实测比例接近。
+      const body = taperedBox(
+        'ward-wall-body',
+        width, width - 0.02, bodyH,
+        0.78, 0.63,
+        materials.plaster,
+      );
       body.position.set(x, 0.42 + bodyH / 2, z);
       body.castShadow = true;
       body.receiveShadow = true;
@@ -1700,17 +1708,39 @@
   function createGate(z = -39.2, facing = 1) {
     const gate = new THREE.Group();
     gate.name = 'west-market-gate';
+    /* 门墩必须有收分：真实唐构的墩是上小下大的棱台，
+     * 直上直下的方块近景读作"积木"，材质再好也救不回来。
+     * 收分比例约 6%（4.8m 高收 0.29m），与唐宋石墩的实测比例接近。 */
     for (const side of [-1, 1]) {
-      const pier = new THREE.Mesh(new THREE.BoxGeometry(1.18, 4.8, 1.38), materials.stone);
-      pier.position.set(side * 6.15, 2.4, z);
+      const pierH = 4.8;
+      const taper = 0.29;
+      const pier = taperedBox(
+        'gate-pier',
+        1.18, 1.18 - taper, pierH,
+        1.38, 1.38 - taper,
+        materials.stone,
+      );
+      pier.position.set(side * 6.15, pierH / 2, z);
       pier.castShadow = pier.receiveShadow = true;
       gate.add(pier);
-      const base = new THREE.Mesh(new THREE.BoxGeometry(1.52, 0.34, 1.72), materials.stone);
-      base.position.set(side * 6.15, 0.17, z);
+      // 墩座：比墩身宽出一圈，同样带收分
+      const base = taperedBox(
+        'gate-pier-base',
+        1.56, 1.50, 0.36,
+        1.76, 1.70,
+        materials.stone,
+      );
+      base.position.set(side * 6.15, 0.18, z);
       base.castShadow = base.receiveShadow = true;
       gate.add(base);
-      const cap = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.2, 1.58), materials.stone);
-      cap.position.set(side * 6.15, 4.85, z);
+      // 墩顶压顶石：略向外挑出，收口
+      const cap = taperedBox(
+        'gate-pier-cap',
+        1.24, 1.36, 0.22,
+        1.44, 1.56,
+        materials.stone,
+      );
+      cap.position.set(side * 6.15, 4.91, z);
       cap.castShadow = cap.receiveShadow = true;
       gate.add(cap);
     }
@@ -2171,6 +2201,55 @@
     mat.normalMap = setRepeat(mat.normalMap, rx, ry);
     mat.roughnessMap = setRepeat(mat.roughnessMap, rx, ry);
     return mat;
+  }
+
+  /* 收分体：底面比顶面大的棱台。
+   *
+   * 真实唐构的墩、墙、柱础都有收分（上小下大），
+   * 这是夯土与砌筑工艺的必然结果，也是"看起来像真建筑"
+   * 最基础的一条。用 BoxGeometry 做出来的直上直下方块，
+   * 近景一眼读作"积木"，无论材质多精细都救不回来。
+   *
+   * 参数：底宽 / 顶宽 / 高 / 底深 / 顶深，收分按高度线性。
+   * 侧面因此有轻微内倾，受光时会出现一条从上到下渐变的明暗，
+   * 这正是真实墙体"有厚度"的视觉来源。 */
+  function taperedBox(name, bottomW, topW, height, bottomD, topD, material) {
+    const hw0 = bottomW / 2;
+    const hw1 = topW / 2;
+    const hd0 = bottomD / 2;
+    const hd1 = topD / 2;
+    const y0 = -height / 2;
+    const y1 = height / 2;
+
+    // 8 个角点：底面 4 个 + 顶面 4 个
+    const v = [
+      [-hw0, y0, -hd0], [hw0, y0, -hd0], [hw0, y0, hd0], [-hw0, y0, hd0],
+      [-hw1, y1, -hd1], [hw1, y1, -hd1], [hw1, y1, hd1], [-hw1, y1, hd1],
+    ];
+    // 6 个面，每个面两个三角形；索引按外法线方向排列
+    const faces = [
+      [0, 1, 5, 4],  // -Z
+      [1, 2, 6, 5],  // +X
+      [2, 3, 7, 6],  // +Z
+      [3, 0, 4, 7],  // -X
+      [4, 5, 6, 7],  // +Y（顶）
+      [3, 2, 1, 0],  // -Y（底）
+    ];
+    const positions = [];
+    const indices = [];
+    let base = 0;
+    for (const face of faces) {
+      for (const idx of face) positions.push(...v[idx]);
+      indices.push(base, base + 1, base + 2, base, base + 2, base + 3);
+      base += 4;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geo.setIndex(indices);
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, material);
+    mesh.name = name;
+    return mesh;
   }
 
   const BODY_HALF_WIDTH = { shop0: 2.345, shop1: 2.345, shop2: 2.545, shop3: 3.946, tavern: 3.326 };
