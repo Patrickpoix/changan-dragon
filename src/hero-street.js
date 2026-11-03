@@ -1845,13 +1845,35 @@
     ridge.castShadow = true;
     gate.add(ridge);
     for (const side of [-1, 1]) {
-      const wall = new THREE.Mesh(new THREE.BoxGeometry(7.2, 3.25, 0.56), materials.plaster);
-      wall.position.set(side * 10.0, 1.62, z);
+      // 门楼翼墙同样要有收分与压顶，否则与带收分的门墩并排
+      // 会显得"一边是石头、一边是纸板"。
+      const wallH = 3.25;
+      const wall = taperedBox(
+        'gate-wing-wall',
+        7.2, 7.2 - 0.03, wallH,
+        0.56, 0.44,
+        materials.plaster,
+      );
+      wall.position.set(side * 10.0, 0.42 + wallH / 2, z);
       wall.castShadow = wall.receiveShadow = true;
       gate.add(wall);
+      // 墙顶压顶石：外挑收口，给翼墙一条明确的结束线；
+      // 缺了这条线，墙顶与天空直接相接，读作"没建完的板"。
+      const coping = taperedBox(
+        'gate-wing-coping',
+        7.34, 7.42, 0.18,
+        0.70, 0.76,
+        materials.stone,
+      );
+      coping.position.set(side * 10.0, 0.42 + wallH + 0.09, z);
+      coping.castShadow = true;
+      coping.receiveShadow = true;
+      gate.add(coping);
       // 侧墙墙脚的阶条石：唐式门楼墙本来就有一圈压边石。
-      const foot = new THREE.Mesh(
-        new THREE.BoxGeometry(7.5, 0.42, 0.86),
+      const foot = taperedBox(
+        'gate-wing-foot',
+        7.5, 7.46, 0.42,
+        0.86, 0.80,
         materials.stone,
       );
       foot.position.set(side * 10.0, 0.21, z);
