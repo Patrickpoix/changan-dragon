@@ -426,10 +426,13 @@
         root + 'brown_mud_02/normal_2k.jpg', root + 'brown_mud_02/roughness_2k.jpg', [7, 20], 0xd9c6a4, 1.35),
       loadPBR('street-stone', root + 'grey_stone_path/basecolor_2k.jpg',
         root + 'grey_stone_path/normal_2k.jpg', root + 'grey_stone_path/roughness_2k.jpg', [2, 8], 0xd6cdbb, 1.5),
+      // 木料的 repeat 原为 (1, 3) / (1, 2)，套到 6-14m 的檐柱与梁上，
+      // 纹理周期达到 14m，每米只有 36-38 像素——近景看不出木纹。
+      // 提高到 (3, 8) / (3, 6)：周期约 1.8-4.5m，每米 110-280 像素。
       loadPBR('street-wood', root + 'fine_grained_wood/basecolor_2k.jpg',
-        root + 'fine_grained_wood/normal_2k.jpg', root + 'fine_grained_wood/roughness_2k.jpg', [1, 3], 0xd8b18a, 1.9),
+        root + 'fine_grained_wood/normal_2k.jpg', root + 'fine_grained_wood/roughness_2k.jpg', [3, 8], 0xd8b18a, 1.9),
       loadPBR('street-darkwood', root + 'dark_wood/basecolor_2k.jpg',
-        root + 'dark_wood/normal_2k.jpg', root + 'dark_wood/roughness_2k.jpg', [1, 2], 0xb08a72, 1.5),
+        root + 'dark_wood/normal_2k.jpg', root + 'dark_wood/roughness_2k.jpg', [3, 6], 0xb08a72, 1.5),
       loadPBR('street-cloth', root + 'Fabric081C/basecolor_512.png',
         root + 'Fabric081C/normal_512.png', root + 'Fabric081C/roughness_512.png', [3, 2], 0xb75b48, 1),
       loadPBR('street-roof', null,
