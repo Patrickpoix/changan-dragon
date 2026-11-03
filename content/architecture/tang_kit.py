@@ -72,10 +72,41 @@ def srgb(hex_color):
     )
 
 
-def new_object(name, bm, material):
+def new_object(name, bm, material, uv_scale=1.0):
+    """把 bmesh 落成对象，并**按世界尺度展开 UV**。
+
+    这一步是让贴图真正生效的关键。此前构件库从不设置 UV，
+    Blender 导出时给出的是退化 UV（实测绝大多数构件的
+    u 恒为 0、v 从 0 到 1），贴图在 U 方向被压成一个像素，
+    所有构件采样到的都是一条单像素色带——建筑因此读作"纯色板"，
+    无论换多高分辨率的贴图都没有用。
+
+    这里用立方投影（box projection）：按顶点在世界空间中的位置，
+    取面积最大的那个轴做投影平面，UV 直接等于米数除以 uv_scale。
+    好处是 UV 与世界尺度一致——每米对应固定的贴图周期，
+    不会因为构件大小不同而被拉伸。
+    """
     mesh = bpy.data.meshes.new(name)
     bm.to_mesh(mesh)
     bm.free()
+
+    # 立方投影：按面法线的主轴决定投影平面，UV 用世界坐标（米）。
+    if not mesh.uv_layers:
+        mesh.uv_layers.new(name="UVMap")
+    uv_layer = mesh.uv_layers.active.data
+    for poly in mesh.polygons:
+        n = poly.normal
+        ax, ay, az = abs(n.x), abs(n.y), abs(n.z)
+        for li in poly.loop_indices:
+            v = mesh.vertices[mesh.loops[li].vertex_index].co
+            if az >= ax and az >= ay:
+                u, w = v.x, v.y
+            elif ax >= ay:
+                u, w = v.y, v.z
+            else:
+                u, w = v.x, v.z
+            uv_layer[li].uv = (u / uv_scale, w / uv_scale)
+
     obj = bpy.data.objects.new(name, mesh)
     obj.data.materials.append(material)
     bpy.context.collection.objects.link(obj)

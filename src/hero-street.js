@@ -277,6 +277,38 @@
     return mesh;
   }
 
+  /* 构件库专用材质：UV 按米展开，repeat 必须按"每米周期数"设置。
+   *
+   * 构件库的 UV 是立方投影、单位是米（见 tang_kit.py 的 new_object）。
+   * 而场景里手工建的平面（街面、铺装、墙面片）UV 是 0-1。
+   * 两者共用同一份材质时 repeat 语义冲突：
+   * 给平面调好的 repeat 会让构件上的贴图被拉得极密或极稀。
+   *
+   * 这里从基础材质派生一套"米制"副本，repeat 统一为每米 1 个周期，
+   * 供所有 GLB 构件使用；场景平面继续用原来的材质。
+   */
+  const kitMaterials = {};
+  function kitMaterialFor(baseName) {
+    if (kitMaterials[baseName]) return kitMaterials[baseName];
+    const base = materials[baseName];
+    if (!base) return null;
+    const clone = base.clone();
+    clone.name = base.name + '-kit';
+    const setRepeat = (tex) => {
+      if (!tex) return null;
+      const t = tex.clone();
+      t.needsUpdate = true;
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(1, 1);
+      return t;
+    };
+    clone.map = setRepeat(base.map);
+    clone.normalMap = setRepeat(base.normalMap);
+    clone.roughnessMap = setRepeat(base.roughnessMap);
+    kitMaterials[baseName] = clone;
+    return clone;
+  }
+
   function makeMat(name, color, roughness = 0.82, metalness = 0) {
     return new THREE.MeshStandardMaterial({
       name,
@@ -425,14 +457,18 @@
       loadPBR('street-mud', root + 'brown_mud_02/basecolor_2k.jpg',
         root + 'brown_mud_02/normal_2k.jpg', root + 'brown_mud_02/roughness_2k.jpg', [7, 20], 0xd9c6a4, 1.35),
       loadPBR('street-stone', root + 'grey_stone_path/basecolor_2k.jpg',
-        root + 'grey_stone_path/normal_2k.jpg', root + 'grey_stone_path/roughness_2k.jpg', [2, 8], 0xd6cdbb, 1.5),
+        root + 'grey_stone_path/normal_2k.jpg', root + 'grey_stone_path/roughness_2k.jpg', [1, 1], 0xd6cdbb, 1.5),
       // 木料的 repeat 原为 (1, 3) / (1, 2)，套到 6-14m 的檐柱与梁上，
       // 纹理周期达到 14m，每米只有 36-38 像素——近景看不出木纹。
       // 提高到 (3, 8) / (3, 6)：周期约 1.8-4.5m，每米 110-280 像素。
+      // 构件库的 UV 已改为**按米展开**（1 UV 单位 = 1 米，立方投影）。
+      // 因此这里的 repeat 语义变成"每米几个纹理周期"，不再表示
+      // "整块构件铺几次"。取每米 1 个周期：一块 2k 贴图覆盖 1m，
+      // 每米 2048 像素，近景的木纹与石纹细节都能看清。
       loadPBR('street-wood', root + 'fine_grained_wood/basecolor_2k.jpg',
-        root + 'fine_grained_wood/normal_2k.jpg', root + 'fine_grained_wood/roughness_2k.jpg', [3, 8], 0xd8b18a, 1.9),
+        root + 'fine_grained_wood/normal_2k.jpg', root + 'fine_grained_wood/roughness_2k.jpg', [1, 1], 0xd8b18a, 1.9),
       loadPBR('street-darkwood', root + 'dark_wood/basecolor_2k.jpg',
-        root + 'dark_wood/normal_2k.jpg', root + 'dark_wood/roughness_2k.jpg', [3, 6], 0xb08a72, 1.5),
+        root + 'dark_wood/normal_2k.jpg', root + 'dark_wood/roughness_2k.jpg', [1, 1], 0xb08a72, 1.5),
       loadPBR('street-cloth', root + 'Fabric081C/basecolor_512.png',
         root + 'Fabric081C/normal_512.png', root + 'Fabric081C/roughness_512.png', [3, 2], 0xb75b48, 1),
       loadPBR('street-roof', null,
@@ -3153,6 +3189,28 @@
       if (entry.tier === 3) return shopDoubleRoot;
       return shopRoot;
     };
+    // 把"米制材质"注册进构件库的语义表，覆盖掉默认的 0-1 UV 材质。
+    // 构件库的 UV 是立方投影、单位米；默认材质按 0-1 UV 设 repeat，
+    // 两者叠加会把贴图拉得极密或极稀。这里一次性把构件用到的
+    // 五个语义名全部指向米制副本。
+    if (window.KitLibrary && window.KitLibrary.materials) {
+      const lib = window.KitLibrary.materials;
+      const mapping = {
+        mat_stone: 'stone',
+        mat_plaster: 'plaster',
+        mat_timber: 'wood',
+        mat_vermilion: 'redWood',
+        mat_bracket_block: 'darkWood',
+        mat_roof_tile: 'roof',
+        mat_roof_surface: 'roof',
+        mat_roof_ridge: 'roof',
+        mat_cloth: 'cloth',
+      };
+      for (const [semantic, key] of Object.entries(mapping)) {
+        const mat = kitMaterialFor(key);
+        if (mat) lib[semantic] = mat;
+      }
+    }
     entries.forEach((entry) => addBuilding(rootFor(entry), entry));
     entries.forEach((entry) => addFacadeVariation(entry));
     // 把铺面正面坐标交给地面痕迹使用（这里 entries 在作用域内）。

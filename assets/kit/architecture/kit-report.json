@@ -99,30 +99,6 @@
       "geometry_mode": "platform_columns_brackets_facade_hip_roof"
     },
     {
-      "id": "shop_shijing",
-      "grade": 0.22,
-      "triangles": 19278,
-      "dimensions_m": [
-        4.69,
-        5.244,
-        6.032
-      ],
-      "height_m": 6.032,
-      "geometry_mode": "street_frontage_gable_roof_awning"
-    },
-    {
-      "id": "tavern_shijing",
-      "grade": 0.22,
-      "triangles": 37678,
-      "dimensions_m": [
-        6.652,
-        7.484,
-        8.198
-      ],
-      "height_m": 8.198,
-      "geometry_mode": "two_storey_gallery_tavern"
-    },
-    {
       "id": "puzuo_shijing",
       "grade": 0.22,
       "triangles": 1344,
@@ -157,6 +133,70 @@
         4.693
       ],
       "height_m": 4.693
+    },
+    {
+      "id": "shop_low_shijing",
+      "grade": 0.22,
+      "storey": 0,
+      "triangles": 18442,
+      "dimensions_m": [
+        4.359,
+        5.244,
+        5.381
+      ],
+      "height_m": 5.381,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "shop_shijing",
+      "grade": 0.22,
+      "storey": 1,
+      "triangles": 19278,
+      "dimensions_m": [
+        4.69,
+        5.244,
+        6.032
+      ],
+      "height_m": 6.032,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "shop_tall_shijing",
+      "grade": 0.22,
+      "storey": 2,
+      "triangles": 20754,
+      "dimensions_m": [
+        5.089,
+        5.244,
+        6.895
+      ],
+      "height_m": 6.895,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "shop_double_shijing",
+      "grade": 0.22,
+      "storey": 3,
+      "triangles": 59630,
+      "dimensions_m": [
+        7.892,
+        5.244,
+        8.541
+      ],
+      "height_m": 8.541,
+      "geometry_mode": "street_frontage_gable_roof_awning"
+    },
+    {
+      "id": "tavern_shijing",
+      "grade": 0.22,
+      "triangles": 37678,
+      "dimensions_m": [
+        6.652,
+        7.484,
+        8.198
+      ],
+      "height_m": 8.198,
+      "geometry_mode": "two_storey_gallery_tavern"
     }
   ],
   "note": "唐构构件库，尺寸按材分制换算",
