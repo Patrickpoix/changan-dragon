@@ -1149,11 +1149,17 @@ def eave_detail(
                 base.z + lift + rise_offset + tile_height * 0.75,
             )
         )
-        rafter = box(
+        # 椽头必须是**圆椽**：唐式屋檐下的椽是圆断面的，
+        # 方椽是明清才常见的做法。方断面的椽头在近景读作"木条"，
+        # 圆断面才有真实檐下的成排圆形凹影——这是唐构檐口最典型的特征。
+        rafter = cylinder(
             "%s_rafter_%d" % (name, i),
-            (rafter_depth, rafter_width, tile_height * 1.5),
-            wood,
-            center,
+            radius=rafter_width * 0.5,
+            depth=rafter_depth,
+            material=wood,
+            position=center,
+            axis="x",
+            segments=10,
         )
         rafter.rotation_euler.z = yaw
         parts.append(rafter)
@@ -2418,6 +2424,40 @@ def lattice_panel(
     obj = new_object(name, bm, material)
     obj.location = position
     obj.rotation_euler.z = rotation_y
+    return obj
+
+
+def cylinder(name, radius, depth, material, position, axis="z", segments=12):
+    """圆柱体：椽头、栏杆柱、钉头等圆形构件用。
+
+    唐构的椽是圆断面的，方断面读作"木条"。
+    axis 指定圆柱轴向：'x' 沿出檐方向、'z' 竖向、'y' 横向。
+    """
+    bm = bmesh.new()
+    ring_a = []
+    ring_b = []
+    for i in range(segments):
+        a = (i / segments) * math.pi * 2
+        x = math.cos(a) * radius
+        y = math.sin(a) * radius
+        if axis == "x":
+            ring_a.append(bm.verts.new((-depth / 2, x, y)))
+            ring_b.append(bm.verts.new((depth / 2, x, y)))
+        elif axis == "y":
+            ring_a.append(bm.verts.new((x, -depth / 2, y)))
+            ring_b.append(bm.verts.new((x, depth / 2, y)))
+        else:
+            ring_a.append(bm.verts.new((x, y, -depth / 2)))
+            ring_b.append(bm.verts.new((x, y, depth / 2)))
+    for i in range(segments):
+        j = (i + 1) % segments
+        bm.faces.new((ring_a[i], ring_a[j], ring_b[j], ring_b[i]))
+    bm.faces.new(list(reversed(ring_a)))
+    bm.faces.new(ring_b)
+    bm.normal_update()
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    obj = new_object(name, bm, material)
+    obj.location = position
     return obj
 
 
