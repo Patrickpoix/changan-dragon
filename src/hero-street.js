@@ -2167,6 +2167,7 @@
     const clothTint = [
       materials.clothBlue, materials.clothGreen, materials.clothOchre, materials.cloth,
     ][Math.abs(Math.round(entry.z)) % 4];
+    let partCursor = 0;
     group.traverse((node) => {
       if (!node.isMesh) return;
       const material = Array.isArray(node.material) ? node.material[0] : node.material;
@@ -2176,10 +2177,30 @@
       // 换成 street-cloth / street-plaster / street-red-wood，
       // 之前按 mat_* 匹配，整套按铺面换色的代码从未生效过（实测确认）。
       const name = material.name || '';
+      // 每根构件给一点确定性微色差。
+      // 真实木构每根柱子的漆色、每扇格扇的木色都有深浅差异，
+      // 一排看过去才像"手作的木构"，而不是复制粘贴。
+      // 用节点在组内的序号做伪随机，保证每次运行一致。
+      partCursor += 1;
+      const shadeSeed = ((partCursor * 37 + Math.abs(Math.round(entry.z)) * 11) % 17) / 17;
+      // ±7% 明度浮动 + 轻微色相偏移（暖/冷各半）
+      const shade = 0.93 + shadeSeed * 0.14;
+      const hueShift = (shadeSeed - 0.5) * 0.045;
+      const tintOf = (base) => {
+        const m = base.clone();
+        m.name = base.name + '-p' + partCursor;
+        const c = base.color.clone();
+        c.multiplyScalar(shade);
+        // 红木偏暖时加红、偏冷时加青，幅度很小
+        c.r = Math.min(1, Math.max(0, c.r + hueShift * 0.5));
+        c.b = Math.min(1, Math.max(0, c.b - hueShift * 0.5));
+        m.color.copy(c);
+        return m;
+      };
       if (/street-red-wood/i.test(name)) {
-        node.material = columnTint;
+        node.material = tintOf(columnTint);
       } else if (/street-wood/i.test(name)) {
-        node.material = timberTint;
+        node.material = tintOf(timberTint);
       } else if (/street-shop-interior/i.test(name)) {
         // 内壁必须保持深色：混进 plasterTint 会重新变白。
         node.material = materials.shopInterior;
