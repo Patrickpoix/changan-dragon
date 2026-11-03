@@ -276,6 +276,46 @@
     const ctx = cv.getContext('2d');
     ctx.fillStyle = '#c9c0aa';
     ctx.fillRect(0, 0, 512, 512);
+
+    // 大尺度斑驳：真实灰泥墙面不是均匀色块，而是有大面积的深浅差、
+    // 水痕与修补痕迹。原贴图只有细颗粒，缺少这一层，
+    // 所以墙面读作"平涂色板"而不是抹灰。
+    // 这里先铺 3 层不同尺度的柔和大斑，再叠细颗粒。
+    for (let layer = 0; layer < 3; layer++) {
+      // 每层斑块的尺寸与透明度不同：越大越淡，模拟"墙体受潮/修补"的层次。
+      const blobs = 26 - layer * 7;
+      const radius = 120 - layer * 34;
+      const alpha = 0.055 - layer * 0.014;
+      for (let i = 0; i < blobs; i++) {
+        const bx = ((i * 137 + layer * 71) % 512);
+        const by = ((i * 89 + layer * 43) % 512);
+        // 深浅交替：一半压暗（受潮），一半提亮（修补后更白）
+        const dark = i % 2 === 0;
+        const g = ctx.createRadialGradient(bx, by, 0, bx, by, radius);
+        const rgb = dark ? '118, 108, 90' : '236, 230, 214';
+        g.addColorStop(0, `rgba(${rgb}, ${alpha})`);
+        g.addColorStop(0.6, `rgba(${rgb}, ${alpha * 0.45})`);
+        g.addColorStop(1, `rgba(${rgb}, 0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(bx, by, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // 竖向水痕：从墙顶往下渗的细条纹，是灰泥墙最典型的"旧"。
+    for (let i = 0; i < 9; i++) {
+      const x = ((i * 61 + 17) % 512);
+      const top = ((i * 37) % 200);
+      const len = 120 + ((i * 53) % 260);
+      const g = ctx.createLinearGradient(x, top, x, top + len);
+      g.addColorStop(0, 'rgba(112, 102, 84, 0.075)');
+      g.addColorStop(0.55, 'rgba(112, 102, 84, 0.035)');
+      g.addColorStop(1, 'rgba(112, 102, 84, 0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(x, top, 3 + (i % 4) * 2, len);
+    }
+
     for (let i = 0; i < 3400; i++) {
       const shade = Math.random() < 0.5 ? 255 : 40;
       ctx.fillStyle = `rgba(${shade},${shade - 8},${shade - 22},${Math.random() * 0.035})`;
