@@ -42,7 +42,11 @@
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   // 曝光 0.98 → 1.06：直方图显示 95% 像素亮度低于 0.63、0.8 以上几乎没有，
   // 画面读成阴天漫射光。略提曝光并配合下面的光比调整，把亮部推开。
-  renderer.toneMappingExposure = 1.06;
+  // 曝光：贴图 UV 修好之后，材质有了真实的反射率与细节，
+  // 画面整体比"纯色板"时代暗一档（实测 p95 只有 0.592、
+  // 0.8 以上几乎没有像素），读起来发闷。
+  // 提到 1.28 把亮部推开，同时保留暗部层次。
+  renderer.toneMappingExposure = 1.28;
   renderer.shadowMap.enabled = true;
   // 阴影类型：PCFSoft 在 4096 贴图 + 收紧相机后软化半径相对像素变小，
   // 边缘出现明显阶梯。改用 VSM：它按距离自动软化，
