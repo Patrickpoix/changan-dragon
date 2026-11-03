@@ -3456,7 +3456,12 @@
     const depth = 1.25;
     for (const sx of [-1, 1]) {
       for (const sz of [-1, 1]) {
-        const post = new THREE.Mesh(new THREE.BoxGeometry(0.075, 2.35, 0.075), materials.darkWood);
+        // 摊位的立柱是木杆，圆断面。
+      // 市井摊位是临时搭的，用圆木杆撑布篷，方柱读作"固定的柱子"。
+      const post = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.036, 0.040, 2.35, 8),
+        materials.darkWood,
+      );
         post.position.set(sx * width * 0.47, 1.18, sz * depth * 0.42);
         post.castShadow = true;
         group.add(post);
@@ -3488,7 +3493,7 @@
     group.add(table);
     for (const sx of [-1, 1]) {
       const leg = new THREE.Mesh(
-        new THREE.BoxGeometry(0.08, legH, 0.08),
+        new THREE.CylinderGeometry(0.038, 0.042, legH, 8),
         materials.darkWood,
       );
       leg.position.set(sx * width * 0.32, 0.005 + legH / 2, 0.05);
