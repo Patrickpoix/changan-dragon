@@ -2552,7 +2552,31 @@
     geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
     geo.setIndex(indices);
     geo.computeVertexNormals();
-    const mesh = new THREE.Mesh(geo, material);
+    // taperedBox 的 UV 是米制（1 UV 单位 = 1 米）。
+    // 若传入的是按 0-1 UV 调好的场景材质，repeat 会与米制 UV 相乘，
+    // 贴图被重复几十次（实测 7.2m 墙的 UV 范围 ±3.6、repeat 6.6，
+    // 相乘后每 0.15m 一个周期，纹理密到看不见）。
+    // 这里按材质名找到对应的米制副本；找不到就原样返回。
+    let finalMaterial = material;
+    const baseName = material && material.name ? material.name : '';
+    const metreMap = {
+      'street-plaster': 'plaster',
+      'street-plaster-warm': 'plaster',
+      'street-plaster-ochre': 'plaster',
+      'street-stone': 'stone',
+      'street-stone-base': 'stone',
+      'street-stone-coping': 'stone',
+      'street-stone-plinth': 'stone',
+      'street-stone-wallbase': 'stone',
+      'street-wood': 'wood',
+      'street-darkwood': 'darkWood',
+      'street-red-wood': 'redWood',
+    };
+    if (metreMap[baseName] && typeof kitMaterialFor === 'function') {
+      const metre = kitMaterialFor(metreMap[baseName]);
+      if (metre) finalMaterial = metre;
+    }
+    const mesh = new THREE.Mesh(geo, finalMaterial);
     mesh.name = name;
     return mesh;
   }
