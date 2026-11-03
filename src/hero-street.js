@@ -224,6 +224,8 @@
    *
    * 做法与檐下暗部一致（canvas 渐变 + MeshBasicMaterial + 不写深度），
    * 保证两者的暗部颜色与浓度来自同一套参数。 */
+  // 铺面正面坐标，由 createStreet 在布局后注入，供地面痕迹使用。
+  let shopFrontsForWear = [];
   let contactShadowMaterial = null;
   function getContactShadowMaterial() {
     if (contactShadowMaterial) return contactShadowMaterial;
@@ -1720,28 +1722,93 @@
     beam.position.set(0, 5.28, z);
     beam.castShadow = true;
     gate.add(beam);
+    /* 门楼屋面必须用**举折曲面**，不能用平板加方块瓦垄。
+     *
+     * 平板屋面在近景一眼读作"水泥板盖了一片方块"，
+     * 这是"不像真实唐构"最直接的一处。真实唐构屋面有三个特征：
+     * 1) 举折：檐口到屋脊的坡度是渐变的（檐口平缓、近脊陡峻）；
+     * 2) 起翘：四角比中间高，形成"如翚斯飞"的轮廓；
+     * 3) 筒瓦是半圆筒，不是方块。
+     *
+     * 这里用与构件库同一套数学（1.45 次幂举折曲线）生成曲面，
+     * 保证门楼与铺面的屋面形状一致。 */
+    const slopeSpan = 3.35;
     const slope = 0.25;
-    // 门楼的屋面同样需要瓦垄：整条街的屋面都有瓦垄，只有门楼是一块黑板，
-    // 从街上一眼就能看出它是临时搭的。
+    const STATIONS = 12;
+    const SEG = 40;
+    const curlAmp = 0.26;
+    const liftAt = (t) => Math.pow(t, 1.45) * (slopeSpan * Math.sin(slope));
+    const zAt = (side, t) => side * (slopeSpan / 2) * (1 - t) + side * 0.10 * t;
+    const curlAt = (t, u) =>
+      curlAmp * Math.pow(1 - t, 1.6) * Math.pow(Math.abs(u * 2 - 1), 2.4);
+
     for (const side of [-1, 1]) {
-      const slab = new THREE.Mesh(new THREE.BoxGeometry(15.2, 0.17, 3.35), materials.roof);
-      slab.position.set(0, 6.0, z + side * 1.38);
-      slab.rotation.x = -side * slope;
-      slab.castShadow = slab.receiveShadow = true;
-      gate.add(slab);
-      // 瓦垄：沿门楼长度方向每 0.36m 一道。
+      const positions = [];
+      const indices = [];
+      for (let j = 0; j <= STATIONS; j++) {
+        const t = j / STATIONS;
+        for (let i = 0; i <= SEG; i++) {
+          const u = i / SEG;
+          positions.push(
+            -7.6 + 15.2 * u,
+            6.0 + liftAt(t) + curlAt(t, u),
+            z + zAt(side, t),
+          );
+        }
+      }
+      for (let j = 0; j < STATIONS; j++) {
+        for (let i = 0; i < SEG; i++) {
+          const a = j * (SEG + 1) + i;
+          const b = a + 1;
+          const c = a + SEG + 1;
+          const d = c + 1;
+          indices.push(a, c, b, b, c, d);
+        }
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geo.setIndex(indices);
+      geo.computeVertexNormals();
+      const surface = new THREE.Mesh(geo, materials.roof);
+      surface.castShadow = surface.receiveShadow = true;
+      gate.add(surface);
+
+      // 圆弧筒瓦：沿屋脊方向等距，截面为半圆，贴合曲面。
       const rolls = 42;
+      const ring = 5;
+      const rw = 0.058;
       for (let i = 0; i < rolls; i++) {
-        const rx = -7.4 + 14.8 * (i + 0.5) / rolls;
-        const roll = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.09, 3.3), materials.roofTile);
-        roll.position.set(rx, 6.10, z + side * 1.38);
-        roll.rotation.x = -side * slope;
+        const u = (i + 0.5) / rolls;
+        const xx = -7.4 + 14.8 * u;
+        const verts = [];
+        const idx = [];
+        for (let k = 0; k <= STATIONS; k++) {
+          const t = k / STATIONS;
+          const py = 6.0 + liftAt(t) + curlAt(t, u);
+          const pz = z + zAt(side, t);
+          for (let r = 0; r < ring; r++) {
+            const ang = Math.PI * (r / (ring - 1));
+            verts.push(
+              xx + Math.cos(ang) * rw,
+              py + Math.sin(ang) * rw * 0.95,
+              pz,
+            );
+          }
+        }
+        for (let k = 0; k < STATIONS; k++) {
+          for (let r = 0; r < ring - 1; r++) {
+            const a = k * ring + r;
+            idx.push(a, a + ring, a + 1, a + 1, a + ring, a + ring + 1);
+          }
+        }
+        const rgeo = new THREE.BufferGeometry();
+        rgeo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        rgeo.setIndex(idx);
+        rgeo.computeVertexNormals();
+        const roll = new THREE.Mesh(rgeo, materials.roofTile);
+        roll.castShadow = true;
         gate.add(roll);
       }
-      // 檐口压边：把坡面下缘收成一条明确的线。
-      const edge = new THREE.Mesh(new THREE.BoxGeometry(15.3, 0.10, 0.16), materials.roofTile);
-      edge.position.set(0, 6.0 - Math.sin(slope) * 1.66, z + side * 2.72);
-      gate.add(edge);
     }
     const ridge = new THREE.Mesh(new THREE.BoxGeometry(15.3, 0.2, 0.3), materials.roof);
     ridge.position.set(0, 6.48, z);
@@ -2779,6 +2846,8 @@
     };
     entries.forEach((entry) => addBuilding(rootFor(entry), entry));
     entries.forEach((entry) => addFacadeVariation(entry));
+    // 把铺面正面坐标交给地面痕迹使用（这里 entries 在作用域内）。
+    shopFrontsForWear = entries.map((e) => ({ side: e.side, z: e.z }));
     addSideAlleys(shopRoot, tavernRoot);
     flushBatches();
     addBackRows(shopRoot, tavernRoot);
@@ -3420,6 +3489,80 @@
     addHandcarts();
     addPackDonkeys();
     addStreetClutter();
+    // 铺面正面坐标由布局阶段算出，直接注入给地面痕迹使用，
+    // 避免在痕迹函数里再写一遍坐标表（重复坐标表必然失同步）。
+    addGroundWear();
+  }
+
+  /* 地面使用痕迹：门前踏痕、摊下油渍、井台湿痕。
+   *
+   * 这些不需要新模型，只需要在铺装之上叠一层半透明贴片。
+   * 真实街面的"脏"是局部的、有成因的：人常走的地方磨亮、
+   * 卖吃食的摊位下积油、井边常年湿。缺了这一层，
+   * 铺装再精细也读作"刚铺好的新石板路"，不像有人用了很多年。
+   *
+   * 用同一张径向渐变贴图 + 不同颜色/尺度，与接触阴影同一套做法。 */
+  function addGroundWear() {
+    const wearTex = (() => {
+      const size = 128;
+      const cv = document.createElement('canvas');
+      cv.width = cv.height = size;
+      const ctx = cv.getContext('2d');
+      const g = ctx.createRadialGradient(
+        size / 2, size / 2, 0, size / 2, size / 2, size / 2,
+      );
+      g.addColorStop(0, 'rgba(255,255,255,0.92)');
+      g.addColorStop(0.45, 'rgba(255,255,255,0.42)');
+      g.addColorStop(0.78, 'rgba(255,255,255,0.10)');
+      g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, size, size);
+      const t = new THREE.CanvasTexture(cv);
+      t.needsUpdate = true;
+      return t;
+    })();
+
+    const wearGeo = new THREE.PlaneGeometry(1, 1);
+    const placeWear = (x, z, rx, rz, color, opacity, rot = 0) => {
+      const mat = new THREE.MeshBasicMaterial({
+        map: wearTex,
+        color,
+        transparent: true,
+        opacity,
+        depthWrite: false,
+        toneMapped: false,
+      });
+      const m = new THREE.Mesh(wearGeo, mat);
+      m.rotation.x = -Math.PI / 2;
+      m.rotation.z = rot;
+      m.scale.set(rx * 2, rz * 2, 1);
+      // 略高于铺装顶面（0.043-0.048），避免 z-fighting
+      m.position.set(x, 0.050, z);
+      m.renderOrder = 2;
+      scene.add(m);
+    };
+
+    const fronts = shopFrontsForWear;
+
+    for (const { side, z } of fronts) {
+      const x = side * 4.55;
+      // 门前踏痕：铺面前 1.5-2m 处人常站的地方，磨亮、略深。
+      placeWear(x, z, 1.35, 1.05, 0x6b6152, 0.20,
+        ((Math.abs(Math.round(z)) % 7) / 7) * Math.PI);
+      // 门槛前的集中踏痕：更小更深，对应进出的人流。
+      placeWear(side * 4.9, z, 0.55, 0.75, 0x574f43, 0.26);
+    }
+
+    // 摊位下的油渍：卖吃食的位置常年积油，颜色偏深褐、边缘不规则。
+    for (const [x, z] of [[-3.4, 6.0], [3.2, -10.5], [-3.1, -25.0], [3.4, 17.5]]) {
+      placeWear(x, z, 1.05, 0.80, 0x4a3d2e, 0.22, 0.6);
+      placeWear(x + 0.35, z + 0.25, 0.62, 0.48, 0x3d3226, 0.20, 1.1);
+    }
+
+    // 井台与排水沟边的湿痕：偏冷、透明度低，读作"常年湿着"。
+    for (const [x, z] of [[-5.6, 3.0], [5.6, -18.0], [-5.6, 20.5]]) {
+      placeWear(x, z, 0.95, 1.45, 0x3f4a4a, 0.17, 0.3);
+    }
   }
 
   /* 街面杂物：拴马桩、石锁、木桶、竹筐、散置的陶罐。
