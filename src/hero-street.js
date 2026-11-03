@@ -960,11 +960,25 @@
         // 位移只用于打破完全对齐的网格，幅度极小。
         const jitter = ((row * 7 + column * 11) % 9 - 4) * 0.006;
         const wobble = ((row * 13 + column * 5) % 7 - 3) * 0.002;
-        matrix.makeTranslation(
+        // 铺装石板必须"每块都不一样"，否则规整网格读作瓷砖。
+        // 真实石板路的特征：单块尺寸有 5-15% 浮动、长宽比不同、
+        // 表面高低差 2-4mm、边缘有极小偏转。逐块给这些变化，
+        // 但仍保持在"同一批石材"的范围内（颜色变化仍只有 ±8%）。
+        // 确定性伪随机：保证每次运行一致，便于验收对比。
+        const r1 = ((row * 31 + column * 17) % 13) / 13;
+        const r2 = ((row * 41 + column * 23) % 11) / 11;
+        const r3 = ((row * 19 + column * 29) % 7) / 7;
+        const sx = 0.93 + r1 * 0.14;
+        const sz = 0.94 + r2 * 0.12;
+        const sy = 0.92 + r3 * 0.16;
+        const yaw = (r1 - 0.5) * 0.042;
+        matrix.makeRotationY(yaw);
+        matrix.setPosition(
           -4.20 + column * 0.42 + offset + jitter,
-          0.026 + ((row + column) % 3) * 0.0012,
+          0.026 + ((row + column) % 3) * 0.0012 + r3 * 0.0016,
           STREET_Z0 + 0.8 + row * 0.92 + wobble,
         );
+        matrix.scale(new THREE.Vector3(sx, sy, sz));
         slabs.setMatrixAt(slabCursor, matrix);
         color.setHex(
           (row + column) % 11 === 0 ? 0x84806f
