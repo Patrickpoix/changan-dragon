@@ -3859,26 +3859,30 @@
     for (const [x, z] of [[-4.35, 12.5], [4.35, -21.5], [-4.35, -30.0]]) {
       const post = new THREE.Group();
       post.position.set(x, 0.03, z);
+      // 拴马桩是**圆形石桩**：便于拴绳、也便于磨光。
+      // 方桩读作"水泥柱"，圆桩才有被长期使用磨出的圆润感。
       const shaft = new THREE.Mesh(
-        new THREE.BoxGeometry(0.22, 1.05, 0.22),
+        new THREE.CylinderGeometry(0.105, 0.125, 1.05, 10),
         materials.stone,
       );
       shaft.position.y = 0.52;
       shaft.castShadow = shaft.receiveShadow = true;
       post.add(shaft);
-      // 桩头：略粗，带一个穿孔（用两道细边表示）
+      // 桩头：略粗的圆鼓，上小下大
       const head = new THREE.Mesh(
-        new THREE.BoxGeometry(0.30, 0.20, 0.30),
+        new THREE.CylinderGeometry(0.145, 0.160, 0.20, 10),
         materials.stone,
       );
       head.position.y = 1.14;
       head.castShadow = true;
       post.add(head);
+      // 穿孔：横向穿透桩头的圆孔（用一段深色圆柱表示孔洞）
       const hole = new THREE.Mesh(
-        new THREE.BoxGeometry(0.34, 0.055, 0.075),
+        new THREE.CylinderGeometry(0.032, 0.032, 0.34, 8),
         materials.darkWood,
       );
       hole.position.y = 1.14;
+      hole.rotation.z = Math.PI / 2;
       post.add(hole);
       post.name = 'street-hitching-post';
       scene.add(post);
