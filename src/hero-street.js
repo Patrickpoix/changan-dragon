@@ -1253,11 +1253,41 @@
     const baseW = 16.6;
     const baseD = 12.2;
 
-    const base = new THREE.Mesh(new THREE.BoxGeometry(baseW, BASE_H, baseD), materials.stone);
+    // 台基类构件必须按自身尺寸算 UV repeat。
+    // materials.stone 的 repeat (2, 8) 是给整块台基调的：套到 16.6 x 3.2 的正面，
+    // 横向周期 8.55m、纵向周期只有 0.03m，各向异性 263:1，
+    // 石纹被压成横向丝条（实测，这就是门洞里那面墙的观感）。
+    // 这里按"每约 2m 一个纹理周期"给每个构件单独算 repeat。
+    const stoneWithPeriod = (name, w, h, period = 2.0) => {
+      const mat = materials.stone.clone();
+      mat.name = name;
+      const setRepeat = (tex, rx, ry) => {
+        if (!tex) return null;
+        const t = tex.clone();
+        t.needsUpdate = true;
+        t.wrapS = t.wrapT = THREE.RepeatWrapping;
+        t.repeat.set(rx, ry);
+        return t;
+      };
+      const rx = Math.max(1, Math.round(w / period));
+      const ry = Math.max(1, Math.round(h / period));
+      mat.map = setRepeat(mat.map, rx, ry);
+      mat.normalMap = setRepeat(mat.normalMap, rx, ry);
+      mat.roughnessMap = setRepeat(mat.roughnessMap, rx, ry);
+      return mat;
+    };
+
+    const base = new THREE.Mesh(
+      new THREE.BoxGeometry(baseW, BASE_H, baseD),
+      stoneWithPeriod('street-stone-base', baseW, BASE_H, 2.0),
+    );
     base.position.set(0, BASE_H / 2 - 0.02, HALL_Z);
     base.castShadow = base.receiveShadow = true;
     group.add(base);
-    const coping = new THREE.Mesh(new THREE.BoxGeometry(baseW + 0.5, 0.26, baseD + 0.5), materials.stone);
+    const coping = new THREE.Mesh(
+      new THREE.BoxGeometry(baseW + 0.5, 0.26, baseD + 0.5),
+      stoneWithPeriod('street-stone-coping', baseW + 0.5, 0.26, 1.2),
+    );
     coping.position.set(0, BASE_H - 0.06, HALL_Z);
     group.add(coping);
     // 台基压边下一道暗色墙脚，避免台基读成一块大方盒子。
@@ -1267,7 +1297,7 @@
     // 台基下沿本来就该是石色，改用 materials.stone。
     const plinth = new THREE.Mesh(
       new THREE.BoxGeometry(baseW + 0.2, 0.5, baseD + 0.2),
-      materials.stone,
+      stoneWithPeriod('street-stone-plinth', baseW + 0.2, 0.5, 1.2),
     );
     plinth.position.set(0, 0.25, HALL_Z);
     group.add(plinth);
