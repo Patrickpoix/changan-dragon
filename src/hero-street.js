@@ -288,12 +288,17 @@
   }
 
   function makePlasterTexture() {
+    // 分辨率与重复次数都要够。
+    // 原先 512px、repeat 2.2：铺在 7.2m 宽的墙上，一块贴图覆盖 3.27m，
+    // 每米只有 156 像素，近景（2-3m）观察时纹理被拉得看不出细节，
+    // 墙面因此读作"光板"。实测墙面周期 3.27m x 1.48m 就是这个原因。
+    // 提到 1024px、repeat 6.6：每米约 620 像素，近景能看出抹灰的颗粒与斑驳。
     const cv = document.createElement('canvas');
-    cv.width = 512;
-    cv.height = 512;
+    cv.width = 1024;
+    cv.height = 1024;
     const ctx = cv.getContext('2d');
     ctx.fillStyle = '#c9c0aa';
-    ctx.fillRect(0, 0, 512, 512);
+    ctx.fillRect(0, 0, 1024, 1024);
 
     // 大尺度斑驳：真实灰泥墙面不是均匀色块，而是有大面积的深浅差、
     // 水痕与修补痕迹。原贴图只有细颗粒，缺少这一层，
@@ -301,12 +306,13 @@
     // 这里先铺 3 层不同尺度的柔和大斑，再叠细颗粒。
     for (let layer = 0; layer < 3; layer++) {
       // 每层斑块的尺寸与透明度不同：越大越淡，模拟"墙体受潮/修补"的层次。
+      // 坐标与半径都按 1024 画布等比放大。
       const blobs = 26 - layer * 7;
-      const radius = 120 - layer * 34;
+      const radius = 240 - layer * 68;
       const alpha = 0.055 - layer * 0.014;
       for (let i = 0; i < blobs; i++) {
-        const bx = ((i * 137 + layer * 71) % 512);
-        const by = ((i * 89 + layer * 43) % 512);
+        const bx = ((i * 274 + layer * 142) % 1024);
+        const by = ((i * 178 + layer * 86) % 1024);
         // 深浅交替：一半压暗（受潮），一半提亮（修补后更白）
         const dark = i % 2 === 0;
         const g = ctx.createRadialGradient(bx, by, 0, bx, by, radius);
@@ -323,28 +329,29 @@
 
     // 竖向水痕：从墙顶往下渗的细条纹，是灰泥墙最典型的"旧"。
     for (let i = 0; i < 9; i++) {
-      const x = ((i * 61 + 17) % 512);
-      const top = ((i * 37) % 200);
-      const len = 120 + ((i * 53) % 260);
+      const x = ((i * 122 + 34) % 1024);
+      const top = ((i * 74) % 400);
+      const len = 240 + ((i * 106) % 520);
       const g = ctx.createLinearGradient(x, top, x, top + len);
       g.addColorStop(0, 'rgba(112, 102, 84, 0.075)');
       g.addColorStop(0.55, 'rgba(112, 102, 84, 0.035)');
       g.addColorStop(1, 'rgba(112, 102, 84, 0)');
       ctx.fillStyle = g;
-      ctx.fillRect(x, top, 3 + (i % 4) * 2, len);
+      ctx.fillRect(x, top, 6 + (i % 4) * 4, len);
     }
 
-    for (let i = 0; i < 3400; i++) {
+    // 颗粒数量按面积同步放大（1024 是 512 的 4 倍面积）
+    for (let i = 0; i < 13600; i++) {
       const shade = Math.random() < 0.5 ? 255 : 40;
       ctx.fillStyle = `rgba(${shade},${shade - 8},${shade - 22},${Math.random() * 0.035})`;
-      const size = 0.5 + Math.random() * 3.2;
-      ctx.fillRect(Math.random() * 512, Math.random() * 512, size, size);
+      const size = 1.0 + Math.random() * 6.4;
+      ctx.fillRect(Math.random() * 1024, Math.random() * 1024, size, size);
     }
     ctx.strokeStyle = 'rgba(105,92,72,0.10)';
     ctx.lineWidth = 1;
     for (let i = 0; i < 13; i++) {
-      let x = Math.random() * 512;
-      let y = Math.random() * 512;
+      let x = Math.random() * 1024;
+      let y = Math.random() * 1024;
       ctx.beginPath();
       ctx.moveTo(x, y);
       for (let j = 0; j < 4; j++) {
@@ -356,9 +363,11 @@
     }
     const texture = new THREE.CanvasTexture(cv);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(2.2, 2.2);
+    // 每米约 620 像素（1024 / (7.2 / 6.6) ≈ 940 每周期，即每米约 620），
+    // 近景能看出抹灰颗粒与斑驳，不再是光板。
+    texture.repeat.set(6.6, 6.6);
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     return texture;
   }
 
