@@ -1904,6 +1904,29 @@
       body.receiveShadow = true;
       group.add(body);
 
+      /* 夯土墙的横向分层（版筑痕迹）。
+       *
+       * 一整片连续的墙面在近景读作"粉刷板"——真实夯土墙是逐版夯筑的，
+       * 每一版之间有一条明显的水平接缝，受光时形成细而规则的横线，
+       * 这是夯土墙最典型的特征，也是"有建造过程"的视觉证据。
+       * 用极薄的凸出条模拟接缝，每 0.38m 一道（版筑的常见高度）。 */
+      const courseH = 0.38;
+      const courses = Math.floor(bodyH / courseH);
+      for (let ci = 1; ci <= courses; ci++) {
+        const seam = new THREE.Mesh(
+          new THREE.BoxGeometry(width, 0.022, 0.012),
+          materials.plasterWarm,
+        );
+        seam.position.set(
+          x,
+          0.42 + ci * courseH,
+          z + Math.sign(z) * 0.34,
+        );
+        seam.castShadow = false;
+        seam.receiveShadow = true;
+        group.add(seam);
+      }
+
       // 墙头：两道坡瓦，中间一道脊。单块平板读不出"墙头"，必须双坡。
       const capY = 0.42 + bodyH;
       for (const side of [-1, 1]) {
