@@ -918,7 +918,15 @@
     materials.plasterOchre.name = 'street-plaster-ochre';
     materials.plasterOchre.color.setHex(0xbfa886);
     // 铺面内壁：比外墙暗两档的暖灰，格扇后面的暗部。
-    materials.shopInterior = makeMat('street-shop-interior', 0x2e251d, 0.94, 0);
+    // 店内暗壁：原先是纯色 0x2e251d（几乎全黑）。
+    // 真实店铺内壁是木板墙，即使背光也应有木纹的层次，
+    // 纯黑读作"一个洞"而不是"一间屋子"。
+    // 改为从 darkWood 派生，继承木纹贴图，只把颜色压深。
+    materials.shopInterior = materials.darkWood.clone();
+    materials.shopInterior.name = 'street-shop-interior';
+    materials.shopInterior.color.setHex(0x3a3025);
+    materials.shopInterior.roughness = 0.94;
+    materials.shopInterior.envMapIntensity = 0.25;
     // 后排屋海的材质：比前店更浅、更偏冷，配合雾把纵深压进空气里，
     // 避免后排与前店同样的对比度，让整条街像两堵平行的墙。
     materials.plasterDistant = makeMat('street-plaster-distant', 0x8f8672, 0.94, 0);
