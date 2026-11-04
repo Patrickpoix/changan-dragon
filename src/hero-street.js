@@ -4978,6 +4978,41 @@
       [-4.5, -5.6, Math.PI / 2, { robe: 0x5b6b62, female: false, scale: 0.96 }],
       [-4.4, -6.4, Math.PI / 2, { robe: 0x8b5f4b, female: true, scale: 0.88 }],
     ];
+
+    /* 补充行人：让街道"热闹"起来。
+     *
+     * 手工清单只有 26 个位置、22 人落地，72m 长的街上中位间距 2.5m，
+     * 读作"空旷"而不是市集。真实的开元西市绸缎街人流密集，
+     * 每隔几米就该有人。
+     * 这里按固定散列补 18 人，位置避开已有行人、铺面正面与摊位，
+     * 并沿街两侧分布（不站到街心挡住龙的动线）。
+     * 用散列而不是随机，保证每次加载的街景一致。 */
+    const EXTRA = 18;
+    const ROBES = [0x6f6152, 0x8a6a4e, 0x5c6b66, 0x94705a, 0x74675a,
+      0x866049, 0x5e6a74, 0x9a7a5c];
+    const hash01 = (n) => {
+      let h = (n * 73856093) >>> 0;
+      h = ((h ^ (h >>> 13)) * 1274126177) >>> 0;
+      return ((h >>> 8) % 10000) / 10000;
+    };
+    for (let i = 0; i < EXTRA; i++) {
+      // z 在 -34 ~ 28 之间均匀铺开，两侧交替
+      const t = (i + 0.5) / EXTRA;
+      const z = -34 + t * 62 + (hash01(i + 101) - 0.5) * 2.2;
+      const side = i % 2 === 0 ? -1 : 1;
+      // 靠边站：距街心 3.4-4.6m，避开摊位与铺面门槛
+      const x = side * (3.4 + hash01(i + 202) * 1.2);
+      // 朝向：面朝街心
+      const ry = side < 0 ? Math.PI / 2 : -Math.PI / 2;
+      people.push([
+        x, z, ry + (hash01(i + 303) - 0.5) * 0.5,
+        {
+          robe: ROBES[i % ROBES.length],
+          female: i % 3 === 0,
+          scale: 0.86 + hash01(i + 404) * 0.16,
+        },
+      ]);
+    }
     for (const [x, z, ry, options] of people) {
       const source = options.female ? characterRoots.female : characterRoots.male;
       let person;

@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8899/content/street/index.html",
-  "output": "D:\\tmp\\changan-accept127-20261104",
+  "output": "D:\\tmp\\changan-accept128-20261104",
   "browser": "Playwright Chromium",
   "finalArtAccepted": false,
   "phonePerformanceVerified": false,
@@ -30,79 +30,79 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 5978,
-        "triangles": 6306218,
+        "calls": 6642,
+        "triangles": 7187714,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 29
+        "frames": 28
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          1.570970996379763e-16,
+          1.2642657388651101e-16,
           0.03,
-          21.717204832059718
+          21.96764868062748
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7741216449069265e-15,
+          -1.8020436043000928e-15,
           3.193755216853571,
-          29.686802612329853
+          29.914802713359855
         ],
-        "calls": 6020,
-        "triangles": 6354160,
+        "calls": 6670,
+        "triangles": 7214680,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 50
+        "frames": 47
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          2.008861638687517e-16,
-          1.61,
-          21.359639987557095
+          1.811681191432463e-16,
+          2.6499999999999995,
+          21.520650041551722
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.6771725576336168e-15,
-          4.223943855923556,
-          28.895153237662726
+          -1.6958175492015225e-15,
+          5.370724044588729,
+          29.047401147679626
         ],
-        "calls": 5997,
-        "triangles": 6373062,
+        "calls": 6632,
+        "triangles": 7193122,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 70
+        "frames": 71
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.415287591665285,
-          18.81104340673504
+          3.467451618913158,
+          18.968843429475314
         ],
         "head": [
-          2.6905344869230964e-16,
-          2.376047117523948,
-          20.803011865301613
+          2.4958169228248304e-16,
+          3.4324937041857337,
+          20.962010822579614
         ],
-        "distance": 2.3405631511344778,
-        "calls": 3856
+        "distance": 2.3415157531927706,
+        "calls": 4211
       },
       "reset": {
         "started": true,
@@ -115,19 +115,19 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.1436979060759928,
-          3.1590714792803465,
-          28.764621021482217
+          0.8183814766208756,
+          3.742891895588269,
+          27.852861189857784
         ],
-        "calls": 5849,
-        "triangles": 6260590,
+        "calls": 4973,
+        "triangles": 5980354,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 106
+        "frames": 103
       },
       "streetPlan": [
         {
@@ -665,6 +665,96 @@
           "armSpan": 0.42,
           "torsoSpan": 0.57,
           "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
         }
       ],
       "modeHighlight": [
@@ -874,7 +964,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             }
           ],
@@ -968,79 +1058,79 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 6052,
-        "triangles": 6482130,
+        "calls": 6728,
+        "triangles": 7370338,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 30
+        "frames": 33
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          1.0037961812230112e-16,
+          9.106323316082228e-17,
           0.03,
-          22.180338215131172
+          22.256412271487385
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.806762831906359e-15,
+          -1.8150220318724896e-15,
           3.193755216853571,
-          29.953338131159917
+          30.020779616916307
         ],
-        "calls": 6064,
-        "triangles": 6488480,
+        "calls": 6728,
+        "triangles": 7372252,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 54
+        "frames": 57
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.2259576206623187e-16,
-          1.87,
-          21.998929633004483
+          1.1400212896677892e-16,
+          1.61,
+          22.069101972534845
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.756287384325197e-15,
-          4.223836448558537,
-          29.541174823206102
+          -1.7636849039079055e-15,
+          4.137599743063111,
+          29.60158015466869
         ],
-        "calls": 6062,
-        "triangles": 6493946,
+        "calls": 6721,
+        "triangles": 7373262,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 69
+        "frames": 75
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.694313845664246,
-          19.45575059544041
+          2.387433552599413,
+          19.517933782335046
         ],
         "head": [
-          1.9030951837047603e-16,
-          2.658380111676099,
-          21.446004852150207
+          1.8240941024527307e-16,
+          2.349516288268491,
+          21.51051413050462
         ],
-        "distance": 2.3390512925764195,
-        "calls": 3966
+        "distance": 2.341062124882539,
+        "calls": 4299
       },
       "reset": {
         "started": true,
@@ -1053,19 +1143,19 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.16476275503652815,
-          3.1871469150164176,
-          26.210930066381103
+          0.1799561520481712,
+          3.1519716636928625,
+          28.50554074282036
         ],
-        "calls": 3527,
-        "triangles": 4082918,
+        "calls": 6529,
+        "triangles": 7227172,
         "kit": {
           "loaded": 15,
           "failed": 0,
-          "instances": 164,
+          "instances": 182,
           "sharedGeometries": 0
         },
-        "frames": 99
+        "frames": 118
       },
       "streetPlan": [
         {
@@ -1603,6 +1693,96 @@
           "armSpan": 0.42,
           "torsoSpan": 0.57,
           "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.42,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.737
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
+        },
+        {
+          "armSpan": 0.491,
+          "torsoSpan": 0.57,
+          "armToTorso": 0.861
         }
       ],
       "modeHighlight": [
@@ -1674,7 +1854,7 @@
               "mode": "fly",
               "active": false,
               "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
@@ -1751,7 +1931,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
@@ -1804,7 +1984,7 @@
               "mode": null,
               "active": false,
               "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
