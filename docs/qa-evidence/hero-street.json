@@ -1,6 +1,6 @@
 {
   "url": "http://127.0.0.1:8899/content/street/index.html",
-  "output": "D:\\tmp\\changan-accept115-20261104",
+  "output": "D:\\tmp\\changan-accept116-20261104",
   "browser": "Playwright Chromium",
   "finalArtAccepted": false,
   "phonePerformanceVerified": false,
@@ -30,15 +30,15 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 5537,
-        "triangles": 6393702,
+        "calls": 5980,
+        "triangles": 6399018,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 29
+        "frames": 31
       },
       "walk": {
         "started": true,
@@ -55,15 +55,15 @@
           3.193755216853571,
           29.686802612329853
         ],
-        "calls": 5568,
-        "triangles": 6441512,
+        "calls": 6022,
+        "triangles": 6446960,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 49
+        "frames": 54
       },
       "flight": {
         "started": true,
@@ -76,33 +76,33 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.6779115949699748e-15,
-          4.39339408402137,
-          28.90118793547823
+          -1.6784889899260334e-15,
+          4.23181642364145,
+          28.90590272309259
         ],
-        "calls": 5540,
-        "triangles": 6441854,
+        "calls": 5995,
+        "triangles": 6447346,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 68
+        "frames": 72
       },
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.680887178769187,
-          18.81110339372504
+          2.662218154762306,
+          18.81570359203287
         ],
         "head": [
-          2.689085161699604e-16,
-          2.6447742902181486,
-          20.804195329157885
+          2.6844965495692353e-16,
+          2.625057023365295,
+          20.807942215307886
         ],
-        "distance": 2.341469050301661,
-        "calls": 3418
+        "distance": 2.3407591485390062,
+        "calls": 3871
       },
       "reset": {
         "started": true,
@@ -115,12 +115,12 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.5004966710900773,
-          3.3110446415800214,
-          27.853040404880286
+          0.35343981685125375,
+          3.240444691366117,
+          26.20391429107019
         ],
-        "calls": 4718,
-        "triangles": 6260612,
+        "calls": 3484,
+        "triangles": 4018050,
         "kit": {
           "loaded": 15,
           "failed": 0,
@@ -736,7 +736,7 @@
               "mode": "fly",
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.07)",
+              "background": "rgba(255, 255, 255, 0.047)",
               "selectedColor": false
             },
             {
@@ -789,7 +789,7 @@
               "mode": "fly",
               "active": false,
               "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.08)",
               "selectedColor": false
             },
             {
@@ -813,7 +813,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(0, 0, 0, 0)",
               "selectedColor": false
             },
             {
@@ -968,58 +968,58 @@
           3.193755216853571,
           30.52
         ],
-        "calls": 5611,
-        "triangles": 6569614,
+        "calls": 6054,
+        "triangles": 6574930,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 31
+        "frames": 30
       },
       "walk": {
         "started": true,
         "mode": "walk",
         "near": false,
         "position": [
-          9.650017086954588e-17,
+          1.0392470149764258e-16,
           0.03,
-          22.212016305952595
+          22.151390412566307
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.807896899172117e-15,
+          -1.79549378902158e-15,
           3.193755216853571,
-          29.962598493139776
+          29.861319412843546
         ],
-        "calls": 5613,
-        "triangles": 6575740,
+        "calls": 6065,
+        "triangles": 6579164,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 59
+        "frames": 58
       },
       "flight": {
         "started": true,
         "mode": "fly",
         "near": false,
         "position": [
-          1.130468616923129e-16,
+          1.1418724285731153e-16,
           1.61,
-          22.076902321787635
+          22.0675904029079
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          -1.7657334134087169e-15,
-          4.137599743063111,
-          29.618307504156213
+          -1.7635598876986766e-15,
+          4.029469049118542,
+          29.600559319850717
         ],
-        "calls": 5612,
-        "triangles": 6582206,
+        "calls": 6064,
+        "triangles": 6587630,
         "kit": {
           "loaded": 15,
           "failed": 0,
@@ -1031,16 +1031,16 @@
       "near": {
         "camera": [
           -1.2283149879870483,
-          2.4258455028011348,
-          19.534303706543312
+          2.4015654613689486,
+          19.51843015085954
         ],
         "head": [
-          1.8054226818025868e-16,
-          2.3884508939832263,
-          21.525760502489707
+          1.823367795616542e-16,
+          2.364685495521893,
+          21.511107205043903
         ],
-        "distance": 2.3400974844231057,
-        "calls": 3518
+        "distance": 2.341127865766279,
+        "calls": 3972
       },
       "reset": {
         "started": true,
@@ -1053,19 +1053,19 @@
         ],
         "yaw": 3.141592653589793,
         "camera": [
-          0.35343981685125375,
-          3.1104248970277717,
-          26.567992662250006
+          0.8772139748733023,
+          3.230656895713777,
+          26.295348494858125
         ],
-        "calls": 3490,
-        "triangles": 4674987,
+        "calls": 3634,
+        "triangles": 4305661,
         "kit": {
           "loaded": 15,
           "failed": 0,
           "instances": 164,
           "sharedGeometries": 0
         },
-        "frames": 102
+        "frames": 107
       },
       "streetPlan": [
         {
@@ -1727,7 +1727,7 @@
               "mode": "fly",
               "active": false,
               "hover": false,
-              "background": "rgba(0, 0, 0, 0)",
+              "background": "rgba(255, 255, 255, 0.03)",
               "selectedColor": false
             },
             {
@@ -1751,7 +1751,7 @@
               "mode": null,
               "active": false,
               "hover": true,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(255, 255, 255, 0.047)",
               "selectedColor": false
             },
             {
@@ -1804,7 +1804,7 @@
               "mode": null,
               "active": false,
               "hover": false,
-              "background": "rgba(255, 255, 255, 0.08)",
+              "background": "rgba(255, 255, 255, 0.047)",
               "selectedColor": false
             },
             {

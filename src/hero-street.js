@@ -2029,7 +2029,11 @@
           0.42 + ci * courseH,
           z + Math.sign(z) * 0.34,
         );
-        seam.castShadow = false;
+        // 分层接缝是凸出的薄条，应当投射极薄的阴影——
+        // 这正是"版筑痕迹"在真实墙面上形成横线的方式。
+        // 原先设为 false，导致墙面有接缝几何但没有对应的阴影，
+        // 横线只靠几何高差表现，远看几乎看不见。
+        seam.castShadow = true;
         seam.receiveShadow = true;
         group.add(seam);
       }
@@ -2050,6 +2054,11 @@
           const roll = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.07, 0.62), capTile);
           roll.position.set(rx, capY + 0.24, z + side * 0.28);
           roll.rotation.x = -side * 0.26;
+          // 墙顶瓦垄同样要投射与接收阴影。
+          // 原先只 add 未设标志，实测有 96 个网格"只接收不投射"，
+          // 墙头因此在街面上没有投影，失去一段本该存在的暗部。
+          roll.castShadow = true;
+          roll.receiveShadow = true;
           group.add(roll);
         }
       }
