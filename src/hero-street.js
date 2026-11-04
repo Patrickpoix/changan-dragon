@@ -729,6 +729,8 @@
     // 而石材与木料都是 0.85。统一到 0.72：抹灰的起伏比石材弱，
     // 但足以在近景看出抹刀的痕迹。
     materials.plaster.normalScale.set(0.72, 0.72);
+
+
     materials.plaster.color.setHex(0xd6c7a8);
     materials.plaster.roughness = 0.9;
     // 朱红大漆：唐式木构是上大漆的，表面有清漆层。
@@ -891,7 +893,16 @@
     materials.fruitGold = makeMat('fruit-gold', 0xc98d3d, 0.64, 0);
     materials.fruitGreen = makeMat('fruit-green', 0x71834b, 0.7, 0);
     materials.terracotta = makeMat('terracotta', 0x9b6646, 0.88, 0);
-    materials.plasterWarm = makeMat('street-plaster-warm', 0xcab995, 0.86, 0);
+    // plasterWarm 被 157 个网格使用（墙面、夯土分层等）。
+    // 原先是纯色，与带贴图的 street-plaster 并存，
+    // 结果一部分墙面有抹灰纹理、另一部分没有。
+    // 改为从 plaster 派生：继承 map / normalMap / roughnessMap，只改 color。
+    // 实测 plaster 在此处之前已创建完成（字符位置 25378 vs 32698），
+    // 因此可以直接继承，不需要延迟机制。
+    materials.plasterWarm = materials.plaster.clone();
+    materials.plasterWarm.name = 'street-plaster-warm';
+    materials.plasterWarm.color.setHex(0xcab995);
+    materials.plasterWarm.roughness = 0.86;
     // 铁件：招牌挂钩、门环、铁箍用。金属度必须给足，
     // 否则铁件会读成"涂黑的木头"，与旁边的木构混在一起。
     materials.iron = new THREE.MeshStandardMaterial({
@@ -3608,6 +3619,28 @@
     // 只处理有高度（>0.25m）且横向不大（<4m）的物件，
     // 排除铺装条、地面片这类本来就不该有接触暗部的对象。
     addContactShadowsToGroundedProps();
+    /* 材质引用修补：把已挂到网格上的"纯色版本"换成带贴图的版本。
+     *
+     * 材质表里的 `materials.plasterWarm` 在中途被替换成继承 plaster 贴图的
+     * 版本，但在此之前已经有不少网格拿到了旧的纯色引用，
+     * 替换材质表不会更新那些引用（实测仍有 157 个网格无贴图）。
+     * 这里在建完场景后统一遍历一次，按名字把旧引用换成新材质。 */
+    const remap = new Map();
+    if (materials.plasterWarm) remap.set('street-plaster-warm', materials.plasterWarm);
+    if (materials.plaster) remap.set('street-plaster', materials.plaster);
+    scene.traverse((node) => {
+      if (!node.isMesh) return;
+      const list = Array.isArray(node.material) ? node.material : [node.material];
+      const mapped = list.map((m) => {
+        if (!m || !m.name) return m;
+        const target = remap.get(m.name);
+        // 只替换"没有贴图"的旧引用，避免把已经正确的不必要地换掉
+        if (target && !m.map && target.map) return target;
+        return m;
+      });
+      node.material = Array.isArray(node.material) ? mapped : mapped[0];
+    });
+
     // 兜底：所有网格建完后再补 UV，保证没有网格悄悄丢掉贴图。
     ensureSceneUVs();
     state.streetPlan = entries.map((entry) => {
