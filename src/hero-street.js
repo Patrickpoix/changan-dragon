@@ -1886,8 +1886,23 @@
         const a = (i / ring.count) * Math.PI * 2;
         // 跳过正对街道两端的位置：那里是坊门与街口，不该有房子堵住。
         const deg = (a * 180) / Math.PI;
-        if (deg > 250 && deg < 290) continue;
-        if (deg > 70 && deg < 110) continue;
+        /* 街道两端要按"圈"分别处理。
+         *
+         * 内圈（radius 30.5）位于 z=-30.5，比门楼（z=-39.2）更近——
+         * 这一圈如果铺到街道两端，会挡在门楼前面。所以内圈跳过两端。
+         * 外圈（radius 42）位于门楼之后，正对门洞的视线方向（270 度），
+         * 它才是"透过门洞看到的街景延续"。
+         * 原先两圈都整段跳过（250-290 / 70-110 度），
+         * 结果门后只剩台阶与天空球，画面发白、没有纵深。 */
+        const isInner = ring.radius < 36;
+        if (isInner) {
+          if (deg > 250 && deg < 290) continue;
+          if (deg > 70 && deg < 110) continue;
+        } else {
+          // 外圈只避开正对门楼中轴的一小段，避免穿模
+          if (deg > 267 && deg < 273) continue;
+          if (deg > 87 && deg < 93) continue;
+        }
 
         const root = i % 3 === 0 ? tavernRoot : shopRoot;
         const b = kitInstance(root, {
