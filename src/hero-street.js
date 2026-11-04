@@ -799,9 +799,24 @@
     materials.woodDistant = makeMat('street-wood-distant', 0x6f5240, 0.92, 0);
     // 远景塔：比近景深一档，才能在雾里读出一层层屋檐。
     // 塔身偏暖砖色、檐口深青灰、木构带赭红：三段明度差是"塔"与"白罐子"的区别。
-    materials.pagodaBody = makeMat('pagoda-body', 0x9a7f63, 0.88, 0);
-    materials.pagodaRoof = makeMat('pagoda-roof', 0x333b3d, 0.84, 0);
-    materials.pagodaWood = makeMat('pagoda-wood', 0x8d4a3a, 0.82, 0);
+    // 塔身不能是纯色。
+    // 塔是每张街景图都能看到的远景地标，纯色材质让它读作纸板——
+    // 尤其在近景贴图都生效之后，纯色的塔会更显突兀。
+    // 复用已加载的石材、瓦、木材质（含 map/normal/roughness），
+    // 只改 color 定色调，并按塔的尺度设 repeat。
+    materials.pagodaBody = materials.stone.clone();
+    materials.pagodaBody.name = 'pagoda-body';
+    materials.pagodaBody.color.setHex(0xc8bfae);
+    materials.pagodaBody.roughness = 0.88;
+    materials.pagodaBody.envMapIntensity = 0.7;
+
+    materials.pagodaRoof = materials.roof.clone();
+    materials.pagodaRoof.name = 'pagoda-roof';
+    materials.pagodaRoof.color.setHex(0x3a4244);
+
+    materials.pagodaWood = materials.redWood.clone();
+    materials.pagodaWood.name = 'pagoda-wood';
+    materials.pagodaWood.color.setHex(0x8d4a3a);
     materials.vermilion = makeMat('street-vermilion', 0x8f4034, 0.72, 0.02);
     materials.greenPaint = makeMat('street-green-paint', 0x365f58, 0.76, 0.01);
     materials.doorBlue = makeMat('street-door-blue', 0x344f55, 0.8, 0.02);
