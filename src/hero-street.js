@@ -4115,15 +4115,43 @@
     return group;
   }
 
+  /* 货篮里的果子要堆起来。
+   *
+   * 原先是 7 个果子单层摆成一圈，篮子看起来是空的——
+   * 全街 8 个货篮、平均每篮 10 个果子，视觉上读作"摆样子的空摊"。
+   * 真实货摊的果子会堆出篮口、形成一个小丘，果与果之间还有交叠。
+   * 这里改成三层堆叠：底层 9 个铺满、中层 6 个收窄、顶层 3 个收口，
+   * 高度依次抬升，形成自然的小丘。 */
   function addProduce(group, radius, height) {
     const colors = [materials.fruitRed, materials.fruitGold, materials.fruitGreen];
-    for (let i = 0; i < 7; i++) {
-      const fruit = new THREE.Mesh(new THREE.IcosahedronGeometry(radius, 1), colors[i % colors.length]);
-      const angle = i * 2.4;
-      fruit.position.set(Math.cos(angle) * radius * 1.2, height + radius * 0.7, Math.sin(angle) * radius * 0.8);
-      fruit.scale.set(1, 0.8, 1);
-      fruit.castShadow = true;
-      group.add(fruit);
+    const layers = [
+      { count: 9, ring: 1.55, lift: 0.75 },
+      { count: 6, ring: 1.05, lift: 1.55 },
+      { count: 3, ring: 0.55, lift: 2.25 },
+    ];
+    let seed = 0;
+    for (const layer of layers) {
+      for (let i = 0; i < layer.count; i++) {
+        // 固定散列：每篮果子的排布一致，不随刷新变化
+        const h1 = ((seed * 73 + 41) % 97) / 97;
+        const h2 = ((seed * 137 + 89) % 89) / 89;
+        seed += 1;
+        const angle = (i / layer.count) * Math.PI * 2 + h1 * 0.55;
+        const r = radius * layer.ring * (0.82 + h2 * 0.36);
+        const fruit = new THREE.Mesh(
+          new THREE.IcosahedronGeometry(radius, 1),
+          colors[seed % colors.length],
+        );
+        fruit.position.set(
+          Math.cos(angle) * r,
+          height + radius * layer.lift,
+          Math.sin(angle) * r * 0.82,
+        );
+        fruit.scale.set(1, 0.8, 1);
+        fruit.rotation.y = h1 * Math.PI;
+        fruit.castShadow = true;
+        group.add(fruit);
+      }
     }
   }
 
@@ -4179,10 +4207,19 @@
       leg.castShadow = true;
       group.add(leg);
     }
+    /* 两个货篮而不是一个。
+     *
+     * 单篮摆在桌角，整张桌子大半是空的，读作"没货可卖"。
+     * 真实货摊至少两个容器并排，一个装果、一个装干果或豆类。 */
     const basket = makeBasket(0.18, 0.16);
     basket.position.set(-0.52, 0.87, 0.02);
     group.add(basket);
     addProduce(basket, 0.055, 0.15);
+
+    const basket2 = makeBasket(0.15, 0.14);
+    basket2.position.set(-0.14, 0.87, -0.16);
+    group.add(basket2);
+    addProduce(basket2, 0.046, 0.13);
     for (const [jx, jz, scale] of [[0.2, 0.02, 0.9], [0.48, -0.12, 0.72]]) {
       const jar = new THREE.Mesh(JAR_GEOMETRY, materials.terracotta);
       jar.scale.setScalar(scale);
