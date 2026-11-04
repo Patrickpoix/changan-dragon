@@ -138,9 +138,9 @@
       "id": "shop_low_shijing",
       "grade": 0.22,
       "storey": 0,
-      "triangles": 18442,
+      "triangles": 21498,
       "dimensions_m": [
-        4.359,
+        5.509,
         5.244,
         5.381
       ],
@@ -151,9 +151,9 @@
       "id": "shop_shijing",
       "grade": 0.22,
       "storey": 1,
-      "triangles": 19278,
+      "triangles": 22262,
       "dimensions_m": [
-        4.69,
+        5.897,
         5.244,
         6.032
       ],
@@ -164,9 +164,9 @@
       "id": "shop_tall_shijing",
       "grade": 0.22,
       "storey": 2,
-      "triangles": 20754,
+      "triangles": 24790,
       "dimensions_m": [
-        5.089,
+        6.641,
         5.244,
         6.895
       ],
