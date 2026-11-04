@@ -1192,8 +1192,15 @@
     // 铺装石板是 BoxGeometry（UV 0-1），一块 0.62 x 0.94m。
     // repeat 1,1 等于把 2k 贴图铺满单块石板——纹理过密、细节被平均成深色。
     // 按"每 0.62m 一个周期"设 repeat，即横向 1 次、纵向 0.94/0.62 ≈ 1.5 次。
+    // 每块石板 0.62 x 0.94m，贴图 512px。
+    // repeat (1, 1.5) 等于整张 512px 贴图铺满单块石板，
+    // 实际密度 512/0.62 ≈ 825 px/m——远高于真实石板的观感，
+    // 纹理密到读作"壁纸"而不是石头。
+    // 真实石板路的石纹尺度约 0.3-0.5m，这里按"贴图覆盖 1.6m"设 repeat，
+    // 即每块石板只取贴图的一部分（约 1/2.6），密度降到约 320 px/m。
     const SLAB_W = 0.62;
     const SLAB_D = 0.94;
+    const TEX_SPAN = 1.6;
     // 铺装用的贴图平均亮度只有 0.334，直接当 albedo 会让整条街发暗。
     // 用 canvas 做一次 gamma 提亮（贴图管细节、color 管色调），
     // 与 loadPBR 里的 lift 是同一个思路，只是这里要单独做。
@@ -1241,7 +1248,7 @@
       const t = tex.clone();
       t.needsUpdate = true;
       t.wrapS = t.wrapT = THREE.RepeatWrapping;
-      t.repeat.set(1, SLAB_D / SLAB_W);
+      t.repeat.set(SLAB_W / TEX_SPAN, SLAB_D / TEX_SPAN);
       return t;
     };
     // tint 0.42：把偏褐的石路拉向青灰（蓝通道 ×1.16、红通道 ×1.00）。
