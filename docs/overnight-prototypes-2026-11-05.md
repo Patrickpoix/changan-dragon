@@ -66,12 +66,15 @@
 3. 不开始种地、炼丹、店铺经营等次要系统；那是后续阶段。
 4. 推送：文本文件可走 MCP，GLB/JPG 二进制文件需另走 git 推送路线（见“推送状态”）。
 
-## 推送状态（本轮结束时填写）
-- GitHub 写入审批：待确认（本轮将尝试一次文本文件推送以核实；若卡审批，以下文件全部留在工作区）。
+## 推送状态（本轮结束时实测）
+- GitHub 写入审批：已放行（3 次写入均显示 approved）。已推上 `main` 的提交（已回读核实）：
+  - `9af4049858974b3de06b1fe108816f81acdda058`：本文档 `docs/overnight-prototypes-2026-11-05.md`
+  - `d01eaea92f55b72e55c8f7b235649016634e6618`：建造脚本 3 个（`content/architecture/overnight_build.py`、
+    `generate_variants.py`、`street_render.py`）
+  - `cb5a5c0e63a9c415dea83da3e12e21181703a4aa`：`assets/kit/overnight-prototypes/prototype-report.json`、
+    `variant-instances.json`、`docs/overnight-research-2026-11-05.md`
+- 未推送（MCP 文本工具限制，非审批问题）：8 个 GLB（约 23.6 MB）与 35 张 JPG 验收/街景图是二进制，
+  MCP 的 `create_or_update_file`/`push_files` 只接受文本内容且明确要求不要 base64 编码，无法经此路推送；
+  它们全部留在工作区 `~/workspace/changan-overnight-2026-11-05/build/out/`（GLB 与 `review/` 下的图），
+  需另走 git 推送路线（带本地检出的环境）才能入库。在此之前不要引用它们为已入库。
 - 工作区位置：`~/workspace/changan-overnight-2026-11-05/`（建造脚本、GLB、验收图、街景图、实例清单、本文档）。
-- 待推仓库路径（规划，未确认已推前勿引用为已入库）：
-  - `content/architecture/overnight_build.py`、`content/architecture/generate_variants.py`、
-    `content/architecture/street_render.py`
-  - `assets/kit/overnight-prototypes/*.glb`、`assets/kit/overnight-prototypes/review/*.jpg`
-  - `assets/kit/overnight-prototypes/prototype-report.json`、`variant-instances.json`
-  - `docs/overnight-prototypes-2026-11-05.md`（本文档）
