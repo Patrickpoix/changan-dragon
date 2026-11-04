@@ -1319,9 +1319,17 @@
     // 铺装底层：石板实例覆盖不到的地方（街两端）会露出这一层。
     // 之前这层用白底材质，结果坊门前露出两块刺眼的白斑；
     // 这里单独给一层石灰色底，漏出的部分读作"石板缝里的砂浆"。
+    /* 底层的颜色必须与石板接近，只是略暗。
+     *
+     * 原先是 0x8b8377（亮褐），而石板是青灰 0xa8b0ac。
+     * 接缝窄时它只是"缝隙"，看不出问题；但只要石板缩小一点，
+     * 露出面积增加，这层亮褐就从"缝隙"变成"条纹"——
+     * 上一轮把石板从 0.62 缩到 0.40 就是这样失败的。
+     * 改成与石板同色系、只暗一档的 0x6e746f：
+     * 缝隙读作"石下的阴影与填砂"，而不是另一种材料。 */
     const pavingBase = new THREE.MeshStandardMaterial({
       name: 'street-paving-base',
-      color: 0x8b8377,
+      color: 0x6e746f,
       normalMap: materials.stone.normalMap,
       roughnessMap: materials.stone.roughnessMap,
       roughness: 0.95,
