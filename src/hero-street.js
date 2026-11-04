@@ -3806,6 +3806,21 @@
             // 叶片很薄，粗糙度取高值避免出现塑料高光
             clone.roughness = Math.max(clone.roughness ?? 0.8, 0.82);
             clone.metalness = 0;
+
+            /* 叶片统一用 alphaTest 而不是半透明混合。
+             *
+             * 实测两套树叶的写法不一致：`MIT leaf texture` 用 alphaTest 0.5，
+             * 而 `tree_small_02_leaves` 用 transparent + depthWrite:false。
+             * 后者会让叶片参与半透明排序：同一棵树上的叶片互相遮挡时
+             * 深度不写、排序错乱，近景出现"叶片穿透"与"边缘发虚"，
+             * 这正是树冠读作纸片堆叠的一个来源。
+             * 叶片只有"透"与"不透"，用 alphaTest 更准确，
+             * 且能正常写深度、正常参与阴影。 */
+            if (clone.transparent && !clone.alphaTest) {
+              clone.transparent = false;
+              clone.depthWrite = true;
+              clone.alphaTest = 0.42;
+            }
           }
           treeMaterials.set(key, clone);
         }
