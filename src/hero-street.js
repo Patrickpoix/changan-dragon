@@ -547,9 +547,17 @@
     }
     const texture = new THREE.CanvasTexture(cv);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    // 每米约 620 像素（1024 / (7.2 / 6.6) ≈ 940 每周期，即每米约 620），
-    // 近景能看出抹灰颗粒与斑驳，不再是光板。
-    texture.repeat.set(6.6, 6.6);
+    /* repeat 必须与 UV 的单位一致。
+     *
+     * 墙面几何的 UV 是米制（1 UV 单位 = 1 米，由 taperedBox 生成），
+     * 所以 repeat 6.6 意味着贴图每 1/6.6 = 0.15m 重复一次——
+     * 近景读作 15cm 见方的瓷砖网格，完全不像抹灰墙。
+     *
+     * 改为 0.4：贴图覆盖 2.5m 一个周期，与
+     * `street-plaster-kit-taper` 里米制副本的 TEX_SPAN 一致，
+     * 墙面因此显示连续的抹灰斑驳而不是方格。
+     * 1024px / 2.5m ≈ 410 px/m，近景仍能看出抹灰颗粒。 */
+    texture.repeat.set(0.4, 0.4);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     return texture;
