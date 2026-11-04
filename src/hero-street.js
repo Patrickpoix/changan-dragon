@@ -927,6 +927,9 @@
     materials.plasterWarm.name = 'street-plaster-warm';
     materials.plasterWarm.color.setHex(0xcab995);
     materials.plasterWarm.roughness = 0.86;
+
+    // 夯土分层接缝：纯色、无贴图（见 createWardWall 里的说明）
+    materials.seamPlaster = makeMat('street-seam-plaster', 0xb9ad93, 0.9, 0);
     // 铁件：招牌挂钩、门环、铁箍用。金属度必须给足，
     // 否则铁件会读成"涂黑的木头"，与旁边的木构混在一起。
     materials.iron = new THREE.MeshStandardMaterial({
@@ -2076,9 +2079,16 @@
       const courseH = 0.38;
       const courses = Math.floor(bodyH / courseH);
       for (let ci = 1; ci <= courses; ci++) {
+        /* 分层接缝用单独材质，不要直接套墙面材质。
+         *
+         * 接缝是 BoxGeometry(width, 0.022, 0.012)——极薄的条，
+         * UV 是 0-1，套上按米制调的 plasterWarm 后
+         * 贴图被压成一条，密度只有 71 px/m，近看是一条纯色线。
+         * 接缝本来就只有 2cm 厚、受光时是一条阴影线，
+         * 用不带贴图的纯色材质即可，也省一次贴图采样。 */
         const seam = new THREE.Mesh(
           new THREE.BoxGeometry(width, 0.022, 0.012),
-          materials.plasterWarm,
+          materials.seamPlaster,
         );
         seam.position.set(
           x,
