@@ -4264,7 +4264,15 @@
     );
     // 纵向拉长、横向略扁：读作灯笼而不是球。
     lantern.scale.set(0.92, 1.06, 0.92);
-    lantern.position.set(lx, 2.30, 0);
+    /* 灯笼的悬挂高度要错落。
+     *
+     * 原先所有灯笼都在 y = 2.30——实测 14 个灯笼的高度完全相同，
+     * 一排看过去是一条水平线，读作"批量复制的模型"。
+     * 真实街市的灯笼挂在各自的钩子上，绳长、钩位都不同，
+     * 相邻灯笼的高低差常有 10-20cm。
+     * 这里按 z 坐标的固定散列给出 ±0.11m 的偏移。 */
+    const hangJitter = ((((Math.round(z * 100) * 73856093) >>> 0) % 23) / 23 - 0.5) * 0.22;
+    lantern.position.set(lx, 2.30 + hangJitter, 0);
     lantern.castShadow = true;
     group.add(lantern);
 
@@ -4273,7 +4281,7 @@
       new THREE.CylinderGeometry(0.055, 0.085, 0.055, 12),
       materials.darkWood,
     );
-    capTop.position.set(lx, 2.462, 0);
+    capTop.position.set(lx, 2.462 + hangJitter, 0);
     capTop.castShadow = true;
     group.add(capTop);
     // 顶上的挂环，把灯笼与横臂连起来。
@@ -4282,7 +4290,7 @@
       materials.darkWood,
     );
     ring.rotation.x = Math.PI / 2;
-    ring.position.set(lx, 2.505, 0);
+    ring.position.set(lx, 2.505 + hangJitter, 0);
     group.add(ring);
 
     // 下颈：收口的底座。
@@ -4290,7 +4298,7 @@
       new THREE.CylinderGeometry(0.082, 0.052, 0.048, 12),
       materials.darkWood,
     );
-    capBottom.position.set(lx, 2.136, 0);
+    capBottom.position.set(lx, 2.136 + hangJitter, 0);
     group.add(capBottom);
 
     // 流苏：细而短，垂在底座下。0.22m 太长，像一根锥子。
@@ -4298,7 +4306,7 @@
       new THREE.CylinderGeometry(0.014, 0.020, 0.10, 6),
       materials.red,
     );
-    tassel.position.set(lx, 2.062, 0);
+    tassel.position.set(lx, 2.062 + hangJitter, 0);
     group.add(tassel);
 
     // 灯笼骨：四道竖箍，给灯身一点结构感，近看不是一颗光滑的球。
