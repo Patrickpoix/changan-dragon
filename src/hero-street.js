@@ -195,6 +195,40 @@
     return lifted;
   }
 
+  /* 提升贴图的局部对比度。
+   *
+   * 实测这批贴图的标准差差异很大：
+   * 木料 sd=4.6、深木 sd=9.2、石材 sd=12.9。
+   * 木料的对比度太低，近景读作"平木板"——木纹存在但看不出。
+   * 这里对每个像素围绕其平均值做一次放大，标准差提升到目标值附近，
+   * 再夹回 0-255。只放大局部对比，不改整体明度。
+   */
+  function boostContrast(tex, amount = 1.8) {
+    if (!tex || !tex.image) return null;
+    const w = tex.image.width;
+    const h = tex.image.height;
+    const cv = document.createElement('canvas');
+    cv.width = w;
+    cv.height = h;
+    const ctx = cv.getContext('2d');
+    ctx.drawImage(tex.image, 0, 0);
+    const img = ctx.getImageData(0, 0, w, h);
+    const d = img.data;
+    for (let i = 0; i < d.length; i += 4) {
+      d[i] = Math.min(255, Math.max(0, (d[i] - 128) * amount + 128));
+      d[i + 1] = Math.min(255, Math.max(0, (d[i + 1] - 128) * amount + 128));
+      d[i + 2] = Math.min(255, Math.max(0, (d[i + 2] - 128) * amount + 128));
+    }
+    ctx.putImageData(img, 0, 0);
+    const out = new THREE.CanvasTexture(cv);
+    out.wrapS = out.wrapT = THREE.RepeatWrapping;
+    out.colorSpace = THREE.SRGBColorSpace;
+    out.repeat.copy(tex.repeat);
+    out.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    out.needsUpdate = true;
+    return out;
+  }
+
   async function loadPBR(name, base, normal, rough, repeat = [2, 2], color = 0xffffff, lift = 1.55) {
     /* 贴图本身偏暗，必须整体提亮。
      *
@@ -534,6 +568,11 @@
     // 0xd6cdbb（暖米）→ 0xb8bdb8（青灰）。
     stone.color.setHex(0xb8bdb8);
     wood.color.setHex(0xd8b18a);
+    // 木料贴图的对比度太低（实测标准差只有 4.6，石材是 12.9），
+    // 木纹存在但近景看不出来，读作"平木板"。
+    // 做一次对比度放大（1.8 倍），把标准差提到接近石材的水平。
+    if (wood.map) wood.map = boostContrast(wood.map, 1.8);
+    if (darkWood.map) darkWood.map = boostContrast(darkWood.map, 1.35);
     darkWood.color.setHex(0xb08a72);
     cloth.color.setHex(0xb4513e);
     // 唐式是深青灰陶瓦。之前用 0x6b7472 且 envMapIntensity 0.85，
