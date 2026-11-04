@@ -1003,9 +1003,16 @@
       depthWrite: false,
       fog: false,
       uniforms: {
-        topColor: { value: new THREE.Color(0x3f7f9c) },
-        midColor: { value: new THREE.Color(0x9fc0c8) },
-        horizonColor: { value: new THREE.Color(0xf3ddb6) },
+        /* 天空三段色要拉开层次。
+         *
+         * 原先 top 0x3f7f9c / mid 0x9fc0c8 / horizon 0xf3ddb6——
+         * 三段的明度与饱和度都很接近，渲染出来是一片米黄灰（实测
+         * 天空区域 rgb(193,173,150)），读作雾而不是天空。
+         * 国风漫剧的天空通常"顶部深蓝、中部过渡、地平线暖"，
+         * 三段之间要有明确的色相与明度差。 */
+        topColor: { value: new THREE.Color(0x2f6f96) },
+        midColor: { value: new THREE.Color(0x8fb8cf) },
+        horizonColor: { value: new THREE.Color(0xf7e2bc) },
         // 地平线以下用雾色，远处地面才能和天空接上，不出现一条硬边。
         groundColor: { value: new THREE.Color(0xe6d5b8) },
         sunDirection: { value: new THREE.Vector3(0.42, 0.34, 0.32).normalize() },
@@ -1072,7 +1079,9 @@
             float cloudMask = smoothstep(0.56, 0.86, cloud)
               * smoothstep(0.06, 0.42, dir.y)
               * (1.0 - smoothstep(0.62, 0.98, dir.y));
-            color = mix(color, vec3(1.0, 0.93, 0.82), cloudMask * 0.55);
+            // 云层加重：0.55 → 0.78。原先云几乎看不见（实测天空
+            // 是一片均匀的米黄），加重后天空才有"高处有云"的层次。
+            color = mix(color, vec3(1.0, 0.95, 0.86), cloudMask * 0.78);
           }
 
           // 远山：在天空里画山脊，不往场景里放几何。
