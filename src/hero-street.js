@@ -489,7 +489,11 @@
       // 但足以在近景看出抹灰的斑驳与受潮。
       const blobs = 26 - layer * 7;
       const radius = 240 - layer * 68;
-      const alpha = 0.16 - layer * 0.04;
+      // 对比度再提一档：0.16 → 0.26。
+      // 原因是米制材质把贴图按 2.5m 一个周期铺开，
+      // 单块 7.2m 宽的墙只看到约 3 个周期，斑块被放大后
+      // 局部对比被稀释，墙面仍读作平涂。
+      const alpha = 0.26 - layer * 0.06;
       for (let i = 0; i < blobs; i++) {
         const bx = ((i * 274 + layer * 142) % 1024);
         const by = ((i * 178 + layer * 86) % 1024);
@@ -2905,7 +2909,28 @@
     };
     if (metreMap[baseName] && typeof kitMaterialFor === 'function') {
       const metre = kitMaterialFor(metreMap[baseName]);
-      if (metre) finalMaterial = metre;
+      if (metre) {
+        // 米制材质的 repeat 目前是 1,1，即"一张 2k 贴图铺满 1 米"——
+        // 2048 px/m 的密度远超肉眼可辨的细节尺度，
+        // 结果表面读作平均色，和没有贴图几乎一样。
+        // 按"贴图覆盖 2.5m"设 repeat，密度降到约 820 px/m，
+        // 与墙面的合理区间一致。
+        const TEX_SPAN = 2.5;
+        const scaled = metre.clone();
+        scaled.name = metre.name + '-taper';
+        const setRep = (tex) => {
+          if (!tex) return null;
+          const t = tex.clone();
+          t.needsUpdate = true;
+          t.wrapS = t.wrapT = THREE.RepeatWrapping;
+          t.repeat.set(1 / TEX_SPAN, 1 / TEX_SPAN);
+          return t;
+        };
+        scaled.map = setRep(metre.map);
+        scaled.normalMap = setRep(metre.normalMap);
+        scaled.roughnessMap = setRep(metre.roughnessMap);
+        finalMaterial = scaled;
+      }
     }
     const mesh = new THREE.Mesh(geo, finalMaterial);
     mesh.name = name;
