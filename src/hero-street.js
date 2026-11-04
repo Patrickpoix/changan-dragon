@@ -1288,8 +1288,14 @@
       metalness: 0,
       envMapIntensity: 0.55,
     });
+    /* 门槛石与明沟盖板应当与铺装同色系。
+     *
+     * 原先是纯色 0x837968（偏暖、无贴图），而铺装是青灰带石纹。
+     * 两者并置时，门槛石在街面上读作"一块发亮的方形贴片"，
+     * 边缘因为石板形状而锐利，很扎眼。
+     * 这里先建独立材质，等 pavingMaterial 建好后（见下文）再复制它的贴图。 */
     const gutterStoneMaterial = new THREE.MeshStandardMaterial({
-      color: 0x837968,
+      color: 0x8f938c,
       roughness: 0.92,
       metalness: 0,
     });
@@ -1415,6 +1421,14 @@
     pavingMaterial.normalMap = setSlabRepeat(pavingMaterial.normalMap);
     pavingMaterial.roughnessMap = setSlabRepeat(pavingMaterial.roughnessMap);
     pavingMaterial.normalScale.set(0.55, 0.55);
+
+    // 门槛石 / 明沟盖板沿用铺装的石纹，只把颜色压暗一档做区分。
+    // 放在这里是因为 pavingMaterial 在 createGround 内部后于
+    // gutterStoneMaterial 定义，不能在定义处直接 clone。
+    gutterStoneMaterial.map = pavingMaterial.map;
+    gutterStoneMaterial.normalMap = pavingMaterial.normalMap;
+    gutterStoneMaterial.roughnessMap = pavingMaterial.roughnessMap;
+    gutterStoneMaterial.normalScale.set(0.55, 0.55);
     // 铺装底层：石板实例覆盖不到的地方（街两端）会露出这一层。
     // 之前这层用白底材质，结果坊门前露出两块刺眼的白斑；
     // 这里单独给一层石灰色底，漏出的部分读作"石板缝里的砂浆"。
@@ -1497,12 +1511,17 @@
         let h = ((row * 73856093) ^ (column * 19349663)) >>> 0;
         h = ((h ^ (h >>> 13)) * 1274126177) >>> 0;
         const tonePick = (h >>> 3) % 5;
+        /* 只留三档、跨度收到约 7%。
+         *
+         * 五档 10% 时，近景仍会出现孤立的亮块：单块比周围亮 20% 左右，
+         * 边缘因为石板形状而锐利，读作"一块贴上去的白斑"。
+         * 真实石路的差别是"一眼看不出、细看才有的深浅"，
+         * 所以档数要少、跨度要小：三档、7% 以内，
+         * 变化靠石纹贴图承担，实例色只做极轻微的起伏。 */
         color.setHex(
-          tonePick === 0 ? 0x8a908a   // 略亮
-            : tonePick === 1 ? 0x7f847c // 中性
-              : tonePick === 2 ? 0x767b74 // 略暗
-                : tonePick === 3 ? 0x848072 // 略暖
-                  : 0x7b8079,             // 中性偏暗
+          tonePick < 2 ? 0x83887f      // 略亮（两档合一，占多数）
+            : tonePick < 4 ? 0x7d827a  // 中性
+              : 0x797e77,              // 略暗
         );
         slabs.setColorAt(slabCursor, color);
         slabCursor++;
@@ -4424,13 +4443,20 @@
 
     const wearGeo = new THREE.PlaneGeometry(1, 1);
     const placeWear = (x, z, rx, rz, color, opacity, rot = 0) => {
+      /* 踏痕贴片必须参与色调映射。
+       *
+       * 原先是 `toneMapped: false` + `MeshBasicMaterial`——
+       * 这两项让它绕过整个调色链，直接以原始颜色叠加到画面上，
+       * 结果在近景里读作"一块边缘整齐的亮色方块"，而不是踏痕。
+       * 踏痕是"地面被踩得发亮/发暗"的细微变化，
+       * 必须和地面处在同一条色调曲线上，否则一定跳出来。 */
       const mat = new THREE.MeshBasicMaterial({
         map: wearTex,
         color,
         transparent: true,
         opacity,
         depthWrite: false,
-        toneMapped: false,
+        toneMapped: true,
       });
       const m = new THREE.Mesh(wearGeo, mat);
       m.rotation.x = -Math.PI / 2;
