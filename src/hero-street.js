@@ -728,8 +728,16 @@
     materials.clothGreen.name = 'street-cloth-green';
     materials.clothGreen.color.setHex(0x4d6b56);
     materials.clothGreen.roughness = 0.92;
-    const plasterNormal = await loadTexture('/assets/library/architecture/pbr/white_plaster_rough_01/normal.jpg', { repeat: [2.2, 2.2] });
-    const plasterRough = await loadTexture('/assets/library/architecture/pbr/white_plaster_rough_01/roughness.jpg', { repeat: [2.2, 2.2] });
+    /* 三张贴图（albedo / normal / roughness）的 repeat 必须一致。
+     *
+     * 原先是 albedo 用 repeat 0.4（米制）、normal 与 roughness 用 2.2，
+     * 同一面墙上的漫反射细节与凹凸细节密度差 5.5 倍——
+     * 肉眼看到的是"颜色斑驳"与"凹凸颗粒"不在同一个尺度上，
+     * 这正是墙面读作贴图而不是材质的原因之一。
+     * 统一到 0.4，与 makePlasterTexture 里的值一致。 */
+    const PLASTER_SPAN = 0.4;
+    const plasterNormal = await loadTexture('/assets/library/architecture/pbr/white_plaster_rough_01/normal.jpg', { repeat: [PLASTER_SPAN, PLASTER_SPAN] });
+    const plasterRough = await loadTexture('/assets/library/architecture/pbr/white_plaster_rough_01/roughness.jpg', { repeat: [PLASTER_SPAN, PLASTER_SPAN] });
     materials.plaster = new THREE.MeshStandardMaterial({
       name: 'street-plaster',
       map: makePlasterTexture(),
@@ -3378,8 +3386,17 @@
         const wingX = side * (SHOP_FRONT + wingLen / 2 - 0.15);
         for (const along of [-1, 1]) {
           const wingZ = gap.z + along * (gap.width / 2 + 0.30);
-          const wing = new THREE.Mesh(
-            new THREE.BoxGeometry(wingLen, wingH, 0.46),
+          /* 巷口翼墙改用 taperedBox。
+           *
+           * 原先是 BoxGeometry + materials.plaster：BoxGeometry 的 UV 是 0-1，
+           * 而 plaster 的 repeat 已按米制 UV 调到 0.4——
+           * 两者相乘后贴图被压成一小块，实测密度只有 120 px/m，
+           * 而其他墙面是 410 px/m，同一面街上两种密度并存。
+           * taperedBox 生成米制 UV，并且自带收分（夯土墙的真实做法）。 */
+          const wing = taperedBox(
+            'alley-wing-wall',
+            wingLen, wingLen * 0.99, wingH,
+            0.46, 0.40,
             materials.plaster,
           );
           wing.position.set(wingX, wingH / 2, wingZ);
