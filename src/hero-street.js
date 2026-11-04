@@ -1478,10 +1478,24 @@
         );
         matrix.scale(new THREE.Vector3(sx, sy, sz));
         slabs.setMatrixAt(slabCursor, matrix);
+        /* 逐块色差要"看得出、但不规则"。
+         *
+         * 试过两档：4%（原值）——近景读作一片均匀的灰；
+         * 22%——读作明暗交替的棋盘格，规则感很强，反而更假。
+         * 真实石路是"大部分相近、少数明显不同"：
+         * 取 10% 的范围内 5 档，并把选取方式从
+         * (row*7+column*3)%5 改成两次不同质数的组合，
+         * 避免相邻块按固定节奏重复。 */
+        // 线性组合 (row*29+column*17)%5 会带出规则斜纹——
+        // 相邻列固定差 2、相邻行固定差 4，读作棋盘格。
+        // 改用异或散列打散线性结构，相邻块之间才真的没有节奏。
+        const tonePick = ((((row * 73856093) ^ (column * 19349663)) >>> 0) % 5);
         color.setHex(
-          (row + column) % 11 === 0 ? 0x84806f
-            : (row + column) % 7 === 0 ? 0x7e7a6a
-              : (row + column) % 4 === 0 ? 0x787565 : 0x7a7768,
+          tonePick === 0 ? 0x8a908a   // 略亮
+            : tonePick === 1 ? 0x7f847c // 中性
+              : tonePick === 2 ? 0x767b74 // 略暗
+                : tonePick === 3 ? 0x848072 // 略暖
+                  : 0x7b8079,             // 中性偏暗
         );
         slabs.setColorAt(slabCursor, color);
         slabCursor++;
