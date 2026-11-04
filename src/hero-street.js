@@ -3780,6 +3780,20 @@
         if (!treeMaterials.has(key)) {
           const clone = source.clone();
           clone.color?.multiplyScalar(tint);
+          /* 叶片是卡片几何，必须双面渲染；但双面渲染时
+           * 背面法线朝外，会按"背光"计算，整片叶子读作硬纸片。
+           * 这里把叶片材质改成双面 + 提高环境光占比，
+           * 让背光面仍能接住天光——这是植被在实时渲染里
+           * "看起来有体积"的关键。
+           * 只有带 alpha 的叶片材质才这样处理，树干保持单面。 */
+          if (clone.map && (clone.transparent || clone.alphaTest > 0)) {
+            clone.side = THREE.DoubleSide;
+            clone.shadowSide = THREE.DoubleSide;
+            clone.envMapIntensity = 0.95;
+            // 叶片很薄，粗糙度取高值避免出现塑料高光
+            clone.roughness = Math.max(clone.roughness ?? 0.8, 0.82);
+            clone.metalness = 0;
+          }
           treeMaterials.set(key, clone);
         }
         node.material = treeMaterials.get(key);
