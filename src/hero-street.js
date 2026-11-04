@@ -398,6 +398,70 @@
     });
   }
 
+  /* 屋面的 albedo 贴图：瓦片之间的色差。
+   *
+   * 屋顶原本 base = null，只有法线与粗糙度，所以整片屋面是纯色暗块。
+   * 俯视或远看时，屋顶是画面里面积最大的元素之一，纯色让它读作
+   * "一块深色塑料"。真实瓦顶每一片瓦的颜色都略有不同（烧制色差、
+   * 苔痕、风化），近看是细碎的深浅变化，远看则形成柔和的斑驳。
+   *
+   * 这里按筒瓦的实际排布画：竖向瓦垄、横向瓦片，
+   * 每片给一个确定性的深浅偏移。
+   */
+  function makeRoofTexture() {
+    const W = 512;
+    const H = 512;
+    const cv = document.createElement('canvas');
+    cv.width = W;
+    cv.height = H;
+    const ctx = cv.getContext('2d');
+    // 底色：深青灰（与 roof.color 相乘后接近真实青瓦）
+    ctx.fillStyle = '#8a9296';
+    ctx.fillRect(0, 0, W, H);
+
+    // 竖向瓦垄：每垄一条，垄与垄之间压暗
+    const ROLLS = 16;
+    for (let i = 0; i < ROLLS; i++) {
+      const x = (i / ROLLS) * W;
+      const w = W / ROLLS;
+      // 垄背稍亮、垄沟稍暗
+      const g = ctx.createLinearGradient(x, 0, x + w, 0);
+      g.addColorStop(0, 'rgba(40,46,48,0.55)');
+      g.addColorStop(0.5, 'rgba(150,158,160,0.18)');
+      g.addColorStop(1, 'rgba(40,46,48,0.55)');
+      ctx.fillStyle = g;
+      ctx.fillRect(x, 0, w, H);
+    }
+
+    // 横向瓦片：每片瓦一个确定性的深浅偏移
+    const ROWS = 20;
+    for (let j = 0; j < ROWS; j++) {
+      const y = (j / ROWS) * H;
+      const h = H / ROWS;
+      for (let i = 0; i < ROLLS; i++) {
+        const x = (i / ROLLS) * W;
+        const w = W / ROLLS;
+        // 确定性伪随机：同一片瓦每次运行颜色一致
+        const r = ((i * 37 + j * 53) % 17) / 17;
+        const dark = r < 0.5;
+        ctx.fillStyle = dark
+          ? `rgba(32,38,40,${0.10 + r * 0.18})`
+          : `rgba(176,184,186,${0.06 + (r - 0.5) * 0.20})`;
+        ctx.fillRect(x, y, w, h);
+      }
+      // 瓦片之间的横缝
+      ctx.fillStyle = 'rgba(26,32,34,0.30)';
+      ctx.fillRect(0, y, W, 1.5);
+    }
+
+    const tex = new THREE.CanvasTexture(cv);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    tex.needsUpdate = true;
+    return tex;
+  }
+
   function makePlasterTexture() {
     // 分辨率与重复次数都要够。
     // 原先 512px、repeat 2.2：铺在 7.2m 宽的墙上，一块贴图覆盖 3.27m，
@@ -577,7 +641,15 @@
     cloth.color.setHex(0xb4513e);
     // 唐式是深青灰陶瓦。之前用 0x6b7472 且 envMapIntensity 0.85，
     // 高光与环境反射把屋面冲成近白，俯瞰整条街读成"白顶街"。
-    roof.color.setHex(0x2f3839);
+    // 屋面补上 albedo 贴图。原先 base = null，只有法线与粗糙度，
+    // 整片屋面是纯色暗块，俯视时读作"一块深色塑料"。
+    // 贴图按筒瓦的实际排布生成（竖向瓦垄 + 横向瓦片），
+    // 每片瓦有确定性的深浅偏移。
+    // color 相应提亮：贴图本身已带深色，color 再压暗会变成死黑。
+    roof.map = makeRoofTexture();
+    roof.map.repeat.set(3, 6);
+    roof.map.needsUpdate = true;
+    roof.color.setHex(0x9aa4a8);
     roof.roughness = 0.86;
     roof.envMapIntensity = 0.28;
     roof.normalScale.set(0.42, 0.42);
