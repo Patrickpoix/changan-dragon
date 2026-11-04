@@ -662,9 +662,17 @@
     roof.map.repeat.set(3, 6);
     roof.map.needsUpdate = true;
     roof.color.setHex(0x9aa4a8);
+
     roof.roughness = 0.86;
     roof.envMapIntensity = 0.28;
     roof.normalScale.set(0.42, 0.42);
+    // 屋脊：与屋面同贴图，颜色压深一档（叠瓦比屋面更密实）
+    // 注意：这里用的是局部变量 `roof`（loadPBR 的返回值），
+    // 不是 materials.roof——后者在此处还没赋值。
+    materials.roofRidge = roof.clone();
+    materials.roofRidge.name = 'street-roof-ridge';
+    materials.roofRidge.color.setHex(0x6f7678);
+    materials.roofRidge.roughness = 0.88;
     // 布料是双面渲染的（布篷两面都要看见），
     // 但 shadowSide 默认只算单面，布篷正下方的阴影因此缺失。
     // 双面材质的 shadowSide 必须同步，否则投影与受光不一致。
@@ -3636,7 +3644,14 @@
       mat_stone: materials.stone,
       mat_roof_tile: materials.roof,
       mat_roof_surface: materials.roof,
-      mat_roof_ridge: materials.darkWood,
+      /* 屋脊必须用瓦色，不能用木色。
+       *
+       * 原先把 `mat_roof_ridge` 映射到 `darkWood`（红褐色木材）——
+       * 结果正脊与垂脊在俯瞰图里是一条条**朱红色的细线**，
+       * 读作"贴在屋面上的红纸条"。
+       * 唐式屋脊是叠瓦垒成的，颜色与屋面一致、只略深，
+       * 断面厚重。改用深一档的瓦材质。 */
+      mat_roof_ridge: materials.roofRidge,
       mat_plaster: materials.plaster,
       // 铺面内壁：格扇后面那层暗色面。没有它，格眼后面直接透出后墙白灰，
       // 整面读成"白墙贴了一排木格子"。
