@@ -384,9 +384,14 @@
     for (let layer = 0; layer < 3; layer++) {
       // 每层斑块的尺寸与透明度不同：越大越淡，模拟"墙体受潮/修补"的层次。
       // 坐标与半径都按 1024 画布等比放大。
+      // 对比度必须够。原 alpha 0.055 / 0.041 / 0.027 太淡，
+      // 墙面贴图在近景读作"平涂色板"——虽然贴图确实有内容，
+      // 但差异小于 3% 的亮度变化在实时光照下看不出来。
+      // 提到 0.16 / 0.12 / 0.08：仍远低于"脏墙"的程度，
+      // 但足以在近景看出抹灰的斑驳与受潮。
       const blobs = 26 - layer * 7;
       const radius = 240 - layer * 68;
-      const alpha = 0.055 - layer * 0.014;
+      const alpha = 0.16 - layer * 0.04;
       for (let i = 0; i < blobs; i++) {
         const bx = ((i * 274 + layer * 142) % 1024);
         const by = ((i * 178 + layer * 86) % 1024);
@@ -410,8 +415,8 @@
       const top = ((i * 74) % 400);
       const len = 240 + ((i * 106) % 520);
       const g = ctx.createLinearGradient(x, top, x, top + len);
-      g.addColorStop(0, 'rgba(112, 102, 84, 0.075)');
-      g.addColorStop(0.55, 'rgba(112, 102, 84, 0.035)');
+      g.addColorStop(0, 'rgba(112, 102, 84, 0.20)');
+      g.addColorStop(0.55, 'rgba(112, 102, 84, 0.09)');
       g.addColorStop(1, 'rgba(112, 102, 84, 0)');
       ctx.fillStyle = g;
       ctx.fillRect(x, top, 6 + (i % 4) * 4, len);
