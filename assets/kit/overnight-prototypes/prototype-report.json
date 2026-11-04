@@ -1,0 +1,184 @@
+{
+  "prototypes": [
+    {
+      "id": "blacksmith-a",
+      "category": "blacksmith",
+      "sign": "铁匠铺·打铁",
+      "sign_form": "vertical",
+      "sign_material": "vermilion",
+      "params": {
+        "bays": 2,
+        "storey": 1,
+        "grade": 0.22
+      },
+      "dimensions_m": [
+        7.097,
+        6.703,
+        7.312
+      ],
+      "height_m": 7.312,
+      "triangles": 34410,
+      "glb": "blacksmith-a.glb",
+      "glb_bytes": 2334092,
+      "roof": "gable"
+    },
+    {
+      "id": "blacksmith-b",
+      "category": "blacksmith",
+      "sign": "铁匠铺·精铁",
+      "sign_form": "horizontal",
+      "sign_material": "tile",
+      "params": {
+        "bays": 3,
+        "storey": 2,
+        "grade": 0.24
+      },
+      "dimensions_m": [
+        11.361,
+        7.174,
+        8.802
+      ],
+      "height_m": 8.802,
+      "triangles": 53706,
+      "glb": "blacksmith-b.glb",
+      "glb_bytes": 3864376,
+      "roof": "gable"
+    },
+    {
+      "id": "shop-a",
+      "category": "shop",
+      "sign": "杂货铺",
+      "sign_form": "vertical",
+      "sign_material": "wood",
+      "params": {
+        "bays": 2,
+        "storey": 0,
+        "grade": 0.22
+      },
+      "dimensions_m": [
+        5.509,
+        5.684,
+        5.381
+      ],
+      "height_m": 5.381,
+      "triangles": 32602,
+      "glb": "shop-a.glb",
+      "glb_bytes": 2206484,
+      "roof": "gable"
+    },
+    {
+      "id": "shop-b",
+      "category": "shop",
+      "sign": "绸缎庄",
+      "sign_form": "horizontal",
+      "sign_material": "vermilion",
+      "params": {
+        "bays": 3,
+        "storey": 1,
+        "grade": 0.22
+      },
+      "dimensions_m": [
+        8.226,
+        5.684,
+        6.032
+      ],
+      "height_m": 6.032,
+      "triangles": 47466,
+      "glb": "shop-b.glb",
+      "glb_bytes": 3411248,
+      "roof": "gable"
+    },
+    {
+      "id": "tavern-a",
+      "category": "tavern",
+      "sign": "酒肆·醉仙楼",
+      "sign_form": "vertical",
+      "sign_material": "vermilion",
+      "params": {
+        "bays": 3,
+        "grade": 0.22
+      },
+      "dimensions_m": [
+        6.652,
+        8.325,
+        8.198
+      ],
+      "height_m": 8.198,
+      "triangles": 49478,
+      "glb": "tavern-a.glb",
+      "glb_bytes": 3014340,
+      "roof": "gable"
+    },
+    {
+      "id": "tavern-b",
+      "category": "tavern",
+      "sign": "酒肆·望江楼",
+      "sign_form": "horizontal",
+      "sign_material": "wood",
+      "params": {
+        "bays": 2,
+        "grade": 0.26
+      },
+      "dimensions_m": [
+        5.823,
+        9.046,
+        9.689
+      ],
+      "height_m": 9.689,
+      "triangles": 37082,
+      "glb": "tavern-b.glb",
+      "glb_bytes": 2258476,
+      "roof": "gable"
+    },
+    {
+      "id": "hall-a",
+      "category": "hall",
+      "sign": "道馆·清虚观",
+      "sign_form": "horizontal",
+      "sign_material": "tile",
+      "params": {
+        "modules": [
+          3,
+          2
+        ],
+        "grade": 0.3
+      },
+      "dimensions_m": [
+        15.069,
+        12.86,
+        10.193
+      ],
+      "height_m": 10.193,
+      "triangles": 46216,
+      "glb": "hall-a.glb",
+      "glb_bytes": 2956600,
+      "roof": "hip"
+    },
+    {
+      "id": "hall-b",
+      "category": "hall",
+      "sign": "殿堂·三清殿",
+      "sign_form": "vertical",
+      "sign_material": "vermilion",
+      "params": {
+        "modules": [
+          5,
+          2
+        ],
+        "grade": 0.3
+      },
+      "dimensions_m": [
+        21.069,
+        12.86,
+        10.193
+      ],
+      "height_m": 10.193,
+      "triangles": 48396,
+      "glb": "hall-b.glb",
+      "glb_bytes": 3194968,
+      "roof": "hip"
+    }
+  ],
+  "materials": "shared mat_* only, no per-building texture pack",
+  "note": "原创参数化原型；未复制任何外部模型或受限素材"
+}
