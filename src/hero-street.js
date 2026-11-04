@@ -657,7 +657,11 @@
     roof.roughness = 0.86;
     roof.envMapIntensity = 0.28;
     roof.normalScale.set(0.42, 0.42);
+    // 布料是双面渲染的（布篷两面都要看见），
+    // 但 shadowSide 默认只算单面，布篷正下方的阴影因此缺失。
+    // 双面材质的 shadowSide 必须同步，否则投影与受光不一致。
     cloth.side = THREE.DoubleSide;
+    cloth.shadowSide = THREE.DoubleSide;
     materials.mud = mud;
     materials.stone = stone;
     materials.wood = wood;
