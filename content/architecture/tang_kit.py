@@ -1089,10 +1089,29 @@ def tile_rolls_along_slope(
         advance = Vector((1.0, 0.0, 0.0))
     advance.normalize()
     across = Vector((-advance.y, advance.x, 0.0)).normalized()
+    # 横向瓦片分段：真实的筒瓦是一片片搭接的，不是一根通长的圆筒。
+    # 沿坡向按 tile_length 切段，每段之间留一道浅浅的接缝凹槽，
+    # 这样近看能看到"一片一片"的瓦，而不是"压花铁皮"。
+    # 段数按坡长与瓦长估算，并设上限避免顶点爆炸。
+    slope_len = (ridge_a.lerp(ridge_b, 0.5) - eave_a.lerp(eave_b, 0.5)).length
+    tile_length = max(0.18, tile_width * 1.05)
+    courses = max(4, min(26, int(round(slope_len / tile_length))))
     for index in range(rolls + 1):
         s = index / rolls
         rings = []
-        for t, _ in profile:
+        # 在每个原始 profile 点之间插入"分段边界"，
+        # 使相邻两段之间出现一个高度凹陷，形成瓦片的搭接缝。
+        dense = []
+        for pi, (t, _) in enumerate(profile):
+            dense.append((t, 0.0))
+            if pi < len(profile) - 1:
+                t_next = profile[pi + 1][0]
+                # 在 t 与 t_next 之间按分段数插入
+                span = t_next - t
+                steps = max(1, int(round(span * courses)))
+                for k in range(1, steps):
+                    dense.append((t + span * k / steps, 1.0))
+        for t, is_seam in dense:
             center = surface_point(t, s)
             # 筒瓦坐在屋面之上：整体抬到瓦高的一半，底面两角才不穿进屋面。
             center = Vector((center.x, center.y, center.z + half * 0.55))
@@ -1107,6 +1126,9 @@ def tile_rolls_along_slope(
                 ang = math.radians(-95.0 + 190.0 * k / (RING_SEGMENTS - 1))
                 off_across = half * 0.92 * math.sin(ang)
                 off_up = half * 0.95 * math.cos(ang)
+                # 接缝处把整圈压低 18%，形成一片片搭接的凹槽
+                if is_seam:
+                    off_up *= 0.82
                 # 瓦口两侧略微下沉，形成瓦沟
                 sink = half * 0.42 * (abs(off_across) / max(1e-6, half * 0.92)) ** 1.6
                 ring.append(
