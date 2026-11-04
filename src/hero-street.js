@@ -3069,10 +3069,19 @@
     const { z, side } = entry;
     const placement = shopPlacement(entry);
     const { isTavern, frontX, facing, style } = placement;
+    /* 匾额尺寸要按铺面错落。
+     *
+     * 原先所有铺面的横匾都是 2.3x0.7（酒肆）或 1.8x0.56（常铺），
+     * 竖匾都是 0.56x1.5——实测全街 32 块招牌只有 2 种尺寸。
+     * 真实街市的招牌是各家自制的，大小、比例都不同，
+     * 相邻两块一眼就能分出来。
+     * 这里按 z 坐标的固定散列给出 ±8% 的尺寸偏移。 */
+    const signSeed = (((Math.round(z * 100) * 2654435761) >>> 0) >>> 5) % 1000;
+    const signScale = 0.92 + (signSeed / 1000) * 0.16;
     const board = makeSignMesh(
       placement.board,
-      isTavern ? 2.3 : 1.8,
-      isTavern ? 0.7 : 0.56,
+      (isTavern ? 2.3 : 1.8) * signScale,
+      (isTavern ? 0.7 : 0.56) * (0.94 + ((signSeed * 7) % 100) / 100 * 0.12),
       { font: isTavern ? 82 : 66, style },
     );
     board.position.set(frontX, placement.boardY, z);
@@ -3080,12 +3089,22 @@
     board.scale.setScalar(1.15);
     scene.add(board);
     if (placement.hasHanging) {
-      const hanging = makeSignMesh(placement.vertical, 0.56, 1.5, {
+      // 竖匾同样错落，但保持"竖长"的比例（宽/高在 0.34-0.40 之间）
+      const vScale = 0.92 + ((signSeed * 11) % 100) / 100 * 0.16;
+      const hanging = makeSignMesh(placement.vertical, 0.56 * vScale, 1.5 * vScale, {
         vertical: true, font: 62, style,
       });
+      /* 竖匾的悬挂高度也要错落。
+       *
+       * 原先所有竖匾都在 2.85m（常铺）或 3.7m（酒肆）——
+       * 一条街上的竖匾连成一条水平线。
+       * 真实铺面的竖匾挂在檐下不同的钩位上，高低差常有 20-40cm。
+       * 按 z 的散列给出 ±0.22m 偏移。 */
+      const hangY = (isTavern ? 3.7 : 2.85)
+        + (((signSeed * 13) % 100) / 100 - 0.5) * 0.44;
       hanging.position.set(
         frontX + (side < 0 ? -0.55 : 0.55),
-        isTavern ? 3.7 : 2.85,
+        hangY,
         placement.hangingZ,
       );
       hanging.rotation.y = facing;
