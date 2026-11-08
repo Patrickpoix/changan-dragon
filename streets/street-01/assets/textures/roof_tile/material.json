@@ -1,0 +1,44 @@
+{
+  "key": "roof_tile",
+  "label": "青筒瓦",
+  "category": "建筑",
+  "base_color_srgb": "#67665E",
+  "palette_source": "palette:roof_tile",
+  "reference": "03_roof_tile_detail",
+  "delight_gain": 1.42,
+  "notes": "半圆瓦垄 + 搭接缝 + 雨痕苔藓",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 0.9,
+  "roughness_range": [
+    0.68,
+    0.94
+  ],
+  "metallic": 0,
+  "normal_strength": 3.2,
+  "ao_radius": 6,
+  "seed": 208,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "roof_tile_albedo.png",
+    "height": "roof_tile_height.png",
+    "roughness": "roof_tile_roughness.png",
+    "metallic": "roof_tile_metallic.png",
+    "ao": "roof_tile_ao.png",
+    "normal": "roof_tile_normal.png",
+    "orm": "roof_tile_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "roof_tile_albedo.png",
+    "normalTexture": "roof_tile_normal.png",
+    "metallicRoughnessTexture": "roof_tile_orm.png",
+    "occlusionTexture": "roof_tile_ao.png"
+  }
+}

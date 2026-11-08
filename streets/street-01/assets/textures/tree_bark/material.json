@@ -1,0 +1,44 @@
+{
+  "key": "tree_bark",
+  "label": "槐树皮",
+  "category": "自然",
+  "base_color_srgb": "#7C6A55",
+  "palette_source": "palette:tree_bark",
+  "reference": "08_material_board",
+  "delight_gain": 1.42,
+  "notes": "竖向沟壑 + 地衣",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.6,
+  "roughness_range": [
+    0.76,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 3.0,
+  "ao_radius": 7,
+  "seed": 403,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "tree_bark_albedo.png",
+    "height": "tree_bark_height.png",
+    "roughness": "tree_bark_roughness.png",
+    "metallic": "tree_bark_metallic.png",
+    "ao": "tree_bark_ao.png",
+    "normal": "tree_bark_normal.png",
+    "orm": "tree_bark_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "tree_bark_albedo.png",
+    "normalTexture": "tree_bark_normal.png",
+    "metallicRoughnessTexture": "tree_bark_orm.png",
+    "occlusionTexture": "tree_bark_ao.png"
+  }
+}

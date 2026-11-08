@@ -1,0 +1,44 @@
+{
+  "key": "sackcloth",
+  "label": "麻袋粗布",
+  "category": "道具",
+  "base_color_srgb": "#B9A57C",
+  "palette_source": "derived:#9A8A6A",
+  "reference": "07_market_props",
+  "delight_gain": 1.2,
+  "notes": "粗麻织物",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.4,
+  "roughness_range": [
+    0.8,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 6,
+  "seed": 402,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "sackcloth_albedo.png",
+    "height": "sackcloth_height.png",
+    "roughness": "sackcloth_roughness.png",
+    "metallic": "sackcloth_metallic.png",
+    "ao": "sackcloth_ao.png",
+    "normal": "sackcloth_normal.png",
+    "orm": "sackcloth_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "sackcloth_albedo.png",
+    "normalTexture": "sackcloth_normal.png",
+    "metallicRoughnessTexture": "sackcloth_orm.png",
+    "occlusionTexture": "sackcloth_ao.png"
+  }
+}

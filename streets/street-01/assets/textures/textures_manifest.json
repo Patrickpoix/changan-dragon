@@ -1,0 +1,1398 @@
+{
+  "version": "1.0",
+  "generated": "2026-11-08 20:33:48",
+  "palette": "references/palette.json",
+  "material_count": 29,
+  "channels_per_material": [
+    "albedo",
+    "normal",
+    "roughness",
+    "metallic",
+    "ao",
+    "height",
+    "orm"
+  ],
+  "materials": [
+    {
+      "key": "stone_paving",
+      "label": "青石板铺装",
+      "category": "路面",
+      "base_color_srgb": "#7B7F75",
+      "palette_source": "palette:stone_paving",
+      "reference": "04_stone_paving_detail / 08_material_board",
+      "delight_gain": 1.34,
+      "notes": "主街面，板缝含苔藓与车辙痕",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 2.0,
+      "roughness_range": [
+        0.68,
+        0.94
+      ],
+      "metallic": 0,
+      "normal_strength": 2.8,
+      "ao_radius": 8,
+      "seed": 101,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "stone_paving_albedo.png",
+        "height": "stone_paving_height.png",
+        "roughness": "stone_paving_roughness.png",
+        "metallic": "stone_paving_metallic.png",
+        "ao": "stone_paving_ao.png",
+        "normal": "stone_paving_normal.png",
+        "orm": "stone_paving_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "stone_paving_albedo.png",
+        "normalTexture": "stone_paving_normal.png",
+        "metallicRoughnessTexture": "stone_paving_orm.png",
+        "occlusionTexture": "stone_paving_ao.png"
+      }
+    },
+    {
+      "key": "stone_curb",
+      "label": "路缘石",
+      "category": "路面",
+      "base_color_srgb": "#777B71",
+      "palette_source": "palette:stone_paving",
+      "reference": "04_stone_paving_detail",
+      "delight_gain": 1.3,
+      "notes": "路缘、沟盖、台阶",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.0,
+      "roughness_range": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "normal_strength": 2.6,
+      "ao_radius": 7,
+      "seed": 102,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "stone_curb_albedo.png",
+        "height": "stone_curb_height.png",
+        "roughness": "stone_curb_roughness.png",
+        "metallic": "stone_curb_metallic.png",
+        "ao": "stone_curb_ao.png",
+        "normal": "stone_curb_normal.png",
+        "orm": "stone_curb_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "stone_curb_albedo.png",
+        "normalTexture": "stone_curb_normal.png",
+        "metallicRoughnessTexture": "stone_curb_orm.png",
+        "occlusionTexture": "stone_curb_ao.png"
+      }
+    },
+    {
+      "key": "grey_brick",
+      "label": "青砖地",
+      "category": "路面",
+      "base_color_srgb": "#8F8779",
+      "palette_source": "palette:grey_brick",
+      "reference": "08_material_board",
+      "delight_gain": 1.36,
+      "notes": "人行道与院落铺砖",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 1.2,
+      "roughness_range": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 6,
+      "seed": 103,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "grey_brick_albedo.png",
+        "height": "grey_brick_height.png",
+        "roughness": "grey_brick_roughness.png",
+        "metallic": "grey_brick_metallic.png",
+        "ao": "grey_brick_ao.png",
+        "normal": "grey_brick_normal.png",
+        "orm": "grey_brick_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "grey_brick_albedo.png",
+        "normalTexture": "grey_brick_normal.png",
+        "metallicRoughnessTexture": "grey_brick_orm.png",
+        "occlusionTexture": "grey_brick_ao.png"
+      }
+    },
+    {
+      "key": "rammed_earth",
+      "label": "夯土路面",
+      "category": "路面",
+      "base_color_srgb": "#8F5A3D",
+      "palette_source": "palette:rammed_earth",
+      "reference": "08_material_board",
+      "delight_gain": 1.38,
+      "notes": "未铺装巷道与车辙土",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 1.5,
+      "roughness_range": [
+        0.78,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 2.2,
+      "ao_radius": 8,
+      "seed": 104,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "rammed_earth_albedo.png",
+        "height": "rammed_earth_height.png",
+        "roughness": "rammed_earth_roughness.png",
+        "metallic": "rammed_earth_metallic.png",
+        "ao": "rammed_earth_ao.png",
+        "normal": "rammed_earth_normal.png",
+        "orm": "rammed_earth_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "rammed_earth_albedo.png",
+        "normalTexture": "rammed_earth_normal.png",
+        "metallicRoughnessTexture": "rammed_earth_orm.png",
+        "occlusionTexture": "rammed_earth_ao.png"
+      }
+    },
+    {
+      "key": "mud_track",
+      "label": "车辙泥",
+      "category": "路面",
+      "base_color_srgb": "#5C4732",
+      "palette_source": "derived:#4A3A2A",
+      "reference": "04_stone_paving_detail",
+      "delight_gain": 1.24,
+      "notes": "车辙与泥泞贴花",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.2,
+      "roughness_range": [
+        0.8,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 2.0,
+      "ao_radius": 6,
+      "seed": 105,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "mud_track_albedo.png",
+        "height": "mud_track_height.png",
+        "roughness": "mud_track_roughness.png",
+        "metallic": "mud_track_metallic.png",
+        "ao": "mud_track_ao.png",
+        "normal": "mud_track_normal.png",
+        "orm": "mud_track_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "mud_track_albedo.png",
+        "normalTexture": "mud_track_normal.png",
+        "metallicRoughnessTexture": "mud_track_orm.png",
+        "occlusionTexture": "mud_track_ao.png"
+      }
+    },
+    {
+      "key": "water_puddle",
+      "label": "积水",
+      "category": "路面",
+      "base_color_srgb": "#32404A",
+      "palette_source": "derived:#33404A",
+      "reference": "04_stone_paving_detail",
+      "delight_gain": 1.0,
+      "notes": "低粗糙度水面 + 波纹法线",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.0,
+      "roughness_range": [
+        0.06,
+        0.22
+      ],
+      "metallic": 0,
+      "normal_strength": 6.0,
+      "ao_radius": 4,
+      "seed": 106,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "water_puddle_albedo.png",
+        "height": "water_puddle_height.png",
+        "roughness": "water_puddle_roughness.png",
+        "metallic": "water_puddle_metallic.png",
+        "ao": "water_puddle_ao.png",
+        "normal": "water_puddle_normal.png",
+        "orm": "water_puddle_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "water_puddle_albedo.png",
+        "normalTexture": "water_puddle_normal.png",
+        "metallicRoughnessTexture": "water_puddle_orm.png",
+        "occlusionTexture": "water_puddle_ao.png"
+      }
+    },
+    {
+      "key": "rammed_earth_wall",
+      "label": "夯土墙",
+      "category": "建筑",
+      "base_color_srgb": "#88563A",
+      "palette_source": "palette:rammed_earth",
+      "reference": "08_material_board",
+      "delight_gain": 1.32,
+      "notes": "山墙与院墙，水平夯层清晰",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.6,
+      "roughness_range": [
+        0.78,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 2.2,
+      "ao_radius": 8,
+      "seed": 201,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "rammed_earth_wall_albedo.png",
+        "height": "rammed_earth_wall_height.png",
+        "roughness": "rammed_earth_wall_roughness.png",
+        "metallic": "rammed_earth_wall_metallic.png",
+        "ao": "rammed_earth_wall_ao.png",
+        "normal": "rammed_earth_wall_normal.png",
+        "orm": "rammed_earth_wall_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "rammed_earth_wall_albedo.png",
+        "normalTexture": "rammed_earth_wall_normal.png",
+        "metallicRoughnessTexture": "rammed_earth_wall_orm.png",
+        "occlusionTexture": "rammed_earth_wall_ao.png"
+      }
+    },
+    {
+      "key": "grey_brick_wall",
+      "label": "青砖墙",
+      "category": "建筑",
+      "base_color_srgb": "#8D8577",
+      "palette_source": "palette:grey_brick",
+      "reference": "08_material_board",
+      "delight_gain": 1.34,
+      "notes": "墙体下部与台基包砖",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 1.2,
+      "roughness_range": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 6,
+      "seed": 202,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "grey_brick_wall_albedo.png",
+        "height": "grey_brick_wall_height.png",
+        "roughness": "grey_brick_wall_roughness.png",
+        "metallic": "grey_brick_wall_metallic.png",
+        "ao": "grey_brick_wall_ao.png",
+        "normal": "grey_brick_wall_normal.png",
+        "orm": "grey_brick_wall_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "grey_brick_wall_albedo.png",
+        "normalTexture": "grey_brick_wall_normal.png",
+        "metallicRoughnessTexture": "grey_brick_wall_orm.png",
+        "occlusionTexture": "grey_brick_wall_ao.png"
+      }
+    },
+    {
+      "key": "lime_plaster",
+      "label": "白灰抹面",
+      "category": "建筑",
+      "base_color_srgb": "#C9C1B0",
+      "palette_source": "palette:lime_plaster",
+      "reference": "08_material_board",
+      "delight_gain": 1.16,
+      "notes": "墙面抹灰，含龟裂与剥落露土",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 1.4,
+      "roughness_range": [
+        0.72,
+        0.95
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 9,
+      "seed": 203,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "lime_plaster_albedo.png",
+        "height": "lime_plaster_height.png",
+        "roughness": "lime_plaster_roughness.png",
+        "metallic": "lime_plaster_metallic.png",
+        "ao": "lime_plaster_ao.png",
+        "normal": "lime_plaster_normal.png",
+        "orm": "lime_plaster_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "lime_plaster_albedo.png",
+        "normalTexture": "lime_plaster_normal.png",
+        "metallicRoughnessTexture": "lime_plaster_orm.png",
+        "occlusionTexture": "lime_plaster_ao.png"
+      }
+    },
+    {
+      "key": "vermilion_lacquer",
+      "label": "朱漆柱",
+      "category": "建筑",
+      "base_color_srgb": "#7E2722",
+      "palette_source": "palette:vermilion_lacquer",
+      "reference": "05_lacquer_polychrome / 01_street_overview",
+      "delight_gain": 1.78,
+      "notes": "檐柱与门框，龟裂纹与局部剥落",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 0.6,
+      "roughness_range": [
+        0.3,
+        0.72
+      ],
+      "metallic": 0,
+      "normal_strength": 2.2,
+      "ao_radius": 5,
+      "seed": 204,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "vermilion_lacquer_albedo.png",
+        "height": "vermilion_lacquer_height.png",
+        "roughness": "vermilion_lacquer_roughness.png",
+        "metallic": "vermilion_lacquer_metallic.png",
+        "ao": "vermilion_lacquer_ao.png",
+        "normal": "vermilion_lacquer_normal.png",
+        "orm": "vermilion_lacquer_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "vermilion_lacquer_albedo.png",
+        "normalTexture": "vermilion_lacquer_normal.png",
+        "metallicRoughnessTexture": "vermilion_lacquer_orm.png",
+        "occlusionTexture": "vermilion_lacquer_ao.png"
+      }
+    },
+    {
+      "key": "timber_beam",
+      "label": "木枋梁",
+      "category": "建筑",
+      "base_color_srgb": "#8F7554",
+      "palette_source": "palette:aged_timber",
+      "reference": "08_material_board",
+      "delight_gain": 1.38,
+      "notes": "额枋、梁、椽、斗拱木质",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 0.8,
+      "roughness_range": [
+        0.58,
+        0.86
+      ],
+      "metallic": 0,
+      "normal_strength": 2.6,
+      "ao_radius": 7,
+      "seed": 205,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "timber_beam_albedo.png",
+        "height": "timber_beam_height.png",
+        "roughness": "timber_beam_roughness.png",
+        "metallic": "timber_beam_metallic.png",
+        "ao": "timber_beam_ao.png",
+        "normal": "timber_beam_normal.png",
+        "orm": "timber_beam_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "timber_beam_albedo.png",
+        "normalTexture": "timber_beam_normal.png",
+        "metallicRoughnessTexture": "timber_beam_orm.png",
+        "occlusionTexture": "timber_beam_ao.png"
+      }
+    },
+    {
+      "key": "wood_plank",
+      "label": "木板",
+      "category": "建筑",
+      "base_color_srgb": "#8B7152",
+      "palette_source": "palette:aged_timber",
+      "reference": "07_market_props",
+      "delight_gain": 1.34,
+      "notes": "板门、摊板、货箱",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.7,
+      "roughness_range": [
+        0.6,
+        0.88
+      ],
+      "metallic": 0,
+      "normal_strength": 2.8,
+      "ao_radius": 6,
+      "seed": 206,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "wood_plank_albedo.png",
+        "height": "wood_plank_height.png",
+        "roughness": "wood_plank_roughness.png",
+        "metallic": "wood_plank_metallic.png",
+        "ao": "wood_plank_ao.png",
+        "normal": "wood_plank_normal.png",
+        "orm": "wood_plank_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "wood_plank_albedo.png",
+        "normalTexture": "wood_plank_normal.png",
+        "metallicRoughnessTexture": "wood_plank_orm.png",
+        "occlusionTexture": "wood_plank_ao.png"
+      }
+    },
+    {
+      "key": "lattice_paper",
+      "label": "格扇糊纸",
+      "category": "建筑",
+      "base_color_srgb": "#D5CAAC",
+      "palette_source": "derived:#C9BFA4",
+      "reference": "02_shopfront_elevation",
+      "delight_gain": 1.06,
+      "notes": "窗格糊纸，微透光自发光",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.5,
+      "roughness_range": [
+        0.78,
+        0.96
+      ],
+      "metallic": 0,
+      "normal_strength": 1.6,
+      "ao_radius": 5,
+      "seed": 207,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "lattice_paper_albedo.png",
+        "height": "lattice_paper_height.png",
+        "roughness": "lattice_paper_roughness.png",
+        "metallic": "lattice_paper_metallic.png",
+        "ao": "lattice_paper_ao.png",
+        "normal": "lattice_paper_normal.png",
+        "orm": "lattice_paper_orm.png",
+        "emissive": "lattice_paper_emissive.png"
+      },
+      "gltf": {
+        "baseColorTexture": "lattice_paper_albedo.png",
+        "normalTexture": "lattice_paper_normal.png",
+        "metallicRoughnessTexture": "lattice_paper_orm.png",
+        "occlusionTexture": "lattice_paper_ao.png"
+      }
+    },
+    {
+      "key": "roof_tile",
+      "label": "青筒瓦",
+      "category": "建筑",
+      "base_color_srgb": "#67665E",
+      "palette_source": "palette:roof_tile",
+      "reference": "03_roof_tile_detail",
+      "delight_gain": 1.42,
+      "notes": "半圆瓦垄 + 搭接缝 + 雨痕苔藓",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 0.9,
+      "roughness_range": [
+        0.68,
+        0.94
+      ],
+      "metallic": 0,
+      "normal_strength": 3.2,
+      "ao_radius": 6,
+      "seed": 208,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "roof_tile_albedo.png",
+        "height": "roof_tile_height.png",
+        "roughness": "roof_tile_roughness.png",
+        "metallic": "roof_tile_metallic.png",
+        "ao": "roof_tile_ao.png",
+        "normal": "roof_tile_normal.png",
+        "orm": "roof_tile_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "roof_tile_albedo.png",
+        "normalTexture": "roof_tile_normal.png",
+        "metallicRoughnessTexture": "roof_tile_orm.png",
+        "occlusionTexture": "roof_tile_ao.png"
+      }
+    },
+    {
+      "key": "roof_ridge",
+      "label": "瓦当屋脊",
+      "category": "建筑",
+      "base_color_srgb": "#63615A",
+      "palette_source": "palette:roof_tile",
+      "reference": "03_roof_tile_detail",
+      "delight_gain": 1.36,
+      "notes": "圆形瓦当：莲瓣云纹与乳钉",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.5,
+      "roughness_range": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "normal_strength": 2.6,
+      "ao_radius": 5,
+      "seed": 209,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "roof_ridge_albedo.png",
+        "height": "roof_ridge_height.png",
+        "roughness": "roof_ridge_roughness.png",
+        "metallic": "roof_ridge_metallic.png",
+        "ao": "roof_ridge_ao.png",
+        "normal": "roof_ridge_normal.png",
+        "orm": "roof_ridge_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "roof_ridge_albedo.png",
+        "normalTexture": "roof_ridge_normal.png",
+        "metallicRoughnessTexture": "roof_ridge_orm.png",
+        "occlusionTexture": "roof_ridge_ao.png"
+      }
+    },
+    {
+      "key": "stone_base",
+      "label": "台基石",
+      "category": "建筑",
+      "base_color_srgb": "#A39C8F",
+      "palette_source": "derived:#8A857A",
+      "reference": "02_shopfront_elevation",
+      "delight_gain": 1.18,
+      "notes": "柱础、台基、踏步",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.0,
+      "roughness_range": [
+        0.66,
+        0.9
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 7,
+      "seed": 210,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "stone_base_albedo.png",
+        "height": "stone_base_height.png",
+        "roughness": "stone_base_roughness.png",
+        "metallic": "stone_base_metallic.png",
+        "ao": "stone_base_ao.png",
+        "normal": "stone_base_normal.png",
+        "orm": "stone_base_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "stone_base_albedo.png",
+        "normalTexture": "stone_base_normal.png",
+        "metallicRoughnessTexture": "stone_base_orm.png",
+        "occlusionTexture": "stone_base_ao.png"
+      }
+    },
+    {
+      "key": "painted_dougong",
+      "label": "青绿彩画",
+      "category": "建筑",
+      "base_color_srgb": "#48534A",
+      "palette_source": "palette:painted_dougong",
+      "reference": "05_lacquer_polychrome",
+      "delight_gain": 1.52,
+      "notes": "斗拱与额枋彩画，含金线、朱带、剥落",
+      "size": [
+        2048,
+        2048
+      ],
+      "tile_meters": 0.6,
+      "roughness_range": [
+        0.38,
+        0.88
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 6,
+      "seed": 211,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "painted_dougong_albedo.png",
+        "height": "painted_dougong_height.png",
+        "roughness": "painted_dougong_roughness.png",
+        "metallic": "painted_dougong_metallic.png",
+        "ao": "painted_dougong_ao.png",
+        "normal": "painted_dougong_normal.png",
+        "orm": "painted_dougong_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "painted_dougong_albedo.png",
+        "normalTexture": "painted_dougong_normal.png",
+        "metallicRoughnessTexture": "painted_dougong_orm.png",
+        "occlusionTexture": "painted_dougong_ao.png"
+      }
+    },
+    {
+      "key": "black_lacquer",
+      "label": "黑漆匾额",
+      "category": "建筑",
+      "base_color_srgb": "#221B18",
+      "palette_source": "derived:#221C19",
+      "reference": "02_shopfront_elevation",
+      "delight_gain": 1.0,
+      "notes": "匾额底板（字由 signage 贴图叠加）",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.5,
+      "roughness_range": [
+        0.28,
+        0.66
+      ],
+      "metallic": 0,
+      "normal_strength": 2.0,
+      "ao_radius": 5,
+      "seed": 212,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "black_lacquer_albedo.png",
+        "height": "black_lacquer_height.png",
+        "roughness": "black_lacquer_roughness.png",
+        "metallic": "black_lacquer_metallic.png",
+        "ao": "black_lacquer_ao.png",
+        "normal": "black_lacquer_normal.png",
+        "orm": "black_lacquer_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "black_lacquer_albedo.png",
+        "normalTexture": "black_lacquer_normal.png",
+        "metallicRoughnessTexture": "black_lacquer_orm.png",
+        "occlusionTexture": "black_lacquer_ao.png"
+      }
+    },
+    {
+      "key": "gilt_bronze",
+      "label": "鎏金铜件",
+      "category": "装饰",
+      "base_color_srgb": "#C59B40",
+      "palette_source": "derived:#A8863C",
+      "reference": "05_lacquer_polychrome",
+      "delight_gain": 1.16,
+      "notes": "门环、角叶、铜钩，带铜绿与划痕",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.4,
+      "roughness_range": [
+        0.2,
+        0.78
+      ],
+      "metallic": 0.88,
+      "normal_strength": 2.2,
+      "ao_radius": 5,
+      "seed": 301,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "gilt_bronze_albedo.png",
+        "height": "gilt_bronze_height.png",
+        "roughness": "gilt_bronze_roughness.png",
+        "metallic": "gilt_bronze_metallic.png",
+        "ao": "gilt_bronze_ao.png",
+        "normal": "gilt_bronze_normal.png",
+        "orm": "gilt_bronze_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "gilt_bronze_albedo.png",
+        "normalTexture": "gilt_bronze_normal.png",
+        "metallicRoughnessTexture": "gilt_bronze_orm.png",
+        "occlusionTexture": "gilt_bronze_ao.png"
+      }
+    },
+    {
+      "key": "lantern_silk",
+      "label": "灯笼纱",
+      "category": "装饰",
+      "base_color_srgb": "#B0B0A9",
+      "palette_source": "palette:lantern_silk",
+      "reference": "06_lanterns_banners",
+      "delight_gain": 1.22,
+      "notes": "竹骨横条 + 暖光自发光",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.35,
+      "roughness_range": [
+        0.62,
+        0.9
+      ],
+      "metallic": 0,
+      "normal_strength": 1.8,
+      "ao_radius": 5,
+      "seed": 302,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "lantern_silk_albedo.png",
+        "height": "lantern_silk_height.png",
+        "roughness": "lantern_silk_roughness.png",
+        "metallic": "lantern_silk_metallic.png",
+        "ao": "lantern_silk_ao.png",
+        "normal": "lantern_silk_normal.png",
+        "orm": "lantern_silk_orm.png",
+        "emissive": "lantern_silk_emissive.png"
+      },
+      "gltf": {
+        "baseColorTexture": "lantern_silk_albedo.png",
+        "normalTexture": "lantern_silk_normal.png",
+        "metallicRoughnessTexture": "lantern_silk_orm.png",
+        "occlusionTexture": "lantern_silk_ao.png"
+      }
+    },
+    {
+      "key": "indigo_banner",
+      "label": "靛蓝布幡",
+      "category": "装饰",
+      "base_color_srgb": "#202C54",
+      "palette_source": "palette:indigo_banner",
+      "reference": "06_lanterns_banners",
+      "delight_gain": 1.52,
+      "notes": "褪色靛蓝幌布",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.5,
+      "roughness_range": [
+        0.76,
+        0.96
+      ],
+      "metallic": 0,
+      "normal_strength": 2.0,
+      "ao_radius": 6,
+      "seed": 303,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "indigo_banner_albedo.png",
+        "height": "indigo_banner_height.png",
+        "roughness": "indigo_banner_roughness.png",
+        "metallic": "indigo_banner_metallic.png",
+        "ao": "indigo_banner_ao.png",
+        "normal": "indigo_banner_normal.png",
+        "orm": "indigo_banner_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "indigo_banner_albedo.png",
+        "normalTexture": "indigo_banner_normal.png",
+        "metallicRoughnessTexture": "indigo_banner_orm.png",
+        "occlusionTexture": "indigo_banner_ao.png"
+      }
+    },
+    {
+      "key": "ochre_banner",
+      "label": "赭黄布幡",
+      "category": "装饰",
+      "base_color_srgb": "#CB8A49",
+      "palette_source": "derived:#9A6B3C",
+      "reference": "06_lanterns_banners",
+      "delight_gain": 1.3,
+      "notes": "赭黄旗幡",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.5,
+      "roughness_range": [
+        0.76,
+        0.96
+      ],
+      "metallic": 0,
+      "normal_strength": 2.0,
+      "ao_radius": 6,
+      "seed": 304,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "ochre_banner_albedo.png",
+        "height": "ochre_banner_height.png",
+        "roughness": "ochre_banner_roughness.png",
+        "metallic": "ochre_banner_metallic.png",
+        "ao": "ochre_banner_ao.png",
+        "normal": "ochre_banner_normal.png",
+        "orm": "ochre_banner_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "ochre_banner_albedo.png",
+        "normalTexture": "ochre_banner_normal.png",
+        "metallicRoughnessTexture": "ochre_banner_orm.png",
+        "occlusionTexture": "ochre_banner_ao.png"
+      }
+    },
+    {
+      "key": "bamboo_weave",
+      "label": "竹编",
+      "category": "装饰",
+      "base_color_srgb": "#D7AE66",
+      "palette_source": "derived:#A98B55",
+      "reference": "07_market_props",
+      "delight_gain": 1.26,
+      "notes": "竹筐、竹帘经纬编织",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.4,
+      "roughness_range": [
+        0.7,
+        0.94
+      ],
+      "metallic": 0,
+      "normal_strength": 3.0,
+      "ao_radius": 5,
+      "seed": 305,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "bamboo_weave_albedo.png",
+        "height": "bamboo_weave_height.png",
+        "roughness": "bamboo_weave_roughness.png",
+        "metallic": "bamboo_weave_metallic.png",
+        "ao": "bamboo_weave_ao.png",
+        "normal": "bamboo_weave_normal.png",
+        "orm": "bamboo_weave_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "bamboo_weave_albedo.png",
+        "normalTexture": "bamboo_weave_normal.png",
+        "metallicRoughnessTexture": "bamboo_weave_orm.png",
+        "occlusionTexture": "bamboo_weave_ao.png"
+      }
+    },
+    {
+      "key": "pottery",
+      "label": "陶器釉面",
+      "category": "道具",
+      "base_color_srgb": "#A16A46",
+      "palette_source": "derived:#7A5238",
+      "reference": "07_market_props",
+      "delight_gain": 1.3,
+      "notes": "陶罐瓷瓶，轮制纹与釉斑",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.4,
+      "roughness_range": [
+        0.28,
+        0.88
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 6,
+      "seed": 401,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "pottery_albedo.png",
+        "height": "pottery_height.png",
+        "roughness": "pottery_roughness.png",
+        "metallic": "pottery_metallic.png",
+        "ao": "pottery_ao.png",
+        "normal": "pottery_normal.png",
+        "orm": "pottery_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "pottery_albedo.png",
+        "normalTexture": "pottery_normal.png",
+        "metallicRoughnessTexture": "pottery_orm.png",
+        "occlusionTexture": "pottery_ao.png"
+      }
+    },
+    {
+      "key": "sackcloth",
+      "label": "麻袋粗布",
+      "category": "道具",
+      "base_color_srgb": "#B9A57C",
+      "palette_source": "derived:#9A8A6A",
+      "reference": "07_market_props",
+      "delight_gain": 1.2,
+      "notes": "粗麻织物",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.4,
+      "roughness_range": [
+        0.8,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 6,
+      "seed": 402,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "sackcloth_albedo.png",
+        "height": "sackcloth_height.png",
+        "roughness": "sackcloth_roughness.png",
+        "metallic": "sackcloth_metallic.png",
+        "ao": "sackcloth_ao.png",
+        "normal": "sackcloth_normal.png",
+        "orm": "sackcloth_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "sackcloth_albedo.png",
+        "normalTexture": "sackcloth_normal.png",
+        "metallicRoughnessTexture": "sackcloth_orm.png",
+        "occlusionTexture": "sackcloth_ao.png"
+      }
+    },
+    {
+      "key": "tree_bark",
+      "label": "槐树皮",
+      "category": "自然",
+      "base_color_srgb": "#7C6A55",
+      "palette_source": "palette:tree_bark",
+      "reference": "08_material_board",
+      "delight_gain": 1.42,
+      "notes": "竖向沟壑 + 地衣",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.6,
+      "roughness_range": [
+        0.76,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 3.0,
+      "ao_radius": 7,
+      "seed": 403,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "tree_bark_albedo.png",
+        "height": "tree_bark_height.png",
+        "roughness": "tree_bark_roughness.png",
+        "metallic": "tree_bark_metallic.png",
+        "ao": "tree_bark_ao.png",
+        "normal": "tree_bark_normal.png",
+        "orm": "tree_bark_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "tree_bark_albedo.png",
+        "normalTexture": "tree_bark_normal.png",
+        "metallicRoughnessTexture": "tree_bark_orm.png",
+        "occlusionTexture": "tree_bark_ao.png"
+      }
+    },
+    {
+      "key": "leaf_atlas",
+      "label": "槐叶图集",
+      "category": "自然",
+      "base_color_srgb": "#4C7035",
+      "palette_source": "derived:#4E7038",
+      "reference": "01_street_overview / 07_market_props",
+      "delight_gain": 1.0,
+      "notes": "4x4 叶片图集 + alpha，用于树冠",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.0,
+      "roughness_range": [
+        0.62,
+        0.9
+      ],
+      "metallic": 0,
+      "normal_strength": 2.0,
+      "ao_radius": 5,
+      "seed": 404,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "leaf_atlas_albedo.png",
+        "height": "leaf_atlas_height.png",
+        "roughness": "leaf_atlas_roughness.png",
+        "metallic": "leaf_atlas_metallic.png",
+        "ao": "leaf_atlas_ao.png",
+        "normal": "leaf_atlas_normal.png",
+        "orm": "leaf_atlas_orm.png",
+        "opacity": "leaf_atlas_opacity.png"
+      },
+      "gltf": {
+        "baseColorTexture": "leaf_atlas_albedo.png",
+        "normalTexture": "leaf_atlas_normal.png",
+        "metallicRoughnessTexture": "leaf_atlas_orm.png",
+        "occlusionTexture": "leaf_atlas_ao.png"
+      }
+    },
+    {
+      "key": "moss",
+      "label": "苔藓",
+      "category": "自然",
+      "base_color_srgb": "#5B783F",
+      "palette_source": "derived:#4C6236",
+      "reference": "04_stone_paving_detail",
+      "delight_gain": 1.22,
+      "notes": "缝隙与阴湿处团簇苔藓",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 0.4,
+      "roughness_range": [
+        0.84,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 2.4,
+      "ao_radius": 6,
+      "seed": 405,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "moss_albedo.png",
+        "height": "moss_height.png",
+        "roughness": "moss_roughness.png",
+        "metallic": "moss_metallic.png",
+        "ao": "moss_ao.png",
+        "normal": "moss_normal.png",
+        "orm": "moss_orm.png"
+      },
+      "gltf": {
+        "baseColorTexture": "moss_albedo.png",
+        "normalTexture": "moss_normal.png",
+        "metallicRoughnessTexture": "moss_orm.png",
+        "occlusionTexture": "moss_ao.png"
+      }
+    },
+    {
+      "key": "grime",
+      "label": "污渍贴花",
+      "category": "细节",
+      "base_color_srgb": "#3A2F25",
+      "palette_source": "derived:#3A3026",
+      "reference": "04_stone_paving_detail",
+      "delight_gain": 1.0,
+      "notes": "径向衰减污渍，带 alpha 通道",
+      "size": [
+        1024,
+        1024
+      ],
+      "tile_meters": 1.0,
+      "roughness_range": [
+        0.84,
+        0.98
+      ],
+      "metallic": 0,
+      "normal_strength": 1.6,
+      "ao_radius": 5,
+      "seed": 406,
+      "wrap": "repeat",
+      "color_space": {
+        "albedo": "sRGB",
+        "others": "linear"
+      },
+      "seam_error_mean": 0.0,
+      "channels": {
+        "albedo": "grime_albedo.png",
+        "height": "grime_height.png",
+        "roughness": "grime_roughness.png",
+        "metallic": "grime_metallic.png",
+        "ao": "grime_ao.png",
+        "normal": "grime_normal.png",
+        "orm": "grime_orm.png",
+        "opacity": "grime_opacity.png"
+      },
+      "gltf": {
+        "baseColorTexture": "grime_albedo.png",
+        "normalTexture": "grime_normal.png",
+        "metallicRoughnessTexture": "grime_orm.png",
+        "occlusionTexture": "grime_ao.png"
+      }
+    }
+  ],
+  "signage": [
+    {
+      "id": "wineshop",
+      "name": "醉仙楼",
+      "mark": "酒",
+      "plaque": "assets/textures/signage/plaque_wineshop.png",
+      "banner": "assets/textures/signage/banner_wineshop.png"
+    },
+    {
+      "id": "teahouse",
+      "name": "清茗轩",
+      "mark": "茶",
+      "plaque": "assets/textures/signage/plaque_teahouse.png",
+      "banner": "assets/textures/signage/banner_teahouse.png"
+    },
+    {
+      "id": "silk",
+      "name": "锦绣坊",
+      "mark": "绸",
+      "plaque": "assets/textures/signage/plaque_silk.png",
+      "banner": "assets/textures/signage/banner_silk.png"
+    },
+    {
+      "id": "medicine",
+      "name": "回春堂",
+      "mark": "药",
+      "plaque": "assets/textures/signage/plaque_medicine.png",
+      "banner": "assets/textures/signage/banner_medicine.png"
+    },
+    {
+      "id": "smithy",
+      "name": "百炼坊",
+      "mark": "铁",
+      "plaque": "assets/textures/signage/plaque_smithy.png",
+      "banner": "assets/textures/signage/banner_smithy.png"
+    },
+    {
+      "id": "inn",
+      "name": "悦来客栈",
+      "mark": "宿",
+      "plaque": "assets/textures/signage/plaque_inn.png",
+      "banner": "assets/textures/signage/banner_inn.png"
+    },
+    {
+      "id": "pawn",
+      "name": "裕丰当",
+      "mark": "当",
+      "plaque": "assets/textures/signage/plaque_pawn.png",
+      "banner": "assets/textures/signage/banner_pawn.png"
+    },
+    {
+      "id": "book",
+      "name": "翰墨斋",
+      "mark": "书",
+      "plaque": "assets/textures/signage/plaque_book.png",
+      "banner": "assets/textures/signage/banner_book.png"
+    },
+    {
+      "id": "persian",
+      "name": "波斯邸",
+      "mark": "胡",
+      "plaque": "assets/textures/signage/plaque_persian.png",
+      "banner": "assets/textures/signage/banner_persian.png"
+    },
+    {
+      "id": "bakery",
+      "name": "胡麻饼",
+      "mark": "饼",
+      "plaque": "assets/textures/signage/plaque_bakery.png",
+      "banner": "assets/textures/signage/banner_bakery.png"
+    },
+    {
+      "id": "dye",
+      "name": "青蓝染",
+      "mark": "染",
+      "plaque": "assets/textures/signage/plaque_dye.png",
+      "banner": "assets/textures/signage/banner_dye.png"
+    },
+    {
+      "id": "carpenter",
+      "name": "鲁班坊",
+      "mark": "木",
+      "plaque": "assets/textures/signage/plaque_carpenter.png",
+      "banner": "assets/textures/signage/banner_carpenter.png"
+    },
+    {
+      "id": "incense",
+      "name": "沉香阁",
+      "mark": "香",
+      "plaque": "assets/textures/signage/plaque_incense.png",
+      "banner": "assets/textures/signage/banner_incense.png"
+    },
+    {
+      "id": "brewery",
+      "name": "兰陵酿",
+      "mark": "酿",
+      "plaque": "assets/textures/signage/plaque_brewery.png",
+      "banner": "assets/textures/signage/banner_brewery.png"
+    }
+  ],
+  "elapsed_sec": 583.4
+}

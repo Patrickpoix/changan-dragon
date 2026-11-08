@@ -1,0 +1,44 @@
+{
+  "key": "timber_beam",
+  "label": "木枋梁",
+  "category": "建筑",
+  "base_color_srgb": "#8F7554",
+  "palette_source": "palette:aged_timber",
+  "reference": "08_material_board",
+  "delight_gain": 1.38,
+  "notes": "额枋、梁、椽、斗拱木质",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 0.8,
+  "roughness_range": [
+    0.58,
+    0.86
+  ],
+  "metallic": 0,
+  "normal_strength": 2.6,
+  "ao_radius": 7,
+  "seed": 205,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "timber_beam_albedo.png",
+    "height": "timber_beam_height.png",
+    "roughness": "timber_beam_roughness.png",
+    "metallic": "timber_beam_metallic.png",
+    "ao": "timber_beam_ao.png",
+    "normal": "timber_beam_normal.png",
+    "orm": "timber_beam_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "timber_beam_albedo.png",
+    "normalTexture": "timber_beam_normal.png",
+    "metallicRoughnessTexture": "timber_beam_orm.png",
+    "occlusionTexture": "timber_beam_ao.png"
+  }
+}

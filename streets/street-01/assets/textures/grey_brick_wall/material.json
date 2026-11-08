@@ -1,0 +1,44 @@
+{
+  "key": "grey_brick_wall",
+  "label": "青砖墙",
+  "category": "建筑",
+  "base_color_srgb": "#8D8577",
+  "palette_source": "palette:grey_brick",
+  "reference": "08_material_board",
+  "delight_gain": 1.34,
+  "notes": "墙体下部与台基包砖",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 1.2,
+  "roughness_range": [
+    0.7,
+    0.95
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 6,
+  "seed": 202,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "grey_brick_wall_albedo.png",
+    "height": "grey_brick_wall_height.png",
+    "roughness": "grey_brick_wall_roughness.png",
+    "metallic": "grey_brick_wall_metallic.png",
+    "ao": "grey_brick_wall_ao.png",
+    "normal": "grey_brick_wall_normal.png",
+    "orm": "grey_brick_wall_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "grey_brick_wall_albedo.png",
+    "normalTexture": "grey_brick_wall_normal.png",
+    "metallicRoughnessTexture": "grey_brick_wall_orm.png",
+    "occlusionTexture": "grey_brick_wall_ao.png"
+  }
+}

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长安 · 龙街 | street-01 高精细 PBR 场景预览</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+  --ink:#12100e; --panel:rgba(20,18,16,.90); --line:rgba(216,173,106,.24);
+  --gold:#d8ad6a; --gold-dim:#9a7c4c; --text:#e7e0d2; --muted:#9a9589;
+  --red:#a8442f; --jade:#6f8a7d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--text);
+  font-family:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;}
+#view{position:fixed;inset:0;width:100%;height:100%;display:block}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--line);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:3px;
+  box-shadow:0 12px 40px rgba(0,0,0,.55)}
+header{top:18px;left:18px;right:18px;height:62px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 20px;z-index:20}
+.brand{display:flex;align-items:baseline;gap:14px}
+.brand h1{font-family:"Noto Serif CJK SC","Songti SC",serif;font-size:23px;font-weight:700;
+  letter-spacing:.18em;color:var(--gold)}
+.brand .sub{font-size:11px;letter-spacing:.22em;color:var(--muted)}
+.brand .ver{font-size:10px;color:var(--gold-dim);border:1px solid var(--line);
+  padding:3px 8px;border-radius:2px;letter-spacing:.1em}
+.hstat{display:flex;gap:22px;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.hstat b{display:block;font-size:15px;color:var(--text);font-weight:600;margin-top:2px;
+  font-variant-numeric:tabular-nums}
+#left{top:94px;left:18px;width:236px;max-height:calc(100vh - 150px);overflow-y:auto;z-index:15}
+#right{top:94px;right:18px;width:296px;max-height:calc(100vh - 150px);overflow-y:auto;z-index:15}
+.panel::-webkit-scrollbar{width:5px}.panel::-webkit-scrollbar-thumb{background:rgba(216,173,106,.3)}
+.sec{padding:14px 15px;border-bottom:1px solid rgba(216,173,106,.12)}
+.sec:last-child{border-bottom:none}
+.sec h2{font-size:11px;letter-spacing:.2em;color:var(--gold-dim);font-weight:600;
+  margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.sec h2::before{content:"";width:12px;height:1px;background:var(--gold-dim)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+button{font:inherit;cursor:pointer;background:rgba(255,255,255,.035);color:var(--muted);
+  border:1px solid rgba(216,173,106,.18);border-radius:2px;padding:7px 4px;font-size:11px;
+  letter-spacing:.06em;transition:all .18s}
+button:hover{background:rgba(216,173,106,.12);color:var(--text);border-color:rgba(216,173,106,.45)}
+button.on{background:rgba(216,173,106,.20);color:var(--gold);border-color:var(--gold-dim)}
+.row{display:flex;align-items:center;justify-content:space-between;font-size:11px;
+  color:var(--muted);margin:7px 0}
+.row input{accent-color:var(--gold)}
+.hint{font-size:10px;color:var(--muted);line-height:1.75;opacity:.85}
+.hint kbd{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);
+  border-radius:2px;padding:1px 5px;font-size:10px;color:var(--text)}
+/* 材质浏览器 */
+#matFilter{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+#matFilter button{padding:4px 7px;font-size:10px}
+#matGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.mcard{position:relative;cursor:pointer;border:1px solid rgba(216,173,106,.15);
+  border-radius:2px;overflow:hidden;background:#191714}
+.mcard:hover{border-color:var(--gold)}
+.mcard.sel{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold-dim)}
+.mcard img{width:100%;height:62px;object-fit:cover;display:block}
+.mcard span{display:block;font-size:9px;color:var(--text);padding:4px 5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard i{position:absolute;top:3px;right:3px;width:12px;height:12px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.5)}
+#matDetail{margin-top:12px;border-top:1px solid rgba(216,173,106,.16);padding-top:11px;
+  font-size:11px;line-height:1.7;display:none}
+#matDetail.show{display:block}
+#matDetail .dt{font-family:"Noto Serif CJK SC",serif;font-size:15px;color:var(--gold);
+  letter-spacing:.08em;margin-bottom:5px}
+#matDetail .kv{color:var(--muted)}#matDetail .kv b{color:var(--text);font-weight:500}
+#chans{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:9px}
+#chans button{padding:4px 2px;font-size:9px}
+#chThumb{margin-top:9px;width:100%;aspect-ratio:1;object-fit:cover;border:1px solid var(--line);
+  background:#0d0c0b;cursor:zoom-in}
+/* 底部 */
+footer{bottom:16px;left:18px;right:18px;height:36px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 16px;font-size:10px;color:var(--muted);
+  letter-spacing:.08em;z-index:20}
+footer .k{color:var(--gold-dim)}
+#loading{position:fixed;inset:0;background:radial-gradient(circle at 50% 45%,#241d16,#0d0b09 70%);
+  z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .7s}
+#loading h3{font-family:"Noto Serif CJK SC",serif;font-size:28px;letter-spacing:.4em;
+  color:var(--gold);margin-bottom:8px}
+#loading p{font-size:11px;letter-spacing:.22em;color:var(--muted);margin-bottom:26px}
+#bar{width:280px;height:2px;background:rgba(255,255,255,.1);overflow:hidden}
+#bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+#loadTxt{margin-top:12px;font-size:10px;color:var(--muted);letter-spacing:.1em}
+#lightbox{position:fixed;inset:0;background:rgba(8,7,6,.94);z-index:120;display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:zoom-out}
+#lightbox.show{display:flex}
+#lightbox img{max-width:82vw;max-height:78vh;border:1px solid var(--line)}
+#lightbox p{font-size:12px;color:var(--gold);letter-spacing:.1em}
+#err{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;
+  display:none;background:#2a1a16;border:1px solid var(--red);padding:18px 24px;
+  font-size:12px;line-height:1.8;max-width:520px;border-radius:3px}
+@media(max-width:900px){
+  #left,#right{width:200px}#right{display:none}
+  header .hstat{display:none}
+  .brand h1{font-size:17px}
+}
+</style>
+<script type="importmap">
+{"imports":{"three":"./vendor/three.module.js"}}
+</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+
+<header class="panel">
+  <div class="brand">
+    <h1>长安 · 龙街</h1>
+    <span class="sub">SHENG TANG CHANG'AN · PBR STREET</span>
+    <span class="ver">street-01</span>
+  </div>
+  <div class="hstat">
+    <div>街道长度<b>120 m</b></div>
+    <div>店铺<b>16</b></div>
+    <div>材质<b id="hMat">31</b></div>
+    <div>三角面<b id="hTri">—</b></div>
+  </div>
+</header>
+
+<aside id="left" class="panel">
+  <div class="sec">
+    <h2>时辰 / 光照</h2>
+    <div class="grid" id="presets">
+      <button data-preset="dawn">平旦 · 晨</button>
+      <button data-preset="noon">正午 · 昼</button>
+      <button data-preset="dusk" class="on">日入 · 昏</button>
+      <button data-preset="night">夜阑 · 灯</button>
+    </div>
+    <div class="row"><span>体积雾</span><input type="checkbox" id="fogOn" checked></div>
+    <div class="row"><span>阴影</span><input type="checkbox" id="shadowOn" checked></div>
+    <div class="row"><span>灯笼点光</span><input type="checkbox" id="lampOn" checked></div>
+  </div>
+  <div class="sec">
+    <h2>视角机位</h2>
+    <div class="grid" id="views">
+      <button data-view="gate">街口</button>
+      <button data-view="mid">街心</button>
+      <button data-view="aerial">俯瞰</button>
+      <button data-view="shop">店铺特写</button>
+      <button data-view="tower">城楼远景</button>
+      <button data-view="cross">横切剖面</button>
+    </div>
+  </div>
+  <div class="sec">
+    <h2>PBR 通道调试</h2>
+    <div class="grid3" id="modes">
+      <button data-mode="pbr" class="on">完整</button>
+      <button data-mode="albedo">固有色</button>
+      <button data-mode="texNormal">法线图</button>
+      <button data-mode="ao">AO</button>
+      <button data-mode="rough">粗糙</button>
+      <button data-mode="metal">金属</button>
+      <button data-mode="orm">ORM</button>
+      <button data-mode="geoNormal">几何法线</button>
+      <button data-mode="wire">线框</button>
+    </div>
+  </div>
+  <div class="sec">
+    <h2>漫游操作</h2>
+    <div class="hint">
+      <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 行走 ·
+      <kbd>Q</kbd><kbd>E</kbd> 升降<br>
+      <kbd>Shift</kbd> 加速 · 鼠标拖拽旋转 / 滚轮缩放<br>
+      <kbd>1</kbd>–<kbd>4</kbd> 切换时辰 · <kbd>R</kbd> 回到街口
+    </div>
+  </div>
+</aside>
+
+<aside id="right" class="panel">
+  <div class="sec">
+    <h2>PBR 素材浏览器 <span id="matCount" style="color:var(--muted);font-size:10px"></span></h2>
+    <div id="matFilter"></div>
+    <div id="matGrid"></div>
+    <div id="matDetail">
+      <div class="dt" id="dTitle"></div>
+      <div class="kv" id="dInfo"></div>
+      <div class="kv" id="dNote" style="margin-top:5px"></div>
+      <div id="chans"></div>
+      <img id="chThumb" alt="通道预览">
+    </div>
+  </div>
+  <div class="sec">
+    <h2>构件统计</h2>
+    <div class="kv" id="stats" style="font-size:11px;line-height:1.9;color:var(--muted)">载入中…</div>
+  </div>
+</aside>
+
+<footer class="panel">
+  <span>生图参考 → 调色板 → 程序化 PBR → glTF 2.0 / GLB · 全部资产离线可用</span>
+  <span><span class="k">FPS</span> <b id="fps">—</b> &nbsp;·&nbsp; <span class="k">DRAW</span> <b id="calls">—</b> &nbsp;·&nbsp; <span class="k">TRI</span> <b id="tri">—</b></span>
+</footer>
+
+<div id="loading"><h3>长安 · 龙街</h3><p>正在铺开一条街</p>
+  <div id="bar"><i></i></div><div id="loadTxt">初始化渲染器…</div></div>
+<div id="lightbox"><img id="lbImg" alt=""><p id="lbCap"></p></div>
+<div id="err"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from './vendor/loaders/GLTFLoader.js';
+import { OrbitControls } from './vendor/controls/OrbitControls.js';
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const canvas = $('#view');
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.08;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(58, innerWidth/innerHeight, 0.1, 700);
+camera.position.set(0, 2.5, 2);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.07;
+controls.target.set(0, 2.6, 42);
+controls.maxDistance = 220;
+controls.minDistance = 1.2;
+controls.maxPolarAngle = Math.PI * 0.495;
+
+/* ---------- 天空穹顶 ---------- */
+const skyMat = new THREE.ShaderMaterial({
+  uniforms:{top:{value:new THREE.Color('#7b6a86')}, bottom:{value:new THREE.Color('#e0b483')}},
+  vertexShader:'varying vec3 vP; void main(){vP=position; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+  fragmentShader:'uniform vec3 top; uniform vec3 bottom; varying vec3 vP; void main(){float h=normalize(vP).y; gl_FragColor=vec4(mix(bottom,top,smoothstep(-0.14,0.62,h)),1.0);}',
+  side:THREE.BackSide, depthWrite:false, fog:false
+});
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(430,32,18), skyMat));
+scene.fog = new THREE.FogExp2(0xc8a67c, 0.0062);
+
+/* ---------- 灯光 ---------- */
+const hemi = new THREE.HemisphereLight(0x9aa6bd, 0x4b3a2c, 0.85);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffc878, 2.5);
+sun.position.set(-46, 34, 88);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.left=-78; sun.shadow.camera.right=78;
+sun.shadow.camera.top=78; sun.shadow.camera.bottom=-78;
+sun.shadow.camera.near=1; sun.shadow.camera.far=260;
+sun.shadow.bias=-0.0006;
+scene.add(sun); scene.add(sun.target);
+sun.target.position.set(0,0,60);
+const lamps=[];
+for(let i=0;i<12;i++){
+  const z=9+i*10, side=i%2===0?-1:1;
+  const l=new THREE.PointLight(0xff7a33, 0, 13, 2);
+  l.position.set(side*5.9,3.3,z); scene.add(l); lamps.push(l);
+}
+
+/* ---------- 时辰预设 ---------- */
+const PRESETS={
+  dawn:{sun:0xffd9b0,si:1.9,sp:[-62,20,18],hs:0x9fb6d0,hg:0x5a4a3a,hi:0.95,
+        fog:0xc9bda9,fd:0.0070,top:'#6f84a8',bot:'#e8c6a0',lamp:0.35,exp:1.02,emi:0.5},
+  noon:{sun:0xfff3dc,si:3.0,sp:[-14,78,52],hs:0xbcd2e8,hg:0x6b5a44,hi:1.25,
+        fog:0xd8d2c4,fd:0.0032,top:'#7fa6cf',bot:'#e6e0cf',lamp:0.0,exp:1.0,emi:0.15},
+  dusk:{sun:0xffc878,si:2.5,sp:[-46,34,88],hs:0x9aa6bd,hg:0x4b3a2c,hi:0.85,
+        fog:0xc8a67c,fd:0.0062,top:'#7b6a86',bot:'#e0b483',lamp:1.35,exp:1.08,emi:1.0},
+  night:{sun:0x8fa6d8,si:0.35,sp:[30,52,-20],hs:0x35456b,hg:0x1a1a24,hi:0.42,
+        fog:0x1a2434,fd:0.0105,top:'#0d1424',bot:'#33405a',lamp:3.1,exp:1.22,emi:2.4}
+};
+let emissiveBoost=1.0;
+function setPreset(k){
+  const p=PRESETS[k]; if(!p) return;
+  sun.color.setHex(p.sun); sun.intensity=p.si; sun.position.set(...p.sp);
+  hemi.color.setHex(p.hs); hemi.groundColor.setHex(p.hg); hemi.intensity=p.hi;
+  scene.fog.color.setHex(p.fog); scene.fog.density=p.fd;
+  skyMat.uniforms.top.value.set(p.top); skyMat.uniforms.bottom.value.set(p.bot);
+  renderer.toneMappingExposure=p.exp;
+  lamps.forEach(l=>l.intensity=$('#lampOn').checked?p.lamp:0);
+  emissiveBoost=p.emi;
+  $$('#presets button').forEach(b=>b.classList.toggle('on',b.dataset.preset===k));
+}
+
+/* ---------- 视角预设 ---------- */
+const VIEWS={
+  gate:{p:[0,2.5,2],t:[0,2.8,52]},
+  mid:{p:[0,2.1,52],t:[0,2.6,112]},
+  aerial:{p:[30,30,38],t:[0,0,62]},
+  shop:{p:[-4.6,2.15,24],t:[-12,2.7,24]},
+  tower:{p:[0,3.0,116],t:[0,7,141]},
+  cross:{p:[-22,7,60],t:[10,2,60]}
+};
+let fly=null;
+function setView(k){
+  const v=VIEWS[k]; if(!v) return;
+  fly={p:new THREE.Vector3(...v.p), t:new THREE.Vector3(...v.t), s:performance.now()};
+  $$('#views button').forEach(b=>b.classList.toggle('on',b.dataset.view===k));
+}
+
+/* ---------- PBR 通道调试 ---------- */
+const origMat=new Map(), dbgCache=new Map();
+function shaderChan(tex, ch){
+  return new THREE.ShaderMaterial({
+    uniforms:{t:{value:tex}, ch:{value:ch}},
+    vertexShader:'varying vec2 vU; void main(){vU=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+    fragmentShader:'uniform sampler2D t; uniform int ch; varying vec2 vU; void main(){vec3 c=texture2D(t,vU).rgb; float v= ch==0?c.r:(ch==1?c.g:c.b); gl_FragColor=vec4(vec3(v),1.0);}',
+    side:THREE.DoubleSide, fog:false
+  });
+}
+function debugMat(orig, mode){
+  const key=orig.uuid+'|'+mode;
+  if(dbgCache.has(key)) return dbgCache.get(key);
+  let m;
+  switch(mode){
+    case 'albedo': m=new THREE.MeshBasicMaterial({map:orig.map,fog:false}); break;
+    case 'texNormal': m=new THREE.MeshBasicMaterial({map:orig.normalMap,fog:false}); break;
+    case 'orm': m=new THREE.MeshBasicMaterial({map:orig.roughnessMap||orig.metalnessMap,fog:false}); break;
+    case 'ao': m=shaderChan(orig.aoMap||orig.roughnessMap,0); break;
+    case 'rough': m=shaderChan(orig.roughnessMap,1); break;
+    case 'metal': m=shaderChan(orig.metalnessMap||orig.roughnessMap,2); break;
+    case 'geoNormal': m=new THREE.MeshNormalMaterial({fog:false}); break;
+    case 'wire': m=new THREE.MeshBasicMaterial({color:0xd8ad6a,wireframe:true,transparent:true,opacity:.55,fog:false}); break;
+    default: return orig;
+  }
+  m.side=orig.side; m.transparent=orig.transparent; m.alphaTest=orig.alphaTest||0;
+  m.depthWrite=orig.depthWrite;
+  dbgCache.set(key,m); return m;
+}
+let curMode='pbr';
+function applyMode(mode){
+  curMode=mode;
+  if(!root) return;
+  root.traverse(o=>{
+    if(!o.isMesh) return;
+    if(!origMat.has(o.uuid)) origMat.set(o.uuid,o.material);
+    const om=origMat.get(o.uuid);
+    if(mode==='pbr'){o.material=om;return;}
+    const arr=Array.isArray(om)?om:[om];
+    o.material=arr.map(m=>debugMat(m,mode));
+  });
+  $$('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+}
+
+/* ---------- 加载模型 ---------- */
+let root=null, triCount=0;
+const manager=new THREE.LoadingManager();
+manager.onProgress=(u,l,t)=>{ $('#bar i').style.width=(l/t*90)+'%'; $('#loadTxt').textContent='载入资产 '+l+' / '+t; };
+const loader=new GLTFLoader(manager);
+loader.load('./street_preview.gltf',
+  (g)=>{
+    root=g.scene;
+    root.traverse(o=>{
+      if(o.isLight) o.visible=false;   // 页面自行控制光照
+      if(o.isMesh){
+        o.castShadow=true; o.receiveShadow=true;
+        const gm=o.geometry;
+        triCount += (gm.index?gm.index.count:gm.attributes.position.count)/3;
+        const ms=Array.isArray(o.material)?o.material:[o.material];
+        ms.forEach(m=>{ if(m.emissiveMap) m.emissiveIntensity=emissiveBoost; });
+      }
+    });
+    scene.add(root);
+    $('#hTri').textContent=triCount.toLocaleString();
+    $('#bar i').style.width='100%';
+    $('#loadTxt').textContent='完成';
+    setTimeout(()=>{const l=$('#loading');l.style.opacity='0';setTimeout(()=>l.remove(),750);},380);
+    setPreset('dusk'); setView('gate');
+  },
+  (ev)=>{ if(ev.total) $('#bar i').style.width=(ev.loaded/ev.total*88)+'%'; },
+  (e)=>{ $('#err').style.display='block';
+         $('#err').innerHTML='模型加载失败：'+e.message+'<br>请通过本地 HTTP 服务打开本页（见 start_preview.sh）。'; }
+);
+
+/* ---------- 材质浏览器 ---------- */
+let MATS=[];
+fetch('./materials.json').then(r=>r.json()).then(list=>{
+  MATS=list; $('#matCount').textContent='('+list.length+')';
+  const cats=['全部',...new Set(list.map(m=>m.category))];
+  $('#matFilter').innerHTML=cats.map((c,i)=>'<button data-cat="'+c+'"'+(i===0?' class="on"':'')+'>'+c+'</button>').join('');
+  $$('#matFilter button').forEach(b=>b.onclick=()=>{
+    $$('#matFilter button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    renderGrid(b.dataset.cat);
+  });
+  renderGrid('全部');
+}).catch(()=>{});
+function renderGrid(cat){
+  const list=cat==='全部'?MATS:MATS.filter(m=>m.category===cat);
+  $('#matGrid').innerHTML=list.map((m,i)=>
+    '<div class="mcard" data-i="'+MATS.indexOf(m)+'"><img loading="lazy" src="'+m.preview+'" alt=""><i style="background:'+m.base+'"></i><span>'+m.label+'</span></div>').join('');
+  $$('.mcard').forEach(c=>c.onclick=()=>{
+    $$('.mcard').forEach(x=>x.classList.remove('sel')); c.classList.add('sel');
+    showMat(MATS[+c.dataset.i]);
+  });
+}
+const CHLABEL={albedo:'固有色',normal:'法线',roughness:'粗糙',metallic:'金属',ao:'AO',height:'高度',orm:'ORM',opacity:'透明',emissive:'自发光'};
+function showMat(m){
+  $('#matDetail').classList.add('show');
+  $('#dTitle').textContent=m.label+' · '+m.key;
+  $('#dInfo').innerHTML='<b>'+m.size+' px</b> · 平铺 <b>'+m.tile+' m</b> · 接缝 <b>'+m.seam+'</b><br>'+
+    '基色 <b>'+m.base+'</b> · 粗糙 <b>'+m.roughness.join('–')+'</b> · 金属 <b>'+m.metallic+'</b>';
+  $('#dNote').textContent='参考：'+m.reference+' — '+m.notes;
+  const keys=Object.keys(m.channels);
+  $('#chans').innerHTML=keys.map((k,i)=>'<button data-k="'+k+'"'+(i===0?' class="on"':'')+'>'+CHLABEL[k]+'</button>').join('');
+  const pick=k=>{
+    $('#chThumb').src=m.channels[k];
+    $('#chThumb').onclick=()=>{$('#lbImg').src=m.originals[k];$('#lbCap').textContent=m.label+' · '+CHLABEL[k]+' · 原尺寸 '+m.size+'px';$('#lightbox').classList.add('show');};
+    $$('#chans button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  };
+  $$('#chans button').forEach(b=>b.onclick=()=>pick(b.dataset.k));
+  pick(keys[0]);
+}
+$('#lightbox').onclick=()=>$('#lightbox').classList.remove('show');
+
+/* ---------- 统计 ---------- */
+fetch('./stats.json').then(r=>r.json()).then(s=>{
+  const c=s.counts,d=s.dimensions;
+  $('#stats').innerHTML=
+    '街道 <b>'+d.length_m+'m</b> × <b>'+d.total_width_m+'m</b> · 车行 <b>'+d.road_width_m+'m</b><br>'+
+    '檐口 <b>'+d.eave_height_m+'m</b> · 屋脊 <b>'+d.ridge_height_m+'m</b><br>'+
+    '语义分组 <b>'+c.semantic_groups+'</b> · 节点 <b>'+c.nodes+'</b><br>'+
+    '材质 <b>'+c.materials+'</b> · 贴图 <b>'+c.texture_files+'</b><br>'+
+    '三角面 <b>'+c.triangles.toLocaleString()+'</b> · 顶点 <b>'+c.vertices.toLocaleString()+'</b><br>'+
+    '模块库 <b>'+s.modules.length+'</b> 件（灯笼 / 摊位 / 水井 / 槐树 / 拴马桩 / 石灯 / 三开间店铺）';
+  $('#hMat').textContent=c.materials;
+}).catch(()=>{});
+
+/* ---------- 交互 ---------- */
+$$('#presets button').forEach(b=>b.onclick=()=>setPreset(b.dataset.preset));
+$$('#views button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+$$('#modes button').forEach(b=>b.onclick=()=>applyMode(b.dataset.mode));
+$('#fogOn').onchange=e=>{scene.fog=e.target.checked?new THREE.FogExp2(scene.fog?scene.fog.color.getHex():0xc8a67c,scene.fog?scene.fog.density:0.0062):null;};
+$('#shadowOn').onchange=e=>{renderer.shadowMap.enabled=e.target.checked;sun.castShadow=e.target.checked;};
+$('#lampOn').onchange=()=>{const k=[...$$('#presets button')].find(b=>b.classList.contains('on')).dataset.preset;setPreset(k);};
+const keys={};
+addEventListener('keydown',e=>{
+  keys[e.code]=true;
+  if(e.code==='Digit1')setPreset('dawn'); if(e.code==='Digit2')setPreset('noon');
+  if(e.code==='Digit3')setPreset('dusk');  if(e.code==='Digit4')setPreset('night');
+  if(e.code==='KeyR')setView('gate');
+});
+addEventListener('keyup',e=>keys[e.code]=false);
+function move(){
+  const sp=keys['ShiftLeft']||keys['ShiftRight']?0.85:0.32;
+  const f=new THREE.Vector3(); camera.getWorldDirection(f); f.y=0; f.normalize();
+  const r=new THREE.Vector3().crossVectors(f,new THREE.Vector3(0,1,0)).normalize();
+  const d=new THREE.Vector3();
+  if(keys['KeyW']||keys['ArrowUp'])d.addScaledVector(f,sp);
+  if(keys['KeyS']||keys['ArrowDown'])d.addScaledVector(f,-sp);
+  if(keys['KeyA']||keys['ArrowLeft'])d.addScaledVector(r,-sp);
+  if(keys['KeyD']||keys['ArrowRight'])d.addScaledVector(r,sp);
+  if(keys['KeyQ'])d.y-=sp; if(keys['KeyE'])d.y+=sp;
+  if(d.lengthSq()>0){camera.position.add(d);controls.target.add(d);}
+}
+addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+
+/* ---------- 主循环 ---------- */
+let frames=0,last=performance.now();
+function loop(now){
+  requestAnimationFrame(loop);
+  move();
+  if(fly){
+    const k=Math.min(1,(now-fly.s)/900), e=1-Math.pow(1-k,3);
+    camera.position.lerp(fly.p,e*0.14); controls.target.lerp(fly.t,e*0.14);
+    if(k>=1)fly=null;
+  }
+  controls.update();
+  renderer.render(scene,camera);
+  frames++;
+  if(now-last>1000){
+    $('#fps').textContent=Math.round(frames*1000/(now-last));
+    $('#calls').textContent=renderer.info.render.calls;
+    $('#tri').textContent=renderer.info.render.triangles.toLocaleString();
+    frames=0;last=now;
+  }
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "lantern",
+    "glb": "assets/models/modules/lantern.glb",
+    "meshes": 1,
+    "bin_bytes": 29696
+  },
+  {
+    "name": "stall",
+    "glb": "assets/models/modules/stall.glb",
+    "meshes": 1,
+    "bin_bytes": 87816
+  },
+  {
+    "name": "well",
+    "glb": "assets/models/modules/well.glb",
+    "meshes": 1,
+    "bin_bytes": 50480
+  },
+  {
+    "name": "tree",
+    "glb": "assets/models/modules/tree.glb",
+    "meshes": 1,
+    "bin_bytes": 22176
+  },
+  {
+    "name": "hitching_post",
+    "glb": "assets/models/modules/hitching_post.glb",
+    "meshes": 1,
+    "bin_bytes": 7712
+  },
+  {
+    "name": "stone_lantern",
+    "glb": "assets/models/modules/stone_lantern.glb",
+    "meshes": 1,
+    "bin_bytes": 18160
+  },
+  {
+    "name": "shop_3bay",
+    "glb": "assets/models/modules/shop_3bay.glb",
+    "meshes": 1,
+    "bin_bytes": 962984
+  }
+]

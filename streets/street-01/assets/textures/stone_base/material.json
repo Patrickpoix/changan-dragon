@@ -1,0 +1,44 @@
+{
+  "key": "stone_base",
+  "label": "台基石",
+  "category": "建筑",
+  "base_color_srgb": "#A39C8F",
+  "palette_source": "derived:#8A857A",
+  "reference": "02_shopfront_elevation",
+  "delight_gain": 1.18,
+  "notes": "柱础、台基、踏步",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.0,
+  "roughness_range": [
+    0.66,
+    0.9
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 7,
+  "seed": 210,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "stone_base_albedo.png",
+    "height": "stone_base_height.png",
+    "roughness": "stone_base_roughness.png",
+    "metallic": "stone_base_metallic.png",
+    "ao": "stone_base_ao.png",
+    "normal": "stone_base_normal.png",
+    "orm": "stone_base_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "stone_base_albedo.png",
+    "normalTexture": "stone_base_normal.png",
+    "metallicRoughnessTexture": "stone_base_orm.png",
+    "occlusionTexture": "stone_base_ao.png"
+  }
+}

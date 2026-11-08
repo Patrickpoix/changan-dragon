@@ -1,0 +1,44 @@
+{
+  "key": "stone_curb",
+  "label": "路缘石",
+  "category": "路面",
+  "base_color_srgb": "#777B71",
+  "palette_source": "palette:stone_paving",
+  "reference": "04_stone_paving_detail",
+  "delight_gain": 1.3,
+  "notes": "路缘、沟盖、台阶",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.0,
+  "roughness_range": [
+    0.7,
+    0.95
+  ],
+  "metallic": 0,
+  "normal_strength": 2.6,
+  "ao_radius": 7,
+  "seed": 102,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "stone_curb_albedo.png",
+    "height": "stone_curb_height.png",
+    "roughness": "stone_curb_roughness.png",
+    "metallic": "stone_curb_metallic.png",
+    "ao": "stone_curb_ao.png",
+    "normal": "stone_curb_normal.png",
+    "orm": "stone_curb_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "stone_curb_albedo.png",
+    "normalTexture": "stone_curb_normal.png",
+    "metallicRoughnessTexture": "stone_curb_orm.png",
+    "occlusionTexture": "stone_curb_ao.png"
+  }
+}

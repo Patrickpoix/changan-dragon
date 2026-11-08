@@ -1,0 +1,45 @@
+{
+  "key": "lattice_paper",
+  "label": "格扇糊纸",
+  "category": "建筑",
+  "base_color_srgb": "#D5CAAC",
+  "palette_source": "derived:#C9BFA4",
+  "reference": "02_shopfront_elevation",
+  "delight_gain": 1.06,
+  "notes": "窗格糊纸，微透光自发光",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.5,
+  "roughness_range": [
+    0.78,
+    0.96
+  ],
+  "metallic": 0,
+  "normal_strength": 1.6,
+  "ao_radius": 5,
+  "seed": 207,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "lattice_paper_albedo.png",
+    "height": "lattice_paper_height.png",
+    "roughness": "lattice_paper_roughness.png",
+    "metallic": "lattice_paper_metallic.png",
+    "ao": "lattice_paper_ao.png",
+    "normal": "lattice_paper_normal.png",
+    "orm": "lattice_paper_orm.png",
+    "emissive": "lattice_paper_emissive.png"
+  },
+  "gltf": {
+    "baseColorTexture": "lattice_paper_albedo.png",
+    "normalTexture": "lattice_paper_normal.png",
+    "metallicRoughnessTexture": "lattice_paper_orm.png",
+    "occlusionTexture": "lattice_paper_ao.png"
+  }
+}

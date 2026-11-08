@@ -1,0 +1,44 @@
+{
+  "key": "grey_brick",
+  "label": "青砖地",
+  "category": "路面",
+  "base_color_srgb": "#8F8779",
+  "palette_source": "palette:grey_brick",
+  "reference": "08_material_board",
+  "delight_gain": 1.36,
+  "notes": "人行道与院落铺砖",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 1.2,
+  "roughness_range": [
+    0.7,
+    0.95
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 6,
+  "seed": 103,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "grey_brick_albedo.png",
+    "height": "grey_brick_height.png",
+    "roughness": "grey_brick_roughness.png",
+    "metallic": "grey_brick_metallic.png",
+    "ao": "grey_brick_ao.png",
+    "normal": "grey_brick_normal.png",
+    "orm": "grey_brick_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "grey_brick_albedo.png",
+    "normalTexture": "grey_brick_normal.png",
+    "metallicRoughnessTexture": "grey_brick_orm.png",
+    "occlusionTexture": "grey_brick_ao.png"
+  }
+}

@@ -1,0 +1,1025 @@
+[
+  {
+    "key": "bamboo_weave",
+    "label": "竹编",
+    "category": "装饰",
+    "base": "#D7AE66",
+    "tile": 0.4,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "07_market_props",
+    "notes": "竹筐、竹帘经纬编织",
+    "roughness": [
+      0.7,
+      0.94
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/bamboo_weave_albedo.jpg",
+      "height": "textures/bamboo_weave_height.jpg",
+      "roughness": "textures/bamboo_weave_roughness.jpg",
+      "metallic": "textures/bamboo_weave_metallic.jpg",
+      "ao": "textures/bamboo_weave_ao.jpg",
+      "normal": "textures/bamboo_weave_normal.jpg",
+      "orm": "textures/bamboo_weave_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/bamboo_weave/bamboo_weave_albedo.png",
+      "height": "../assets/textures/bamboo_weave/bamboo_weave_height.png",
+      "roughness": "../assets/textures/bamboo_weave/bamboo_weave_roughness.png",
+      "metallic": "../assets/textures/bamboo_weave/bamboo_weave_metallic.png",
+      "ao": "../assets/textures/bamboo_weave/bamboo_weave_ao.png",
+      "normal": "../assets/textures/bamboo_weave/bamboo_weave_normal.png",
+      "orm": "../assets/textures/bamboo_weave/bamboo_weave_orm.png"
+    },
+    "preview": "textures/bamboo_weave_albedo.jpg"
+  },
+  {
+    "key": "black_lacquer",
+    "label": "黑漆匾额",
+    "category": "建筑",
+    "base": "#221B18",
+    "tile": 0.5,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "02_shopfront_elevation",
+    "notes": "匾额底板（字由 signage 贴图叠加）",
+    "roughness": [
+      0.28,
+      0.66
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/black_lacquer_albedo.jpg",
+      "height": "textures/black_lacquer_height.jpg",
+      "roughness": "textures/black_lacquer_roughness.jpg",
+      "metallic": "textures/black_lacquer_metallic.jpg",
+      "ao": "textures/black_lacquer_ao.jpg",
+      "normal": "textures/black_lacquer_normal.jpg",
+      "orm": "textures/black_lacquer_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/black_lacquer/black_lacquer_albedo.png",
+      "height": "../assets/textures/black_lacquer/black_lacquer_height.png",
+      "roughness": "../assets/textures/black_lacquer/black_lacquer_roughness.png",
+      "metallic": "../assets/textures/black_lacquer/black_lacquer_metallic.png",
+      "ao": "../assets/textures/black_lacquer/black_lacquer_ao.png",
+      "normal": "../assets/textures/black_lacquer/black_lacquer_normal.png",
+      "orm": "../assets/textures/black_lacquer/black_lacquer_orm.png"
+    },
+    "preview": "textures/black_lacquer_albedo.jpg"
+  },
+  {
+    "key": "gilt_bronze",
+    "label": "鎏金铜件",
+    "category": "装饰",
+    "base": "#C59B40",
+    "tile": 0.4,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "05_lacquer_polychrome",
+    "notes": "门环、角叶、铜钩，带铜绿与划痕",
+    "roughness": [
+      0.2,
+      0.78
+    ],
+    "metallic": 0.88,
+    "channels": {
+      "albedo": "textures/gilt_bronze_albedo.jpg",
+      "height": "textures/gilt_bronze_height.jpg",
+      "roughness": "textures/gilt_bronze_roughness.jpg",
+      "metallic": "textures/gilt_bronze_metallic.jpg",
+      "ao": "textures/gilt_bronze_ao.jpg",
+      "normal": "textures/gilt_bronze_normal.jpg",
+      "orm": "textures/gilt_bronze_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/gilt_bronze/gilt_bronze_albedo.png",
+      "height": "../assets/textures/gilt_bronze/gilt_bronze_height.png",
+      "roughness": "../assets/textures/gilt_bronze/gilt_bronze_roughness.png",
+      "metallic": "../assets/textures/gilt_bronze/gilt_bronze_metallic.png",
+      "ao": "../assets/textures/gilt_bronze/gilt_bronze_ao.png",
+      "normal": "../assets/textures/gilt_bronze/gilt_bronze_normal.png",
+      "orm": "../assets/textures/gilt_bronze/gilt_bronze_orm.png"
+    },
+    "preview": "textures/gilt_bronze_albedo.jpg"
+  },
+  {
+    "key": "grey_brick",
+    "label": "青砖地",
+    "category": "路面",
+    "base": "#8F8779",
+    "tile": 1.2,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "人行道与院落铺砖",
+    "roughness": [
+      0.7,
+      0.95
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/grey_brick_albedo.jpg",
+      "height": "textures/grey_brick_height.jpg",
+      "roughness": "textures/grey_brick_roughness.jpg",
+      "metallic": "textures/grey_brick_metallic.jpg",
+      "ao": "textures/grey_brick_ao.jpg",
+      "normal": "textures/grey_brick_normal.jpg",
+      "orm": "textures/grey_brick_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/grey_brick/grey_brick_albedo.png",
+      "height": "../assets/textures/grey_brick/grey_brick_height.png",
+      "roughness": "../assets/textures/grey_brick/grey_brick_roughness.png",
+      "metallic": "../assets/textures/grey_brick/grey_brick_metallic.png",
+      "ao": "../assets/textures/grey_brick/grey_brick_ao.png",
+      "normal": "../assets/textures/grey_brick/grey_brick_normal.png",
+      "orm": "../assets/textures/grey_brick/grey_brick_orm.png"
+    },
+    "preview": "textures/grey_brick_albedo.jpg"
+  },
+  {
+    "key": "grey_brick_wall",
+    "label": "青砖墙",
+    "category": "建筑",
+    "base": "#8D8577",
+    "tile": 1.2,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "墙体下部与台基包砖",
+    "roughness": [
+      0.7,
+      0.95
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/grey_brick_wall_albedo.jpg",
+      "height": "textures/grey_brick_wall_height.jpg",
+      "roughness": "textures/grey_brick_wall_roughness.jpg",
+      "metallic": "textures/grey_brick_wall_metallic.jpg",
+      "ao": "textures/grey_brick_wall_ao.jpg",
+      "normal": "textures/grey_brick_wall_normal.jpg",
+      "orm": "textures/grey_brick_wall_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/grey_brick_wall/grey_brick_wall_albedo.png",
+      "height": "../assets/textures/grey_brick_wall/grey_brick_wall_height.png",
+      "roughness": "../assets/textures/grey_brick_wall/grey_brick_wall_roughness.png",
+      "metallic": "../assets/textures/grey_brick_wall/grey_brick_wall_metallic.png",
+      "ao": "../assets/textures/grey_brick_wall/grey_brick_wall_ao.png",
+      "normal": "../assets/textures/grey_brick_wall/grey_brick_wall_normal.png",
+      "orm": "../assets/textures/grey_brick_wall/grey_brick_wall_orm.png"
+    },
+    "preview": "textures/grey_brick_wall_albedo.jpg"
+  },
+  {
+    "key": "grime",
+    "label": "污渍贴花",
+    "category": "细节",
+    "base": "#3A2F25",
+    "tile": 1.0,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "04_stone_paving_detail",
+    "notes": "径向衰减污渍，带 alpha 通道",
+    "roughness": [
+      0.84,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/grime_albedo.jpg",
+      "height": "textures/grime_height.jpg",
+      "roughness": "textures/grime_roughness.jpg",
+      "metallic": "textures/grime_metallic.jpg",
+      "ao": "textures/grime_ao.jpg",
+      "normal": "textures/grime_normal.jpg",
+      "orm": "textures/grime_orm.jpg",
+      "opacity": "textures/grime_opacity.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/grime/grime_albedo.png",
+      "height": "../assets/textures/grime/grime_height.png",
+      "roughness": "../assets/textures/grime/grime_roughness.png",
+      "metallic": "../assets/textures/grime/grime_metallic.png",
+      "ao": "../assets/textures/grime/grime_ao.png",
+      "normal": "../assets/textures/grime/grime_normal.png",
+      "orm": "../assets/textures/grime/grime_orm.png",
+      "opacity": "../assets/textures/grime/grime_opacity.png"
+    },
+    "preview": "textures/grime_albedo.jpg"
+  },
+  {
+    "key": "indigo_banner",
+    "label": "靛蓝布幡",
+    "category": "装饰",
+    "base": "#202C54",
+    "tile": 0.5,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "06_lanterns_banners",
+    "notes": "褪色靛蓝幌布",
+    "roughness": [
+      0.76,
+      0.96
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/indigo_banner_albedo.jpg",
+      "height": "textures/indigo_banner_height.jpg",
+      "roughness": "textures/indigo_banner_roughness.jpg",
+      "metallic": "textures/indigo_banner_metallic.jpg",
+      "ao": "textures/indigo_banner_ao.jpg",
+      "normal": "textures/indigo_banner_normal.jpg",
+      "orm": "textures/indigo_banner_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/indigo_banner/indigo_banner_albedo.png",
+      "height": "../assets/textures/indigo_banner/indigo_banner_height.png",
+      "roughness": "../assets/textures/indigo_banner/indigo_banner_roughness.png",
+      "metallic": "../assets/textures/indigo_banner/indigo_banner_metallic.png",
+      "ao": "../assets/textures/indigo_banner/indigo_banner_ao.png",
+      "normal": "../assets/textures/indigo_banner/indigo_banner_normal.png",
+      "orm": "../assets/textures/indigo_banner/indigo_banner_orm.png"
+    },
+    "preview": "textures/indigo_banner_albedo.jpg"
+  },
+  {
+    "key": "lantern_silk",
+    "label": "灯笼纱",
+    "category": "装饰",
+    "base": "#B0B0A9",
+    "tile": 0.35,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "06_lanterns_banners",
+    "notes": "竹骨横条 + 暖光自发光",
+    "roughness": [
+      0.62,
+      0.9
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/lantern_silk_albedo.jpg",
+      "height": "textures/lantern_silk_height.jpg",
+      "roughness": "textures/lantern_silk_roughness.jpg",
+      "metallic": "textures/lantern_silk_metallic.jpg",
+      "ao": "textures/lantern_silk_ao.jpg",
+      "normal": "textures/lantern_silk_normal.jpg",
+      "orm": "textures/lantern_silk_orm.jpg",
+      "emissive": "textures/lantern_silk_emissive.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/lantern_silk/lantern_silk_albedo.png",
+      "height": "../assets/textures/lantern_silk/lantern_silk_height.png",
+      "roughness": "../assets/textures/lantern_silk/lantern_silk_roughness.png",
+      "metallic": "../assets/textures/lantern_silk/lantern_silk_metallic.png",
+      "ao": "../assets/textures/lantern_silk/lantern_silk_ao.png",
+      "normal": "../assets/textures/lantern_silk/lantern_silk_normal.png",
+      "orm": "../assets/textures/lantern_silk/lantern_silk_orm.png",
+      "emissive": "../assets/textures/lantern_silk/lantern_silk_emissive.png"
+    },
+    "preview": "textures/lantern_silk_albedo.jpg"
+  },
+  {
+    "key": "lattice_paper",
+    "label": "格扇糊纸",
+    "category": "建筑",
+    "base": "#D5CAAC",
+    "tile": 0.5,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "02_shopfront_elevation",
+    "notes": "窗格糊纸，微透光自发光",
+    "roughness": [
+      0.78,
+      0.96
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/lattice_paper_albedo.jpg",
+      "height": "textures/lattice_paper_height.jpg",
+      "roughness": "textures/lattice_paper_roughness.jpg",
+      "metallic": "textures/lattice_paper_metallic.jpg",
+      "ao": "textures/lattice_paper_ao.jpg",
+      "normal": "textures/lattice_paper_normal.jpg",
+      "orm": "textures/lattice_paper_orm.jpg",
+      "emissive": "textures/lattice_paper_emissive.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/lattice_paper/lattice_paper_albedo.png",
+      "height": "../assets/textures/lattice_paper/lattice_paper_height.png",
+      "roughness": "../assets/textures/lattice_paper/lattice_paper_roughness.png",
+      "metallic": "../assets/textures/lattice_paper/lattice_paper_metallic.png",
+      "ao": "../assets/textures/lattice_paper/lattice_paper_ao.png",
+      "normal": "../assets/textures/lattice_paper/lattice_paper_normal.png",
+      "orm": "../assets/textures/lattice_paper/lattice_paper_orm.png",
+      "emissive": "../assets/textures/lattice_paper/lattice_paper_emissive.png"
+    },
+    "preview": "textures/lattice_paper_albedo.jpg"
+  },
+  {
+    "key": "leaf_atlas",
+    "label": "槐叶图集",
+    "category": "自然",
+    "base": "#4C7035",
+    "tile": 1.0,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "01_street_overview / 07_market_props",
+    "notes": "4x4 叶片图集 + alpha，用于树冠",
+    "roughness": [
+      0.62,
+      0.9
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/leaf_atlas_albedo.jpg",
+      "height": "textures/leaf_atlas_height.jpg",
+      "roughness": "textures/leaf_atlas_roughness.jpg",
+      "metallic": "textures/leaf_atlas_metallic.jpg",
+      "ao": "textures/leaf_atlas_ao.jpg",
+      "normal": "textures/leaf_atlas_normal.jpg",
+      "orm": "textures/leaf_atlas_orm.jpg",
+      "opacity": "textures/leaf_atlas_opacity.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/leaf_atlas/leaf_atlas_albedo.png",
+      "height": "../assets/textures/leaf_atlas/leaf_atlas_height.png",
+      "roughness": "../assets/textures/leaf_atlas/leaf_atlas_roughness.png",
+      "metallic": "../assets/textures/leaf_atlas/leaf_atlas_metallic.png",
+      "ao": "../assets/textures/leaf_atlas/leaf_atlas_ao.png",
+      "normal": "../assets/textures/leaf_atlas/leaf_atlas_normal.png",
+      "orm": "../assets/textures/leaf_atlas/leaf_atlas_orm.png",
+      "opacity": "../assets/textures/leaf_atlas/leaf_atlas_opacity.png"
+    },
+    "preview": "textures/leaf_atlas_albedo.jpg"
+  },
+  {
+    "key": "lime_plaster",
+    "label": "白灰抹面",
+    "category": "建筑",
+    "base": "#C9C1B0",
+    "tile": 1.4,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "墙面抹灰，含龟裂与剥落露土",
+    "roughness": [
+      0.72,
+      0.95
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/lime_plaster_albedo.jpg",
+      "height": "textures/lime_plaster_height.jpg",
+      "roughness": "textures/lime_plaster_roughness.jpg",
+      "metallic": "textures/lime_plaster_metallic.jpg",
+      "ao": "textures/lime_plaster_ao.jpg",
+      "normal": "textures/lime_plaster_normal.jpg",
+      "orm": "textures/lime_plaster_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/lime_plaster/lime_plaster_albedo.png",
+      "height": "../assets/textures/lime_plaster/lime_plaster_height.png",
+      "roughness": "../assets/textures/lime_plaster/lime_plaster_roughness.png",
+      "metallic": "../assets/textures/lime_plaster/lime_plaster_metallic.png",
+      "ao": "../assets/textures/lime_plaster/lime_plaster_ao.png",
+      "normal": "../assets/textures/lime_plaster/lime_plaster_normal.png",
+      "orm": "../assets/textures/lime_plaster/lime_plaster_orm.png"
+    },
+    "preview": "textures/lime_plaster_albedo.jpg"
+  },
+  {
+    "key": "moss",
+    "label": "苔藓",
+    "category": "自然",
+    "base": "#5B783F",
+    "tile": 0.4,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "04_stone_paving_detail",
+    "notes": "缝隙与阴湿处团簇苔藓",
+    "roughness": [
+      0.84,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/moss_albedo.jpg",
+      "height": "textures/moss_height.jpg",
+      "roughness": "textures/moss_roughness.jpg",
+      "metallic": "textures/moss_metallic.jpg",
+      "ao": "textures/moss_ao.jpg",
+      "normal": "textures/moss_normal.jpg",
+      "orm": "textures/moss_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/moss/moss_albedo.png",
+      "height": "../assets/textures/moss/moss_height.png",
+      "roughness": "../assets/textures/moss/moss_roughness.png",
+      "metallic": "../assets/textures/moss/moss_metallic.png",
+      "ao": "../assets/textures/moss/moss_ao.png",
+      "normal": "../assets/textures/moss/moss_normal.png",
+      "orm": "../assets/textures/moss/moss_orm.png"
+    },
+    "preview": "textures/moss_albedo.jpg"
+  },
+  {
+    "key": "mud_track",
+    "label": "车辙泥",
+    "category": "路面",
+    "base": "#5C4732",
+    "tile": 1.2,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "04_stone_paving_detail",
+    "notes": "车辙与泥泞贴花",
+    "roughness": [
+      0.8,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/mud_track_albedo.jpg",
+      "height": "textures/mud_track_height.jpg",
+      "roughness": "textures/mud_track_roughness.jpg",
+      "metallic": "textures/mud_track_metallic.jpg",
+      "ao": "textures/mud_track_ao.jpg",
+      "normal": "textures/mud_track_normal.jpg",
+      "orm": "textures/mud_track_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/mud_track/mud_track_albedo.png",
+      "height": "../assets/textures/mud_track/mud_track_height.png",
+      "roughness": "../assets/textures/mud_track/mud_track_roughness.png",
+      "metallic": "../assets/textures/mud_track/mud_track_metallic.png",
+      "ao": "../assets/textures/mud_track/mud_track_ao.png",
+      "normal": "../assets/textures/mud_track/mud_track_normal.png",
+      "orm": "../assets/textures/mud_track/mud_track_orm.png"
+    },
+    "preview": "textures/mud_track_albedo.jpg"
+  },
+  {
+    "key": "ochre_banner",
+    "label": "赭黄布幡",
+    "category": "装饰",
+    "base": "#CB8A49",
+    "tile": 0.5,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "06_lanterns_banners",
+    "notes": "赭黄旗幡",
+    "roughness": [
+      0.76,
+      0.96
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/ochre_banner_albedo.jpg",
+      "height": "textures/ochre_banner_height.jpg",
+      "roughness": "textures/ochre_banner_roughness.jpg",
+      "metallic": "textures/ochre_banner_metallic.jpg",
+      "ao": "textures/ochre_banner_ao.jpg",
+      "normal": "textures/ochre_banner_normal.jpg",
+      "orm": "textures/ochre_banner_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/ochre_banner/ochre_banner_albedo.png",
+      "height": "../assets/textures/ochre_banner/ochre_banner_height.png",
+      "roughness": "../assets/textures/ochre_banner/ochre_banner_roughness.png",
+      "metallic": "../assets/textures/ochre_banner/ochre_banner_metallic.png",
+      "ao": "../assets/textures/ochre_banner/ochre_banner_ao.png",
+      "normal": "../assets/textures/ochre_banner/ochre_banner_normal.png",
+      "orm": "../assets/textures/ochre_banner/ochre_banner_orm.png"
+    },
+    "preview": "textures/ochre_banner_albedo.jpg"
+  },
+  {
+    "key": "painted_dougong",
+    "label": "青绿彩画",
+    "category": "建筑",
+    "base": "#48534A",
+    "tile": 0.6,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "05_lacquer_polychrome",
+    "notes": "斗拱与额枋彩画，含金线、朱带、剥落",
+    "roughness": [
+      0.38,
+      0.88
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/painted_dougong_albedo.jpg",
+      "height": "textures/painted_dougong_height.jpg",
+      "roughness": "textures/painted_dougong_roughness.jpg",
+      "metallic": "textures/painted_dougong_metallic.jpg",
+      "ao": "textures/painted_dougong_ao.jpg",
+      "normal": "textures/painted_dougong_normal.jpg",
+      "orm": "textures/painted_dougong_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/painted_dougong/painted_dougong_albedo.png",
+      "height": "../assets/textures/painted_dougong/painted_dougong_height.png",
+      "roughness": "../assets/textures/painted_dougong/painted_dougong_roughness.png",
+      "metallic": "../assets/textures/painted_dougong/painted_dougong_metallic.png",
+      "ao": "../assets/textures/painted_dougong/painted_dougong_ao.png",
+      "normal": "../assets/textures/painted_dougong/painted_dougong_normal.png",
+      "orm": "../assets/textures/painted_dougong/painted_dougong_orm.png"
+    },
+    "preview": "textures/painted_dougong_albedo.jpg"
+  },
+  {
+    "key": "pottery",
+    "label": "陶器釉面",
+    "category": "道具",
+    "base": "#A16A46",
+    "tile": 0.4,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "07_market_props",
+    "notes": "陶罐瓷瓶，轮制纹与釉斑",
+    "roughness": [
+      0.28,
+      0.88
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/pottery_albedo.jpg",
+      "height": "textures/pottery_height.jpg",
+      "roughness": "textures/pottery_roughness.jpg",
+      "metallic": "textures/pottery_metallic.jpg",
+      "ao": "textures/pottery_ao.jpg",
+      "normal": "textures/pottery_normal.jpg",
+      "orm": "textures/pottery_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/pottery/pottery_albedo.png",
+      "height": "../assets/textures/pottery/pottery_height.png",
+      "roughness": "../assets/textures/pottery/pottery_roughness.png",
+      "metallic": "../assets/textures/pottery/pottery_metallic.png",
+      "ao": "../assets/textures/pottery/pottery_ao.png",
+      "normal": "../assets/textures/pottery/pottery_normal.png",
+      "orm": "../assets/textures/pottery/pottery_orm.png"
+    },
+    "preview": "textures/pottery_albedo.jpg"
+  },
+  {
+    "key": "rammed_earth",
+    "label": "夯土路面",
+    "category": "路面",
+    "base": "#8F5A3D",
+    "tile": 1.5,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "未铺装巷道与车辙土",
+    "roughness": [
+      0.78,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/rammed_earth_albedo.jpg",
+      "height": "textures/rammed_earth_height.jpg",
+      "roughness": "textures/rammed_earth_roughness.jpg",
+      "metallic": "textures/rammed_earth_metallic.jpg",
+      "ao": "textures/rammed_earth_ao.jpg",
+      "normal": "textures/rammed_earth_normal.jpg",
+      "orm": "textures/rammed_earth_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/rammed_earth/rammed_earth_albedo.png",
+      "height": "../assets/textures/rammed_earth/rammed_earth_height.png",
+      "roughness": "../assets/textures/rammed_earth/rammed_earth_roughness.png",
+      "metallic": "../assets/textures/rammed_earth/rammed_earth_metallic.png",
+      "ao": "../assets/textures/rammed_earth/rammed_earth_ao.png",
+      "normal": "../assets/textures/rammed_earth/rammed_earth_normal.png",
+      "orm": "../assets/textures/rammed_earth/rammed_earth_orm.png"
+    },
+    "preview": "textures/rammed_earth_albedo.jpg"
+  },
+  {
+    "key": "rammed_earth_wall",
+    "label": "夯土墙",
+    "category": "建筑",
+    "base": "#88563A",
+    "tile": 1.6,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "山墙与院墙，水平夯层清晰",
+    "roughness": [
+      0.78,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/rammed_earth_wall_albedo.jpg",
+      "height": "textures/rammed_earth_wall_height.jpg",
+      "roughness": "textures/rammed_earth_wall_roughness.jpg",
+      "metallic": "textures/rammed_earth_wall_metallic.jpg",
+      "ao": "textures/rammed_earth_wall_ao.jpg",
+      "normal": "textures/rammed_earth_wall_normal.jpg",
+      "orm": "textures/rammed_earth_wall_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/rammed_earth_wall/rammed_earth_wall_albedo.png",
+      "height": "../assets/textures/rammed_earth_wall/rammed_earth_wall_height.png",
+      "roughness": "../assets/textures/rammed_earth_wall/rammed_earth_wall_roughness.png",
+      "metallic": "../assets/textures/rammed_earth_wall/rammed_earth_wall_metallic.png",
+      "ao": "../assets/textures/rammed_earth_wall/rammed_earth_wall_ao.png",
+      "normal": "../assets/textures/rammed_earth_wall/rammed_earth_wall_normal.png",
+      "orm": "../assets/textures/rammed_earth_wall/rammed_earth_wall_orm.png"
+    },
+    "preview": "textures/rammed_earth_wall_albedo.jpg"
+  },
+  {
+    "key": "roof_ridge",
+    "label": "瓦当屋脊",
+    "category": "建筑",
+    "base": "#63615A",
+    "tile": 0.5,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "03_roof_tile_detail",
+    "notes": "圆形瓦当：莲瓣云纹与乳钉",
+    "roughness": [
+      0.7,
+      0.95
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/roof_ridge_albedo.jpg",
+      "height": "textures/roof_ridge_height.jpg",
+      "roughness": "textures/roof_ridge_roughness.jpg",
+      "metallic": "textures/roof_ridge_metallic.jpg",
+      "ao": "textures/roof_ridge_ao.jpg",
+      "normal": "textures/roof_ridge_normal.jpg",
+      "orm": "textures/roof_ridge_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/roof_ridge/roof_ridge_albedo.png",
+      "height": "../assets/textures/roof_ridge/roof_ridge_height.png",
+      "roughness": "../assets/textures/roof_ridge/roof_ridge_roughness.png",
+      "metallic": "../assets/textures/roof_ridge/roof_ridge_metallic.png",
+      "ao": "../assets/textures/roof_ridge/roof_ridge_ao.png",
+      "normal": "../assets/textures/roof_ridge/roof_ridge_normal.png",
+      "orm": "../assets/textures/roof_ridge/roof_ridge_orm.png"
+    },
+    "preview": "textures/roof_ridge_albedo.jpg"
+  },
+  {
+    "key": "roof_tile",
+    "label": "青筒瓦",
+    "category": "建筑",
+    "base": "#67665E",
+    "tile": 0.9,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "03_roof_tile_detail",
+    "notes": "半圆瓦垄 + 搭接缝 + 雨痕苔藓",
+    "roughness": [
+      0.68,
+      0.94
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/roof_tile_albedo.jpg",
+      "height": "textures/roof_tile_height.jpg",
+      "roughness": "textures/roof_tile_roughness.jpg",
+      "metallic": "textures/roof_tile_metallic.jpg",
+      "ao": "textures/roof_tile_ao.jpg",
+      "normal": "textures/roof_tile_normal.jpg",
+      "orm": "textures/roof_tile_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/roof_tile/roof_tile_albedo.png",
+      "height": "../assets/textures/roof_tile/roof_tile_height.png",
+      "roughness": "../assets/textures/roof_tile/roof_tile_roughness.png",
+      "metallic": "../assets/textures/roof_tile/roof_tile_metallic.png",
+      "ao": "../assets/textures/roof_tile/roof_tile_ao.png",
+      "normal": "../assets/textures/roof_tile/roof_tile_normal.png",
+      "orm": "../assets/textures/roof_tile/roof_tile_orm.png"
+    },
+    "preview": "textures/roof_tile_albedo.jpg"
+  },
+  {
+    "key": "sackcloth",
+    "label": "麻袋粗布",
+    "category": "道具",
+    "base": "#B9A57C",
+    "tile": 0.4,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "07_market_props",
+    "notes": "粗麻织物",
+    "roughness": [
+      0.8,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/sackcloth_albedo.jpg",
+      "height": "textures/sackcloth_height.jpg",
+      "roughness": "textures/sackcloth_roughness.jpg",
+      "metallic": "textures/sackcloth_metallic.jpg",
+      "ao": "textures/sackcloth_ao.jpg",
+      "normal": "textures/sackcloth_normal.jpg",
+      "orm": "textures/sackcloth_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/sackcloth/sackcloth_albedo.png",
+      "height": "../assets/textures/sackcloth/sackcloth_height.png",
+      "roughness": "../assets/textures/sackcloth/sackcloth_roughness.png",
+      "metallic": "../assets/textures/sackcloth/sackcloth_metallic.png",
+      "ao": "../assets/textures/sackcloth/sackcloth_ao.png",
+      "normal": "../assets/textures/sackcloth/sackcloth_normal.png",
+      "orm": "../assets/textures/sackcloth/sackcloth_orm.png"
+    },
+    "preview": "textures/sackcloth_albedo.jpg"
+  },
+  {
+    "key": "stone_base",
+    "label": "台基石",
+    "category": "建筑",
+    "base": "#A39C8F",
+    "tile": 1.0,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "02_shopfront_elevation",
+    "notes": "柱础、台基、踏步",
+    "roughness": [
+      0.66,
+      0.9
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/stone_base_albedo.jpg",
+      "height": "textures/stone_base_height.jpg",
+      "roughness": "textures/stone_base_roughness.jpg",
+      "metallic": "textures/stone_base_metallic.jpg",
+      "ao": "textures/stone_base_ao.jpg",
+      "normal": "textures/stone_base_normal.jpg",
+      "orm": "textures/stone_base_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/stone_base/stone_base_albedo.png",
+      "height": "../assets/textures/stone_base/stone_base_height.png",
+      "roughness": "../assets/textures/stone_base/stone_base_roughness.png",
+      "metallic": "../assets/textures/stone_base/stone_base_metallic.png",
+      "ao": "../assets/textures/stone_base/stone_base_ao.png",
+      "normal": "../assets/textures/stone_base/stone_base_normal.png",
+      "orm": "../assets/textures/stone_base/stone_base_orm.png"
+    },
+    "preview": "textures/stone_base_albedo.jpg"
+  },
+  {
+    "key": "stone_curb",
+    "label": "路缘石",
+    "category": "路面",
+    "base": "#777B71",
+    "tile": 1.0,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "04_stone_paving_detail",
+    "notes": "路缘、沟盖、台阶",
+    "roughness": [
+      0.7,
+      0.95
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/stone_curb_albedo.jpg",
+      "height": "textures/stone_curb_height.jpg",
+      "roughness": "textures/stone_curb_roughness.jpg",
+      "metallic": "textures/stone_curb_metallic.jpg",
+      "ao": "textures/stone_curb_ao.jpg",
+      "normal": "textures/stone_curb_normal.jpg",
+      "orm": "textures/stone_curb_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/stone_curb/stone_curb_albedo.png",
+      "height": "../assets/textures/stone_curb/stone_curb_height.png",
+      "roughness": "../assets/textures/stone_curb/stone_curb_roughness.png",
+      "metallic": "../assets/textures/stone_curb/stone_curb_metallic.png",
+      "ao": "../assets/textures/stone_curb/stone_curb_ao.png",
+      "normal": "../assets/textures/stone_curb/stone_curb_normal.png",
+      "orm": "../assets/textures/stone_curb/stone_curb_orm.png"
+    },
+    "preview": "textures/stone_curb_albedo.jpg"
+  },
+  {
+    "key": "stone_paving",
+    "label": "青石板铺装",
+    "category": "路面",
+    "base": "#7B7F75",
+    "tile": 2.0,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "04_stone_paving_detail / 08_material_board",
+    "notes": "主街面，板缝含苔藓与车辙痕",
+    "roughness": [
+      0.68,
+      0.94
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/stone_paving_albedo.jpg",
+      "height": "textures/stone_paving_height.jpg",
+      "roughness": "textures/stone_paving_roughness.jpg",
+      "metallic": "textures/stone_paving_metallic.jpg",
+      "ao": "textures/stone_paving_ao.jpg",
+      "normal": "textures/stone_paving_normal.jpg",
+      "orm": "textures/stone_paving_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/stone_paving/stone_paving_albedo.png",
+      "height": "../assets/textures/stone_paving/stone_paving_height.png",
+      "roughness": "../assets/textures/stone_paving/stone_paving_roughness.png",
+      "metallic": "../assets/textures/stone_paving/stone_paving_metallic.png",
+      "ao": "../assets/textures/stone_paving/stone_paving_ao.png",
+      "normal": "../assets/textures/stone_paving/stone_paving_normal.png",
+      "orm": "../assets/textures/stone_paving/stone_paving_orm.png"
+    },
+    "preview": "textures/stone_paving_albedo.jpg"
+  },
+  {
+    "key": "timber_beam",
+    "label": "木枋梁",
+    "category": "建筑",
+    "base": "#8F7554",
+    "tile": 0.8,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "额枋、梁、椽、斗拱木质",
+    "roughness": [
+      0.58,
+      0.86
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/timber_beam_albedo.jpg",
+      "height": "textures/timber_beam_height.jpg",
+      "roughness": "textures/timber_beam_roughness.jpg",
+      "metallic": "textures/timber_beam_metallic.jpg",
+      "ao": "textures/timber_beam_ao.jpg",
+      "normal": "textures/timber_beam_normal.jpg",
+      "orm": "textures/timber_beam_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/timber_beam/timber_beam_albedo.png",
+      "height": "../assets/textures/timber_beam/timber_beam_height.png",
+      "roughness": "../assets/textures/timber_beam/timber_beam_roughness.png",
+      "metallic": "../assets/textures/timber_beam/timber_beam_metallic.png",
+      "ao": "../assets/textures/timber_beam/timber_beam_ao.png",
+      "normal": "../assets/textures/timber_beam/timber_beam_normal.png",
+      "orm": "../assets/textures/timber_beam/timber_beam_orm.png"
+    },
+    "preview": "textures/timber_beam_albedo.jpg"
+  },
+  {
+    "key": "tree_bark",
+    "label": "槐树皮",
+    "category": "自然",
+    "base": "#7C6A55",
+    "tile": 0.6,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "08_material_board",
+    "notes": "竖向沟壑 + 地衣",
+    "roughness": [
+      0.76,
+      0.98
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/tree_bark_albedo.jpg",
+      "height": "textures/tree_bark_height.jpg",
+      "roughness": "textures/tree_bark_roughness.jpg",
+      "metallic": "textures/tree_bark_metallic.jpg",
+      "ao": "textures/tree_bark_ao.jpg",
+      "normal": "textures/tree_bark_normal.jpg",
+      "orm": "textures/tree_bark_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/tree_bark/tree_bark_albedo.png",
+      "height": "../assets/textures/tree_bark/tree_bark_height.png",
+      "roughness": "../assets/textures/tree_bark/tree_bark_roughness.png",
+      "metallic": "../assets/textures/tree_bark/tree_bark_metallic.png",
+      "ao": "../assets/textures/tree_bark/tree_bark_ao.png",
+      "normal": "../assets/textures/tree_bark/tree_bark_normal.png",
+      "orm": "../assets/textures/tree_bark/tree_bark_orm.png"
+    },
+    "preview": "textures/tree_bark_albedo.jpg"
+  },
+  {
+    "key": "vermilion_lacquer",
+    "label": "朱漆柱",
+    "category": "建筑",
+    "base": "#7E2722",
+    "tile": 0.6,
+    "size": 2048,
+    "seam": 0.0,
+    "reference": "05_lacquer_polychrome / 01_street_overview",
+    "notes": "檐柱与门框，龟裂纹与局部剥落",
+    "roughness": [
+      0.3,
+      0.72
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/vermilion_lacquer_albedo.jpg",
+      "height": "textures/vermilion_lacquer_height.jpg",
+      "roughness": "textures/vermilion_lacquer_roughness.jpg",
+      "metallic": "textures/vermilion_lacquer_metallic.jpg",
+      "ao": "textures/vermilion_lacquer_ao.jpg",
+      "normal": "textures/vermilion_lacquer_normal.jpg",
+      "orm": "textures/vermilion_lacquer_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/vermilion_lacquer/vermilion_lacquer_albedo.png",
+      "height": "../assets/textures/vermilion_lacquer/vermilion_lacquer_height.png",
+      "roughness": "../assets/textures/vermilion_lacquer/vermilion_lacquer_roughness.png",
+      "metallic": "../assets/textures/vermilion_lacquer/vermilion_lacquer_metallic.png",
+      "ao": "../assets/textures/vermilion_lacquer/vermilion_lacquer_ao.png",
+      "normal": "../assets/textures/vermilion_lacquer/vermilion_lacquer_normal.png",
+      "orm": "../assets/textures/vermilion_lacquer/vermilion_lacquer_orm.png"
+    },
+    "preview": "textures/vermilion_lacquer_albedo.jpg"
+  },
+  {
+    "key": "water_puddle",
+    "label": "积水",
+    "category": "路面",
+    "base": "#32404A",
+    "tile": 1.0,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "04_stone_paving_detail",
+    "notes": "低粗糙度水面 + 波纹法线",
+    "roughness": [
+      0.06,
+      0.22
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/water_puddle_albedo.jpg",
+      "height": "textures/water_puddle_height.jpg",
+      "roughness": "textures/water_puddle_roughness.jpg",
+      "metallic": "textures/water_puddle_metallic.jpg",
+      "ao": "textures/water_puddle_ao.jpg",
+      "normal": "textures/water_puddle_normal.jpg",
+      "orm": "textures/water_puddle_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/water_puddle/water_puddle_albedo.png",
+      "height": "../assets/textures/water_puddle/water_puddle_height.png",
+      "roughness": "../assets/textures/water_puddle/water_puddle_roughness.png",
+      "metallic": "../assets/textures/water_puddle/water_puddle_metallic.png",
+      "ao": "../assets/textures/water_puddle/water_puddle_ao.png",
+      "normal": "../assets/textures/water_puddle/water_puddle_normal.png",
+      "orm": "../assets/textures/water_puddle/water_puddle_orm.png"
+    },
+    "preview": "textures/water_puddle_albedo.jpg"
+  },
+  {
+    "key": "wood_plank",
+    "label": "木板",
+    "category": "建筑",
+    "base": "#8B7152",
+    "tile": 0.7,
+    "size": 1024,
+    "seam": 0.0,
+    "reference": "07_market_props",
+    "notes": "板门、摊板、货箱",
+    "roughness": [
+      0.6,
+      0.88
+    ],
+    "metallic": 0,
+    "channels": {
+      "albedo": "textures/wood_plank_albedo.jpg",
+      "height": "textures/wood_plank_height.jpg",
+      "roughness": "textures/wood_plank_roughness.jpg",
+      "metallic": "textures/wood_plank_metallic.jpg",
+      "ao": "textures/wood_plank_ao.jpg",
+      "normal": "textures/wood_plank_normal.jpg",
+      "orm": "textures/wood_plank_orm.jpg"
+    },
+    "originals": {
+      "albedo": "../assets/textures/wood_plank/wood_plank_albedo.png",
+      "height": "../assets/textures/wood_plank/wood_plank_height.png",
+      "roughness": "../assets/textures/wood_plank/wood_plank_roughness.png",
+      "metallic": "../assets/textures/wood_plank/wood_plank_metallic.png",
+      "ao": "../assets/textures/wood_plank/wood_plank_ao.png",
+      "normal": "../assets/textures/wood_plank/wood_plank_normal.png",
+      "orm": "../assets/textures/wood_plank/wood_plank_orm.png"
+    },
+    "preview": "textures/wood_plank_albedo.jpg"
+  }
+]

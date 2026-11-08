@@ -1,0 +1,44 @@
+{
+  "key": "mud_track",
+  "label": "车辙泥",
+  "category": "路面",
+  "base_color_srgb": "#5C4732",
+  "palette_source": "derived:#4A3A2A",
+  "reference": "04_stone_paving_detail",
+  "delight_gain": 1.24,
+  "notes": "车辙与泥泞贴花",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.2,
+  "roughness_range": [
+    0.8,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 2.0,
+  "ao_radius": 6,
+  "seed": 105,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "mud_track_albedo.png",
+    "height": "mud_track_height.png",
+    "roughness": "mud_track_roughness.png",
+    "metallic": "mud_track_metallic.png",
+    "ao": "mud_track_ao.png",
+    "normal": "mud_track_normal.png",
+    "orm": "mud_track_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "mud_track_albedo.png",
+    "normalTexture": "mud_track_normal.png",
+    "metallicRoughnessTexture": "mud_track_orm.png",
+    "occlusionTexture": "mud_track_ao.png"
+  }
+}

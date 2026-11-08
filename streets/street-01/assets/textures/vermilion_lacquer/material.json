@@ -1,0 +1,44 @@
+{
+  "key": "vermilion_lacquer",
+  "label": "朱漆柱",
+  "category": "建筑",
+  "base_color_srgb": "#7E2722",
+  "palette_source": "palette:vermilion_lacquer",
+  "reference": "05_lacquer_polychrome / 01_street_overview",
+  "delight_gain": 1.78,
+  "notes": "檐柱与门框，龟裂纹与局部剥落",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 0.6,
+  "roughness_range": [
+    0.3,
+    0.72
+  ],
+  "metallic": 0,
+  "normal_strength": 2.2,
+  "ao_radius": 5,
+  "seed": 204,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "vermilion_lacquer_albedo.png",
+    "height": "vermilion_lacquer_height.png",
+    "roughness": "vermilion_lacquer_roughness.png",
+    "metallic": "vermilion_lacquer_metallic.png",
+    "ao": "vermilion_lacquer_ao.png",
+    "normal": "vermilion_lacquer_normal.png",
+    "orm": "vermilion_lacquer_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "vermilion_lacquer_albedo.png",
+    "normalTexture": "vermilion_lacquer_normal.png",
+    "metallicRoughnessTexture": "vermilion_lacquer_orm.png",
+    "occlusionTexture": "vermilion_lacquer_ao.png"
+  }
+}

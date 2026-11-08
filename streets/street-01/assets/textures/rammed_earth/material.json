@@ -1,0 +1,44 @@
+{
+  "key": "rammed_earth",
+  "label": "夯土路面",
+  "category": "路面",
+  "base_color_srgb": "#8F5A3D",
+  "palette_source": "palette:rammed_earth",
+  "reference": "08_material_board",
+  "delight_gain": 1.38,
+  "notes": "未铺装巷道与车辙土",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 1.5,
+  "roughness_range": [
+    0.78,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 2.2,
+  "ao_radius": 8,
+  "seed": 104,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "rammed_earth_albedo.png",
+    "height": "rammed_earth_height.png",
+    "roughness": "rammed_earth_roughness.png",
+    "metallic": "rammed_earth_metallic.png",
+    "ao": "rammed_earth_ao.png",
+    "normal": "rammed_earth_normal.png",
+    "orm": "rammed_earth_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "rammed_earth_albedo.png",
+    "normalTexture": "rammed_earth_normal.png",
+    "metallicRoughnessTexture": "rammed_earth_orm.png",
+    "occlusionTexture": "rammed_earth_ao.png"
+  }
+}

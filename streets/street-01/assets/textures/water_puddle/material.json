@@ -1,0 +1,44 @@
+{
+  "key": "water_puddle",
+  "label": "积水",
+  "category": "路面",
+  "base_color_srgb": "#32404A",
+  "palette_source": "derived:#33404A",
+  "reference": "04_stone_paving_detail",
+  "delight_gain": 1.0,
+  "notes": "低粗糙度水面 + 波纹法线",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.0,
+  "roughness_range": [
+    0.06,
+    0.22
+  ],
+  "metallic": 0,
+  "normal_strength": 6.0,
+  "ao_radius": 4,
+  "seed": 106,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "water_puddle_albedo.png",
+    "height": "water_puddle_height.png",
+    "roughness": "water_puddle_roughness.png",
+    "metallic": "water_puddle_metallic.png",
+    "ao": "water_puddle_ao.png",
+    "normal": "water_puddle_normal.png",
+    "orm": "water_puddle_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "water_puddle_albedo.png",
+    "normalTexture": "water_puddle_normal.png",
+    "metallicRoughnessTexture": "water_puddle_orm.png",
+    "occlusionTexture": "water_puddle_ao.png"
+  }
+}

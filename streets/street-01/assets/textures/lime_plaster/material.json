@@ -1,0 +1,44 @@
+{
+  "key": "lime_plaster",
+  "label": "白灰抹面",
+  "category": "建筑",
+  "base_color_srgb": "#C9C1B0",
+  "palette_source": "palette:lime_plaster",
+  "reference": "08_material_board",
+  "delight_gain": 1.16,
+  "notes": "墙面抹灰，含龟裂与剥落露土",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 1.4,
+  "roughness_range": [
+    0.72,
+    0.95
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 9,
+  "seed": 203,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "lime_plaster_albedo.png",
+    "height": "lime_plaster_height.png",
+    "roughness": "lime_plaster_roughness.png",
+    "metallic": "lime_plaster_metallic.png",
+    "ao": "lime_plaster_ao.png",
+    "normal": "lime_plaster_normal.png",
+    "orm": "lime_plaster_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "lime_plaster_albedo.png",
+    "normalTexture": "lime_plaster_normal.png",
+    "metallicRoughnessTexture": "lime_plaster_orm.png",
+    "occlusionTexture": "lime_plaster_ao.png"
+  }
+}

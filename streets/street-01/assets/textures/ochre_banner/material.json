@@ -1,0 +1,44 @@
+{
+  "key": "ochre_banner",
+  "label": "赭黄布幡",
+  "category": "装饰",
+  "base_color_srgb": "#CB8A49",
+  "palette_source": "derived:#9A6B3C",
+  "reference": "06_lanterns_banners",
+  "delight_gain": 1.3,
+  "notes": "赭黄旗幡",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.5,
+  "roughness_range": [
+    0.76,
+    0.96
+  ],
+  "metallic": 0,
+  "normal_strength": 2.0,
+  "ao_radius": 6,
+  "seed": 304,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "ochre_banner_albedo.png",
+    "height": "ochre_banner_height.png",
+    "roughness": "ochre_banner_roughness.png",
+    "metallic": "ochre_banner_metallic.png",
+    "ao": "ochre_banner_ao.png",
+    "normal": "ochre_banner_normal.png",
+    "orm": "ochre_banner_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "ochre_banner_albedo.png",
+    "normalTexture": "ochre_banner_normal.png",
+    "metallicRoughnessTexture": "ochre_banner_orm.png",
+    "occlusionTexture": "ochre_banner_ao.png"
+  }
+}

@@ -1,0 +1,803 @@
+{
+  "project": "changan-dragon / street-01",
+  "version": "1.0",
+  "generated": "2026-11-08 22:52:34",
+  "policy": "workbuddy 支线：仅新增 streets/street-01/，未改动 main 任何既有文件",
+  "style": "盛唐长安（公元 8 世纪）东/西市商业街，黄昏暖金主光",
+  "coordinates": "右手系，Y 向上，单位米；街道沿 +Z，长度 120m",
+  "pipeline": [
+    "生图模型生成 8 张参考图",
+    "从材质研究板逐格采样 + 全景图聚类得到调色板",
+    "调色板驱动程序化生成 29 种全通道 PBR 贴图",
+    "模块化几何构建整街 + 导出 glTF 2.0 / GLB + 7 件模块库",
+    "生成轻量 Web 预览资产与可交互页面",
+    "逐项验收自检"
+  ],
+  "inputs": {
+    "references": [
+      "references/01_street_overview.png",
+      "references/02_shopfront_elevation.png",
+      "references/03_roof_tile_detail.png",
+      "references/04_stone_paving_detail.png",
+      "references/05_lacquer_polychrome.png",
+      "references/06_lanterns_banners.png",
+      "references/07_market_props.png",
+      "references/08_material_board.png"
+    ],
+    "palette": "references/palette.json",
+    "palette_swatches": "references/palette_swatches.png"
+  },
+  "outputs": {
+    "pbr_textures": "assets/textures/<material>/<material>_<channel>.png",
+    "signage": "assets/textures/signage/",
+    "scene_gltf": "assets/models/changan_street_01.gltf",
+    "scene_bin": "assets/models/changan_street_01.bin",
+    "scene_glb": "assets/models/changan_street_01.glb",
+    "modules": [
+      "assets/models/modules/lantern.glb",
+      "assets/models/modules/stall.glb",
+      "assets/models/modules/well.glb",
+      "assets/models/modules/tree.glb",
+      "assets/models/modules/hitching_post.glb",
+      "assets/models/modules/stone_lantern.glb",
+      "assets/models/modules/shop_3bay.glb"
+    ],
+    "web_preview": "web/index.html",
+    "web_preview_assets": "web/street_preview.gltf + web/textures/",
+    "contact_sheet": "docs/images/textures-contact-sheet.png",
+    "comparison": "docs/images/reference-vs-result.png",
+    "screenshots": [
+      "docs/images/preview-dusk.png",
+      "docs/images/preview-noon-aerial.png"
+    ],
+    "acceptance": "docs/05-acceptance-report.md"
+  },
+  "counts": {
+    "reference_images": 8,
+    "pbr_materials": 29,
+    "texture_files": 242,
+    "signage_textures": 28,
+    "shops": 16,
+    "semantic_groups": 62,
+    "nodes": 90,
+    "gltf_materials": 32,
+    "triangles": 245046,
+    "vertices": 552904,
+    "modules": 7
+  },
+  "dimensions_m": {
+    "length_m": 120.0,
+    "road_width_m": 9.0,
+    "walkway_width_m": 2.5,
+    "total_width_m": 28.8,
+    "eave_height_m": 4.3,
+    "ridge_height_m": 6.05
+  },
+  "materials": [
+    {
+      "key": "stone_paving",
+      "label": "青石板铺装",
+      "category": "路面",
+      "base": "#7B7F75",
+      "size": 2048,
+      "tile_m": 2.0,
+      "seam_error": 0.0,
+      "roughness": [
+        0.68,
+        0.94
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "stone_curb",
+      "label": "路缘石",
+      "category": "路面",
+      "base": "#777B71",
+      "size": 1024,
+      "tile_m": 1.0,
+      "seam_error": 0.0,
+      "roughness": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "grey_brick",
+      "label": "青砖地",
+      "category": "路面",
+      "base": "#8F8779",
+      "size": 2048,
+      "tile_m": 1.2,
+      "seam_error": 0.0,
+      "roughness": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "rammed_earth",
+      "label": "夯土路面",
+      "category": "路面",
+      "base": "#8F5A3D",
+      "size": 2048,
+      "tile_m": 1.5,
+      "seam_error": 0.0,
+      "roughness": [
+        0.78,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "mud_track",
+      "label": "车辙泥",
+      "category": "路面",
+      "base": "#5C4732",
+      "size": 1024,
+      "tile_m": 1.2,
+      "seam_error": 0.0,
+      "roughness": [
+        0.8,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "water_puddle",
+      "label": "积水",
+      "category": "路面",
+      "base": "#32404A",
+      "size": 1024,
+      "tile_m": 1.0,
+      "seam_error": 0.0,
+      "roughness": [
+        0.06,
+        0.22
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "rammed_earth_wall",
+      "label": "夯土墙",
+      "category": "建筑",
+      "base": "#88563A",
+      "size": 1024,
+      "tile_m": 1.6,
+      "seam_error": 0.0,
+      "roughness": [
+        0.78,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "grey_brick_wall",
+      "label": "青砖墙",
+      "category": "建筑",
+      "base": "#8D8577",
+      "size": 2048,
+      "tile_m": 1.2,
+      "seam_error": 0.0,
+      "roughness": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "lime_plaster",
+      "label": "白灰抹面",
+      "category": "建筑",
+      "base": "#C9C1B0",
+      "size": 2048,
+      "tile_m": 1.4,
+      "seam_error": 0.0,
+      "roughness": [
+        0.72,
+        0.95
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "vermilion_lacquer",
+      "label": "朱漆柱",
+      "category": "建筑",
+      "base": "#7E2722",
+      "size": 2048,
+      "tile_m": 0.6,
+      "seam_error": 0.0,
+      "roughness": [
+        0.3,
+        0.72
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "timber_beam",
+      "label": "木枋梁",
+      "category": "建筑",
+      "base": "#8F7554",
+      "size": 2048,
+      "tile_m": 0.8,
+      "seam_error": 0.0,
+      "roughness": [
+        0.58,
+        0.86
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "wood_plank",
+      "label": "木板",
+      "category": "建筑",
+      "base": "#8B7152",
+      "size": 1024,
+      "tile_m": 0.7,
+      "seam_error": 0.0,
+      "roughness": [
+        0.6,
+        0.88
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "lattice_paper",
+      "label": "格扇糊纸",
+      "category": "建筑",
+      "base": "#D5CAAC",
+      "size": 1024,
+      "tile_m": 0.5,
+      "seam_error": 0.0,
+      "roughness": [
+        0.78,
+        0.96
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm",
+        "emissive"
+      ]
+    },
+    {
+      "key": "roof_tile",
+      "label": "青筒瓦",
+      "category": "建筑",
+      "base": "#67665E",
+      "size": 2048,
+      "tile_m": 0.9,
+      "seam_error": 0.0,
+      "roughness": [
+        0.68,
+        0.94
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "roof_ridge",
+      "label": "瓦当屋脊",
+      "category": "建筑",
+      "base": "#63615A",
+      "size": 1024,
+      "tile_m": 0.5,
+      "seam_error": 0.0,
+      "roughness": [
+        0.7,
+        0.95
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "stone_base",
+      "label": "台基石",
+      "category": "建筑",
+      "base": "#A39C8F",
+      "size": 1024,
+      "tile_m": 1.0,
+      "seam_error": 0.0,
+      "roughness": [
+        0.66,
+        0.9
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "painted_dougong",
+      "label": "青绿彩画",
+      "category": "建筑",
+      "base": "#48534A",
+      "size": 2048,
+      "tile_m": 0.6,
+      "seam_error": 0.0,
+      "roughness": [
+        0.38,
+        0.88
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "black_lacquer",
+      "label": "黑漆匾额",
+      "category": "建筑",
+      "base": "#221B18",
+      "size": 1024,
+      "tile_m": 0.5,
+      "seam_error": 0.0,
+      "roughness": [
+        0.28,
+        0.66
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "gilt_bronze",
+      "label": "鎏金铜件",
+      "category": "装饰",
+      "base": "#C59B40",
+      "size": 1024,
+      "tile_m": 0.4,
+      "seam_error": 0.0,
+      "roughness": [
+        0.2,
+        0.78
+      ],
+      "metallic": 0.88,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "lantern_silk",
+      "label": "灯笼纱",
+      "category": "装饰",
+      "base": "#B0B0A9",
+      "size": 1024,
+      "tile_m": 0.35,
+      "seam_error": 0.0,
+      "roughness": [
+        0.62,
+        0.9
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm",
+        "emissive"
+      ]
+    },
+    {
+      "key": "indigo_banner",
+      "label": "靛蓝布幡",
+      "category": "装饰",
+      "base": "#202C54",
+      "size": 1024,
+      "tile_m": 0.5,
+      "seam_error": 0.0,
+      "roughness": [
+        0.76,
+        0.96
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "ochre_banner",
+      "label": "赭黄布幡",
+      "category": "装饰",
+      "base": "#CB8A49",
+      "size": 1024,
+      "tile_m": 0.5,
+      "seam_error": 0.0,
+      "roughness": [
+        0.76,
+        0.96
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "bamboo_weave",
+      "label": "竹编",
+      "category": "装饰",
+      "base": "#D7AE66",
+      "size": 1024,
+      "tile_m": 0.4,
+      "seam_error": 0.0,
+      "roughness": [
+        0.7,
+        0.94
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "pottery",
+      "label": "陶器釉面",
+      "category": "道具",
+      "base": "#A16A46",
+      "size": 1024,
+      "tile_m": 0.4,
+      "seam_error": 0.0,
+      "roughness": [
+        0.28,
+        0.88
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "sackcloth",
+      "label": "麻袋粗布",
+      "category": "道具",
+      "base": "#B9A57C",
+      "size": 1024,
+      "tile_m": 0.4,
+      "seam_error": 0.0,
+      "roughness": [
+        0.8,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "tree_bark",
+      "label": "槐树皮",
+      "category": "自然",
+      "base": "#7C6A55",
+      "size": 1024,
+      "tile_m": 0.6,
+      "seam_error": 0.0,
+      "roughness": [
+        0.76,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "leaf_atlas",
+      "label": "槐叶图集",
+      "category": "自然",
+      "base": "#4C7035",
+      "size": 1024,
+      "tile_m": 1.0,
+      "seam_error": 0.0,
+      "roughness": [
+        0.62,
+        0.9
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm",
+        "opacity"
+      ]
+    },
+    {
+      "key": "moss",
+      "label": "苔藓",
+      "category": "自然",
+      "base": "#5B783F",
+      "size": 1024,
+      "tile_m": 0.4,
+      "seam_error": 0.0,
+      "roughness": [
+        0.84,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm"
+      ]
+    },
+    {
+      "key": "grime",
+      "label": "污渍贴花",
+      "category": "细节",
+      "base": "#3A2F25",
+      "size": 1024,
+      "tile_m": 1.0,
+      "seam_error": 0.0,
+      "roughness": [
+        0.84,
+        0.98
+      ],
+      "metallic": 0,
+      "channels": [
+        "albedo",
+        "height",
+        "roughness",
+        "metallic",
+        "ao",
+        "normal",
+        "orm",
+        "opacity"
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "name": "lantern",
+      "glb": "assets/models/modules/lantern.glb",
+      "meshes": 1,
+      "bin_bytes": 29696
+    },
+    {
+      "name": "stall",
+      "glb": "assets/models/modules/stall.glb",
+      "meshes": 1,
+      "bin_bytes": 87816
+    },
+    {
+      "name": "well",
+      "glb": "assets/models/modules/well.glb",
+      "meshes": 1,
+      "bin_bytes": 50480
+    },
+    {
+      "name": "tree",
+      "glb": "assets/models/modules/tree.glb",
+      "meshes": 1,
+      "bin_bytes": 22176
+    },
+    {
+      "name": "hitching_post",
+      "glb": "assets/models/modules/hitching_post.glb",
+      "meshes": 1,
+      "bin_bytes": 7712
+    },
+    {
+      "name": "stone_lantern",
+      "glb": "assets/models/modules/stone_lantern.glb",
+      "meshes": 1,
+      "bin_bytes": 18160
+    },
+    {
+      "name": "shop_3bay",
+      "glb": "assets/models/modules/shop_3bay.glb",
+      "meshes": 1,
+      "bin_bytes": 962984
+    }
+  ],
+  "reproduce": [
+    "python3 src/tools/prepare_references.py",
+    "python3 src/pbr/generate_textures.py",
+    "python3 src/geometry/build_street.py",
+    "python3 src/tools/make_preview_assets.py",
+    "python3 src/tools/build_docs.py",
+    "python3 src/tools/make_comparison.py",
+    "python3 src/tools/validate.py"
+  ],
+  "preview_command": "bash web/start_preview.sh 8080  →  http://localhost:8080/web/index.html"
+}

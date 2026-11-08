@@ -1,0 +1,44 @@
+{
+  "key": "bamboo_weave",
+  "label": "竹编",
+  "category": "装饰",
+  "base_color_srgb": "#D7AE66",
+  "palette_source": "derived:#A98B55",
+  "reference": "07_market_props",
+  "delight_gain": 1.26,
+  "notes": "竹筐、竹帘经纬编织",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.4,
+  "roughness_range": [
+    0.7,
+    0.94
+  ],
+  "metallic": 0,
+  "normal_strength": 3.0,
+  "ao_radius": 5,
+  "seed": 305,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "bamboo_weave_albedo.png",
+    "height": "bamboo_weave_height.png",
+    "roughness": "bamboo_weave_roughness.png",
+    "metallic": "bamboo_weave_metallic.png",
+    "ao": "bamboo_weave_ao.png",
+    "normal": "bamboo_weave_normal.png",
+    "orm": "bamboo_weave_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "bamboo_weave_albedo.png",
+    "normalTexture": "bamboo_weave_normal.png",
+    "metallicRoughnessTexture": "bamboo_weave_orm.png",
+    "occlusionTexture": "bamboo_weave_ao.png"
+  }
+}

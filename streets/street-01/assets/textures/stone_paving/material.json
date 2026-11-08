@@ -1,0 +1,44 @@
+{
+  "key": "stone_paving",
+  "label": "青石板铺装",
+  "category": "路面",
+  "base_color_srgb": "#7B7F75",
+  "palette_source": "palette:stone_paving",
+  "reference": "04_stone_paving_detail / 08_material_board",
+  "delight_gain": 1.34,
+  "notes": "主街面，板缝含苔藓与车辙痕",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 2.0,
+  "roughness_range": [
+    0.68,
+    0.94
+  ],
+  "metallic": 0,
+  "normal_strength": 2.8,
+  "ao_radius": 8,
+  "seed": 101,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "stone_paving_albedo.png",
+    "height": "stone_paving_height.png",
+    "roughness": "stone_paving_roughness.png",
+    "metallic": "stone_paving_metallic.png",
+    "ao": "stone_paving_ao.png",
+    "normal": "stone_paving_normal.png",
+    "orm": "stone_paving_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "stone_paving_albedo.png",
+    "normalTexture": "stone_paving_normal.png",
+    "metallicRoughnessTexture": "stone_paving_orm.png",
+    "occlusionTexture": "stone_paving_ao.png"
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "file": "references/01_street_overview.png",
+    "source_file": "Photoreal_cinematic_environmen_2026-11-06T19-18-25.png",
+    "purpose": "盛唐长安商业街黄昏全景：整体氛围、光线、街道尺度、建筑天际线",
+    "prompt": "Photoreal cinematic environment concept art reference plate: Tang dynasty Chang'an commercial street, golden hour, bluestone avenue, timber shopfronts, vermilion columns, grey tiled roofs, red lanterns, fabric banners, distant gate tower, volumetric light"
+  },
+  {
+    "file": "references/02_shopfront_elevation.png",
+    "source_file": "Architectural_reference_plate__2026-11-06T19-18-42.png",
+    "purpose": "三开间店铺正立面：柱、柱础、斗拱、出檐、格扇、匾额、台基形制比例",
+    "prompt": "Orthographic front elevation of one Tang dynasty timber shopfront, three bays, dougong brackets, grey tubular roof tiles, latticed paper windows, black lacquer signboard"
+  },
+  {
+    "file": "references/03_roof_tile_detail.png",
+    "source_file": "Extreme_close_up_material_refe_2026-11-06T19-19-58.png",
+    "purpose": "青筒瓦与瓦当特写：瓦垄排列、圆形瓦当纹样、苔藓与雨痕",
+    "prompt": "Extreme close-up of Chinese grey clay roof tiles, pan and cover tiles, circular eave ends with floral motifs, lichen, rain streaks"
+  },
+  {
+    "file": "references/04_stone_paving_detail.png",
+    "source_file": "Top_down_material_reference_pl_2026-11-06T19-20-09.png",
+    "purpose": "青石板路面俯视：板缝、磨圆边缘、车辙、苔藓、水渍",
+    "prompt": "Top-down weathered bluestone slab paving, deep grout joints, moss in seams, wheel ruts, water stains"
+  },
+  {
+    "file": "references/05_lacquer_polychrome.png",
+    "source_file": "Material_reference_plate_of_Ta_2026-11-06T19-21-40.png",
+    "purpose": "朱漆柱、青绿彩画斗拱、鎏金铜件：龟裂、剥落、金箔磨损",
+    "prompt": "Tang painted timber details: vermilion lacquer column, blue-green polychrome dougong, gilt bronze fittings, cracked lacquer, worn gold leaf"
+  },
+  {
+    "file": "references/06_lanterns_banners.png",
+    "source_file": "Reference_plate_of_Tang_dynast_2026-11-06T19-21-51.png",
+    "purpose": "灯笼与幌子：红绸灯笼、纸灯、靛蓝/赭黄布幡、流苏、铜钩",
+    "prompt": "Tang street hanging fixtures: red silk lanterns, paper lanterns, indigo and ochre cloth banners, tassels, brass hooks"
+  },
+  {
+    "file": "references/07_market_props.png",
+    "source_file": "Game_art_props_reference_sheet_2026-11-06T19-22-11.png",
+    "purpose": "市井道具：陶罐、瓷瓶、竹筐、麻袋、木箱、摊位、水槽、辘轳、拴马桩、石灯、香炉",
+    "prompt": "Tang market props reference sheet: ceramic jars, earthenware pots, bamboo baskets, hemp sacks, wooden crates, stall table, stone trough, well bucket, hitching post, stone lantern, incense burner"
+  },
+  {
+    "file": "references/08_material_board.png",
+    "source_file": "PBR_material_study_board__twel_2026-11-06T19-23-27.png",
+    "purpose": "12 格材质研究板：可直接采样得到 12 种基色与风化特征",
+    "prompt": "PBR material study board, 4x3 grid of twelve Tang dynasty building material swatches"
+  }
+]

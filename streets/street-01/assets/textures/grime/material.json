@@ -1,0 +1,45 @@
+{
+  "key": "grime",
+  "label": "污渍贴花",
+  "category": "细节",
+  "base_color_srgb": "#3A2F25",
+  "palette_source": "derived:#3A3026",
+  "reference": "04_stone_paving_detail",
+  "delight_gain": 1.0,
+  "notes": "径向衰减污渍，带 alpha 通道",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.0,
+  "roughness_range": [
+    0.84,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 1.6,
+  "ao_radius": 5,
+  "seed": 406,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "grime_albedo.png",
+    "height": "grime_height.png",
+    "roughness": "grime_roughness.png",
+    "metallic": "grime_metallic.png",
+    "ao": "grime_ao.png",
+    "normal": "grime_normal.png",
+    "orm": "grime_orm.png",
+    "opacity": "grime_opacity.png"
+  },
+  "gltf": {
+    "baseColorTexture": "grime_albedo.png",
+    "normalTexture": "grime_normal.png",
+    "metallicRoughnessTexture": "grime_orm.png",
+    "occlusionTexture": "grime_ao.png"
+  }
+}

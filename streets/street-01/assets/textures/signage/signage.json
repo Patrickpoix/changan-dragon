@@ -1,0 +1,100 @@
+[
+  {
+    "id": "wineshop",
+    "name": "醉仙楼",
+    "mark": "酒",
+    "plaque": "assets/textures/signage/plaque_wineshop.png",
+    "banner": "assets/textures/signage/banner_wineshop.png"
+  },
+  {
+    "id": "teahouse",
+    "name": "清茗轩",
+    "mark": "茶",
+    "plaque": "assets/textures/signage/plaque_teahouse.png",
+    "banner": "assets/textures/signage/banner_teahouse.png"
+  },
+  {
+    "id": "silk",
+    "name": "锦绣坊",
+    "mark": "绸",
+    "plaque": "assets/textures/signage/plaque_silk.png",
+    "banner": "assets/textures/signage/banner_silk.png"
+  },
+  {
+    "id": "medicine",
+    "name": "回春堂",
+    "mark": "药",
+    "plaque": "assets/textures/signage/plaque_medicine.png",
+    "banner": "assets/textures/signage/banner_medicine.png"
+  },
+  {
+    "id": "smithy",
+    "name": "百炼坊",
+    "mark": "铁",
+    "plaque": "assets/textures/signage/plaque_smithy.png",
+    "banner": "assets/textures/signage/banner_smithy.png"
+  },
+  {
+    "id": "inn",
+    "name": "悦来客栈",
+    "mark": "宿",
+    "plaque": "assets/textures/signage/plaque_inn.png",
+    "banner": "assets/textures/signage/banner_inn.png"
+  },
+  {
+    "id": "pawn",
+    "name": "裕丰当",
+    "mark": "当",
+    "plaque": "assets/textures/signage/plaque_pawn.png",
+    "banner": "assets/textures/signage/banner_pawn.png"
+  },
+  {
+    "id": "book",
+    "name": "翰墨斋",
+    "mark": "书",
+    "plaque": "assets/textures/signage/plaque_book.png",
+    "banner": "assets/textures/signage/banner_book.png"
+  },
+  {
+    "id": "persian",
+    "name": "波斯邸",
+    "mark": "胡",
+    "plaque": "assets/textures/signage/plaque_persian.png",
+    "banner": "assets/textures/signage/banner_persian.png"
+  },
+  {
+    "id": "bakery",
+    "name": "胡麻饼",
+    "mark": "饼",
+    "plaque": "assets/textures/signage/plaque_bakery.png",
+    "banner": "assets/textures/signage/banner_bakery.png"
+  },
+  {
+    "id": "dye",
+    "name": "青蓝染",
+    "mark": "染",
+    "plaque": "assets/textures/signage/plaque_dye.png",
+    "banner": "assets/textures/signage/banner_dye.png"
+  },
+  {
+    "id": "carpenter",
+    "name": "鲁班坊",
+    "mark": "木",
+    "plaque": "assets/textures/signage/plaque_carpenter.png",
+    "banner": "assets/textures/signage/banner_carpenter.png"
+  },
+  {
+    "id": "incense",
+    "name": "沉香阁",
+    "mark": "香",
+    "plaque": "assets/textures/signage/plaque_incense.png",
+    "banner": "assets/textures/signage/banner_incense.png"
+  },
+  {
+    "id": "brewery",
+    "name": "兰陵酿",
+    "mark": "酿",
+    "plaque": "assets/textures/signage/plaque_brewery.png",
+    "banner": "assets/textures/signage/banner_brewery.png"
+  }
+]

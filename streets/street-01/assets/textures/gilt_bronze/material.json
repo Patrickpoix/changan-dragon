@@ -1,0 +1,44 @@
+{
+  "key": "gilt_bronze",
+  "label": "鎏金铜件",
+  "category": "装饰",
+  "base_color_srgb": "#C59B40",
+  "palette_source": "derived:#A8863C",
+  "reference": "05_lacquer_polychrome",
+  "delight_gain": 1.16,
+  "notes": "门环、角叶、铜钩，带铜绿与划痕",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.4,
+  "roughness_range": [
+    0.2,
+    0.78
+  ],
+  "metallic": 0.88,
+  "normal_strength": 2.2,
+  "ao_radius": 5,
+  "seed": 301,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "gilt_bronze_albedo.png",
+    "height": "gilt_bronze_height.png",
+    "roughness": "gilt_bronze_roughness.png",
+    "metallic": "gilt_bronze_metallic.png",
+    "ao": "gilt_bronze_ao.png",
+    "normal": "gilt_bronze_normal.png",
+    "orm": "gilt_bronze_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "gilt_bronze_albedo.png",
+    "normalTexture": "gilt_bronze_normal.png",
+    "metallicRoughnessTexture": "gilt_bronze_orm.png",
+    "occlusionTexture": "gilt_bronze_ao.png"
+  }
+}

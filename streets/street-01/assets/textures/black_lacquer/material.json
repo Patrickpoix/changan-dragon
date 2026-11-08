@@ -1,0 +1,44 @@
+{
+  "key": "black_lacquer",
+  "label": "黑漆匾额",
+  "category": "建筑",
+  "base_color_srgb": "#221B18",
+  "palette_source": "derived:#221C19",
+  "reference": "02_shopfront_elevation",
+  "delight_gain": 1.0,
+  "notes": "匾额底板（字由 signage 贴图叠加）",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.5,
+  "roughness_range": [
+    0.28,
+    0.66
+  ],
+  "metallic": 0,
+  "normal_strength": 2.0,
+  "ao_radius": 5,
+  "seed": 212,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "black_lacquer_albedo.png",
+    "height": "black_lacquer_height.png",
+    "roughness": "black_lacquer_roughness.png",
+    "metallic": "black_lacquer_metallic.png",
+    "ao": "black_lacquer_ao.png",
+    "normal": "black_lacquer_normal.png",
+    "orm": "black_lacquer_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "black_lacquer_albedo.png",
+    "normalTexture": "black_lacquer_normal.png",
+    "metallicRoughnessTexture": "black_lacquer_orm.png",
+    "occlusionTexture": "black_lacquer_ao.png"
+  }
+}

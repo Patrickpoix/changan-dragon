@@ -1,0 +1,44 @@
+{
+  "key": "painted_dougong",
+  "label": "青绿彩画",
+  "category": "建筑",
+  "base_color_srgb": "#48534A",
+  "palette_source": "palette:painted_dougong",
+  "reference": "05_lacquer_polychrome",
+  "delight_gain": 1.52,
+  "notes": "斗拱与额枋彩画，含金线、朱带、剥落",
+  "size": [
+    2048,
+    2048
+  ],
+  "tile_meters": 0.6,
+  "roughness_range": [
+    0.38,
+    0.88
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 6,
+  "seed": 211,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "painted_dougong_albedo.png",
+    "height": "painted_dougong_height.png",
+    "roughness": "painted_dougong_roughness.png",
+    "metallic": "painted_dougong_metallic.png",
+    "ao": "painted_dougong_ao.png",
+    "normal": "painted_dougong_normal.png",
+    "orm": "painted_dougong_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "painted_dougong_albedo.png",
+    "normalTexture": "painted_dougong_normal.png",
+    "metallicRoughnessTexture": "painted_dougong_orm.png",
+    "occlusionTexture": "painted_dougong_ao.png"
+  }
+}

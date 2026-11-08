@@ -1,0 +1,45 @@
+{
+  "key": "leaf_atlas",
+  "label": "槐叶图集",
+  "category": "自然",
+  "base_color_srgb": "#4C7035",
+  "palette_source": "derived:#4E7038",
+  "reference": "01_street_overview / 07_market_props",
+  "delight_gain": 1.0,
+  "notes": "4x4 叶片图集 + alpha，用于树冠",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.0,
+  "roughness_range": [
+    0.62,
+    0.9
+  ],
+  "metallic": 0,
+  "normal_strength": 2.0,
+  "ao_radius": 5,
+  "seed": 404,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "leaf_atlas_albedo.png",
+    "height": "leaf_atlas_height.png",
+    "roughness": "leaf_atlas_roughness.png",
+    "metallic": "leaf_atlas_metallic.png",
+    "ao": "leaf_atlas_ao.png",
+    "normal": "leaf_atlas_normal.png",
+    "orm": "leaf_atlas_orm.png",
+    "opacity": "leaf_atlas_opacity.png"
+  },
+  "gltf": {
+    "baseColorTexture": "leaf_atlas_albedo.png",
+    "normalTexture": "leaf_atlas_normal.png",
+    "metallicRoughnessTexture": "leaf_atlas_orm.png",
+    "occlusionTexture": "leaf_atlas_ao.png"
+  }
+}

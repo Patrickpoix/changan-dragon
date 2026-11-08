@@ -1,0 +1,44 @@
+{
+  "key": "moss",
+  "label": "苔藓",
+  "category": "自然",
+  "base_color_srgb": "#5B783F",
+  "palette_source": "derived:#4C6236",
+  "reference": "04_stone_paving_detail",
+  "delight_gain": 1.22,
+  "notes": "缝隙与阴湿处团簇苔藓",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.4,
+  "roughness_range": [
+    0.84,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 2.4,
+  "ao_radius": 6,
+  "seed": 405,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "moss_albedo.png",
+    "height": "moss_height.png",
+    "roughness": "moss_roughness.png",
+    "metallic": "moss_metallic.png",
+    "ao": "moss_ao.png",
+    "normal": "moss_normal.png",
+    "orm": "moss_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "moss_albedo.png",
+    "normalTexture": "moss_normal.png",
+    "metallicRoughnessTexture": "moss_orm.png",
+    "occlusionTexture": "moss_ao.png"
+  }
+}

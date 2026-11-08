@@ -1,0 +1,44 @@
+{
+  "key": "roof_ridge",
+  "label": "瓦当屋脊",
+  "category": "建筑",
+  "base_color_srgb": "#63615A",
+  "palette_source": "palette:roof_tile",
+  "reference": "03_roof_tile_detail",
+  "delight_gain": 1.36,
+  "notes": "圆形瓦当：莲瓣云纹与乳钉",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.5,
+  "roughness_range": [
+    0.7,
+    0.95
+  ],
+  "metallic": 0,
+  "normal_strength": 2.6,
+  "ao_radius": 5,
+  "seed": 209,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "roof_ridge_albedo.png",
+    "height": "roof_ridge_height.png",
+    "roughness": "roof_ridge_roughness.png",
+    "metallic": "roof_ridge_metallic.png",
+    "ao": "roof_ridge_ao.png",
+    "normal": "roof_ridge_normal.png",
+    "orm": "roof_ridge_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "roof_ridge_albedo.png",
+    "normalTexture": "roof_ridge_normal.png",
+    "metallicRoughnessTexture": "roof_ridge_orm.png",
+    "occlusionTexture": "roof_ridge_ao.png"
+  }
+}

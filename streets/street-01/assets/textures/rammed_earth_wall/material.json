@@ -1,0 +1,44 @@
+{
+  "key": "rammed_earth_wall",
+  "label": "夯土墙",
+  "category": "建筑",
+  "base_color_srgb": "#88563A",
+  "palette_source": "palette:rammed_earth",
+  "reference": "08_material_board",
+  "delight_gain": 1.32,
+  "notes": "山墙与院墙，水平夯层清晰",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 1.6,
+  "roughness_range": [
+    0.78,
+    0.98
+  ],
+  "metallic": 0,
+  "normal_strength": 2.2,
+  "ao_radius": 8,
+  "seed": 201,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "rammed_earth_wall_albedo.png",
+    "height": "rammed_earth_wall_height.png",
+    "roughness": "rammed_earth_wall_roughness.png",
+    "metallic": "rammed_earth_wall_metallic.png",
+    "ao": "rammed_earth_wall_ao.png",
+    "normal": "rammed_earth_wall_normal.png",
+    "orm": "rammed_earth_wall_orm.png"
+  },
+  "gltf": {
+    "baseColorTexture": "rammed_earth_wall_albedo.png",
+    "normalTexture": "rammed_earth_wall_normal.png",
+    "metallicRoughnessTexture": "rammed_earth_wall_orm.png",
+    "occlusionTexture": "rammed_earth_wall_ao.png"
+  }
+}

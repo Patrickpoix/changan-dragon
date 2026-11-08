@@ -1,0 +1,45 @@
+{
+  "key": "lantern_silk",
+  "label": "灯笼纱",
+  "category": "装饰",
+  "base_color_srgb": "#B0B0A9",
+  "palette_source": "palette:lantern_silk",
+  "reference": "06_lanterns_banners",
+  "delight_gain": 1.22,
+  "notes": "竹骨横条 + 暖光自发光",
+  "size": [
+    1024,
+    1024
+  ],
+  "tile_meters": 0.35,
+  "roughness_range": [
+    0.62,
+    0.9
+  ],
+  "metallic": 0,
+  "normal_strength": 1.8,
+  "ao_radius": 5,
+  "seed": 302,
+  "wrap": "repeat",
+  "color_space": {
+    "albedo": "sRGB",
+    "others": "linear"
+  },
+  "seam_error_mean": 0.0,
+  "channels": {
+    "albedo": "lantern_silk_albedo.png",
+    "height": "lantern_silk_height.png",
+    "roughness": "lantern_silk_roughness.png",
+    "metallic": "lantern_silk_metallic.png",
+    "ao": "lantern_silk_ao.png",
+    "normal": "lantern_silk_normal.png",
+    "orm": "lantern_silk_orm.png",
+    "emissive": "lantern_silk_emissive.png"
+  },
+  "gltf": {
+    "baseColorTexture": "lantern_silk_albedo.png",
+    "normalTexture": "lantern_silk_normal.png",
+    "metallicRoughnessTexture": "lantern_silk_orm.png",
+    "occlusionTexture": "lantern_silk_ao.png"
+  }
+}
